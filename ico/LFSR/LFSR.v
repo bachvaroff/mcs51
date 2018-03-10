@@ -6,7 +6,6 @@ module LFSR (
 	output [NUM_BITS-1:0] o_LFSR_Data,
 	output o_LFSR_Done
 );
-	
 	parameter NUM_BITS = 32;
 	
 	reg [NUM_BITS:1] r_LFSR;
@@ -116,7 +115,6 @@ module LFSR (
 	
 	assign o_LFSR_Data = r_LFSR[NUM_BITS:1];
 	assign o_LFSR_Done = (r_LFSR[NUM_BITS:1] == i_Seed_Data) ? 1'b1 : 1'b0;
-	
 endmodule
 
 module LFSR_TB (
@@ -149,6 +147,5 @@ module LFSR_TB (
 	always @(posedge counter[20]) begin
 		r_Clk <= ~r_Clk;
 	end
-	
 endmodule
 
