@@ -116,10 +116,9 @@ module LFSR (i_Clk, i_Enable, i_Seed_DV, i_Seed_Data, o_LFSR_Data, o_LFSR_Done);
 	assign o_LFSR_Done = (r_LFSR[NUM_BITS:1] == i_Seed_Data) ? 1'b1 : 1'b0;
 endmodule
 
-module LFSR_TB (
-	input i_CLK,
-	output [2:0] o_LED
-);
+module LFSR_TB (i_CLK, o_LED);
+	input i_CLK;
+	output [2:0] o_LED;
 	parameter c_NUM_BITS = 32;
 	
 	reg [31:0] counter;

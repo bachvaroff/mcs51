@@ -115,19 +115,19 @@
 .gate SB_CARRY CI=$auto$alumacc.cc:470:replace_alu$32.C[9] CO=$auto$alumacc.cc:470:replace_alu$32.C[10] I0=$false I1=counter[9]
 .attr src "/usr/bin/../share/yosys/ice40/arith_map.v:47"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][14] Q=counter[14]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][15] Q=counter[15]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][16] Q=counter[16]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][17] Q=counter[17]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][18] Q=counter[18]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][19] Q=counter[19]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][20] Q=counter[20]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=r_Clk D=LFSR_inst.r_XNOR Q=LFSR_inst.r_LFSR[0]
 .attr src "LFSR.v:13|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=r_Clk D=LFSR_inst.r_LFSR[0] Q=LFSR_inst.r_LFSR[1]
@@ -193,35 +193,35 @@
 .gate SB_DFF C=r_Clk D=LFSR_inst.r_LFSR[30] Q=LFSR_inst.r_LFSR[31]
 .attr src "LFSR.v:13|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=counter[20] D=$0\r_Clk[0:0] Q=r_Clk
-.attr src "LFSR.v:146|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:145|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][0] Q=counter[0]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFFE C=i_CLK D=$0\counter[31:0][1] E=counter[0] Q=counter[1]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:8"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:8"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][2] Q=counter[2]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][3] Q=counter[3]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][4] Q=counter[4]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][5] Q=counter[5]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][6] Q=counter[6]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][7] Q=counter[7]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][8] Q=counter[8]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][9] Q=counter[9]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][10] Q=counter[10]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][11] Q=counter[11]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][12] Q=counter[12]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][13] Q=counter[13]
-.attr src "LFSR.v:142|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "LFSR.v:141|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .names r_Clk LFSR_inst.i_Clk
 1 1
 .names LFSR_inst.r_LFSR[0] LFSR_inst.o_LFSR_Data[0]
