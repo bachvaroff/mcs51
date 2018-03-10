@@ -127,7 +127,7 @@ module LFSR_TB (
 	
 	reg [31:0] counter;
 	
-	reg r_Clk = 1'b0;
+	reg r_Clk;
 	wire [c_NUM_BITS-1:0] w_LFSR_Data;
 	wire w_LFSR_Done;
 	
