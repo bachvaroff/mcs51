@@ -1,11 +1,10 @@
-module LFSR (
-	input i_Clk,
-	input i_Enable,
-	input i_Seed_DV,
-	input [NUM_BITS-1:0] i_Seed_Data,
-	output [NUM_BITS-1:0] o_LFSR_Data,
-	output o_LFSR_Done
-);
+module LFSR (i_Clk, i_Enable, i_Seed_DV, i_Seed_Data, o_LFSR_Data, o_LFSR_Done);
+	input i_Clk;
+	input i_Enable;
+	input i_Seed_DV;
+	input [NUM_BITS-1:0] i_Seed_Data;
+	output [NUM_BITS-1:0] o_LFSR_Data;
+	output o_LFSR_Done;
 	parameter NUM_BITS = 32;
 	
 	reg [NUM_BITS:1] r_LFSR;

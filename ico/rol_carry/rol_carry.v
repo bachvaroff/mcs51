@@ -1,4 +1,7 @@
-module rol_carry (input clk, output [2:0] led);
+module rol_carry (clk, led);
+	input clk;
+	output [2:0] led;
+	
 	reg [31:0] counter = 0;
 	reg [3:0] sreg = 1;
 	

@@ -1,4 +1,7 @@
-module rol (input clk, output [2:0] led);
+module rol (clk, led);
+	input clk;
+	output [2:0] led;
+	
 	reg [31:0] counter = 0;
 	reg [2:0] sreg = 1;
 	
@@ -8,6 +11,7 @@ module rol (input clk, output [2:0] led);
 
 	always @(posedge counter[25]) begin
 		sreg <= (sreg << 1) | (sreg >> 2);
+//		sreg <= { sreg[1:0], sreg[2] };
 	end
 
 	assign led = sreg[2:0];
