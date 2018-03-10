@@ -14,7 +14,7 @@ module LFSR (
 	always @(posedge i_Clk) begin
 		if (i_Enable == 1'b1) begin
 			if (i_Seed_DV == 1'b1) r_LFSR <= i_Seed_Data;
-			else r_LFSR <= {r_LFSR[NUM_BITS-1:1], r_XNOR};
+			else r_LFSR <= { r_LFSR[NUM_BITS-1:1], r_XNOR };
 		end
 	end
 	
