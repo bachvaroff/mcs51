@@ -2,8 +2,10 @@ module rol (clk, led);
 	input clk;
 	output [2:0] led;
 	
-	reg [31:0] counter = 0;
-	reg [2:0] sreg = 1;
+	reg [31:0] counter;
+	reg [2:0] sreg;
+	
+	initial sreg[0] = 1;
 	
 	always @(posedge clk) begin
 		counter <= counter + 1;
