@@ -3,9 +3,7 @@ module rol_carry (clk, led);
 	output [2:0] led;
 	
 	reg [31:0] counter;
-	reg [3:0] sreg;
-	
-	initial sreg[0] = 1;
+	reg [3:0] sreg = 4'b0001;
 	
 	always @(posedge clk) begin
 		counter <= counter + 1;

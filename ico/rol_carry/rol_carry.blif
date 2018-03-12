@@ -140,65 +140,65 @@
 .gate SB_CARRY CI=$auto$alumacc.cc:470:replace_alu$7.C[9] CO=$auto$alumacc.cc:470:replace_alu$7.C[10] I0=$false I1=counter[9]
 .attr src "/usr/bin/../share/yosys/ice40/arith_map.v:47"
 .gate SB_DFF C=counter[25] D=$abc$267$n1 Q=$abc$267$n2
-.attr src "rol_carry.v:14|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:12|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=counter[25] D=sreg[0] Q=sreg[1]
-.attr src "rol_carry.v:14|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:12|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=counter[25] D=sreg[1] Q=sreg[2]
-.attr src "rol_carry.v:14|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:12|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=counter[25] D=sreg[2] Q=sreg[3]
-.attr src "rol_carry.v:14|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:12|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][0] Q=counter[0]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFFE C=clk D=$0\counter[31:0][1] E=counter[0] Q=counter[1]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:8"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:8"
 .gate SB_DFF C=clk D=$0\counter[31:0][2] Q=counter[2]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][3] Q=counter[3]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][4] Q=counter[4]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][5] Q=counter[5]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][6] Q=counter[6]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][7] Q=counter[7]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][8] Q=counter[8]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][9] Q=counter[9]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][10] Q=counter[10]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][11] Q=counter[11]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][12] Q=counter[12]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][13] Q=counter[13]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][14] Q=counter[14]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][15] Q=counter[15]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][16] Q=counter[16]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][17] Q=counter[17]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][18] Q=counter[18]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][19] Q=counter[19]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][20] Q=counter[20]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][21] Q=counter[21]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][22] Q=counter[22]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][23] Q=counter[23]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][24] Q=counter[24]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=clk D=$0\counter[31:0][25] Q=counter[25]
-.attr src "rol_carry.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "rol_carry.v:8|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .names $undef counter[26]
 1 1
 .names $undef counter[27]
