@@ -194,20 +194,20 @@ module sixteen_bit_drv (clock, data, oe, drains, leds);
 	always @(posedge clock) begin
 		case (tetrade_sel)
 			2'b00: begin
-				tdrains = 4'b0001;
-				tetrade = data[3:0];
+				tdrains <= 4'b0001;
+				tetrade <= data[3:0];
 			end
 			2'b01: begin
-				tdrains = 4'b0010;
-				tetrade = data[7:4];
+				tdrains <= 4'b0010;
+				tetrade <= data[7:4];
 			end
 			2'b10: begin
-				tdrains = 4'b0100;
-				tetrade = data[11:8];
+				tdrains <= 4'b0100;
+				tetrade <= data[11:8];
 			end
 			2'b11: begin
-				tdrains = 4'b1000;
-				tetrade = data[15:12];
+				tdrains <= 4'b1000;
+				tetrade <= data[15:12];
 			end
 		endcase
 				
