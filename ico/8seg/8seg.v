@@ -213,12 +213,12 @@ module sixteen_bit_drv (clock, data, oe, drains, leds);
 				
 		if (oe == 1) begin
 			tetrade_sel <= tetrade_sel + 1;
-			drains = tdrains;
-			leds = tleds;
+			drains <= tdrains;
+			leds <= tleds;
 		end else begin
 			tetrade_sel <= 2'b00;
-			drains = 4'b0000;
-			leds = 8'b00000000;
+			drains <= 4'b0000;
+			leds <= 8'b00000000;
 		end
 	end
 endmodule
