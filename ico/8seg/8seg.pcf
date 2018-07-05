@@ -1,0 +1,17 @@
+set_io --warn-no-port i_CLK R9
+set_io --warn-no-port o_LED[0] F7
+set_io --warn-no-port o_LED[1] C8
+set_io --warn-no-port o_LED[2] K9
+set_io --warn-no-port leds[0] B11
+set_io --warn-no-port leds[1] B10
+set_io --warn-no-port leds[2] B9
+set_io --warn-no-port leds[3] D8
+set_io --warn-no-port leds[4] B4
+set_io --warn-no-port leds[5] C3
+set_io --warn-no-port leds[6] A2
+set_io --warn-no-port leds[7] A5
+set_io --warn-no-port drains[0] A11
+set_io --warn-no-port drains[1] A10
+set_io --warn-no-port drains[2] A9
+set_io --warn-no-port drains[3] B8
+
