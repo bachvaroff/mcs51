@@ -261,11 +261,11 @@ module LFSR_TB (i_CLK, o_LED, drains, leds);
 		counter <= counter + 1;
 	end
 	
-	always @(posedge counter[15]) begin
+	always @(posedge counter[19]) begin
 		update <= ~update;
 	end
 	
-	always @(posedge counter[20]) begin
+	always @(posedge counter[25]) begin
 		r_Clk <= ~r_Clk;
 	end
 endmodule
