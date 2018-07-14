@@ -5,7 +5,7 @@ module LFSR (clk, enable, i_Seed_DV, i_Seed_Data, o_LFSR_Data, o_LFSR_Done);
 	input [NUM_BITS-1:0] i_Seed_Data;
 	output [NUM_BITS-1:0] o_LFSR_Data;
 	output o_LFSR_Done;
-	parameter NUM_BITS = 16;
+	parameter NUM_BITS = 32;
 	
 	reg [NUM_BITS:1] r_LFSR;
 	reg r_XNOR;
@@ -116,59 +116,60 @@ module LFSR (clk, enable, i_Seed_DV, i_Seed_Data, o_LFSR_Data, o_LFSR_Done);
 	assign o_LFSR_Done = (r_LFSR[NUM_BITS:1] == i_Seed_Data) ? 1'b1 : 1'b0;
 endmodule
 
-module decode_8seg (tetrade, leds);
+module decode_8seg (tetrade, dot, leds);
 	input [3:0] tetrade;
+	input dot;
 	output [7:0] leds;
 	
 	always @(*) begin
 		case (tetrade)
 			4'b0000: begin
-				leds = 8'b00111111;
+				leds = (dot << 7) | 8'b00111111;
 			end
 			4'b0001: begin
-				leds = 8'b00000110;
+				leds = (dot << 7) | 8'b00000110;
 			end
 			4'b0010: begin
-				leds = 8'b01011011;
+				leds = (dot << 7) | 8'b01011011;
 			end
 			4'b0011: begin
-				leds = 8'b01001111;
+				leds = (dot << 7) | 8'b01001111;
 			end
 			4'b0100: begin
-				leds = 8'b01100110;
+				leds = (dot << 7) | 8'b01100110;
 			end
 			4'b0101: begin
-				leds = 8'b01101101;
+				leds = (dot << 7) | 8'b01101101;
 			end
 			4'b0110: begin
-				leds = 8'b01111101;
+				leds = (dot << 7) | 8'b01111101;
 			end
 			4'b0111: begin
-				leds = 8'b00000111;
+				leds = (dot << 7) | 8'b00000111;
 			end
 			4'b1000: begin
-				leds = 8'b01111111;
+				leds = (dot << 7) | 8'b01111111;
 			end
 			4'b1001: begin
-				leds = 8'b01101111;
+				leds = (dot << 7) | 8'b01101111;
 			end
 			4'b1010: begin
-				leds = 8'b01110111;
+				leds = (dot << 7) | 8'b01110111;
 			end
 			4'b1011: begin
-				leds = 8'b01111100;
+				leds = (dot << 7) | 8'b01111100;
 			end
 			4'b1100: begin
-				leds = 8'b00111001;
+				leds = (dot << 7) | 8'b00111001;
 			end
 			4'b1101: begin
-				leds = 8'b01011110;
+				leds = (dot << 7) | 8'b01011110;
 			end
 			4'b1110: begin
-				leds = 8'b01111001;
+				leds = (dot << 7) | 8'b01111001;
 			end
 			4'b1111: begin
-				leds = 8'b01110001;
+				leds = (dot << 7) | 8'b01110001;
 			end
 		endcase
 	end
@@ -176,18 +177,20 @@ endmodule
 
 module sixteen_bit_drv (clock, data, oe, drains, leds);
 	input clock;
-	input [15:0] data;
+	input [19:0] data;
 	input oe;
 	output [3:0] drains;
 	output [7:0] leds;
 	
 	reg [1:0] tetrade_sel;
 	reg [3:0] tetrade;
+	reg dot;
 	reg [3:0] tdrains;
 	reg [7:0] tleds;
 	
 	decode_8seg decoder(
 		.tetrade(tetrade),
+		.dot(dot),
 		.leds(tleds)
 	);
 	
@@ -195,18 +198,22 @@ module sixteen_bit_drv (clock, data, oe, drains, leds);
 		case (tetrade_sel)
 			2'b00: begin
 				tdrains <= 4'b0001;
+				dot <= data[16];
 				tetrade <= data[3:0];
 			end
 			2'b01: begin
 				tdrains <= 4'b0010;
+				dot <= data[17];
 				tetrade <= data[7:4];
 			end
 			2'b10: begin
 				tdrains <= 4'b0100;
+				dot <= data[18];
 				tetrade <= data[11:8];
 			end
 			2'b11: begin
 				tdrains <= 4'b1000;
+				dot <= data[19];
 				tetrade <= data[15:12];
 			end
 		endcase
@@ -249,7 +256,7 @@ module LFSR_ice40 (i_CLK, o_LED, drains, leds);
 	
 	sixteen_bit_drv drv(
 		.clock(update),
-		.data(w_LFSR_Data[15:0]),
+		.data(w_LFSR_Data[19:0]),
 		.oe(1'b1),
 		.drains(drains),
 		.leds(leds)
