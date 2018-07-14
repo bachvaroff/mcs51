@@ -228,7 +228,7 @@ module LFSR_ice40 (i_CLK, o_LED, drains, leds);
 	output [2:0] o_LED;
 	output [3:0] drains;
 	output [7:0] leds;
-	parameter c_NUM_BITS = 16;
+	parameter c_NUM_BITS = 32;
 	
 	reg [31:0] counter;
 	
@@ -261,11 +261,11 @@ module LFSR_ice40 (i_CLK, o_LED, drains, leds);
 		counter <= counter + 1;
 	end
 	
-	always @(posedge counter[19]) begin
+	always @(posedge counter[17]) begin
 		update <= ~update;
 	end
 	
-	always @(posedge counter[22]) begin
+	always @(posedge counter[23]) begin
 		lfclk <= ~lfclk;
 	end
 endmodule
