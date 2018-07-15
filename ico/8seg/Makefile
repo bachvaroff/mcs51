@@ -1,7 +1,7 @@
 synth: 8seg.bin
 
-8seg.blif: 8seg.v
-	yosys -q -p "synth_ice40 -blif 8seg.blif" 8seg.v
+8seg.blif: 8seg.v LFSR.v sixteen_bit_drv.v
+	yosys -q -p "read_verilog LFSR.v; read_verilog sixteen_bit_drv.v; synth_ice40 -blif 8seg.blif" 8seg.v
 
 8seg.asc: 8seg.blif 8seg.pcf
 	arachne-pnr -d 8k -p 8seg.pcf $< -o $@
