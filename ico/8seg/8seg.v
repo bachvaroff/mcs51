@@ -40,7 +40,7 @@ module LFSR_8seg (i_CLK, o_LED, drains, leds);
 		update <= ~update;
 	end
 	
-	always @(posedge counter[23]) begin
+	always @(posedge counter[24]) begin
 		lfclk <= ~lfclk;
 	end
 endmodule
