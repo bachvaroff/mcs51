@@ -7,94 +7,94 @@
 .names $true
 1
 .names $undef
-.gate SB_LUT4 I0=drv.tetrade[2] I1=drv.tetrade[3] I2=drv.tetrade[0] I3=drv.tetrade[1] O=$abc$1211$n1
+.gate SB_LUT4 I0=drv.tetrade[2] I1=drv.tetrade[3] I2=drv.tetrade[0] I3=drv.tetrade[1] O=$abc$1210$n1
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=$abc$1211$n55_1 I1=$abc$1211$n56 I2=$false I3=$false O=$abc$1211$n69
+.gate SB_LUT4 I0=$abc$1210$n55_1 I1=$abc$1210$n56 I2=$false I3=$false O=$abc$1210$n69
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:43"
 .param LUT_INIT 0111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[11] I1=LFSR_inst.r_LFSR[3] I2=drv.tetrade_sel[0] I3=drv.tetrade_sel[1] O=$abc$1211$n55_1
+.gate SB_LUT4 I0=LFSR_inst.r_LFSR[11] I1=LFSR_inst.r_LFSR[3] I2=drv.tetrade_sel[0] I3=drv.tetrade_sel[1] O=$abc$1210$n55_1
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 1111010111110011
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[15] I1=LFSR_inst.r_LFSR[7] I2=drv.tetrade_sel[1] I3=drv.tetrade_sel[0] O=$abc$1211$n56
+.gate SB_LUT4 I0=LFSR_inst.r_LFSR[15] I1=LFSR_inst.r_LFSR[7] I2=drv.tetrade_sel[1] I3=drv.tetrade_sel[0] O=$abc$1210$n56
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 0101001111111111
-.gate SB_LUT4 I0=$abc$1211$n58 I1=$abc$1211$n59 I2=$false I3=$false O=$abc$1211$n76
+.gate SB_LUT4 I0=$abc$1210$n58 I1=$abc$1210$n59 I2=$false I3=$false O=$abc$1210$n76
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:43"
 .param LUT_INIT 0111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[10] I1=LFSR_inst.r_LFSR[2] I2=drv.tetrade_sel[0] I3=drv.tetrade_sel[1] O=$abc$1211$n58
+.gate SB_LUT4 I0=LFSR_inst.r_LFSR[10] I1=LFSR_inst.r_LFSR[2] I2=drv.tetrade_sel[0] I3=drv.tetrade_sel[1] O=$abc$1210$n58
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 1111010111110011
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[14] I1=LFSR_inst.r_LFSR[6] I2=drv.tetrade_sel[1] I3=drv.tetrade_sel[0] O=$abc$1211$n59
+.gate SB_LUT4 I0=LFSR_inst.r_LFSR[14] I1=LFSR_inst.r_LFSR[6] I2=drv.tetrade_sel[1] I3=drv.tetrade_sel[0] O=$abc$1210$n59
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 0101001111111111
-.gate SB_LUT4 I0=$abc$1211$n61 I1=$abc$1211$n62 I2=$false I3=$false O=$abc$1211$n83
+.gate SB_LUT4 I0=$abc$1210$n61 I1=$abc$1210$n62 I2=$false I3=$false O=$abc$1210$n83
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:43"
 .param LUT_INIT 0111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[9] I1=LFSR_inst.r_LFSR[1] I2=drv.tetrade_sel[0] I3=drv.tetrade_sel[1] O=$abc$1211$n61
+.gate SB_LUT4 I0=LFSR_inst.r_LFSR[9] I1=LFSR_inst.r_LFSR[1] I2=drv.tetrade_sel[0] I3=drv.tetrade_sel[1] O=$abc$1210$n61
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 1111010111110011
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[13] I1=LFSR_inst.r_LFSR[5] I2=drv.tetrade_sel[1] I3=drv.tetrade_sel[0] O=$abc$1211$n62
+.gate SB_LUT4 I0=LFSR_inst.r_LFSR[13] I1=LFSR_inst.r_LFSR[5] I2=drv.tetrade_sel[1] I3=drv.tetrade_sel[0] O=$abc$1210$n62
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 0101001111111111
-.gate SB_LUT4 I0=$abc$1211$n64 I1=$abc$1211$n65 I2=$false I3=$false O=$abc$1211$n90
+.gate SB_LUT4 I0=$abc$1210$n64 I1=$abc$1210$n65 I2=$false I3=$false O=$abc$1210$n90
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:43"
 .param LUT_INIT 0111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[8] I1=LFSR_inst.r_LFSR[4] I2=drv.tetrade_sel[0] I3=drv.tetrade_sel[1] O=$abc$1211$n64
+.gate SB_LUT4 I0=LFSR_inst.r_LFSR[8] I1=LFSR_inst.r_LFSR[4] I2=drv.tetrade_sel[0] I3=drv.tetrade_sel[1] O=$abc$1210$n64
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 1111010100111111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[12] I1=LFSR_inst.r_LFSR[0] I2=drv.tetrade_sel[0] I3=drv.tetrade_sel[1] O=$abc$1211$n65
+.gate SB_LUT4 I0=LFSR_inst.r_LFSR[12] I1=LFSR_inst.r_LFSR[0] I2=drv.tetrade_sel[0] I3=drv.tetrade_sel[1] O=$abc$1210$n65
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 0101111111110011
-.gate SB_LUT4 I0=drv.tetrade_sel[1] I1=drv.tetrade_sel[0] I2=$false I3=$false O=$abc$1211$n91
+.gate SB_LUT4 I0=drv.tetrade_sel[1] I1=drv.tetrade_sel[0] I2=$false I3=$false O=$abc$1210$n91
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:43"
 .param LUT_INIT 1000
-.gate SB_LUT4 I0=drv.tetrade_sel[0] I1=drv.tetrade_sel[1] I2=$false I3=$false O=$abc$1211$n92
+.gate SB_LUT4 I0=drv.tetrade_sel[0] I1=drv.tetrade_sel[1] I2=$false I3=$false O=$abc$1210$n92
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:43"
 .param LUT_INIT 0100
-.gate SB_LUT4 I0=$abc$1211$n69_1 I1=$abc$1211$n70 I2=$false I3=$false O=$abc$1211$n100
+.gate SB_LUT4 I0=$abc$1210$n69_1 I1=$abc$1210$n70 I2=$false I3=$false O=$abc$1210$n100
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:43"
 .param LUT_INIT 0111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[18] I1=LFSR_inst.r_LFSR[16] I2=drv.tetrade_sel[0] I3=drv.tetrade_sel[1] O=$abc$1211$n69_1
+.gate SB_LUT4 I0=LFSR_inst.r_LFSR[18] I1=LFSR_inst.r_LFSR[16] I2=drv.tetrade_sel[0] I3=drv.tetrade_sel[1] O=$abc$1210$n69_1
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 1111010111110011
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[19] I1=LFSR_inst.r_LFSR[17] I2=drv.tetrade_sel[1] I3=drv.tetrade_sel[0] O=$abc$1211$n70
+.gate SB_LUT4 I0=LFSR_inst.r_LFSR[19] I1=LFSR_inst.r_LFSR[17] I2=drv.tetrade_sel[1] I3=drv.tetrade_sel[0] O=$abc$1210$n70
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 0101001111111111
-.gate SB_LUT4 I0=drv.tetrade_sel[1] I1=drv.tetrade_sel[0] I2=$false I3=$false O=$abc$1211$n101
+.gate SB_LUT4 I0=drv.tetrade_sel[1] I1=drv.tetrade_sel[0] I2=$false I3=$false O=$abc$1210$n101
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:43"
 .param LUT_INIT 0100
-.gate SB_LUT4 I0=drv.tetrade_sel[1] I1=drv.tetrade_sel[0] I2=$false I3=$false O=$abc$1211$n102
+.gate SB_LUT4 I0=drv.tetrade_sel[1] I1=drv.tetrade_sel[0] I2=$false I3=$false O=$abc$1210$n102
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:43"
 .param LUT_INIT 0001
-.gate SB_LUT4 I0=drv.tetrade[0] I1=drv.tetrade[1] I2=drv.tetrade[3] I3=drv.tetrade[2] O=$abc$1211$n110
+.gate SB_LUT4 I0=drv.tetrade[0] I1=drv.tetrade[1] I2=drv.tetrade[3] I3=drv.tetrade[2] O=$abc$1210$n110
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 1110011111111100
-.gate SB_LUT4 I0=drv.tetrade[1] I1=drv.tetrade[2] I2=drv.tetrade[0] I3=drv.tetrade[3] O=$abc$1211$n113
+.gate SB_LUT4 I0=drv.tetrade[1] I1=drv.tetrade[2] I2=drv.tetrade[0] I3=drv.tetrade[3] O=$abc$1210$n113
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 1011111101001100
-.gate SB_LUT4 I0=drv.tetrade[2] I1=drv.tetrade[3] I2=drv.tetrade[1] I3=drv.tetrade[0] O=$abc$1211$n119
+.gate SB_LUT4 I0=drv.tetrade[2] I1=drv.tetrade[3] I2=drv.tetrade[1] I3=drv.tetrade[0] O=$abc$1210$n119
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 1100100011111100
-.gate SB_LUT4 I0=drv.tetrade[2] I1=drv.tetrade[0] I2=drv.tetrade[3] I3=drv.tetrade[1] O=$abc$1211$n126
+.gate SB_LUT4 I0=drv.tetrade[2] I1=drv.tetrade[0] I2=drv.tetrade[3] I3=drv.tetrade[1] O=$abc$1210$n126
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 0110011111111000
-.gate SB_LUT4 I0=drv.tetrade[1] I1=drv.tetrade[0] I2=drv.tetrade[3] I3=drv.tetrade[2] O=$abc$1211$n130
+.gate SB_LUT4 I0=drv.tetrade[1] I1=drv.tetrade[0] I2=drv.tetrade[3] I3=drv.tetrade[2] O=$abc$1210$n130
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 0100111111111100
-.gate SB_LUT4 I0=drv.tetrade[3] I1=drv.tetrade[1] I2=drv.tetrade[2] I3=drv.tetrade[0] O=$abc$1211$n135
+.gate SB_LUT4 I0=drv.tetrade[3] I1=drv.tetrade[1] I2=drv.tetrade[2] I3=drv.tetrade[0] O=$abc$1210$n135
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 0110011100011110
-.gate SB_LUT4 I0=drv.tetrade[2] I1=drv.tetrade[0] I2=drv.tetrade[1] I3=drv.tetrade[3] O=$abc$1211$n140
+.gate SB_LUT4 I0=drv.tetrade[2] I1=drv.tetrade[0] I2=drv.tetrade[1] I3=drv.tetrade[3] O=$abc$1210$n140
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 1011011111111000
 .gate SB_LUT4 I0=LFSR_inst.r_LFSR[0] I1=LFSR_inst.r_LFSR[1] I2=LFSR_inst.r_LFSR[31] I3=LFSR_inst.r_LFSR[21] O=LFSR_inst.r_XNOR
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:51"
 .param LUT_INIT 1001011001101001
-.gate SB_LUT4 I0=drv.tetrade_sel[1] I1=drv.tetrade_sel[0] I2=$false I3=$false O=$abc$1211$n155
+.gate SB_LUT4 I0=drv.tetrade_sel[1] I1=drv.tetrade_sel[0] I2=$false I3=$false O=$abc$1210$n155
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:43"
 .param LUT_INIT 0110
-.gate SB_LUT4 I0=drv.tetrade_sel[0] I1=$false I2=$false I3=$false O=$abc$1211$n25
+.gate SB_LUT4 I0=drv.tetrade_sel[0] I1=$false I2=$false I3=$false O=$abc$1210$n25
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:39"
 .param LUT_INIT 01
 .gate SB_LUT4 I0=counter[1] I1=$false I2=$false I3=$false O=$0\counter[31:0][1]
@@ -180,12 +180,7 @@
 .param LUT_INIT 0110100110010110
 .gate SB_CARRY CI=$auto$alumacc.cc:470:replace_alu$80.C[24] CO=$auto$alumacc.cc:470:replace_alu$80.C[25] I0=$false I1=counter[24]
 .attr src "/usr/bin/../share/yosys/ice40/arith_map.v:47"
-.gate SB_LUT4 I0=$false I1=$false I2=counter[25] I3=$auto$alumacc.cc:470:replace_alu$80.C[25] O=$0\counter[31:0][25]
-.attr src "/usr/bin/../share/yosys/ice40/arith_map.v:53"
-.param LUT_INIT 0110100110010110
-.gate SB_CARRY CI=$auto$alumacc.cc:470:replace_alu$80.C[25] CO=$auto$alumacc.cc:470:replace_alu$80.C[26] I0=$false I1=counter[25]
-.attr src "/usr/bin/../share/yosys/ice40/arith_map.v:47"
-.gate SB_LUT4 I0=$false I1=$false I2=LFSR_inst.clk I3=$auto$alumacc.cc:470:replace_alu$80.C[26] O=$0\counter[31:0][26]
+.gate SB_LUT4 I0=$false I1=$false I2=LFSR_inst.clk I3=$auto$alumacc.cc:470:replace_alu$80.C[25] O=$0\counter[31:0][25]
 .attr src "/usr/bin/../share/yosys/ice40/arith_map.v:53"
 .param LUT_INIT 0110100110010110
 .gate SB_LUT4 I0=$false I1=$false I2=counter[2] I3=$auto$alumacc.cc:470:replace_alu$80.C[2] O=$0\counter[31:0][2]
@@ -278,9 +273,7 @@
 .attr src "8seg.v:33|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=i_CLK D=$0\counter[31:0][24] Q=counter[24]
 .attr src "8seg.v:33|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=i_CLK D=$0\counter[31:0][25] Q=counter[25]
-.attr src "8seg.v:33|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=i_CLK D=$0\counter[31:0][26] Q=LFSR_inst.clk
+.gate SB_DFF C=i_CLK D=$0\counter[31:0][25] Q=LFSR_inst.clk
 .attr src "8seg.v:33|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=LFSR_inst.clk D=LFSR_inst.r_XNOR Q=LFSR_inst.r_LFSR[0]
 .attr src "LFSR.v:13|/usr/bin/../share/yosys/ice40/cells_map.v:2"
@@ -346,41 +339,41 @@
 .attr src "LFSR.v:13|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=LFSR_inst.clk D=LFSR_inst.r_LFSR[30] Q=LFSR_inst.r_LFSR[31]
 .attr src "LFSR.v:13|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFFE C=drv.clock D=$abc$1211$n102 E=$true Q=drv.tdrains[0]
+.gate SB_DFFE C=drv.clock D=$abc$1210$n102 E=$true Q=drv.tdrains[0]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1211$n101 E=$true Q=drv.tdrains[1]
+.gate SB_DFFE C=drv.clock D=$abc$1210$n101 E=$true Q=drv.tdrains[1]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1211$n92 E=$true Q=drv.tdrains[2]
+.gate SB_DFFE C=drv.clock D=$abc$1210$n92 E=$true Q=drv.tdrains[2]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1211$n91 E=$true Q=drv.tdrains[3]
+.gate SB_DFFE C=drv.clock D=$abc$1210$n91 E=$true Q=drv.tdrains[3]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFF C=drv.clock D=$abc$1211$n25 Q=drv.tetrade_sel[0]
+.gate SB_DFF C=drv.clock D=$abc$1210$n25 Q=drv.tetrade_sel[0]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=drv.clock D=$abc$1211$n155 Q=drv.tetrade_sel[1]
+.gate SB_DFF C=drv.clock D=$abc$1210$n155 Q=drv.tetrade_sel[1]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFFE C=drv.clock D=$abc$1211$n100 E=$true Q=drv.dot
+.gate SB_DFFE C=drv.clock D=$abc$1210$n100 E=$true Q=drv.dot
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1211$n90 E=$true Q=drv.tetrade[0]
+.gate SB_DFFE C=drv.clock D=$abc$1210$n90 E=$true Q=drv.tetrade[0]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1211$n83 E=$true Q=drv.tetrade[1]
+.gate SB_DFFE C=drv.clock D=$abc$1210$n83 E=$true Q=drv.tetrade[1]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1211$n76 E=$true Q=drv.tetrade[2]
+.gate SB_DFFE C=drv.clock D=$abc$1210$n76 E=$true Q=drv.tetrade[2]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1211$n69 E=$true Q=drv.tetrade[3]
+.gate SB_DFFE C=drv.clock D=$abc$1210$n69 E=$true Q=drv.tetrade[3]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFSS C=drv.clock D=$abc$1211$n140 Q=drv.leds[0] S=$abc$1211$n1
+.gate SB_DFFSS C=drv.clock D=$abc$1210$n140 Q=drv.leds[0] S=$abc$1210$n1
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFFSS C=drv.clock D=$abc$1211$n135 Q=drv.leds[1] S=$abc$1211$n1
+.gate SB_DFFSS C=drv.clock D=$abc$1210$n135 Q=drv.leds[1] S=$abc$1210$n1
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFFSS C=drv.clock D=$abc$1211$n130 Q=drv.leds[2] S=$abc$1211$n1
+.gate SB_DFFSS C=drv.clock D=$abc$1210$n130 Q=drv.leds[2] S=$abc$1210$n1
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFFSS C=drv.clock D=$abc$1211$n126 Q=drv.leds[3] S=$abc$1211$n1
+.gate SB_DFFSS C=drv.clock D=$abc$1210$n126 Q=drv.leds[3] S=$abc$1210$n1
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFFSS C=drv.clock D=$abc$1211$n119 Q=drv.leds[4] S=$abc$1211$n1
+.gate SB_DFFSS C=drv.clock D=$abc$1210$n119 Q=drv.leds[4] S=$abc$1210$n1
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFFSS C=drv.clock D=$abc$1211$n113 Q=drv.leds[5] S=$abc$1211$n1
+.gate SB_DFFSS C=drv.clock D=$abc$1210$n113 Q=drv.leds[5] S=$abc$1210$n1
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFFSR C=drv.clock D=$abc$1211$n110 Q=drv.leds[6] R=$abc$1211$n1
+.gate SB_DFFSR C=drv.clock D=$abc$1210$n110 Q=drv.leds[6] R=$abc$1210$n1
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=drv.clock D=drv.dot Q=drv.leds[7]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
@@ -458,7 +451,9 @@
 1 1
 .names drv.clock counter[17]
 1 1
-.names LFSR_inst.clk counter[26]
+.names LFSR_inst.clk counter[25]
+1 1
+.names $undef counter[26]
 1 1
 .names $undef counter[27]
 1 1
