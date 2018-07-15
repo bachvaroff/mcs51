@@ -11,7 +11,7 @@ module LFSR_8seg (i_CLK, o_LED, drains, leds);
 	wire w_LFSR_Done;
 	
 	LFSR #(c_NUM_BITS) LFSR_inst(
-		.clk(counter[24]),
+		.clk(counter[26]),
 		.enable(1'b1),
 		.i_Seed_DV(1'b0),
 		.i_Seed_Data({c_NUM_BITS{1'b0}}),
