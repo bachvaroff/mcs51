@@ -339,6 +339,10 @@
 .attr src "LFSR.v:13|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=LFSR_inst.clk D=LFSR_inst.r_LFSR[30] Q=LFSR_inst.r_LFSR[31]
 .attr src "LFSR.v:13|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=drv.clock D=$abc$1210$n25 Q=drv.tetrade_sel[0]
+.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=drv.clock D=$abc$1210$n155 Q=drv.tetrade_sel[1]
+.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFFE C=drv.clock D=$abc$1210$n102 E=$true Q=drv.tdrains[0]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
 .gate SB_DFFE C=drv.clock D=$abc$1210$n101 E=$true Q=drv.tdrains[1]
@@ -347,20 +351,14 @@
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
 .gate SB_DFFE C=drv.clock D=$abc$1210$n91 E=$true Q=drv.tdrains[3]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFF C=drv.clock D=$abc$1210$n25 Q=drv.tetrade_sel[0]
+.gate SB_DFF C=drv.clock D=drv.tdrains[0] Q=drv.drains[0]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=drv.clock D=$abc$1210$n155 Q=drv.tetrade_sel[1]
+.gate SB_DFF C=drv.clock D=drv.tdrains[1] Q=drv.drains[1]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFFE C=drv.clock D=$abc$1210$n100 E=$true Q=drv.dot
-.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1210$n90 E=$true Q=drv.tetrade[0]
-.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1210$n83 E=$true Q=drv.tetrade[1]
-.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1210$n76 E=$true Q=drv.tetrade[2]
-.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1210$n69 E=$true Q=drv.tetrade[3]
-.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
+.gate SB_DFF C=drv.clock D=drv.tdrains[2] Q=drv.drains[2]
+.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=drv.clock D=drv.tdrains[3] Q=drv.drains[3]
+.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFFSS C=drv.clock D=$abc$1210$n140 Q=drv.leds[0] S=$abc$1210$n1
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFFSS C=drv.clock D=$abc$1210$n135 Q=drv.leds[1] S=$abc$1210$n1
@@ -377,14 +375,16 @@
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=drv.clock D=drv.dot Q=drv.leds[7]
 .attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=drv.clock D=drv.tdrains[0] Q=drv.drains[0]
-.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=drv.clock D=drv.tdrains[1] Q=drv.drains[1]
-.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=drv.clock D=drv.tdrains[2] Q=drv.drains[2]
-.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=drv.clock D=drv.tdrains[3] Q=drv.drains[3]
-.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFFE C=drv.clock D=$abc$1210$n100 E=$true Q=drv.dot
+.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
+.gate SB_DFFE C=drv.clock D=$abc$1210$n90 E=$true Q=drv.tetrade[0]
+.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
+.gate SB_DFFE C=drv.clock D=$abc$1210$n83 E=$true Q=drv.tetrade[1]
+.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
+.gate SB_DFFE C=drv.clock D=$abc$1210$n76 E=$true Q=drv.tetrade[2]
+.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
+.gate SB_DFFE C=drv.clock D=$abc$1210$n69 E=$true Q=drv.tetrade[3]
+.attr src "sixteen_bit_drv.v:79|/usr/bin/../share/yosys/ice40/cells_map.v:8"
 .names LFSR_inst.r_LFSR[0] LFSR_inst.o_LFSR_Data[0]
 1 1
 .names LFSR_inst.r_LFSR[1] LFSR_inst.o_LFSR_Data[1]
