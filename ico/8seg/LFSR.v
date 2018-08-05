@@ -111,7 +111,7 @@ always @(*) begin
 			r_XNOR = r_LFSR[32] ^~ r_LFSR[22] ^~ r_LFSR[2] ^~ r_LFSR[1];
 		end
 		64: begin
-			r_XNOR = r_LFSR[64] ^~ r_LFSR[63] ^~ r_LFSR[61] ^~ r_LFSR[59];
+			r_XNOR = r_LFSR[64] ^~ r_LFSR[63] ^~ r_LFSR[61] ^~ r_LFSR[60];
 		end
 	endcase
 end
