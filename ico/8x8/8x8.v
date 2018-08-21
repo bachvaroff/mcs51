@@ -7,7 +7,7 @@ output [7:0] columns;
 parameter c_NUM_BITS = 64;
 
 reg [31:0] counter;
-reg [63:0] treg = 64'b1;
+reg [63:0] treg = 64'b1111111111111111111111111111111111111111111111111111111111111111;
 
 wire [c_NUM_BITS-1:0] w_LFSR_Data;
 wire w_LFSR_Done;
