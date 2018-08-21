@@ -7,7 +7,6 @@ output [7:0] columns;
 parameter c_NUM_BITS = 64;
 
 reg [31:0] counter;
-reg [63:0] treg = 64'b1111111111111111111111111111111111111111111111111111111111111111;
 
 wire [c_NUM_BITS-1:0] w_LFSR_Data;
 wire w_LFSR_Done;
@@ -22,8 +21,8 @@ LFSR #(c_NUM_BITS) LFSR_inst(
 );
 
 sixtyfour_bit_drv drv(
-	.clock(counter[23]),
-	.data(treg[63:0]),
+	.clock(counter[16]),
+	.data(w_LFSR_Data[63:0]),
 	.oe(1'b1),
 	.row(rows),
 	.column(columns)
