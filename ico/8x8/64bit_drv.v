@@ -5,7 +5,7 @@ input oe;
 output [7:0] row;
 output [7:0] column;
 
-reg [3:0] byte_sel;
+reg [2:0] byte_sel;
 reg [7:0] trow;
 reg [7:0] tcolumn;
 	

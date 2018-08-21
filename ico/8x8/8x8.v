@@ -22,7 +22,7 @@ LFSR #(c_NUM_BITS) LFSR_inst(
 );
 
 sixtyfour_bit_drv drv(
-	.clock(counter[25]),
+	.clock(counter[23]),
 	.data(treg[63:0]),
 	.oe(1'b1),
 	.row(rows),
