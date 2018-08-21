@@ -44,7 +44,7 @@ always @(posedge clock) begin
 			tcolumn <= data[63:56];
 		end
 	endcase
-
+	
 	if (oe == 1) begin
 		byte_sel <= byte_sel + 1;
 		row <= trow;

@@ -22,7 +22,10 @@ LFSR #(c_NUM_BITS) LFSR_inst(
 
 sixtyfour_bit_drv drv(
 	.clock(counter[16]),
+/*
 	.data(w_LFSR_Data[63:0]),
+*/
+	.data({32'b0,counter[31:0]}),
 	.oe(1'b1),
 	.row(rows),
 	.column(columns)
