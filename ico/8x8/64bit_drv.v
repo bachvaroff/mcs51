@@ -50,8 +50,8 @@ always @(posedge clock) begin
 		row <= trow;
 		column <= tcolumn;
 	end else begin
-		tetrade_sel <= 2'b00;
-		row <= 4'b00000000;
+		byte_sel <= 3'b000;
+		row <= 8'b00000000;
 		column <= 8'b00000000;
 	end
 end
