@@ -25,7 +25,7 @@ sixtyfour_bit_drv drv(
 /*
 	.data(w_LFSR_Data[63:0]),
 */
-	.data({32'b0,counter[31:0]}),
+	.data({counter[31:0], counter[31:0]}),
 	.oe(1'b1),
 	.row(rows),
 	.column(columns)
