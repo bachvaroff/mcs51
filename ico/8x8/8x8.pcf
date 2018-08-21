@@ -17,8 +17,8 @@ set_io --warn-no-port columns[0] B4
 set_io --warn-no-port columns[1] C3
 set_io --warn-no-port columns[2] A2
 set_io --warn-no-port columns[3] A5
-set_io --warn-no-port columns[5] B5
-set_io --warn-no-port columns[6] B3
-set_io --warn-no-port columns[7] B6
-set_io --warn-no-port columns[8] B7
+set_io --warn-no-port columns[4] B5
+set_io --warn-no-port columns[5] B3
+set_io --warn-no-port columns[6] B6
+set_io --warn-no-port columns[7] B7
 
