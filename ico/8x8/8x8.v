@@ -12,7 +12,7 @@ wire [c_NUM_BITS-1:0] w_LFSR_Data;
 wire w_LFSR_Done;
 
 LFSR #(c_NUM_BITS) LFSR_inst(
-	.clk(counter[25]),
+	.clk(counter[21]),
 	.enable(1'b1),
 	.i_Seed_DV(1'b0),
 	.i_Seed_Data({c_NUM_BITS{1'b0}}),
