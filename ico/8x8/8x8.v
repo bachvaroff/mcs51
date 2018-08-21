@@ -24,8 +24,8 @@ sixtyfour_bit_drv drv(
 	.clock(counter[16]),
 	.data(w_LFSR_Data[63:0]),
 	.oe(1'b1),
-	.drains(rows),
-	.leds(columns)
+	.row(rows),
+	.column(columns)
 );
 
 assign o_LED = w_LFSR_Data[2:0];
