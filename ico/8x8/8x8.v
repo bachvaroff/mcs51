@@ -13,7 +13,7 @@ reg [31:0] counter;
 wire [NUM_BITS-1:0] LFSR_REG;
 wire LFSR_DONE;
 
-LFSR #(c_NUM_BITS) LFSR_inst(
+LFSR #(NUM_BITS) LFSR_inst(
 	.clk(counter[LFSR_CLK]),
 	.enable(1'b1),
 	.i_Seed_DV(1'b0),
