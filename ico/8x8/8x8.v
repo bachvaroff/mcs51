@@ -1,6 +1,7 @@
-module LFSR_8x8 (CLK, LED, rows, columns);
+module LFSR_8x8 (CLK, LED_CLK, LED_DONE, rows, columns);
 input CLK;
-output LED;
+output LED_CLK;
+output LED_DONE;
 output [7:0] rows;
 output [7:0] columns;
 
@@ -30,7 +31,8 @@ sixtyfour_bit_drv drv(
 	.column(columns)
 );
 
-assign LED = { LFSR_DONE, counter[LFSR_CLK] };
+assign LED_CLK = counter[LFSR_CLK];
+assign LED_DONE = LFSR_DONE;
 
 always @(posedge CLK) begin
 	counter <= counter + 1;
