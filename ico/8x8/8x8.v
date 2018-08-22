@@ -30,7 +30,7 @@ sixtyfour_bit_drv drv(
 	.column(columns)
 );
 
-assign LED = counter[LFSR_CLK];
+assign LED = { LFSR_DONE, counter[LFSR_CLK] };
 
 always @(posedge CLK) begin
 	counter <= counter + 1;
