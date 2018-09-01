@@ -23,20 +23,20 @@ LFSR #(NUM_BITS) LFSR_inst(
 	.o_LFSR_Done(LFSR_DONE)
 );
 
-sixtyfour_bit_drv drv(
+uint64_drv drv(
 	.clock(counter[UPDATE_CLK]),
-	.data(LFSR_REG[63:0]),
+	.data(LFSR_REG),
 	.oe(1'b1),
 	.row(rows),
 	.column(columns)
 );
 
-assign LED_CLK = counter[LFSR_CLK];
-assign LED_DONE = LFSR_DONE;
-
 always @(posedge CLK) begin
 	counter <= counter + 1;
 end
+
+assign LED_CLK = counter[LFSR_CLK];
+assign LED_DONE = LFSR_DONE;
 
 endmodule
 

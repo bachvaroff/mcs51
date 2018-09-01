@@ -1,4 +1,4 @@
-module sixtyfour_bit_drv (clock, data, oe, row, column);
+module uint64_drv (clock, data, oe, row, column);
 input clock;
 input [63:0] data;
 input oe;
