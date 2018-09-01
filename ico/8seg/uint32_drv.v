@@ -1,5 +1,5 @@
-module uint32_drv(clock, data, oe, drains, leds);
-input clock;
+module uint32_drv(CLK, data, oe, drains, leds);
+input CLK;
 input [31:0] data;
 input oe;
 output [7:0] drains;
@@ -17,7 +17,7 @@ decode_8seg decoder(
 	.leds(tleds)
 );
 
-always @(posedge clock) begin
+always @(posedge CLK) begin
 	if (!oe) begin
 		tetrade_sel <= 3'b000;
 		tdrains <= 8'b00000000;

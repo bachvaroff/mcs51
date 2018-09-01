@@ -24,7 +24,7 @@ LFSR #(NUM_BITS) LFSR_inst(
 );
 
 uint32_drv drv(
-	.clock(counter[UPDATE_CLK]),
+	.CLK(counter[UPDATE_CLK]),
 	.data(LFSR_REG),
 	.oe(1'b1),
 	.drains(drains),
