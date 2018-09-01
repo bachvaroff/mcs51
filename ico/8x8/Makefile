@@ -1,7 +1,7 @@
 synth: 8x8.bin
 
-8x8.blif: 8x8.v LFSR.v uint64_drv.v
-	yosys -q -p "read_verilog LFSR.v; read_verilog uint64_drv.v; read_verilog 8x8.v; synth_ice40 -blif 8x8.blif"
+8x8.blif: 8x8.v ../LFSR/LFSR.v uint64_drv.v
+	yosys -q -p "read_verilog ../LFSR/LFSR.v; read_verilog uint64_drv.v; read_verilog 8x8.v; synth_ice40 -blif 8x8.blif"
 
 8x8.asc: 8x8.blif 8x8.pcf
 	arachne-pnr -d 8k -p 8x8.pcf $< -o $@
