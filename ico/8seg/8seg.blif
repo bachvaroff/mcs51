@@ -278,12 +278,12 @@
 .gate SB_CARRY CI=$auto$alumacc.cc:474:replace_alu$194.C[9] CO=$auto$alumacc.cc:474:replace_alu$194.C[10] I0=$false I1=counter[9]
 .attr src "8seg.v:35|/usr/local/bin/../share/yosys/ice40/arith_map.v:47"
 .gate SB_LUT4 I0=$false I1=$true I2=drv.tetrade_sel[0] I3=$false O=$techmap\drv.$0\tetrade_sel[2:0][0]
-.attr src "8seg.v:26|uint32_drv.v:59|/usr/local/bin/../share/yosys/ice40/arith_map.v:53"
+.attr src "8seg.v:26|uint32_drv.v:60|/usr/local/bin/../share/yosys/ice40/arith_map.v:53"
 .param LUT_INIT 0110100110010110
 .gate SB_CARRY CI=drv.tetrade_sel[0] CO=$auto$alumacc.cc:474:replace_alu$197.C[2] I0=$false I1=drv.tetrade_sel[1]
-.attr src "8seg.v:26|uint32_drv.v:59|/usr/local/bin/../share/yosys/ice40/arith_map.v:47"
+.attr src "8seg.v:26|uint32_drv.v:60|/usr/local/bin/../share/yosys/ice40/arith_map.v:47"
 .gate SB_LUT4 I0=$false I1=$false I2=drv.tetrade_sel[2] I3=$auto$alumacc.cc:474:replace_alu$197.C[2] O=$techmap\drv.$0\tetrade_sel[2:0][2]
-.attr src "8seg.v:26|uint32_drv.v:59|/usr/local/bin/../share/yosys/ice40/arith_map.v:53"
+.attr src "8seg.v:26|uint32_drv.v:60|/usr/local/bin/../share/yosys/ice40/arith_map.v:53"
 .param LUT_INIT 0110100110010110
 .gate SB_DFF C=CLK D=$0\counter[31:0][0] Q=counter[0]
 .attr src "8seg.v:34|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
