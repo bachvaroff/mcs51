@@ -21,6 +21,7 @@ always @(posedge CLK) begin
 	if (!oe) begin
 		tetrade_sel <= 3'b000;
 		tdrains <= 8'b00000000;
+		tdata <= 4'b0000;
 	end else begin
 		case (tetrade_sel)
 			3'b000: begin
