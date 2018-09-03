@@ -1,3 +1,5 @@
+/* XAPP052 */
+
 module LFSR (CLK, E, Seed_DV, Seed_Data, LFSR_Data, LFSR_Done);
 input CLK;
 input E;
