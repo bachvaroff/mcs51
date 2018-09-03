@@ -4,7 +4,7 @@ input CLK1;
 input altsel;
 output OUTCLK;
 
-reg Q = 1'b1;
+reg Q;
 
 always @(posedge altsel)
 	Q <= Q ^ 1'b1;
