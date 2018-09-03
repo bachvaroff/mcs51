@@ -5,16 +5,11 @@ input altsel;
 output OUTCLK;
 
 reg Q = 1'b1;
-reg Qdash = 1'b0;
 
-dff2 dff(
-	.CLK(altsel),
-	.D(Qdash),
-	.Q(Q),
-	.Qdash(Qdash)
-);
+always @(posedge altsel)
+	Q <= Q ^ 1'b1;
 
-assign OUTCLK = (CLK0 & Q) | (CLK1 & Qdash);
+assign OUTCLK = (CLK0 & Q) | (CLK1 & ~Q);
 
 endmodule
 
