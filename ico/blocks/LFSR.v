@@ -1,10 +1,10 @@
-module LFSR (CLK, E, Seed_DV, Seed_Data, LFSData, LFSDone);
+module LFSR (CLK, E, Seed_DV, Seed_Data, LFSR_Data, LFSR_Done);
 input CLK;
 input E;
 input Seed_DV;
 input [(NUM_BITS - 1):0] Seed_Data;
-output [(NUM_BITS - 1):0] LFSData;
-output LFSDone;
+output [(NUM_BITS - 1):0] LFSR_Data;
+output LFSR_Done;
 
 parameter NUM_BITS = 32;
 
@@ -54,8 +54,8 @@ always @(*) begin
 	endcase
 end
 
-assign LFSData = LFSR[NUM_BITS:1];
-assign LFSDone = (LFSR[NUM_BITS:1] == Seed_Data) ? 1'b1 : 1'b0;
+assign LFSR_Data = LFSR[NUM_BITS:1];
+assign LFSR_Done = (LFSR[NUM_BITS:1] == Seed_Data) ? 1'b1 : 1'b0;
 
 endmodule
 

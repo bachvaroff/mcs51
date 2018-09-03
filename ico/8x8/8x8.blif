@@ -28,19 +28,19 @@
 .gate SB_LUT4 I0=$abc$1125$n98 I1=$abc$1125$n100 I2=$abc$1125$n101 I3=$abc$1125$n102 O=$abc$1125$n43
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0111111111111111
-.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.r_LFSR[40] I2=$abc$1125$n23 I3=LFSR_inst.r_LFSR[16] O=$abc$1125$n98
+.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.LFSR[40] I2=$abc$1125$n23 I3=LFSR_inst.LFSR[16] O=$abc$1125$n98
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
 .gate SB_LUT4 I0=drv.byte_sel[0] I1=drv.byte_sel[1] I2=drv.byte_sel[2] I3=$false O=$abc$1125$n150
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:48"
 .param LUT_INIT 00010000
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[24] I1=$abc$1125$n21 I2=$abc$1125$n20 I3=LFSR_inst.r_LFSR[32] O=$abc$1125$n100
+.gate SB_LUT4 I0=LFSR_inst.LFSR[24] I1=$abc$1125$n21 I2=$abc$1125$n20 I3=LFSR_inst.LFSR[32] O=$abc$1125$n100
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[56] I1=$abc$1125$n18 I2=$abc$1125$n17 I3=LFSR_inst.r_LFSR[64] O=$abc$1125$n101
+.gate SB_LUT4 I0=LFSR_inst.LFSR[56] I1=$abc$1125$n18 I2=$abc$1125$n17 I3=LFSR_inst.LFSR[64] O=$abc$1125$n101
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=$abc$1125$n149 I1=LFSR_inst.r_LFSR[48] I2=$abc$1125$n24 I3=LFSR_inst.r_LFSR[8] O=$abc$1125$n102
+.gate SB_LUT4 I0=$abc$1125$n149 I1=LFSR_inst.LFSR[48] I2=$abc$1125$n24 I3=LFSR_inst.LFSR[8] O=$abc$1125$n102
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
 .gate SB_LUT4 I0=drv.byte_sel[1] I1=drv.byte_sel[0] I2=drv.byte_sel[2] I3=$false O=$abc$1125$n149
@@ -49,106 +49,106 @@
 .gate SB_LUT4 I0=$abc$1125$n105 I1=$abc$1125$n106 I2=$abc$1125$n107 I3=$abc$1125$n108 O=$abc$1125$n58
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0111111111111111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[7] I1=$abc$1125$n24 I2=$abc$1125$n23 I3=LFSR_inst.r_LFSR[15] O=$abc$1125$n105
+.gate SB_LUT4 I0=LFSR_inst.LFSR[7] I1=$abc$1125$n24 I2=$abc$1125$n23 I3=LFSR_inst.LFSR[15] O=$abc$1125$n105
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[23] I1=$abc$1125$n21 I2=$abc$1125$n17 I3=LFSR_inst.r_LFSR[63] O=$abc$1125$n106
+.gate SB_LUT4 I0=LFSR_inst.LFSR[23] I1=$abc$1125$n21 I2=$abc$1125$n17 I3=LFSR_inst.LFSR[63] O=$abc$1125$n106
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[39] I1=$abc$1125$n150 I2=$abc$1125$n18 I3=LFSR_inst.r_LFSR[55] O=$abc$1125$n107
+.gate SB_LUT4 I0=LFSR_inst.LFSR[39] I1=$abc$1125$n150 I2=$abc$1125$n18 I3=LFSR_inst.LFSR[55] O=$abc$1125$n107
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=$abc$1125$n149 I1=LFSR_inst.r_LFSR[47] I2=$abc$1125$n20 I3=LFSR_inst.r_LFSR[31] O=$abc$1125$n108
+.gate SB_LUT4 I0=$abc$1125$n149 I1=LFSR_inst.LFSR[47] I2=$abc$1125$n20 I3=LFSR_inst.LFSR[31] O=$abc$1125$n108
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
 .gate SB_LUT4 I0=$abc$1125$n110 I1=$abc$1125$n111 I2=$abc$1125$n112 I3=$abc$1125$n113 O=$abc$1125$n73
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0111111111111111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[14] I1=$abc$1125$n23 I2=$abc$1125$n17 I3=LFSR_inst.r_LFSR[62] O=$abc$1125$n110
+.gate SB_LUT4 I0=LFSR_inst.LFSR[14] I1=$abc$1125$n23 I2=$abc$1125$n17 I3=LFSR_inst.LFSR[62] O=$abc$1125$n110
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[6] I1=$abc$1125$n24 I2=$abc$1125$n20 I3=LFSR_inst.r_LFSR[30] O=$abc$1125$n111
+.gate SB_LUT4 I0=LFSR_inst.LFSR[6] I1=$abc$1125$n24 I2=$abc$1125$n20 I3=LFSR_inst.LFSR[30] O=$abc$1125$n111
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[46] I1=$abc$1125$n149 I2=$abc$1125$n18 I3=LFSR_inst.r_LFSR[54] O=$abc$1125$n112
+.gate SB_LUT4 I0=LFSR_inst.LFSR[46] I1=$abc$1125$n149 I2=$abc$1125$n18 I3=LFSR_inst.LFSR[54] O=$abc$1125$n112
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.r_LFSR[38] I2=$abc$1125$n21 I3=LFSR_inst.r_LFSR[22] O=$abc$1125$n113
+.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.LFSR[38] I2=$abc$1125$n21 I3=LFSR_inst.LFSR[22] O=$abc$1125$n113
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
 .gate SB_LUT4 I0=$abc$1125$n115 I1=$abc$1125$n116 I2=$abc$1125$n117 I3=$abc$1125$n118_1 O=$abc$1125$n88
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0111111111111111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[45] I1=$abc$1125$n149 I2=$abc$1125$n17 I3=LFSR_inst.r_LFSR[61] O=$abc$1125$n115
+.gate SB_LUT4 I0=LFSR_inst.LFSR[45] I1=$abc$1125$n149 I2=$abc$1125$n17 I3=LFSR_inst.LFSR[61] O=$abc$1125$n115
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[5] I1=$abc$1125$n24 I2=$abc$1125$n20 I3=LFSR_inst.r_LFSR[29] O=$abc$1125$n116
+.gate SB_LUT4 I0=LFSR_inst.LFSR[5] I1=$abc$1125$n24 I2=$abc$1125$n20 I3=LFSR_inst.LFSR[29] O=$abc$1125$n116
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.r_LFSR[37] I2=$abc$1125$n23 I3=LFSR_inst.r_LFSR[13] O=$abc$1125$n117
+.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.LFSR[37] I2=$abc$1125$n23 I3=LFSR_inst.LFSR[13] O=$abc$1125$n117
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[21] I1=$abc$1125$n21 I2=$abc$1125$n18 I3=LFSR_inst.r_LFSR[53] O=$abc$1125$n118_1
+.gate SB_LUT4 I0=LFSR_inst.LFSR[21] I1=$abc$1125$n21 I2=$abc$1125$n18 I3=LFSR_inst.LFSR[53] O=$abc$1125$n118_1
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
 .gate SB_LUT4 I0=$abc$1125$n120 I1=$abc$1125$n121 I2=$abc$1125$n122 I3=$abc$1125$n123 O=$abc$1125$n103
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0111111111111111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[4] I1=$abc$1125$n24 I2=$abc$1125$n23 I3=LFSR_inst.r_LFSR[12] O=$abc$1125$n120
+.gate SB_LUT4 I0=LFSR_inst.LFSR[4] I1=$abc$1125$n24 I2=$abc$1125$n23 I3=LFSR_inst.LFSR[12] O=$abc$1125$n120
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.r_LFSR[36] I2=$abc$1125$n21 I3=LFSR_inst.r_LFSR[20] O=$abc$1125$n121
+.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.LFSR[36] I2=$abc$1125$n21 I3=LFSR_inst.LFSR[20] O=$abc$1125$n121
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[44] I1=$abc$1125$n149 I2=$abc$1125$n18 I3=LFSR_inst.r_LFSR[52] O=$abc$1125$n122
+.gate SB_LUT4 I0=LFSR_inst.LFSR[44] I1=$abc$1125$n149 I2=$abc$1125$n18 I3=LFSR_inst.LFSR[52] O=$abc$1125$n122
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[28] I1=$abc$1125$n20 I2=$abc$1125$n17 I3=LFSR_inst.r_LFSR[60] O=$abc$1125$n123
+.gate SB_LUT4 I0=LFSR_inst.LFSR[28] I1=$abc$1125$n20 I2=$abc$1125$n17 I3=LFSR_inst.LFSR[60] O=$abc$1125$n123
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
 .gate SB_LUT4 I0=$abc$1125$n125 I1=$abc$1125$n126 I2=$abc$1125$n127 I3=$abc$1125$n128 O=$abc$1125$n118
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0111111111111111
-.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.r_LFSR[35] I2=$abc$1125$n23 I3=LFSR_inst.r_LFSR[11] O=$abc$1125$n125
+.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.LFSR[35] I2=$abc$1125$n23 I3=LFSR_inst.LFSR[11] O=$abc$1125$n125
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[43] I1=$abc$1125$n149 I2=$abc$1125$n18 I3=LFSR_inst.r_LFSR[51] O=$abc$1125$n126
+.gate SB_LUT4 I0=LFSR_inst.LFSR[43] I1=$abc$1125$n149 I2=$abc$1125$n18 I3=LFSR_inst.LFSR[51] O=$abc$1125$n126
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[3] I1=$abc$1125$n24 I2=$abc$1125$n17 I3=LFSR_inst.r_LFSR[59] O=$abc$1125$n127
+.gate SB_LUT4 I0=LFSR_inst.LFSR[3] I1=$abc$1125$n24 I2=$abc$1125$n17 I3=LFSR_inst.LFSR[59] O=$abc$1125$n127
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[19] I1=$abc$1125$n21 I2=$abc$1125$n20 I3=LFSR_inst.r_LFSR[27] O=$abc$1125$n128
+.gate SB_LUT4 I0=LFSR_inst.LFSR[19] I1=$abc$1125$n21 I2=$abc$1125$n20 I3=LFSR_inst.LFSR[27] O=$abc$1125$n128
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
 .gate SB_LUT4 I0=$abc$1125$n130 I1=$abc$1125$n131 I2=$abc$1125$n132 I3=$abc$1125$n133_1 O=$abc$1125$n133
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0111111111111111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[2] I1=$abc$1125$n24 I2=$abc$1125$n23 I3=LFSR_inst.r_LFSR[10] O=$abc$1125$n130
+.gate SB_LUT4 I0=LFSR_inst.LFSR[2] I1=$abc$1125$n24 I2=$abc$1125$n23 I3=LFSR_inst.LFSR[10] O=$abc$1125$n130
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.r_LFSR[34] I2=$abc$1125$n21 I3=LFSR_inst.r_LFSR[18] O=$abc$1125$n131
+.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.LFSR[34] I2=$abc$1125$n21 I3=LFSR_inst.LFSR[18] O=$abc$1125$n131
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[42] I1=$abc$1125$n149 I2=$abc$1125$n18 I3=LFSR_inst.r_LFSR[50] O=$abc$1125$n132
+.gate SB_LUT4 I0=LFSR_inst.LFSR[42] I1=$abc$1125$n149 I2=$abc$1125$n18 I3=LFSR_inst.LFSR[50] O=$abc$1125$n132
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[26] I1=$abc$1125$n20 I2=$abc$1125$n17 I3=LFSR_inst.r_LFSR[58] O=$abc$1125$n133_1
+.gate SB_LUT4 I0=LFSR_inst.LFSR[26] I1=$abc$1125$n20 I2=$abc$1125$n17 I3=LFSR_inst.LFSR[58] O=$abc$1125$n133_1
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
 .gate SB_LUT4 I0=$abc$1125$n135 I1=$abc$1125$n136 I2=$abc$1125$n137 I3=$abc$1125$n138 O=$abc$1125$n148
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0111111111111111
-.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.r_LFSR[33] I2=$abc$1125$n23 I3=LFSR_inst.r_LFSR[9] O=$abc$1125$n135
+.gate SB_LUT4 I0=$abc$1125$n150 I1=LFSR_inst.LFSR[33] I2=$abc$1125$n23 I3=LFSR_inst.LFSR[9] O=$abc$1125$n135
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[1] I1=$abc$1125$n24 I2=$abc$1125$n18 I3=LFSR_inst.r_LFSR[49] O=$abc$1125$n136
+.gate SB_LUT4 I0=LFSR_inst.LFSR[1] I1=$abc$1125$n24 I2=$abc$1125$n18 I3=LFSR_inst.LFSR[49] O=$abc$1125$n136
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[41] I1=$abc$1125$n149 I2=$abc$1125$n17 I3=LFSR_inst.r_LFSR[57] O=$abc$1125$n137
+.gate SB_LUT4 I0=LFSR_inst.LFSR[41] I1=$abc$1125$n149 I2=$abc$1125$n17 I3=LFSR_inst.LFSR[57] O=$abc$1125$n137
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[17] I1=$abc$1125$n21 I2=$abc$1125$n20 I3=LFSR_inst.r_LFSR[25] O=$abc$1125$n138
+.gate SB_LUT4 I0=LFSR_inst.LFSR[17] I1=$abc$1125$n21 I2=$abc$1125$n20 I3=LFSR_inst.LFSR[25] O=$abc$1125$n138
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000011101110111
 .gate SB_LUT4 I0=$abc$1125$n140 I1=$abc$1125$n145 I2=$abc$1125$n150_1 I3=$abc$1125$n155_1 O=LED_DONE
@@ -157,64 +157,64 @@
 .gate SB_LUT4 I0=$abc$1125$n141 I1=$abc$1125$n142 I2=$abc$1125$n143 I3=$abc$1125$n144 O=$abc$1125$n140
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 1000000000000000
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[17] I1=LFSR_inst.r_LFSR[18] I2=LFSR_inst.r_LFSR[19] I3=LFSR_inst.r_LFSR[20] O=$abc$1125$n141
+.gate SB_LUT4 I0=LFSR_inst.LFSR[17] I1=LFSR_inst.LFSR[18] I2=LFSR_inst.LFSR[19] I3=LFSR_inst.LFSR[20] O=$abc$1125$n141
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[21] I1=LFSR_inst.r_LFSR[22] I2=LFSR_inst.r_LFSR[23] I3=LFSR_inst.r_LFSR[24] O=$abc$1125$n142
+.gate SB_LUT4 I0=LFSR_inst.LFSR[21] I1=LFSR_inst.LFSR[22] I2=LFSR_inst.LFSR[23] I3=LFSR_inst.LFSR[24] O=$abc$1125$n142
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[9] I1=LFSR_inst.r_LFSR[10] I2=LFSR_inst.r_LFSR[11] I3=LFSR_inst.r_LFSR[12] O=$abc$1125$n143
+.gate SB_LUT4 I0=LFSR_inst.LFSR[9] I1=LFSR_inst.LFSR[10] I2=LFSR_inst.LFSR[11] I3=LFSR_inst.LFSR[12] O=$abc$1125$n143
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[1] I1=LFSR_inst.r_LFSR[4] I2=LFSR_inst.r_LFSR[63] I3=LFSR_inst.r_LFSR[64] O=$abc$1125$n144
+.gate SB_LUT4 I0=LFSR_inst.LFSR[1] I1=LFSR_inst.LFSR[4] I2=LFSR_inst.LFSR[63] I3=LFSR_inst.LFSR[64] O=$abc$1125$n144
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
 .gate SB_LUT4 I0=$abc$1125$n146 I1=$abc$1125$n147 I2=$abc$1125$n148_1 I3=$abc$1125$n149_1 O=$abc$1125$n145
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 1000000000000000
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[45] I1=LFSR_inst.r_LFSR[46] I2=LFSR_inst.r_LFSR[47] I3=LFSR_inst.r_LFSR[48] O=$abc$1125$n146
+.gate SB_LUT4 I0=LFSR_inst.LFSR[45] I1=LFSR_inst.LFSR[46] I2=LFSR_inst.LFSR[47] I3=LFSR_inst.LFSR[48] O=$abc$1125$n146
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[57] I1=LFSR_inst.r_LFSR[58] I2=LFSR_inst.r_LFSR[59] I3=LFSR_inst.r_LFSR[62] O=$abc$1125$n147
+.gate SB_LUT4 I0=LFSR_inst.LFSR[57] I1=LFSR_inst.LFSR[58] I2=LFSR_inst.LFSR[59] I3=LFSR_inst.LFSR[62] O=$abc$1125$n147
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[33] I1=LFSR_inst.r_LFSR[34] I2=LFSR_inst.r_LFSR[35] I3=LFSR_inst.r_LFSR[36] O=$abc$1125$n148_1
+.gate SB_LUT4 I0=LFSR_inst.LFSR[33] I1=LFSR_inst.LFSR[34] I2=LFSR_inst.LFSR[35] I3=LFSR_inst.LFSR[36] O=$abc$1125$n148_1
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[37] I1=LFSR_inst.r_LFSR[38] I2=LFSR_inst.r_LFSR[39] I3=LFSR_inst.r_LFSR[40] O=$abc$1125$n149_1
+.gate SB_LUT4 I0=LFSR_inst.LFSR[37] I1=LFSR_inst.LFSR[38] I2=LFSR_inst.LFSR[39] I3=LFSR_inst.LFSR[40] O=$abc$1125$n149_1
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
 .gate SB_LUT4 I0=$abc$1125$n151_1 I1=$abc$1125$n152_1 I2=$abc$1125$n153_1 I3=$abc$1125$n154 O=$abc$1125$n150_1
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 1000000000000000
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[13] I1=LFSR_inst.r_LFSR[14] I2=LFSR_inst.r_LFSR[15] I3=LFSR_inst.r_LFSR[16] O=$abc$1125$n151_1
+.gate SB_LUT4 I0=LFSR_inst.LFSR[13] I1=LFSR_inst.LFSR[14] I2=LFSR_inst.LFSR[15] I3=LFSR_inst.LFSR[16] O=$abc$1125$n151_1
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[25] I1=LFSR_inst.r_LFSR[26] I2=LFSR_inst.r_LFSR[27] I3=LFSR_inst.r_LFSR[28] O=$abc$1125$n152_1
+.gate SB_LUT4 I0=LFSR_inst.LFSR[25] I1=LFSR_inst.LFSR[26] I2=LFSR_inst.LFSR[27] I3=LFSR_inst.LFSR[28] O=$abc$1125$n152_1
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[5] I1=LFSR_inst.r_LFSR[6] I2=LFSR_inst.r_LFSR[7] I3=LFSR_inst.r_LFSR[8] O=$abc$1125$n153_1
+.gate SB_LUT4 I0=LFSR_inst.LFSR[5] I1=LFSR_inst.LFSR[6] I2=LFSR_inst.LFSR[7] I3=LFSR_inst.LFSR[8] O=$abc$1125$n153_1
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[2] I1=LFSR_inst.r_LFSR[3] I2=LFSR_inst.r_LFSR[60] I3=LFSR_inst.r_LFSR[61] O=$abc$1125$n154
+.gate SB_LUT4 I0=LFSR_inst.LFSR[2] I1=LFSR_inst.LFSR[3] I2=LFSR_inst.LFSR[60] I3=LFSR_inst.LFSR[61] O=$abc$1125$n154
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
 .gate SB_LUT4 I0=$abc$1125$n156_1 I1=$abc$1125$n157 I2=$abc$1125$n158_1 I3=$abc$1125$n159_1 O=$abc$1125$n155_1
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 1000000000000000
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[49] I1=LFSR_inst.r_LFSR[50] I2=LFSR_inst.r_LFSR[51] I3=LFSR_inst.r_LFSR[52] O=$abc$1125$n156_1
+.gate SB_LUT4 I0=LFSR_inst.LFSR[49] I1=LFSR_inst.LFSR[50] I2=LFSR_inst.LFSR[51] I3=LFSR_inst.LFSR[52] O=$abc$1125$n156_1
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[53] I1=LFSR_inst.r_LFSR[54] I2=LFSR_inst.r_LFSR[55] I3=LFSR_inst.r_LFSR[56] O=$abc$1125$n157
+.gate SB_LUT4 I0=LFSR_inst.LFSR[53] I1=LFSR_inst.LFSR[54] I2=LFSR_inst.LFSR[55] I3=LFSR_inst.LFSR[56] O=$abc$1125$n157
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[29] I1=LFSR_inst.r_LFSR[30] I2=LFSR_inst.r_LFSR[31] I3=LFSR_inst.r_LFSR[32] O=$abc$1125$n158_1
+.gate SB_LUT4 I0=LFSR_inst.LFSR[29] I1=LFSR_inst.LFSR[30] I2=LFSR_inst.LFSR[31] I3=LFSR_inst.LFSR[32] O=$abc$1125$n158_1
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[41] I1=LFSR_inst.r_LFSR[42] I2=LFSR_inst.r_LFSR[43] I3=LFSR_inst.r_LFSR[44] O=$abc$1125$n159_1
+.gate SB_LUT4 I0=LFSR_inst.LFSR[41] I1=LFSR_inst.LFSR[42] I2=LFSR_inst.LFSR[43] I3=LFSR_inst.LFSR[44] O=$abc$1125$n159_1
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 0000000000000001
-.gate SB_LUT4 I0=LFSR_inst.r_LFSR[60] I1=LFSR_inst.r_LFSR[61] I2=LFSR_inst.r_LFSR[63] I3=LFSR_inst.r_LFSR[64] O=LFSR_inst.r_XNOR
+.gate SB_LUT4 I0=LFSR_inst.LFSR[60] I1=LFSR_inst.LFSR[61] I2=LFSR_inst.LFSR[63] I3=LFSR_inst.LFSR[64] O=LFSR_inst.XNOR
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:52"
 .param LUT_INIT 1001011001101001
 .gate SB_LUT4 I0=counter[1] I1=$false I2=$false I3=$false O=$0\counter[31:0][1]
@@ -256,10 +256,10 @@
 .param LUT_INIT 0110100110010110
 .gate SB_CARRY CI=$auto$alumacc.cc:474:replace_alu$62.C[15] CO=$auto$alumacc.cc:474:replace_alu$62.C[16] I0=$false I1=counter[15]
 .attr src "8x8.v:35|/usr/local/bin/../share/yosys/ice40/arith_map.v:47"
-.gate SB_LUT4 I0=$false I1=$false I2=drv.clock I3=$auto$alumacc.cc:474:replace_alu$62.C[16] O=$0\counter[31:0][16]
+.gate SB_LUT4 I0=$false I1=$false I2=drv.CLK I3=$auto$alumacc.cc:474:replace_alu$62.C[16] O=$0\counter[31:0][16]
 .attr src "8x8.v:35|/usr/local/bin/../share/yosys/ice40/arith_map.v:53"
 .param LUT_INIT 0110100110010110
-.gate SB_CARRY CI=$auto$alumacc.cc:474:replace_alu$62.C[16] CO=$auto$alumacc.cc:474:replace_alu$62.C[17] I0=$false I1=drv.clock
+.gate SB_CARRY CI=$auto$alumacc.cc:474:replace_alu$62.C[16] CO=$auto$alumacc.cc:474:replace_alu$62.C[17] I0=$false I1=drv.CLK
 .attr src "8x8.v:35|/usr/local/bin/../share/yosys/ice40/arith_map.v:47"
 .gate SB_LUT4 I0=$false I1=$false I2=counter[17] I3=$auto$alumacc.cc:474:replace_alu$62.C[17] O=$0\counter[31:0][17]
 .attr src "8x8.v:35|/usr/local/bin/../share/yosys/ice40/arith_map.v:53"
@@ -366,7 +366,7 @@
 .attr src "8x8.v:34|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=CLK D=$0\counter[31:0][15] Q=counter[15]
 .attr src "8x8.v:34|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=CLK D=$0\counter[31:0][16] Q=drv.clock
+.gate SB_DFF C=CLK D=$0\counter[31:0][16] Q=drv.CLK
 .attr src "8x8.v:34|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=CLK D=$0\counter[31:0][17] Q=counter[17]
 .attr src "8x8.v:34|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
@@ -378,433 +378,433 @@
 .attr src "8x8.v:34|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=CLK D=$0\counter[31:0][21] Q=LED_CLK
 .attr src "8x8.v:34|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_XNOR Q=LFSR_inst.r_LFSR[1]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[1] Q=LFSR_inst.r_LFSR[2]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[2] Q=LFSR_inst.r_LFSR[3]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[3] Q=LFSR_inst.r_LFSR[4]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[4] Q=LFSR_inst.r_LFSR[5]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[5] Q=LFSR_inst.r_LFSR[6]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[6] Q=LFSR_inst.r_LFSR[7]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[7] Q=LFSR_inst.r_LFSR[8]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[8] Q=LFSR_inst.r_LFSR[9]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[9] Q=LFSR_inst.r_LFSR[10]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[10] Q=LFSR_inst.r_LFSR[11]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[11] Q=LFSR_inst.r_LFSR[12]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[12] Q=LFSR_inst.r_LFSR[13]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[13] Q=LFSR_inst.r_LFSR[14]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[14] Q=LFSR_inst.r_LFSR[15]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[15] Q=LFSR_inst.r_LFSR[16]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[16] Q=LFSR_inst.r_LFSR[17]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[17] Q=LFSR_inst.r_LFSR[18]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[18] Q=LFSR_inst.r_LFSR[19]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[19] Q=LFSR_inst.r_LFSR[20]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[20] Q=LFSR_inst.r_LFSR[21]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[21] Q=LFSR_inst.r_LFSR[22]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[22] Q=LFSR_inst.r_LFSR[23]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[23] Q=LFSR_inst.r_LFSR[24]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[24] Q=LFSR_inst.r_LFSR[25]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[25] Q=LFSR_inst.r_LFSR[26]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[26] Q=LFSR_inst.r_LFSR[27]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[27] Q=LFSR_inst.r_LFSR[28]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[28] Q=LFSR_inst.r_LFSR[29]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[29] Q=LFSR_inst.r_LFSR[30]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[30] Q=LFSR_inst.r_LFSR[31]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[31] Q=LFSR_inst.r_LFSR[32]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[32] Q=LFSR_inst.r_LFSR[33]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[33] Q=LFSR_inst.r_LFSR[34]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[34] Q=LFSR_inst.r_LFSR[35]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[35] Q=LFSR_inst.r_LFSR[36]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[36] Q=LFSR_inst.r_LFSR[37]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[37] Q=LFSR_inst.r_LFSR[38]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[38] Q=LFSR_inst.r_LFSR[39]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[39] Q=LFSR_inst.r_LFSR[40]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[40] Q=LFSR_inst.r_LFSR[41]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[41] Q=LFSR_inst.r_LFSR[42]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[42] Q=LFSR_inst.r_LFSR[43]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[43] Q=LFSR_inst.r_LFSR[44]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[44] Q=LFSR_inst.r_LFSR[45]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[45] Q=LFSR_inst.r_LFSR[46]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[46] Q=LFSR_inst.r_LFSR[47]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[47] Q=LFSR_inst.r_LFSR[48]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[48] Q=LFSR_inst.r_LFSR[49]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[49] Q=LFSR_inst.r_LFSR[50]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[50] Q=LFSR_inst.r_LFSR[51]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[51] Q=LFSR_inst.r_LFSR[52]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[52] Q=LFSR_inst.r_LFSR[53]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[53] Q=LFSR_inst.r_LFSR[54]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[54] Q=LFSR_inst.r_LFSR[55]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[55] Q=LFSR_inst.r_LFSR[56]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[56] Q=LFSR_inst.r_LFSR[57]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[57] Q=LFSR_inst.r_LFSR[58]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[58] Q=LFSR_inst.r_LFSR[59]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[59] Q=LFSR_inst.r_LFSR[60]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[60] Q=LFSR_inst.r_LFSR[61]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[61] Q=LFSR_inst.r_LFSR[62]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[62] Q=LFSR_inst.r_LFSR[63]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=LED_CLK D=LFSR_inst.r_LFSR[63] Q=LFSR_inst.r_LFSR[64]
-.attr src "8x8.v:17|../LFSR/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n24 E=$true Q=drv.trow[0]
+.gate SB_DFF C=LED_CLK D=LFSR_inst.XNOR Q=LFSR_inst.LFSR[1]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[1] Q=LFSR_inst.LFSR[2]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[2] Q=LFSR_inst.LFSR[3]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[3] Q=LFSR_inst.LFSR[4]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[4] Q=LFSR_inst.LFSR[5]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[5] Q=LFSR_inst.LFSR[6]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[6] Q=LFSR_inst.LFSR[7]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[7] Q=LFSR_inst.LFSR[8]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[8] Q=LFSR_inst.LFSR[9]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[9] Q=LFSR_inst.LFSR[10]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[10] Q=LFSR_inst.LFSR[11]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[11] Q=LFSR_inst.LFSR[12]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[12] Q=LFSR_inst.LFSR[13]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[13] Q=LFSR_inst.LFSR[14]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[14] Q=LFSR_inst.LFSR[15]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[15] Q=LFSR_inst.LFSR[16]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[16] Q=LFSR_inst.LFSR[17]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[17] Q=LFSR_inst.LFSR[18]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[18] Q=LFSR_inst.LFSR[19]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[19] Q=LFSR_inst.LFSR[20]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[20] Q=LFSR_inst.LFSR[21]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[21] Q=LFSR_inst.LFSR[22]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[22] Q=LFSR_inst.LFSR[23]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[23] Q=LFSR_inst.LFSR[24]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[24] Q=LFSR_inst.LFSR[25]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[25] Q=LFSR_inst.LFSR[26]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[26] Q=LFSR_inst.LFSR[27]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[27] Q=LFSR_inst.LFSR[28]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[28] Q=LFSR_inst.LFSR[29]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[29] Q=LFSR_inst.LFSR[30]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[30] Q=LFSR_inst.LFSR[31]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[31] Q=LFSR_inst.LFSR[32]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[32] Q=LFSR_inst.LFSR[33]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[33] Q=LFSR_inst.LFSR[34]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[34] Q=LFSR_inst.LFSR[35]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[35] Q=LFSR_inst.LFSR[36]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[36] Q=LFSR_inst.LFSR[37]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[37] Q=LFSR_inst.LFSR[38]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[38] Q=LFSR_inst.LFSR[39]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[39] Q=LFSR_inst.LFSR[40]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[40] Q=LFSR_inst.LFSR[41]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[41] Q=LFSR_inst.LFSR[42]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[42] Q=LFSR_inst.LFSR[43]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[43] Q=LFSR_inst.LFSR[44]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[44] Q=LFSR_inst.LFSR[45]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[45] Q=LFSR_inst.LFSR[46]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[46] Q=LFSR_inst.LFSR[47]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[47] Q=LFSR_inst.LFSR[48]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[48] Q=LFSR_inst.LFSR[49]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[49] Q=LFSR_inst.LFSR[50]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[50] Q=LFSR_inst.LFSR[51]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[51] Q=LFSR_inst.LFSR[52]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[52] Q=LFSR_inst.LFSR[53]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[53] Q=LFSR_inst.LFSR[54]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[54] Q=LFSR_inst.LFSR[55]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[55] Q=LFSR_inst.LFSR[56]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[56] Q=LFSR_inst.LFSR[57]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[57] Q=LFSR_inst.LFSR[58]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[58] Q=LFSR_inst.LFSR[59]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[59] Q=LFSR_inst.LFSR[60]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[60] Q=LFSR_inst.LFSR[61]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[61] Q=LFSR_inst.LFSR[62]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[62] Q=LFSR_inst.LFSR[63]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFF C=LED_CLK D=LFSR_inst.LFSR[63] Q=LFSR_inst.LFSR[64]
+.attr src "8x8.v:17|../blocks/LFSR.v:14|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n24 E=$true Q=drv.trow[0]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n23 E=$true Q=drv.trow[1]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n23 E=$true Q=drv.trow[1]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n21 E=$true Q=drv.trow[2]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n21 E=$true Q=drv.trow[2]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n20 E=$true Q=drv.trow[3]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n20 E=$true Q=drv.trow[3]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n150 E=$true Q=drv.trow[4]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n150 E=$true Q=drv.trow[4]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n149 E=$true Q=drv.trow[5]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n149 E=$true Q=drv.trow[5]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n18 E=$true Q=drv.trow[6]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n18 E=$true Q=drv.trow[6]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n17 E=$true Q=drv.trow[7]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n17 E=$true Q=drv.trow[7]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n148 E=$true Q=drv.tcolumn[0]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n148 E=$true Q=drv.tcolumn[0]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n133 E=$true Q=drv.tcolumn[1]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n133 E=$true Q=drv.tcolumn[1]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n118 E=$true Q=drv.tcolumn[2]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n118 E=$true Q=drv.tcolumn[2]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n103 E=$true Q=drv.tcolumn[3]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n103 E=$true Q=drv.tcolumn[3]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n88 E=$true Q=drv.tcolumn[4]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n88 E=$true Q=drv.tcolumn[4]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n73 E=$true Q=drv.tcolumn[5]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n73 E=$true Q=drv.tcolumn[5]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n58 E=$true Q=drv.tcolumn[6]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n58 E=$true Q=drv.tcolumn[6]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n43 E=$true Q=drv.tcolumn[7]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n43 E=$true Q=drv.tcolumn[7]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFF C=drv.clock D=$techmap\drv.$0\byte_sel[2:0][0] Q=drv.byte_sel[0]
+.gate SB_DFF C=drv.CLK D=$techmap\drv.$0\byte_sel[2:0][0] Q=drv.byte_sel[0]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFFE C=drv.clock D=$abc$1125$n283 E=drv.byte_sel[0] Q=drv.byte_sel[1]
+.gate SB_DFFE C=drv.CLK D=$abc$1125$n283 E=drv.byte_sel[0] Q=drv.byte_sel[1]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:8"
-.gate SB_DFF C=drv.clock D=$techmap\drv.$0\byte_sel[2:0][2] Q=drv.byte_sel[2]
+.gate SB_DFF C=drv.CLK D=$techmap\drv.$0\byte_sel[2:0][2] Q=drv.byte_sel[2]
 .attr src "8x8.v:26|uint64_drv.v:12|/usr/local/bin/../share/yosys/ice40/cells_map.v:2"
 .names LED_DONE LFSR_DONE
 1 1
-.names LFSR_inst.r_LFSR[1] LFSR_REG[0]
+.names LFSR_inst.LFSR[1] LFSR_REG[0]
 1 1
-.names LFSR_inst.r_LFSR[2] LFSR_REG[1]
+.names LFSR_inst.LFSR[2] LFSR_REG[1]
 1 1
-.names LFSR_inst.r_LFSR[3] LFSR_REG[2]
+.names LFSR_inst.LFSR[3] LFSR_REG[2]
 1 1
-.names LFSR_inst.r_LFSR[4] LFSR_REG[3]
+.names LFSR_inst.LFSR[4] LFSR_REG[3]
 1 1
-.names LFSR_inst.r_LFSR[5] LFSR_REG[4]
+.names LFSR_inst.LFSR[5] LFSR_REG[4]
 1 1
-.names LFSR_inst.r_LFSR[6] LFSR_REG[5]
+.names LFSR_inst.LFSR[6] LFSR_REG[5]
 1 1
-.names LFSR_inst.r_LFSR[7] LFSR_REG[6]
+.names LFSR_inst.LFSR[7] LFSR_REG[6]
 1 1
-.names LFSR_inst.r_LFSR[8] LFSR_REG[7]
+.names LFSR_inst.LFSR[8] LFSR_REG[7]
 1 1
-.names LFSR_inst.r_LFSR[9] LFSR_REG[8]
+.names LFSR_inst.LFSR[9] LFSR_REG[8]
 1 1
-.names LFSR_inst.r_LFSR[10] LFSR_REG[9]
+.names LFSR_inst.LFSR[10] LFSR_REG[9]
 1 1
-.names LFSR_inst.r_LFSR[11] LFSR_REG[10]
+.names LFSR_inst.LFSR[11] LFSR_REG[10]
 1 1
-.names LFSR_inst.r_LFSR[12] LFSR_REG[11]
+.names LFSR_inst.LFSR[12] LFSR_REG[11]
 1 1
-.names LFSR_inst.r_LFSR[13] LFSR_REG[12]
+.names LFSR_inst.LFSR[13] LFSR_REG[12]
 1 1
-.names LFSR_inst.r_LFSR[14] LFSR_REG[13]
+.names LFSR_inst.LFSR[14] LFSR_REG[13]
 1 1
-.names LFSR_inst.r_LFSR[15] LFSR_REG[14]
+.names LFSR_inst.LFSR[15] LFSR_REG[14]
 1 1
-.names LFSR_inst.r_LFSR[16] LFSR_REG[15]
+.names LFSR_inst.LFSR[16] LFSR_REG[15]
 1 1
-.names LFSR_inst.r_LFSR[17] LFSR_REG[16]
+.names LFSR_inst.LFSR[17] LFSR_REG[16]
 1 1
-.names LFSR_inst.r_LFSR[18] LFSR_REG[17]
+.names LFSR_inst.LFSR[18] LFSR_REG[17]
 1 1
-.names LFSR_inst.r_LFSR[19] LFSR_REG[18]
+.names LFSR_inst.LFSR[19] LFSR_REG[18]
 1 1
-.names LFSR_inst.r_LFSR[20] LFSR_REG[19]
+.names LFSR_inst.LFSR[20] LFSR_REG[19]
 1 1
-.names LFSR_inst.r_LFSR[21] LFSR_REG[20]
+.names LFSR_inst.LFSR[21] LFSR_REG[20]
 1 1
-.names LFSR_inst.r_LFSR[22] LFSR_REG[21]
+.names LFSR_inst.LFSR[22] LFSR_REG[21]
 1 1
-.names LFSR_inst.r_LFSR[23] LFSR_REG[22]
+.names LFSR_inst.LFSR[23] LFSR_REG[22]
 1 1
-.names LFSR_inst.r_LFSR[24] LFSR_REG[23]
+.names LFSR_inst.LFSR[24] LFSR_REG[23]
 1 1
-.names LFSR_inst.r_LFSR[25] LFSR_REG[24]
+.names LFSR_inst.LFSR[25] LFSR_REG[24]
 1 1
-.names LFSR_inst.r_LFSR[26] LFSR_REG[25]
+.names LFSR_inst.LFSR[26] LFSR_REG[25]
 1 1
-.names LFSR_inst.r_LFSR[27] LFSR_REG[26]
+.names LFSR_inst.LFSR[27] LFSR_REG[26]
 1 1
-.names LFSR_inst.r_LFSR[28] LFSR_REG[27]
+.names LFSR_inst.LFSR[28] LFSR_REG[27]
 1 1
-.names LFSR_inst.r_LFSR[29] LFSR_REG[28]
+.names LFSR_inst.LFSR[29] LFSR_REG[28]
 1 1
-.names LFSR_inst.r_LFSR[30] LFSR_REG[29]
+.names LFSR_inst.LFSR[30] LFSR_REG[29]
 1 1
-.names LFSR_inst.r_LFSR[31] LFSR_REG[30]
+.names LFSR_inst.LFSR[31] LFSR_REG[30]
 1 1
-.names LFSR_inst.r_LFSR[32] LFSR_REG[31]
+.names LFSR_inst.LFSR[32] LFSR_REG[31]
 1 1
-.names LFSR_inst.r_LFSR[33] LFSR_REG[32]
+.names LFSR_inst.LFSR[33] LFSR_REG[32]
 1 1
-.names LFSR_inst.r_LFSR[34] LFSR_REG[33]
+.names LFSR_inst.LFSR[34] LFSR_REG[33]
 1 1
-.names LFSR_inst.r_LFSR[35] LFSR_REG[34]
+.names LFSR_inst.LFSR[35] LFSR_REG[34]
 1 1
-.names LFSR_inst.r_LFSR[36] LFSR_REG[35]
+.names LFSR_inst.LFSR[36] LFSR_REG[35]
 1 1
-.names LFSR_inst.r_LFSR[37] LFSR_REG[36]
+.names LFSR_inst.LFSR[37] LFSR_REG[36]
 1 1
-.names LFSR_inst.r_LFSR[38] LFSR_REG[37]
+.names LFSR_inst.LFSR[38] LFSR_REG[37]
 1 1
-.names LFSR_inst.r_LFSR[39] LFSR_REG[38]
+.names LFSR_inst.LFSR[39] LFSR_REG[38]
 1 1
-.names LFSR_inst.r_LFSR[40] LFSR_REG[39]
+.names LFSR_inst.LFSR[40] LFSR_REG[39]
 1 1
-.names LFSR_inst.r_LFSR[41] LFSR_REG[40]
+.names LFSR_inst.LFSR[41] LFSR_REG[40]
 1 1
-.names LFSR_inst.r_LFSR[42] LFSR_REG[41]
+.names LFSR_inst.LFSR[42] LFSR_REG[41]
 1 1
-.names LFSR_inst.r_LFSR[43] LFSR_REG[42]
+.names LFSR_inst.LFSR[43] LFSR_REG[42]
 1 1
-.names LFSR_inst.r_LFSR[44] LFSR_REG[43]
+.names LFSR_inst.LFSR[44] LFSR_REG[43]
 1 1
-.names LFSR_inst.r_LFSR[45] LFSR_REG[44]
+.names LFSR_inst.LFSR[45] LFSR_REG[44]
 1 1
-.names LFSR_inst.r_LFSR[46] LFSR_REG[45]
+.names LFSR_inst.LFSR[46] LFSR_REG[45]
 1 1
-.names LFSR_inst.r_LFSR[47] LFSR_REG[46]
+.names LFSR_inst.LFSR[47] LFSR_REG[46]
 1 1
-.names LFSR_inst.r_LFSR[48] LFSR_REG[47]
+.names LFSR_inst.LFSR[48] LFSR_REG[47]
 1 1
-.names LFSR_inst.r_LFSR[49] LFSR_REG[48]
+.names LFSR_inst.LFSR[49] LFSR_REG[48]
 1 1
-.names LFSR_inst.r_LFSR[50] LFSR_REG[49]
+.names LFSR_inst.LFSR[50] LFSR_REG[49]
 1 1
-.names LFSR_inst.r_LFSR[51] LFSR_REG[50]
+.names LFSR_inst.LFSR[51] LFSR_REG[50]
 1 1
-.names LFSR_inst.r_LFSR[52] LFSR_REG[51]
+.names LFSR_inst.LFSR[52] LFSR_REG[51]
 1 1
-.names LFSR_inst.r_LFSR[53] LFSR_REG[52]
+.names LFSR_inst.LFSR[53] LFSR_REG[52]
 1 1
-.names LFSR_inst.r_LFSR[54] LFSR_REG[53]
+.names LFSR_inst.LFSR[54] LFSR_REG[53]
 1 1
-.names LFSR_inst.r_LFSR[55] LFSR_REG[54]
+.names LFSR_inst.LFSR[55] LFSR_REG[54]
 1 1
-.names LFSR_inst.r_LFSR[56] LFSR_REG[55]
+.names LFSR_inst.LFSR[56] LFSR_REG[55]
 1 1
-.names LFSR_inst.r_LFSR[57] LFSR_REG[56]
+.names LFSR_inst.LFSR[57] LFSR_REG[56]
 1 1
-.names LFSR_inst.r_LFSR[58] LFSR_REG[57]
+.names LFSR_inst.LFSR[58] LFSR_REG[57]
 1 1
-.names LFSR_inst.r_LFSR[59] LFSR_REG[58]
+.names LFSR_inst.LFSR[59] LFSR_REG[58]
 1 1
-.names LFSR_inst.r_LFSR[60] LFSR_REG[59]
+.names LFSR_inst.LFSR[60] LFSR_REG[59]
 1 1
-.names LFSR_inst.r_LFSR[61] LFSR_REG[60]
+.names LFSR_inst.LFSR[61] LFSR_REG[60]
 1 1
-.names LFSR_inst.r_LFSR[62] LFSR_REG[61]
+.names LFSR_inst.LFSR[62] LFSR_REG[61]
 1 1
-.names LFSR_inst.r_LFSR[63] LFSR_REG[62]
+.names LFSR_inst.LFSR[63] LFSR_REG[62]
 1 1
-.names LFSR_inst.r_LFSR[64] LFSR_REG[63]
+.names LFSR_inst.LFSR[64] LFSR_REG[63]
 1 1
-.names LED_CLK LFSR_inst.clk
+.names LED_CLK LFSR_inst.CLK
 1 1
-.names LFSR_inst.r_LFSR[1] LFSR_inst.o_LFSR_Data[0]
+.names LFSR_inst.LFSR[1] LFSR_inst.LFSR_Data[0]
 1 1
-.names LFSR_inst.r_LFSR[2] LFSR_inst.o_LFSR_Data[1]
+.names LFSR_inst.LFSR[2] LFSR_inst.LFSR_Data[1]
 1 1
-.names LFSR_inst.r_LFSR[3] LFSR_inst.o_LFSR_Data[2]
+.names LFSR_inst.LFSR[3] LFSR_inst.LFSR_Data[2]
 1 1
-.names LFSR_inst.r_LFSR[4] LFSR_inst.o_LFSR_Data[3]
+.names LFSR_inst.LFSR[4] LFSR_inst.LFSR_Data[3]
 1 1
-.names LFSR_inst.r_LFSR[5] LFSR_inst.o_LFSR_Data[4]
+.names LFSR_inst.LFSR[5] LFSR_inst.LFSR_Data[4]
 1 1
-.names LFSR_inst.r_LFSR[6] LFSR_inst.o_LFSR_Data[5]
+.names LFSR_inst.LFSR[6] LFSR_inst.LFSR_Data[5]
 1 1
-.names LFSR_inst.r_LFSR[7] LFSR_inst.o_LFSR_Data[6]
+.names LFSR_inst.LFSR[7] LFSR_inst.LFSR_Data[6]
 1 1
-.names LFSR_inst.r_LFSR[8] LFSR_inst.o_LFSR_Data[7]
+.names LFSR_inst.LFSR[8] LFSR_inst.LFSR_Data[7]
 1 1
-.names LFSR_inst.r_LFSR[9] LFSR_inst.o_LFSR_Data[8]
+.names LFSR_inst.LFSR[9] LFSR_inst.LFSR_Data[8]
 1 1
-.names LFSR_inst.r_LFSR[10] LFSR_inst.o_LFSR_Data[9]
+.names LFSR_inst.LFSR[10] LFSR_inst.LFSR_Data[9]
 1 1
-.names LFSR_inst.r_LFSR[11] LFSR_inst.o_LFSR_Data[10]
+.names LFSR_inst.LFSR[11] LFSR_inst.LFSR_Data[10]
 1 1
-.names LFSR_inst.r_LFSR[12] LFSR_inst.o_LFSR_Data[11]
+.names LFSR_inst.LFSR[12] LFSR_inst.LFSR_Data[11]
 1 1
-.names LFSR_inst.r_LFSR[13] LFSR_inst.o_LFSR_Data[12]
+.names LFSR_inst.LFSR[13] LFSR_inst.LFSR_Data[12]
 1 1
-.names LFSR_inst.r_LFSR[14] LFSR_inst.o_LFSR_Data[13]
+.names LFSR_inst.LFSR[14] LFSR_inst.LFSR_Data[13]
 1 1
-.names LFSR_inst.r_LFSR[15] LFSR_inst.o_LFSR_Data[14]
+.names LFSR_inst.LFSR[15] LFSR_inst.LFSR_Data[14]
 1 1
-.names LFSR_inst.r_LFSR[16] LFSR_inst.o_LFSR_Data[15]
+.names LFSR_inst.LFSR[16] LFSR_inst.LFSR_Data[15]
 1 1
-.names LFSR_inst.r_LFSR[17] LFSR_inst.o_LFSR_Data[16]
+.names LFSR_inst.LFSR[17] LFSR_inst.LFSR_Data[16]
 1 1
-.names LFSR_inst.r_LFSR[18] LFSR_inst.o_LFSR_Data[17]
+.names LFSR_inst.LFSR[18] LFSR_inst.LFSR_Data[17]
 1 1
-.names LFSR_inst.r_LFSR[19] LFSR_inst.o_LFSR_Data[18]
+.names LFSR_inst.LFSR[19] LFSR_inst.LFSR_Data[18]
 1 1
-.names LFSR_inst.r_LFSR[20] LFSR_inst.o_LFSR_Data[19]
+.names LFSR_inst.LFSR[20] LFSR_inst.LFSR_Data[19]
 1 1
-.names LFSR_inst.r_LFSR[21] LFSR_inst.o_LFSR_Data[20]
+.names LFSR_inst.LFSR[21] LFSR_inst.LFSR_Data[20]
 1 1
-.names LFSR_inst.r_LFSR[22] LFSR_inst.o_LFSR_Data[21]
+.names LFSR_inst.LFSR[22] LFSR_inst.LFSR_Data[21]
 1 1
-.names LFSR_inst.r_LFSR[23] LFSR_inst.o_LFSR_Data[22]
+.names LFSR_inst.LFSR[23] LFSR_inst.LFSR_Data[22]
 1 1
-.names LFSR_inst.r_LFSR[24] LFSR_inst.o_LFSR_Data[23]
+.names LFSR_inst.LFSR[24] LFSR_inst.LFSR_Data[23]
 1 1
-.names LFSR_inst.r_LFSR[25] LFSR_inst.o_LFSR_Data[24]
+.names LFSR_inst.LFSR[25] LFSR_inst.LFSR_Data[24]
 1 1
-.names LFSR_inst.r_LFSR[26] LFSR_inst.o_LFSR_Data[25]
+.names LFSR_inst.LFSR[26] LFSR_inst.LFSR_Data[25]
 1 1
-.names LFSR_inst.r_LFSR[27] LFSR_inst.o_LFSR_Data[26]
+.names LFSR_inst.LFSR[27] LFSR_inst.LFSR_Data[26]
 1 1
-.names LFSR_inst.r_LFSR[28] LFSR_inst.o_LFSR_Data[27]
+.names LFSR_inst.LFSR[28] LFSR_inst.LFSR_Data[27]
 1 1
-.names LFSR_inst.r_LFSR[29] LFSR_inst.o_LFSR_Data[28]
+.names LFSR_inst.LFSR[29] LFSR_inst.LFSR_Data[28]
 1 1
-.names LFSR_inst.r_LFSR[30] LFSR_inst.o_LFSR_Data[29]
+.names LFSR_inst.LFSR[30] LFSR_inst.LFSR_Data[29]
 1 1
-.names LFSR_inst.r_LFSR[31] LFSR_inst.o_LFSR_Data[30]
+.names LFSR_inst.LFSR[31] LFSR_inst.LFSR_Data[30]
 1 1
-.names LFSR_inst.r_LFSR[32] LFSR_inst.o_LFSR_Data[31]
+.names LFSR_inst.LFSR[32] LFSR_inst.LFSR_Data[31]
 1 1
-.names LFSR_inst.r_LFSR[33] LFSR_inst.o_LFSR_Data[32]
+.names LFSR_inst.LFSR[33] LFSR_inst.LFSR_Data[32]
 1 1
-.names LFSR_inst.r_LFSR[34] LFSR_inst.o_LFSR_Data[33]
+.names LFSR_inst.LFSR[34] LFSR_inst.LFSR_Data[33]
 1 1
-.names LFSR_inst.r_LFSR[35] LFSR_inst.o_LFSR_Data[34]
+.names LFSR_inst.LFSR[35] LFSR_inst.LFSR_Data[34]
 1 1
-.names LFSR_inst.r_LFSR[36] LFSR_inst.o_LFSR_Data[35]
+.names LFSR_inst.LFSR[36] LFSR_inst.LFSR_Data[35]
 1 1
-.names LFSR_inst.r_LFSR[37] LFSR_inst.o_LFSR_Data[36]
+.names LFSR_inst.LFSR[37] LFSR_inst.LFSR_Data[36]
 1 1
-.names LFSR_inst.r_LFSR[38] LFSR_inst.o_LFSR_Data[37]
+.names LFSR_inst.LFSR[38] LFSR_inst.LFSR_Data[37]
 1 1
-.names LFSR_inst.r_LFSR[39] LFSR_inst.o_LFSR_Data[38]
+.names LFSR_inst.LFSR[39] LFSR_inst.LFSR_Data[38]
 1 1
-.names LFSR_inst.r_LFSR[40] LFSR_inst.o_LFSR_Data[39]
+.names LFSR_inst.LFSR[40] LFSR_inst.LFSR_Data[39]
 1 1
-.names LFSR_inst.r_LFSR[41] LFSR_inst.o_LFSR_Data[40]
+.names LFSR_inst.LFSR[41] LFSR_inst.LFSR_Data[40]
 1 1
-.names LFSR_inst.r_LFSR[42] LFSR_inst.o_LFSR_Data[41]
+.names LFSR_inst.LFSR[42] LFSR_inst.LFSR_Data[41]
 1 1
-.names LFSR_inst.r_LFSR[43] LFSR_inst.o_LFSR_Data[42]
+.names LFSR_inst.LFSR[43] LFSR_inst.LFSR_Data[42]
 1 1
-.names LFSR_inst.r_LFSR[44] LFSR_inst.o_LFSR_Data[43]
+.names LFSR_inst.LFSR[44] LFSR_inst.LFSR_Data[43]
 1 1
-.names LFSR_inst.r_LFSR[45] LFSR_inst.o_LFSR_Data[44]
+.names LFSR_inst.LFSR[45] LFSR_inst.LFSR_Data[44]
 1 1
-.names LFSR_inst.r_LFSR[46] LFSR_inst.o_LFSR_Data[45]
+.names LFSR_inst.LFSR[46] LFSR_inst.LFSR_Data[45]
 1 1
-.names LFSR_inst.r_LFSR[47] LFSR_inst.o_LFSR_Data[46]
+.names LFSR_inst.LFSR[47] LFSR_inst.LFSR_Data[46]
 1 1
-.names LFSR_inst.r_LFSR[48] LFSR_inst.o_LFSR_Data[47]
+.names LFSR_inst.LFSR[48] LFSR_inst.LFSR_Data[47]
 1 1
-.names LFSR_inst.r_LFSR[49] LFSR_inst.o_LFSR_Data[48]
+.names LFSR_inst.LFSR[49] LFSR_inst.LFSR_Data[48]
 1 1
-.names LFSR_inst.r_LFSR[50] LFSR_inst.o_LFSR_Data[49]
+.names LFSR_inst.LFSR[50] LFSR_inst.LFSR_Data[49]
 1 1
-.names LFSR_inst.r_LFSR[51] LFSR_inst.o_LFSR_Data[50]
+.names LFSR_inst.LFSR[51] LFSR_inst.LFSR_Data[50]
 1 1
-.names LFSR_inst.r_LFSR[52] LFSR_inst.o_LFSR_Data[51]
+.names LFSR_inst.LFSR[52] LFSR_inst.LFSR_Data[51]
 1 1
-.names LFSR_inst.r_LFSR[53] LFSR_inst.o_LFSR_Data[52]
+.names LFSR_inst.LFSR[53] LFSR_inst.LFSR_Data[52]
 1 1
-.names LFSR_inst.r_LFSR[54] LFSR_inst.o_LFSR_Data[53]
+.names LFSR_inst.LFSR[54] LFSR_inst.LFSR_Data[53]
 1 1
-.names LFSR_inst.r_LFSR[55] LFSR_inst.o_LFSR_Data[54]
+.names LFSR_inst.LFSR[55] LFSR_inst.LFSR_Data[54]
 1 1
-.names LFSR_inst.r_LFSR[56] LFSR_inst.o_LFSR_Data[55]
+.names LFSR_inst.LFSR[56] LFSR_inst.LFSR_Data[55]
 1 1
-.names LFSR_inst.r_LFSR[57] LFSR_inst.o_LFSR_Data[56]
+.names LFSR_inst.LFSR[57] LFSR_inst.LFSR_Data[56]
 1 1
-.names LFSR_inst.r_LFSR[58] LFSR_inst.o_LFSR_Data[57]
+.names LFSR_inst.LFSR[58] LFSR_inst.LFSR_Data[57]
 1 1
-.names LFSR_inst.r_LFSR[59] LFSR_inst.o_LFSR_Data[58]
+.names LFSR_inst.LFSR[59] LFSR_inst.LFSR_Data[58]
 1 1
-.names LFSR_inst.r_LFSR[60] LFSR_inst.o_LFSR_Data[59]
+.names LFSR_inst.LFSR[60] LFSR_inst.LFSR_Data[59]
 1 1
-.names LFSR_inst.r_LFSR[61] LFSR_inst.o_LFSR_Data[60]
+.names LFSR_inst.LFSR[61] LFSR_inst.LFSR_Data[60]
 1 1
-.names LFSR_inst.r_LFSR[62] LFSR_inst.o_LFSR_Data[61]
+.names LFSR_inst.LFSR[62] LFSR_inst.LFSR_Data[61]
 1 1
-.names LFSR_inst.r_LFSR[63] LFSR_inst.o_LFSR_Data[62]
+.names LFSR_inst.LFSR[63] LFSR_inst.LFSR_Data[62]
 1 1
-.names LFSR_inst.r_LFSR[64] LFSR_inst.o_LFSR_Data[63]
+.names LFSR_inst.LFSR[64] LFSR_inst.LFSR_Data[63]
 1 1
-.names LED_DONE LFSR_inst.o_LFSR_Done
+.names LED_DONE LFSR_inst.LFSR_Done
 1 1
 .names drv.tcolumn[0] columns[0]
 1 1
@@ -822,7 +822,7 @@
 1 1
 .names drv.tcolumn[7] columns[7]
 1 1
-.names drv.clock counter[16]
+.names drv.CLK counter[16]
 1 1
 .names LED_CLK counter[21]
 1 1
@@ -862,133 +862,133 @@
 1 1
 .names drv.tcolumn[7] drv.column[7]
 1 1
-.names LFSR_inst.r_LFSR[1] drv.data[0]
+.names LFSR_inst.LFSR[1] drv.data[0]
 1 1
-.names LFSR_inst.r_LFSR[2] drv.data[1]
+.names LFSR_inst.LFSR[2] drv.data[1]
 1 1
-.names LFSR_inst.r_LFSR[3] drv.data[2]
+.names LFSR_inst.LFSR[3] drv.data[2]
 1 1
-.names LFSR_inst.r_LFSR[4] drv.data[3]
+.names LFSR_inst.LFSR[4] drv.data[3]
 1 1
-.names LFSR_inst.r_LFSR[5] drv.data[4]
+.names LFSR_inst.LFSR[5] drv.data[4]
 1 1
-.names LFSR_inst.r_LFSR[6] drv.data[5]
+.names LFSR_inst.LFSR[6] drv.data[5]
 1 1
-.names LFSR_inst.r_LFSR[7] drv.data[6]
+.names LFSR_inst.LFSR[7] drv.data[6]
 1 1
-.names LFSR_inst.r_LFSR[8] drv.data[7]
+.names LFSR_inst.LFSR[8] drv.data[7]
 1 1
-.names LFSR_inst.r_LFSR[9] drv.data[8]
+.names LFSR_inst.LFSR[9] drv.data[8]
 1 1
-.names LFSR_inst.r_LFSR[10] drv.data[9]
+.names LFSR_inst.LFSR[10] drv.data[9]
 1 1
-.names LFSR_inst.r_LFSR[11] drv.data[10]
+.names LFSR_inst.LFSR[11] drv.data[10]
 1 1
-.names LFSR_inst.r_LFSR[12] drv.data[11]
+.names LFSR_inst.LFSR[12] drv.data[11]
 1 1
-.names LFSR_inst.r_LFSR[13] drv.data[12]
+.names LFSR_inst.LFSR[13] drv.data[12]
 1 1
-.names LFSR_inst.r_LFSR[14] drv.data[13]
+.names LFSR_inst.LFSR[14] drv.data[13]
 1 1
-.names LFSR_inst.r_LFSR[15] drv.data[14]
+.names LFSR_inst.LFSR[15] drv.data[14]
 1 1
-.names LFSR_inst.r_LFSR[16] drv.data[15]
+.names LFSR_inst.LFSR[16] drv.data[15]
 1 1
-.names LFSR_inst.r_LFSR[17] drv.data[16]
+.names LFSR_inst.LFSR[17] drv.data[16]
 1 1
-.names LFSR_inst.r_LFSR[18] drv.data[17]
+.names LFSR_inst.LFSR[18] drv.data[17]
 1 1
-.names LFSR_inst.r_LFSR[19] drv.data[18]
+.names LFSR_inst.LFSR[19] drv.data[18]
 1 1
-.names LFSR_inst.r_LFSR[20] drv.data[19]
+.names LFSR_inst.LFSR[20] drv.data[19]
 1 1
-.names LFSR_inst.r_LFSR[21] drv.data[20]
+.names LFSR_inst.LFSR[21] drv.data[20]
 1 1
-.names LFSR_inst.r_LFSR[22] drv.data[21]
+.names LFSR_inst.LFSR[22] drv.data[21]
 1 1
-.names LFSR_inst.r_LFSR[23] drv.data[22]
+.names LFSR_inst.LFSR[23] drv.data[22]
 1 1
-.names LFSR_inst.r_LFSR[24] drv.data[23]
+.names LFSR_inst.LFSR[24] drv.data[23]
 1 1
-.names LFSR_inst.r_LFSR[25] drv.data[24]
+.names LFSR_inst.LFSR[25] drv.data[24]
 1 1
-.names LFSR_inst.r_LFSR[26] drv.data[25]
+.names LFSR_inst.LFSR[26] drv.data[25]
 1 1
-.names LFSR_inst.r_LFSR[27] drv.data[26]
+.names LFSR_inst.LFSR[27] drv.data[26]
 1 1
-.names LFSR_inst.r_LFSR[28] drv.data[27]
+.names LFSR_inst.LFSR[28] drv.data[27]
 1 1
-.names LFSR_inst.r_LFSR[29] drv.data[28]
+.names LFSR_inst.LFSR[29] drv.data[28]
 1 1
-.names LFSR_inst.r_LFSR[30] drv.data[29]
+.names LFSR_inst.LFSR[30] drv.data[29]
 1 1
-.names LFSR_inst.r_LFSR[31] drv.data[30]
+.names LFSR_inst.LFSR[31] drv.data[30]
 1 1
-.names LFSR_inst.r_LFSR[32] drv.data[31]
+.names LFSR_inst.LFSR[32] drv.data[31]
 1 1
-.names LFSR_inst.r_LFSR[33] drv.data[32]
+.names LFSR_inst.LFSR[33] drv.data[32]
 1 1
-.names LFSR_inst.r_LFSR[34] drv.data[33]
+.names LFSR_inst.LFSR[34] drv.data[33]
 1 1
-.names LFSR_inst.r_LFSR[35] drv.data[34]
+.names LFSR_inst.LFSR[35] drv.data[34]
 1 1
-.names LFSR_inst.r_LFSR[36] drv.data[35]
+.names LFSR_inst.LFSR[36] drv.data[35]
 1 1
-.names LFSR_inst.r_LFSR[37] drv.data[36]
+.names LFSR_inst.LFSR[37] drv.data[36]
 1 1
-.names LFSR_inst.r_LFSR[38] drv.data[37]
+.names LFSR_inst.LFSR[38] drv.data[37]
 1 1
-.names LFSR_inst.r_LFSR[39] drv.data[38]
+.names LFSR_inst.LFSR[39] drv.data[38]
 1 1
-.names LFSR_inst.r_LFSR[40] drv.data[39]
+.names LFSR_inst.LFSR[40] drv.data[39]
 1 1
-.names LFSR_inst.r_LFSR[41] drv.data[40]
+.names LFSR_inst.LFSR[41] drv.data[40]
 1 1
-.names LFSR_inst.r_LFSR[42] drv.data[41]
+.names LFSR_inst.LFSR[42] drv.data[41]
 1 1
-.names LFSR_inst.r_LFSR[43] drv.data[42]
+.names LFSR_inst.LFSR[43] drv.data[42]
 1 1
-.names LFSR_inst.r_LFSR[44] drv.data[43]
+.names LFSR_inst.LFSR[44] drv.data[43]
 1 1
-.names LFSR_inst.r_LFSR[45] drv.data[44]
+.names LFSR_inst.LFSR[45] drv.data[44]
 1 1
-.names LFSR_inst.r_LFSR[46] drv.data[45]
+.names LFSR_inst.LFSR[46] drv.data[45]
 1 1
-.names LFSR_inst.r_LFSR[47] drv.data[46]
+.names LFSR_inst.LFSR[47] drv.data[46]
 1 1
-.names LFSR_inst.r_LFSR[48] drv.data[47]
+.names LFSR_inst.LFSR[48] drv.data[47]
 1 1
-.names LFSR_inst.r_LFSR[49] drv.data[48]
+.names LFSR_inst.LFSR[49] drv.data[48]
 1 1
-.names LFSR_inst.r_LFSR[50] drv.data[49]
+.names LFSR_inst.LFSR[50] drv.data[49]
 1 1
-.names LFSR_inst.r_LFSR[51] drv.data[50]
+.names LFSR_inst.LFSR[51] drv.data[50]
 1 1
-.names LFSR_inst.r_LFSR[52] drv.data[51]
+.names LFSR_inst.LFSR[52] drv.data[51]
 1 1
-.names LFSR_inst.r_LFSR[53] drv.data[52]
+.names LFSR_inst.LFSR[53] drv.data[52]
 1 1
-.names LFSR_inst.r_LFSR[54] drv.data[53]
+.names LFSR_inst.LFSR[54] drv.data[53]
 1 1
-.names LFSR_inst.r_LFSR[55] drv.data[54]
+.names LFSR_inst.LFSR[55] drv.data[54]
 1 1
-.names LFSR_inst.r_LFSR[56] drv.data[55]
+.names LFSR_inst.LFSR[56] drv.data[55]
 1 1
-.names LFSR_inst.r_LFSR[57] drv.data[56]
+.names LFSR_inst.LFSR[57] drv.data[56]
 1 1
-.names LFSR_inst.r_LFSR[58] drv.data[57]
+.names LFSR_inst.LFSR[58] drv.data[57]
 1 1
-.names LFSR_inst.r_LFSR[59] drv.data[58]
+.names LFSR_inst.LFSR[59] drv.data[58]
 1 1
-.names LFSR_inst.r_LFSR[60] drv.data[59]
+.names LFSR_inst.LFSR[60] drv.data[59]
 1 1
-.names LFSR_inst.r_LFSR[61] drv.data[60]
+.names LFSR_inst.LFSR[61] drv.data[60]
 1 1
-.names LFSR_inst.r_LFSR[62] drv.data[61]
+.names LFSR_inst.LFSR[62] drv.data[61]
 1 1
-.names LFSR_inst.r_LFSR[63] drv.data[62]
+.names LFSR_inst.LFSR[63] drv.data[62]
 1 1
-.names LFSR_inst.r_LFSR[64] drv.data[63]
+.names LFSR_inst.LFSR[64] drv.data[63]
 1 1
 .names drv.trow[0] drv.row[0]
 1 1
