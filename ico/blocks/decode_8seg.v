@@ -2,7 +2,7 @@ module decode_8seg(OE, tetrade, dot, leds);
 input OE;
 input [3:0] tetrade;
 input dot;
-output reg [7:0] leds;
+output reg [7:0] leds; /* { dot, g, f, e, d, c, b, a } */
 
 always @(*) begin
 	if (!OE) begin
