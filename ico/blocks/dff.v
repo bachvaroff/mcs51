@@ -9,7 +9,18 @@ end
 
 endmodule
 
-module dff(CLK, D, Q, Qdash);
+module dffdash(CLK, D, Qdash);
+input CLK;
+input D;
+output reg Qdash;
+
+always @(posedge CLK) begin
+	Qdash <= ~D;
+end
+
+endmodule
+
+module dff2(CLK, D, Q, Qdash);
 input CLK;
 input D;
 output reg Q;

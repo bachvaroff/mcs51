@@ -2,8 +2,8 @@ module LFSR (clk, enable, i_Seed_DV, i_Seed_Data, o_LFSR_Data, o_LFSR_Done);
 input clk;
 input enable;
 input i_Seed_DV;
-input [NUM_BITS-1:0] i_Seed_Data;
-output [NUM_BITS-1:0] o_LFSR_Data;
+input [(NUM_BITS - 1):0] i_Seed_Data;
+output [(NUM_BITS - 1):0] o_LFSR_Data;
 output o_LFSR_Done;
 
 parameter NUM_BITS = 32;
@@ -14,7 +14,7 @@ reg r_XNOR;
 always @(posedge clk) begin
 	if (enable == 1'b1) begin
 		if (i_Seed_DV == 1'b1) r_LFSR <= i_Seed_Data;
-		else r_LFSR <= { r_LFSR[NUM_BITS-1:1], r_XNOR };
+		else r_LFSR <= { r_LFSR[(NUM_BITS - 1):1], r_XNOR };
 	end
 end
 
