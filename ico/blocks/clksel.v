@@ -4,8 +4,8 @@ input CLK1;
 input altsel;
 output OUTCLK;
 
-reg Q;
-reg Qdash;
+reg Q = 1'b1;
+reg Qdash = 1'b0;
 
 dff2 dff(
 	.CLK(altsel),
