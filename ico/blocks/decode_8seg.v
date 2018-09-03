@@ -1,11 +1,11 @@
-module decode_8seg(oe, tetrade, dot, leds);
-input oe;
+module decode_8seg(OE, tetrade, dot, leds);
+input OE;
 input [3:0] tetrade;
 input dot;
 output reg [7:0] leds;
 
 always @(*) begin
-	if (!oe) begin
+	if (!OE) begin
 		leds <= 8'b00000000;
 	end else begin
 		case (tetrade)

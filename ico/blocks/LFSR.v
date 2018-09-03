@@ -1,123 +1,61 @@
-module LFSR (clk, enable, i_Seed_DV, i_Seed_Data, o_LFSR_Data, o_LFSR_Done);
-input clk;
-input enable;
-input i_Seed_DV;
-input [(NUM_BITS - 1):0] i_Seed_Data;
-output [(NUM_BITS - 1):0] o_LFSR_Data;
-output o_LFSR_Done;
+module LFSR (CLK, E, Seed_DV, Seed_Data, LFSData, LFSDone);
+input CLK;
+input E;
+input Seed_DV;
+input [(NUM_BITS - 1):0] Seed_Data;
+output [(NUM_BITS - 1):0] LFSData;
+output LFSDone;
 
 parameter NUM_BITS = 32;
 
-reg [NUM_BITS:1] r_LFSR;
-reg r_XNOR;
+reg [NUM_BITS:1] LFSR;
+reg XNOR;
 
-always @(posedge clk) begin
-	if (enable == 1'b1) begin
-		if (i_Seed_DV == 1'b1) r_LFSR <= i_Seed_Data;
-		else r_LFSR <= { r_LFSR[(NUM_BITS - 1):1], r_XNOR };
+always @(posedge CLK) begin
+	if (E == 1'b1) begin
+		if (Seed_DV == 1'b1) LFSR <= Seed_Data;
+		else LFSR <= { LFSR[(NUM_BITS - 1):1], XNOR };
 	end
 end
 
 always @(*) begin
 	case (NUM_BITS)
-		3: begin
-			r_XNOR = r_LFSR[3] ^~ r_LFSR[2];
-		end
-		4: begin
-			r_XNOR = r_LFSR[4] ^~ r_LFSR[3];
-		end
-		5: begin
-			r_XNOR = r_LFSR[5] ^~ r_LFSR[3];
-		end
-		6: begin
-			r_XNOR = r_LFSR[6] ^~ r_LFSR[5];
-		end
-		7: begin
-			r_XNOR = r_LFSR[7] ^~ r_LFSR[6];
-		end
-		8: begin
-			r_XNOR = r_LFSR[8] ^~ r_LFSR[6] ^~ r_LFSR[5] ^~ r_LFSR[4];
-		end
-		9: begin
-			r_XNOR = r_LFSR[9] ^~ r_LFSR[5];
-		end
-		10: begin
-			r_XNOR = r_LFSR[10] ^~ r_LFSR[7];
-		end
-		11: begin
-			r_XNOR = r_LFSR[11] ^~ r_LFSR[9];
-		end
-		12: begin
-			r_XNOR = r_LFSR[12] ^~ r_LFSR[6] ^~ r_LFSR[4] ^~ r_LFSR[1];
-		end
-		13: begin
-			r_XNOR = r_LFSR[13] ^~ r_LFSR[4] ^~ r_LFSR[3] ^~ r_LFSR[1];
-		end
-		14: begin
-			r_XNOR = r_LFSR[14] ^~ r_LFSR[5] ^~ r_LFSR[3] ^~ r_LFSR[1];
-		end
-		15: begin
-			r_XNOR = r_LFSR[15] ^~ r_LFSR[14];
-	        end
-		16: begin
-			r_XNOR = r_LFSR[16] ^~ r_LFSR[15] ^~ r_LFSR[13] ^~ r_LFSR[4];
-		end
-		17: begin
-			r_XNOR = r_LFSR[17] ^~ r_LFSR[14];
-		end
-		18: begin
-			r_XNOR = r_LFSR[18] ^~ r_LFSR[11];
-		end
-		19: begin
-			r_XNOR = r_LFSR[19] ^~ r_LFSR[6] ^~ r_LFSR[2] ^~ r_LFSR[1];
-		end
-		20: begin
-			r_XNOR = r_LFSR[20] ^~ r_LFSR[17];
-		end
-		21: begin
-			r_XNOR = r_LFSR[21] ^~ r_LFSR[19];
-		end
-		22: begin
-			r_XNOR = r_LFSR[22] ^~ r_LFSR[21];
-		end
-		23: begin
-			r_XNOR = r_LFSR[23] ^~ r_LFSR[18];
-		end
-		24: begin
-			r_XNOR = r_LFSR[24] ^~ r_LFSR[23] ^~ r_LFSR[22] ^~ r_LFSR[17];
-		end
-		25: begin
-			r_XNOR = r_LFSR[25] ^~ r_LFSR[22];
-		end
-		26: begin
-			r_XNOR = r_LFSR[26] ^~ r_LFSR[6] ^~ r_LFSR[2] ^~ r_LFSR[1];
-		end
-		27: begin
-			r_XNOR = r_LFSR[27] ^~ r_LFSR[5] ^~ r_LFSR[2] ^~ r_LFSR[1];
-		end
-		28: begin
-			r_XNOR = r_LFSR[28] ^~ r_LFSR[25];
-		end
-		29: begin
-			r_XNOR = r_LFSR[29] ^~ r_LFSR[27];
-		end
-		30: begin
-			r_XNOR = r_LFSR[30] ^~ r_LFSR[6] ^~ r_LFSR[4] ^~ r_LFSR[1];
-		end
-		31: begin
-			r_XNOR = r_LFSR[31] ^~ r_LFSR[28];
-		end
-		32: begin
-			r_XNOR = r_LFSR[32] ^~ r_LFSR[22] ^~ r_LFSR[2] ^~ r_LFSR[1];
-		end
-		64: begin
-			r_XNOR = r_LFSR[64] ^~ r_LFSR[63] ^~ r_LFSR[61] ^~ r_LFSR[60];
-		end
+		3: XNOR = LFSR[3] ^~ LFSR[2];
+		4: XNOR = LFSR[4] ^~ LFSR[3];
+		5: XNOR = LFSR[5] ^~ LFSR[3];
+		6: XNOR = LFSR[6] ^~ LFSR[5];
+		7: XNOR = LFSR[7] ^~ LFSR[6];
+		8: XNOR = LFSR[8] ^~ LFSR[6] ^~ LFSR[5] ^~ LFSR[4];
+		9: XNOR = LFSR[9] ^~ LFSR[5];
+		10: XNOR = LFSR[10] ^~ LFSR[7];
+		11: XNOR = LFSR[11] ^~ LFSR[9];
+		12: XNOR = LFSR[12] ^~ LFSR[6] ^~ LFSR[4] ^~ LFSR[1];
+		13: XNOR = LFSR[13] ^~ LFSR[4] ^~ LFSR[3] ^~ LFSR[1];
+		14: XNOR = LFSR[14] ^~ LFSR[5] ^~ LFSR[3] ^~ LFSR[1];
+		15: XNOR = LFSR[15] ^~ LFSR[14];
+		16: XNOR = LFSR[16] ^~ LFSR[15] ^~ LFSR[13] ^~ LFSR[4];
+		17: XNOR = LFSR[17] ^~ LFSR[14];
+		18: XNOR = LFSR[18] ^~ LFSR[11];
+		19: XNOR = LFSR[19] ^~ LFSR[6] ^~ LFSR[2] ^~ LFSR[1];
+		20: XNOR = LFSR[20] ^~ LFSR[17];
+		21: XNOR = LFSR[21] ^~ LFSR[19];
+		22: XNOR = LFSR[22] ^~ LFSR[21];
+		23: XNOR = LFSR[23] ^~ LFSR[18];
+		24: XNOR = LFSR[24] ^~ LFSR[23] ^~ LFSR[22] ^~ LFSR[17];
+		25: XNOR = LFSR[25] ^~ LFSR[22];
+		26: XNOR = LFSR[26] ^~ LFSR[6] ^~ LFSR[2] ^~ LFSR[1];
+		27: XNOR = LFSR[27] ^~ LFSR[5] ^~ LFSR[2] ^~ LFSR[1];
+		28: XNOR = LFSR[28] ^~ LFSR[25];
+		29: XNOR = LFSR[29] ^~ LFSR[27];
+		30: XNOR = LFSR[30] ^~ LFSR[6] ^~ LFSR[4] ^~ LFSR[1];
+		31: XNOR = LFSR[31] ^~ LFSR[28];
+		32: XNOR = LFSR[32] ^~ LFSR[22] ^~ LFSR[2] ^~ LFSR[1];
+		64: XNOR = LFSR[64] ^~ LFSR[63] ^~ LFSR[61] ^~ LFSR[60];
 	endcase
 end
 
-assign o_LFSR_Data = r_LFSR[NUM_BITS:1];
-assign o_LFSR_Done = (r_LFSR[NUM_BITS:1] == i_Seed_Data) ? 1'b1 : 1'b0;
+assign LFSData = LFSR[NUM_BITS:1];
+assign LFSDone = (LFSR[NUM_BITS:1] == Seed_Data) ? 1'b1 : 1'b0;
 
 endmodule
 

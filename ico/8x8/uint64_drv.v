@@ -1,7 +1,7 @@
-module uint64_drv (clock, data, oe, row, column);
-input clock;
+module uint64_drv (CLK, OE, data, row, column);
+input CLK;
+input OE;
 input [63:0] data;
-input oe;
 output [7:0] row;
 output [7:0] column;
 
@@ -9,8 +9,8 @@ reg [2:0] byte_sel;
 reg [7:0] trow;
 reg [7:0] tcolumn;
 	
-always @(posedge clock) begin
-	if (!oe) begin
+always @(posedge CLK) begin
+	if (!OE) begin
 		trow <= 8'b00000000;
 		tcolumn <= 8'b00000000;
 		byte_sel <= 3'b000;

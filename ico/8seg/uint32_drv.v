@@ -1,7 +1,7 @@
-module uint32_drv(CLK, data, oe, drains, leds);
+module uint32_drv(CLK, OE, data, drains, leds);
 input CLK;
+input OE;
 input [31:0] data;
-input oe;
 output [7:0] drains;
 output [7:0] leds;
 
@@ -11,14 +11,14 @@ reg [7:0] tdrains;
 reg [7:0] tleds;
 
 decode_8seg decoder(
-	.oe(oe),
+	.OE(OE),
 	.tetrade(tdata),
 	.dot(1'b0),
 	.leds(tleds)
 );
 
 always @(posedge CLK) begin
-	if (!oe) begin
+	if (!OE) begin
 		tetrade_sel <= 3'b000;
 		tdrains <= 8'b00000000;
 		tdata <= 4'b0000;

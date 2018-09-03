@@ -15,18 +15,18 @@ wire [NUM_BITS-1:0] LFSR_REG;
 wire LFSR_DONE;
 
 LFSR #(NUM_BITS) LFSR_inst(
-	.clk(counter[LFSR_CLK]),
-	.enable(1'b1),
-	.i_Seed_DV(1'b0),
-	.i_Seed_Data({ NUM_BITS{1'b0} }),
-	.o_LFSR_Data(LFSR_REG),
-	.o_LFSR_Done(LFSR_DONE)
+	.CLK(counter[LFSR_CLK]),
+	.E(1'b1),
+	.Seed_DV(1'b0),
+	.Seed_Data({ NUM_BITS{1'b0} }),
+	.LFSR_Data(LFSR_REG),
+	.LFSR_Done(LFSR_DONE)
 );
 
 uint64_drv drv(
-	.clock(counter[UPDATE_CLK]),
+	.CLK(counter[UPDATE_CLK]),
+	.OE(1'b1),
 	.data(LFSR_REG),
-	.oe(1'b1),
 	.row(rows),
 	.column(columns)
 );
