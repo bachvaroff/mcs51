@@ -1,11 +1,10 @@
 module debounce(CLK, PB, PB_state, PB_down, PB_up);
+parameter DELAY = 16;
 input CLK;
 input PB;
 output reg PB_state;
 output PB_down;
 output PB_up;
-
-parameter DELAY = 16;
 
 reg PB_sync_0;
 reg PB_sync_1;
