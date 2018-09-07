@@ -1,0 +1,23 @@
+set_io --warn-no-port CLK R9
+
+set_io --warn-no-port LED_CLK F7
+set_io --warn-no-port LED_DONE C8
+
+set_io --warn-no-port rows[0] B11
+set_io --warn-no-port rows[1] B10
+set_io --warn-no-port rows[2] B9
+set_io --warn-no-port rows[3] D8
+set_io --warn-no-port rows[4] A11
+set_io --warn-no-port rows[5] A10
+set_io --warn-no-port rows[6] A9
+set_io --warn-no-port rows[7] B8
+
+set_io --warn-no-port columns[0] B4
+set_io --warn-no-port columns[1] C3
+set_io --warn-no-port columns[2] A2
+set_io --warn-no-port columns[3] A5
+set_io --warn-no-port columns[4] B5
+set_io --warn-no-port columns[5] B3
+set_io --warn-no-port columns[6] B6
+set_io --warn-no-port columns[7] B7
+
