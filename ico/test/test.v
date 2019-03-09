@@ -13,7 +13,7 @@ always @(posedge CLK) begin
 end
 
 assign HS = counter[HS_DRV];
-assign LS = counter[LS_DRV];
+assign LS = counter[LS_DRV] & counter[HS_DRV];
 
 endmodule
 
