@@ -1,6 +1,6 @@
 synth: test.bin
 
-test.blif: test.v\
+test.blif: test.v
 	yosys -q -p "read_verilog test.v; synth_ice40 -blif test.blif"
 
 test.asc: test.blif test.pcf
