@@ -3,8 +3,8 @@ input CLK;
 output HS;
 output LS;
 
-localparam LS_DRV = 10;
-localparam HS_DRV = 15;
+localparam LS_DRV = 20;
+localparam HS_DRV = 24;
 
 reg [31:0] counter;
 
