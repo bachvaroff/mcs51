@@ -4,7 +4,7 @@ output HS;
 output LS;
 
 localparam LS_DRV = 20;
-localparam HS_DRV = 24;
+localparam HS_DRV = 22;
 
 reg [31:0] counter;
 
