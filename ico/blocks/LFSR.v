@@ -1,7 +1,9 @@
 /* XAPP052 */
 
 module LFSR (CLK, E, RESET, SEED, LFSR);
+
 parameter NUM_BITS = 32;
+
 input CLK;
 input E;
 input RESET;
