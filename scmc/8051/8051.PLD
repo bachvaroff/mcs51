@@ -1,0 +1,70 @@
+Name 8051_CTRL_DECODER;
+Assembly 0001;
+Revision 1.0;
+PartNo U0 G22V10;
+Device G22V10;
+Company MNK / MMS;
+Designer Atanas Bachvaroff;
+Location Sofia,BG,EU;
+Date 28 Aug 2019;
+
+/* inputs / CPU */
+PIN [2..7] = [RDCPU_, WRCPU_, PSEN_, A15_LINE, A14_LINE, A13_LINE];
+PIN 8 = ALE;
+
+/* outputs / system */
+PIN 16 = ALE_;
+PIN 17 = E_;
+PIN [18..23] = [DIR, CSIO_, CSF_, CSR_, WR_, RD_];
+
+FIELD ADDRESS = [RDCPU_, WRCPU_, PSEN_, A15_LINE, A14_LINE, A13_LINE];
+FIELD DECODE = [DIR, CSIO_, CSF_, CSR_, WR_, RD_];
+
+/* OE_ 74HC245 U2 U3, 75HC574 U1 */
+E_ = RDCPU_ & WRCPU_ & PSEN_;
+
+/* CP> 74HC574 U1 */
+ALE_ = !ALE;
+
+TABLE ADDRESS => DECODE {
+/* page 0 - R/W - RAM, PSEN - flash */
+	'b'011000 => 'b'011010;
+	'b'101000 => 'b'111001;
+	'b'110000 => 'b'010110;
+
+/* page 1 - R/W - RAM, PSEN - flash */
+	'b'011001 => 'b'011010;
+	'b'101001 => 'b'111001;
+	'b'110001 => 'b'010110;
+
+/* page 2 - R/W - RAM, PSEN - flash */
+	'b'011010 => 'b'011010;
+	'b'101010 => 'b'111001;
+	'b'110010 => 'b'010110;
+
+/* page 3 - R/W/PSEN - RAM */
+	'b'011011 => 'b'011010;
+	'b'101011 => 'b'111001;
+	'b'110011 => 'b'011010;
+
+/* page 4 - R/W/PSEN - RAM */
+	'b'011100 => 'b'011010;
+	'b'101100 => 'b'111001;
+	'b'110100 => 'b'011010;
+
+/* page 5 - R/W/PSEN - RAM */
+	'b'011101 => 'b'011010;
+	'b'101101 => 'b'111001;
+	'b'110101 => 'b'011010;
+
+/* page 6 - R/W/PSEN - RAM */
+	'b'011110 => 'b'011010;
+	'b'101110 => 'b'111001;
+	'b'110110 => 'b'011010;
+
+/* page 7 - R/W/PSEN - IO */
+	'b'011111 => 'b'001110;
+	'b'101111 => 'b'101101;
+	'b'110111 => 'b'001110;
+}
+

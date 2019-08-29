@@ -1,0 +1,309 @@
+
+*******************************************************************************
+                               8051_CTRL_DECODER
+*******************************************************************************
+
+CUPL(WM)        5.0a Serial# 60008009
+Device          g22v10  Library DLIB-h-40-1
+Created         Thu Aug 29 10:08:58 2019
+Name            8051_CTRL_DECODER
+Partno          U0 G22V10
+Revision        1.0
+Date            28 Aug 2019
+Designer        Atanas Bachvaroff
+Company         MNK / MMS
+Assembly        0001
+Location        Sofia,BG,EU
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+ADDRESS =>
+    RDCPU_ , WRCPU_ , PSEN_ , A15_LINE , A14_LINE , A13_LINE
+
+ALE_ =>
+    !ALE
+
+CSF_ =>
+    !A13_LINE & A14_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
+  # !A14_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
+  # A13_LINE & A14_LINE & !PSEN_ & RDCPU_ & WRCPU_
+  # PSEN_ & !RDCPU_ & WRCPU_
+  # PSEN_ & RDCPU_ & !WRCPU_
+
+CSIO_ =>
+    !A13_LINE & A14_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
+  # !A13_LINE & A14_LINE & A15_LINE & PSEN_ & RDCPU_ & !WRCPU_
+  # !A13_LINE & A14_LINE & A15_LINE & PSEN_ & !RDCPU_ & WRCPU_
+  # !A15_LINE & PSEN_ & !RDCPU_ & WRCPU_
+  # !A15_LINE & PSEN_ & RDCPU_ & !WRCPU_
+  # !A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
+  # !A14_LINE & A15_LINE & PSEN_ & !RDCPU_ & WRCPU_
+  # !A14_LINE & A15_LINE & PSEN_ & RDCPU_ & !WRCPU_
+  # !A14_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
+
+CSR_ =>
+    A13_LINE & A14_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
+  # !A14_LINE & !A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
+  # !A13_LINE & A14_LINE & !A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
+  # A13_LINE & A14_LINE & A15_LINE & PSEN_ & !RDCPU_ & WRCPU_
+  # A13_LINE & A14_LINE & A15_LINE & PSEN_ & RDCPU_ & !WRCPU_
+
+DECODE =>
+    DIR , CSIO_ , CSF_ , CSR_ , WR_ , RD_
+
+DIR =>
+    PSEN_ & RDCPU_ & !WRCPU_
+
+E_ =>
+    PSEN_ & RDCPU_ & WRCPU_
+
+RD_ =>
+    PSEN_ & RDCPU_ & !WRCPU_
+
+WR_ =>
+    PSEN_ & !RDCPU_ & WRCPU_
+  # !PSEN_ & RDCPU_ & WRCPU_
+
+ALE_.oe  =>
+    1 
+
+CSF_.oe  =>
+    1 
+
+CSIO_.oe  =>
+    1 
+
+CSR_.oe  =>
+    1 
+
+DIR.oe  =>
+    1 
+
+E_.oe  =>
+    1 
+
+RD_.oe  =>
+    1 
+
+WR_.oe  =>
+    1 
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+    A13_LINE                    7        V        -       -       -     
+    A14_LINE                    6        V        -       -       -     
+    A15_LINE                    5        V        -       -       -     
+    ADDRESS                     0        F        -       -       -     
+    ALE                         8        V        -       -       -     
+    ALE_                        16       V        1       12      1     
+    CSF_                        20       V        5       14      1     
+    CSIO_                       19       V        9       16      1     
+    CSR_                        21       V        5       12      1     
+    DECODE                      0        F        -       -       -     
+    DIR                         18       V        1       16      1     
+    E_                          17       V        1       14      1     
+    PSEN_                       4        V        -       -       -     
+    RDCPU_                      2        V        -       -       -     
+    RD_                         23       V        1       8       1     
+    WRCPU_                      3        V        -       -       -     
+    WR_                         22       V        2       10      1     
+    ALE_                oe      16       D        1       1       0     
+    CSF_                oe      20       D        1       1       0     
+    CSIO_               oe      19       D        1       1       0     
+    CSR_                oe      21       D        1       1       0     
+    DIR                 oe      18       D        1       1       0     
+    E_                  oe      17       D        1       1       0     
+    RD_                 oe      23       D        1       1       0     
+    WR_                 oe      22       D        1       1       0     
+
+
+LEGEND    D : default variable         F : field      G : group
+          I : intermediate variable    N : node       M : extended node
+          U : undefined                V : variable   X : extended variable
+          T : function
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+SP 
+ 05764 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+AR 
+ 00000 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+Pin #23  05808 Mode  -- 
+ 00044 -------------------------------------------- 
+ 00088 ----x----x--x------------------------------- 
+ 00132 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00176 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00220 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00264 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00308 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00352 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00396 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #22  05810 Mode  -- 
+ 00440 -------------------------------------------- 
+ 00484 -----x--x---x------------------------------- 
+ 00528 ----x---x----x------------------------------ 
+ 00572 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00616 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00660 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00748 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00792 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00836 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00880 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #21  05812 Mode  -- 
+ 00924 -------------------------------------------- 
+ 00968 ----x---x----x--x---x---x------------------- 
+ 01012 ----x---x----x---x---x---------------------- 
+ 01056 ----x---x----x---x--x----x------------------ 
+ 01100 -----x--x---x---x---x---x------------------- 
+ 01144 ----x----x--x---x---x---x------------------- 
+ 01188 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01232 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01276 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01320 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01364 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01408 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01452 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #20  05814 Mode  -- 
+ 01496 -------------------------------------------- 
+ 01540 ----x---x----x--x---x----x------------------ 
+ 01584 ----x---x----x--x----x---------------------- 
+ 01628 ----x---x----x------x---x------------------- 
+ 01672 -----x--x---x------------------------------- 
+ 01716 ----x----x--x------------------------------- 
+ 01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01804 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01848 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01892 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01936 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01980 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02024 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02068 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02112 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #19  05816 Mode  -- 
+ 02156 -------------------------------------------- 
+ 02200 ----x---x----x--x---x----x------------------ 
+ 02244 ----x----x--x---x---x----x------------------ 
+ 02288 -----x--x---x---x---x----x------------------ 
+ 02332 -----x--x---x----x-------------------------- 
+ 02376 ----x----x--x----x-------------------------- 
+ 02420 ----x---x----x---x-------------------------- 
+ 02464 -----x--x---x---x----x---------------------- 
+ 02508 ----x----x--x---x----x---------------------- 
+ 02552 ----x---x----x--x----x---------------------- 
+ 02596 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02640 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02684 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02728 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02772 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02816 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02860 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18  05818 Mode  -- 
+ 02904 -------------------------------------------- 
+ 02948 ----x----x--x------------------------------- 
+ 02992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03036 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03080 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03124 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03168 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03212 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03256 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03300 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03344 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03388 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03432 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03476 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03520 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03564 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #17  05820 Mode  -- 
+ 03652 -------------------------------------------- 
+ 03696 ----x---x---x------------------------------- 
+ 03740 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03784 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03828 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03872 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03916 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04004 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04048 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04092 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04136 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04180 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04224 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04268 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #16  05822 Mode  -- 
+ 04312 -------------------------------------------- 
+ 04356 -----------------------------x-------------- 
+ 04400 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04444 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04488 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04532 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04576 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04620 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04664 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04708 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04752 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04796 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04840 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #15  05824 Mode  xx 
+ 04884 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04928 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04972 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05060 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05104 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05148 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05192 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05236 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05280 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05324 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #14  05826 Mode  xx 
+ 05368 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05412 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05456 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05500 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05544 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05588 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05632 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05676 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05720 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                               ______________
+                              |8051_CTRL_DECO|
+                          x---|1           24|---x Vcc                      
+                   RDCPU_ x---|2           23|---x RD_                      
+                   WRCPU_ x---|3           22|---x WR_                      
+                    PSEN_ x---|4           21|---x CSR_                     
+                 A15_LINE x---|5           20|---x CSF_                     
+                 A14_LINE x---|6           19|---x CSIO_                    
+                 A13_LINE x---|7           18|---x DIR                      
+                      ALE x---|8           17|---x E_                       
+                          x---|9           16|---x ALE_                     
+                          x---|10          15|---x                          
+                          x---|11          14|---x                          
+                      GND x---|12          13|---x                          
+                              |______________|
+

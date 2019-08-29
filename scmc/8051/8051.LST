@@ -1,0 +1,92 @@
+LISTING FOR LOGIC DESCRIPTION FILE: 8051.pld                         Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# 60008009
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu Aug 29 10:08:58 2019
+
+  1:Name 8051_CTRL_DECODER;
+  2:Assembly 0001;
+  3:Revision 1.0;
+  4:PartNo U0 G22V10;
+  5:Device G22V10;
+  6:Company MNK / MMS;
+  7:Designer Atanas Bachvaroff;
+  8:Location Sofia,BG,EU;
+  9:Date 28 Aug 2019;
+ 10:
+ 11:/* inputs / CPU */
+ 12:PIN [2..7] = [RDCPU_, WRCPU_, PSEN_, A15_LINE, A14_LINE, A13_LINE];
+ 13:PIN 8 = ALE;
+ 14:
+ 15:/* outputs / system */
+ 16:PIN 16 = ALE_;
+ 17:PIN 17 = E_;
+ 18:PIN [18..23] = [DIR, CSIO_, CSF_, CSR_, WR_, RD_];
+ 19:
+ 20:FIELD ADDRESS = [RDCPU_, WRCPU_, PSEN_, A15_LINE, A14_LINE, A13_LINE];
+ 21:FIELD DECODE = [DIR, CSIO_, CSF_, CSR_, WR_, RD_];
+ 22:
+ 23:/* OE_ 74HC245 U2 U3, 75HC574 U1 */
+ 24:E_ = RDCPU_ & WRCPU_ & PSEN_;
+ 25:
+ 26:/* CP> 74HC574 U1 */
+ 27:ALE_ = !ALE;
+ 28:
+ 29:TABLE ADDRESS => DECODE {
+ 30:/* page 0 - R/W - RAM, PSEN - flash */
+ 31:        'b'011000 => 'b'011010;
+ 32:        'b'101000 => 'b'111001;
+ 33:        'b'110000 => 'b'010110;
+ 34:
+ 35:/* page 1 - R/W - RAM, PSEN - flash */
+ 36:        'b'011001 => 'b'011010;
+ 37:        'b'101001 => 'b'111001;
+ 38:        'b'110001 => 'b'010110;
+ 39:
+ 40:/* page 2 - R/W - RAM, PSEN - flash */
+ 41:        'b'011010 => 'b'011010;
+ 42:        'b'101010 => 'b'111001;
+ 43:        'b'110010 => 'b'010110;
+ 44:
+ 45:/* page 3 - R/W/PSEN - RAM */
+ 46:        'b'011011 => 'b'011010;
+ 47:        'b'101011 => 'b'111001;
+ 48:        'b'110011 => 'b'011010;
+ 49:
+ 50:/* page 4 - R/W/PSEN - RAM */
+ 51:        'b'011100 => 'b'011010;
+ 52:        'b'101100 => 'b'111001;
+ 53:        'b'110100 => 'b'011010;
+
+LISTING FOR LOGIC DESCRIPTION FILE: 8051.pld                         Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# 60008009
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu Aug 29 10:08:58 2019
+
+ 54:
+ 55:/* page 5 - R/W/PSEN - RAM */
+ 56:        'b'011101 => 'b'011010;
+ 57:        'b'101101 => 'b'111001;
+ 58:        'b'110101 => 'b'011010;
+ 59:
+ 60:/* page 6 - R/W/PSEN - RAM */
+ 61:        'b'011110 => 'b'011010;
+ 62:        'b'101110 => 'b'111001;
+ 63:        'b'110110 => 'b'011010;
+ 64:
+ 65:/* page 7 - R/W/PSEN - IO */
+ 66:        'b'011111 => 'b'001110;
+ 67:        'b'101111 => 'b'101101;
+ 68:        'b'110111 => 'b'001110;
+ 69:}
+ 70:
+ 71:
+ 72:
+
+
+
+Jedec Fuse Checksum       (b60c)
+Jedec Transmit Checksum   (1731)
