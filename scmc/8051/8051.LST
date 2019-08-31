@@ -3,7 +3,7 @@ LISTING FOR LOGIC DESCRIPTION FILE: 8051.pld                         Page 1
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# 60008009
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Thu Aug 29 10:08:58 2019
+Created Sat Aug 31 12:28:25 2019
 
   1:Name 8051_CTRL_DECODER;
   2:Assembly 0001;
@@ -16,77 +16,89 @@ Created Thu Aug 29 10:08:58 2019
   9:Date 28 Aug 2019;
  10:
  11:/* inputs / CPU */
- 12:PIN [2..7] = [RDCPU_, WRCPU_, PSEN_, A15_LINE, A14_LINE, A13_LINE];
- 13:PIN 8 = ALE;
- 14:
- 15:/* outputs / system */
- 16:PIN 16 = ALE_;
- 17:PIN 17 = E_;
- 18:PIN [18..23] = [DIR, CSIO_, CSF_, CSR_, WR_, RD_];
+ 12:PIN 2 = ALE;
+ 13:PIN 3 = PSEN_;
+ 14:PIN 4 = A15_LINE;
+ 15:PIN 5 = A14_LINE;
+ 16:PIN 6 = A13_LINE;
+ 17:PIN 7 = RDCPU_;
+ 18:PIN 8 = WRCPU_;
  19:
- 20:FIELD ADDRESS = [RDCPU_, WRCPU_, PSEN_, A15_LINE, A14_LINE, A13_LINE];
- 21:FIELD DECODE = [DIR, CSIO_, CSF_, CSR_, WR_, RD_];
- 22:
- 23:/* OE_ 74HC245 U2 U3, 75HC574 U1 */
- 24:E_ = RDCPU_ & WRCPU_ & PSEN_;
- 25:
- 26:/* CP> 74HC574 U1 */
- 27:ALE_ = !ALE;
- 28:
- 29:TABLE ADDRESS => DECODE {
- 30:/* page 0 - R/W - RAM, PSEN - flash */
- 31:        'b'011000 => 'b'011010;
- 32:        'b'101000 => 'b'111001;
- 33:        'b'110000 => 'b'010110;
+ 20:/* outputs / system / unbuffered / pull-up high */
+ 21:PIN 23 = DIR;
+ 22:PIN 22 = E_;
+ 23:PIN 21 = ALE_;
+ 24:
+ 25:/* outputs / system / buffered / pull-up high */
+ 26:PIN 20 = RD_;
+ 27:PIN 19 = WR_;
+ 28:PIN 18 = CSF_;
+ 29:PIN 17 = CSR_;
+ 30:pin 16 = CSIO_;
+ 31:
+ 32:FIELD ADDRESS = [RDCPU_, WRCPU_, PSEN_, A15_LINE, A14_LINE, A13_LINE];
+ 33:FIELD DECODE = [DIR, CSIO_, CSF_, CSR_, WR_, RD_];
  34:
- 35:/* page 1 - R/W - RAM, PSEN - flash */
- 36:        'b'011001 => 'b'011010;
- 37:        'b'101001 => 'b'111001;
- 38:        'b'110001 => 'b'010110;
- 39:
- 40:/* page 2 - R/W - RAM, PSEN - flash */
- 41:        'b'011010 => 'b'011010;
- 42:        'b'101010 => 'b'111001;
- 43:        'b'110010 => 'b'010110;
- 44:
- 45:/* page 3 - R/W/PSEN - RAM */
- 46:        'b'011011 => 'b'011010;
- 47:        'b'101011 => 'b'111001;
- 48:        'b'110011 => 'b'011010;
- 49:
- 50:/* page 4 - R/W/PSEN - RAM */
- 51:        'b'011100 => 'b'011010;
- 52:        'b'101100 => 'b'111001;
- 53:        'b'110100 => 'b'011010;
+ 35:/* OE_ 74HC245 U2 U3, 75HC574 U1 */
+ 36:E_ = RDCPU_ & WRCPU_ & PSEN_;
+ 37:
+ 38:/* CP> 74HC574 U1 */
+ 39:ALE_ = !ALE;
+ 40:
+ 41:TABLE ADDRESS => DECODE {
+ 42:/* page 0 - R/W - RAM, PSEN - flash */
+ 43:        'b'011000 => 'b'011010;
+ 44:        'b'101000 => 'b'111001;
+ 45:        'b'110000 => 'b'010110;
+ 46:
+ 47:/* page 1 - R/W - RAM, PSEN - flash */
+ 48:        'b'011001 => 'b'011010;
+ 49:        'b'101001 => 'b'111001;
+ 50:        'b'110001 => 'b'010110;
+ 51:
+ 52:/* page 2 - R/W - RAM, PSEN - flash */
+ 53:        'b'011010 => 'b'011010;
 
 LISTING FOR LOGIC DESCRIPTION FILE: 8051.pld                         Page 2
 
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# 60008009
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Thu Aug 29 10:08:58 2019
+Created Sat Aug 31 12:28:25 2019
 
- 54:
- 55:/* page 5 - R/W/PSEN - RAM */
- 56:        'b'011101 => 'b'011010;
- 57:        'b'101101 => 'b'111001;
- 58:        'b'110101 => 'b'011010;
- 59:
- 60:/* page 6 - R/W/PSEN - RAM */
- 61:        'b'011110 => 'b'011010;
- 62:        'b'101110 => 'b'111001;
- 63:        'b'110110 => 'b'011010;
- 64:
- 65:/* page 7 - R/W/PSEN - IO */
- 66:        'b'011111 => 'b'001110;
- 67:        'b'101111 => 'b'101101;
- 68:        'b'110111 => 'b'001110;
- 69:}
- 70:
+ 54:        'b'101010 => 'b'111001;
+ 55:        'b'110010 => 'b'010110;
+ 56:
+ 57:/* page 3 - R/W/PSEN - RAM */
+ 58:        'b'011011 => 'b'011010;
+ 59:        'b'101011 => 'b'111001;
+ 60:        'b'110011 => 'b'011010;
+ 61:
+ 62:/* page 4 - R/W/PSEN - RAM */
+ 63:        'b'011100 => 'b'011010;
+ 64:        'b'101100 => 'b'111001;
+ 65:        'b'110100 => 'b'011010;
+ 66:
+ 67:/* page 5 - R/W/PSEN - RAM */
+ 68:        'b'011101 => 'b'011010;
+ 69:        'b'101101 => 'b'111001;
+ 70:        'b'110101 => 'b'011010;
  71:
- 72:
+ 72:/* page 6 - R/W/PSEN - RAM */
+ 73:        'b'011110 => 'b'011010;
+ 74:        'b'101110 => 'b'111001;
+ 75:        'b'110110 => 'b'011010;
+ 76:
+ 77:/* page 7 - R/W/PSEN - IO */
+ 78:        'b'011111 => 'b'001110;
+ 79:        'b'101111 => 'b'101101;
+ 80:        'b'110111 => 'b'001110;
+ 81:}
+ 82:
+ 83:
+ 84:
 
 
 
-Jedec Fuse Checksum       (b60c)
-Jedec Transmit Checksum   (1731)
+Jedec Fuse Checksum       (b6c0)
+Jedec Transmit Checksum   (1755)

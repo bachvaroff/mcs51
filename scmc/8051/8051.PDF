@@ -5,7 +5,7 @@
   {Program "CUPL(WM) Version 5.0a"}
   {DBtype "Schematic"}
   {DBvrev 1.01}
-  {DBtime "Thu Aug 29 10:08:58 2019 "}
+  {DBtime "Sat Aug 31 12:28:25 2019 "}
   {DBunit "MIL"}
   {DBgrid 10}
   {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
@@ -33,21 +33,21 @@
  {SYMBOL
   {PIN_DEF
    [Ly "PINCON"]
-   {P RDCPU_ {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
-   {P WRCPU_ {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
-   {P PSEN_ {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
-   {P A15_LINE {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
-   {P A14_LINE {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
-   {P A13_LINE {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
-   {P ALE {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
-   {P ALE_ {Pt "I/O"}{Lq 0}{Ploc 330 20}}
-   {P E_ {Pt "I/O"}{Lq 0}{Ploc 330 40}}
-   {P DIR {Pt "I/O"}{Lq 0}{Ploc 330 60}}
-   {P CSIO_ {Pt "I/O"}{Lq 0}{Ploc 330 80}}
-   {P CSF_ {Pt "I/O"}{Lq 0}{Ploc 330 100}}
-   {P CSR_ {Pt "I/O"}{Lq 0}{Ploc 330 120}}
-   {P WR_ {Pt "I/O"}{Lq 0}{Ploc 330 140}}
-   {P RD_ {Pt "I/O"}{Lq 0}{Ploc 330 160}}
+   {P ALE {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
+   {P PSEN_ {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
+   {P A15_LINE {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
+   {P A14_LINE {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
+   {P A13_LINE {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
+   {P RDCPU_ {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
+   {P WRCPU_ {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
+   {P CSIO_ {Pt "I/O"}{Lq 0}{Ploc 330 20}}
+   {P CSR_ {Pt "I/O"}{Lq 0}{Ploc 330 40}}
+   {P CSF_ {Pt "I/O"}{Lq 0}{Ploc 330 60}}
+   {P WR_ {Pt "I/O"}{Lq 0}{Ploc 330 80}}
+   {P RD_ {Pt "I/O"}{Lq 0}{Ploc 330 100}}
+   {P ALE_ {Pt "I/O"}{Lq 0}{Ploc 330 120}}
+   {P E_ {Pt "I/O"}{Lq 0}{Ploc 330 140}}
+   {P DIR {Pt "I/O"}{Lq 0}{Ploc 330 160}}
   }
 
   {PKG
@@ -98,22 +98,22 @@
    {L 300 160 330 160}
    [Ly "PINNAM"]
    [Tj "LC"]
-   {T "RDCPU_" 140 140}
-   {T "WRCPU_" 140 120}
-   {T "PSEN_" 140 100}
-   {T "A15_LINE" 140 80}
-   {T "A14_LINE" 140 60}
-   {T "A13_LINE" 140 40}
-   {T "ALE" 140 20}
+   {T "ALE" 140 140}
+   {T "PSEN_" 140 120}
+   {T "A15_LINE" 140 100}
+   {T "A14_LINE" 140 80}
+   {T "A13_LINE" 140 60}
+   {T "RDCPU_" 140 40}
+   {T "WRCPU_" 140 20}
    [Tj "RC"]
-   {T "ALE_" 290 20}
-   {T "E_" 290 40}
-   {T "DIR" 290 60}
-   {T "CSIO_" 290 80}
-   {T "CSF_" 290 100}
-   {T "CSR_" 290 120}
-   {T "WR_" 290 140}
-   {T "RD_" 290 160}
+   {T "CSIO_" 290 20}
+   {T "CSR_" 290 40}
+   {T "CSF_" 290 60}
+   {T "WR_" 290 80}
+   {T "RD_" 290 100}
+   {T "ALE_" 290 120}
+   {T "E_" 290 140}
+   {T "DIR" 290 160}
    [Ly "DEVICE"]
    [Tj "CT"]
    {T "G22V10" 215 -10}
@@ -137,9 +137,7 @@
   }
 
   {NET_DEF
-   {N RDCPU_
-   }
-   {N WRCPU_
+   {N ALE
    }
    {N PSEN_
    }
@@ -149,23 +147,25 @@
    }
    {N A13_LINE
    }
-   {N ALE
+   {N RDCPU_
+   }
+   {N WRCPU_
+   }
+   {N CSIO_
+   }
+   {N CSR_
+   }
+   {N CSF_
+   }
+   {N WR_
+   }
+   {N RD_
    }
    {N ALE_
    }
    {N E_
    }
    {N DIR
-   }
-   {N CSIO_
-   }
-   {N CSF_
-   }
-   {N CSR_
-   }
-   {N WR_
-   }
-   {N RD_
    }
   }
 

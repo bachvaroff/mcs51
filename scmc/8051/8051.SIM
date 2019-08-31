@@ -1,19 +1,19 @@
 %SIGNAL
-PIN   7 =  A13_LINE 
-PIN   6 =  A14_LINE 
-PIN   5 =  A15_LINE 
-PIN   8 =  ALE 
-PIN  16 =  ALE_ 
-PIN  20 =  CSF_ 
-PIN  19 =  CSIO_ 
-PIN  21 =  CSR_ 
-PIN  18 =  DIR 
-PIN  17 =  E_ 
-PIN   4 =  PSEN_ 
-PIN   2 =  RDCPU_ 
-PIN  23 =  RD_ 
-PIN   3 =  WRCPU_ 
-PIN  22 =  WR_ 
+PIN   6 =  A13_LINE 
+PIN   5 =  A14_LINE 
+PIN   4 =  A15_LINE 
+PIN   2 =  ALE 
+PIN  21 =  ALE_ 
+PIN  18 =  CSF_ 
+PIN  16 =  CSIO_ 
+PIN  17 =  CSR_ 
+PIN  23 =  DIR 
+PIN  22 =  E_ 
+PIN   3 =  PSEN_ 
+PIN   7 =  RDCPU_ 
+PIN  20 =  RD_ 
+PIN   8 =  WRCPU_ 
+PIN  19 =  WR_ 
 %END
 
 %FIELD
