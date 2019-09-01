@@ -3,7 +3,7 @@ LISTING FOR LOGIC DESCRIPTION FILE: 8051.pld                         Page 1
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# 60008009
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Sun Sep 01 12:16:49 2019
+Created Sun Sep 01 13:59:32 2019
 
   1:Name 8051_CTRL_DECODER;
   2:Assembly 0001;
@@ -50,12 +50,12 @@ Created Sun Sep 01 12:16:49 2019
  43:        'b'011000 => 'b'011010;
  44:        'b'101000 => 'b'111001;
  45:        'b'110000 => 'b'010110;
- 46:
+ 46:        
  47:/* page 1 - R/W - RAM, PSEN - flash */
  48:        'b'011001 => 'b'011010;
  49:        'b'101001 => 'b'111001;
  50:        'b'110001 => 'b'010110;
- 51:
+ 51:        
  52:/* page 2 - R/W - RAM, PSEN - flash */
  53:        'b'011010 => 'b'011010;
 
@@ -64,41 +64,47 @@ LISTING FOR LOGIC DESCRIPTION FILE: 8051.pld                         Page 2
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# 60008009
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Sun Sep 01 12:16:49 2019
+Created Sun Sep 01 13:59:32 2019
 
  54:        'b'101010 => 'b'111001;
  55:        'b'110010 => 'b'010110;
- 56:
+ 56:        
  57:/* page 3 - R/W/PSEN - RAM */
  58:        'b'011011 => 'b'011010;
  59:        'b'101011 => 'b'111001;
  60:        'b'110011 => 'b'011010;
- 61:
+ 61:        
  62:/* page 4 - R/W/PSEN - RAM */
  63:        'b'011100 => 'b'011010;
  64:        'b'101100 => 'b'111001;
  65:        'b'110100 => 'b'011010;
- 66:
+ 66:        
  67:/* page 5 - R/W/PSEN - RAM */
  68:        'b'011101 => 'b'011010;
  69:        'b'101101 => 'b'111001;
  70:        'b'110101 => 'b'011010;
- 71:
+ 71:        
  72:/* page 6 - R/W/PSEN - RAM */
  73:        'b'011110 => 'b'011010;
  74:        'b'101110 => 'b'111001;
  75:        'b'110110 => 'b'011010;
- 76:
+ 76:        
  77:/* page 7 - R/W/PSEN - IO */
  78:        'b'011111 => 'b'001110;
  79:        'b'101111 => 'b'101101;
  80:        'b'110111 => 'b'001110;
- 81:}
- 82:
- 83:
- 84:
+ 81:        
+ 82:/* bus error */
+ 83:        'b'001xxx => 'b'111111;
+ 84:        'b'100xxx => 'b'111111;
+ 85:        'b'010xxx => 'b'111111;
+ 86:        'b'000xxx => 'b'111111;
+ 87:}
+ 88:
+ 89:
+ 90:
 
 
 
-Jedec Fuse Checksum       (dd51)
-Jedec Transmit Checksum   (5da2)
+Jedec Fuse Checksum       (bd85)
+Jedec Transmit Checksum   (26ff)

@@ -26,34 +26,31 @@ FIELD DECODE = DIR,CSIO_,CSF_,CSR_,WR_,RD_
     ALE
 
 !CSF_ =>
-    !PSEN_ & !RDCPU_
-  # !PSEN_ & !WRCPU_
-  # !RDCPU_ & !WRCPU_
-  # !A13_LINE & !A15_LINE & !PSEN_
-  # !A14_LINE & !A15_LINE & !PSEN_
-  # PSEN_ & RDCPU_ & WRCPU_
+    PSEN_ & RDCPU_ & WRCPU_
+  # !A13_LINE & !A15_LINE & RDCPU_ & WRCPU_
+  # !A14_LINE & !A15_LINE & RDCPU_ & WRCPU_
 
 !CSIO_ =>
-    !PSEN_ & !RDCPU_
-  # !PSEN_ & !WRCPU_
-  # !RDCPU_ & !WRCPU_
-  # A13_LINE & A14_LINE & A15_LINE
-  # PSEN_ & RDCPU_ & WRCPU_
+    PSEN_ & RDCPU_ & WRCPU_
+  # A13_LINE & A14_LINE & A15_LINE & PSEN_ & RDCPU_
+  # A13_LINE & A14_LINE & A15_LINE & PSEN_ & WRCPU_
+  # A13_LINE & A14_LINE & A15_LINE & RDCPU_ & WRCPU_
 
 !CSR_ =>
-    !A13_LINE & A15_LINE
-  # !A14_LINE & A15_LINE
-  # !A15_LINE & PSEN_
-  # !PSEN_ & !RDCPU_
-  # !PSEN_ & !WRCPU_
-  # !RDCPU_ & !WRCPU_
-  # A13_LINE & A14_LINE & !A15_LINE
+    !A13_LINE & PSEN_ & RDCPU_
+  # !A14_LINE & PSEN_ & RDCPU_
+  # !A15_LINE & PSEN_ & RDCPU_
+  # !A13_LINE & PSEN_ & WRCPU_
+  # !A14_LINE & PSEN_ & WRCPU_
+  # !A15_LINE & PSEN_ & WRCPU_
   # PSEN_ & RDCPU_ & WRCPU_
+  # !A13_LINE & A15_LINE & RDCPU_ & WRCPU_
+  # !A14_LINE & A15_LINE & RDCPU_ & WRCPU_
+  # A13_LINE & A14_LINE & !A15_LINE & RDCPU_ & WRCPU_
 
 !DIR =>
-    !PSEN_
-  # !RDCPU_
-  # WRCPU_
+    PSEN_ & WRCPU_
+  # RDCPU_ & WRCPU_
 
 !E_ =>
     !PSEN_
@@ -61,14 +58,11 @@ FIELD DECODE = DIR,CSIO_,CSF_,CSR_,WR_,RD_
   # !WRCPU_
 
 !RD_ =>
-    !PSEN_
-  # !RDCPU_
-  # WRCPU_
+    PSEN_ & WRCPU_
+  # RDCPU_ & WRCPU_
 
 !WR_ =>
-    !WRCPU_
-  # PSEN_ & RDCPU_
-  # !PSEN_ & !RDCPU_
+    PSEN_ & RDCPU_
 
 ALE_.oe  =>
     1 
