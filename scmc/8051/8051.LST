@@ -3,7 +3,7 @@ LISTING FOR LOGIC DESCRIPTION FILE: 8051.pld                         Page 1
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# 60008009
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Sat Aug 31 12:28:25 2019
+Created Sun Sep 01 11:43:51 2019
 
   1:Name 8051_CTRL_DECODER;
   2:Assembly 0001;
@@ -36,8 +36,8 @@ Created Sat Aug 31 12:28:25 2019
  29:PIN 17 = CSR_;
  30:pin 16 = CSIO_;
  31:
- 32:FIELD ADDRESS = [RDCPU_, WRCPU_, PSEN_, A15_LINE, A14_LINE, A13_LINE];
- 33:FIELD DECODE = [DIR, CSIO_, CSF_, CSR_, WR_, RD_];
+ 32:FIELD ADDRESS = [A13_LINE, A14_LINE, A15_LINE, PSEN_, WRCPU_, RDCPU_];
+ 33:FIELD DECODE = [RD_, WR_, CSR_, CSF_, CSIO_, DIR];
  34:
  35:/* OE_ 74HC245 U2 U3, 75HC574 U1 */
  36:E_ = RDCPU_ & WRCPU_ & PSEN_;
@@ -64,7 +64,7 @@ LISTING FOR LOGIC DESCRIPTION FILE: 8051.pld                         Page 2
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# 60008009
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Sat Aug 31 12:28:25 2019
+Created Sun Sep 01 11:43:51 2019
 
  54:        'b'101010 => 'b'111001;
  55:        'b'110010 => 'b'010110;
@@ -100,5 +100,5 @@ Created Sat Aug 31 12:28:25 2019
 
 
 
-Jedec Fuse Checksum       (b6c0)
-Jedec Transmit Checksum   (1755)
+Jedec Fuse Checksum       (b5df)
+Jedec Transmit Checksum   (175f)

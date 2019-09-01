@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Sat Aug 31 12:28:25 2019
+Created         Sun Sep 01 11:43:51 2019
 Name            8051_CTRL_DECODER
 Partno          U0 G22V10
 Revision        1.0
@@ -20,51 +20,51 @@ Location        Sofia,BG,EU
 ===============================================================================
 
 ADDRESS =>
-    RDCPU_ , WRCPU_ , PSEN_ , A15_LINE , A14_LINE , A13_LINE
+    A13_LINE , A14_LINE , A15_LINE , PSEN_ , WRCPU_ , RDCPU_
 
 ALE_ =>
     !ALE
 
 CSF_ =>
-    !A13_LINE & A14_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
-  # !A14_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
-  # A13_LINE & A14_LINE & !PSEN_ & RDCPU_ & WRCPU_
-  # PSEN_ & !RDCPU_ & WRCPU_
-  # PSEN_ & RDCPU_ & !WRCPU_
+    A13_LINE & A14_LINE & !A15_LINE & PSEN_ & RDCPU_ & WRCPU_
+  # A13_LINE & A14_LINE & !A15_LINE & !PSEN_ & !WRCPU_
+  # A13_LINE & A14_LINE & !A15_LINE & !PSEN_ & !RDCPU_ & WRCPU_
+  # !A13_LINE & A14_LINE & A15_LINE & PSEN_ & RDCPU_ & WRCPU_
+  # A13_LINE & !A14_LINE & A15_LINE & PSEN_ & RDCPU_ & WRCPU_
 
 CSIO_ =>
-    !A13_LINE & A14_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
-  # !A13_LINE & A14_LINE & A15_LINE & PSEN_ & RDCPU_ & !WRCPU_
-  # !A13_LINE & A14_LINE & A15_LINE & PSEN_ & !RDCPU_ & WRCPU_
-  # !A15_LINE & PSEN_ & !RDCPU_ & WRCPU_
-  # !A15_LINE & PSEN_ & RDCPU_ & !WRCPU_
-  # !A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
-  # !A14_LINE & A15_LINE & PSEN_ & !RDCPU_ & WRCPU_
-  # !A14_LINE & A15_LINE & PSEN_ & RDCPU_ & !WRCPU_
-  # !A14_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
+    !A13_LINE & A14_LINE & A15_LINE
+  # A13_LINE & A14_LINE & !A15_LINE
 
 CSR_ =>
-    A13_LINE & A14_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
-  # !A14_LINE & !A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
-  # !A13_LINE & A14_LINE & !A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
-  # A13_LINE & A14_LINE & A15_LINE & PSEN_ & !RDCPU_ & WRCPU_
-  # A13_LINE & A14_LINE & A15_LINE & PSEN_ & RDCPU_ & !WRCPU_
+    A13_LINE & A14_LINE & !A15_LINE & PSEN_ & !RDCPU_ & WRCPU_
+  # A13_LINE & A14_LINE & !A15_LINE & PSEN_ & !WRCPU_
+  # A13_LINE & A14_LINE & !A15_LINE & RDCPU_ & WRCPU_
+  # !A13_LINE & A14_LINE & A15_LINE
+  # A13_LINE & !A14_LINE & A15_LINE
 
 DECODE =>
-    DIR , CSIO_ , CSF_ , CSR_ , WR_ , RD_
+    RD_ , WR_ , CSR_ , CSF_ , CSIO_ , DIR
 
 DIR =>
-    PSEN_ & RDCPU_ & !WRCPU_
+    A13_LINE & !A14_LINE & A15_LINE
 
 E_ =>
     PSEN_ & RDCPU_ & WRCPU_
 
 RD_ =>
-    PSEN_ & RDCPU_ & !WRCPU_
+    A13_LINE & !A14_LINE & A15_LINE
 
 WR_ =>
-    PSEN_ & !RDCPU_ & WRCPU_
-  # !PSEN_ & RDCPU_ & WRCPU_
+    A13_LINE & A14_LINE & !A15_LINE & PSEN_ & !RDCPU_ & WRCPU_
+  # A13_LINE & !A14_LINE & A15_LINE & PSEN_ & !RDCPU_ & WRCPU_
+  # !A13_LINE & A14_LINE & A15_LINE & PSEN_ & !RDCPU_ & WRCPU_
+  # !A13_LINE & A14_LINE & A15_LINE & !PSEN_
+  # A13_LINE & !A14_LINE & A15_LINE & !PSEN_
+  # A13_LINE & A14_LINE & !A15_LINE & !PSEN_
+  # !A13_LINE & A14_LINE & A15_LINE & PSEN_ & !WRCPU_
+  # A13_LINE & !A14_LINE & A15_LINE & PSEN_ & !WRCPU_
+  # A13_LINE & A14_LINE & !A15_LINE & PSEN_ & !WRCPU_
 
 ALE_.oe  =>
     1 
@@ -106,7 +106,7 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
     ALE                         2        V        -       -       -     
     ALE_                        21       V        1       12      1     
     CSF_                        18       V        5       16      1     
-    CSIO_                       16       V        9       12      1     
+    CSIO_                       16       V        2       12      1     
     CSR_                        17       V        5       14      1     
     DECODE                      0        F        -       -       -     
     DIR                         23       V        1       8       1     
@@ -115,7 +115,7 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
     RDCPU_                      7        V        -       -       -     
     RD_                         20       V        1       14      1     
     WRCPU_                      8        V        -       -       -     
-    WR_                         19       V        2       16      1     
+    WR_                         19       V        9       16      1     
     ALE_                oe      21       D        1       1       0     
     CSF_                oe      18       D        1       1       0     
     CSIO_               oe      16       D        1       1       0     
@@ -144,7 +144,7 @@ AR
 
 Pin #23  05808 Mode  -- 
  00044 -------------------------------------------- 
- 00088 --------x---------------x----x-------------- 
+ 00088 ------------x----x--x----------------------- 
  00132 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00176 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00220 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -180,7 +180,7 @@ Pin #21  05812 Mode  --
  01452 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #20  05814 Mode  -- 
  01496 -------------------------------------------- 
- 01540 --------x---------------x----x-------------- 
+ 01540 ------------x----x--x----------------------- 
  01584 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01628 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01672 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -196,15 +196,15 @@ Pin #20  05814 Mode  --
  02112 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #19  05816 Mode  -- 
  02156 -------------------------------------------- 
- 02200 --------x----------------x--x--------------- 
- 02244 ---------x--------------x---x--------------- 
- 02288 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 02332 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 02376 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 02420 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 02464 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 02508 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 02552 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02200 --------x----x--x---x----x--x--------------- 
+ 02244 --------x---x----x--x----x--x--------------- 
+ 02288 --------x---x---x----x---x--x--------------- 
+ 02332 ---------x--x---x----x---------------------- 
+ 02376 ---------x--x----x--x----------------------- 
+ 02420 ---------x---x--x---x----------------------- 
+ 02464 --------x---x---x----x-------x-------------- 
+ 02508 --------x---x----x--x--------x-------------- 
+ 02552 --------x----x--x---x--------x-------------- 
  02596 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  02640 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  02684 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -214,11 +214,11 @@ Pin #19  05816 Mode  --
  02860 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #18  05818 Mode  -- 
  02904 -------------------------------------------- 
- 02948 ---------x--x---x----x--x---x--------------- 
- 02992 ---------x--x----x------x---x--------------- 
- 03036 ---------x------x---x---x---x--------------- 
- 03080 --------x----------------x--x--------------- 
- 03124 --------x---------------x----x-------------- 
+ 02948 --------x----x--x---x---x---x--------------- 
+ 02992 ---------x---x--x---x--------x-------------- 
+ 03036 ---------x---x--x---x----x--x--------------- 
+ 03080 --------x---x---x----x--x---x--------------- 
+ 03124 --------x---x----x--x---x---x--------------- 
  03168 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03212 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03256 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -232,11 +232,11 @@ Pin #18  05818 Mode  --
  03608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #17  05820 Mode  -- 
  03652 -------------------------------------------- 
- 03696 ---------x--x---x---x---x---x--------------- 
- 03740 ---------x---x---x------x---x--------------- 
- 03784 ---------x---x--x----x--x---x--------------- 
- 03828 --------x---x---x---x----x--x--------------- 
- 03872 --------x---x---x---x---x----x-------------- 
+ 03696 --------x----x--x---x----x--x--------------- 
+ 03740 --------x----x--x---x--------x-------------- 
+ 03784 -------------x--x---x---x---x--------------- 
+ 03828 ------------x---x----x---------------------- 
+ 03872 ------------x----x--x----------------------- 
  03916 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04004 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -248,15 +248,15 @@ Pin #17  05820 Mode  --
  04268 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #16  05822 Mode  -- 
  04312 -------------------------------------------- 
- 04356 ---------x--x---x----x--x---x--------------- 
- 04400 --------x---x---x----x--x----x-------------- 
- 04444 --------x---x---x----x---x--x--------------- 
- 04488 --------x----x-----------x--x--------------- 
- 04532 --------x----x----------x----x-------------- 
- 04576 ---------x---x----------x---x--------------- 
- 04620 --------x---x----x-------x--x--------------- 
- 04664 --------x---x----x------x----x-------------- 
- 04708 ---------x--x----x------x---x--------------- 
+ 04356 ------------x---x----x---------------------- 
+ 04400 -------------x--x---x----------------------- 
+ 04444 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04488 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04532 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04576 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04620 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04664 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04708 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04752 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04796 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04840 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
