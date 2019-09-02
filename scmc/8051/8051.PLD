@@ -79,6 +79,9 @@ TABLE ADDRESS => DECODE {
 	'b'101111 => 'b'101101;
 	'b'110111 => 'b'001110;
 	
+/* bus disabled */
+	'b'111xxx => 'b'111111;
+	
 /* bus error */
 	'b'001xxx => 'b'111111;
 	'b'100xxx => 'b'111111;
