@@ -3,7 +3,7 @@ LISTING FOR LOGIC DESCRIPTION FILE: 8051.pld                         Page 1
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# 60008009
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Mon Sep 02 11:17:15 2019
+Created Mon Sep 02 11:44:55 2019
 
   1:Name 8051_CTRL_DECODER;
   2:Assembly 0001;
@@ -53,7 +53,7 @@ Created Mon Sep 02 11:17:15 2019
  46:        'b'101001 => 'b'1011001;
  47:        'b'110001 => 'b'0010110;
  48:        
- 49:/* page 2 - 8K - R/W/PSEN - flash */
+ 49:/* page 2 - 8K - R/W/PSEN - RAM */
  50:        'b'011010 => 'b'0011010;
  51:        'b'101010 => 'b'1011001;
  52:        'b'110010 => 'b'0011010;
@@ -64,7 +64,7 @@ LISTING FOR LOGIC DESCRIPTION FILE: 8051.pld                         Page 2
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# 60008009
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Mon Sep 02 11:17:15 2019
+Created Mon Sep 02 11:44:55 2019
 
  54:/* page 3 - 8K - R/W/PSEN - RAM */
  55:        'b'011011 => 'b'0011010;
@@ -107,4 +107,4 @@ Created Mon Sep 02 11:17:15 2019
 
 
 Jedec Fuse Checksum       (a682)
-Jedec Transmit Checksum   (f827)
+Jedec Transmit Checksum   (f82b)
