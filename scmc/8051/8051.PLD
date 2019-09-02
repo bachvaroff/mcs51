@@ -17,12 +17,12 @@ PIN 6 = A13_LINE;
 PIN 7 = RDCPU_;
 PIN 8 = WRCPU_;
 
-/* outputs / system / unbuffered / pull-up high */
+/* outputs / system / internal control bus / unbuffered / pull-up high at GAL side */
 PIN 23 = DIR;
 PIN 22 = E_;
 PIN 21 = ALE_;
 
-/* outputs / system / buffered / pull-up high */
+/* outputs / system / external control bus / buffered / pull-up high at external bus side */
 PIN 20 = RD_;
 PIN 19 = WR_;
 PIN 18 = CSF_;
@@ -30,62 +30,59 @@ PIN 17 = CSR_;
 pin 16 = CSIO_;
 
 FIELD ADDRESS = [RDCPU_, WRCPU_, PSEN_, A15_LINE, A14_LINE, A13_LINE];
-FIELD DECODE = [DIR, CSIO_, CSF_, CSR_, WR_, RD_];
-
-/* OE_ 74HC245 U2 U3, 75HC574 U1 */
-E_ = RDCPU_ & WRCPU_ & PSEN_;
+FIELD DECODE = [DIR, E_, CSIO_, CSF_, CSR_, WR_, RD_];
 
 /* CP> 74HC574 U1 */
 ALE_ = !ALE;
 
 TABLE ADDRESS => DECODE {
-/* page 0 - R/W - RAM, PSEN - flash */
-	'b'011000 => 'b'011010;
-	'b'101000 => 'b'111001;
-	'b'110000 => 'b'010110;
+/* page 0 - 8K - R/W - RAM, PSEN - flash */
+	'b'011000 => 'b'0011010;
+	'b'101000 => 'b'1011001;
+	'b'110000 => 'b'0010110;
 	
-/* page 1 - R/W - RAM, PSEN - flash */
-	'b'011001 => 'b'011010;
-	'b'101001 => 'b'111001;
-	'b'110001 => 'b'010110;
+/* page 1 - 8K - R/W - RAM, PSEN - flash */
+	'b'011001 => 'b'0011010;
+	'b'101001 => 'b'1011001;
+	'b'110001 => 'b'0010110;
 	
-/* page 2 - R/W - RAM, PSEN - flash */
-	'b'011010 => 'b'011010;
-	'b'101010 => 'b'111001;
-	'b'110010 => 'b'010110;
+/* page 2 - 8K - R/W/PSEN - flash */
+	'b'011010 => 'b'0011010;
+	'b'101010 => 'b'1011001;
+	'b'110010 => 'b'0011010;
 	
-/* page 3 - R/W/PSEN - RAM */
-	'b'011011 => 'b'011010;
-	'b'101011 => 'b'111001;
-	'b'110011 => 'b'011010;
+/* page 3 - 8K - R/W/PSEN - RAM */
+	'b'011011 => 'b'0011010;
+	'b'101011 => 'b'1011001;
+	'b'110011 => 'b'0011010;
 	
-/* page 4 - R/W/PSEN - RAM */
-	'b'011100 => 'b'011010;
-	'b'101100 => 'b'111001;
-	'b'110100 => 'b'011010;
+/* page 4 - 8K - R/W/PSEN - RAM */
+	'b'011100 => 'b'0011010;
+	'b'101100 => 'b'1011001;
+	'b'110100 => 'b'0011010;
 	
-/* page 5 - R/W/PSEN - RAM */
-	'b'011101 => 'b'011010;
-	'b'101101 => 'b'111001;
-	'b'110101 => 'b'011010;
+/* page 5 - 8K - R/W/PSEN - RAM */
+	'b'011101 => 'b'0011010;
+	'b'101101 => 'b'1011001;
+	'b'110101 => 'b'0011010;
 	
-/* page 6 - R/W/PSEN - RAM */
-	'b'011110 => 'b'011010;
-	'b'101110 => 'b'111001;
-	'b'110110 => 'b'011010;
+/* page 6 - 8K - R/W/PSEN - RAM */
+	'b'011110 => 'b'0011010;
+	'b'101110 => 'b'1011001;
+	'b'110110 => 'b'0011010;
 	
-/* page 7 - R/W/PSEN - IO */
-	'b'011111 => 'b'001110;
-	'b'101111 => 'b'101101;
-	'b'110111 => 'b'001110;
+/* page 7 - 8K - R/W/PSEN - IO */
+	'b'011111 => 'b'0001110;
+	'b'101111 => 'b'1001101;
+	'b'110111 => 'b'0001110;
 	
-/* bus disabled */
-	'b'111xxx => 'b'111111;
+/* bus disabled / idle mode / external bus floating */
+	'b'111xxx => 'b'1111111;
 	
-/* bus error */
-	'b'001xxx => 'b'111111;
-	'b'100xxx => 'b'111111;
-	'b'010xxx => 'b'111111;
-	'b'000xxx => 'b'111111;
+/* bus error / external bus floating */
+	'b'001xxx => 'b'1111111;
+	'b'100xxx => 'b'1111111;
+	'b'010xxx => 'b'1111111;
+	'b'000xxx => 'b'1111111;
 }
 

@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Mon Sep 02 08:17:37 2019
+Created         Mon Sep 02 11:17:15 2019
 Name            8051_CTRL_DECODER
 Partno          U0 G22V10
 Revision        1.0
@@ -26,8 +26,7 @@ ADDRESS =>
     ALE
 
 !CSF_ =>
-    !A13_LINE & !A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
-  # !A14_LINE & !A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
+    !A14_LINE & !A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
 
 !CSIO_ =>
     A13_LINE & A14_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
@@ -41,21 +40,21 @@ ADDRESS =>
   # !A13_LINE & PSEN_ & RDCPU_ & !WRCPU_
   # !A14_LINE & PSEN_ & RDCPU_ & !WRCPU_
   # !A15_LINE & PSEN_ & RDCPU_ & !WRCPU_
-  # !A13_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
+  # !A13_LINE & A14_LINE & !PSEN_ & RDCPU_ & WRCPU_
   # !A14_LINE & A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
-  # A13_LINE & A14_LINE & !A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
+  # A14_LINE & !A15_LINE & !PSEN_ & RDCPU_ & WRCPU_
 
 DECODE =>
-    DIR , CSIO_ , CSF_ , CSR_ , WR_ , RD_
+    DIR , E_ , CSIO_ , CSF_ , CSR_ , WR_ , RD_
 
 !DIR =>
     !PSEN_ & RDCPU_ & WRCPU_
   # PSEN_ & !RDCPU_ & WRCPU_
 
 !E_ =>
-    !PSEN_
-  # !RDCPU_
-  # !WRCPU_
+    !PSEN_ & RDCPU_ & WRCPU_
+  # PSEN_ & !RDCPU_ & WRCPU_
+  # PSEN_ & RDCPU_ & !WRCPU_
 
 !RD_ =>
     !PSEN_ & RDCPU_ & WRCPU_
@@ -103,7 +102,7 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
     ADDRESS                     0        F        -       -       -     
     ALE                         2        V        -       -       -     
     ALE_                        21       V        1       12      2     
-    CSF_                        18       V        2       16      2     
+    CSF_                        18       V        1       16      2     
     CSIO_                       16       V        3       12      2     
     CSR_                        17       V        9       14      2     
     DECODE                      0        F        -       -       -     
@@ -152,9 +151,9 @@ Pin #23  05808 Mode  x-
  00396 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #22  05810 Mode  x- 
  00440 -------------------------------------------- 
- 00484 ---------x---------------------------------- 
- 00528 -------------------------x------------------ 
- 00572 -----------------------------x-------------- 
+ 00484 ---------x--------------x---x--------------- 
+ 00528 --------x----------------x--x--------------- 
+ 00572 --------x---------------x----x-------------- 
  00616 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00660 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -212,8 +211,8 @@ Pin #19  05816 Mode  x-
  02860 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #18  05818 Mode  x- 
  02904 -------------------------------------------- 
- 02948 ---------x---x-------x--x---x--------------- 
- 02992 ---------x---x---x------x---x--------------- 
+ 02948 ---------x---x---x------x---x--------------- 
+ 02992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03036 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03080 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03124 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -236,9 +235,9 @@ Pin #17  05820 Mode  x-
  03828 --------x------------x--x----x-------------- 
  03872 --------x--------x------x----x-------------- 
  03916 --------x----x----------x----x-------------- 
- 03960 ---------x--x--------x--x---x--------------- 
+ 03960 ---------x------x----x--x---x--------------- 
  04004 ---------x--x----x------x---x--------------- 
- 04048 ---------x---x--x---x---x---x--------------- 
+ 04048 ---------x---x--x-------x---x--------------- 
  04092 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04136 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04180 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
