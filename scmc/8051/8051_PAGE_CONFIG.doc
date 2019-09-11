@@ -1,12 +1,12 @@
 
 *******************************************************************************
-                               8051_CTRL_DECODER
+                         8051_CTRL_DECODER_PAGE_CONFI
 *******************************************************************************
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Wed Sep 11 19:19:50 2019
-Name            8051_CTRL_DECODER
+Created         Wed Sep 11 19:18:03 2019
+Name            8051_CTRL_DECODER_PAGE_CONFIG
 Partno          U0 G22V10
 Revision        1.0
 Date            28 Aug 2019
@@ -20,22 +20,26 @@ Location        Sofia,BG,EU
 ===============================================================================
 
 ADDRESS =>
-    RDCPU_ , WRCPU_ , PSEN_ , A15_LINE , A14_LINE , A13_LINE
+    RDCPU_ , WRCPU_ , PSEN_ , A15_LINE , A14_LINE , A13_LINE , PAGE1_RAM , 
+      PAGE2_RAM , PAGE3_RAM , PAGE7_RAM
 
 ALE_ =>
     !ALE
 
 CSF_ =>
-    A14_LINE
-  # A15_LINE
+    A15_LINE
   # PSEN_
   # !RDCPU_
   # !WRCPU_
+  # A13_LINE & !A14_LINE & !PAGE1_RAM
+  # !A13_LINE & A14_LINE & !PAGE2_RAM
+  # A13_LINE & A14_LINE & !PAGE3_RAM
 
 CSIO_ =>
     !A13_LINE
   # !A14_LINE
   # !A15_LINE
+  # PAGE7_RAM
   # !PSEN_ & !RDCPU_
   # !PSEN_ & !WRCPU_
   # !RDCPU_ & !WRCPU_
@@ -45,9 +49,12 @@ CSR_ =>
     !PSEN_ & !RDCPU_
   # !PSEN_ & !WRCPU_
   # !RDCPU_ & !WRCPU_
-  # A13_LINE & A14_LINE & A15_LINE
-  # !A14_LINE & !A15_LINE & !PSEN_
   # PSEN_ & RDCPU_ & WRCPU_
+  # A13_LINE & A14_LINE & A15_LINE & !PAGE7_RAM
+  # !A13_LINE & !A14_LINE & !A15_LINE & !PSEN_
+  # !A14_LINE & !A15_LINE & PAGE1_RAM & !PSEN_
+  # !A13_LINE & !A15_LINE & PAGE2_RAM & !PSEN_
+  # A13_LINE & A14_LINE & !A15_LINE & PAGE3_RAM & !PSEN_
 
 DECODE =>
     DIR , E_ , CSIO_ , CSF_ , CSR_ , WR_ , RD_
@@ -112,12 +119,16 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
     ADDRESS                     0        F        -       -       -     
     ALE                         2        V        -       -       -     
     ALE_                        21       V        1       12      2     
-    CSF_                        18       V        5       16      2     
-    CSIO_                       16       V        7       12      2     
-    CSR_                        17       V        6       14      2     
+    CSF_                        18       V        7       16      2     
+    CSIO_                       16       V        8       12      2     
+    CSR_                        17       V        9       14      2     
     DECODE                      0        F        -       -       -     
     DIR                         23       V        3       8       2     
     E_                          22       V        4       10      2     
+    PAGE1_RAM                   9        V        -       -       -     
+    PAGE2_RAM                   10       V        -       -       -     
+    PAGE3_RAM                   11       V        -       -       -     
+    PAGE7_RAM                   13       V        -       -       -     
     PSEN_                       3        V        -       -       -     
     RDCPU_                      7        V        -       -       -     
     RD_                         20       V        3       14      2     
@@ -221,13 +232,13 @@ Pin #19  05816 Mode  --
  02860 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #18  05818 Mode  -- 
  02904 -------------------------------------------- 
- 02948 ----------------x--------------------------- 
- 02992 ------------x------------------------------- 
- 03036 --------x----------------------------------- 
- 03080 -------------------------x------------------ 
- 03124 -----------------------------x-------------- 
- 03168 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 03212 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02948 ------------x------------------------------- 
+ 02992 --------x----------------------------------- 
+ 03036 -------------------------x------------------ 
+ 03080 -----------------------------x-------------- 
+ 03124 -----------------x--x------------x---------- 
+ 03168 ----------------x----x---------------x------ 
+ 03212 ----------------x---x--------------------x-- 
  03256 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03300 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03344 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -242,12 +253,12 @@ Pin #17  05820 Mode  --
  03696 ---------x---------------x------------------ 
  03740 ---------x-------------------x-------------- 
  03784 -------------------------x---x-------------- 
- 03828 ------------x---x---x----------------------- 
- 03872 ---------x---x---x-------------------------- 
- 03916 --------x---------------x---x--------------- 
- 03960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 04004 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 04048 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03828 --------x---------------x---x--------------- 
+ 03872 ------------x---x---x----------------------x 
+ 03916 ---------x---x---x---x---------------------- 
+ 03960 ---------x---x---x--------------x----------- 
+ 04004 ---------x---x-------x--------------x------- 
+ 04048 ---------x---x--x---x-------------------x--- 
  04092 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04136 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04180 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -258,11 +269,11 @@ Pin #16  05822 Mode  --
  04356 ---------------------x---------------------- 
  04400 -----------------x-------------------------- 
  04444 -------------x------------------------------ 
- 04488 ---------x---------------x------------------ 
- 04532 ---------x-------------------x-------------- 
- 04576 -------------------------x---x-------------- 
- 04620 --------x---------------x---x--------------- 
- 04664 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04488 ------------------------------------------x- 
+ 04532 ---------x---------------x------------------ 
+ 04576 ---------x-------------------x-------------- 
+ 04620 -------------------------x---x-------------- 
+ 04664 --------x---------------x---x--------------- 
  04708 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04752 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04796 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -308,9 +319,9 @@ LEGEND    X : fuse not blown
                  A13_LINE x---|6           19|---x WR_                      
                    RDCPU_ x---|7           18|---x CSF_                     
                    WRCPU_ x---|8           17|---x CSR_                     
-                          x---|9           16|---x CSIO_                    
-                          x---|10          15|---x                          
-                          x---|11          14|---x                          
-                      GND x---|12          13|---x                          
+                PAGE1_RAM x---|9           16|---x CSIO_                    
+                PAGE2_RAM x---|10          15|---x                          
+                PAGE3_RAM x---|11          14|---x                          
+                      GND x---|12          13|---x PAGE7_RAM                
                               |______________|
 
