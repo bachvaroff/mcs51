@@ -33,6 +33,7 @@ CLK => clk_div[30].CLK
 CLK => clk_div[31].CLK
 BTTN[0] => BTTN[0].IN1
 BTTN[1] => BTTN[1].IN1
+BTTN[2] => BTTN[2].IN1
 LEDS[0] <= led_cnt[0].DB_MAX_OUTPUT_PORT_TYPE
 LEDS[1] <= led_cnt[1].DB_MAX_OUTPUT_PORT_TYPE
 LEDS[2] <= led_cnt[2].DB_MAX_OUTPUT_PORT_TYPE
@@ -41,6 +42,8 @@ LEDS[4] <= led_cnt[4].DB_MAX_OUTPUT_PORT_TYPE
 LEDS[5] <= led_cnt[5].DB_MAX_OUTPUT_PORT_TYPE
 LEDS[6] <= led_cnt[6].DB_MAX_OUTPUT_PORT_TYPE
 LEDS[7] <= led_cnt[7].DB_MAX_OUTPUT_PORT_TYPE
+LEDS[8] <= led_cnt[8].DB_MAX_OUTPUT_PORT_TYPE
+LEDS[9] <= led_cnt[9].DB_MAX_OUTPUT_PORT_TYPE
 ACT_LED[0] <= act_led[2].DB_MAX_OUTPUT_PORT_TYPE
 ACT_LED[1] <= act_led[1].DB_MAX_OUTPUT_PORT_TYPE
 ACT_LED[2] <= act_led[0].DB_MAX_OUTPUT_PORT_TYPE
@@ -81,6 +84,26 @@ Qdash <= rQ.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |counter|debounce:BTTN1|_dff:dff1
+CLK => rQ.CLK
+D => rQ.DATAIN
+Q <= rQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:BTTN2
+CLK => CLK.IN2
+PB => PB.IN1
+PB_state <= rPB_state.DB_MAX_OUTPUT_PORT_TYPE
+PB_down <= PB_down.DB_MAX_OUTPUT_PORT_TYPE
+PB_up <= PB_up.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:BTTN2|_dffdash:dff0
+CLK => rQ.CLK
+D => rQ.DATAIN
+Qdash <= rQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:BTTN2|_dff:dff1
 CLK => rQ.CLK
 D => rQ.DATAIN
 Q <= rQ.DB_MAX_OUTPUT_PORT_TYPE

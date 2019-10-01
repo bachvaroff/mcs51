@@ -175,7 +175,7 @@ GND_PLL2                     : 108       : gnd    :                   :         
 VCCA_PLL2                    : 109       : power  :                   : 1.2V    :           :                
 GNDA_PLL2                    : 110       : gnd    :                   :         :           :                
 GND                          : 111       : gnd    :                   :         :           :                
-GND*                         : 112       :        :                   :         : 2         :                
+BTTN[2]                      : 112       : input  : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : 113       :        :                   :         : 2         :                
 BTTN[1]                      : 114       : input  : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : 115       :        :                   :         : 2         :                
@@ -184,11 +184,11 @@ GND                          : 117       : gnd    :                   :         
 BTTN[0]                      : 118       : input  : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : 119       :        :                   :         : 2         :                
 LEDS[7]                      : 120       : output : 3.3-V LVTTL       :         : 2         : Y              
-GND*                         : 121       :        :                   :         : 2         :                
+LEDS[8]                      : 121       : output : 3.3-V LVTTL       :         : 2         : Y              
 LEDS[6]                      : 122       : output : 3.3-V LVTTL       :         : 2         : Y              
 GND                          : 123       : gnd    :                   :         :           :                
 VCCINT                       : 124       : power  :                   : 1.2V    :           :                
-GND*                         : 125       :        :                   :         : 2         :                
+LEDS[9]                      : 125       : output : 3.3-V LVTTL       :         : 2         : Y              
 LEDS[5]                      : 126       : output : 3.3-V LVTTL       :         : 2         : Y              
 VCCIO2                       : 127       : power  :                   : 3.3V    : 2         :                
 GND                          : 128       : gnd    :                   :         :           :                
