@@ -176,7 +176,7 @@ VCCA_PLL2                    : 109       : power  :                   : 1.2V    
 GNDA_PLL2                    : 110       : gnd    :                   :         :           :                
 GND                          : 111       : gnd    :                   :         :           :                
 BTTN[2]                      : 112       : input  : 3.3-V LVTTL       :         : 2         : Y              
-GND*                         : 113       :        :                   :         : 2         :                
+BTTN[3]                      : 113       : input  : 3.3-V LVTTL       :         : 2         : Y              
 BTTN[1]                      : 114       : input  : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : 115       :        :                   :         : 2         :                
 VCCIO2                       : 116       : power  :                   : 3.3V    : 2         :                
