@@ -2,29 +2,29 @@
 TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow Model Setup 'clk_div[4]'
-Slack : -3.302
-TNS   : -124.228
-
 Type  : Slow Model Setup 'CLK'
-Slack : -2.978
-TNS   : -41.970
+Slack : -2.990
+TNS   : -42.102
+
+Type  : Slow Model Setup 'clk_div[4]'
+Slack : -2.647
+TNS   : -116.708
 
 Type  : Slow Model Setup 'clk_div[22]'
-Slack : -1.677
-TNS   : -11.799
+Slack : -1.667
+TNS   : -12.797
 
 Type  : Slow Model Setup 'debounce:BTTN1|rPB_state'
 Slack : 0.235
 TNS   : 0.000
 
 Type  : Slow Model Hold 'clk_div[4]'
-Slack : -2.145
-TNS   : -13.601
+Slack : -3.209
+TNS   : -25.481
 
 Type  : Slow Model Hold 'CLK'
-Slack : -1.989
-TNS   : -13.959
+Slack : -1.811
+TNS   : -13.716
 
 Type  : Slow Model Hold 'clk_div[22]'
 Slack : 0.499
@@ -35,11 +35,11 @@ Slack : 0.499
 TNS   : 0.000
 
 Type  : Slow Model Recovery 'clk_div[22]'
-Slack : 0.415
-TNS   : 0.000
+Slack : -0.901
+TNS   : -9.010
 
 Type  : Slow Model Removal 'clk_div[22]'
-Slack : 0.131
+Slack : 1.513
 TNS   : 0.000
 
 Type  : Slow Model Minimum Pulse Width 'CLK'
@@ -58,29 +58,29 @@ Type  : Slow Model Minimum Pulse Width 'debounce:BTTN1|rPB_state'
 Slack : -0.742
 TNS   : -1.484
 
-Type  : Fast Model Setup 'clk_div[4]'
-Slack : -0.634
-TNS   : -3.825
-
 Type  : Fast Model Setup 'CLK'
-Slack : -0.497
-TNS   : -3.071
+Slack : -0.511
+TNS   : -3.225
+
+Type  : Fast Model Setup 'clk_div[4]'
+Slack : -0.386
+TNS   : -2.698
 
 Type  : Fast Model Setup 'clk_div[22]'
-Slack : 0.063
+Slack : 0.068
 TNS   : 0.000
 
 Type  : Fast Model Setup 'debounce:BTTN1|rPB_state'
 Slack : 0.665
 TNS   : 0.000
 
-Type  : Fast Model Hold 'CLK'
-Slack : -1.238
-TNS   : -14.826
-
 Type  : Fast Model Hold 'clk_div[4]'
-Slack : -1.083
-TNS   : -11.035
+Slack : -1.398
+TNS   : -14.566
+
+Type  : Fast Model Hold 'CLK'
+Slack : -1.191
+TNS   : -14.695
 
 Type  : Fast Model Hold 'clk_div[22]'
 Slack : 0.215
@@ -91,11 +91,11 @@ Slack : 0.215
 TNS   : 0.000
 
 Type  : Fast Model Recovery 'clk_div[22]'
-Slack : 0.568
+Slack : 0.190
 TNS   : 0.000
 
 Type  : Fast Model Removal 'clk_div[22]'
-Slack : 0.262
+Slack : 0.680
 TNS   : 0.000
 
 Type  : Fast Model Minimum Pulse Width 'CLK'

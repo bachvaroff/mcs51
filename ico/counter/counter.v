@@ -1,7 +1,8 @@
-module counter(CLK, BTTN, LEDS, ACT_LED);
+module counter(CLK, BTTN, LEDS, LEDS_Gray, ACT_LED);
 input wire CLK;
 input wire [3:0] BTTN;
 output wire [9:0] LEDS;
+output wire [9:0] LEDS_Gray;
 output wire [2:0] ACT_LED;
 
 reg [31:0] clk_div;
@@ -14,14 +15,17 @@ wire [3:0] pb_down;
 wire main_clk, reg_clk, db_clk;
 wire res[1:0];
 
+// binary
+assign LEDS = led_cnt;
+
 // Gray code
-assign LEDS = {
+assign LEDS_Gray = {
 	led_cnt[9], ^led_cnt[9:8],
 	^led_cnt[8:7], ^led_cnt[7:6], ^led_cnt[6:5], ^led_cnt[5:4],
 	^led_cnt[4:3], ^led_cnt[3:2], ^led_cnt[2:1], ^led_cnt[1:0]
 };
 
-// current sinks at output
+// activity indicator, current sinks at the outputs
 assign ACT_LED = {
 	~act_led[0], ~act_led[1], ~act_led[2]
 };

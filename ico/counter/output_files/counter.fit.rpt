@@ -1,5 +1,5 @@
 Fitter report for counter
-Thu Oct 03 19:02:45 2019
+Fri Oct 04 19:44:50 2019
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -63,18 +63,18 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Fitter Summary                                                                       ;
 +------------------------------------+-------------------------------------------------+
-; Fitter Status                      ; Successful - Thu Oct 03 19:02:45 2019           ;
+; Fitter Status                      ; Successful - Fri Oct 04 19:44:50 2019           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; counter                                         ;
 ; Top-level Entity Name              ; counter                                         ;
 ; Family                             ; Cyclone II                                      ;
 ; Device                             ; EP2C5T144C8                                     ;
 ; Timing Models                      ; Final                                           ;
-; Total logic elements               ; 150 / 4,608 ( 3 % )                             ;
+; Total logic elements               ; 148 / 4,608 ( 3 % )                             ;
 ;     Total combinational functions  ; 143 / 4,608 ( 3 % )                             ;
 ;     Dedicated logic registers      ; 113 / 4,608 ( 2 % )                             ;
 ; Total registers                    ; 113                                             ;
-; Total pins                         ; 18 / 89 ( 20 % )                                ;
+; Total pins                         ; 28 / 89 ( 31 % )                                ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 0 / 119,808 ( 0 % )                             ;
 ; Embedded Multiplier 9-bit elements ; 0 / 26 ( 0 % )                                  ;
@@ -159,8 +159,8 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ; Type                ; Value                  ;
 +---------------------+------------------------+
 ; Placement (by node) ;                        ;
-;     -- Requested    ; 0 / 282 ( 0.00 % )     ;
-;     -- Achieved     ; 0 / 282 ( 0.00 % )     ;
+;     -- Requested    ; 0 / 292 ( 0.00 % )     ;
+;     -- Achieved     ; 0 / 292 ( 0.00 % )     ;
 ;                     ;                        ;
 ; Routing (by net)    ;                        ;
 ;     -- Requested    ; 0 / 0 ( 0.00 % )       ;
@@ -183,7 +183,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +--------------------------------+---------+-------------------+-------------------------+-------------------+
 ; Partition Name                 ; # Nodes ; # Preserved Nodes ; Preservation Level Used ; Netlist Type Used ;
 +--------------------------------+---------+-------------------+-------------------------+-------------------+
-; Top                            ; 279     ; 0                 ; N/A                     ; Source File       ;
+; Top                            ; 289     ; 0                 ; N/A                     ; Source File       ;
 ; hard_block:auto_generated_inst ; 3       ; 0                 ; N/A                     ; Source File       ;
 +--------------------------------+---------+-------------------+-------------------------+-------------------+
 
@@ -199,16 +199,16 @@ The pin-out file can be found in C:/Users/bachv/dev/counter/output_files/counter
 +---------------------------------------------+---------------------+
 ; Resource                                    ; Usage               ;
 +---------------------------------------------+---------------------+
-; Total logic elements                        ; 150 / 4,608 ( 3 % ) ;
-;     -- Combinational with no register       ; 37                  ;
-;     -- Register only                        ; 7                   ;
-;     -- Combinational with a register        ; 106                 ;
+; Total logic elements                        ; 148 / 4,608 ( 3 % ) ;
+;     -- Combinational with no register       ; 35                  ;
+;     -- Register only                        ; 5                   ;
+;     -- Combinational with a register        ; 108                 ;
 ;                                             ;                     ;
 ; Logic element usage by number of LUT inputs ;                     ;
 ;     -- 4 input functions                    ; 24                  ;
 ;     -- 3 input functions                    ; 4                   ;
 ;     -- <=2 input functions                  ; 115                 ;
-;     -- Register only                        ; 7                   ;
+;     -- Register only                        ; 5                   ;
 ;                                             ;                     ;
 ; Logic elements by mode                      ;                     ;
 ;     -- normal mode                          ; 54                  ;
@@ -218,9 +218,9 @@ The pin-out file can be found in C:/Users/bachv/dev/counter/output_files/counter
 ;     -- Dedicated logic registers            ; 113 / 4,608 ( 2 % ) ;
 ;     -- I/O registers                        ; 0 / 243 ( 0 % )     ;
 ;                                             ;                     ;
-; Total LABs:  partially or completely used   ; 13 / 288 ( 5 % )    ;
+; Total LABs:  partially or completely used   ; 14 / 288 ( 5 % )    ;
 ; Virtual pins                                ; 0                   ;
-; I/O pins                                    ; 18 / 89 ( 20 % )    ;
+; I/O pins                                    ; 28 / 89 ( 31 % )    ;
 ;     -- Clock pins                           ; 1 / 4 ( 25 % )      ;
 ;                                             ;                     ;
 ; Global signals                              ; 4                   ;
@@ -237,8 +237,8 @@ The pin-out file can be found in C:/Users/bachv/dev/counter/output_files/counter
 ; Peak interconnect usage (total/H/V)         ; 0% / 0% / 0%        ;
 ; Maximum fan-out                             ; 75                  ;
 ; Highest non-global fan-out                  ; 16                  ;
-; Total fan-out                               ; 643                 ;
-; Average fan-out                             ; 2.27                ;
+; Total fan-out                               ; 654                 ;
+; Average fan-out                             ; 2.22                ;
 +---------------------------------------------+---------------------+
 *  Register count does not include registers inside RAM blocks or DSP blocks.
 
@@ -251,16 +251,16 @@ The pin-out file can be found in C:/Users/bachv/dev/counter/output_files/counter
 +---------------------------------------------+--------------------+--------------------------------+
 ; Difficulty Clustering Region                ; Low                ; Low                            ;
 ;                                             ;                    ;                                ;
-; Total logic elements                        ; 150 / 4608 ( 3 % ) ; 0 / 4608 ( 0 % )               ;
-;     -- Combinational with no register       ; 37                 ; 0                              ;
-;     -- Register only                        ; 7                  ; 0                              ;
-;     -- Combinational with a register        ; 106                ; 0                              ;
+; Total logic elements                        ; 148 / 4608 ( 3 % ) ; 0 / 4608 ( 0 % )               ;
+;     -- Combinational with no register       ; 35                 ; 0                              ;
+;     -- Register only                        ; 5                  ; 0                              ;
+;     -- Combinational with a register        ; 108                ; 0                              ;
 ;                                             ;                    ;                                ;
 ; Logic element usage by number of LUT inputs ;                    ;                                ;
 ;     -- 4 input functions                    ; 24                 ; 0                              ;
 ;     -- 3 input functions                    ; 4                  ; 0                              ;
 ;     -- <=2 input functions                  ; 115                ; 0                              ;
-;     -- Register only                        ; 7                  ; 0                              ;
+;     -- Register only                        ; 5                  ; 0                              ;
 ;                                             ;                    ;                                ;
 ; Logic elements by mode                      ;                    ;                                ;
 ;     -- normal mode                          ; 54                 ; 0                              ;
@@ -269,10 +269,10 @@ The pin-out file can be found in C:/Users/bachv/dev/counter/output_files/counter
 ; Total registers                             ; 113                ; 0                              ;
 ;     -- Dedicated logic registers            ; 113 / 4608 ( 2 % ) ; 0 / 4608 ( 0 % )               ;
 ;                                             ;                    ;                                ;
-; Total LABs:  partially or completely used   ; 13 / 288 ( 5 % )   ; 0 / 288 ( 0 % )                ;
+; Total LABs:  partially or completely used   ; 14 / 288 ( 5 % )   ; 0 / 288 ( 0 % )                ;
 ;                                             ;                    ;                                ;
 ; Virtual pins                                ; 0                  ; 0                              ;
-; I/O pins                                    ; 18                 ; 0                              ;
+; I/O pins                                    ; 28                 ; 0                              ;
 ; Embedded Multiplier 9-bit elements          ; 0 / 26 ( 0 % )     ; 0 / 26 ( 0 % )                 ;
 ; Total memory bits                           ; 0                  ; 0                              ;
 ; Total RAM block bits                        ; 0                  ; 0                              ;
@@ -285,8 +285,8 @@ The pin-out file can be found in C:/Users/bachv/dev/counter/output_files/counter
 ;     -- Registered Output Connections        ; 0                  ; 0                              ;
 ;                                             ;                    ;                                ;
 ; Internal Connections                        ;                    ;                                ;
-;     -- Total Connections                    ; 643                ; 0                              ;
-;     -- Registered Connections               ; 223                ; 0                              ;
+;     -- Total Connections                    ; 654                ; 0                              ;
+;     -- Registered Connections               ; 233                ; 0                              ;
 ;                                             ;                    ;                                ;
 ; External Connections                        ;                    ;                                ;
 ;     -- Top                                  ; 0                  ; 0                              ;
@@ -294,7 +294,7 @@ The pin-out file can be found in C:/Users/bachv/dev/counter/output_files/counter
 ;                                             ;                    ;                                ;
 ; Partition Interface                         ;                    ;                                ;
 ;     -- Input Ports                          ; 5                  ; 0                              ;
-;     -- Output Ports                         ; 13                 ; 0                              ;
+;     -- Output Ports                         ; 23                 ; 0                              ;
 ;     -- Bidir Ports                          ; 0                  ; 0                              ;
 ;                                             ;                    ;                                ;
 ; Registered Ports                            ;                    ;                                ;
@@ -326,25 +326,35 @@ The pin-out file can be found in C:/Users/bachv/dev/counter/output_files/counter
 +---------+-------+----------+--------------+--------------+-------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+-------------+----------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Output Pins                                                                                                                                                                                                                                                                                                                              ;
-+------------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+------+----------------------+---------------------+
-; Name       ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Cell number ; Output Register ; Output Enable Register ; Power Up High ; PCI I/O Enabled ; Open Drain ; TRI Primitive ; Bus Hold ; Weak Pull Up ; I/O Standard ; Current Strength ; Termination ; Location assigned by ; Load ; Output Enable Source ; Output Enable Group ;
-+------------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+------+----------------------+---------------------+
-; ACT_LED[0] ; 3     ; 1        ; 0            ; 13           ; 2           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; ACT_LED[1] ; 7     ; 1        ; 0            ; 11           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; ACT_LED[2] ; 9     ; 1        ; 0            ; 11           ; 3           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; LEDS[0]    ; 142   ; 2        ; 1            ; 14           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; LEDS[1]    ; 139   ; 2        ; 3            ; 14           ; 3           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; LEDS[2]    ; 136   ; 2        ; 3            ; 14           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; LEDS[3]    ; 134   ; 2        ; 7            ; 14           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; LEDS[4]    ; 132   ; 2        ; 9            ; 14           ; 2           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; LEDS[5]    ; 126   ; 2        ; 14           ; 14           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; LEDS[6]    ; 122   ; 2        ; 19           ; 14           ; 2           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; LEDS[7]    ; 120   ; 2        ; 19           ; 14           ; 0           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; LEDS[8]    ; 121   ; 2        ; 19           ; 14           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-; LEDS[9]    ; 125   ; 2        ; 14           ; 14           ; 0           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
-+------------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+------+----------------------+---------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Output Pins                                                                                                                                                                                                                                                                                                                                ;
++--------------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+------+----------------------+---------------------+
+; Name         ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Cell number ; Output Register ; Output Enable Register ; Power Up High ; PCI I/O Enabled ; Open Drain ; TRI Primitive ; Bus Hold ; Weak Pull Up ; I/O Standard ; Current Strength ; Termination ; Location assigned by ; Load ; Output Enable Source ; Output Enable Group ;
++--------------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+------+----------------------+---------------------+
+; ACT_LED[0]   ; 3     ; 1        ; 0            ; 13           ; 2           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; ACT_LED[1]   ; 7     ; 1        ; 0            ; 11           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; ACT_LED[2]   ; 9     ; 1        ; 0            ; 11           ; 3           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS[0]      ; 142   ; 2        ; 1            ; 14           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS[1]      ; 139   ; 2        ; 3            ; 14           ; 3           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS[2]      ; 136   ; 2        ; 3            ; 14           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS[3]      ; 134   ; 2        ; 7            ; 14           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS[4]      ; 132   ; 2        ; 9            ; 14           ; 2           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS[5]      ; 126   ; 2        ; 14           ; 14           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS[6]      ; 122   ; 2        ; 19           ; 14           ; 2           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS[7]      ; 120   ; 2        ; 19           ; 14           ; 0           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS[8]      ; 121   ; 2        ; 19           ; 14           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS[9]      ; 125   ; 2        ; 14           ; 14           ; 0           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS_Gray[0] ; 8     ; 1        ; 0            ; 11           ; 2           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS_Gray[1] ; 4     ; 1        ; 0            ; 13           ; 3           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS_Gray[2] ; 143   ; 2        ; 1            ; 14           ; 2           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS_Gray[3] ; 141   ; 2        ; 1            ; 14           ; 0           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS_Gray[4] ; 137   ; 2        ; 3            ; 14           ; 2           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS_Gray[5] ; 135   ; 2        ; 3            ; 14           ; 0           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS_Gray[6] ; 133   ; 2        ; 7            ; 14           ; 0           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS_Gray[7] ; 129   ; 2        ; 12           ; 14           ; 0           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS_Gray[8] ; 119   ; 2        ; 21           ; 14           ; 1           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
+; LEDS_Gray[9] ; 115   ; 2        ; 24           ; 14           ; 0           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; User                 ; 0 pF ; -                    ; -                   ;
++--------------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+------+----------------------+---------------------+
 
 
 +------------------------------------------------------------+
@@ -352,8 +362,8 @@ The pin-out file can be found in C:/Users/bachv/dev/counter/output_files/counter
 +----------+------------------+---------------+--------------+
 ; I/O Bank ; Usage            ; VCCIO Voltage ; VREF Voltage ;
 +----------+------------------+---------------+--------------+
-; 1        ; 6 / 19 ( 32 % )  ; 3.3V          ; --           ;
-; 2        ; 14 / 23 ( 61 % ) ; 3.3V          ; --           ;
+; 1        ; 8 / 19 ( 42 % )  ; 3.3V          ; --           ;
+; 2        ; 22 / 23 ( 96 % ) ; 3.3V          ; --           ;
 ; 3        ; 1 / 23 ( 4 % )   ; 3.3V          ; --           ;
 ; 4        ; 0 / 24 ( 0 % )   ; 3.3V          ; --           ;
 +----------+------------------+---------------+--------------+
@@ -367,11 +377,11 @@ The pin-out file can be found in C:/Users/bachv/dev/counter/output_files/counter
 ; 1        ; 0          ; 1        ; ~ASDO~ / RESERVED_INPUT_WITH_WEAK_PULLUP ; input  ; 3.3-V LVTTL  ;         ; Row I/O    ; N               ; no       ; On           ;
 ; 2        ; 1          ; 1        ; ~nCSO~ / RESERVED_INPUT_WITH_WEAK_PULLUP ; input  ; 3.3-V LVTTL  ;         ; Row I/O    ; N               ; no       ; On           ;
 ; 3        ; 2          ; 1        ; ACT_LED[0]                               ; output ; 3.3-V LVTTL  ;         ; Row I/O    ; Y               ; no       ; Off          ;
-; 4        ; 3          ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
+; 4        ; 3          ; 1        ; LEDS_Gray[1]                             ; output ; 3.3-V LVTTL  ;         ; Row I/O    ; Y               ; no       ; Off          ;
 ; 5        ;            ; 1        ; VCCIO1                                   ; power  ;              ; 3.3V    ; --         ;                 ; --       ; --           ;
 ; 6        ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
 ; 7        ; 10         ; 1        ; ACT_LED[1]                               ; output ; 3.3-V LVTTL  ;         ; Row I/O    ; Y               ; no       ; Off          ;
-; 8        ; 11         ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
+; 8        ; 11         ; 1        ; LEDS_Gray[0]                             ; output ; 3.3-V LVTTL  ;         ; Row I/O    ; Y               ; no       ; Off          ;
 ; 9        ; 12         ; 1        ; ACT_LED[2]                               ; output ; 3.3-V LVTTL  ;         ; Row I/O    ; Y               ; no       ; Off          ;
 ; 10       ; 13         ; 1        ; #TDO                                     ; output ;              ;         ; --         ;                 ; --       ; --           ;
 ; 11       ; 14         ; 1        ; #TMS                                     ; input  ;              ;         ; --         ;                 ; --       ; --           ;
@@ -478,11 +488,11 @@ The pin-out file can be found in C:/Users/bachv/dev/counter/output_files/counter
 ; 112      ; 127        ; 2        ; BTTN[2]                                  ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 113      ; 128        ; 2        ; BTTN[3]                                  ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 114      ; 129        ; 2        ; BTTN[1]                                  ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
-; 115      ; 130        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
+; 115      ; 130        ; 2        ; LEDS_Gray[9]                             ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 116      ;            ; 2        ; VCCIO2                                   ; power  ;              ; 3.3V    ; --         ;                 ; --       ; --           ;
 ; 117      ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
 ; 118      ; 134        ; 2        ; BTTN[0]                                  ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
-; 119      ; 135        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
+; 119      ; 135        ; 2        ; LEDS_Gray[8]                             ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 120      ; 137        ; 2        ; LEDS[7]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 121      ; 138        ; 2        ; LEDS[8]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 122      ; 139        ; 2        ; LEDS[6]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
@@ -492,21 +502,21 @@ The pin-out file can be found in C:/Users/bachv/dev/counter/output_files/counter
 ; 126      ; 145        ; 2        ; LEDS[5]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 127      ;            ; 2        ; VCCIO2                                   ; power  ;              ; 3.3V    ; --         ;                 ; --       ; --           ;
 ; 128      ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
-; 129      ; 148        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
+; 129      ; 148        ; 2        ; LEDS_Gray[7]                             ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 130      ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
 ; 131      ;            ;          ; VCCINT                                   ; power  ;              ; 1.2V    ; --         ;                 ; --       ; --           ;
 ; 132      ; 153        ; 2        ; LEDS[4]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
-; 133      ; 154        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
+; 133      ; 154        ; 2        ; LEDS_Gray[6]                             ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 134      ; 155        ; 2        ; LEDS[3]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
-; 135      ; 162        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
+; 135      ; 162        ; 2        ; LEDS_Gray[5]                             ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 136      ; 163        ; 2        ; LEDS[2]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
-; 137      ; 164        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
+; 137      ; 164        ; 2        ; LEDS_Gray[4]                             ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 138      ;            ; 2        ; VCCIO2                                   ; power  ;              ; 3.3V    ; --         ;                 ; --       ; --           ;
 ; 139      ; 165        ; 2        ; LEDS[1]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 140      ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
-; 141      ; 166        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
+; 141      ; 166        ; 2        ; LEDS_Gray[3]                             ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 142      ; 167        ; 2        ; LEDS[0]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
-; 143      ; 168        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
+; 143      ; 168        ; 2        ; LEDS_Gray[2]                             ; output ; 3.3-V LVTTL  ;         ; Column I/O ; Y               ; no       ; Off          ;
 ; 144      ; 169        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 +----------+------------+----------+------------------------------------------+--------+--------------+---------+------------+-----------------+----------+--------------+
 Note: Pin directions (input, output or bidir) are based on device operating in user mode.
@@ -554,9 +564,9 @@ Note: User assignments will override these defaults. The user specified values a
 +----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------------------------+--------------+
 ; Compilation Hierarchy Node ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M4Ks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Full Hierarchy Name                   ; Library Name ;
 +----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------------------------+--------------+
-; |counter                   ; 150 (46)    ; 113 (36)                  ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 18   ; 0            ; 37 (9)       ; 7 (1)             ; 106 (36)         ; |counter                              ; work         ;
+; |counter                   ; 148 (45)    ; 113 (36)                  ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 28   ; 0            ; 35 (9)       ; 5 (0)             ; 108 (36)         ; |counter                              ; work         ;
 ;    |clksel:selector|       ; 2 (2)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 1 (1)        ; 0 (0)             ; 1 (1)            ; |counter|clksel:selector              ; work         ;
-;    |debounce:BTTN0|        ; 28 (26)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 9 (9)        ; 4 (3)             ; 15 (14)          ; |counter|debounce:BTTN0               ; work         ;
+;    |debounce:BTTN0|        ; 26 (24)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 7 (7)        ; 2 (1)             ; 17 (16)          ; |counter|debounce:BTTN0               ; work         ;
 ;       |_dff:dff1|          ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN0|_dff:dff1     ; work         ;
 ;       |_dffdash:dff0|      ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTN0|_dffdash:dff0 ; work         ;
 ;    |debounce:BTTN1|        ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:BTTN1               ; work         ;
@@ -565,37 +575,47 @@ Note: User assignments will override these defaults. The user specified values a
 ;    |debounce:BTTN2|        ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:BTTN2               ; work         ;
 ;       |_dff:dff1|          ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN2|_dff:dff1     ; work         ;
 ;       |_dffdash:dff0|      ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTN2|_dffdash:dff0 ; work         ;
-;    |debounce:BTTN3|        ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 0 (0)             ; 19 (17)          ; |counter|debounce:BTTN3               ; work         ;
+;    |debounce:BTTN3|        ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:BTTN3               ; work         ;
 ;       |_dff:dff1|          ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN3|_dff:dff1     ; work         ;
-;       |_dffdash:dff0|      ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN3|_dffdash:dff0 ; work         ;
+;       |_dffdash:dff0|      ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTN3|_dffdash:dff0 ; work         ;
 +----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+-------------------------------------------------------------------------------------+
-; Delay Chain Summary                                                                 ;
-+------------+----------+---------------+---------------+-----------------------+-----+
-; Name       ; Pin Type ; Pad to Core 0 ; Pad to Core 1 ; Pad to Input Register ; TCO ;
-+------------+----------+---------------+---------------+-----------------------+-----+
-; LEDS[0]    ; Output   ; --            ; --            ; --                    ; --  ;
-; LEDS[1]    ; Output   ; --            ; --            ; --                    ; --  ;
-; LEDS[2]    ; Output   ; --            ; --            ; --                    ; --  ;
-; LEDS[3]    ; Output   ; --            ; --            ; --                    ; --  ;
-; LEDS[4]    ; Output   ; --            ; --            ; --                    ; --  ;
-; LEDS[5]    ; Output   ; --            ; --            ; --                    ; --  ;
-; LEDS[6]    ; Output   ; --            ; --            ; --                    ; --  ;
-; LEDS[7]    ; Output   ; --            ; --            ; --                    ; --  ;
-; LEDS[8]    ; Output   ; --            ; --            ; --                    ; --  ;
-; LEDS[9]    ; Output   ; --            ; --            ; --                    ; --  ;
-; ACT_LED[0] ; Output   ; --            ; --            ; --                    ; --  ;
-; ACT_LED[1] ; Output   ; --            ; --            ; --                    ; --  ;
-; ACT_LED[2] ; Output   ; --            ; --            ; --                    ; --  ;
-; CLK        ; Input    ; (0) 171 ps    ; (0) 171 ps    ; --                    ; --  ;
-; BTTN[2]    ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
-; BTTN[3]    ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
-; BTTN[0]    ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
-; BTTN[1]    ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
-+------------+----------+---------------+---------------+-----------------------+-----+
++---------------------------------------------------------------------------------------+
+; Delay Chain Summary                                                                   ;
++--------------+----------+---------------+---------------+-----------------------+-----+
+; Name         ; Pin Type ; Pad to Core 0 ; Pad to Core 1 ; Pad to Input Register ; TCO ;
++--------------+----------+---------------+---------------+-----------------------+-----+
+; LEDS[0]      ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS[1]      ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS[2]      ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS[3]      ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS[4]      ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS[5]      ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS[6]      ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS[7]      ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS[8]      ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS[9]      ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS_Gray[0] ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS_Gray[1] ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS_Gray[2] ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS_Gray[3] ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS_Gray[4] ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS_Gray[5] ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS_Gray[6] ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS_Gray[7] ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS_Gray[8] ; Output   ; --            ; --            ; --                    ; --  ;
+; LEDS_Gray[9] ; Output   ; --            ; --            ; --                    ; --  ;
+; ACT_LED[0]   ; Output   ; --            ; --            ; --                    ; --  ;
+; ACT_LED[1]   ; Output   ; --            ; --            ; --                    ; --  ;
+; ACT_LED[2]   ; Output   ; --            ; --            ; --                    ; --  ;
+; CLK          ; Input    ; (0) 171 ps    ; (0) 171 ps    ; --                    ; --  ;
+; BTTN[2]      ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
+; BTTN[3]      ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
+; BTTN[0]      ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
+; BTTN[1]      ; Input    ; (6) 2514 ps   ; (6) 2514 ps   ; --                    ; --  ;
++--------------+----------+---------------+---------------+-----------------------+-----+
 
 
 +-----------------------------------------------------------------------------+
@@ -607,43 +627,43 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; BTTN[2]                                       ;                   ;         ;
 ;      - debounce:BTTN2|_dffdash:dff0|rQ        ; 0                 ; 6       ;
 ; BTTN[3]                                       ;                   ;         ;
-;      - debounce:BTTN3|_dffdash:dff0|rQ        ; 0                 ; 6       ;
+;      - debounce:BTTN3|_dffdash:dff0|rQ~feeder ; 0                 ; 6       ;
 ; BTTN[0]                                       ;                   ;         ;
-;      - debounce:BTTN0|_dffdash:dff0|rQ~feeder ; 0                 ; 6       ;
+;      - debounce:BTTN0|_dffdash:dff0|rQ~feeder ; 1                 ; 6       ;
 ; BTTN[1]                                       ;                   ;         ;
-;      - debounce:BTTN1|_dffdash:dff0|rQ        ; 0                 ; 6       ;
+;      - debounce:BTTN1|_dffdash:dff0|rQ~feeder ; 1                 ; 6       ;
 +-----------------------------------------------+-------------------+---------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Control Signals                                                                                                                                      ;
-+--------------------------+-------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
-; Name                     ; Location          ; Fan-Out ; Usage        ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
-+--------------------------+-------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
-; CLK                      ; PIN_17            ; 23      ; Clock        ; yes    ; Global Clock         ; GCLK2            ; --                        ;
-; always2~0                ; LCCOMB_X6_Y13_N28 ; 10      ; Async. clear ; no     ; --                   ; --               ; --                        ;
-; clk_div[22]              ; LCFF_X27_Y6_N21   ; 3       ; Clock        ; yes    ; Global Clock         ; GCLK4            ; --                        ;
-; clk_div[4]               ; LCFF_X27_Y7_N17   ; 3       ; Clock        ; no     ; --                   ; --               ; --                        ;
-; clk_div[4]               ; LCFF_X27_Y7_N17   ; 75      ; Clock        ; yes    ; Global Clock         ; GCLK7            ; --                        ;
-; clksel:selector|OUTCLK   ; LCCOMB_X26_Y7_N24 ; 10      ; Clock        ; yes    ; Global Clock         ; GCLK5            ; --                        ;
-; debounce:BTTN0|comb~0    ; LCCOMB_X26_Y7_N22 ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
-; debounce:BTTN1|comb~0    ; LCCOMB_X22_Y9_N8  ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
-; debounce:BTTN1|rPB_state ; LCFF_X22_Y9_N27   ; 4       ; Clock        ; no     ; --                   ; --               ; --                        ;
-; debounce:BTTN2|comb~0    ; LCCOMB_X7_Y13_N28 ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
-; debounce:BTTN3|comb~0    ; LCCOMB_X5_Y13_N30 ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
-+--------------------------+-------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Control Signals                                                                                                                                       ;
++--------------------------+--------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
+; Name                     ; Location           ; Fan-Out ; Usage        ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
++--------------------------+--------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
+; CLK                      ; PIN_17             ; 23      ; Clock        ; yes    ; Global Clock         ; GCLK2            ; --                        ;
+; always2~0                ; LCCOMB_X9_Y13_N30  ; 10      ; Async. clear ; no     ; --                   ; --               ; --                        ;
+; clk_div[22]              ; LCFF_X8_Y7_N21     ; 3       ; Clock        ; yes    ; Global Clock         ; GCLK1            ; --                        ;
+; clk_div[4]               ; LCFF_X8_Y8_N17     ; 3       ; Clock        ; no     ; --                   ; --               ; --                        ;
+; clk_div[4]               ; LCFF_X8_Y8_N17     ; 75      ; Clock        ; yes    ; Global Clock         ; GCLK3            ; --                        ;
+; clksel:selector|OUTCLK   ; LCCOMB_X8_Y7_N28   ; 10      ; Clock        ; yes    ; Global Clock         ; GCLK0            ; --                        ;
+; debounce:BTTN0|comb~0    ; LCCOMB_X17_Y13_N30 ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; debounce:BTTN1|comb~0    ; LCCOMB_X9_Y7_N14   ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; debounce:BTTN1|rPB_state ; LCFF_X9_Y7_N13     ; 4       ; Clock        ; no     ; --                   ; --               ; --                        ;
+; debounce:BTTN2|comb~0    ; LCCOMB_X10_Y12_N10 ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; debounce:BTTN3|comb~0    ; LCCOMB_X13_Y13_N10 ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
++--------------------------+--------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------+
-; Global & Other Fast Signals                                                                                                ;
-+------------------------+-------------------+---------+----------------------+------------------+---------------------------+
-; Name                   ; Location          ; Fan-Out ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
-+------------------------+-------------------+---------+----------------------+------------------+---------------------------+
-; CLK                    ; PIN_17            ; 23      ; Global Clock         ; GCLK2            ; --                        ;
-; clk_div[22]            ; LCFF_X27_Y6_N21   ; 3       ; Global Clock         ; GCLK4            ; --                        ;
-; clk_div[4]             ; LCFF_X27_Y7_N17   ; 75      ; Global Clock         ; GCLK7            ; --                        ;
-; clksel:selector|OUTCLK ; LCCOMB_X26_Y7_N24 ; 10      ; Global Clock         ; GCLK5            ; --                        ;
-+------------------------+-------------------+---------+----------------------+------------------+---------------------------+
++---------------------------------------------------------------------------------------------------------------------------+
+; Global & Other Fast Signals                                                                                               ;
++------------------------+------------------+---------+----------------------+------------------+---------------------------+
+; Name                   ; Location         ; Fan-Out ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
++------------------------+------------------+---------+----------------------+------------------+---------------------------+
+; CLK                    ; PIN_17           ; 23      ; Global Clock         ; GCLK2            ; --                        ;
+; clk_div[22]            ; LCFF_X8_Y7_N21   ; 3       ; Global Clock         ; GCLK1            ; --                        ;
+; clk_div[4]             ; LCFF_X8_Y8_N17   ; 75      ; Global Clock         ; GCLK3            ; --                        ;
+; clksel:selector|OUTCLK ; LCCOMB_X8_Y7_N28 ; 10      ; Global Clock         ; GCLK0            ; --                        ;
++------------------------+------------------+---------+----------------------+------------------+---------------------------+
 
 
 +-------------------------------------------+
@@ -661,15 +681,17 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; debounce:BTTN3|rPB_state        ; 4       ;
 ; debounce:BTTN2|rPB_state        ; 4       ;
 ; act_led[0]                      ; 4       ;
+; led_cnt[9]                      ; 4       ;
+; led_cnt[8]                      ; 4       ;
+; led_cnt[7]                      ; 4       ;
+; led_cnt[6]                      ; 4       ;
+; led_cnt[5]                      ; 4       ;
+; led_cnt[4]                      ; 4       ;
+; led_cnt[3]                      ; 4       ;
+; led_cnt[2]                      ; 4       ;
 ; act_led[1]                      ; 3       ;
-; led_cnt[9]                      ; 3       ;
-; led_cnt[8]                      ; 3       ;
-; led_cnt[7]                      ; 3       ;
-; led_cnt[6]                      ; 3       ;
-; led_cnt[5]                      ; 3       ;
-; led_cnt[4]                      ; 3       ;
-; led_cnt[3]                      ; 3       ;
-; led_cnt[2]                      ; 3       ;
+; led_cnt[1]                      ; 3       ;
+; led_cnt[0]                      ; 3       ;
 ; debounce:BTTN1|_dff:dff1|rQ     ; 2       ;
 ; debounce:BTTN0|_dff:dff1|rQ     ; 2       ;
 ; clk_div[0]                      ; 2       ;
@@ -677,8 +699,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; debounce:BTTN2|_dff:dff1|rQ     ; 2       ;
 ; clksel:selector|Q               ; 2       ;
 ; act_led[2]                      ; 2       ;
-; led_cnt[1]                      ; 2       ;
-; led_cnt[0]                      ; 2       ;
 ; debounce:BTTN1|PB_cnt[13]       ; 2       ;
 ; debounce:BTTN1|PB_cnt[12]       ; 2       ;
 ; debounce:BTTN1|PB_cnt[11]       ; 2       ;
@@ -1007,89 +1027,89 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------------+------------------------+
 ; Other Routing Resource Type ; Usage                  ;
 +-----------------------------+------------------------+
-; Block interconnects         ; 112 / 15,666 ( < 1 % ) ;
-; C16 interconnects           ; 1 / 812 ( < 1 % )      ;
-; C4 interconnects            ; 19 / 11,424 ( < 1 % )  ;
-; Direct links                ; 74 / 15,666 ( < 1 % )  ;
+; Block interconnects         ; 114 / 15,666 ( < 1 % ) ;
+; C16 interconnects           ; 3 / 812 ( < 1 % )      ;
+; C4 interconnects            ; 30 / 11,424 ( < 1 % )  ;
+; Direct links                ; 67 / 15,666 ( < 1 % )  ;
 ; Global clocks               ; 4 / 8 ( 50 % )         ;
 ; Local interconnects         ; 131 / 4,608 ( 3 % )    ;
-; R24 interconnects           ; 1 / 652 ( < 1 % )      ;
-; R4 interconnects            ; 45 / 13,328 ( < 1 % )  ;
+; R24 interconnects           ; 5 / 652 ( < 1 % )      ;
+; R4 interconnects            ; 54 / 13,328 ( < 1 % )  ;
 +-----------------------------+------------------------+
 
 
 +----------------------------------------------------------------------------+
 ; LAB Logic Elements                                                         ;
 +---------------------------------------------+------------------------------+
-; Number of Logic Elements  (Average = 11.54) ; Number of LABs  (Total = 13) ;
+; Number of Logic Elements  (Average = 10.57) ; Number of LABs  (Total = 14) ;
 +---------------------------------------------+------------------------------+
-; 1                                           ; 0                            ;
-; 2                                           ; 0                            ;
+; 1                                           ; 1                            ;
+; 2                                           ; 1                            ;
 ; 3                                           ; 1                            ;
-; 4                                           ; 1                            ;
+; 4                                           ; 0                            ;
 ; 5                                           ; 0                            ;
 ; 6                                           ; 0                            ;
 ; 7                                           ; 0                            ;
 ; 8                                           ; 1                            ;
-; 9                                           ; 0                            ;
-; 10                                          ; 2                            ;
+; 9                                           ; 1                            ;
+; 10                                          ; 1                            ;
 ; 11                                          ; 1                            ;
-; 12                                          ; 1                            ;
-; 13                                          ; 1                            ;
+; 12                                          ; 2                            ;
+; 13                                          ; 0                            ;
 ; 14                                          ; 0                            ;
-; 15                                          ; 1                            ;
-; 16                                          ; 4                            ;
+; 15                                          ; 0                            ;
+; 16                                          ; 5                            ;
 +---------------------------------------------+------------------------------+
 
 
 +-------------------------------------------------------------------+
 ; LAB-wide Signals                                                  ;
 +------------------------------------+------------------------------+
-; LAB-wide Signals  (Average = 1.23) ; Number of LABs  (Total = 13) ;
+; LAB-wide Signals  (Average = 1.14) ; Number of LABs  (Total = 14) ;
 +------------------------------------+------------------------------+
-; 1 Clock                            ; 10                           ;
+; 1 Clock                            ; 11                           ;
 ; 1 Sync. clear                      ; 4                            ;
-; 2 Clocks                           ; 2                            ;
+; 2 Clocks                           ; 1                            ;
 +------------------------------------+------------------------------+
 
 
 +-----------------------------------------------------------------------------+
 ; LAB Signals Sourced                                                         ;
 +----------------------------------------------+------------------------------+
-; Number of Signals Sourced  (Average = 19.85) ; Number of LABs  (Total = 13) ;
+; Number of Signals Sourced  (Average = 18.50) ; Number of LABs  (Total = 14) ;
 +----------------------------------------------+------------------------------+
 ; 0                                            ; 0                            ;
-; 1                                            ; 0                            ;
-; 2                                            ; 0                            ;
+; 1                                            ; 1                            ;
+; 2                                            ; 1                            ;
 ; 3                                            ; 0                            ;
-; 4                                            ; 1                            ;
+; 4                                            ; 0                            ;
 ; 5                                            ; 0                            ;
 ; 6                                            ; 1                            ;
 ; 7                                            ; 0                            ;
 ; 8                                            ; 0                            ;
 ; 9                                            ; 0                            ;
 ; 10                                           ; 1                            ;
-; 11                                           ; 0                            ;
-; 12                                           ; 1                            ;
-; 13                                           ; 1                            ;
-; 14                                           ; 0                            ;
-; 15                                           ; 0                            ;
-; 16                                           ; 1                            ;
+; 11                                           ; 1                            ;
+; 12                                           ; 0                            ;
+; 13                                           ; 0                            ;
+; 14                                           ; 1                            ;
+; 15                                           ; 1                            ;
+; 16                                           ; 0                            ;
 ; 17                                           ; 0                            ;
 ; 18                                           ; 0                            ;
 ; 19                                           ; 0                            ;
 ; 20                                           ; 0                            ;
 ; 21                                           ; 0                            ;
-; 22                                           ; 1                            ;
-; 23                                           ; 0                            ;
+; 22                                           ; 0                            ;
+; 23                                           ; 1                            ;
 ; 24                                           ; 1                            ;
 ; 25                                           ; 0                            ;
 ; 26                                           ; 1                            ;
 ; 27                                           ; 0                            ;
 ; 28                                           ; 0                            ;
-; 29                                           ; 1                            ;
+; 29                                           ; 0                            ;
 ; 30                                           ; 0                            ;
-; 31                                           ; 0                            ;
+; 31                                           ; 1                            ;
 ; 32                                           ; 3                            ;
 +----------------------------------------------+------------------------------+
 
@@ -1097,39 +1117,39 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------------------------------------------------------------------+
 ; LAB Signals Sourced Out                                                        ;
 +-------------------------------------------------+------------------------------+
-; Number of Signals Sourced Out  (Average = 7.46) ; Number of LABs  (Total = 13) ;
+; Number of Signals Sourced Out  (Average = 7.07) ; Number of LABs  (Total = 14) ;
 +-------------------------------------------------+------------------------------+
 ; 0                                               ; 0                            ;
 ; 1                                               ; 2                            ;
-; 2                                               ; 2                            ;
-; 3                                               ; 2                            ;
+; 2                                               ; 5                            ;
+; 3                                               ; 1                            ;
 ; 4                                               ; 1                            ;
-; 5                                               ; 1                            ;
+; 5                                               ; 0                            ;
 ; 6                                               ; 0                            ;
 ; 7                                               ; 0                            ;
 ; 8                                               ; 0                            ;
 ; 9                                               ; 0                            ;
 ; 10                                              ; 0                            ;
 ; 11                                              ; 0                            ;
-; 12                                              ; 1                            ;
+; 12                                              ; 0                            ;
 ; 13                                              ; 0                            ;
 ; 14                                              ; 0                            ;
 ; 15                                              ; 0                            ;
-; 16                                              ; 4                            ;
+; 16                                              ; 5                            ;
 +-------------------------------------------------+------------------------------+
 
 
 +----------------------------------------------------------------------------+
 ; LAB Distinct Inputs                                                        ;
 +---------------------------------------------+------------------------------+
-; Number of Distinct Inputs  (Average = 7.85) ; Number of LABs  (Total = 13) ;
+; Number of Distinct Inputs  (Average = 6.93) ; Number of LABs  (Total = 14) ;
 +---------------------------------------------+------------------------------+
 ; 0                                           ; 0                            ;
 ; 1                                           ; 2                            ;
 ; 2                                           ; 4                            ;
-; 3                                           ; 0                            ;
-; 4                                           ; 0                            ;
-; 5                                           ; 3                            ;
+; 3                                           ; 3                            ;
+; 4                                           ; 1                            ;
+; 5                                           ; 0                            ;
 ; 6                                           ; 0                            ;
 ; 7                                           ; 0                            ;
 ; 8                                           ; 0                            ;
@@ -1142,10 +1162,9 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; 15                                          ; 0                            ;
 ; 16                                          ; 0                            ;
 ; 17                                          ; 0                            ;
-; 18                                          ; 2                            ;
+; 18                                          ; 3                            ;
 ; 19                                          ; 0                            ;
 ; 20                                          ; 1                            ;
-; 21                                          ; 1                            ;
 +---------------------------------------------+------------------------------+
 
 
@@ -1223,13 +1242,13 @@ Info (170137): Fitter placement was successful
 Info (170192): Fitter placement operations ending: elapsed time is 00:00:00
 Info (170193): Fitter routing operations beginning
 Info (170195): Router estimated average interconnect usage is 0% of the available device resources
-    Info (170196): Router estimated peak interconnect usage is 0% of the available device resources in the region that extends from location X14_Y0 to location X28_Y14
+    Info (170196): Router estimated peak interconnect usage is 0% of the available device resources in the region that extends from location X0_Y0 to location X13_Y14
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:00
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
-Info (11888): Total time spent on timing analysis during the Fitter is 0.31 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.36 seconds.
 Info (306004): Started post-fitting delay annotation
-Warning (306006): Found 13 output pins without output pin load capacitance assignment
+Warning (306006): Found 23 output pins without output pin load capacitance assignment
     Info (306007): Pin "LEDS[0]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "LEDS[1]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "LEDS[2]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
@@ -1240,19 +1259,29 @@ Warning (306006): Found 13 output pins without output pin load capacitance assig
     Info (306007): Pin "LEDS[7]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "LEDS[8]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "LEDS[9]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
+    Info (306007): Pin "LEDS_Gray[0]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
+    Info (306007): Pin "LEDS_Gray[1]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
+    Info (306007): Pin "LEDS_Gray[2]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
+    Info (306007): Pin "LEDS_Gray[3]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
+    Info (306007): Pin "LEDS_Gray[4]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
+    Info (306007): Pin "LEDS_Gray[5]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
+    Info (306007): Pin "LEDS_Gray[6]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
+    Info (306007): Pin "LEDS_Gray[7]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
+    Info (306007): Pin "LEDS_Gray[8]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
+    Info (306007): Pin "LEDS_Gray[9]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "ACT_LED[0]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "ACT_LED[1]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
     Info (306007): Pin "ACT_LED[2]" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
 Info (306005): Delay annotation completed successfully
 Info (306004): Started post-fitting delay annotation
 Info (306005): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:01
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:00
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Warning (169174): The Reserve All Unused Pins setting has not been specified, and will default to 'As output driving ground'.
 Info (144001): Generated suppressed messages file C:/Users/bachv/dev/counter/output_files/counter.fit.smsg
 Info: Quartus II 64-Bit Fitter was successful. 0 errors, 6 warnings
-    Info: Peak virtual memory: 4807 megabytes
-    Info: Processing ended: Thu Oct 03 19:02:45 2019
+    Info: Peak virtual memory: 4804 megabytes
+    Info: Processing ended: Fri Oct 04 19:44:50 2019
     Info: Elapsed time: 00:00:04
     Info: Total CPU time (on all processors): 00:00:03
 
