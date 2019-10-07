@@ -1,5 +1,5 @@
 Fitter report for counter
-Fri Oct 04 19:44:50 2019
+Mon Oct 07 17:35:52 2019
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -63,7 +63,7 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Fitter Summary                                                                       ;
 +------------------------------------+-------------------------------------------------+
-; Fitter Status                      ; Successful - Fri Oct 04 19:44:50 2019           ;
+; Fitter Status                      ; Successful - Mon Oct 07 17:35:52 2019           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; counter                                         ;
 ; Top-level Entity Name              ; counter                                         ;
@@ -564,7 +564,7 @@ Note: User assignments will override these defaults. The user specified values a
 +----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------------------------+--------------+
 ; Compilation Hierarchy Node ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M4Ks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Full Hierarchy Name                   ; Library Name ;
 +----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------------------------+--------------+
-; |counter                   ; 148 (45)    ; 113 (36)                  ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 28   ; 0            ; 35 (9)       ; 5 (0)             ; 108 (36)         ; |counter                              ; work         ;
+; |counter                   ; 148 (38)    ; 113 (36)                  ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 28   ; 0            ; 35 (2)       ; 5 (0)             ; 108 (35)         ; |counter                              ; work         ;
 ;    |clksel:selector|       ; 2 (2)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 1 (1)        ; 0 (0)             ; 1 (1)            ; |counter|clksel:selector              ; work         ;
 ;    |debounce:BTTN0|        ; 26 (24)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 7 (7)        ; 2 (1)             ; 17 (16)          ; |counter|debounce:BTTN0               ; work         ;
 ;       |_dff:dff1|          ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN0|_dff:dff1     ; work         ;
@@ -578,6 +578,7 @@ Note: User assignments will override these defaults. The user specified values a
 ;    |debounce:BTTN3|        ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:BTTN3               ; work         ;
 ;       |_dff:dff1|          ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN3|_dff:dff1     ; work         ;
 ;       |_dffdash:dff0|      ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTN3|_dffdash:dff0 ; work         ;
+;    |gray_encoder:encode|   ; 8 (8)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 7 (7)        ; 0 (0)             ; 1 (1)            ; |counter|gray_encoder:encode          ; work         ;
 +----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -808,14 +809,14 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; debounce:BTTN2|rPB_state~0      ; 1       ;
 ; act_led[1]~1                    ; 1       ;
 ; act_led[2]~0                    ; 1       ;
-; WideXor0                        ; 1       ;
-; WideXor1                        ; 1       ;
-; WideXor2                        ; 1       ;
-; WideXor3                        ; 1       ;
-; WideXor4                        ; 1       ;
-; WideXor5                        ; 1       ;
-; WideXor6                        ; 1       ;
-; WideXor7                        ; 1       ;
+; gray_encoder:encode|WideXor0    ; 1       ;
+; gray_encoder:encode|WideXor1    ; 1       ;
+; gray_encoder:encode|WideXor2    ; 1       ;
+; gray_encoder:encode|WideXor3    ; 1       ;
+; gray_encoder:encode|WideXor4    ; 1       ;
+; gray_encoder:encode|WideXor5    ; 1       ;
+; gray_encoder:encode|WideXor6    ; 1       ;
+; gray_encoder:encode|WideXor7    ; 1       ;
 ; debounce:BTTN1|PB_cnt[15]~46    ; 1       ;
 ; debounce:BTTN1|PB_cnt[14]~45    ; 1       ;
 ; debounce:BTTN1|PB_cnt[14]~44    ; 1       ;
@@ -1234,7 +1235,7 @@ Info (176353): Automatically promoted node clk_div[22]
 Info (176233): Starting register packing
 Info (176235): Finished register packing
     Extra Info (176219): No registers were packed into other blocks
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:01
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:00
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:00
 Info (170191): Fitter placement operations beginning
@@ -1281,7 +1282,7 @@ Warning (169174): The Reserve All Unused Pins setting has not been specified, an
 Info (144001): Generated suppressed messages file C:/Users/bachv/dev/counter/output_files/counter.fit.smsg
 Info: Quartus II 64-Bit Fitter was successful. 0 errors, 6 warnings
     Info: Peak virtual memory: 4804 megabytes
-    Info: Processing ended: Fri Oct 04 19:44:50 2019
+    Info: Processing ended: Mon Oct 07 17:35:53 2019
     Info: Elapsed time: 00:00:04
     Info: Total CPU time (on all processors): 00:00:03
 

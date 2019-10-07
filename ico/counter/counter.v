@@ -19,11 +19,10 @@ wire res[1:0];
 assign LEDS = led_cnt;
 
 // Gray code
-assign LEDS_Gray = {
-	led_cnt[9], ^led_cnt[9:8],
-	^led_cnt[8:7], ^led_cnt[7:6], ^led_cnt[6:5], ^led_cnt[5:4],
-	^led_cnt[4:3], ^led_cnt[3:2], ^led_cnt[2:1], ^led_cnt[1:0]
-};
+gray_encoder encode(
+	.bin(led_cnt),
+	.gray(LEDS_Gray)
+);
 
 // activity indicator, current sinks at the outputs
 assign ACT_LED = {
