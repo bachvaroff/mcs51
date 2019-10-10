@@ -207,4 +207,4 @@ GND                          : 140       : gnd    :                   :         
 LEDS_Gray[3]                 : 141       : output : 3.3-V LVTTL       :         : 2         : Y              
 LEDS[0]                      : 142       : output : 3.3-V LVTTL       :         : 2         : Y              
 LEDS_Gray[2]                 : 143       : output : 3.3-V LVTTL       :         : 2         : Y              
-GND*                         : 144       :        :                   :         : 2         :                
+CLKSEL                       : 144       : input  : 3.3-V LVTTL       :         : 2         : Y              
