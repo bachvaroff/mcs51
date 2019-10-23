@@ -1,0 +1,173 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'clk_div[22]'
+Slack : -4.146
+TNS   : -37.521
+
+Type  : Slow 1200mV 85C Model Setup 'clk_div[4]'
+Slack : -3.549
+TNS   : -218.329
+
+Type  : Slow 1200mV 85C Model Setup 'CLK'
+Slack : -3.117
+TNS   : -48.845
+
+Type  : Slow 1200mV 85C Model Setup 'debounce:BTTNCLKSEL|rPB_state'
+Slack : 0.114
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'clk_div[22]'
+Slack : 0.445
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'clk_div[4]'
+Slack : 0.452
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'CLK'
+Slack : 0.465
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'debounce:BTTNCLKSEL|rPB_state'
+Slack : 0.497
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'clk_div[22]'
+Slack : -2.517
+TNS   : -23.944
+
+Type  : Slow 1200mV 85C Model Removal 'clk_div[22]'
+Slack : 2.026
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLK'
+Slack : -3.000
+TNS   : -37.201
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clk_div[4]'
+Slack : -1.487
+TNS   : -197.771
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clk_div[22]'
+Slack : -1.487
+TNS   : -17.844
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'debounce:BTTNCLKSEL|rPB_state'
+Slack : -1.487
+TNS   : -1.487
+
+Type  : Slow 1200mV 0C Model Setup 'clk_div[22]'
+Slack : -3.710
+TNS   : -33.458
+
+Type  : Slow 1200mV 0C Model Setup 'clk_div[4]'
+Slack : -3.377
+TNS   : -191.194
+
+Type  : Slow 1200mV 0C Model Setup 'CLK'
+Slack : -2.644
+TNS   : -40.949
+
+Type  : Slow 1200mV 0C Model Setup 'debounce:BTTNCLKSEL|rPB_state'
+Slack : 0.208
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'clk_div[22]'
+Slack : 0.398
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'clk_div[4]'
+Slack : 0.401
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'CLK'
+Slack : 0.417
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'debounce:BTTNCLKSEL|rPB_state'
+Slack : 0.445
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'clk_div[22]'
+Slack : -2.226
+TNS   : -21.243
+
+Type  : Slow 1200mV 0C Model Removal 'clk_div[22]'
+Slack : 1.837
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLK'
+Slack : -3.000
+TNS   : -37.201
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clk_div[4]'
+Slack : -1.487
+TNS   : -197.771
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clk_div[22]'
+Slack : -1.487
+TNS   : -17.844
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'debounce:BTTNCLKSEL|rPB_state'
+Slack : -1.487
+TNS   : -1.487
+
+Type  : Fast 1200mV 0C Model Setup 'CLK'
+Slack : -1.425
+TNS   : -21.303
+
+Type  : Fast 1200mV 0C Model Setup 'clk_div[22]'
+Slack : -1.230
+TNS   : -10.409
+
+Type  : Fast 1200mV 0C Model Setup 'clk_div[4]'
+Slack : -0.983
+TNS   : -24.511
+
+Type  : Fast 1200mV 0C Model Setup 'debounce:BTTNCLKSEL|rPB_state'
+Slack : 0.626
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'clk_div[22]'
+Slack : 0.186
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'clk_div[4]'
+Slack : 0.186
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'CLK'
+Slack : 0.193
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'debounce:BTTNCLKSEL|rPB_state'
+Slack : 0.208
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'clk_div[22]'
+Slack : -0.558
+TNS   : -5.306
+
+Type  : Fast 1200mV 0C Model Removal 'clk_div[22]'
+Slack : 0.831
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLK'
+Slack : -3.000
+TNS   : -32.880
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clk_div[4]'
+Slack : -1.000
+TNS   : -133.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clk_div[22]'
+Slack : -1.000
+TNS   : -12.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'debounce:BTTNCLKSEL|rPB_state'
+Slack : -1.000
+TNS   : -1.000
+
+------------------------------------------------------------

@@ -1,0 +1,129 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "LEDS0[0]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS0[1]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS0[2]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS0[3]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS0[4]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS0[5]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS0[6]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS0[7]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS0[8]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS0[9]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS1[0]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS1[1]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS1[2]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS1[3]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS1[4]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS1[5]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS1[6]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS1[7]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS1[8]",
+					"strict" : false
+				},
+				{
+					"name" : "LEDS1[9]",
+					"strict" : false
+				},
+				{
+					"name" : "ACT_LED[0]",
+					"strict" : false
+				},
+				{
+					"name" : "ACT_LED[1]",
+					"strict" : false
+				},
+				{
+					"name" : "CLK",
+					"strict" : false
+				},
+				{
+					"name" : "S2",
+					"strict" : false
+				},
+				{
+					"name" : "S1",
+					"strict" : false
+				},
+				{
+					"name" : "BTTN[2]",
+					"strict" : false
+				},
+				{
+					"name" : "BTTN[1]",
+					"strict" : false
+				},
+				{
+					"name" : "BTTN[3]",
+					"strict" : false
+				},
+				{
+					"name" : "BTTN[0]",
+					"strict" : false
+				},
+				{
+					"name" : "CLKSEL",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
