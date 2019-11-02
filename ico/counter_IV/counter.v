@@ -8,9 +8,9 @@ output wire [9:0] LEDS0;
 output wire [9:0] LEDS1;
 output wire [1:0] ACT_LED;
 
-reg [31:0] clk_div;
-reg [9:0] led_cnt;
-reg [1:0] act_led;
+reg [31:0] clk_div = 0;
+reg [9:0] led_cnt = 0;
+reg [1:0] act_led = 0;
 
 wire sel, sel_up, sel_down;
 wire [3:0] pb;
@@ -43,11 +43,13 @@ assign res[0] = pb[1];
 assign res[1] = pb[2];
 assign res[2] = pb[3];
 
-initial begin
-	clk_div = 0;
-	led_cnt = 0;
-	act_led = 0;
-end
+genvar i;
+
+generate
+	for (i = 0; i < 4; i = i + 1) begin : debouncers
+		debounce BTTNS(.CLK(db_clk), .PB(BTTN[i]), .PB_state(pb[i]), .PB_down(pb_down[i]), .PB_up(pb_up[i]));
+	end
+endgenerate
 
 debounce BTTNCLKSEL(
 	.CLK(db_clk),
@@ -55,38 +57,6 @@ debounce BTTNCLKSEL(
 	.PB_state(sel),
 	.PB_down(sel_down),
 	.PB_up(sel_up)
-);
-
-debounce BTTN0(
-	.CLK(db_clk),
-	.PB(BTTN[0]),
-	.PB_state(pb[0]),
-	.PB_down(pb_down[0]),
-	.PB_up(pb_up[0])
-);
-
-debounce BTTN1(
-	.CLK(db_clk),
-	.PB(BTTN[1]),
-	.PB_state(pb[1]),
-	.PB_down(pb_down[1]),
-	.PB_up(pb_up[1])
-);
-
-debounce BTTN2(
-	.CLK(db_clk),
-	.PB(BTTN[2]),
-	.PB_state(pb[2]),
-	.PB_down(pb_down[2]),
-	.PB_up(pb_up[2])
-);
-
-debounce BTTN3(
-	.CLK(db_clk),
-	.PB(BTTN[3]),
-	.PB_state(pb[3]),
-	.PB_down(pb_down[3]),
-	.PB_up(pb_up[3])
 );
 
 debounce BTTN_S1(
@@ -119,7 +89,7 @@ always @(posedge reg_clk) begin
 	act_led <= act_led + 2'd1;
 end
 
-always @(posedge main_clk or posedge res[0] or posedge res[1] or posedge res[2]) begin
+always @(posedge main_clk, posedge res[0], posedge res[1], posedge res[2]) begin
 	if (res[0]) begin
 		led_cnt <= 10'b0000000000;
 	end else if (res[1]) begin

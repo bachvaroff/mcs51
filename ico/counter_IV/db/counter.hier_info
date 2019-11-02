@@ -38,28 +38,28 @@ BTTN[0] => BTTN[0].IN1
 BTTN[1] => BTTN[1].IN1
 BTTN[2] => BTTN[2].IN1
 BTTN[3] => BTTN[3].IN1
-LEDS0[0] <= led_cnt[0].DB_MAX_OUTPUT_PORT_TYPE
-LEDS0[1] <= led_cnt[1].DB_MAX_OUTPUT_PORT_TYPE
-LEDS0[2] <= led_cnt[2].DB_MAX_OUTPUT_PORT_TYPE
-LEDS0[3] <= led_cnt[3].DB_MAX_OUTPUT_PORT_TYPE
-LEDS0[4] <= led_cnt[4].DB_MAX_OUTPUT_PORT_TYPE
-LEDS0[5] <= led_cnt[5].DB_MAX_OUTPUT_PORT_TYPE
-LEDS0[6] <= led_cnt[6].DB_MAX_OUTPUT_PORT_TYPE
-LEDS0[7] <= led_cnt[7].DB_MAX_OUTPUT_PORT_TYPE
-LEDS0[8] <= led_cnt[8].DB_MAX_OUTPUT_PORT_TYPE
-LEDS0[9] <= led_cnt[9].DB_MAX_OUTPUT_PORT_TYPE
-LEDS1[0] <= gray_encoder:encode.gray
-LEDS1[1] <= gray_encoder:encode.gray
-LEDS1[2] <= gray_encoder:encode.gray
-LEDS1[3] <= gray_encoder:encode.gray
-LEDS1[4] <= gray_encoder:encode.gray
-LEDS1[5] <= gray_encoder:encode.gray
-LEDS1[6] <= gray_encoder:encode.gray
-LEDS1[7] <= gray_encoder:encode.gray
-LEDS1[8] <= gray_encoder:encode.gray
-LEDS1[9] <= gray_encoder:encode.gray
-ACT_LED[0] <= act_led[1].DB_MAX_OUTPUT_PORT_TYPE
-ACT_LED[1] <= act_led[0].DB_MAX_OUTPUT_PORT_TYPE
+LEDS0[0] << led_cnt[0].DB_MAX_OUTPUT_PORT_TYPE
+LEDS0[1] << led_cnt[1].DB_MAX_OUTPUT_PORT_TYPE
+LEDS0[2] << led_cnt[2].DB_MAX_OUTPUT_PORT_TYPE
+LEDS0[3] << led_cnt[3].DB_MAX_OUTPUT_PORT_TYPE
+LEDS0[4] << led_cnt[4].DB_MAX_OUTPUT_PORT_TYPE
+LEDS0[5] << led_cnt[5].DB_MAX_OUTPUT_PORT_TYPE
+LEDS0[6] << led_cnt[6].DB_MAX_OUTPUT_PORT_TYPE
+LEDS0[7] << led_cnt[7].DB_MAX_OUTPUT_PORT_TYPE
+LEDS0[8] << led_cnt[8].DB_MAX_OUTPUT_PORT_TYPE
+LEDS0[9] << led_cnt[9].DB_MAX_OUTPUT_PORT_TYPE
+LEDS1[0] << gray_encoder:encode.gray[0]
+LEDS1[1] << gray_encoder:encode.gray[1]
+LEDS1[2] << gray_encoder:encode.gray[2]
+LEDS1[3] << gray_encoder:encode.gray[3]
+LEDS1[4] << gray_encoder:encode.gray[4]
+LEDS1[5] << gray_encoder:encode.gray[5]
+LEDS1[6] << gray_encoder:encode.gray[6]
+LEDS1[7] << gray_encoder:encode.gray[7]
+LEDS1[8] << gray_encoder:encode.gray[8]
+LEDS1[9] << gray_encoder:encode.gray[9]
+ACT_LED[0] << act_led[1].DB_MAX_OUTPUT_PORT_TYPE
+ACT_LED[1] << act_led[0].DB_MAX_OUTPUT_PORT_TYPE
 
 
 |counter|gray_encoder:encode
@@ -94,6 +94,86 @@ gray[8] <= WideXor0.DB_MAX_OUTPUT_PORT_TYPE
 gray[9] <= bin[9].DB_MAX_OUTPUT_PORT_TYPE
 
 
+|counter|debounce:debouncers[0].BTTNS
+CLK => CLK.IN2
+PB => PB.IN1
+PB_state <= rPB_state.DB_MAX_OUTPUT_PORT_TYPE
+PB_down <= PB_down.DB_MAX_OUTPUT_PORT_TYPE
+PB_up <= PB_up.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:debouncers[0].BTTNS|_dffdash:dff0
+CLK => rQ.CLK
+D => rQ.DATAIN
+Qdash <= rQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:debouncers[0].BTTNS|_dff:dff1
+CLK => rQ.CLK
+D => rQ.DATAIN
+Q <= rQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:debouncers[1].BTTNS
+CLK => CLK.IN2
+PB => PB.IN1
+PB_state <= rPB_state.DB_MAX_OUTPUT_PORT_TYPE
+PB_down <= PB_down.DB_MAX_OUTPUT_PORT_TYPE
+PB_up <= PB_up.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:debouncers[1].BTTNS|_dffdash:dff0
+CLK => rQ.CLK
+D => rQ.DATAIN
+Qdash <= rQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:debouncers[1].BTTNS|_dff:dff1
+CLK => rQ.CLK
+D => rQ.DATAIN
+Q <= rQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:debouncers[2].BTTNS
+CLK => CLK.IN2
+PB => PB.IN1
+PB_state <= rPB_state.DB_MAX_OUTPUT_PORT_TYPE
+PB_down <= PB_down.DB_MAX_OUTPUT_PORT_TYPE
+PB_up <= PB_up.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:debouncers[2].BTTNS|_dffdash:dff0
+CLK => rQ.CLK
+D => rQ.DATAIN
+Qdash <= rQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:debouncers[2].BTTNS|_dff:dff1
+CLK => rQ.CLK
+D => rQ.DATAIN
+Q <= rQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:debouncers[3].BTTNS
+CLK => CLK.IN2
+PB => PB.IN1
+PB_state <= rPB_state.DB_MAX_OUTPUT_PORT_TYPE
+PB_down <= PB_down.DB_MAX_OUTPUT_PORT_TYPE
+PB_up <= PB_up.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:debouncers[3].BTTNS|_dffdash:dff0
+CLK => rQ.CLK
+D => rQ.DATAIN
+Qdash <= rQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter|debounce:debouncers[3].BTTNS|_dff:dff1
+CLK => rQ.CLK
+D => rQ.DATAIN
+Q <= rQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
 |counter|debounce:BTTNCLKSEL
 CLK => CLK.IN2
 PB => PB.IN1
@@ -109,86 +189,6 @@ Qdash <= rQ.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |counter|debounce:BTTNCLKSEL|_dff:dff1
-CLK => rQ.CLK
-D => rQ.DATAIN
-Q <= rQ.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|counter|debounce:BTTN0
-CLK => CLK.IN2
-PB => PB.IN1
-PB_state <= rPB_state.DB_MAX_OUTPUT_PORT_TYPE
-PB_down <= PB_down.DB_MAX_OUTPUT_PORT_TYPE
-PB_up <= PB_up.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|counter|debounce:BTTN0|_dffdash:dff0
-CLK => rQ.CLK
-D => rQ.DATAIN
-Qdash <= rQ.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|counter|debounce:BTTN0|_dff:dff1
-CLK => rQ.CLK
-D => rQ.DATAIN
-Q <= rQ.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|counter|debounce:BTTN1
-CLK => CLK.IN2
-PB => PB.IN1
-PB_state <= rPB_state.DB_MAX_OUTPUT_PORT_TYPE
-PB_down <= PB_down.DB_MAX_OUTPUT_PORT_TYPE
-PB_up <= PB_up.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|counter|debounce:BTTN1|_dffdash:dff0
-CLK => rQ.CLK
-D => rQ.DATAIN
-Qdash <= rQ.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|counter|debounce:BTTN1|_dff:dff1
-CLK => rQ.CLK
-D => rQ.DATAIN
-Q <= rQ.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|counter|debounce:BTTN2
-CLK => CLK.IN2
-PB => PB.IN1
-PB_state <= rPB_state.DB_MAX_OUTPUT_PORT_TYPE
-PB_down <= PB_down.DB_MAX_OUTPUT_PORT_TYPE
-PB_up <= PB_up.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|counter|debounce:BTTN2|_dffdash:dff0
-CLK => rQ.CLK
-D => rQ.DATAIN
-Qdash <= rQ.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|counter|debounce:BTTN2|_dff:dff1
-CLK => rQ.CLK
-D => rQ.DATAIN
-Q <= rQ.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|counter|debounce:BTTN3
-CLK => CLK.IN2
-PB => PB.IN1
-PB_state <= rPB_state.DB_MAX_OUTPUT_PORT_TYPE
-PB_down <= PB_down.DB_MAX_OUTPUT_PORT_TYPE
-PB_up <= PB_up.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|counter|debounce:BTTN3|_dffdash:dff0
-CLK => rQ.CLK
-D => rQ.DATAIN
-Qdash <= rQ.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|counter|debounce:BTTN3|_dff:dff1
 CLK => rQ.CLK
 D => rQ.DATAIN
 Q <= rQ.DB_MAX_OUTPUT_PORT_TYPE

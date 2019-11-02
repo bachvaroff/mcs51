@@ -6,8 +6,8 @@ output wire PB_state;
 output wire PB_down;
 output wire PB_up;
 
-reg [(DELAY - 1):0] PB_cnt;
-reg rPB_state;
+reg [(DELAY - 1):0] PB_cnt = 0;
+reg rPB_state = 0;
 wire PB_sync_0;
 wire PB_sync_1;
 wire PB_idle = (rPB_state == PB_sync_1);
@@ -16,11 +16,6 @@ wire PB_cnt_max = &PB_cnt;
 assign PB_state = rPB_state;
 assign PB_down = ~PB_idle & PB_cnt_max & ~rPB_state;
 assign PB_up = ~PB_idle & PB_cnt_max & rPB_state;
-
-initial begin
-	PB_cnt = 0;
-	rPB_state = 0;
-end
 
 _dffdash dff0(
 	.CLK(CLK),

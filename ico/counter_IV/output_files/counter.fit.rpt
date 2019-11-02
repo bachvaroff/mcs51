@@ -1,5 +1,5 @@
 Fitter report for counter
-Wed Oct 23 17:05:33 2019
+Sat Nov 02 16:59:00 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -67,7 +67,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Wed Oct 23 17:05:33 2019       ;
+; Fitter Status                      ; Successful - Sat Nov 02 16:59:00 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; counter                                     ;
 ; Top-level Entity Name              ; counter                                     ;
@@ -159,7 +159,7 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   1.8%      ;
+;     Processor 2            ;   1.7%      ;
 ;     Processors 3-4         ;   1.1%      ;
 +----------------------------+-------------+
 
@@ -598,36 +598,36 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 +------------+------------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Fitter Resource Utilization by Entity                                                                                                                                                                                                                                                                 ;
-+----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+--------------------------------------------+--------------+--------------+
-; Compilation Hierarchy Node ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M9Ks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Full Hierarchy Name                        ; Entity Name  ; Library Name ;
-+----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+--------------------------------------------+--------------+--------------+
-; |counter                   ; 251 (64)    ; 169 (35)                  ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 30   ; 0            ; 82 (29)      ; 8 (0)             ; 161 (35)         ; |counter                                   ; counter      ; work         ;
-;    |clksel:selector|       ; 2 (2)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 1 (1)        ; 0 (0)             ; 1 (1)            ; |counter|clksel:selector                   ; clksel       ; work         ;
-;    |debounce:BTTN0|        ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:BTTN0                    ; debounce     ; work         ;
-;       |_dff:dff1|          ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN0|_dff:dff1          ; _dff         ; work         ;
-;       |_dffdash:dff0|      ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTN0|_dffdash:dff0      ; _dffdash     ; work         ;
-;    |debounce:BTTN1|        ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:BTTN1                    ; debounce     ; work         ;
-;       |_dff:dff1|          ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN1|_dff:dff1          ; _dff         ; work         ;
-;       |_dffdash:dff0|      ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTN1|_dffdash:dff0      ; _dffdash     ; work         ;
-;    |debounce:BTTN2|        ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:BTTN2                    ; debounce     ; work         ;
-;       |_dff:dff1|          ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN2|_dff:dff1          ; _dff         ; work         ;
-;       |_dffdash:dff0|      ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTN2|_dffdash:dff0      ; _dffdash     ; work         ;
-;    |debounce:BTTN3|        ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:BTTN3                    ; debounce     ; work         ;
-;       |_dff:dff1|          ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN3|_dff:dff1          ; _dff         ; work         ;
-;       |_dffdash:dff0|      ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTN3|_dffdash:dff0      ; _dffdash     ; work         ;
-;    |debounce:BTTNCLKSEL|   ; 26 (24)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 7 (7)        ; 2 (1)             ; 17 (16)          ; |counter|debounce:BTTNCLKSEL               ; debounce     ; work         ;
-;       |_dff:dff1|          ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTNCLKSEL|_dff:dff1     ; _dff         ; work         ;
-;       |_dffdash:dff0|      ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTNCLKSEL|_dffdash:dff0 ; _dffdash     ; work         ;
-;    |debounce:BTTN_S1|      ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:BTTN_S1                  ; debounce     ; work         ;
-;       |_dff:dff1|          ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN_S1|_dff:dff1        ; _dff         ; work         ;
-;       |_dffdash:dff0|      ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTN_S1|_dffdash:dff0    ; _dffdash     ; work         ;
-;    |debounce:BTTN_S2|      ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:BTTN_S2                  ; debounce     ; work         ;
-;       |_dff:dff1|          ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN_S2|_dff:dff1        ; _dff         ; work         ;
-;       |_dffdash:dff0|      ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTN_S2|_dffdash:dff0    ; _dffdash     ; work         ;
-;    |gray_encoder:encode|   ; 9 (9)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 9 (9)        ; 0 (0)             ; 0 (0)            ; |counter|gray_encoder:encode               ; gray_encoder ; work         ;
-+----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+--------------------------------------------+--------------+--------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fitter Resource Utilization by Entity                                                                                                                                                                                                                                                                                 ;
++-----------------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+-----------------------------------------------------+--------------+--------------+
+; Compilation Hierarchy Node        ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M9Ks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Full Hierarchy Name                                 ; Entity Name  ; Library Name ;
++-----------------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+-----------------------------------------------------+--------------+--------------+
+; |counter                          ; 251 (64)    ; 169 (35)                  ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 30   ; 0            ; 82 (29)      ; 8 (0)             ; 161 (35)         ; |counter                                            ; counter      ; work         ;
+;    |clksel:selector|              ; 2 (2)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 1 (1)        ; 0 (0)             ; 1 (1)            ; |counter|clksel:selector                            ; clksel       ; work         ;
+;    |debounce:BTTNCLKSEL|          ; 26 (24)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 7 (7)        ; 2 (1)             ; 17 (16)          ; |counter|debounce:BTTNCLKSEL                        ; debounce     ; work         ;
+;       |_dff:dff1|                 ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTNCLKSEL|_dff:dff1              ; _dff         ; work         ;
+;       |_dffdash:dff0|             ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTNCLKSEL|_dffdash:dff0          ; _dffdash     ; work         ;
+;    |debounce:BTTN_S1|             ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:BTTN_S1                           ; debounce     ; work         ;
+;       |_dff:dff1|                 ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN_S1|_dff:dff1                 ; _dff         ; work         ;
+;       |_dffdash:dff0|             ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTN_S1|_dffdash:dff0             ; _dffdash     ; work         ;
+;    |debounce:BTTN_S2|             ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:BTTN_S2                           ; debounce     ; work         ;
+;       |_dff:dff1|                 ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:BTTN_S2|_dff:dff1                 ; _dff         ; work         ;
+;       |_dffdash:dff0|             ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:BTTN_S2|_dffdash:dff0             ; _dffdash     ; work         ;
+;    |debounce:debouncers[0].BTTNS| ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:debouncers[0].BTTNS               ; debounce     ; work         ;
+;       |_dff:dff1|                 ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:debouncers[0].BTTNS|_dff:dff1     ; _dff         ; work         ;
+;       |_dffdash:dff0|             ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:debouncers[0].BTTNS|_dffdash:dff0 ; _dffdash     ; work         ;
+;    |debounce:debouncers[1].BTTNS| ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:debouncers[1].BTTNS               ; debounce     ; work         ;
+;       |_dff:dff1|                 ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:debouncers[1].BTTNS|_dff:dff1     ; _dff         ; work         ;
+;       |_dffdash:dff0|             ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:debouncers[1].BTTNS|_dffdash:dff0 ; _dffdash     ; work         ;
+;    |debounce:debouncers[2].BTTNS| ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:debouncers[2].BTTNS               ; debounce     ; work         ;
+;       |_dff:dff1|                 ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:debouncers[2].BTTNS|_dff:dff1     ; _dff         ; work         ;
+;       |_dffdash:dff0|             ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:debouncers[2].BTTNS|_dffdash:dff0 ; _dffdash     ; work         ;
+;    |debounce:debouncers[3].BTTNS| ; 25 (23)     ; 19 (17)                   ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 6 (6)        ; 1 (0)             ; 18 (17)          ; |counter|debounce:debouncers[3].BTTNS               ; debounce     ; work         ;
+;       |_dff:dff1|                 ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; |counter|debounce:debouncers[3].BTTNS|_dff:dff1     ; _dff         ; work         ;
+;       |_dffdash:dff0|             ; 1 (1)       ; 1 (1)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; |counter|debounce:debouncers[3].BTTNS|_dffdash:dff0 ; _dffdash     ; work         ;
+;    |gray_encoder:encode|          ; 9 (9)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 0    ; 0            ; 9 (9)        ; 0 (0)             ; 0 (0)            ; |counter|gray_encoder:encode                        ; gray_encoder ; work         ;
++-----------------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+-----------------------------------------------------+--------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
@@ -669,47 +669,47 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +------------+----------+---------------+---------------+-----------------------+-----+------+
 
 
-+-----------------------------------------------------------------------------+
-; Pad To Core Delay Chain Fanout                                              ;
-+-----------------------------------------------+-------------------+---------+
-; Source Pin / Fanout                           ; Pad To Core Index ; Setting ;
-+-----------------------------------------------+-------------------+---------+
-; CLK                                           ;                   ;         ;
-; S2                                            ;                   ;         ;
-; S1                                            ;                   ;         ;
-; BTTN[2]                                       ;                   ;         ;
-;      - debounce:BTTN2|_dffdash:dff0|rQ        ; 0                 ; 6       ;
-; BTTN[1]                                       ;                   ;         ;
-;      - debounce:BTTN1|_dffdash:dff0|rQ~feeder ; 0                 ; 6       ;
-; BTTN[3]                                       ;                   ;         ;
-;      - debounce:BTTN3|_dffdash:dff0|rQ~feeder ; 1                 ; 6       ;
-; BTTN[0]                                       ;                   ;         ;
-;      - debounce:BTTN0|_dffdash:dff0|rQ        ; 0                 ; 6       ;
-; CLKSEL                                        ;                   ;         ;
-+-----------------------------------------------+-------------------+---------+
++-------------------------------------------------------------------------------------------+
+; Pad To Core Delay Chain Fanout                                                            ;
++-------------------------------------------------------------+-------------------+---------+
+; Source Pin / Fanout                                         ; Pad To Core Index ; Setting ;
++-------------------------------------------------------------+-------------------+---------+
+; CLK                                                         ;                   ;         ;
+; S2                                                          ;                   ;         ;
+; S1                                                          ;                   ;         ;
+; BTTN[2]                                                     ;                   ;         ;
+;      - debounce:debouncers[2].BTTNS|_dffdash:dff0|rQ        ; 0                 ; 6       ;
+; BTTN[1]                                                     ;                   ;         ;
+;      - debounce:debouncers[1].BTTNS|_dffdash:dff0|rQ~feeder ; 0                 ; 6       ;
+; BTTN[3]                                                     ;                   ;         ;
+;      - debounce:debouncers[3].BTTNS|_dffdash:dff0|rQ~feeder ; 1                 ; 6       ;
+; BTTN[0]                                                     ;                   ;         ;
+;      - debounce:debouncers[0].BTTNS|_dffdash:dff0|rQ        ; 0                 ; 6       ;
+; CLKSEL                                                      ;                   ;         ;
++-------------------------------------------------------------+-------------------+---------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Control Signals                                                                                                                                            ;
-+-------------------------------+--------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
-; Name                          ; Location           ; Fan-Out ; Usage        ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
-+-------------------------------+--------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
-; CLK                           ; PIN_23             ; 23      ; Clock        ; yes    ; Global Clock         ; GCLK2            ; --                        ;
-; clk_div[22]                   ; FF_X33_Y12_N21     ; 2       ; Clock        ; yes    ; Global Clock         ; GCLK9            ; --                        ;
-; clk_div[4]                    ; FF_X33_Y13_N17     ; 3       ; Clock        ; no     ; --                   ; --               ; --                        ;
-; clk_div[4]                    ; FF_X33_Y13_N17     ; 132     ; Clock        ; yes    ; Global Clock         ; GCLK6            ; --                        ;
-; clksel:selector|OUTCLK        ; LCCOMB_X33_Y12_N26 ; 10      ; Clock        ; yes    ; Global Clock         ; GCLK7            ; --                        ;
-; debounce:BTTN0|comb~0         ; LCCOMB_X26_Y11_N26 ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
-; debounce:BTTN1|comb~0         ; LCCOMB_X29_Y8_N26  ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
-; debounce:BTTN2|comb~0         ; LCCOMB_X31_Y4_N22  ; 17      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
-; debounce:BTTN3|comb~0         ; LCCOMB_X29_Y2_N6   ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
-; debounce:BTTNCLKSEL|comb~0    ; LCCOMB_X33_Y17_N28 ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
-; debounce:BTTNCLKSEL|rPB_state ; FF_X33_Y17_N31     ; 4       ; Clock        ; no     ; --                   ; --               ; --                        ;
-; debounce:BTTN_S1|comb~0       ; LCCOMB_X24_Y4_N6   ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
-; debounce:BTTN_S2|comb~0       ; LCCOMB_X4_Y8_N26   ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
-; led_cnt[0]~0                  ; LCCOMB_X30_Y4_N6   ; 5       ; Async. clear ; no     ; --                   ; --               ; --                        ;
-; led_cnt[1]~4                  ; LCCOMB_X28_Y4_N24  ; 5       ; Async. clear ; no     ; --                   ; --               ; --                        ;
-+-------------------------------+--------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Control Signals                                                                                                                                                  ;
++-------------------------------------+--------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
+; Name                                ; Location           ; Fan-Out ; Usage        ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
++-------------------------------------+--------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
+; CLK                                 ; PIN_23             ; 23      ; Clock        ; yes    ; Global Clock         ; GCLK2            ; --                        ;
+; clk_div[22]                         ; FF_X33_Y12_N21     ; 2       ; Clock        ; yes    ; Global Clock         ; GCLK9            ; --                        ;
+; clk_div[4]                          ; FF_X33_Y13_N17     ; 3       ; Clock        ; no     ; --                   ; --               ; --                        ;
+; clk_div[4]                          ; FF_X33_Y13_N17     ; 132     ; Clock        ; yes    ; Global Clock         ; GCLK6            ; --                        ;
+; clksel:selector|OUTCLK              ; LCCOMB_X33_Y12_N26 ; 10      ; Clock        ; yes    ; Global Clock         ; GCLK7            ; --                        ;
+; debounce:BTTNCLKSEL|comb~0          ; LCCOMB_X33_Y17_N28 ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; debounce:BTTNCLKSEL|rPB_state       ; FF_X33_Y17_N31     ; 4       ; Clock        ; no     ; --                   ; --               ; --                        ;
+; debounce:BTTN_S1|comb~0             ; LCCOMB_X24_Y4_N6   ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; debounce:BTTN_S2|comb~0             ; LCCOMB_X4_Y8_N26   ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; debounce:debouncers[0].BTTNS|comb~0 ; LCCOMB_X26_Y11_N26 ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; debounce:debouncers[1].BTTNS|comb~0 ; LCCOMB_X29_Y8_N26  ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; debounce:debouncers[2].BTTNS|comb~0 ; LCCOMB_X31_Y4_N22  ; 17      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; debounce:debouncers[3].BTTNS|comb~0 ; LCCOMB_X29_Y2_N6   ; 16      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; led_cnt[0]~0                        ; LCCOMB_X30_Y4_N6   ; 5       ; Async. clear ; no     ; --                   ; --               ; --                        ;
+; led_cnt[1]~4                        ; LCCOMB_X28_Y4_N24  ; 5       ; Async. clear ; no     ; --                   ; --               ; --                        ;
++-------------------------------------+--------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1069,22 +1069,22 @@ Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Tim
 Info (332130): Timing requirements not specified -- quality metrics such as performance may be sacrificed to reduce compilation time.
 Info (176353): Automatically promoted node CLK~input (placed in PIN 23 (CLK1, DIFFCLK_0n)) File: C:/Users/bachv/dev/counter_IV/counter.v Line: 2
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G2
-Info (176353): Automatically promoted node clk_div[4]  File: C:/Users/bachv/dev/counter_IV/counter.v Line: 114
+Info (176353): Automatically promoted node clk_div[4]  File: C:/Users/bachv/dev/counter_IV/counter.v Line: 84
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
-        Info (176357): Destination node clk_div[4]~28 File: C:/Users/bachv/dev/counter_IV/counter.v Line: 114
-        Info (176357): Destination node debounce:BTTN0|rPB_state File: C:/Users/bachv/dev/counter_IV/debounce.v Line: 37
+        Info (176357): Destination node clk_div[4]~28 File: C:/Users/bachv/dev/counter_IV/counter.v Line: 84
+        Info (176357): Destination node debounce:debouncers[0].BTTNS|rPB_state File: C:/Users/bachv/dev/counter_IV/debounce.v Line: 32
 Info (176353): Automatically promoted node clksel:selector|OUTCLK  File: C:/Users/bachv/dev/counter_IV/clksel.v Line: 4
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
-Info (176353): Automatically promoted node clk_div[22]  File: C:/Users/bachv/dev/counter_IV/counter.v Line: 114
+Info (176353): Automatically promoted node clk_div[22]  File: C:/Users/bachv/dev/counter_IV/counter.v Line: 84
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
     Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
-        Info (176357): Destination node clk_div[22]~64 File: C:/Users/bachv/dev/counter_IV/counter.v Line: 114
+        Info (176357): Destination node clk_div[22]~64 File: C:/Users/bachv/dev/counter_IV/counter.v Line: 84
         Info (176357): Destination node clksel:selector|OUTCLK File: C:/Users/bachv/dev/counter_IV/clksel.v Line: 4
 Info (176233): Starting register packing
 Info (176235): Finished register packing
     Extra Info (176219): No registers were packed into other blocks
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:00
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:01
 Info (14896): Fitter has disabled Advanced Physical Optimization because it is not supported for the current family.
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:00
@@ -1097,7 +1097,7 @@ Info (170195): Router estimated average interconnect usage is 0% of the availabl
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:01
-Info (11888): Total time spent on timing analysis during the Fitter is 0.57 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.51 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -1114,8 +1114,8 @@ Warning (169177): 8 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2
     Info (169178): Pin CLKSEL uses I/O standard 3.3-V LVTTL at 88 File: C:/Users/bachv/dev/counter_IV/counter.v Line: 3
 Info (144001): Generated suppressed messages file C:/Users/bachv/dev/counter_IV/output_files/counter.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 6 warnings
-    Info: Peak virtual memory: 5490 megabytes
-    Info: Processing ended: Wed Oct 23 17:05:34 2019
+    Info: Peak virtual memory: 5491 megabytes
+    Info: Processing ended: Sat Nov 02 16:59:01 2019
     Info: Elapsed time: 00:00:08
     Info: Total CPU time (on all processors): 00:00:09
 

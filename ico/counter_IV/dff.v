@@ -3,13 +3,9 @@ input wire CLK;
 input wire D;
 output wire Q;
 
-reg rQ;
+reg rQ = 0;
 
 assign Q = rQ;
-
-initial begin
-	rQ = 0;
-end
 
 always @(posedge CLK) begin
 	rQ <= D;
@@ -22,13 +18,9 @@ input wire CLK;
 input wire D;
 output wire Qdash;
 
-reg rQ;
+reg rQ = 0;
 
 assign Qdash = ~rQ;
-
-initial begin
-	rQ = 0;
-end
 
 always @(posedge CLK) begin
 	rQ <= D;
@@ -42,14 +34,10 @@ input wire D;
 output wire Q;
 output wire Qdash;
 
-reg rQ;
+reg rQ = 0;
 
 assign Q = rQ;
 assign Qdash = ~rQ;
-
-initial begin
-	rQ = 0;
-end
 
 always @(posedge CLK) begin
 	rQ <= D;
