@@ -19,15 +19,13 @@ wire res[2:0];
 assign LEDS0 = led_cnt;
 
 // Gray code
-gray_encoder encode(
+gray_encoder #(.LEN(10))encode(
 	.bin(led_cnt),
 	.gray(LEDS1)
 );
 
 // activity indicator, current sinks at the outputs
-assign ACT_LED = {
-	~act_led[0], ~act_led[1]
-};
+assign ACT_LED = { ~act_led[0], ~act_led[1] };
 
 assign reg_clk = clk_div[22];
 assign db_clk = clk_div[4];
