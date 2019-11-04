@@ -1,0 +1,1 @@
+Info (10281): Verilog HDL Declaration information at counter.v(6): object "ACT_LED" differs only in case from object "act_led" in the same scope File: C:/Users/bachv/dev/counter_IV/counter.v Line: 6
