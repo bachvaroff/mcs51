@@ -5,15 +5,22 @@ output wire [9:0] LEDS0;
 output wire [9:0] LEDS1;
 output wire [1:0] ACT_LED;
 
-reg [31:0] clk_div = 0;
-reg [9:0] led_cnt = 0;
-reg [1:0] act_led = 0;
+reg [31:0] clk_div;
+reg [9:0] led_cnt;
+reg [1:0] act_led;
 
 wire [6:0] pb;
 wire [6:0] pb_up;
 wire [6:0] pb_down;
 wire main_clk, reg_clk, db_clk;
 wire res[2:0];
+wire RST, pattern_2AA, pattern_155, shr_1, sub_1;
+
+initial begin
+	clk_div = 32'd0;
+	led_cnt = 10'd0;
+	act_led = 2'd0;
+end
 
 // binary
 assign LEDS0 = led_cnt;
@@ -58,7 +65,7 @@ always @(posedge reg_clk) begin
 	act_led <= act_led + 2'd1;
 end
 
-always @(posedge main_clk, posedge RST, posedge pattern_2AA, posedge pattern_155) begin
+always @(posedge main_clk or posedge RST or posedge pattern_2AA or posedge pattern_155) begin
 	if (RST) begin
 		led_cnt <= 10'h0;
 	end else if (pattern_2AA) begin

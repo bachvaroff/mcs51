@@ -3,7 +3,11 @@ input wire CLK;
 input wire D;
 output wire Q;
 
-reg rQ = 0;
+reg rQ;
+
+initial begin
+	rQ = 0;
+end
 
 assign Q = rQ;
 
@@ -18,7 +22,11 @@ input wire CLK;
 input wire D;
 output wire Qdash;
 
-reg rQ = 0;
+reg rQ;
+
+initial begin
+	rQ = 0;
+end
 
 assign Qdash = ~rQ;
 
@@ -34,7 +42,11 @@ input wire D;
 output wire Q;
 output wire Qdash;
 
-reg rQ = 0;
+reg rQ;
+
+initial begin
+	rQ = 0;
+end
 
 assign Q = rQ;
 assign Qdash = ~rQ;

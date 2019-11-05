@@ -6,12 +6,16 @@ output wire PB_state;
 output wire PB_down;
 output wire PB_up;
 
-reg [(DELAY - 1):0] PB_cnt = 0;
+reg [(DELAY - 1):0] PB_cnt;
 reg rPB_state = 0;
 wire PB_sync_0;
 wire PB_sync_1;
 wire PB_idle = (rPB_state == PB_sync_1);
 wire PB_cnt_max = &PB_cnt;
+
+initial begin
+	PB_cnt = { DELAY{1'b0} };
+end
 
 assign PB_state = rPB_state;
 assign PB_down = ~PB_idle & PB_cnt_max & ~rPB_state;
