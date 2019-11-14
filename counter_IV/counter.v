@@ -13,7 +13,6 @@ wire [6:0] pb;
 wire [6:0] pb_up;
 wire [6:0] pb_down;
 wire main_clk, reg_clk, db_clk;
-wire res[2:0];
 wire RST, pattern_2AA, pattern_155, shr_1, sub_1;
 
 initial begin

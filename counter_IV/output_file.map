@@ -3,7 +3,7 @@ BLOCK		START ADDRESS		END ADDRESS
 Page_0		0x00000000		0x00059D8A
 
 
-Configuration device: EPCQ16
+Configuration device: EPCQ16A
 Configuration mode: Active Serial
 Quad-Serial configuration device dummy clock cycle: 8
 
