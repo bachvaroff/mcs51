@@ -8,7 +8,7 @@ input CLK;
 input E;
 input RESET;
 input [(NUM_BITS - 1):0] SEED;
-output wire [NUM_BITS:1] LFSR;
+output reg [NUM_BITS:1] LFSR;
 
 reg XNOR;
 
