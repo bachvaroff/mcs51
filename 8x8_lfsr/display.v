@@ -23,7 +23,7 @@ assign frame_clk = clkdiv[16];
 assign ACT_LEDS = {~clear, ~act_led};
 
 driver drv(.CLK(frame_clk), .DATA(frame), .OE(1'b1), .ROW(ROWS), .COLUMN(COLUMNS), .CLEAR(clear));
-LFSR #(.NUM_BITS(64))LFSR(.CLK(inc), .E(clear), .RESET(1'b0), .SEED(64'b0), .LFSR(frame));
+LFSR #(.NUM_BITS(64))LFSR(.CLK(inc), .E(clear), .RESET(1'b0), .SEED_VAL(64'b0), .LFSR_VAL(frame));
 
 always @(posedge CLK) clkdiv <= clkdiv + 32'd1;
 

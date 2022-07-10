@@ -1,6 +1,6 @@
 Flow report for display
-Mon Jan 13 17:33:28 2020
-Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Mon Jul 11 02:42:20 2022
+Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
 
 
 ---------------------
@@ -21,9 +21,9 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2018  Intel Corporation. All rights reserved.
+Copyright (C) 2021  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
-and other software and tools, and its AMPP partner logic 
+and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
@@ -33,15 +33,16 @@ the Intel FPGA IP License Agreement, or other applicable license
 agreement, including, without limitation, that your use is for
 the sole purpose of programming logic devices manufactured by
 Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details.
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
 
 
 
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Mon Jan 13 17:33:23 2020       ;
-; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Flow Status                        ; Successful - Mon Jul 11 02:42:17 2022       ;
+; Quartus Prime Version              ; 21.1.0 Build 842 10/21/2021 SJ Lite Edition ;
 ; Revision Name                      ; display                                     ;
 ; Top-level Entity Name              ; display                                     ;
 ; Family                             ; Cyclone IV E                                ;
@@ -64,7 +65,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 01/13/2020 17:32:57 ;
+; Start date & time ; 07/11/2022 02:41:55 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; display             ;
 +-------------------+---------------------+
@@ -75,7 +76,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 264840328925895.157892957710840        ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 105996040933948.165749651508552        ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 125                                    ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; -40                                    ; --            ; --          ; --         ;
 ; NOMINAL_CORE_SUPPLY_VOLTAGE         ; 1.2V                                   ; --            ; --          ; --         ;
@@ -91,24 +92,24 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:16     ; 1.0                     ; 4769 MB             ; 00:00:34                           ;
-; Fitter               ; 00:00:06     ; 1.0                     ; 5497 MB             ; 00:00:08                           ;
-; Assembler            ; 00:00:01     ; 1.0                     ; 4675 MB             ; 00:00:01                           ;
-; Timing Analyzer      ; 00:00:03     ; 1.0                     ; 4754 MB             ; 00:00:03                           ;
-; Total                ; 00:00:26     ; --                      ; --                  ; 00:00:46                           ;
+; Analysis & Synthesis ; 00:00:13     ; 1.0                     ; 383 MB              ; 00:00:31                           ;
+; Fitter               ; 00:00:05     ; 1.0                     ; 720 MB              ; 00:00:06                           ;
+; Assembler            ; 00:00:01     ; 1.0                     ; 359 MB              ; 00:00:01                           ;
+; Timing Analyzer      ; 00:00:02     ; 1.0                     ; 439 MB              ; 00:00:02                           ;
+; Total                ; 00:00:21     ; --                      ; --                  ; 00:00:40                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+------------------------------------------------------------------------------------+
-; Flow OS Summary                                                                    ;
-+----------------------+------------------+------------+------------+----------------+
-; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
-+----------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis ; MELKOR           ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; MELKOR           ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; MELKOR           ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; MELKOR           ; Windows 10 ; 10.0       ; x86_64         ;
-+----------------------+------------------+------------+------------+----------------+
++--------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                      ;
++----------------------+------------------+--------------+------------+----------------+
+; Module Name          ; Machine Hostname ; OS Name      ; OS Version ; Processor type ;
++----------------------+------------------+--------------+------------+----------------+
+; Analysis & Synthesis ; midian           ; Ubuntu 22.04 ; 22         ; x86_64         ;
+; Fitter               ; midian           ; Ubuntu 22.04 ; 22         ; x86_64         ;
+; Assembler            ; midian           ; Ubuntu 22.04 ; 22         ; x86_64         ;
+; Timing Analyzer      ; midian           ; Ubuntu 22.04 ; 22         ; x86_64         ;
++----------------------+------------------+--------------+------------+----------------+
 
 
 ------------
