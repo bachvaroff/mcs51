@@ -1,4 +1,5 @@
 module display(CLK, ACT_LEDS, ROWS, COLUMNS);
+
 input wire CLK;
 output wire [1:0] ACT_LEDS;
 output wire [7:0] ROWS;

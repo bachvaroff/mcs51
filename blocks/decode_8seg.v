@@ -1,8 +1,13 @@
-module decode_8seg(OE, tetrade, dot, leds);
-input OE;
-input [3:0] tetrade;
-input dot;
-output reg [7:0] leds; /* { dot, g, f, e, d, c, b, a } */
+module decode_8seg(OE, tetrade, dot, leds_val);
+
+input wire OE;
+input wire [3:0] tetrade;
+input wire dot;
+output wire [7:0] leds_val; /* { dot, g, f, e, d, c, b, a } */
+
+reg [7:0] leds;
+
+assign leds_val = leds;
 
 always @(*) begin
 	if (!OE) begin

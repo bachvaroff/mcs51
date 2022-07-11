@@ -1,5 +1,7 @@
 module gray_encoder(bin, gray);
-parameter LEN;
+
+parameter LEN = 32;
+
 input wire [(LEN - 1):0] bin;
 output wire [(LEN - 1):0] gray;
 

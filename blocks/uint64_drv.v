@@ -1,14 +1,15 @@
 module uint64_drv (CLK, OE, data, row, column);
-input CLK;
-input OE;
-input [63:0] data;
-output [7:0] row;
-output [7:0] column;
+
+input wire CLK;
+input wire OE;
+input wire [63:0] data;
+output wire [7:0] row;
+output wire [7:0] column;
 
 reg [2:0] byte_sel;
 reg [7:0] trow;
 reg [7:0] tcolumn;
-	
+
 always @(posedge CLK) begin
 	if (!OE) begin
 		trow <= 8'b00000000;

@@ -1,4 +1,5 @@
 module driver(CLK, OE, DATA, ROW, COLUMN, CLEAR);
+
 input wire CLK;
 input wire OE;
 input wire [63:0] DATA;
