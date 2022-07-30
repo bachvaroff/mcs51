@@ -1,9 +1,9 @@
 Name 8051_CTRL_DECODER_PAGE_CONFIG;
 Assembly 0001;
-Revision 1.0;
+Revision 1.1;
 PartNo U0 G22V10;
 Device G22V10;
-Company MNK / MMS;
+Company SU;
 Designer Atanas Bachvaroff;
 Location Sofia,BG,EU;
 Date 28 Aug 2019;

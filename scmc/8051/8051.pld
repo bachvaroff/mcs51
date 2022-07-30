@@ -3,10 +3,10 @@ Assembly 0001;
 Revision 1.0;
 PartNo U0 G22V10;
 Device G22V10;
-Company MNK / MMS;
+Company SU;
 Designer Atanas Bachvaroff;
 Location Sofia,BG,EU;
-Date 28 Aug 2019;
+Date 01 May 2014;
 
 /* inputs / CPU */
 PIN 2 = ALE;
