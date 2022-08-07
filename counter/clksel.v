@@ -7,10 +7,6 @@ reg Q;
 
 assign OUTCLK = (CLK[0] & Q) | (CLK[1] & ~Q);
 
-initial begin
-	Q = 1'b1;
-end
-
 always @(posedge ALTSEL) begin
 	Q <= Q ^ 1'b1;
 end

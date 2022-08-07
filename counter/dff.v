@@ -7,10 +7,6 @@ reg rQ;
 
 assign Q = rQ;
 
-initial begin
-	rQ = 0;
-end
-
 always @(posedge CLK) begin
 	rQ <= D;
 end
@@ -25,10 +21,6 @@ output wire Qdash;
 reg rQ;
 
 assign Qdash = ~rQ;
-
-initial begin
-	rQ = 0;
-end
 
 always @(posedge CLK) begin
 	rQ <= D;
@@ -46,10 +38,6 @@ reg rQ;
 
 assign Q = rQ;
 assign Qdash = ~rQ;
-
-initial begin
-	rQ = 0;
-end
 
 always @(posedge CLK) begin
 	rQ <= D;

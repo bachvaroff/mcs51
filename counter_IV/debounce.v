@@ -13,10 +13,6 @@ wire PB_sync_1;
 wire PB_idle = (rPB_state == PB_sync_1);
 wire PB_cnt_max = &PB_cnt;
 
-initial begin
-	PB_cnt = { DELAY{1'b0} };
-end
-
 assign PB_state = rPB_state;
 assign PB_down = ~PB_idle & PB_cnt_max & ~rPB_state;
 assign PB_up = ~PB_idle & PB_cnt_max & rPB_state;

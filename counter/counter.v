@@ -38,12 +38,6 @@ assign res[0] = pb[1];
 assign res[1] = pb[2];
 assign res[2] = pb[3];
 
-initial begin
-	clk_div = 0;
-	led_cnt = 0;
-	act_led = 0;
-end
-
 debounce BTTNCLKSEL(
 	.CLK(db_clk),
 	.PB(CLKSEL),

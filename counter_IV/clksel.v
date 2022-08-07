@@ -5,10 +5,6 @@ output wire OUTCLK;
 
 reg Q;
 
-initial begin
-	Q = 1'b1;
-end
-
 assign OUTCLK = (CLK[0] & Q) | (CLK[1] & ~Q);
 
 always @(posedge ALTSEL) begin

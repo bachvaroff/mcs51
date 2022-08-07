@@ -17,11 +17,6 @@ assign PB_state = rPB_state;
 assign PB_down = ~PB_idle & PB_cnt_max & ~rPB_state;
 assign PB_up = ~PB_idle & PB_cnt_max & rPB_state;
 
-initial begin
-	PB_cnt = 0;
-	rPB_state = 0;
-end
-
 _dffdash dff0(
 	.CLK(CLK),
 	.D(PB),

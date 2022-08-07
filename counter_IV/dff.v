@@ -5,10 +5,6 @@ output wire Q;
 
 reg rQ;
 
-initial begin
-	rQ = 0;
-end
-
 assign Q = rQ;
 
 always @(posedge CLK) begin
@@ -23,10 +19,6 @@ input wire D;
 output wire Qdash;
 
 reg rQ;
-
-initial begin
-	rQ = 0;
-end
 
 assign Qdash = ~rQ;
 
@@ -43,10 +35,6 @@ output wire Q;
 output wire Qdash;
 
 reg rQ;
-
-initial begin
-	rQ = 0;
-end
 
 assign Q = rQ;
 assign Qdash = ~rQ;

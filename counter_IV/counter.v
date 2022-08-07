@@ -15,12 +15,6 @@ wire [6:0] pb_down;
 wire main_clk, reg_clk, db_clk;
 wire RST, pattern_2AA, pattern_155, shr_1, sub_1;
 
-initial begin
-	clk_div = 32'd0;
-	led_cnt = 10'd0;
-	act_led = 2'd0;
-end
-
 // binary
 assign LEDS0 = led_cnt;
 
