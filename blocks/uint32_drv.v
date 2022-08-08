@@ -1,3 +1,5 @@
+`include "decode_8seg.v"
+
 module uint32_drv(CLK, OE, data, LS_NFET, HS_NFET_PFET);
 input wire CLK;
 input wire OE;
