@@ -39,7 +39,7 @@ assign sub_1 = pb[2];
 genvar i;
 
 generate
-	for (i = 0; i < 7; i = i + 1) begin : debouncers
+	for (i = 0; i < 7; i = i + 1) begin: debouncers
 		debounce BTTNS(.CLK(db_clk), .PB(BTTN[i]), .PB_state(pb[i]), .PB_down(pb_down[i]), .PB_up(pb_up[i]));
 	end
 endgenerate
