@@ -1,5 +1,4 @@
-set_io --warn-no-port CLK R9
-
-set_io --warn-no-port LS B11
-set_io --warn-no-port HS B10
-
+set_io --warn-no-port clk R9
+set_io --warn-no-port led[0] C8
+set_io --warn-no-port led[1] F7
+set_io --warn-no-port led[2] K9

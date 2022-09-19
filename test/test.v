@@ -1,19 +1,13 @@
-module HF_test (CLK, HS, LS);
-input CLK;
-output HS;
-output LS;
+module led_test (clk, led);
+input wire clk;
+output wire [2:0] led;
 
-localparam LS_DRV = 26;
-localparam HS_DRV = 22;
+reg [31:0] counter = 0;
 
-reg [31:0] counter;
-
-always @(posedge CLK) begin
+always @ (posedge clk) begin: counting
 	counter <= counter + 1;
 end
 
-assign LS = counter[LS_DRV];
-assign HS = counter[LS_DRV] & counter[HS_DRV];
+assign led[2:0] = counter[27:25];
 
 endmodule
-
