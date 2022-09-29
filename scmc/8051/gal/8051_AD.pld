@@ -22,20 +22,19 @@ PIN 8 = P13_MCU;
 PIN 9 = P12_MCU;
 PIN 10 = P11_MCU;
 PIN 11 = P10_MCU;
-
-PIN 15 = A13_MCU;
-PIN 14 = A14_MCU;
 PIN 13 = A15_MCU;
+PIN 14 = A14_MCU;
+PIN 15 = A13_MCU;
 
 /*
 	outputs
 */
-PIN 23 = nDDIR_GAL;
-PIN 22 = DDIR_GAL;
-PIN 21 = !DE_GAL;
-PIN 20 = !RD_GAL;
-PIN 19 = !WR_GAL;
-PIN 18 = !CSIO_GAL;
+PIN 23 = DDIR_GAL;
+PIN 22 = !DE_GAL;
+PIN 21 = !RD_GAL;
+PIN 20 = !WR_GAL;
+PIN 19 = !CSIO17_GAL;
+PIN 18 = !CSIO00_GAL;
 PIN 17 = !CSRAM_GAL;
 PIN 16 = !CSROM_GAL;
 
@@ -47,81 +46,79 @@ FIELD ADDRESS = [
 ];
 
 FIELD DECODE = [
-	nDDIR_GAL, DDIR_GAL, DE_GAL,
-	CSROM_GAL, CSRAM_GAL, CSIO_GAL,
+	DDIR_GAL, DE_GAL,
+	CSROM_GAL, CSRAM_GAL, CSIO00_GAL, CSIO17_GAL,
 	RD_GAL, WR_GAL
 ];
 
 TABLE ADDRESS => DECODE {
-/* page 0 - 8K - (RD/WR : def P10 = 1 RAM | P10 = 0 IO), (PSEN : P10 = x ROM) */
-	'b'1000001xxxxxxx => 'b'10101010;
-	'b'0100001xxxxxxx => 'b'01101001;
-	'b'1000000xxxxxxx => 'b'10100110;
-	'b'0100000xxxxxxx => 'b'01100101;
-	'b'001000xxxxxxxx => 'b'10110010;
+/* page 0 - 8K - (RD / WR : default P10 = 1 RAM | P10 = 0 IO00), (PSEN : P10 = x ROM) */
+	'b'1000001xxxxxxx => 'b'01010010;
+	'b'0100001xxxxxxx => 'b'11010001;
+	'b'1000000xxxxxxx => 'b'01001010;
+	'b'0100000xxxxxxx => 'b'11001001;
+	'b'001000xxxxxxxx => 'b'01100010;
 	
-/* page 1 - 8K - (RD/WR/PSEN : def P11 = 1 RAM | P11 = 0 IO) */
-	'b'100001x1xxxxxx => 'b'10101010;
-	'b'010001x1xxxxxx => 'b'01101001;
-	'b'001001x1xxxxxx => 'b'10101010;
-	'b'100001x0xxxxxx => 'b'10100110;
-	'b'010001x0xxxxxx => 'b'01100101;
-	'b'001001x0xxxxxx => 'b'10100110;
+/* page 1 - 8K - (RD / WR / PSEN : default P11 = 1 RAM | P11 = 0 IO17) */
+	'b'100001x1xxxxxx => 'b'01010010;
+	'b'010001x1xxxxxx => 'b'11010001;
+	'b'001001x1xxxxxx => 'b'01010010;
+	'b'100001x0xxxxxx => 'b'01000110;
+	'b'010001x0xxxxxx => 'b'11000101;
+	'b'001001x0xxxxxx => 'b'01000110;
 	
-/* page 2 - 8K - (RD/WR/PSEN : def P12 = 1 RAM | P12 = 0 IO) */
-	'b'100010xx1xxxxx => 'b'10101010;
-	'b'010010xx1xxxxx => 'b'01101001;
-	'b'001010xx1xxxxx => 'b'10101010;
-	'b'100010xx0xxxxx => 'b'10100110;
-	'b'010010xx0xxxxx => 'b'01100101;
-	'b'001010xx0xxxxx => 'b'10100110;
+/* page 2 - 8K - (RD / WR / PSEN : default P12 = 1 RAM | P12 = 0 IO17) */
+	'b'100010xx1xxxxx => 'b'01010010;
+	'b'010010xx1xxxxx => 'b'11010001;
+	'b'001010xx1xxxxx => 'b'01010010;
+	'b'100010xx0xxxxx => 'b'01000110;
+	'b'010010xx0xxxxx => 'b'11000101;
+	'b'001010xx0xxxxx => 'b'01000110;
 	
-/* page 3 - 8K - (RD/WR/PSEN : def P13 = 1 RAM | P13 = 0 IO) */
-	'b'100011xxx1xxxx => 'b'10101010;
-	'b'010011xxx1xxxx => 'b'01101001;
-	'b'001011xxx1xxxx => 'b'10101010;
-	'b'100011xxx0xxxx => 'b'10100110;
-	'b'010011xxx0xxxx => 'b'01100101;
-	'b'001011xxx0xxxx => 'b'10100110;
+/* page 3 - 8K - (RD / WR / PSEN : default P13 = 1 RAM | P13 = 0 IO17) */
+	'b'100011xxx1xxxx => 'b'01010010;
+	'b'010011xxx1xxxx => 'b'11010001;
+	'b'001011xxx1xxxx => 'b'01010010;
+	'b'100011xxx0xxxx => 'b'01000110;
+	'b'010011xxx0xxxx => 'b'11000101;
+	'b'001011xxx0xxxx => 'b'01000110;
 	
-/* page 4 - 8K - (RD/WR/PSEN : def P14 = 1 RAM | P14 = 0 IO) */
-	'b'100100xxxx1xxx => 'b'10101010;
-	'b'010100xxxx1xxx => 'b'01101001;
-	'b'001100xxxx1xxx => 'b'10101010;
-	'b'100100xxxx0xxx => 'b'10100110;
-	'b'010100xxxx0xxx => 'b'01100101;
-	'b'001100xxxx0xxx => 'b'10100110;
+/* page 4 - 8K - (RD / WR / PSEN : default P14 = 1 RAM | P14 = 0 IO17) */
+	'b'100100xxxx1xxx => 'b'01010010;
+	'b'010100xxxx1xxx => 'b'11010001;
+	'b'001100xxxx1xxx => 'b'01010010;
+	'b'100100xxxx0xxx => 'b'01000110;
+	'b'010100xxxx0xxx => 'b'11000101;
+	'b'001100xxxx0xxx => 'b'01000110;
 
-/* page 5 - 8K - (RD/WR/PSEN : def P15 = 1 RAM | P15 = 0 IO) */
-	'b'100101xxxxx1xx => 'b'10101010;
-	'b'010101xxxxx1xx => 'b'01101001;
-	'b'001101xxxxx1xx => 'b'10101010;
-	'b'100101xxxxx0xx => 'b'10100110;
-	'b'010101xxxxx0xx => 'b'01100101;
-	'b'001101xxxxx0xx => 'b'10100110;
+/* page 5 - 8K - (RD / WR / PSEN : default P15 = 1 RAM | P15 = 0 IO17) */
+	'b'100101xxxxx1xx => 'b'01010010;
+	'b'010101xxxxx1xx => 'b'11010001;
+	'b'001101xxxxx1xx => 'b'01010010;
+	'b'100101xxxxx0xx => 'b'01000110;
+	'b'010101xxxxx0xx => 'b'11000101;
+	'b'001101xxxxx0xx => 'b'01000110;
 	
-/* page 6 - 8K - (RD/WR/PSEN : def P16 = 1 RAM | P16 = 0 IO) */
-	'b'100110xxxxxx1x => 'b'10101010;
-	'b'010110xxxxxx1x => 'b'01101001;
-	'b'001110xxxxxx1x => 'b'10101010;
-	'b'100110xxxxxx0x => 'b'10100110;
-	'b'010110xxxxxx0x => 'b'01100101;
-	'b'001110xxxxxx0x => 'b'10100110;
+/* page 6 - 8K - (RD / WR / PSEN : default P16 = 1 RAM | P16 = 0 IO17) */
+	'b'100110xxxxxx1x => 'b'01010010;
+	'b'010110xxxxxx1x => 'b'11010001;
+	'b'001110xxxxxx1x => 'b'01010010;
+	'b'100110xxxxxx0x => 'b'01000110;
+	'b'010110xxxxxx0x => 'b'11000101;
+	'b'001110xxxxxx0x => 'b'01000110;
 
-/* page 7 - 8K - (RD/WR/PSEN : def P17 = 1 RAM | P17 = 0 IO) */
-	'b'100111xxxxxxx1 => 'b'10101010;
-	'b'010111xxxxxxx1 => 'b'01101001;
-	'b'001111xxxxxxx1 => 'b'10101010;
-	'b'100111xxxxxxx0 => 'b'10100110;
-	'b'010111xxxxxxx0 => 'b'01100101;
-	'b'001111xxxxxxx0 => 'b'10100110;
+/* page 7 - 8K - (RD / WR / PSEN : default P17 = 1 RAM | P17 = 0 IO17) */
+	'b'100111xxxxxxx1 => 'b'01010010;
+	'b'010111xxxxxxx1 => 'b'11010001;
+	'b'001111xxxxxxx1 => 'b'01010010;
+	'b'100111xxxxxxx0 => 'b'01000110;
+	'b'010111xxxxxxx0 => 'b'11000101;
+	'b'001111xxxxxxx0 => 'b'01000110;
 	
-/* bus error */
-	'b'111xxxxxxxxxxx => 'b'01000000;
-	'b'110xxxxxxxxxxx => 'b'01000000;
-	'b'101xxxxxxxxxxx => 'b'01000000;
-	'b'011xxxxxxxxxxx => 'b'01000000;
-	
-/* external bus floating */
-	'b'000xxxxxxxxxxx => 'b'01000000;
+/* bus error / external bus floating, DDIR to bus, DE off */
+	'b'000xxxxxxxxxxx => 'b'10000000;
+	'b'111xxxxxxxxxxx => 'b'10000000;
+	'b'110xxxxxxxxxxx => 'b'10000000;
+	'b'101xxxxxxxxxxx => 'b'10000000;
+	'b'011xxxxxxxxxxx => 'b'10000000;
 }

@@ -5,7 +5,7 @@
   {Program "CUPL(WM) Version 5.0a"}
   {DBtype "Schematic"}
   {DBvrev 1.01}
-  {DBtime "Mon Sep 05 00:05:25 2022 "}
+  {DBtime "Thu Sep 29 13:42:27 2022 "}
   {DBunit "MIL"}
   {DBgrid 10}
   {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
@@ -49,12 +49,12 @@
    {P A13_MCU {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
    {P CSROM_GA' {Pt "I/O"}{Lq 0}{Ploc 360 20}}
    {P CSRAM_GA' {Pt "I/O"}{Lq 0}{Ploc 360 40}}
-   {P CSIO_GAL' {Pt "I/O"}{Lq 0}{Ploc 360 60}}
-   {P WR_GAL' {Pt "I/O"}{Lq 0}{Ploc 360 80}}
-   {P RD_GAL' {Pt "I/O"}{Lq 0}{Ploc 360 100}}
-   {P DE_GAL' {Pt "I/O"}{Lq 0}{Ploc 360 120}}
-   {P DDIR_GAL {Pt "I/O"}{Lq 0}{Ploc 360 140}}
-   {P NDDIR_GA {Pt "I/O"}{Lq 0}{Ploc 360 160}}
+   {P CSIO00_G' {Pt "I/O"}{Lq 0}{Ploc 360 60}}
+   {P CSIO17_G' {Pt "I/O"}{Lq 0}{Ploc 360 80}}
+   {P WR_GAL' {Pt "I/O"}{Lq 0}{Ploc 360 100}}
+   {P RD_GAL' {Pt "I/O"}{Lq 0}{Ploc 360 120}}
+   {P DE_GAL' {Pt "I/O"}{Lq 0}{Ploc 360 140}}
+   {P DDIR_GAL {Pt "I/O"}{Lq 0}{Ploc 360 160}}
   }
 
   {PKG
@@ -126,7 +126,8 @@
    {L 340 100 360 100}
    {C 335 120 5}
    {L 340 120 360 120}
-   {L 330 140 360 140}
+   {C 335 140 5}
+   {L 340 140 360 140}
    {L 330 160 360 160}
    [Ly "PINNAM"]
    [Tj "LC"]
@@ -147,12 +148,12 @@
    [Tj "RC"]
    {T "CSROM_GA'" 320 20}
    {T "CSRAM_GA'" 320 40}
-   {T "CSIO_GAL'" 320 60}
-   {T "WR_GAL'" 320 80}
-   {T "RD_GAL'" 320 100}
-   {T "DE_GAL'" 320 120}
-   {T "DDIR_GAL" 320 140}
-   {T "NDDIR_GA" 320 160}
+   {T "CSIO00_G'" 320 60}
+   {T "CSIO17_G'" 320 80}
+   {T "WR_GAL'" 320 100}
+   {T "RD_GAL'" 320 120}
+   {T "DE_GAL'" 320 140}
+   {T "DDIR_GAL" 320 160}
    [Ly "DEVICE"]
    [Tj "CT"]
    {T "G22V10" 230 -10}
@@ -208,7 +209,9 @@
    }
    {N CSRAM_GA'
    }
-   {N CSIO_GAL'
+   {N CSIO00_G'
+   }
+   {N CSIO17_G'
    }
    {N WR_GAL'
    }
@@ -217,8 +220,6 @@
    {N DE_GAL'
    }
    {N DDIR_GAL
-   }
-   {N NDDIR_GA
    }
   }
 
