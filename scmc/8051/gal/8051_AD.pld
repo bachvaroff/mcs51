@@ -11,9 +11,9 @@ Date 30 Jul 2022;
 /*
 	inputs
 */
-PIN 1 = !RD_MCU;
+PIN 1 = !PSEN_MCU;
 PIN 2 = !WR_MCU;
-PIN 3 = !PSEN_MCU;
+PIN 3 = !RD_MCU;
 PIN 4 = P17_MCU;
 PIN 5 = P16_MCU;
 PIN 6 = P15_MCU;
@@ -29,8 +29,8 @@ PIN 15 = A13_MCU;
 /*
 	outputs
 */
-PIN 23 = DDIR_GAL;
-PIN 22 = !DE_GAL;
+PIN 23 = !DE_GAL;
+PIN 22 = DDIR_GAL;
 PIN 21 = !RD_GAL;
 PIN 20 = !WR_GAL;
 PIN 19 = !CSIO17_GAL;
@@ -46,79 +46,84 @@ FIELD ADDRESS = [
 ];
 
 FIELD DECODE = [
-	DDIR_GAL, DE_GAL,
-	CSROM_GAL, CSRAM_GAL, CSIO00_GAL, CSIO17_GAL,
-	RD_GAL, WR_GAL
+	DE_GAL, CSROM_GAL, CSRAM_GAL, CSIO00_GAL, CSIO17_GAL,
+	DDIR_GAL, RD_GAL, WR_GAL
 ];
 
 TABLE ADDRESS => DECODE {
 /* page 0 - 8K - (RD / WR : default P10 = 1 RAM | P10 = 0 IO00), (PSEN : P10 = x ROM) */
-	'b'1000001xxxxxxx => 'b'01010010;
-	'b'0100001xxxxxxx => 'b'11010001;
-	'b'1000000xxxxxxx => 'b'01001010;
-	'b'0100000xxxxxxx => 'b'11001001;
-	'b'001000xxxxxxxx => 'b'01100010;
+	'b'1000001xxxxxxx => 'b'10100010;
+	'b'0100001xxxxxxx => 'b'10100101;
+	'b'1000000xxxxxxx => 'b'10010010;
+	'b'0100000xxxxxxx => 'b'10010101;
+	'b'001000xxxxxxxx => 'b'11000010;
 	
 /* page 1 - 8K - (RD / WR / PSEN : default P11 = 1 RAM | P11 = 0 IO17) */
-	'b'100001x1xxxxxx => 'b'01010010;
-	'b'010001x1xxxxxx => 'b'11010001;
-	'b'001001x1xxxxxx => 'b'01010010;
-	'b'100001x0xxxxxx => 'b'01000110;
-	'b'010001x0xxxxxx => 'b'11000101;
-	'b'001001x0xxxxxx => 'b'01000110;
+	'b'100001x1xxxxxx => 'b'10100010;
+	'b'010001x1xxxxxx => 'b'10100101;
+	'b'001001x1xxxxxx => 'b'10100010;
+	'b'100001x0xxxxxx => 'b'10001010;
+	'b'010001x0xxxxxx => 'b'10001101;
+	'b'001001x0xxxxxx => 'b'10001010;
 	
 /* page 2 - 8K - (RD / WR / PSEN : default P12 = 1 RAM | P12 = 0 IO17) */
-	'b'100010xx1xxxxx => 'b'01010010;
-	'b'010010xx1xxxxx => 'b'11010001;
-	'b'001010xx1xxxxx => 'b'01010010;
-	'b'100010xx0xxxxx => 'b'01000110;
-	'b'010010xx0xxxxx => 'b'11000101;
-	'b'001010xx0xxxxx => 'b'01000110;
+	'b'100010xx1xxxxx => 'b'10100010;
+	'b'010010xx1xxxxx => 'b'10100101;
+	'b'001010xx1xxxxx => 'b'10100010;
+	'b'100010xx0xxxxx => 'b'10001010;
+	'b'010010xx0xxxxx => 'b'10001101;
+	'b'001010xx0xxxxx => 'b'10001010;
 	
 /* page 3 - 8K - (RD / WR / PSEN : default P13 = 1 RAM | P13 = 0 IO17) */
-	'b'100011xxx1xxxx => 'b'01010010;
-	'b'010011xxx1xxxx => 'b'11010001;
-	'b'001011xxx1xxxx => 'b'01010010;
-	'b'100011xxx0xxxx => 'b'01000110;
-	'b'010011xxx0xxxx => 'b'11000101;
-	'b'001011xxx0xxxx => 'b'01000110;
+	'b'100011xxx1xxxx => 'b'10100010;
+	'b'010011xxx1xxxx => 'b'10100101;
+	'b'001011xxx1xxxx => 'b'10100010;
+	'b'100011xxx0xxxx => 'b'10001010;
+	'b'010011xxx0xxxx => 'b'10001101;
+	'b'001011xxx0xxxx => 'b'10001010;
 	
 /* page 4 - 8K - (RD / WR / PSEN : default P14 = 1 RAM | P14 = 0 IO17) */
-	'b'100100xxxx1xxx => 'b'01010010;
-	'b'010100xxxx1xxx => 'b'11010001;
-	'b'001100xxxx1xxx => 'b'01010010;
-	'b'100100xxxx0xxx => 'b'01000110;
-	'b'010100xxxx0xxx => 'b'11000101;
-	'b'001100xxxx0xxx => 'b'01000110;
+	'b'100100xxxx1xxx => 'b'10100010;
+	'b'010100xxxx1xxx => 'b'10100101;
+	'b'001100xxxx1xxx => 'b'10100010;
+	'b'100100xxxx0xxx => 'b'10001010;
+	'b'010100xxxx0xxx => 'b'10001101;
+	'b'001100xxxx0xxx => 'b'10001010;
 
 /* page 5 - 8K - (RD / WR / PSEN : default P15 = 1 RAM | P15 = 0 IO17) */
-	'b'100101xxxxx1xx => 'b'01010010;
-	'b'010101xxxxx1xx => 'b'11010001;
-	'b'001101xxxxx1xx => 'b'01010010;
-	'b'100101xxxxx0xx => 'b'01000110;
-	'b'010101xxxxx0xx => 'b'11000101;
-	'b'001101xxxxx0xx => 'b'01000110;
+	'b'100101xxxxx1xx => 'b'10100010;
+	'b'010101xxxxx1xx => 'b'10100101;
+	'b'001101xxxxx1xx => 'b'10100010;
+	'b'100101xxxxx0xx => 'b'10001010;
+	'b'010101xxxxx0xx => 'b'10001101;
+	'b'001101xxxxx0xx => 'b'10001010;
 	
 /* page 6 - 8K - (RD / WR / PSEN : default P16 = 1 RAM | P16 = 0 IO17) */
-	'b'100110xxxxxx1x => 'b'01010010;
-	'b'010110xxxxxx1x => 'b'11010001;
-	'b'001110xxxxxx1x => 'b'01010010;
-	'b'100110xxxxxx0x => 'b'01000110;
-	'b'010110xxxxxx0x => 'b'11000101;
-	'b'001110xxxxxx0x => 'b'01000110;
+	'b'100110xxxxxx1x => 'b'10100010;
+	'b'010110xxxxxx1x => 'b'10100101;
+	'b'001110xxxxxx1x => 'b'10100010;
+	'b'100110xxxxxx0x => 'b'10001010;
+	'b'010110xxxxxx0x => 'b'10001101;
+	'b'001110xxxxxx0x => 'b'10001010;
 
 /* page 7 - 8K - (RD / WR / PSEN : default P17 = 1 RAM | P17 = 0 IO17) */
-	'b'100111xxxxxxx1 => 'b'01010010;
-	'b'010111xxxxxxx1 => 'b'11010001;
-	'b'001111xxxxxxx1 => 'b'01010010;
-	'b'100111xxxxxxx0 => 'b'01000110;
-	'b'010111xxxxxxx0 => 'b'11000101;
-	'b'001111xxxxxxx0 => 'b'01000110;
+	'b'100111xxxxxxx1 => 'b'10100010;
+	'b'010111xxxxxxx1 => 'b'10100101;
+	'b'001111xxxxxxx1 => 'b'10100010;
+	'b'100111xxxxxxx0 => 'b'10001010;
+	'b'010111xxxxxxx0 => 'b'10001101;
+	'b'001111xxxxxxx0 => 'b'10001010;
 	
-/* bus error / external bus floating, DDIR to bus, DE off */
-	'b'000xxxxxxxxxxx => 'b'10000000;
-	'b'111xxxxxxxxxxx => 'b'10000000;
-	'b'110xxxxxxxxxxx => 'b'10000000;
-	'b'101xxxxxxxxxxx => 'b'10000000;
-	'b'011xxxxxxxxxxx => 'b'10000000;
+/* no bus cycle, DDIR to bus, DE off */
+	'b'000xxxxxxxxxxx => 'b'00000000;
+/* no bus cycle, DDIR to bus, DE off, keep the CSes warm */
+/*
+	'b'000xxxxxxxxxxx => 'b'01111000;
+*/
+	
+/* bus error, DDIR to bus, DE off */
+	'b'111xxxxxxxxxxx => 'b'00000000;
+	'b'110xxxxxxxxxxx => 'b'00000000;
+	'b'101xxxxxxxxxxx => 'b'00000000;
+	'b'011xxxxxxxxxxx => 'b'00000000;
 }

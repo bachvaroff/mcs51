@@ -1,0 +1,129 @@
+Name 8051_AD_128K;
+Assembly 0001;
+Revision 1.3;
+PartNo U0 G22V10;
+Device G22V10;
+Company DXC;
+Designer Atanas Bachvaroff;
+Location Sofia,BG,EU;
+Date 11 Dec 2022;
+
+/*
+	inputs
+*/
+PIN 1 = !PSEN_MCU;
+PIN 2 = !WR_MCU;
+PIN 3 = !RD_MCU;
+PIN 4 = P17_MCU;
+PIN 5 = P16_MCU;
+PIN 6 = P15_MCU;
+PIN 7 = P14_MCU;
+PIN 8 = P13_MCU;
+PIN 9 = P12_MCU;
+PIN 10 = P11_MCU;
+PIN 11 = P10_MCU;
+PIN 13 = A15_MCU;
+PIN 14 = A14_MCU;
+PIN 15 = A13_MCU;
+
+/*
+	outputs
+*/
+PIN 23 = !DE_GAL;
+PIN 22 = DDIR_GAL;
+PIN 21 = !RD_GAL;
+PIN 20 = !WR_GAL;
+PIN 19 = !CSIO17_GAL;
+PIN 18 = !A16_GAL;
+PIN 17 = !CSRAM_GAL;
+PIN 16 = !CSROM_GAL;
+
+A16_GAL = P10_MCU;
+
+FIELD ADDRESS = [
+	RD_MCU, WR_MCU, PSEN_MCU,
+	A15_MCU, A14_MCU, A13_MCU,
+	P11_MCU, P12_MCU, P13_MCU,
+	P14_MCU, P15_MCU, P16_MCU, P17_MCU
+];
+
+FIELD DECODE = [
+	DE_GAL, CSROM_GAL, CSRAM_GAL, CSIO17_GAL,
+	DDIR_GAL, RD_GAL, WR_GAL
+];
+
+TABLE ADDRESS => DECODE {
+/* page 0 - 8K - (RD / WR : default RAM, PSEN : ROM */
+	'b'100000xxxxxxx => 'b'1010010;
+	'b'010000xxxxxxx => 'b'1010101;
+	'b'001000xxxxxxx => 'b'1100010;
+	
+/* page 1 - 8K - (RD / WR / PSEN : default P11 = 1 RAM | P11 = 0 IO17) */
+	'b'1000011xxxxxx => 'b'1010010;
+	'b'0100011xxxxxx => 'b'1010101;
+	'b'0010011xxxxxx => 'b'1010010;
+	'b'1000010xxxxxx => 'b'1001010;
+	'b'0100010xxxxxx => 'b'1001101;
+	'b'0010010xxxxxx => 'b'1001010;
+	
+/* page 2 - 8K - (RD / WR / PSEN : default P12 = 1 RAM | P12 = 0 IO17) */
+	'b'100010x1xxxxx => 'b'1010010;
+	'b'010010x1xxxxx => 'b'1010101;
+	'b'001010x1xxxxx => 'b'1010010;
+	'b'100010x0xxxxx => 'b'1001010;
+	'b'010010x0xxxxx => 'b'1001101;
+	'b'001010x0xxxxx => 'b'1001010;
+	
+/* page 3 - 8K - (RD / WR / PSEN : default P13 = 1 RAM | P13 = 0 IO17) */
+	'b'100011xx1xxxx => 'b'1010010;
+	'b'010011xx1xxxx => 'b'1010101;
+	'b'001011xx1xxxx => 'b'1010010;
+	'b'100011xx0xxxx => 'b'1001010;
+	'b'010011xx0xxxx => 'b'1001101;
+	'b'001011xx0xxxx => 'b'1001010;
+	
+/* page 4 - 8K - (RD / WR / PSEN : default P14 = 1 RAM | P14 = 0 IO17) */
+	'b'100100xxx1xxx => 'b'1010010;
+	'b'010100xxx1xxx => 'b'1010101;
+	'b'001100xxx1xxx => 'b'1010010;
+	'b'100100xxx0xxx => 'b'1001010;
+	'b'010100xxx0xxx => 'b'1001101;
+	'b'001100xxx0xxx => 'b'1001010;
+
+/* page 5 - 8K - (RD / WR / PSEN : default P15 = 1 RAM | P15 = 0 IO17) */
+	'b'100101xxxx1xx => 'b'1010010;
+	'b'010101xxxx1xx => 'b'1010101;
+	'b'001101xxxx1xx => 'b'1010010;
+	'b'100101xxxx0xx => 'b'1001010;
+	'b'010101xxxx0xx => 'b'1001101;
+	'b'001101xxxx0xx => 'b'1001010;
+	
+/* page 6 - 8K - (RD / WR / PSEN : default P16 = 1 RAM | P16 = 0 IO17) */
+	'b'100110xxxxx1x => 'b'1010010;
+	'b'010110xxxxx1x => 'b'1010101;
+	'b'001110xxxxx1x => 'b'1010010;
+	'b'100110xxxxx0x => 'b'1001010;
+	'b'010110xxxxx0x => 'b'1001101;
+	'b'001110xxxxx0x => 'b'1001010;
+
+/* page 7 - 8K - (RD / WR / PSEN : default P17 = 1 RAM | P17 = 0 IO17) */
+	'b'100111xxxxxx1 => 'b'1010010;
+	'b'010111xxxxxx1 => 'b'1010101;
+	'b'001111xxxxxx1 => 'b'1010010;
+	'b'100111xxxxxx0 => 'b'1001010;
+	'b'010111xxxxxx0 => 'b'1001101;
+	'b'001111xxxxxx0 => 'b'1001010;
+	
+/* no bus cycle, DDIR to bus, DE off */
+	'b'000xxxxxxxxxx => 'b'0000000;
+/* no bus cycle, DDIR to bus, DE off, keep the CSes warm */
+/*
+	'b'000xxxxxxxxxx => 'b'0111000;
+*/
+	
+/* bus error / external bus floating, DDIR to bus, DE off */
+	'b'111xxxxxxxxxx => 'b'0000000;
+	'b'110xxxxxxxxxx => 'b'0000000;
+	'b'101xxxxxxxxxx => 'b'0000000;
+	'b'011xxxxxxxxxx => 'b'0000000;
+}
