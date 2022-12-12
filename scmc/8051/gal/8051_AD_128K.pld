@@ -114,16 +114,17 @@ TABLE ADDRESS => DECODE {
 	'b'010111xxxxxx0 => 'b'1001101;
 	'b'001111xxxxxx0 => 'b'1001010;
 	
-/* no bus cycle, DDIR to bus, DE off */
+/* no bus cycle, DDIR B->A, DE off */
 	'b'000xxxxxxxxxx => 'b'0000000;
-/* no bus cycle, DDIR to bus, DE off, keep the CSes warm */
+/* no bus cycle, DDIR B->A, DE off, keep the CSes warm */
 /*
 	'b'000xxxxxxxxxx => 'b'0111000;
 */
 	
-/* bus error / external bus floating, DDIR to bus, DE off */
+/* bus error / external bus floating, DDIR B->A, DE off */
 	'b'111xxxxxxxxxx => 'b'0000000;
 	'b'110xxxxxxxxxx => 'b'0000000;
 	'b'101xxxxxxxxxx => 'b'0000000;
 	'b'011xxxxxxxxxx => 'b'0000000;
 }
+
