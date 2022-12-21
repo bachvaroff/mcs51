@@ -55,10 +55,10 @@ TABLE ADDRESS => DECODE {
 /* ext !CSRAM = !CSRAM_GAL & !CSIO00_GAL */
 	'b'1000001xxxxxxx => 'b'10100010;
 	'b'0100001xxxxxxx => 'b'10100101;
-	'b'001000xxxxxxxx => 'b'11000010;
+	'b'0010001xxxxxxx => 'b'11000010;
 	'b'1000000xxxxxxx => 'b'10010010;
 	'b'0100000xxxxxxx => 'b'10010101;
-	'b'001000xxxxxxxx => 'b'10010010;
+	'b'0010000xxxxxxx => 'b'10010010;
 	
 /* page 1 - 8K - (RD / WR / PSEN : default P11 = 1 RAM | P11 = 0 IO17) */
 	'b'100001x1xxxxxx => 'b'10100010;
