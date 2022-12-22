@@ -1,4 +1,4 @@
-Name 8051_AD;
+Name 8051_AD_shadow;
 Assembly 0001;
 Revision 1.2;
 PartNo U0 G22V10;
@@ -6,7 +6,7 @@ Device G22V10;
 Company DXC;
 Designer Atanas Bachvaroff;
 Location Sofia,BG,EU;
-Date 30 Jul 2022;
+Date 22 Dec 2022;
 
 /*
 	inputs
