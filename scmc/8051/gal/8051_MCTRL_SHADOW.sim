@@ -1,10 +1,10 @@
 %SIGNAL
-PIN   6 =  CSIO00I 
-PIN   5 =  CSRAMI 
+PIN   5 =  CSIO00I 
+PIN   4 =  CSRAMI 
 PIN  15 =  CSRAMO 
-PIN   4 =  CSROMI 
+PIN   3 =  CSROMI 
 PIN  16 =  CSROMO 
-PIN  11 =  DEI 
+PIN  10 =  DEI 
 PIN  14 =  DEO 
 %END
 

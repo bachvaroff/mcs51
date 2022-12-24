@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Sat Dec 24 14:51:32 2022
+Created         Sat Dec 24 18:45:53 2022
 Name            8051_mctrl_shadow
 Partno          U0 G22V10
 Revision        1.0
@@ -48,12 +48,12 @@ Pin Variable                                    Pterms   Max     Min
 Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
 --- --------            ---     ---     ----    ------  ------  -----   
 
-    CSIO00I                     6        V        -       -       -     
-    CSRAMI                      5        V        -       -       -     
+    CSIO00I                     5        V        -       -       -     
+    CSRAMI                      4        V        -       -       -     
     CSRAMO                      15       V        2       10      2     
-    CSROMI                      4        V        -       -       -     
+    CSROMI                      3        V        -       -       -     
     CSROMO                      16       V        1       12      2     
-    DEI                         11       V        -       -       -     
+    DEI                         10       V        -       -       -     
     DEO                         14       V        2       8       2     
     CSRAMO              oe      15       D        1       1       0     
     CSROMO              oe      16       D        1       1       0     
@@ -182,7 +182,7 @@ Pin #17  05820 Mode  xx
  04268 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #16  05822 Mode  -- 
  04312 -------------------------------------------- 
- 04356 -------------x------x----------------------- 
+ 04356 ---------x------x--------------------------- 
  04400 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04444 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04488 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -196,8 +196,8 @@ Pin #16  05822 Mode  --
  04840 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #15  05824 Mode  x- 
  04884 -------------------------------------------- 
- 04928 ---------------------x---------------------- 
- 04972 -----------------x-------------------------- 
+ 04928 -----------------x-------------------------- 
+ 04972 -------------x------------------------------ 
  05016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05060 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05104 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -208,8 +208,8 @@ Pin #15  05824 Mode  x-
  05324 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #14  05826 Mode  -- 
  05368 -------------------------------------------- 
- 05412 -----------------------------------x-----x-- 
- 05456 -------------------------------x---------x-- 
+ 05412 -----------------------------------x-x------ 
+ 05456 -------------------------------x-----x------ 
  05500 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05544 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05588 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -229,15 +229,15 @@ LEGEND    X : fuse not blown
                               |8051_mctrl_sha|
                           x---|1           24|---x Vcc                      
                           x---|2           23|---x                          
-                          x---|3           22|---x                          
-                   CSROMI x---|4           21|---x                          
-                   CSRAMI x---|5           20|---x                          
-                  CSIO00I x---|6           19|---x                          
+                   CSROMI x---|3           22|---x                          
+                   CSRAMI x---|4           21|---x                          
+                  CSIO00I x---|5           20|---x                          
+                          x---|6           19|---x                          
                           x---|7           18|---x                          
                           x---|8           17|---x                          
                           x---|9           16|---x CSROMO                   
-                          x---|10          15|---x CSRAMO                   
-                      DEI x---|11          14|---x DEO                      
+                      DEI x---|10          15|---x CSRAMO                   
+                          x---|11          14|---x DEO                      
                       GND x---|12          13|---x                          
                               |______________|
 
