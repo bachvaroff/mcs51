@@ -3,6 +3,7 @@ PIN   6 =  CSIO00I
 PIN   5 =  CSRAMI 
 PIN  15 =  CSRAMO 
 PIN   4 =  CSROMI 
+PIN  16 =  CSROMO 
 PIN  11 =  DEI 
 PIN  14 =  DEO 
 %END
@@ -15,11 +16,17 @@ PIN  14 =  DEO
     !CSIO00I
   # !CSRAMI
 
+!CSROMO =>
+    CSIO00I & !CSROMI
+
 !DEO =>
     !CSRAMO & !DEI
-  # !CSROMI & !DEI
+  # !CSROMO & !DEI
 
 CSRAMO.oe  =>
+    1 
+
+CSROMO.oe  =>
     1 
 
 DEO.oe  =>

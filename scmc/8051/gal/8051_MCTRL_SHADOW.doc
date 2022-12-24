@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Sat Dec 24 14:25:44 2022
+Created         Sat Dec 24 14:51:32 2022
 Name            8051_mctrl_shadow
 Partno          U0 G22V10
 Revision        1.0
@@ -23,11 +23,17 @@ Location        Sofia,BG,EU
     !CSIO00I
   # !CSRAMI
 
+!CSROMO =>
+    CSIO00I & !CSROMI
+
 !DEO =>
     !CSRAMO & !DEI
-  # !CSROMI & !DEI
+  # !CSROMO & !DEI
 
 CSRAMO.oe  =>
+    1 
+
+CSROMO.oe  =>
     1 
 
 DEO.oe  =>
@@ -46,9 +52,11 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
     CSRAMI                      5        V        -       -       -     
     CSRAMO                      15       V        2       10      2     
     CSROMI                      4        V        -       -       -     
+    CSROMO                      16       V        1       12      2     
     DEI                         11       V        -       -       -     
     DEO                         14       V        2       8       2     
     CSRAMO              oe      15       D        1       1       0     
+    CSROMO              oe      16       D        1       1       0     
     DEO                 oe      14       D        1       1       0     
 
 
@@ -172,9 +180,9 @@ Pin #17  05820 Mode  xx
  04180 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04224 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04268 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
-Pin #16  05822 Mode  xx 
- 04312 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 04356 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #16  05822 Mode  -- 
+ 04312 -------------------------------------------- 
+ 04356 -------------x------x----------------------- 
  04400 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04444 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04488 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -201,7 +209,7 @@ Pin #15  05824 Mode  x-
 Pin #14  05826 Mode  -- 
  05368 -------------------------------------------- 
  05412 -----------------------------------x-----x-- 
- 05456 -------------x---------------------------x-- 
+ 05456 -------------------------------x---------x-- 
  05500 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05544 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05588 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -227,7 +235,7 @@ LEGEND    X : fuse not blown
                   CSIO00I x---|6           19|---x                          
                           x---|7           18|---x                          
                           x---|8           17|---x                          
-                          x---|9           16|---x                          
+                          x---|9           16|---x CSROMO                   
                           x---|10          15|---x CSRAMO                   
                       DEI x---|11          14|---x DEO                      
                       GND x---|12          13|---x                          

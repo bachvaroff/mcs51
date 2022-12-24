@@ -5,7 +5,7 @@
   {Program "CUPL(WM) Version 5.0a"}
   {DBtype "Schematic"}
   {DBvrev 1.01}
-  {DBtime "Sat Dec 24 14:25:44 2022 "}
+  {DBtime "Sat Dec 24 14:51:32 2022 "}
   {DBunit "MIL"}
   {DBgrid 10}
   {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
@@ -39,6 +39,7 @@
    {P DEI {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
    {P DEO {Pt "I/O"}{Lq 0}{Ploc 330 20}}
    {P CSRAMO {Pt "I/O"}{Lq 0}{Ploc 330 40}}
+   {P CSROMO {Pt "I/O"}{Lq 0}{Ploc 330 60}}
   }
 
   {PKG
@@ -55,8 +56,9 @@
    [Ts 15][Tj "LC"]
    {Pnl 310 30}
    {Pnl 310 50}
+   {Pnl 310 70}
 
-   {Sd A 4 5 6 11 14 15}
+   {Sd A 4 5 6 11 14 15 16}
   }
 
   {PIC
@@ -69,6 +71,7 @@
    {L 130 20 100 20}
    {L 300 20 330 20}
    {L 300 40 330 40}
+   {L 300 60 330 60}
    [Ly "PINNAM"]
    [Tj "LC"]
    {T "CSROMI" 140 80}
@@ -78,6 +81,7 @@
    [Tj "RC"]
    {T "DEO" 290 20}
    {T "CSRAMO" 290 40}
+   {T "CSROMO" 290 60}
    [Ly "DEVICE"]
    [Tj "CT"]
    {T "G22V10" 215 -10}
@@ -112,6 +116,8 @@
    {N DEO
    }
    {N CSRAMO
+   }
+   {N CSROMO
    }
   }
 
