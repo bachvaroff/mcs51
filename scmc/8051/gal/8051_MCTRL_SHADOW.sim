@@ -1,0 +1,28 @@
+%SIGNAL
+PIN   6 =  CSIO00I 
+PIN   5 =  CSRAMI 
+PIN  15 =  CSRAMO 
+PIN   4 =  CSROMI 
+PIN  11 =  DEI 
+PIN  14 =  DEO 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+!CSRAMO =>
+    !CSIO00I
+  # !CSRAMI
+
+!DEO =>
+    !CSRAMO & !DEI
+  # !CSROMI & !DEI
+
+CSRAMO.oe  =>
+    1 
+
+DEO.oe  =>
+    1 
+
+%END

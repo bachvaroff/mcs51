@@ -1,0 +1,27 @@
+Name 8051_mctrl_shadow;
+Assembly 0001;
+Revision 1.0;
+PartNo U0 G22V10;
+Device G22V10;
+Company DXC;
+Designer Atanas Bachvaroff;
+Location Sofia,BG,EU;
+Date 24 Dec 2022;
+
+/*
+	inputs
+*/
+PIN 11 = DEI;
+PIN 6 = CSIO00I;
+PIN 5 = CSRAMI;
+PIN 4 = CSROMI;
+
+/*
+	outputs
+*/
+PIN 14 = DEO;
+PIN 15 = CSRAMO;
+
+CSRAMO = CSRAMI & CSIO00I;
+DEO = !(!(CSRAMO # DEI) # !(CSROMI # DEI));
+

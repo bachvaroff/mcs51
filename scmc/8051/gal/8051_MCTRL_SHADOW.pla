@@ -1,0 +1,27 @@
+# Berkeley PLA format generated using
+#
+# CUPL(WM)        5.0a Serial# 60008009
+# Device          g22v10  Library DLIB-h-40-1
+# Created         Sat Dec 24 14:25:44 2022
+# Name            8051_mctrl_shadow
+# Partno          U0 G22V10
+# Revision        1.0
+# Date            24 Dec 2022
+# Designer        Atanas Bachvaroff
+# Company         DXC
+# Assembly        0001
+# Location        Sofia,BG,EU
+#
+# Inputs  1 CSIO00I CSRAMI CSRAMO 
+#         CSROMI DEI DEO 
+# Outputs !CSRAMO DEO CSRAMO.oe DEO.oe 
+.i 7
+.o 4
+.p 6
+-0----- 1~~~
+--0---- 1~~~
+---0-0- ~1~~
+----00- ~1~~
+1------ ~~1~
+1------ ~~~1
+.end

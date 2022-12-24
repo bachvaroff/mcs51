@@ -1,11 +1,11 @@
-{COMPONENT C:\USERS\BACHV\VAR\DEV\T\8051_AD_SHADOW.SYM
+{COMPONENT \\MIDIAN\NASKO\GIT\GITHUB\V\SCMC\8051\GAL\8051_AD_SHADOW.SYM
 
  {ENVIRONMENT
   {PDIFvrev 3.00}
   {Program "CUPL(WM) Version 5.0a"}
   {DBtype "Schematic"}
   {DBvrev 1.01}
-  {DBtime "Thu Dec 22 11:00:38 2022 "}
+  {DBtime "Sat Dec 24 14:30:28 2022 "}
   {DBunit "MIL"}
   {DBgrid 10}
   {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
@@ -167,7 +167,7 @@
    {EX
     [Ly "ATTR2"]
     [Ts 12][Tj "CT"][Tr 0][Tm "N"]
-    {At PLD C:\USERS\BACHV\VAR\DEV\T\8051_AD_SHADOW 230 320}
+    {At PLD \\MIDIAN\NASKO\GIT\GITHUB\V\SCMC\8051\GAL\8051_AD_SHADOW 230 320}
    }
   }
  }
