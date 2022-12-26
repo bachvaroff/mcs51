@@ -15,7 +15,7 @@ monitor: paulmon21.merge extra.merge
 	cat $^ > merge_script
 	$(SREC_CAT) @merge_script -Output $@.hex -Intel
 
-all: pm21
+all: monitor
 
 clean:
 	rm -f *.hex *.lst *.merge merge_script
