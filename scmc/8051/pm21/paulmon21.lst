@@ -201,7 +201,10 @@
                    
 0000:              .equ     psw_init, 0             ;value for psw (which reg b
 0000:              .equ     dnld_parm, 0x08                 ;block of 16 bytes 
-0000:              .equ     stack, 0x1f             ;location of the stack
+0000:              .equ     stack, 0x17             ;location of the stack
+                   ;|00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|10|11|12|1
+                   ;|r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  .  .  .  .  dnld  .  . 
+                   ;                                                           
                    
                    ;---------------------------------------------------------;
                    ;                                                          ;
@@ -1826,7 +1829,7 @@
 086E: 00                    nop
 086F: F5 A0                 mov     p2, a
 0871: F5 B0                 mov     p3, a
-0873: 75 81 1F              mov     sp, #stack
+0873: 75 81 17              mov     sp, #stack
                             
                    begin_cp_shadow:
 0876: 90 00 00              mov     dptr, #0x0000

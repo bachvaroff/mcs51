@@ -201,7 +201,10 @@
 
 .equ	psw_init, 0		;value for psw (which reg bank to use)
 .equ	dnld_parm, 0x08		;block of 16 bytes for download
-.equ	stack, 0x1f		;location of the stack
+.equ	stack, 0x17		;location of the stack
+;|00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|10|11|12|13|14|15|16|17|
+;|r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  .  .  .  .  dnld  .  .  .  .  .  .  |
+;                                                                  sp__/
 
 ;---------------------------------------------------------;
 ;							  ;
