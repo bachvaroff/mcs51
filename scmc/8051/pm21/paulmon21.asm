@@ -79,6 +79,7 @@
 
 .equ	baud_const, 255		;57600 baud w/ 11.0592 MHz
 ;.equ	baud_const, 253		;19200 baud w/ 11.0592 MHz
+;.equ	baud_const, 250		;9600 baud w/ 11.0592 MHz
 ;.equ	baud_const, 252		;19200 baud w/ 14.7456 MHz
 ;.equ	baud_const, 243		;4808 baud w/ 12 MHz
 
