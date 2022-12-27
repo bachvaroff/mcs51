@@ -1822,6 +1822,8 @@ poweron:
 	cpl	a
 	mov	p0, a
 	mov	p1, a
+	nop
+	nop
 	mov	p2, a
 	mov	p3, a
 	mov	sp, #stack
@@ -1836,6 +1838,8 @@ cp_byte:
 	mov	a, dph
 	cjne	a, #0x20, cp_byte
 	mov	p1, #0xfe
+	nop
+	nop
 end_cp_shadow:
 
 ;Before we start doing any I/O, a short delay is required so
