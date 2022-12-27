@@ -1060,9 +1060,7 @@ jump_doit:  ;jump to user code @dptr (this used by run command also)
 	mov	r0, #7
 jditclr:mov	@r0, a		;clear r7 to r1
 	djnz	r0, jditclr	;clear r0
-	mov	sp, #8		;start w/ sp=7, like a real reset
-	push	acc		;unlike a real reset, push 0000
-	push	acc		;in case they end with a RET
+	mov	sp, #7		;start w/ sp=7, like a real reset
 	jmp	@a+dptr
 
 
@@ -1838,10 +1836,6 @@ cp_byte:
 	mov	a, dph
 	cjne	a, #0x20, cp_byte
 	mov	p1, #0xfe
-	nop
-	nop
-	nop
-	nop
 end_cp_shadow:
 
 ;Before we start doing any I/O, a short delay is required so
