@@ -1810,18 +1810,11 @@ wr_flash:
 
 ;first the hardware has to get initialized.
 
-intr_return:
-	reti
-
 poweron:
 	clr	a
 	mov	ie, a		;all interrupts off
 	mov	ip, a
 	mov	psw, #psw_init
-	;clear any interrupt status, just in case the user put
-	;"ljmp 0" inside their interrupt service code.
-	acall	intr_return
-	acall	intr_return
 	cpl	a
 	mov	p0, a
 	mov	p1, a
