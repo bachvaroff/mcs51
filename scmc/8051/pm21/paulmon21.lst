@@ -274,7 +274,7 @@
 003C: 01 D1                 ajmp    ghex16          ;3C
 003E: 21 BA                 ajmp    esc             ;4E
 0040: 21 9A                 ajmp    upper           ;40
-0042: 02 09 09              ljmp    setbaud         ;42
+0042: 02 09 0B              ljmp    setbaud                 ;42
 0045: 02 0A 53     pcstr_h:ljmp     pcstr           ;45
 0048: 01 80                 ajmp    newline                 ;48
 004A: 02 01 A7              ljmp    lenstr          ;4A
@@ -1879,7 +1879,7 @@
 08AD: 11 DC                 acall   stcode
                    
                    ;initialize the serial port, auto baud detect if necessary
-08AF: 31 09                 acall   setbaud                 ;set up the serial 
+08AF: 31 09                 acall   setbaud_reset           ;set up the serial 
                             ;mov    a, th1
                             ;lcall  phex
                    
@@ -1930,8 +1930,9 @@
 0905: B4 00 D7              cjne    a, #((emem+1) >> 8) & 255, stcode2
 0908: 22           stcode5:ret                      ;now we've executed all of 
                    
-                   setbaud:
+                   setbaud_reset:
 0909: 74 FF                 mov     a, #baud_const  ;skip if user supplied baud
+                   setbaud:
 090B: F5 8D                 mov     th1, a
 090D: F5 8B                 mov     tl1, a
 090F: 75 89 21              mov     tmod, #0x21     ;set timer #1 for 8 bit aut

@@ -274,7 +274,7 @@ dash_sp:acall	dash
 	ajmp	ghex16		;3C
 	ajmp	esc		;4E
 	ajmp	upper		;40
-	ljmp	setbaud	;42
+	ljmp	setbaud		;42
 pcstr_h:ljmp	pcstr		;45
 	ajmp	newline		;48
 	ljmp	lenstr		;4A
@@ -1879,7 +1879,7 @@ skip_erase:
 	acall	stcode
 
 ;initialize the serial port, auto baud detect if necessary
-	acall	setbaud		;set up the serial port
+	acall	setbaud_reset		;set up the serial port
 	;mov	a, th1
 	;lcall	phex
 
@@ -1930,8 +1930,9 @@ stcode4:inc	dph
 	cjne	a, #((emem+1) >> 8) & 255, stcode2
 stcode5:ret			;now we've executed all of 'em
 
-setbaud:
+setbaud_reset:
 	mov	a, #baud_const	;skip if user supplied baud rate constant
+setbaud:
 	mov	th1, a
 	mov	tl1, a
 	mov	tmod, #0x21	;set timer #1 for 8 bit auto-reload
