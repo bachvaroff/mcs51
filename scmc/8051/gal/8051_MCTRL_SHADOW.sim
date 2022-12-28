@@ -1,35 +1,39 @@
 %SIGNAL
-PIN   5 =  CSIO00I 
-PIN   4 =  CSRAMI 
-PIN  15 =  CSRAMO 
-PIN   3 =  CSROMI 
-PIN  16 =  CSROMO 
-PIN  10 =  DEI 
-PIN  14 =  DEO 
+PIN   9 =  DDIRI 
+PIN   5 =  nCSIO00I 
+PIN   6 =  nCSIO17I 
+PIN   4 =  nCSRAMI 
+PIN  15 =  nCSRAMO 
+PIN   3 =  nCSROMI 
+PIN  16 =  nCSROMO 
+PIN  10 =  nDEI 
+PIN  14 =  nDEO 
+PIN   8 =  nRDI 
+PIN   7 =  nWRI 
 %END
 
 %FIELD
 %END
 
 %EQUATION
-!CSRAMO =>
-    !CSIO00I
-  # !CSRAMI
+!nCSRAMO =>
+    !nCSIO00I
+  # !nCSRAMI
 
-!CSROMO =>
-    CSIO00I & !CSROMI
+!nCSROMO =>
+    nCSIO00I & !nCSROMI
 
-!DEO =>
-    !CSRAMO & !DEI
-  # !CSROMO & !DEI
+!nDEO =>
+    !nCSRAMO & !nDEI
+  # !nCSROMO & !nDEI
 
-CSRAMO.oe  =>
+nCSRAMO.oe  =>
     1 
 
-CSROMO.oe  =>
+nCSROMO.oe  =>
     1 
 
-DEO.oe  =>
+nDEO.oe  =>
     1 
 
 %END

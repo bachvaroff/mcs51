@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Sat Dec 24 18:45:53 2022
+Created         Wed Dec 28 17:11:16 2022
 Name            8051_mctrl_shadow
 Partno          U0 G22V10
 Revision        1.0
@@ -19,24 +19,24 @@ Location        Sofia,BG,EU
                             Expanded Product Terms
 ===============================================================================
 
-!CSRAMO =>
-    !CSIO00I
-  # !CSRAMI
+!nCSRAMO =>
+    !nCSIO00I
+  # !nCSRAMI
 
-!CSROMO =>
-    CSIO00I & !CSROMI
+!nCSROMO =>
+    nCSIO00I & !nCSROMI
 
-!DEO =>
-    !CSRAMO & !DEI
-  # !CSROMO & !DEI
+!nDEO =>
+    !nCSRAMO & !nDEI
+  # !nCSROMO & !nDEI
 
-CSRAMO.oe  =>
+nCSRAMO.oe  =>
     1 
 
-CSROMO.oe  =>
+nCSROMO.oe  =>
     1 
 
-DEO.oe  =>
+nDEO.oe  =>
     1 
 
 
@@ -48,16 +48,20 @@ Pin Variable                                    Pterms   Max     Min
 Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
 --- --------            ---     ---     ----    ------  ------  -----   
 
-    CSIO00I                     5        V        -       -       -     
-    CSRAMI                      4        V        -       -       -     
-    CSRAMO                      15       V        2       10      2     
-    CSROMI                      3        V        -       -       -     
-    CSROMO                      16       V        1       12      2     
-    DEI                         10       V        -       -       -     
-    DEO                         14       V        2       8       2     
-    CSRAMO              oe      15       D        1       1       0     
-    CSROMO              oe      16       D        1       1       0     
-    DEO                 oe      14       D        1       1       0     
+    DDIRI                       9        V        -       -       -     
+    nCSIO00I                    5        V        -       -       -     
+    nCSIO17I                    6        V        -       -       -     
+    nCSRAMI                     4        V        -       -       -     
+    nCSRAMO                     15       V        2       10      2     
+    nCSROMI                     3        V        -       -       -     
+    nCSROMO                     16       V        1       12      2     
+    nDEI                        10       V        -       -       -     
+    nDEO                        14       V        2       8       2     
+    nRDI                        8        V        -       -       -     
+    nWRI                        7        V        -       -       -     
+    nCSRAMO             oe      15       D        1       1       0     
+    nCSROMO             oe      16       D        1       1       0     
+    nDEO                oe      14       D        1       1       0     
 
 
 LEGEND    D : default variable         F : field      G : group
@@ -229,15 +233,15 @@ LEGEND    X : fuse not blown
                               |8051_mctrl_sha|
                           x---|1           24|---x Vcc                      
                           x---|2           23|---x                          
-                   CSROMI x---|3           22|---x                          
-                   CSRAMI x---|4           21|---x                          
-                  CSIO00I x---|5           20|---x                          
-                          x---|6           19|---x                          
-                          x---|7           18|---x                          
-                          x---|8           17|---x                          
-                          x---|9           16|---x CSROMO                   
-                      DEI x---|10          15|---x CSRAMO                   
-                          x---|11          14|---x DEO                      
+                  nCSROMI x---|3           22|---x                          
+                  nCSRAMI x---|4           21|---x                          
+                 nCSIO00I x---|5           20|---x                          
+                 nCSIO17I x---|6           19|---x                          
+                     nWRI x---|7           18|---x                          
+                     nRDI x---|8           17|---x                          
+                    DDIRI x---|9           16|---x nCSROMO                  
+                     nDEI x---|10          15|---x nCSRAMO                  
+                          x---|11          14|---x nDEO                     
                       GND x---|12          13|---x                          
                               |______________|
 
