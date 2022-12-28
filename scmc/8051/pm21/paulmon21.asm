@@ -205,6 +205,9 @@
 ;|00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|10|11|12|13|14|15|16|17|
 ;|r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  .  .  .  .  dnld  .  .  .  .  .  .  |
 ;                                                                  sp__/
+;|P1.7|P1.6|P1.5|P1.4|P1.3|P1.2|P1.1|P1.0|
+.equ	mctrl_default,	0b11111111
+.equ	mctrl_shadow,	0b11111110
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -1815,14 +1818,21 @@ poweron:
 	mov	ie, a		;all interrupts off
 	mov	ip, a
 	mov	psw, #psw_init
-	cpl	a
-	mov	p0, a
+	mov	sp, #stack
+;	cpl	a
+;	mov	p0, a
+;	mov	p2, a
+;	mov	p3, a
+	mov	a, #mctrl_default
 	mov	p1, a
 	nop
 	nop
-	mov	p2, a
-	mov	p3, a
-	mov	sp, #stack
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
 	
 begin_cp_shadow:
 	mov	dptr, #0x0000
@@ -1833,7 +1843,14 @@ cp_byte:
 	inc	dptr
 	mov	a, dph
 	cjne	a, #0x20, cp_byte
-	mov	p1, #0xfe
+	mov	a, #mctrl_shadow
+	mov	p1, a
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
 	nop
 	nop
 end_cp_shadow:
