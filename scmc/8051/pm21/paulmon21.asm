@@ -1826,14 +1826,14 @@ poweron:
 ;	mov	p3, a
 	mov	a, #mctrl_default
 	mov	p1, a
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
 	
 begin_cp_shadow:
 	mov	dptr, #0x0000
@@ -1846,14 +1846,14 @@ cp_byte:
 	cjne	a, #0x20, cp_byte
 	mov	a, #mctrl_shadow
 	mov	p1, a
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
 end_cp_shadow:
 
 ;Before we start doing any I/O, a short delay is required so

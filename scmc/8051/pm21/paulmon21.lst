@@ -1826,14 +1826,14 @@
                    ;        mov     p3, a
 0866: 74 FF                 mov     a, #mctrl_default
 0868: F5 90                 mov     p1, a
-086A: 00                    nop
-086B: 00                    nop
-086C: 00                    nop
-086D: 00                    nop
-086E: 00                    nop
-086F: 00                    nop
-0870: 00                    nop
-0871: 00                    nop
+086A: FF                    mov     r7, a
+086B: FF                    mov     r7, a
+086C: FF                    mov     r7, a
+086D: FF                    mov     r7, a
+086E: FF                    mov     r7, a
+086F: FF                    mov     r7, a
+0870: FF                    mov     r7, a
+0871: FF                    mov     r7, a
                             
                    begin_cp_shadow:
 0872: 90 00 00              mov     dptr, #0x0000
@@ -1846,14 +1846,14 @@
 087B: B4 20 F7              cjne    a, #0x20, cp_byte
 087E: 74 FE                 mov     a, #mctrl_shadow
 0880: F5 90                 mov     p1, a
-0882: 00                    nop
-0883: 00                    nop
-0884: 00                    nop
-0885: 00                    nop
-0886: 00                    nop
-0887: 00                    nop
-0888: 00                    nop
-0889: 00                    nop
+0882: FF                    mov     r7, a
+0883: FF                    mov     r7, a
+0884: FF                    mov     r7, a
+0885: FF                    mov     r7, a
+0886: FF                    mov     r7, a
+0887: FF                    mov     r7, a
+0888: FF                    mov     r7, a
+0889: FF                    mov     r7, a
                    end_cp_shadow:
                    
                    ;Before we start doing any I/O, a short delay is required so
