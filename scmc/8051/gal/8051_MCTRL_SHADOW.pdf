@@ -5,7 +5,7 @@
   {Program "CUPL(WM) Version 5.0a"}
   {DBtype "Schematic"}
   {DBvrev 1.01}
-  {DBtime "Wed Dec 28 17:11:16 2022 "}
+  {DBtime "Thu Jan 05 13:53:52 2023 "}
   {DBunit "MIL"}
   {DBgrid 10}
   {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
@@ -33,23 +33,23 @@
  {SYMBOL
   {PIN_DEF
    [Ly "PINCON"]
-   {P NCSROMI {Pt "INPUT"}{Lq 0}{Ploc 100 160}}
-   {P NCSRAMI {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
-   {P NCSIO00I {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
-   {P NCSIO17I {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
-   {P NWRI {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
-   {P NRDI {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
+   {P CSROMI {Pt "INPUT"}{Lq 0}{Ploc 100 160}}
+   {P CSRAMI {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
+   {P CSIO00I {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
+   {P CSIO17I {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
+   {P WRI {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
+   {P RDI {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
    {P DDIRI {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
-   {P NDEI {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
-   {P NDEO {Pt "I/O"}{Lq 0}{Ploc 350 20}}
-   {P NCSRAMO {Pt "I/O"}{Lq 0}{Ploc 350 40}}
-   {P NCSROMO {Pt "I/O"}{Lq 0}{Ploc 350 60}}
+   {P DEI {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
+   {P DEO {Pt "I/O"}{Lq 0}{Ploc 330 20}}
+   {P CSRAMO {Pt "I/O"}{Lq 0}{Ploc 330 40}}
+   {P CSROMO {Pt "I/O"}{Lq 0}{Ploc 330 60}}
   }
 
   {PKG
    [Ly "REFDES"]
    [Ts 25][Tj "CB"][Tr 0][Tm "N"]
-   {Rdl 225 190}
+   {Rdl 215 190}
 
    [Ly "PINNUM"]
    [Ts 15][Tj "RC"]
@@ -62,9 +62,9 @@
    {Pnl 120 50}
    {Pnl 120 30}
    [Ts 15][Tj "LC"]
-   {Pnl 330 30}
-   {Pnl 330 50}
-   {Pnl 330 70}
+   {Pnl 310 30}
+   {Pnl 310 50}
+   {Pnl 310 70}
 
    {Sd A 3 4 5 6 7 8 9 10 14 15 16}
   }
@@ -72,7 +72,7 @@
   {PIC
    [Ly "GATE"]
    [Ts 15][Tj "LC"][Tr 0][Tm "N"]
-   {R 130 180 320 0}
+   {R 130 180 300 0}
    {L 130 160 100 160}
    {L 130 140 100 140}
    {L 130 120 100 120}
@@ -81,26 +81,26 @@
    {L 130 60 100 60}
    {L 130 40 100 40}
    {L 130 20 100 20}
-   {L 320 20 350 20}
-   {L 320 40 350 40}
-   {L 320 60 350 60}
+   {L 300 20 330 20}
+   {L 300 40 330 40}
+   {L 300 60 330 60}
    [Ly "PINNAM"]
    [Tj "LC"]
-   {T "NCSROMI" 140 160}
-   {T "NCSRAMI" 140 140}
-   {T "NCSIO00I" 140 120}
-   {T "NCSIO17I" 140 100}
-   {T "NWRI" 140 80}
-   {T "NRDI" 140 60}
+   {T "CSROMI" 140 160}
+   {T "CSRAMI" 140 140}
+   {T "CSIO00I" 140 120}
+   {T "CSIO17I" 140 100}
+   {T "WRI" 140 80}
+   {T "RDI" 140 60}
    {T "DDIRI" 140 40}
-   {T "NDEI" 140 20}
+   {T "DEI" 140 20}
    [Tj "RC"]
-   {T "NDEO" 310 20}
-   {T "NCSRAMO" 310 40}
-   {T "NCSROMO" 310 60}
+   {T "DEO" 290 20}
+   {T "CSRAMO" 290 40}
+   {T "CSROMO" 290 60}
    [Ly "DEVICE"]
    [Tj "CT"]
-   {T "G22V10" 225 -10}
+   {T "G22V10" 215 -10}
   }
 
   {ATR
@@ -111,7 +111,7 @@
    {EX
     [Ly "ATTR2"]
     [Ts 12][Tj "CT"][Tr 0][Tm "N"]
-    {At PLD \\MIDIAN\NASKO\GIT\GITHUB\V\SCMC\8051\GAL\8051_MCTRL_SHADOW 225 180}
+    {At PLD \\MIDIAN\NASKO\GIT\GITHUB\V\SCMC\8051\GAL\8051_MCTRL_SHADOW 215 180}
    }
   }
  }
@@ -121,27 +121,27 @@
   }
 
   {NET_DEF
-   {N NCSROMI
+   {N CSROMI
    }
-   {N NCSRAMI
+   {N CSRAMI
    }
-   {N NCSIO00I
+   {N CSIO00I
    }
-   {N NCSIO17I
+   {N CSIO17I
    }
-   {N NWRI
+   {N WRI
    }
-   {N NRDI
+   {N RDI
    }
    {N DDIRI
    }
-   {N NDEI
+   {N DEI
    }
-   {N NDEO
+   {N DEO
    }
-   {N NCSRAMO
+   {N CSRAMO
    }
-   {N NCSROMO
+   {N CSROMO
    }
   }
 
