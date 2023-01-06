@@ -17,7 +17,7 @@ calc_crc16:
 	mov	dptr, #0x0000
 next_byte:
 	movx	a, @dptr	
-	lcall	update_crc16
+	acall	update_crc16
 	inc	dptr
 	mov	a, dph
 	cjne	a, #0x20, next_byte
