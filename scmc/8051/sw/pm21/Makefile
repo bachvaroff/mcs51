@@ -11,11 +11,11 @@ SREC_CAT=srec_cat
 %.merge: %.hex
 	echo "$< -Intel" > "$@"
 
+all: monitor
+
 monitor: paulmon21.merge extra.merge
 	cat $^ > merge_script
 	$(SREC_CAT) @merge_script -Output $@.hex -Intel
-
-all: monitor
 
 clean:
 	rm -f *.hex *.lst *.merge merge_script
