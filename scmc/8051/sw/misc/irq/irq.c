@@ -32,6 +32,10 @@ void int1(void) __interrupt 2 __using 1 {
 
 void main(void) {
 	flag = 1;
+
+	EX0 = 1;
+	EX1 = 1;
+	EA = 1;
 	
 	while (flag) {
 		printf("working...\n\r");
