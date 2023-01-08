@@ -1,4 +1,4 @@
-#include <8052.h>
+#include <mcs51/at89x52.h>
 #include "paulmon2.h"
 
 #define ACC_INITIAL 0xffffu
