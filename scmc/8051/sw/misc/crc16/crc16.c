@@ -14,16 +14,16 @@
 int putchar(int c) __naked {
         (void)c;
         __asm
-        mov a, dpl
-        ljmp pm2_entry_cout
+		mov a, dpl
+		ljmp pm2_entry_cout
         __endasm;
 }
 
 int getchar(void) {
         __asm
-        lcall   pm2_entry_cin
-	clr dph
-        mov dpl, a
+		lcall pm2_entry_cin
+		clr dph
+		mov dpl, a
         __endasm;
 }
 
