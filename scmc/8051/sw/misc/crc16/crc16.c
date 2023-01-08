@@ -8,8 +8,8 @@
 #define SADDR 0x0000u
 #define FADDR 0x2000u
 
-#define pm2_entry_cout          0x0030
-#define pm2_entry_cin           0x0032
+#define pm2_entry_cout 0x0030
+#define pm2_entry_cin 0x0032
 
 int putchar(int c) __naked {
         (void)c;
