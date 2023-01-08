@@ -1,5 +1,5 @@
-SDCCCFLAGS=--model-small -I.
-ASLINKFLAGS=--model-small --code-loc 0x2000 --data-loc 0x30 --xram-loc 0x8000
+SDCCCFLAGS=--model-large -I.
+ASLINKFLAGS=--model-large --code-loc 0x2000 --xram-loc 0x8000
 
 %.rel: %.c
 	sdcc $(SDCCCFLAGS) -c $<
