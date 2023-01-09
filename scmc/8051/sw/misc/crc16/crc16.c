@@ -24,6 +24,12 @@ int getchar(void) {
         __endasm;
 }
 
+int intr;
+
+void int0(void) __interrupt 0 __using 1 {
+	intr = 1;
+}
+
 static void ccrcb_init(unsigned int *r) {
 	*r = ACC_INITIAL;
 	return;
@@ -59,16 +65,32 @@ void main(void) {
 	unsigned char *base;
 	unsigned int len = BLEN;
 	unsigned int crc;
-		
+	
+	intr = 0;
+	
+	IT0 = 1;
+	EX0 = 1;
+	EA = 1;
+	
 	for (base = (unsigned char *)0x0u; 1; base += (len >> 1)) {
 		printf("base=0x%04x ", (unsigned int)base);
 		printf("len=0x%04x ", len);
 		crc = calc_crc(base, len);
 		printf("CRC16=0x%04x\n\r", crc);
+		
+		if (intr) {
+			printf("interrupted\n");
+			break;
+		}
 	}
-	
+
+#ifndef EXTRESET
 	__asm
 		ljmp 0
 	__endasm;
+#else
+/* trigger external reset */
+	PCON |= 2;
+#endif
 }
 
