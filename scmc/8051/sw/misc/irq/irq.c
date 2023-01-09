@@ -48,6 +48,7 @@ void main(void) {
 		printf("working %d...\n\r", i);
 	}
 	
+	EA = 0;
 	printf("got interrupt %d\n\r", intr);
 	(void)getchar();
 	

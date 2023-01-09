@@ -542,43 +542,46 @@
       00007D 0F               [12]  542 	inc	r7
       00007E 80 CD            [24]  543 	sjmp	00104$
       000080                        544 00103$:
-                                    545 ;	irq.c:51: printf("got interrupt %d\n\r", intr);
-      000080 C0 04            [24]  546 	push	ar4
-      000082 C0 05            [24]  547 	push	ar5
-      000084 74r10            [12]  548 	mov	a,#___str_1
-      000086 C0 E0            [24]  549 	push	acc
-      000088 74s00            [12]  550 	mov	a,#(___str_1 >> 8)
-      00008A C0 E0            [24]  551 	push	acc
-      00008C 74 80            [12]  552 	mov	a,#0x80
-      00008E C0 E0            [24]  553 	push	acc
-      000090 12r00r00         [24]  554 	lcall	_printf
-      000093 E5 81            [12]  555 	mov	a,sp
-      000095 24 FB            [12]  556 	add	a,#0xfb
-      000097 F5 81            [12]  557 	mov	sp,a
-                                    558 ;	irq.c:52: (void)getchar();
-      000099 12r00r05         [24]  559 	lcall	_getchar
-                                    560 ;	irq.c:56: __endasm;
-      00009C 02 00 00         [24]  561 	ljmp	0
-                                    562 ;	irq.c:57: }
-      00009F 22               [24]  563 	ret
-                                    564 	.area CSEG    (CODE)
-                                    565 	.area CONST   (CODE)
-                                    566 	.area CONST   (CODE)
-      000000                        567 ___str_0:
-      000000 77 6F 72 6B 69 6E 67   568 	.ascii "working %d..."
+                                    545 ;	irq.c:51: EA = 0;
+                                    546 ;	assignBit
+      000080 C2 AF            [12]  547 	clr	_EA
+                                    548 ;	irq.c:52: printf("got interrupt %d\n\r", intr);
+      000082 C0 04            [24]  549 	push	ar4
+      000084 C0 05            [24]  550 	push	ar5
+      000086 74r10            [12]  551 	mov	a,#___str_1
+      000088 C0 E0            [24]  552 	push	acc
+      00008A 74s00            [12]  553 	mov	a,#(___str_1 >> 8)
+      00008C C0 E0            [24]  554 	push	acc
+      00008E 74 80            [12]  555 	mov	a,#0x80
+      000090 C0 E0            [24]  556 	push	acc
+      000092 12r00r00         [24]  557 	lcall	_printf
+      000095 E5 81            [12]  558 	mov	a,sp
+      000097 24 FB            [12]  559 	add	a,#0xfb
+      000099 F5 81            [12]  560 	mov	sp,a
+                                    561 ;	irq.c:53: (void)getchar();
+      00009B 12r00r05         [24]  562 	lcall	_getchar
+                                    563 ;	irq.c:57: __endasm;
+      00009E 02 00 00         [24]  564 	ljmp	0
+                                    565 ;	irq.c:58: }
+      0000A1 22               [24]  566 	ret
+                                    567 	.area CSEG    (CODE)
+                                    568 	.area CONST   (CODE)
+                                    569 	.area CONST   (CODE)
+      000000                        570 ___str_0:
+      000000 77 6F 72 6B 69 6E 67   571 	.ascii "working %d..."
              20 25 64 2E 2E 2E
-      00000D 0A                     569 	.db 0x0a
-      00000E 0D                     570 	.db 0x0d
-      00000F 00                     571 	.db 0x00
-                                    572 	.area CSEG    (CODE)
-                                    573 	.area CONST   (CODE)
-      000010                        574 ___str_1:
-      000010 67 6F 74 20 69 6E 74   575 	.ascii "got interrupt %d"
+      00000D 0A                     572 	.db 0x0a
+      00000E 0D                     573 	.db 0x0d
+      00000F 00                     574 	.db 0x00
+                                    575 	.area CSEG    (CODE)
+                                    576 	.area CONST   (CODE)
+      000010                        577 ___str_1:
+      000010 67 6F 74 20 69 6E 74   578 	.ascii "got interrupt %d"
              65 72 72 75 70 74 20
              25 64
-      000020 0A                     576 	.db 0x0a
-      000021 0D                     577 	.db 0x0d
-      000022 00                     578 	.db 0x00
-                                    579 	.area CSEG    (CODE)
-                                    580 	.area XINIT   (CODE)
-                                    581 	.area CABS    (ABS,CODE)
+      000020 0A                     579 	.db 0x0a
+      000021 0D                     580 	.db 0x0d
+      000022 00                     581 	.db 0x00
+                                    582 	.area CSEG    (CODE)
+                                    583 	.area XINIT   (CODE)
+                                    584 	.area CABS    (ABS,CODE)

@@ -542,7 +542,10 @@ _main:
 	inc	r7
 	sjmp	00104$
 00103$:
-;	irq.c:51: printf("got interrupt %d\n\r", intr);
+;	irq.c:51: EA = 0;
+;	assignBit
+	clr	_EA
+;	irq.c:52: printf("got interrupt %d\n\r", intr);
 	push	ar4
 	push	ar5
 	mov	a,#___str_1
@@ -555,11 +558,11 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	irq.c:52: (void)getchar();
+;	irq.c:53: (void)getchar();
 	lcall	_getchar
-;	irq.c:56: __endasm;
+;	irq.c:57: __endasm;
 	ljmp	0
-;	irq.c:57: }
+;	irq.c:58: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

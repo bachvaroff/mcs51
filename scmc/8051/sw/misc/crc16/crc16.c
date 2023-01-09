@@ -79,6 +79,7 @@ void main(void) {
 		printf("CRC16=0x%04x\n\r", crc);
 		
 		if (intr) {
+			EA = 0;
 			printf("interrupted\n");
 			break;
 		}

@@ -868,59 +868,62 @@
       00023F A3               [24]  868 	inc	dptr
       000240 E0               [24]  869 	movx	a,@dptr
       000241 45 F0            [12]  870 	orl	a,b
-      000243 60 17            [24]  871 	jz	00105$
-                                    872 ;	crc16.c:82: printf("interrupted\n");
-      000245 74r28            [12]  873 	mov	a,#___str_3
-      000247 C0 E0            [24]  874 	push	acc
-      000249 74s00            [12]  875 	mov	a,#(___str_3 >> 8)
-      00024B C0 E0            [24]  876 	push	acc
-      00024D 74 80            [12]  877 	mov	a,#0x80
-      00024F C0 E0            [24]  878 	push	acc
-      000251 12r00r00         [24]  879 	lcall	_printf
-      000254 15 81            [12]  880 	dec	sp
-      000256 15 81            [12]  881 	dec	sp
-      000258 15 81            [12]  882 	dec	sp
-                                    883 ;	crc16.c:83: break;
-      00025A 80 07            [24]  884 	sjmp	00103$
-      00025C                        885 00105$:
-                                    886 ;	crc16.c:75: for (base = (unsigned char *)0x0u; 1; base += (len >> 1)) {
-      00025C 74 10            [12]  887 	mov	a,#0x10
-      00025E 2E               [12]  888 	add	a,r6
-      00025F FE               [12]  889 	mov	r6,a
-      000260 02r01rB7         [24]  890 	ljmp	00104$
-      000263                        891 00103$:
-                                    892 ;	crc16.c:90: __endasm;
-      000263 02 00 00         [24]  893 	ljmp	0
-                                    894 ;	crc16.c:95: }
-      000266 22               [24]  895 	ret
-                                    896 	.area CSEG    (CODE)
-                                    897 	.area CONST   (CODE)
-                                    898 	.area CONST   (CODE)
-      000000                        899 ___str_0:
-      000000 62 61 73 65 3D 30 78   900 	.ascii "base=0x%04x "
+      000243 60 19            [24]  871 	jz	00105$
+                                    872 ;	crc16.c:82: EA = 0;
+                                    873 ;	assignBit
+      000245 C2 AF            [12]  874 	clr	_EA
+                                    875 ;	crc16.c:83: printf("interrupted\n");
+      000247 74r28            [12]  876 	mov	a,#___str_3
+      000249 C0 E0            [24]  877 	push	acc
+      00024B 74s00            [12]  878 	mov	a,#(___str_3 >> 8)
+      00024D C0 E0            [24]  879 	push	acc
+      00024F 74 80            [12]  880 	mov	a,#0x80
+      000251 C0 E0            [24]  881 	push	acc
+      000253 12r00r00         [24]  882 	lcall	_printf
+      000256 15 81            [12]  883 	dec	sp
+      000258 15 81            [12]  884 	dec	sp
+      00025A 15 81            [12]  885 	dec	sp
+                                    886 ;	crc16.c:84: break;
+      00025C 80 07            [24]  887 	sjmp	00103$
+      00025E                        888 00105$:
+                                    889 ;	crc16.c:75: for (base = (unsigned char *)0x0u; 1; base += (len >> 1)) {
+      00025E 74 10            [12]  890 	mov	a,#0x10
+      000260 2E               [12]  891 	add	a,r6
+      000261 FE               [12]  892 	mov	r6,a
+      000262 02r01rB7         [24]  893 	ljmp	00104$
+      000265                        894 00103$:
+                                    895 ;	crc16.c:91: __endasm;
+      000265 02 00 00         [24]  896 	ljmp	0
+                                    897 ;	crc16.c:96: }
+      000268 22               [24]  898 	ret
+                                    899 	.area CSEG    (CODE)
+                                    900 	.area CONST   (CODE)
+                                    901 	.area CONST   (CODE)
+      000000                        902 ___str_0:
+      000000 62 61 73 65 3D 30 78   903 	.ascii "base=0x%04x "
              25 30 34 78 20
-      00000C 00                     901 	.db 0x00
-                                    902 	.area CSEG    (CODE)
-                                    903 	.area CONST   (CODE)
-      00000D                        904 ___str_1:
-      00000D 6C 65 6E 3D 30 78 25   905 	.ascii "len=0x%04x "
+      00000C 00                     904 	.db 0x00
+                                    905 	.area CSEG    (CODE)
+                                    906 	.area CONST   (CODE)
+      00000D                        907 ___str_1:
+      00000D 6C 65 6E 3D 30 78 25   908 	.ascii "len=0x%04x "
              30 34 78 20
-      000018 00                     906 	.db 0x00
-                                    907 	.area CSEG    (CODE)
-                                    908 	.area CONST   (CODE)
-      000019                        909 ___str_2:
-      000019 43 52 43 31 36 3D 30   910 	.ascii "CRC16=0x%04x"
+      000018 00                     909 	.db 0x00
+                                    910 	.area CSEG    (CODE)
+                                    911 	.area CONST   (CODE)
+      000019                        912 ___str_2:
+      000019 43 52 43 31 36 3D 30   913 	.ascii "CRC16=0x%04x"
              78 25 30 34 78
-      000025 0A                     911 	.db 0x0a
-      000026 0D                     912 	.db 0x0d
-      000027 00                     913 	.db 0x00
-                                    914 	.area CSEG    (CODE)
-                                    915 	.area CONST   (CODE)
-      000028                        916 ___str_3:
-      000028 69 6E 74 65 72 72 75   917 	.ascii "interrupted"
+      000025 0A                     914 	.db 0x0a
+      000026 0D                     915 	.db 0x0d
+      000027 00                     916 	.db 0x00
+                                    917 	.area CSEG    (CODE)
+                                    918 	.area CONST   (CODE)
+      000028                        919 ___str_3:
+      000028 69 6E 74 65 72 72 75   920 	.ascii "interrupted"
              70 74 65 64
-      000033 0A                     918 	.db 0x0a
-      000034 00                     919 	.db 0x00
-                                    920 	.area CSEG    (CODE)
-                                    921 	.area XINIT   (CODE)
-                                    922 	.area CABS    (ABS,CODE)
+      000033 0A                     921 	.db 0x0a
+      000034 00                     922 	.db 0x00
+                                    923 	.area CSEG    (CODE)
+                                    924 	.area XINIT   (CODE)
+                                    925 	.area CABS    (ABS,CODE)

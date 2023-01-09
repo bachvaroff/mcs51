@@ -472,11 +472,11 @@
                            000000   472 	ar0 = 0x00
                                     473 ;	crc16.c:34: *r = ACC_INITIAL;
       002088 74 FF            [12]  474 	mov	a,#0xff
-      00208A 12 22 CC         [24]  475 	lcall	__gptrput
+      00208A 12 22 CE         [24]  475 	lcall	__gptrput
       00208D A3               [24]  476 	inc	dptr
                                     477 ;	crc16.c:35: return;
                                     478 ;	crc16.c:36: }
-      00208E 02 22 CC         [24]  479 	ljmp	__gptrput
+      00208E 02 22 CE         [24]  479 	ljmp	__gptrput
                                     480 ;------------------------------------------------------------
                                     481 ;Allocation info for local variables in function 'ccrcb'
                                     482 ;------------------------------------------------------------
@@ -500,10 +500,10 @@
       00209C AD 82            [24]  500 	mov	r5,dpl
       00209E AE 83            [24]  501 	mov	r6,dph
       0020A0 AF F0            [24]  502 	mov	r7,b
-      0020A2 12 23 66         [24]  503 	lcall	__gptrget
+      0020A2 12 23 68         [24]  503 	lcall	__gptrget
       0020A5 FB               [12]  504 	mov	r3,a
       0020A6 A3               [24]  505 	inc	dptr
-      0020A7 12 23 66         [24]  506 	lcall	__gptrget
+      0020A7 12 23 68         [24]  506 	lcall	__gptrget
       0020AA FC               [12]  507 	mov	r4,a
       0020AB E5 10            [12]  508 	mov	a,_bp
       0020AD 24 03            [12]  509 	add	a,#0x03
@@ -602,10 +602,10 @@
       00212C 8E 83            [24]  602 	mov	dph,r6
       00212E 8F F0            [24]  603 	mov	b,r7
       002130 EB               [12]  604 	mov	a,r3
-      002131 12 22 CC         [24]  605 	lcall	__gptrput
+      002131 12 22 CE         [24]  605 	lcall	__gptrput
       002134 A3               [24]  606 	inc	dptr
       002135 EC               [12]  607 	mov	a,r4
-      002136 12 22 CC         [24]  608 	lcall	__gptrput
+      002136 12 22 CE         [24]  608 	lcall	__gptrput
                                     609 ;	crc16.c:45: }
       002139 85 10 81         [24]  610 	mov	sp,_bp
       00213C D0 10            [24]  611 	pop	_bp
@@ -624,20 +624,20 @@
       00213F AD 82            [24]  624 	mov	r5,dpl
       002141 AE 83            [24]  625 	mov	r6,dph
       002143 AF F0            [24]  626 	mov	r7,b
-      002145 12 23 66         [24]  627 	lcall	__gptrget
+      002145 12 23 68         [24]  627 	lcall	__gptrget
       002148 FB               [12]  628 	mov	r3,a
       002149 A3               [24]  629 	inc	dptr
-      00214A 12 23 66         [24]  630 	lcall	__gptrget
+      00214A 12 23 68         [24]  630 	lcall	__gptrget
       00214D FC               [12]  631 	mov	r4,a
       00214E 8D 82            [24]  632 	mov	dpl,r5
       002150 8E 83            [24]  633 	mov	dph,r6
       002152 8F F0            [24]  634 	mov	b,r7
       002154 EB               [12]  635 	mov	a,r3
-      002155 12 22 CC         [24]  636 	lcall	__gptrput
+      002155 12 22 CE         [24]  636 	lcall	__gptrput
       002158 A3               [24]  637 	inc	dptr
       002159 EC               [12]  638 	mov	a,r4
                                     639 ;	crc16.c:49: }
-      00215A 02 22 CC         [24]  640 	ljmp	__gptrput
+      00215A 02 22 CE         [24]  640 	ljmp	__gptrput
                                     641 ;------------------------------------------------------------
                                     642 ;Allocation info for local variables in function 'calc_crc'
                                     643 ;------------------------------------------------------------
@@ -716,7 +716,7 @@
       0021B8 8A 82            [24]  716 	mov	dpl,r2
       0021BA 8B 83            [24]  717 	mov	dph,r3
       0021BC 8C F0            [24]  718 	mov	b,r4
-      0021BE 12 23 66         [24]  719 	lcall	__gptrget
+      0021BE 12 23 68         [24]  719 	lcall	__gptrget
       0021C1 FA               [12]  720 	mov	r2,a
       0021C2 8F 03            [24]  721 	mov	ar3,r7
       0021C4 7C 00            [12]  722 	mov	r4,#0x00
@@ -801,13 +801,13 @@
       002224 C0 05            [24]  801 	push	ar5
       002226 C0 03            [24]  802 	push	ar3
       002228 C0 04            [24]  803 	push	ar4
-      00222A 74 11            [12]  804 	mov	a,#___str_0
+      00222A 74 13            [12]  804 	mov	a,#___str_0
       00222C C0 E0            [24]  805 	push	acc
       00222E 74 36            [12]  806 	mov	a,#(___str_0 >> 8)
       002230 C0 E0            [24]  807 	push	acc
       002232 74 80            [12]  808 	mov	a,#0x80
       002234 C0 E0            [24]  809 	push	acc
-      002236 12 23 2D         [24]  810 	lcall	_printf
+      002236 12 23 2F         [24]  810 	lcall	_printf
       002239 E5 81            [12]  811 	mov	a,sp
       00223B 24 FB            [12]  812 	add	a,#0xfb
       00223D F5 81            [12]  813 	mov	sp,a
@@ -816,13 +816,13 @@
       002240 C0 E0            [24]  816 	push	acc
       002242 74 20            [12]  817 	mov	a,#0x20
       002244 C0 E0            [24]  818 	push	acc
-      002246 74 1E            [12]  819 	mov	a,#___str_1
+      002246 74 20            [12]  819 	mov	a,#___str_1
       002248 C0 E0            [24]  820 	push	acc
       00224A 74 36            [12]  821 	mov	a,#(___str_1 >> 8)
       00224C C0 E0            [24]  822 	push	acc
       00224E 74 80            [12]  823 	mov	a,#0x80
       002250 C0 E0            [24]  824 	push	acc
-      002252 12 23 2D         [24]  825 	lcall	_printf
+      002252 12 23 2F         [24]  825 	lcall	_printf
       002255 E5 81            [12]  826 	mov	a,sp
       002257 24 FB            [12]  827 	add	a,#0xfb
       002259 F5 81            [12]  828 	mov	sp,a
@@ -848,13 +848,13 @@
                                     848 ;	crc16.c:79: printf("CRC16=0x%04x\n\r", crc);
       00227F C0 03            [24]  849 	push	ar3
       002281 C0 04            [24]  850 	push	ar4
-      002283 74 2A            [12]  851 	mov	a,#___str_2
+      002283 74 2C            [12]  851 	mov	a,#___str_2
       002285 C0 E0            [24]  852 	push	acc
       002287 74 36            [12]  853 	mov	a,#(___str_2 >> 8)
       002289 C0 E0            [24]  854 	push	acc
       00228B 74 80            [12]  855 	mov	a,#0x80
       00228D C0 E0            [24]  856 	push	acc
-      00228F 12 23 2D         [24]  857 	lcall	_printf
+      00228F 12 23 2F         [24]  857 	lcall	_printf
       002292 E5 81            [12]  858 	mov	a,sp
       002294 24 FB            [12]  859 	add	a,#0xfb
       002296 F5 81            [12]  860 	mov	sp,a
@@ -868,59 +868,62 @@
       0022A4 A3               [24]  868 	inc	dptr
       0022A5 E0               [24]  869 	movx	a,@dptr
       0022A6 45 F0            [12]  870 	orl	a,b
-      0022A8 60 17            [24]  871 	jz	00105$
-                                    872 ;	crc16.c:82: printf("interrupted\n");
-      0022AA 74 39            [12]  873 	mov	a,#___str_3
-      0022AC C0 E0            [24]  874 	push	acc
-      0022AE 74 36            [12]  875 	mov	a,#(___str_3 >> 8)
-      0022B0 C0 E0            [24]  876 	push	acc
-      0022B2 74 80            [12]  877 	mov	a,#0x80
-      0022B4 C0 E0            [24]  878 	push	acc
-      0022B6 12 23 2D         [24]  879 	lcall	_printf
-      0022B9 15 81            [12]  880 	dec	sp
-      0022BB 15 81            [12]  881 	dec	sp
-      0022BD 15 81            [12]  882 	dec	sp
-                                    883 ;	crc16.c:83: break;
-      0022BF 80 07            [24]  884 	sjmp	00103$
-      0022C1                        885 00105$:
-                                    886 ;	crc16.c:75: for (base = (unsigned char *)0x0u; 1; base += (len >> 1)) {
-      0022C1 74 10            [12]  887 	mov	a,#0x10
-      0022C3 2E               [12]  888 	add	a,r6
-      0022C4 FE               [12]  889 	mov	r6,a
-      0022C5 02 22 1C         [24]  890 	ljmp	00104$
-      0022C8                        891 00103$:
-                                    892 ;	crc16.c:90: __endasm;
-      0022C8 02 00 00         [24]  893 	ljmp	0
-                                    894 ;	crc16.c:95: }
-      0022CB 22               [24]  895 	ret
-                                    896 	.area CSEG    (CODE)
-                                    897 	.area CONST   (CODE)
-                                    898 	.area CONST   (CODE)
-      003611                        899 ___str_0:
-      003611 62 61 73 65 3D 30 78   900 	.ascii "base=0x%04x "
+      0022A8 60 19            [24]  871 	jz	00105$
+                                    872 ;	crc16.c:82: EA = 0;
+                                    873 ;	assignBit
+      0022AA C2 AF            [12]  874 	clr	_EA
+                                    875 ;	crc16.c:83: printf("interrupted\n");
+      0022AC 74 3B            [12]  876 	mov	a,#___str_3
+      0022AE C0 E0            [24]  877 	push	acc
+      0022B0 74 36            [12]  878 	mov	a,#(___str_3 >> 8)
+      0022B2 C0 E0            [24]  879 	push	acc
+      0022B4 74 80            [12]  880 	mov	a,#0x80
+      0022B6 C0 E0            [24]  881 	push	acc
+      0022B8 12 23 2F         [24]  882 	lcall	_printf
+      0022BB 15 81            [12]  883 	dec	sp
+      0022BD 15 81            [12]  884 	dec	sp
+      0022BF 15 81            [12]  885 	dec	sp
+                                    886 ;	crc16.c:84: break;
+      0022C1 80 07            [24]  887 	sjmp	00103$
+      0022C3                        888 00105$:
+                                    889 ;	crc16.c:75: for (base = (unsigned char *)0x0u; 1; base += (len >> 1)) {
+      0022C3 74 10            [12]  890 	mov	a,#0x10
+      0022C5 2E               [12]  891 	add	a,r6
+      0022C6 FE               [12]  892 	mov	r6,a
+      0022C7 02 22 1C         [24]  893 	ljmp	00104$
+      0022CA                        894 00103$:
+                                    895 ;	crc16.c:91: __endasm;
+      0022CA 02 00 00         [24]  896 	ljmp	0
+                                    897 ;	crc16.c:96: }
+      0022CD 22               [24]  898 	ret
+                                    899 	.area CSEG    (CODE)
+                                    900 	.area CONST   (CODE)
+                                    901 	.area CONST   (CODE)
+      003613                        902 ___str_0:
+      003613 62 61 73 65 3D 30 78   903 	.ascii "base=0x%04x "
              25 30 34 78 20
-      00361D 00                     901 	.db 0x00
-                                    902 	.area CSEG    (CODE)
-                                    903 	.area CONST   (CODE)
-      00361E                        904 ___str_1:
-      00361E 6C 65 6E 3D 30 78 25   905 	.ascii "len=0x%04x "
+      00361F 00                     904 	.db 0x00
+                                    905 	.area CSEG    (CODE)
+                                    906 	.area CONST   (CODE)
+      003620                        907 ___str_1:
+      003620 6C 65 6E 3D 30 78 25   908 	.ascii "len=0x%04x "
              30 34 78 20
-      003629 00                     906 	.db 0x00
-                                    907 	.area CSEG    (CODE)
-                                    908 	.area CONST   (CODE)
-      00362A                        909 ___str_2:
-      00362A 43 52 43 31 36 3D 30   910 	.ascii "CRC16=0x%04x"
+      00362B 00                     909 	.db 0x00
+                                    910 	.area CSEG    (CODE)
+                                    911 	.area CONST   (CODE)
+      00362C                        912 ___str_2:
+      00362C 43 52 43 31 36 3D 30   913 	.ascii "CRC16=0x%04x"
              78 25 30 34 78
-      003636 0A                     911 	.db 0x0a
-      003637 0D                     912 	.db 0x0d
-      003638 00                     913 	.db 0x00
-                                    914 	.area CSEG    (CODE)
-                                    915 	.area CONST   (CODE)
-      003639                        916 ___str_3:
-      003639 69 6E 74 65 72 72 75   917 	.ascii "interrupted"
+      003638 0A                     914 	.db 0x0a
+      003639 0D                     915 	.db 0x0d
+      00363A 00                     916 	.db 0x00
+                                    917 	.area CSEG    (CODE)
+                                    918 	.area CONST   (CODE)
+      00363B                        919 ___str_3:
+      00363B 69 6E 74 65 72 72 75   920 	.ascii "interrupted"
              70 74 65 64
-      003644 0A                     918 	.db 0x0a
-      003645 00                     919 	.db 0x00
-                                    920 	.area CSEG    (CODE)
-                                    921 	.area XINIT   (CODE)
-                                    922 	.area CABS    (ABS,CODE)
+      003646 0A                     921 	.db 0x0a
+      003647 00                     922 	.db 0x00
+                                    923 	.area CSEG    (CODE)
+                                    924 	.area XINIT   (CODE)
+                                    925 	.area CABS    (ABS,CODE)

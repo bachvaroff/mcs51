@@ -869,7 +869,10 @@ _main:
 	movx	a,@dptr
 	orl	a,b
 	jz	00105$
-;	crc16.c:82: printf("interrupted\n");
+;	crc16.c:82: EA = 0;
+;	assignBit
+	clr	_EA
+;	crc16.c:83: printf("interrupted\n");
 	mov	a,#___str_3
 	push	acc
 	mov	a,#(___str_3 >> 8)
@@ -880,7 +883,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	crc16.c:83: break;
+;	crc16.c:84: break;
 	sjmp	00103$
 00105$:
 ;	crc16.c:75: for (base = (unsigned char *)0x0u; 1; base += (len >> 1)) {
@@ -889,9 +892,9 @@ _main:
 	mov	r6,a
 	ljmp	00104$
 00103$:
-;	crc16.c:90: __endasm;
+;	crc16.c:91: __endasm;
 	ljmp	0
-;	crc16.c:95: }
+;	crc16.c:96: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
