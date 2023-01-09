@@ -35,8 +35,10 @@ void main(void) {
 	
 	intr = -1;
 	
+/* INT0, INT1 trigger on falling edge */
 	IT0 = 1;
 	IT1 = 1;
+/* enable INT0, INT1 */
 	EX0 = 1;
 	EX1 = 1;
 	EA = 1;
