@@ -374,7 +374,7 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'putchar'
 ;------------------------------------------------------------
-;c                         Allocated with name '_putchar_c_65536_14'
+;c                         Allocated to registers 
 ;------------------------------------------------------------
 ;	irq.c:7: int putchar(int c) __naked {
 ;	-----------------------------------------
@@ -471,7 +471,7 @@ _int1:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;i                         Allocated with name '_main_i_65536_23'
+;i                         Allocated to registers r6 r7 
 ;------------------------------------------------------------
 ;	irq.c:33: void main(void) {
 ;	-----------------------------------------

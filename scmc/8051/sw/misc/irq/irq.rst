@@ -289,8 +289,8 @@
                                     289 ; Stack segment in internal ram 
                                     290 ;--------------------------------------------------------
                                     291 	.area	SSEG
-      00001C                        292 __start__stack:
-      00001C                        293 	.ds	1
+      000021                        292 __start__stack:
+      000021                        293 	.ds	1
                                     294 
                                     295 ;--------------------------------------------------------
                                     296 ; indirectly addressable internal ram data
@@ -374,7 +374,7 @@
                                     374 ;------------------------------------------------------------
                                     375 ;Allocation info for local variables in function 'putchar'
                                     376 ;------------------------------------------------------------
-                                    377 ;c                         Allocated with name '_putchar_c_65536_14'
+                                    377 ;c                         Allocated to registers 
                                     378 ;------------------------------------------------------------
                                     379 ;	irq.c:7: int putchar(int c) __naked {
                                     380 ;	-----------------------------------------
@@ -471,7 +471,7 @@
                                     471 ;------------------------------------------------------------
                                     472 ;Allocation info for local variables in function 'main'
                                     473 ;------------------------------------------------------------
-                                    474 ;i                         Allocated with name '_main_i_65536_23'
+                                    474 ;i                         Allocated to registers r6 r7 
                                     475 ;------------------------------------------------------------
                                     476 ;	irq.c:33: void main(void) {
                                     477 ;	-----------------------------------------
@@ -524,13 +524,13 @@
       0020CF C0 06            [24]  524 	push	ar6
       0020D1 C0 06            [24]  525 	push	ar6
       0020D3 C0 07            [24]  526 	push	ar7
-      0020D5 74 C5            [12]  527 	mov	a,#___str_0
+      0020D5 74 3F            [12]  527 	mov	a,#___str_0
       0020D7 C0 E0            [24]  528 	push	acc
-      0020D9 74 2B            [12]  529 	mov	a,#(___str_0 >> 8)
+      0020D9 74 34            [12]  529 	mov	a,#(___str_0 >> 8)
       0020DB C0 E0            [24]  530 	push	acc
       0020DD 74 80            [12]  531 	mov	a,#0x80
       0020DF C0 E0            [24]  532 	push	acc
-      0020E1 12 21 63         [24]  533 	lcall	_printf
+      0020E1 12 21 5B         [24]  533 	lcall	_printf
       0020E4 E5 81            [12]  534 	mov	a,sp
       0020E6 24 FB            [12]  535 	add	a,#0xfb
       0020E8 F5 81            [12]  536 	mov	sp,a
@@ -545,13 +545,13 @@
                                     545 ;	irq.c:51: printf("got interrupt %d\n\r", intr);
       0020F5 C0 04            [24]  546 	push	ar4
       0020F7 C0 05            [24]  547 	push	ar5
-      0020F9 74 D5            [12]  548 	mov	a,#___str_1
+      0020F9 74 4F            [12]  548 	mov	a,#___str_1
       0020FB C0 E0            [24]  549 	push	acc
-      0020FD 74 2B            [12]  550 	mov	a,#(___str_1 >> 8)
+      0020FD 74 34            [12]  550 	mov	a,#(___str_1 >> 8)
       0020FF C0 E0            [24]  551 	push	acc
       002101 74 80            [12]  552 	mov	a,#0x80
       002103 C0 E0            [24]  553 	push	acc
-      002105 12 21 63         [24]  554 	lcall	_printf
+      002105 12 21 5B         [24]  554 	lcall	_printf
       002108 E5 81            [12]  555 	mov	a,sp
       00210A 24 FB            [12]  556 	add	a,#0xfb
       00210C F5 81            [12]  557 	mov	sp,a
@@ -564,21 +564,21 @@
                                     564 	.area CSEG    (CODE)
                                     565 	.area CONST   (CODE)
                                     566 	.area CONST   (CODE)
-      002BC5                        567 ___str_0:
-      002BC5 77 6F 72 6B 69 6E 67   568 	.ascii "working %d..."
+      00343F                        567 ___str_0:
+      00343F 77 6F 72 6B 69 6E 67   568 	.ascii "working %d..."
              20 25 64 2E 2E 2E
-      002BD2 0A                     569 	.db 0x0a
-      002BD3 0D                     570 	.db 0x0d
-      002BD4 00                     571 	.db 0x00
+      00344C 0A                     569 	.db 0x0a
+      00344D 0D                     570 	.db 0x0d
+      00344E 00                     571 	.db 0x00
                                     572 	.area CSEG    (CODE)
                                     573 	.area CONST   (CODE)
-      002BD5                        574 ___str_1:
-      002BD5 67 6F 74 20 69 6E 74   575 	.ascii "got interrupt %d"
+      00344F                        574 ___str_1:
+      00344F 67 6F 74 20 69 6E 74   575 	.ascii "got interrupt %d"
              65 72 72 75 70 74 20
              25 64
-      002BE5 0A                     576 	.db 0x0a
-      002BE6 0D                     577 	.db 0x0d
-      002BE7 00                     578 	.db 0x00
+      00345F 0A                     576 	.db 0x0a
+      003460 0D                     577 	.db 0x0d
+      003461 00                     578 	.db 0x00
                                     579 	.area CSEG    (CODE)
                                     580 	.area XINIT   (CODE)
                                     581 	.area CABS    (ABS,CODE)

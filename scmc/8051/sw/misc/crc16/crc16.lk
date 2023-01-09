@@ -7,8 +7,8 @@
 -b PSEG = 0x8000
 -b ISEG = 0x0000
 -b BSEG = 0x0000
--k /usr/bin/../share/sdcc/lib/large
--k /usr/share/sdcc/lib/large
+-k /usr/bin/../share/sdcc/lib/large-stack-auto
+-k /usr/share/sdcc/lib/large-stack-auto
 -l mcs51
 -l libsdcc
 -l libint
