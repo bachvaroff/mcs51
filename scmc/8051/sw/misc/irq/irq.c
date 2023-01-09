@@ -20,18 +20,20 @@ int getchar(void) {
         __endasm;
 }
 
-char flag;
+int intr;
 
 void int0(void) __interrupt 0 __using 1 {
-	flag = 0;
+	intr = 0;
 }
 
 void int1(void) __interrupt 2 __using 1 {
-	flag = 0;
+	intr = 1;
 }
 
 void main(void) {
-	flag = 1;
+	int i;
+	
+	intr = -1;
 	
 	IT0 = 1;
 	IT1 = 1;
@@ -39,12 +41,13 @@ void main(void) {
 	EX1 = 1;
 	EA = 1;
 	
-	while (flag) {
-		printf("working...\n\r");
-		(void)getchar();
+	for (i = 0; ; i++) {
+		if (intr >= 0) break;
+		printf("working %d...\n\r", i);
 	}
 	
-	printf("done\n\r");
+	printf("got interrupt %d\n\r", intr);
+	(void)getchar();
 	
 	__asm
 		ljmp 0
