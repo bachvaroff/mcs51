@@ -43,21 +43,24 @@ void int0(void) __interrupt 0 __using 1 {
 	intr = 1;
 }
 
-#define BLEN 0x2000u
+#define PLEN 0x2000u
+#define TLEN 0xffffu
 
 void main(void) {
-	unsigned char *base;
-	unsigned int len = BLEN, off, crc;
+	unsigned char *base, *t;
+	unsigned int len, off, crc;
 	unsigned char bitp;
 	
 	intr = 0;
 	
 	IT0 = 1;
-	EX0 = 1;
+	EX0 = 1;	
 	EA = 1;
 	
-	for (base = (unsigned char *)0x0u; 1; base += (len >> 1)) {
-		printf("base=0x%04x ", (unsigned int)base);
+	while (!intr) {
+		base = (unsigned char *)0x0u;
+		len = TLEN;
+		printf("COMPLETE base=0x%04x ", (unsigned int)base);
 		printf("len=0x%04x ", len);
 		CCRCB_INIT(crc);
 		for (off = 0u; off < len; off++)
@@ -65,10 +68,25 @@ void main(void) {
 		CCRCB_FINISH(crc);
 		printf("CRC16=0x%04x\n\r", crc);
 		
-		if (intr) {
-			EA = 0;
-			printf("interrupted\n");
-			break;
+		len = PLEN;
+		while (1) {
+			printf("PARTIAL base=0x%04x ", (unsigned int)base);
+			printf("len=0x%04x ", len);
+			CCRCB_INIT(crc);
+			for (off = 0u; off < len; off++)
+				CCRCB(crc, base[off], bitp);
+			CCRCB_FINISH(crc);
+			printf("CRC16=0x%04x\n\r", crc);
+			
+			if (intr) {
+				EA = 0;
+				printf("interrupted\n");
+				break;
+			}
+			
+			t = base + (len >> 1);
+			if (t < base) break;
+			else base = t;
 		}
 	}
 
