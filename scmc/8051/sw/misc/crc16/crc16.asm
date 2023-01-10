@@ -385,21 +385,21 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;c                         Allocated to registers 
 ;------------------------------------------------------------
-;	crc16.c:11: int putchar(int c) __naked {
+;	crc16.c:7: int putchar(int c) __naked {
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
 _putchar:
 ;	naked function: no prologue.
-;	crc16.c:16: __endasm;
+;	crc16.c:12: __endasm;
 	mov	a, dpl
 	ljmp	0x0030
-;	crc16.c:17: }
+;	crc16.c:13: }
 ;	naked function: no epilogue.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	crc16.c:19: int getchar(void) {
+;	crc16.c:15: int getchar(void) {
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
@@ -412,16 +412,16 @@ _getchar:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	crc16.c:24: __endasm;
+;	crc16.c:20: __endasm;
 	lcall	0x0032
 	clr	dph
 	mov	dpl, a
-;	crc16.c:25: }
+;	crc16.c:21: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'int0'
 ;------------------------------------------------------------
-;	crc16.c:29: void int0(void) __interrupt 0 __using 1 {
+;	crc16.c:42: void int0(void) __interrupt 0 __using 1 {
 ;	-----------------------------------------
 ;	 function int0
 ;	-----------------------------------------
@@ -437,14 +437,14 @@ _int0:
 	push	acc
 	push	dpl
 	push	dph
-;	crc16.c:30: intr = 1;
+;	crc16.c:43: intr = 1;
 	mov	dptr,#_intr
 	mov	a,#0x01
 	movx	@dptr,a
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-;	crc16.c:31: }
+;	crc16.c:44: }
 	pop	dph
 	pop	dpl
 	pop	acc
@@ -453,15 +453,19 @@ _int0:
 ;	eliminated unneeded push/pop psw
 ;	eliminated unneeded push/pop b
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'ccrcb_init'
+;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;r                         Allocated to registers r5 r6 r7 
+;base                      Allocated to stack - _bp +1
+;len                       Allocated to registers 
+;off                       Allocated to stack - _bp +4
+;crc                       Allocated to stack - _bp +6
+;bitp                      Allocated to stack - _bp +8
 ;------------------------------------------------------------
-;	crc16.c:33: static void ccrcb_init(unsigned int *r) {
+;	crc16.c:48: void main(void) {
 ;	-----------------------------------------
-;	 function ccrcb_init
+;	 function main
 ;	-----------------------------------------
-_ccrcb_init:
+_main:
 	ar7 = 0x07
 	ar6 = 0x06
 	ar5 = 0x05
@@ -470,335 +474,42 @@ _ccrcb_init:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	crc16.c:34: *r = ACC_INITIAL;
-	mov	a,#0xff
-	lcall	__gptrput
-	inc	dptr
-;	crc16.c:35: return;
-;	crc16.c:36: }
-	ljmp	__gptrput
-;------------------------------------------------------------
-;Allocation info for local variables in function 'ccrcb'
-;------------------------------------------------------------
-;oct                       Allocated to stack - _bp -3
-;r                         Allocated to registers r5 r6 r7 
-;rt                        Allocated to registers r3 r4 
-;bitp                      Allocated to stack - _bp +3
-;sloc0                     Allocated to stack - _bp +1
-;------------------------------------------------------------
-;	crc16.c:38: static void ccrcb(unsigned int *r, unsigned char oct) {
-;	-----------------------------------------
-;	 function ccrcb
-;	-----------------------------------------
-_ccrcb:
 	push	_bp
-	mov	_bp,sp
-	inc	sp
-	inc	sp
-	inc	sp
-;	crc16.c:42: for (rt = *r, bitp = 0x80u; bitp; bitp >>= 1)
-	mov	r5,dpl
-	mov	r6,dph
-	mov	r7,b
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	mov	a,_bp
-	add	a,#0x03
-	mov	r0,a
-	mov	@r0,#0x80
-00103$:
-	mov	a,_bp
-	add	a,#0x03
-	mov	r0,a
-	mov	a,@r0
-	jz	00101$
-;	crc16.c:43: rt = ((rt >> 15) ^ (!!(oct & bitp))) ? ((rt << 1) ^ POLY) : (rt << 1);
-	push	ar5
-	push	ar6
-	push	ar7
-	mov	a,r4
-	rl	a
-	anl	a,#0x01
-	mov	r6,a
-	mov	r7,#0x00
-	mov	a,_bp
-	add	a,#0xfd
-	mov	r0,a
-	mov	a,_bp
-	add	a,#0x03
-	mov	r1,a
-	mov	a,@r1
-	anl	a,@r0
-	cjne	a,#0x01,00122$
-00122$:
-	cpl	c
-	mov	b0,c
-	clr	a
-	rlc	a
-	mov	r2,a
-	mov	r5,#0x00
-	xrl	ar6,a
-	mov	a,r5
-	xrl	ar7,a
-	mov	a,r6
-	orl	a,r7
-	pop	ar7
-	pop	ar6
-	pop	ar5
-	jz	00107$
-	push	ar5
-	push	ar6
-	push	ar7
-	mov	a,r3
-	add	a,r3
-	mov	r2,a
-	mov	a,r4
-	rlc	a
-	mov	r7,a
-	mov	r0,_bp
-	inc	r0
-	mov	a,#0x21
-	xrl	a,r2
-	mov	@r0,a
-	mov	a,#0x10
-	xrl	a,r7
-	inc	r0
-	mov	@r0,a
-	pop	ar7
-	pop	ar6
-	pop	ar5
-	sjmp	00108$
-00107$:
-	mov	r0,_bp
-	inc	r0
-	mov	a,r3
-	add	a,r3
-	mov	@r0,a
-	mov	a,r4
-	rlc	a
-	inc	r0
-	mov	@r0,a
-00108$:
-	mov	r0,_bp
-	inc	r0
-	mov	ar3,@r0
-	inc	r0
-	mov	ar4,@r0
-;	crc16.c:42: for (rt = *r, bitp = 0x80u; bitp; bitp >>= 1)
-	mov	a,_bp
-	add	a,#0x03
-	mov	r0,a
-	mov	a,@r0
-	clr	c
-	rrc	a
-	mov	@r0,a
-	sjmp	00103$
-00101$:
-;	crc16.c:44: *r = rt;
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
-	mov	a,r3
-	lcall	__gptrput
-	inc	dptr
-	mov	a,r4
-	lcall	__gptrput
-;	crc16.c:45: }
-	mov	sp,_bp
-	pop	_bp
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'ccrcb_finish'
-;------------------------------------------------------------
-;r                         Allocated to registers r5 r6 r7 
-;------------------------------------------------------------
-;	crc16.c:47: static void ccrcb_finish(unsigned int *r) {
-;	-----------------------------------------
-;	 function ccrcb_finish
-;	-----------------------------------------
-_ccrcb_finish:
-;	crc16.c:48: *r ^= ACC_FINAL;
-	mov	r5,dpl
-	mov	r6,dph
-	mov	r7,b
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
-	mov	a,r3
-	lcall	__gptrput
-	inc	dptr
-	mov	a,r4
-;	crc16.c:49: }
-	ljmp	__gptrput
-;------------------------------------------------------------
-;Allocation info for local variables in function 'calc_crc'
-;------------------------------------------------------------
-;len                       Allocated to stack - _bp -4
-;base                      Allocated to stack - _bp +1
-;off                       Allocated to stack - _bp +4
-;crc                       Allocated to stack - _bp +6
-;------------------------------------------------------------
-;	crc16.c:51: static unsigned int calc_crc(unsigned char *base, unsigned int len) {
-;	-----------------------------------------
-;	 function calc_crc
-;	-----------------------------------------
-_calc_crc:
-	push	_bp
-	mov	_bp,sp
-	push	dpl
-	push	dph
-	push	b
 	mov	a,sp
-	add	a,#0x04
+	mov	_bp,a
+	add	a,#0x08
 	mov	sp,a
-;	crc16.c:54: ccrcb_init(&crc);
-	mov	a,_bp
-	add	a,#0x06
-	mov	r4,a
-	mov	r2,a
-	mov	r3,#0x00
-	mov	r7,#0x40
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r7
-	push	ar4
-	lcall	_ccrcb_init
-	pop	ar4
-;	crc16.c:55: for (off = 0u; off < len; off++)
-	mov	ar7,r4
-	mov	a,_bp
-	add	a,#0x04
-	mov	r0,a
-	clr	a
-	mov	@r0,a
-	inc	r0
-	mov	@r0,a
-00103$:
-	mov	a,_bp
-	add	a,#0x04
-	mov	r0,a
-	mov	a,_bp
-	add	a,#0xfc
-	mov	r1,a
-	clr	c
-	mov	a,@r0
-	subb	a,@r1
-	inc	r0
-	mov	a,@r0
-	inc	r1
-	subb	a,@r1
-	jnc	00101$
-;	crc16.c:56: ccrcb(&crc, base[off]);
-	push	ar4
-	mov	r0,_bp
-	inc	r0
-	mov	a,_bp
-	add	a,#0x04
-	mov	r1,a
-	mov	a,@r1
-	add	a,@r0
-	mov	r2,a
-	inc	r1
-	mov	a,@r1
-	inc	r0
-	addc	a,@r0
-	mov	r3,a
-	inc	r0
-	mov	ar4,@r0
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	__gptrget
-	mov	r2,a
-	mov	ar3,r7
-	mov	r4,#0x00
-	mov	r6,#0x40
-	push	ar7
-	push	ar4
-	push	ar2
-	mov	dpl,r3
-	mov	dph,r4
-	mov	b,r6
-	lcall	_ccrcb
-	dec	sp
-	pop	ar4
-	pop	ar7
-;	crc16.c:55: for (off = 0u; off < len; off++)
-	mov	a,_bp
-	add	a,#0x04
-	mov	r0,a
-	inc	@r0
-	cjne	@r0,#0x00,00117$
-	inc	r0
-	inc	@r0
-00117$:
-	pop	ar4
-	sjmp	00103$
-00101$:
-;	crc16.c:57: ccrcb_finish(&crc);
-	mov	r7,#0x00
-	mov	r6,#0x40
-	mov	dpl,r4
-	mov	dph,r7
-	mov	b,r6
-	lcall	_ccrcb_finish
-;	crc16.c:59: return crc;
-	mov	a,_bp
-	add	a,#0x06
-	mov	r0,a
-	mov	dpl,@r0
-	inc	r0
-	mov	dph,@r0
-;	crc16.c:60: }
-	mov	sp,_bp
-	pop	_bp
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'main'
-;------------------------------------------------------------
-;base                      Allocated to registers r5 r6 r7 
-;len                       Allocated to registers 
-;crc                       Allocated to registers 
-;------------------------------------------------------------
-;	crc16.c:64: void main(void) {
-;	-----------------------------------------
-;	 function main
-;	-----------------------------------------
-_main:
-;	crc16.c:69: intr = 0;
+;	crc16.c:53: intr = 0;
 	mov	dptr,#_intr
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	crc16.c:71: IT0 = 1;
+;	crc16.c:55: IT0 = 1;
 ;	assignBit
 	setb	_IT0
-;	crc16.c:72: EX0 = 1;
+;	crc16.c:56: EX0 = 1;
 ;	assignBit
 	setb	_EX0
-;	crc16.c:73: EA = 1;
+;	crc16.c:57: EA = 1;
 ;	assignBit
 	setb	_EA
-;	crc16.c:75: for (base = (unsigned char *)0x0u; 1; base += (len >> 1)) {
-	mov	r5,#0x00
-	mov	r6,#0x00
-	mov	r7,#0x00
-00104$:
-;	crc16.c:76: printf("base=0x%04x ", (unsigned int)base);
-	mov	ar3,r5
-	mov	ar4,r6
-	push	ar7
-	push	ar6
-	push	ar5
+;	crc16.c:59: for (base = (unsigned char *)0x0u; 1; base += (len >> 1)) {
+	mov	r0,_bp
+	inc	r0
+	clr	a
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	inc	r0
+	mov	@r0,#0x00
+00120$:
+;	crc16.c:60: printf("base=0x%04x ", (unsigned int)base);
+	mov	r0,_bp
+	inc	r0
+	mov	ar3,@r0
+	inc	r0
+	mov	ar4,@r0
 	push	ar3
 	push	ar4
 	mov	a,#___str_0
@@ -811,7 +522,7 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	crc16.c:77: printf("len=0x%04x ", len);
+;	crc16.c:61: printf("len=0x%04x ", len);
 	clr	a
 	push	acc
 	mov	a,#0x20
@@ -826,28 +537,158 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-	pop	ar5
-	pop	ar6
-	pop	ar7
-;	crc16.c:78: crc = calc_crc(base, len);
-	push	ar7
-	push	ar6
-	push	ar5
+;	crc16.c:62: CCRCB_INIT(crc);
+	mov	a,_bp
+	add	a,#0x06
+	mov	r0,a
+	mov	@r0,#0xff
+	inc	r0
+	mov	@r0,#0xff
+;	crc16.c:63: for (off = 0u; off < len; off++)
+	mov	a,_bp
+	add	a,#0x04
+	mov	r0,a
 	clr	a
-	push	acc
-	mov	a,#0x20
-	push	acc
-	mov	dpl,r5
-	mov	dph,r6
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+00118$:
+	mov	a,_bp
+	add	a,#0x04
+	mov	r0,a
+	clr	c
+	inc	r0
+	mov	a,@r0
+	subb	a,#0x20
+	jc	00157$
+	ljmp	00109$
+00157$:
+;	crc16.c:64: CCRCB(crc, base[off], bitp);
+	mov	a,_bp
+	add	a,#0x08
+	mov	r0,a
+	mov	@r0,#0x80
+	mov	r0,_bp
+	inc	r0
+	mov	a,_bp
+	add	a,#0x04
+	mov	r1,a
+	mov	a,@r1
+	add	a,@r0
+	mov	r2,a
+	inc	r1
+	mov	a,@r1
+	inc	r0
+	addc	a,@r0
+	mov	r5,a
+	inc	r0
+	mov	ar7,@r0
+00115$:
+	mov	a,_bp
+	add	a,#0x06
+	mov	r0,a
+	inc	r0
+	mov	a,@r0
+	rl	a
+	anl	a,#0x01
+	mov	r4,a
+	mov	r6,#0x00
+	mov	dpl,r2
+	mov	dph,r5
 	mov	b,r7
-	lcall	_calc_crc
-	mov	r3,dpl
-	mov	r4,dph
-	dec	sp
-	dec	sp
-;	crc16.c:79: printf("CRC16=0x%04x\n\r", crc);
-	push	ar3
-	push	ar4
+	lcall	__gptrget
+	mov	r3,a
+	mov	a,_bp
+	add	a,#0x08
+	mov	r0,a
+	mov	a,@r0
+	anl	ar3,a
+	mov	a,r3
+	cjne	a,#0x01,00158$
+00158$:
+	cpl	c
+	mov	b0,c
+	push	ar2
+	push	ar5
+	push	ar7
+	mov	c,b0
+	clr	a
+	rlc	a
+	mov	r3,a
+	mov	r7,#0x00
+	xrl	ar4,a
+	mov	a,r7
+	xrl	ar6,a
+	pop	ar7
+	pop	ar5
+	pop	ar2
+	mov	a,r4
+	orl	a,r6
+	jz	00124$
+	mov	a,_bp
+	add	a,#0x06
+	mov	r0,a
+	mov	a,@r0
+	add	a,acc
+	mov	r6,a
+	inc	r0
+	mov	a,@r0
+	rlc	a
+	mov	r4,a
+	xrl	ar6,#0x21
+	xrl	ar4,#0x10
+	sjmp	00125$
+00124$:
+	mov	a,_bp
+	add	a,#0x06
+	mov	r0,a
+	mov	a,@r0
+	add	a,acc
+	mov	r6,a
+	inc	r0
+	mov	a,@r0
+	rlc	a
+	mov	r4,a
+00125$:
+	mov	a,_bp
+	add	a,#0x06
+	mov	r0,a
+	mov	@r0,ar6
+	inc	r0
+	mov	@r0,ar4
+	mov	a,_bp
+	add	a,#0x08
+	mov	r0,a
+	mov	a,@r0
+	clr	c
+	rrc	a
+	mov	@r0,a
+	mov	a,_bp
+	add	a,#0x08
+	mov	r0,a
+	mov	a,@r0
+	jnz	00115$
+;	crc16.c:63: for (off = 0u; off < len; off++)
+	mov	a,_bp
+	add	a,#0x04
+	mov	r0,a
+	inc	@r0
+	cjne	@r0,#0x00,00161$
+	inc	r0
+	inc	@r0
+00161$:
+	ljmp	00118$
+;	crc16.c:65: CCRCB_FINISH(crc);
+00109$:
+;	crc16.c:66: printf("CRC16=0x%04x\n\r", crc);
+	mov	a,_bp
+	add	a,#0x06
+	mov	r0,a
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
 	mov	a,#___str_2
 	push	acc
 	mov	a,#(___str_2 >> 8)
@@ -858,21 +699,18 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-	pop	ar5
-	pop	ar6
-	pop	ar7
-;	crc16.c:81: if (intr) {
+;	crc16.c:68: if (intr) {
 	mov	dptr,#_intr
 	movx	a,@dptr
 	mov	b,a
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
-	jz	00105$
-;	crc16.c:82: EA = 0;
+	jz	00121$
+;	crc16.c:69: EA = 0;
 ;	assignBit
 	clr	_EA
-;	crc16.c:83: printf("interrupted\n");
+;	crc16.c:70: printf("interrupted\n");
 	mov	a,#___str_3
 	push	acc
 	mov	a,#(___str_3 >> 8)
@@ -883,18 +721,23 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	crc16.c:84: break;
-	sjmp	00103$
-00105$:
-;	crc16.c:75: for (base = (unsigned char *)0x0u; 1; base += (len >> 1)) {
+;	crc16.c:71: break;
+	sjmp	00114$
+00121$:
+;	crc16.c:59: for (base = (unsigned char *)0x0u; 1; base += (len >> 1)) {
+	mov	r0,_bp
+	inc	r0
 	mov	a,#0x10
-	add	a,r6
-	mov	r6,a
-	ljmp	00104$
-00103$:
-;	crc16.c:91: __endasm;
+	inc	r0
+	add	a,@r0
+	mov	@r0,a
+	ljmp	00120$
+00114$:
+;	crc16.c:78: __endasm;
 	ljmp	0
-;	crc16.c:96: }
+;	crc16.c:83: }
+	mov	sp,_bp
+	pop	_bp
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

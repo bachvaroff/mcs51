@@ -1,10 +1,6 @@
 #include <mcs51/at89x52.h>
 #include <stdio.h>
 
-#define ACC_INITIAL 0xffffu
-#define POLY 0x1021u
-#define ACC_FINAL 0x0000u
-
 #define pm2_entry_cout 0x0030
 #define pm2_entry_cin 0x0032
 
@@ -24,47 +20,35 @@ int getchar(void) {
         __endasm;
 }
 
+#define ACC_INITIAL 0xffffu
+#define POLY 0x1021u
+#define ACC_FINAL 0x0000u
+
+#define CCRCB_INIT(R) do { \
+	(R) = ACC_INITIAL; \
+} while (0)
+
+#define CCRCB(CRC, OCT, BITP) do { \
+	for ((BITP) = 0x80u; (BITP); (BITP) >>= 1) \
+		(CRC) = (((CRC) >> 15) ^ (!!((OCT) & (BITP)))) ? (((CRC) << 1) ^ POLY) : ((CRC) << 1); \
+} while (0)
+
+#define CCRCB_FINISH(R) do { \
+	(R) ^= ACC_FINAL; \
+} while (0)
+
 int intr;
 
 void int0(void) __interrupt 0 __using 1 {
 	intr = 1;
 }
 
-static void ccrcb_init(unsigned int *r) {
-	*r = ACC_INITIAL;
-	return;
-}
-
-static void ccrcb(unsigned int *r, unsigned char oct) {
-	unsigned int rt;
-	unsigned char bitp;
-	
-	for (rt = *r, bitp = 0x80u; bitp; bitp >>= 1)
-		rt = ((rt >> 15) ^ (!!(oct & bitp))) ? ((rt << 1) ^ POLY) : (rt << 1);
-	*r = rt;
-}
-
-static void ccrcb_finish(unsigned int *r) {
-	*r ^= ACC_FINAL;
-}
-
-static unsigned int calc_crc(unsigned char *base, unsigned int len) {
-	unsigned int off, crc;
-	
-	ccrcb_init(&crc);
-	for (off = 0u; off < len; off++)
-		ccrcb(&crc, base[off]);
-	ccrcb_finish(&crc);
-	
-	return crc;
-}
-
 #define BLEN 0x2000u
 
 void main(void) {
 	unsigned char *base;
-	unsigned int len = BLEN;
-	unsigned int crc;
+	unsigned int len = BLEN, off, crc;
+	unsigned char bitp;
 	
 	intr = 0;
 	
@@ -75,7 +59,10 @@ void main(void) {
 	for (base = (unsigned char *)0x0u; 1; base += (len >> 1)) {
 		printf("base=0x%04x ", (unsigned int)base);
 		printf("len=0x%04x ", len);
-		crc = calc_crc(base, len);
+		CCRCB_INIT(crc);
+		for (off = 0u; off < len; off++)
+			CCRCB(crc, base[off], bitp);
+		CCRCB_FINISH(crc);
 		printf("CRC16=0x%04x\n\r", crc);
 		
 		if (intr) {
