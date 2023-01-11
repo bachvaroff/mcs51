@@ -1312,16 +1312,16 @@
                                    1312 ;	assignBit
       00042C D2 AF            [12] 1313 	setb	_EA
                                    1314 ;	life.c:90: while (!i0) {
-      00042E                       1315 00109$:
+      00042E                       1315 00111$:
       00042E 90r00r00         [24] 1316 	mov	dptr,#_i0
       000431 E0               [24] 1317 	movx	a,@dptr
       000432 F5 F0            [12] 1318 	mov	b,a
       000434 A3               [24] 1319 	inc	dptr
       000435 E0               [24] 1320 	movx	a,@dptr
       000436 45 F0            [12] 1321 	orl	a,b
-      000438 60 03            [24] 1322 	jz	00158$
-      00043A 02r05r53         [24] 1323 	ljmp	00111$
-      00043D                       1324 00158$:
+      000438 60 03            [24] 1322 	jz	00164$
+      00043A 02r05r74         [24] 1323 	ljmp	00113$
+      00043D                       1324 00164$:
                                    1325 ;	life.c:91: printf("\033[2J\033[mINIT\n\r");
       00043D 74r1F            [12] 1326 	mov	a,#___str_4
       00043F C0 E0            [24] 1327 	push	acc
@@ -1339,14 +1339,14 @@
       000456 F0               [24] 1339 	movx	@dptr,a
       000457 A3               [24] 1340 	inc	dptr
       000458 F0               [24] 1341 	movx	@dptr,a
-      000459                       1342 00114$:
+      000459                       1342 00116$:
                                    1343 ;	life.c:93: for (x = 0; x < W; x++) {
       000459 90r08r04         [24] 1344 	mov	dptr,#_x
       00045C E4               [12] 1345 	clr	a
       00045D F0               [24] 1346 	movx	@dptr,a
       00045E A3               [24] 1347 	inc	dptr
       00045F F0               [24] 1348 	movx	@dptr,a
-      000460                       1349 00112$:
+      000460                       1349 00114$:
                                    1350 ;	life.c:94: c = getchar();
       000460 12r00r05         [24] 1351 	lcall	_getchar
       000463 AE 82            [24] 1352 	mov	r6,dpl
@@ -1418,7 +1418,7 @@
       0004BA EF               [12] 1418 	mov	a,r7
       0004BB 64 80            [12] 1419 	xrl	a,#0x80
       0004BD 94 80            [12] 1420 	subb	a,#0x80
-      0004BF 40 9F            [24] 1421 	jc	00112$
+      0004BF 40 9F            [24] 1421 	jc	00114$
                                    1422 ;	life.c:92: for (y = 0; y < H; y++)
       0004C1 90r08r06         [24] 1423 	mov	dptr,#_y
       0004C4 E0               [24] 1424 	movx	a,@dptr
@@ -1440,9 +1440,9 @@
       0004D9 EF               [12] 1440 	mov	a,r7
       0004DA 64 80            [12] 1441 	xrl	a,#0x80
       0004DC 94 80            [12] 1442 	subb	a,#0x80
-      0004DE 50 03            [24] 1443 	jnc	00160$
-      0004E0 02r04r59         [24] 1444 	ljmp	00114$
-      0004E3                       1445 00160$:
+      0004DE 50 03            [24] 1443 	jnc	00166$
+      0004E0 02r04r59         [24] 1444 	ljmp	00116$
+      0004E3                       1445 00166$:
                                    1446 ;	life.c:97: printf("RDY\n\r");
       0004E3 74r2D            [12] 1447 	mov	a,#___str_5
       0004E5 C0 E0            [24] 1448 	push	acc
@@ -1475,127 +1475,154 @@
       00050E A3               [24] 1475 	inc	dptr
       00050F E0               [24] 1476 	movx	a,@dptr
       000510 45 F0            [12] 1477 	orl	a,b
-      000512 60 03            [24] 1478 	jz	00161$
-      000514 02r04r2E         [24] 1479 	ljmp	00109$
-      000517                       1480 00161$:
-      000517 90r00r02         [24] 1481 	mov	dptr,#_i1
-      00051A E0               [24] 1482 	movx	a,@dptr
-      00051B F5 F0            [12] 1483 	mov	b,a
-      00051D A3               [24] 1484 	inc	dptr
-      00051E E0               [24] 1485 	movx	a,@dptr
-      00051F 45 F0            [12] 1486 	orl	a,b
-      000521 60 03            [24] 1487 	jz	00162$
-      000523 02r04r2E         [24] 1488 	ljmp	00109$
-      000526                       1489 00162$:
-                                   1490 ;	life.c:104: show();
-      000526 12r00r39         [24] 1491 	lcall	_show
-                                   1492 ;	life.c:105: evolve();
-      000529 12r01r2B         [24] 1493 	lcall	_evolve
-                                   1494 ;	life.c:106: if (fixed) {
-      00052C 90r08r10         [24] 1495 	mov	dptr,#_fixed
-      00052F E0               [24] 1496 	movx	a,@dptr
-      000530 F5 F0            [12] 1497 	mov	b,a
-      000532 A3               [24] 1498 	inc	dptr
-      000533 E0               [24] 1499 	movx	a,@dptr
-      000534 45 F0            [12] 1500 	orl	a,b
-      000536 60 D0            [24] 1501 	jz	00106$
-                                   1502 ;	life.c:107: printf("DONE\n\r");
-      000538 74r33            [12] 1503 	mov	a,#___str_6
-      00053A C0 E0            [24] 1504 	push	acc
-      00053C 74s00            [12] 1505 	mov	a,#(___str_6 >> 8)
-      00053E C0 E0            [24] 1506 	push	acc
-      000540 74 80            [12] 1507 	mov	a,#0x80
-      000542 C0 E0            [24] 1508 	push	acc
-      000544 12r00r00         [24] 1509 	lcall	_printf
-      000547 15 81            [12] 1510 	dec	sp
-      000549 15 81            [12] 1511 	dec	sp
-      00054B 15 81            [12] 1512 	dec	sp
-                                   1513 ;	life.c:108: (void)getchar();
-      00054D 12r00r05         [24] 1514 	lcall	_getchar
-                                   1515 ;	life.c:109: break;
-      000550 02r04r2E         [24] 1516 	ljmp	00109$
-      000553                       1517 00111$:
-                                   1518 ;	life.c:114: EA = 0;
-                                   1519 ;	assignBit
-      000553 C2 AF            [12] 1520 	clr	_EA
-                                   1521 ;	life.c:116: printf("TERM\n\r");
-      000555 74r3A            [12] 1522 	mov	a,#___str_7
-      000557 C0 E0            [24] 1523 	push	acc
-      000559 74s00            [12] 1524 	mov	a,#(___str_7 >> 8)
+      000512 70 36            [24] 1478 	jnz	00108$
+      000514 90r00r02         [24] 1479 	mov	dptr,#_i1
+      000517 E0               [24] 1480 	movx	a,@dptr
+      000518 F5 F0            [12] 1481 	mov	b,a
+      00051A A3               [24] 1482 	inc	dptr
+      00051B E0               [24] 1483 	movx	a,@dptr
+      00051C 45 F0            [12] 1484 	orl	a,b
+      00051E 70 2A            [24] 1485 	jnz	00108$
+                                   1486 ;	life.c:104: show();
+      000520 12r00r39         [24] 1487 	lcall	_show
+                                   1488 ;	life.c:105: evolve();
+      000523 12r01r2B         [24] 1489 	lcall	_evolve
+                                   1490 ;	life.c:106: if (fixed) {
+      000526 90r08r10         [24] 1491 	mov	dptr,#_fixed
+      000529 E0               [24] 1492 	movx	a,@dptr
+      00052A F5 F0            [12] 1493 	mov	b,a
+      00052C A3               [24] 1494 	inc	dptr
+      00052D E0               [24] 1495 	movx	a,@dptr
+      00052E 45 F0            [12] 1496 	orl	a,b
+      000530 60 D6            [24] 1497 	jz	00106$
+                                   1498 ;	life.c:107: printf("DONE\n\r");
+      000532 74r33            [12] 1499 	mov	a,#___str_6
+      000534 C0 E0            [24] 1500 	push	acc
+      000536 74s00            [12] 1501 	mov	a,#(___str_6 >> 8)
+      000538 C0 E0            [24] 1502 	push	acc
+      00053A 74 80            [12] 1503 	mov	a,#0x80
+      00053C C0 E0            [24] 1504 	push	acc
+      00053E 12r00r00         [24] 1505 	lcall	_printf
+      000541 15 81            [12] 1506 	dec	sp
+      000543 15 81            [12] 1507 	dec	sp
+      000545 15 81            [12] 1508 	dec	sp
+                                   1509 ;	life.c:108: (void)getchar();
+      000547 12r00r05         [24] 1510 	lcall	_getchar
+                                   1511 ;	life.c:109: break;
+      00054A                       1512 00108$:
+                                   1513 ;	life.c:112: if (i1) {
+      00054A 90r00r02         [24] 1514 	mov	dptr,#_i1
+      00054D E0               [24] 1515 	movx	a,@dptr
+      00054E F5 F0            [12] 1516 	mov	b,a
+      000550 A3               [24] 1517 	inc	dptr
+      000551 E0               [24] 1518 	movx	a,@dptr
+      000552 45 F0            [12] 1519 	orl	a,b
+      000554 70 03            [24] 1520 	jnz	00170$
+      000556 02r04r2E         [24] 1521 	ljmp	00111$
+      000559                       1522 00170$:
+                                   1523 ;	life.c:113: printf("BREAK\n\r");
+      000559 74r3A            [12] 1524 	mov	a,#___str_7
       00055B C0 E0            [24] 1525 	push	acc
-      00055D 74 80            [12] 1526 	mov	a,#0x80
+      00055D 74s00            [12] 1526 	mov	a,#(___str_7 >> 8)
       00055F C0 E0            [24] 1527 	push	acc
-      000561 12r00r00         [24] 1528 	lcall	_printf
-      000564 15 81            [12] 1529 	dec	sp
-      000566 15 81            [12] 1530 	dec	sp
+      000561 74 80            [12] 1528 	mov	a,#0x80
+      000563 C0 E0            [24] 1529 	push	acc
+      000565 12r00r00         [24] 1530 	lcall	_printf
       000568 15 81            [12] 1531 	dec	sp
-                                   1532 ;	life.c:117: (void)getchar();
-      00056A 12r00r05         [24] 1533 	lcall	_getchar
-                                   1534 ;	life.c:121: __endasm;
-      00056D 02 00 00         [24] 1535 	ljmp	0
-                                   1536 ;	life.c:122: }
-      000570 22               [24] 1537 	ret
-                                   1538 	.area CSEG    (CODE)
-                                   1539 	.area CONST   (CODE)
-                                   1540 	.area CONST   (CODE)
-      000000                       1541 ___str_0:
-      000000 1B                    1542 	.db 0x1b
-      000001 5B 32 4A              1543 	.ascii "[2J"
-      000004 1B                    1544 	.db 0x1b
-      000005 5B 6D 25 30 34 78     1545 	.ascii "[m%04x"
-      00000B 0D                    1546 	.db 0x0d
-      00000C 0A                    1547 	.db 0x0a
-      00000D 00                    1548 	.db 0x00
-                                   1549 	.area CSEG    (CODE)
-                                   1550 	.area CONST   (CODE)
-      00000E                       1551 ___str_1:
-      00000E 1B                    1552 	.db 0x1b
-      00000F 5B 30 31 6D 5B 5D     1553 	.ascii "[01m[]"
-      000015 1B                    1554 	.db 0x1b
-      000016 5B 6D                 1555 	.ascii "[m"
-      000018 00                    1556 	.db 0x00
-                                   1557 	.area CSEG    (CODE)
-                                   1558 	.area CONST   (CODE)
-      000019                       1559 ___str_2:
-      000019 20 20                 1560 	.ascii "  "
-      00001B 00                    1561 	.db 0x00
-                                   1562 	.area CSEG    (CODE)
-                                   1563 	.area CONST   (CODE)
-      00001C                       1564 ___str_3:
-      00001C 0D                    1565 	.db 0x0d
-      00001D 0A                    1566 	.db 0x0a
-      00001E 00                    1567 	.db 0x00
-                                   1568 	.area CSEG    (CODE)
-                                   1569 	.area CONST   (CODE)
-      00001F                       1570 ___str_4:
-      00001F 1B                    1571 	.db 0x1b
-      000020 5B 32 4A              1572 	.ascii "[2J"
-      000023 1B                    1573 	.db 0x1b
-      000024 5B 6D 49 4E 49 54     1574 	.ascii "[mINIT"
-      00002A 0A                    1575 	.db 0x0a
-      00002B 0D                    1576 	.db 0x0d
-      00002C 00                    1577 	.db 0x00
-                                   1578 	.area CSEG    (CODE)
-                                   1579 	.area CONST   (CODE)
-      00002D                       1580 ___str_5:
-      00002D 52 44 59              1581 	.ascii "RDY"
-      000030 0A                    1582 	.db 0x0a
-      000031 0D                    1583 	.db 0x0d
-      000032 00                    1584 	.db 0x00
-                                   1585 	.area CSEG    (CODE)
-                                   1586 	.area CONST   (CODE)
-      000033                       1587 ___str_6:
-      000033 44 4F 4E 45           1588 	.ascii "DONE"
-      000037 0A                    1589 	.db 0x0a
-      000038 0D                    1590 	.db 0x0d
-      000039 00                    1591 	.db 0x00
-                                   1592 	.area CSEG    (CODE)
-                                   1593 	.area CONST   (CODE)
-      00003A                       1594 ___str_7:
-      00003A 54 45 52 4D           1595 	.ascii "TERM"
-      00003E 0A                    1596 	.db 0x0a
-      00003F 0D                    1597 	.db 0x0d
-      000040 00                    1598 	.db 0x00
-                                   1599 	.area CSEG    (CODE)
-                                   1600 	.area XINIT   (CODE)
-                                   1601 	.area CABS    (ABS,CODE)
+      00056A 15 81            [12] 1532 	dec	sp
+      00056C 15 81            [12] 1533 	dec	sp
+                                   1534 ;	life.c:114: (void)getchar();
+      00056E 12r00r05         [24] 1535 	lcall	_getchar
+      000571 02r04r2E         [24] 1536 	ljmp	00111$
+      000574                       1537 00113$:
+                                   1538 ;	life.c:118: EA = 0;
+                                   1539 ;	assignBit
+      000574 C2 AF            [12] 1540 	clr	_EA
+                                   1541 ;	life.c:120: printf("TERM\n\r");
+      000576 74r42            [12] 1542 	mov	a,#___str_8
+      000578 C0 E0            [24] 1543 	push	acc
+      00057A 74s00            [12] 1544 	mov	a,#(___str_8 >> 8)
+      00057C C0 E0            [24] 1545 	push	acc
+      00057E 74 80            [12] 1546 	mov	a,#0x80
+      000580 C0 E0            [24] 1547 	push	acc
+      000582 12r00r00         [24] 1548 	lcall	_printf
+      000585 15 81            [12] 1549 	dec	sp
+      000587 15 81            [12] 1550 	dec	sp
+      000589 15 81            [12] 1551 	dec	sp
+                                   1552 ;	life.c:121: (void)getchar();
+      00058B 12r00r05         [24] 1553 	lcall	_getchar
+                                   1554 ;	life.c:125: __endasm;
+      00058E 02 00 00         [24] 1555 	ljmp	0
+                                   1556 ;	life.c:126: }
+      000591 22               [24] 1557 	ret
+                                   1558 	.area CSEG    (CODE)
+                                   1559 	.area CONST   (CODE)
+                                   1560 	.area CONST   (CODE)
+      000000                       1561 ___str_0:
+      000000 1B                    1562 	.db 0x1b
+      000001 5B 32 4A              1563 	.ascii "[2J"
+      000004 1B                    1564 	.db 0x1b
+      000005 5B 6D 25 30 34 78     1565 	.ascii "[m%04x"
+      00000B 0D                    1566 	.db 0x0d
+      00000C 0A                    1567 	.db 0x0a
+      00000D 00                    1568 	.db 0x00
+                                   1569 	.area CSEG    (CODE)
+                                   1570 	.area CONST   (CODE)
+      00000E                       1571 ___str_1:
+      00000E 1B                    1572 	.db 0x1b
+      00000F 5B 30 31 6D 5B 5D     1573 	.ascii "[01m[]"
+      000015 1B                    1574 	.db 0x1b
+      000016 5B 6D                 1575 	.ascii "[m"
+      000018 00                    1576 	.db 0x00
+                                   1577 	.area CSEG    (CODE)
+                                   1578 	.area CONST   (CODE)
+      000019                       1579 ___str_2:
+      000019 20 20                 1580 	.ascii "  "
+      00001B 00                    1581 	.db 0x00
+                                   1582 	.area CSEG    (CODE)
+                                   1583 	.area CONST   (CODE)
+      00001C                       1584 ___str_3:
+      00001C 0D                    1585 	.db 0x0d
+      00001D 0A                    1586 	.db 0x0a
+      00001E 00                    1587 	.db 0x00
+                                   1588 	.area CSEG    (CODE)
+                                   1589 	.area CONST   (CODE)
+      00001F                       1590 ___str_4:
+      00001F 1B                    1591 	.db 0x1b
+      000020 5B 32 4A              1592 	.ascii "[2J"
+      000023 1B                    1593 	.db 0x1b
+      000024 5B 6D 49 4E 49 54     1594 	.ascii "[mINIT"
+      00002A 0A                    1595 	.db 0x0a
+      00002B 0D                    1596 	.db 0x0d
+      00002C 00                    1597 	.db 0x00
+                                   1598 	.area CSEG    (CODE)
+                                   1599 	.area CONST   (CODE)
+      00002D                       1600 ___str_5:
+      00002D 52 44 59              1601 	.ascii "RDY"
+      000030 0A                    1602 	.db 0x0a
+      000031 0D                    1603 	.db 0x0d
+      000032 00                    1604 	.db 0x00
+                                   1605 	.area CSEG    (CODE)
+                                   1606 	.area CONST   (CODE)
+      000033                       1607 ___str_6:
+      000033 44 4F 4E 45           1608 	.ascii "DONE"
+      000037 0A                    1609 	.db 0x0a
+      000038 0D                    1610 	.db 0x0d
+      000039 00                    1611 	.db 0x00
+                                   1612 	.area CSEG    (CODE)
+                                   1613 	.area CONST   (CODE)
+      00003A                       1614 ___str_7:
+      00003A 42 52 45 41 4B        1615 	.ascii "BREAK"
+      00003F 0A                    1616 	.db 0x0a
+      000040 0D                    1617 	.db 0x0d
+      000041 00                    1618 	.db 0x00
+                                   1619 	.area CSEG    (CODE)
+                                   1620 	.area CONST   (CODE)
+      000042                       1621 ___str_8:
+      000042 54 45 52 4D           1622 	.ascii "TERM"
+      000046 0A                    1623 	.db 0x0a
+      000047 0D                    1624 	.db 0x0d
+      000048 00                    1625 	.db 0x00
+                                   1626 	.area CSEG    (CODE)
+                                   1627 	.area XINIT   (CODE)
+                                   1628 	.area CABS    (ABS,CODE)

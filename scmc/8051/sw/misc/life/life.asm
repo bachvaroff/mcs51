@@ -1312,16 +1312,16 @@ _main:
 ;	assignBit
 	setb	_EA
 ;	life.c:90: while (!i0) {
-00109$:
+00111$:
 	mov	dptr,#_i0
 	movx	a,@dptr
 	mov	b,a
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
-	jz	00158$
-	ljmp	00111$
-00158$:
+	jz	00164$
+	ljmp	00113$
+00164$:
 ;	life.c:91: printf("\033[2J\033[mINIT\n\r");
 	mov	a,#___str_4
 	push	acc
@@ -1339,14 +1339,14 @@ _main:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-00114$:
+00116$:
 ;	life.c:93: for (x = 0; x < W; x++) {
 	mov	dptr,#_x
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-00112$:
+00114$:
 ;	life.c:94: c = getchar();
 	lcall	_getchar
 	mov	r6,dpl
@@ -1418,7 +1418,7 @@ _main:
 	mov	a,r7
 	xrl	a,#0x80
 	subb	a,#0x80
-	jc	00112$
+	jc	00114$
 ;	life.c:92: for (y = 0; y < H; y++)
 	mov	dptr,#_y
 	movx	a,@dptr
@@ -1440,9 +1440,9 @@ _main:
 	mov	a,r7
 	xrl	a,#0x80
 	subb	a,#0x80
-	jnc	00160$
-	ljmp	00114$
-00160$:
+	jnc	00166$
+	ljmp	00116$
+00166$:
 ;	life.c:97: printf("RDY\n\r");
 	mov	a,#___str_5
 	push	acc
@@ -1475,18 +1475,14 @@ _main:
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
-	jz	00161$
-	ljmp	00109$
-00161$:
+	jnz	00108$
 	mov	dptr,#_i1
 	movx	a,@dptr
 	mov	b,a
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
-	jz	00162$
-	ljmp	00109$
-00162$:
+	jnz	00108$
 ;	life.c:104: show();
 	lcall	_show
 ;	life.c:105: evolve();
@@ -1513,12 +1509,18 @@ _main:
 ;	life.c:108: (void)getchar();
 	lcall	_getchar
 ;	life.c:109: break;
-	ljmp	00109$
-00111$:
-;	life.c:114: EA = 0;
-;	assignBit
-	clr	_EA
-;	life.c:116: printf("TERM\n\r");
+00108$:
+;	life.c:112: if (i1) {
+	mov	dptr,#_i1
+	movx	a,@dptr
+	mov	b,a
+	inc	dptr
+	movx	a,@dptr
+	orl	a,b
+	jnz	00170$
+	ljmp	00111$
+00170$:
+;	life.c:113: printf("BREAK\n\r");
 	mov	a,#___str_7
 	push	acc
 	mov	a,#(___str_7 >> 8)
@@ -1529,11 +1531,29 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	life.c:117: (void)getchar();
+;	life.c:114: (void)getchar();
 	lcall	_getchar
-;	life.c:121: __endasm;
+	ljmp	00111$
+00113$:
+;	life.c:118: EA = 0;
+;	assignBit
+	clr	_EA
+;	life.c:120: printf("TERM\n\r");
+	mov	a,#___str_8
+	push	acc
+	mov	a,#(___str_8 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	life.c:121: (void)getchar();
+	lcall	_getchar
+;	life.c:125: __endasm;
 	ljmp	0
-;	life.c:122: }
+;	life.c:126: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1592,6 +1612,13 @@ ___str_6:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_7:
+	.ascii "BREAK"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_8:
 	.ascii "TERM"
 	.db 0x0a
 	.db 0x0d

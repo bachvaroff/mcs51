@@ -109,6 +109,10 @@ void main(void) {
 				break;
 			}
 		}
+		if (i1) {
+			printf("BREAK\n\r");
+			(void)getchar();
+		}
 	}
 	
 	EA = 0;
