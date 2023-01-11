@@ -38,14 +38,14 @@ void int1(void) __interrupt 2 __using 1 {
 	i1 = 1;
 }
 
-void cleargen(void) {	
+inline void cleargen(void) {
 	for (j = 0; j < 4; j++)
 		generation[j] = 0;
 	
 	return;
 }
 
-void updategen(void) {	
+inline void updategen(void) {	
 	for (j = 0; j < 4; j++) {
 		generation[j]++;
 		if (generation[j]) break;
@@ -54,14 +54,16 @@ void updategen(void) {
 	return;
 }
 
-void printgen(void) {
+inline void printgen(void) {
 	for (j = 0; j < 4; j++) {
 		printf("%04x", generation[3 - j]);
 		if (j < 3) putchar(' ');
 	}
+	
+	return;
 }
 
-void show(void) {
+inline void show(void) {
 	printf("\033[2J\033[m");
 	printgen();
 	printf("\r\n");
@@ -77,7 +79,7 @@ void show(void) {
 	return;
 }
 
-void evolve(void) {
+inline void evolve(void) {
 	fixed = 1;
 	
 	for (y = 0; y < H; y++) {
@@ -122,8 +124,7 @@ void main(void) {
 		printf("RDY\n\r");
 		(void)getchar();
 		
-		for (x = 0; x < 4; x++)
-			generation[x] = 0;
+		cleargen();
 		
 		i1 = 0;
 		while (!i0 && !i1) {
