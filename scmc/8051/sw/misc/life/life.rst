@@ -996,15 +996,15 @@
       002324 40 95            [24]  996 	jc	00151$
                                     997 ;	life.c:70: updategen();
       002326                        998 00123$:
-                                    999 ;	life.c:72: for (y = 0; y < H; y++) {
-      002326 90 88 06         [24] 1000 	mov	dptr,#_y
+                                    999 ;	life.c:72: for (x = 0; x < W; x++) {
+      002326 90 88 04         [24] 1000 	mov	dptr,#_x
       002329 E4               [12] 1001 	clr	a
       00232A F0               [24] 1002 	movx	@dptr,a
       00232B A3               [24] 1003 	inc	dptr
       00232C F0               [24] 1004 	movx	@dptr,a
       00232D                       1005 00155$:
-                                   1006 ;	life.c:73: for (x = 0; x < W; x++)
-      00232D 90 88 04         [24] 1007 	mov	dptr,#_x
+                                   1006 ;	life.c:73: for (y = 0; y < H; y++)
+      00232D 90 88 06         [24] 1007 	mov	dptr,#_y
       002330 E4               [12] 1008 	clr	a
       002331 F0               [24] 1009 	movx	@dptr,a
       002332 A3               [24] 1010 	inc	dptr
@@ -1075,8 +1075,8 @@
       00238F 15 81            [12] 1075 	dec	sp
       002391 15 81            [12] 1076 	dec	sp
       002393                       1077 00154$:
-                                   1078 ;	life.c:73: for (x = 0; x < W; x++)
-      002393 90 88 04         [24] 1079 	mov	dptr,#_x
+                                   1078 ;	life.c:73: for (y = 0; y < H; y++)
+      002393 90 88 06         [24] 1079 	mov	dptr,#_y
       002396 E0               [24] 1080 	movx	a,@dptr
       002397 24 01            [12] 1081 	add	a,#0x01
       002399 F0               [24] 1082 	movx	@dptr,a
@@ -1084,7 +1084,7 @@
       00239B E0               [24] 1084 	movx	a,@dptr
       00239C 34 00            [12] 1085 	addc	a,#0x00
       00239E F0               [24] 1086 	movx	@dptr,a
-      00239F 90 88 04         [24] 1087 	mov	dptr,#_x
+      00239F 90 88 06         [24] 1087 	mov	dptr,#_y
       0023A2 E0               [24] 1088 	movx	a,@dptr
       0023A3 FE               [12] 1089 	mov	r6,a
       0023A4 A3               [24] 1090 	inc	dptr
@@ -1110,8 +1110,8 @@
       0023C4 15 81            [12] 1110 	dec	sp
       0023C6 15 81            [12] 1111 	dec	sp
       0023C8 15 81            [12] 1112 	dec	sp
-                                   1113 ;	life.c:72: for (y = 0; y < H; y++) {
-      0023CA 90 88 06         [24] 1114 	mov	dptr,#_y
+                                   1113 ;	life.c:72: for (x = 0; x < W; x++) {
+      0023CA 90 88 04         [24] 1114 	mov	dptr,#_x
       0023CD E0               [24] 1115 	movx	a,@dptr
       0023CE 24 01            [12] 1116 	add	a,#0x01
       0023D0 F0               [24] 1117 	movx	@dptr,a
@@ -1119,7 +1119,7 @@
       0023D2 E0               [24] 1119 	movx	a,@dptr
       0023D3 34 00            [12] 1120 	addc	a,#0x00
       0023D5 F0               [24] 1121 	movx	@dptr,a
-      0023D6 90 88 06         [24] 1122 	mov	dptr,#_y
+      0023D6 90 88 04         [24] 1122 	mov	dptr,#_x
       0023D9 E0               [24] 1123 	movx	a,@dptr
       0023DA FE               [12] 1124 	mov	r6,a
       0023DB A3               [24] 1125 	inc	dptr

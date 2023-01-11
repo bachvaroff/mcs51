@@ -69,8 +69,8 @@ inline void show(void) {
 	printf("\r\n");
 	updategen();
 	
-	for (y = 0; y < H; y++) {
-		for (x = 0; x < W; x++)
+	for (x = 0; x < W; x++) {
+		for (y = 0; y < H; y++)
 			if (u[y][x]) printf("\033[01m[]\033[m");
 			else printf("--");
 		printf("\r\n");

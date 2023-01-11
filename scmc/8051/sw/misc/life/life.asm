@@ -996,15 +996,15 @@ _main:
 	jc	00151$
 ;	life.c:70: updategen();
 00123$:
-;	life.c:72: for (y = 0; y < H; y++) {
-	mov	dptr,#_y
+;	life.c:72: for (x = 0; x < W; x++) {
+	mov	dptr,#_x
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
 00155$:
-;	life.c:73: for (x = 0; x < W; x++)
-	mov	dptr,#_x
+;	life.c:73: for (y = 0; y < H; y++)
+	mov	dptr,#_y
 	clr	a
 	movx	@dptr,a
 	inc	dptr
@@ -1075,8 +1075,8 @@ _main:
 	dec	sp
 	dec	sp
 00154$:
-;	life.c:73: for (x = 0; x < W; x++)
-	mov	dptr,#_x
+;	life.c:73: for (y = 0; y < H; y++)
+	mov	dptr,#_y
 	movx	a,@dptr
 	add	a,#0x01
 	movx	@dptr,a
@@ -1084,7 +1084,7 @@ _main:
 	movx	a,@dptr
 	addc	a,#0x00
 	movx	@dptr,a
-	mov	dptr,#_x
+	mov	dptr,#_y
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -1110,8 +1110,8 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	life.c:72: for (y = 0; y < H; y++) {
-	mov	dptr,#_y
+;	life.c:72: for (x = 0; x < W; x++) {
+	mov	dptr,#_x
 	movx	a,@dptr
 	add	a,#0x01
 	movx	@dptr,a
@@ -1119,7 +1119,7 @@ _main:
 	movx	a,@dptr
 	addc	a,#0x00
 	movx	@dptr,a
-	mov	dptr,#_y
+	mov	dptr,#_x
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
