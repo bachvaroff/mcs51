@@ -26,7 +26,7 @@ int getchar(void) {
 int i0, i1;
 char u[H][W], nu[H][W];
 int x, y, x1, y1, n;
-int population, fixed;
+int generation[4], j, fixed;
 int c;
 
 void int0(void) __interrupt 0 __using 1 {
@@ -38,14 +38,39 @@ void int1(void) __interrupt 2 __using 1 {
 	i1 = 1;
 }
 
+void cleargen(void) {	
+	for (j = 0; j < 4; j++)
+		generation[j] = 0;
+	
+	return;
+}
+
+void updategen(void) {	
+	for (j = 0; j < 4; j++) {
+		generation[j]++;
+		if (generation[j]) break;
+	}
+	
+	return;
+}
+
+void printgen(void) {
+	for (j = 0; j < 4; j++) {
+		printf("%04x", generation[3 - j]);
+		if (j < 3) putchar(' ');
+	}
+}
+
 void show(void) {
-	printf("\033[2J\033[m%04x\r\n", population);
-	population++;
+	printf("\033[2J\033[m");
+	printgen();
+	printf("\r\n");
+	updategen();
 	
 	for (y = 0; y < H; y++) {
 		for (x = 0; x < W; x++)
 			if (u[y][x]) printf("\033[01m[]\033[m");
-			else printf("  ");
+			else printf("--");
 		printf("\r\n");
 	}
 	
@@ -97,7 +122,8 @@ void main(void) {
 		printf("RDY\n\r");
 		(void)getchar();
 		
-		population = 0;
+		for (x = 0; x < 4; x++)
+			generation[x] = 0;
 		
 		i1 = 0;
 		while (!i0 && !i1) {
