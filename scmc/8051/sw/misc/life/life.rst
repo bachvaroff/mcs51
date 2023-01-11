@@ -138,17 +138,17 @@
                                     138 	.globl _SP
                                     139 	.globl _P0
                                     140 	.globl _c
-                                    141 	.globl _i1
-                                    142 	.globl _i0
-                                    143 	.globl _fixed
-                                    144 	.globl _population
-                                    145 	.globl _n
-                                    146 	.globl _y1
-                                    147 	.globl _x1
-                                    148 	.globl _y
-                                    149 	.globl _x
-                                    150 	.globl _nu
-                                    151 	.globl _u
+                                    141 	.globl _fixed
+                                    142 	.globl _population
+                                    143 	.globl _n
+                                    144 	.globl _y1
+                                    145 	.globl _x1
+                                    146 	.globl _y
+                                    147 	.globl _x
+                                    148 	.globl _nu
+                                    149 	.globl _u
+                                    150 	.globl _i1
+                                    151 	.globl _i0
                                     152 	.globl _putchar
                                     153 	.globl _getchar
                                     154 ;--------------------------------------------------------
@@ -340,27 +340,27 @@
                                     340 ; external ram data
                                     341 ;--------------------------------------------------------
                                     342 	.area XSEG    (XDATA)
-      008000                        343 _u::
-      008000                        344 	.ds 1024
-      008400                        345 _nu::
-      008400                        346 	.ds 1024
-      008800                        347 _x::
-      008800                        348 	.ds 2
-      008802                        349 _y::
-      008802                        350 	.ds 2
-      008804                        351 _x1::
+      008000                        343 _i0::
+      008000                        344 	.ds 2
+      008002                        345 _i1::
+      008002                        346 	.ds 2
+      008004                        347 _u::
+      008004                        348 	.ds 1024
+      008404                        349 _nu::
+      008404                        350 	.ds 1024
+      008804                        351 _x::
       008804                        352 	.ds 2
-      008806                        353 _y1::
+      008806                        353 _y::
       008806                        354 	.ds 2
-      008808                        355 _n::
+      008808                        355 _x1::
       008808                        356 	.ds 2
-      00880A                        357 _population::
+      00880A                        357 _y1::
       00880A                        358 	.ds 2
-      00880C                        359 _fixed::
+      00880C                        359 _n::
       00880C                        360 	.ds 2
-      00880E                        361 _i0::
+      00880E                        361 _population::
       00880E                        362 	.ds 2
-      008810                        363 _i1::
+      008810                        363 _fixed::
       008810                        364 	.ds 2
       008812                        365 _c::
       008812                        366 	.ds 2
@@ -387,1172 +387,1215 @@
                                     387 ;--------------------------------------------------------
                                     388 	.area HOME    (CODE)
       002000                        389 __interrupt_vect:
-      002000 02 20 11         [24]  390 	ljmp	__sdcc_gsinit_startup
-      002003 02 20 79         [24]  391 	ljmp	_int0
+      002000 02 20 19         [24]  390 	ljmp	__sdcc_gsinit_startup
+      002003 02 20 82         [24]  391 	ljmp	_int0
       002006                        392 	.ds	5
-      00200B 02 20 8F         [24]  393 	ljmp	_int1
-                                    394 ;--------------------------------------------------------
-                                    395 ; global & static initialisations
+      00200B 32               [24]  393 	reti
+      00200C                        394 	.ds	7
+      002013 02 20 98         [24]  395 	ljmp	_int1
                                     396 ;--------------------------------------------------------
-                                    397 	.area HOME    (CODE)
-                                    398 	.area GSINIT  (CODE)
-                                    399 	.area GSFINAL (CODE)
+                                    397 ; global & static initialisations
+                                    398 ;--------------------------------------------------------
+                                    399 	.area HOME    (CODE)
                                     400 	.area GSINIT  (CODE)
-                                    401 	.globl __sdcc_gsinit_startup
-                                    402 	.globl __sdcc_program_startup
-                                    403 	.globl __start__stack
-                                    404 	.globl __mcs51_genXINIT
-                                    405 	.globl __mcs51_genXRAMCLEAR
-                                    406 	.globl __mcs51_genRAMCLEAR
-                                    407 	.area GSFINAL (CODE)
-      00206A 02 20 0E         [24]  408 	ljmp	__sdcc_program_startup
-                                    409 ;--------------------------------------------------------
-                                    410 ; Home
+                                    401 	.area GSFINAL (CODE)
+                                    402 	.area GSINIT  (CODE)
+                                    403 	.globl __sdcc_gsinit_startup
+                                    404 	.globl __sdcc_program_startup
+                                    405 	.globl __start__stack
+                                    406 	.globl __mcs51_genXINIT
+                                    407 	.globl __mcs51_genXRAMCLEAR
+                                    408 	.globl __mcs51_genRAMCLEAR
+                                    409 	.area GSFINAL (CODE)
+      002072 02 20 16         [24]  410 	ljmp	__sdcc_program_startup
                                     411 ;--------------------------------------------------------
-                                    412 	.area HOME    (CODE)
-                                    413 	.area HOME    (CODE)
-      00200E                        414 __sdcc_program_startup:
-      00200E 02 24 83         [24]  415 	ljmp	_main
-                                    416 ;	return from main will return to caller
-                                    417 ;--------------------------------------------------------
-                                    418 ; code
+                                    412 ; Home
+                                    413 ;--------------------------------------------------------
+                                    414 	.area HOME    (CODE)
+                                    415 	.area HOME    (CODE)
+      002016                        416 __sdcc_program_startup:
+      002016 02 24 8C         [24]  417 	ljmp	_main
+                                    418 ;	return from main will return to caller
                                     419 ;--------------------------------------------------------
-                                    420 	.area CSEG    (CODE)
-                                    421 ;------------------------------------------------------------
-                                    422 ;Allocation info for local variables in function 'putchar'
+                                    420 ; code
+                                    421 ;--------------------------------------------------------
+                                    422 	.area CSEG    (CODE)
                                     423 ;------------------------------------------------------------
-                                    424 ;c                         Allocated to registers 
+                                    424 ;Allocation info for local variables in function 'putchar'
                                     425 ;------------------------------------------------------------
-                                    426 ;	life.c:7: int putchar(int c) __naked {
-                                    427 ;	-----------------------------------------
-                                    428 ;	 function putchar
+                                    426 ;c                         Allocated to registers 
+                                    427 ;------------------------------------------------------------
+                                    428 ;	life.c:7: int putchar(int c) __naked {
                                     429 ;	-----------------------------------------
-      00206D                        430 _putchar:
-                                    431 ;	naked function: no prologue.
-                                    432 ;	life.c:12: __endasm;
-      00206D E5 82            [12]  433 	mov	a, dpl
-      00206F 02 00 30         [24]  434 	ljmp	0x0030
-                                    435 ;	life.c:13: }
-                                    436 ;	naked function: no epilogue.
-                                    437 ;------------------------------------------------------------
-                                    438 ;Allocation info for local variables in function 'getchar'
+                                    430 ;	 function putchar
+                                    431 ;	-----------------------------------------
+      002075                        432 _putchar:
+                                    433 ;	naked function: no prologue.
+                                    434 ;	life.c:12: __endasm;
+      002075 E5 82            [12]  435 	mov	a, dpl
+      002077 02 00 30         [24]  436 	ljmp	0x0030
+                                    437 ;	life.c:13: }
+                                    438 ;	naked function: no epilogue.
                                     439 ;------------------------------------------------------------
-                                    440 ;	life.c:15: int getchar(void) __naked {
-                                    441 ;	-----------------------------------------
-                                    442 ;	 function getchar
+                                    440 ;Allocation info for local variables in function 'getchar'
+                                    441 ;------------------------------------------------------------
+                                    442 ;	life.c:15: int getchar(void) {
                                     443 ;	-----------------------------------------
-      002072                        444 _getchar:
-                                    445 ;	naked function: no prologue.
-                                    446 ;	life.c:20: __endasm;
-      002072 12 00 32         [24]  447 	lcall	0x0032
-      002075 C2 83            [12]  448 	clr	dph
-      002077 F5 82            [12]  449 	mov	dpl, a
-                                    450 ;	life.c:21: }
-                                    451 ;	naked function: no epilogue.
-                                    452 ;------------------------------------------------------------
-                                    453 ;Allocation info for local variables in function 'int0'
-                                    454 ;------------------------------------------------------------
-                                    455 ;	life.c:32: void int0(void) __interrupt 0 __using 1 {
-                                    456 ;	-----------------------------------------
-                                    457 ;	 function int0
-                                    458 ;	-----------------------------------------
-      002079                        459 _int0:
-                           00000F   460 	ar7 = 0x0f
-                           00000E   461 	ar6 = 0x0e
-                           00000D   462 	ar5 = 0x0d
-                           00000C   463 	ar4 = 0x0c
-                           00000B   464 	ar3 = 0x0b
-                           00000A   465 	ar2 = 0x0a
-                           000009   466 	ar1 = 0x09
-                           000008   467 	ar0 = 0x08
-      002079 C0 E0            [24]  468 	push	acc
-      00207B C0 82            [24]  469 	push	dpl
-      00207D C0 83            [24]  470 	push	dph
-                                    471 ;	life.c:33: i0 = 1;
-      00207F 90 88 0E         [24]  472 	mov	dptr,#_i0
-      002082 74 01            [12]  473 	mov	a,#0x01
-      002084 F0               [24]  474 	movx	@dptr,a
-      002085 E4               [12]  475 	clr	a
-      002086 A3               [24]  476 	inc	dptr
-      002087 F0               [24]  477 	movx	@dptr,a
-                                    478 ;	life.c:34: }
-      002088 D0 83            [24]  479 	pop	dph
-      00208A D0 82            [24]  480 	pop	dpl
-      00208C D0 E0            [24]  481 	pop	acc
-      00208E 32               [24]  482 	reti
-                                    483 ;	eliminated unneeded mov psw,# (no regs used in bank)
-                                    484 ;	eliminated unneeded push/pop psw
-                                    485 ;	eliminated unneeded push/pop b
-                                    486 ;------------------------------------------------------------
-                                    487 ;Allocation info for local variables in function 'int1'
-                                    488 ;------------------------------------------------------------
-                                    489 ;	life.c:36: void int1(void) __interrupt 1 __using 1 {
-                                    490 ;	-----------------------------------------
-                                    491 ;	 function int1
-                                    492 ;	-----------------------------------------
-      00208F                        493 _int1:
-      00208F C0 E0            [24]  494 	push	acc
-      002091 C0 82            [24]  495 	push	dpl
-      002093 C0 83            [24]  496 	push	dph
-                                    497 ;	life.c:37: i1 = 1;
-      002095 90 88 10         [24]  498 	mov	dptr,#_i1
-      002098 74 01            [12]  499 	mov	a,#0x01
-      00209A F0               [24]  500 	movx	@dptr,a
-      00209B E4               [12]  501 	clr	a
-      00209C A3               [24]  502 	inc	dptr
-      00209D F0               [24]  503 	movx	@dptr,a
-                                    504 ;	life.c:38: }
-      00209E D0 83            [24]  505 	pop	dph
-      0020A0 D0 82            [24]  506 	pop	dpl
-      0020A2 D0 E0            [24]  507 	pop	acc
-      0020A4 32               [24]  508 	reti
-                                    509 ;	eliminated unneeded mov psw,# (no regs used in bank)
-                                    510 ;	eliminated unneeded push/pop psw
-                                    511 ;	eliminated unneeded push/pop b
-                                    512 ;------------------------------------------------------------
-                                    513 ;Allocation info for local variables in function 'show'
-                                    514 ;------------------------------------------------------------
-                                    515 ;	life.c:40: void show(void) {
-                                    516 ;	-----------------------------------------
-                                    517 ;	 function show
-                                    518 ;	-----------------------------------------
-      0020A5                        519 _show:
-                           000007   520 	ar7 = 0x07
-                           000006   521 	ar6 = 0x06
-                           000005   522 	ar5 = 0x05
-                           000004   523 	ar4 = 0x04
-                           000003   524 	ar3 = 0x03
-                           000002   525 	ar2 = 0x02
-                           000001   526 	ar1 = 0x01
-                           000000   527 	ar0 = 0x00
-                                    528 ;	life.c:41: printf("\033[2J\033[m%04x\r\n", population);
-      0020A5 90 88 0A         [24]  529 	mov	dptr,#_population
-      0020A8 E0               [24]  530 	movx	a,@dptr
-      0020A9 C0 E0            [24]  531 	push	acc
-      0020AB A3               [24]  532 	inc	dptr
-      0020AC E0               [24]  533 	movx	a,@dptr
-      0020AD C0 E0            [24]  534 	push	acc
-      0020AF 74 C7            [12]  535 	mov	a,#___str_0
-      0020B1 C0 E0            [24]  536 	push	acc
-      0020B3 74 39            [12]  537 	mov	a,#(___str_0 >> 8)
-      0020B5 C0 E0            [24]  538 	push	acc
-      0020B7 74 80            [12]  539 	mov	a,#0x80
-      0020B9 C0 E0            [24]  540 	push	acc
-      0020BB 12 25 F6         [24]  541 	lcall	_printf
-      0020BE E5 81            [12]  542 	mov	a,sp
-      0020C0 24 FB            [12]  543 	add	a,#0xfb
-      0020C2 F5 81            [12]  544 	mov	sp,a
-                                    545 ;	life.c:42: population++;
-      0020C4 90 88 0A         [24]  546 	mov	dptr,#_population
-      0020C7 E0               [24]  547 	movx	a,@dptr
-      0020C8 24 01            [12]  548 	add	a,#0x01
-      0020CA F0               [24]  549 	movx	@dptr,a
-      0020CB A3               [24]  550 	inc	dptr
-      0020CC E0               [24]  551 	movx	a,@dptr
-      0020CD 34 00            [12]  552 	addc	a,#0x00
-      0020CF F0               [24]  553 	movx	@dptr,a
-                                    554 ;	life.c:44: for (y = 0; y < H; y++) {
-      0020D0 90 88 02         [24]  555 	mov	dptr,#_y
-      0020D3 E4               [12]  556 	clr	a
-      0020D4 F0               [24]  557 	movx	@dptr,a
-      0020D5 A3               [24]  558 	inc	dptr
-      0020D6 F0               [24]  559 	movx	@dptr,a
-      0020D7                        560 00108$:
-                                    561 ;	life.c:45: for (x = 0; x < W; x++)
-      0020D7 90 88 00         [24]  562 	mov	dptr,#_x
-      0020DA E4               [12]  563 	clr	a
-      0020DB F0               [24]  564 	movx	@dptr,a
-      0020DC A3               [24]  565 	inc	dptr
+                                    444 ;	 function getchar
+                                    445 ;	-----------------------------------------
+      00207A                        446 _getchar:
+                           000007   447 	ar7 = 0x07
+                           000006   448 	ar6 = 0x06
+                           000005   449 	ar5 = 0x05
+                           000004   450 	ar4 = 0x04
+                           000003   451 	ar3 = 0x03
+                           000002   452 	ar2 = 0x02
+                           000001   453 	ar1 = 0x01
+                           000000   454 	ar0 = 0x00
+                                    455 ;	life.c:20: __endasm;
+      00207A 12 00 32         [24]  456 	lcall	0x0032
+      00207D C2 83            [12]  457 	clr	dph
+      00207F F5 82            [12]  458 	mov	dpl, a
+                                    459 ;	life.c:21: }
+      002081 22               [24]  460 	ret
+                                    461 ;------------------------------------------------------------
+                                    462 ;Allocation info for local variables in function 'int0'
+                                    463 ;------------------------------------------------------------
+                                    464 ;	life.c:32: void int0(void) __interrupt 0 __using 1 {
+                                    465 ;	-----------------------------------------
+                                    466 ;	 function int0
+                                    467 ;	-----------------------------------------
+      002082                        468 _int0:
+                           00000F   469 	ar7 = 0x0f
+                           00000E   470 	ar6 = 0x0e
+                           00000D   471 	ar5 = 0x0d
+                           00000C   472 	ar4 = 0x0c
+                           00000B   473 	ar3 = 0x0b
+                           00000A   474 	ar2 = 0x0a
+                           000009   475 	ar1 = 0x09
+                           000008   476 	ar0 = 0x08
+      002082 C0 E0            [24]  477 	push	acc
+      002084 C0 82            [24]  478 	push	dpl
+      002086 C0 83            [24]  479 	push	dph
+                                    480 ;	life.c:33: i0 = 1;
+      002088 90 80 00         [24]  481 	mov	dptr,#_i0
+      00208B 74 01            [12]  482 	mov	a,#0x01
+      00208D F0               [24]  483 	movx	@dptr,a
+      00208E E4               [12]  484 	clr	a
+      00208F A3               [24]  485 	inc	dptr
+      002090 F0               [24]  486 	movx	@dptr,a
+                                    487 ;	life.c:34: }
+      002091 D0 83            [24]  488 	pop	dph
+      002093 D0 82            [24]  489 	pop	dpl
+      002095 D0 E0            [24]  490 	pop	acc
+      002097 32               [24]  491 	reti
+                                    492 ;	eliminated unneeded mov psw,# (no regs used in bank)
+                                    493 ;	eliminated unneeded push/pop psw
+                                    494 ;	eliminated unneeded push/pop b
+                                    495 ;------------------------------------------------------------
+                                    496 ;Allocation info for local variables in function 'int1'
+                                    497 ;------------------------------------------------------------
+                                    498 ;	life.c:37: void int1(void) __interrupt 2 __using 1 {
+                                    499 ;	-----------------------------------------
+                                    500 ;	 function int1
+                                    501 ;	-----------------------------------------
+      002098                        502 _int1:
+      002098 C0 E0            [24]  503 	push	acc
+      00209A C0 82            [24]  504 	push	dpl
+      00209C C0 83            [24]  505 	push	dph
+                                    506 ;	life.c:38: i1 = 1;
+      00209E 90 80 02         [24]  507 	mov	dptr,#_i1
+      0020A1 74 01            [12]  508 	mov	a,#0x01
+      0020A3 F0               [24]  509 	movx	@dptr,a
+      0020A4 E4               [12]  510 	clr	a
+      0020A5 A3               [24]  511 	inc	dptr
+      0020A6 F0               [24]  512 	movx	@dptr,a
+                                    513 ;	life.c:39: }
+      0020A7 D0 83            [24]  514 	pop	dph
+      0020A9 D0 82            [24]  515 	pop	dpl
+      0020AB D0 E0            [24]  516 	pop	acc
+      0020AD 32               [24]  517 	reti
+                                    518 ;	eliminated unneeded mov psw,# (no regs used in bank)
+                                    519 ;	eliminated unneeded push/pop psw
+                                    520 ;	eliminated unneeded push/pop b
+                                    521 ;------------------------------------------------------------
+                                    522 ;Allocation info for local variables in function 'show'
+                                    523 ;------------------------------------------------------------
+                                    524 ;	life.c:41: void show(void) {
+                                    525 ;	-----------------------------------------
+                                    526 ;	 function show
+                                    527 ;	-----------------------------------------
+      0020AE                        528 _show:
+                           000007   529 	ar7 = 0x07
+                           000006   530 	ar6 = 0x06
+                           000005   531 	ar5 = 0x05
+                           000004   532 	ar4 = 0x04
+                           000003   533 	ar3 = 0x03
+                           000002   534 	ar2 = 0x02
+                           000001   535 	ar1 = 0x01
+                           000000   536 	ar0 = 0x00
+                                    537 ;	life.c:42: printf("\033[2J\033[m%04x\r\n", population);
+      0020AE 90 88 0E         [24]  538 	mov	dptr,#_population
+      0020B1 E0               [24]  539 	movx	a,@dptr
+      0020B2 C0 E0            [24]  540 	push	acc
+      0020B4 A3               [24]  541 	inc	dptr
+      0020B5 E0               [24]  542 	movx	a,@dptr
+      0020B6 C0 E0            [24]  543 	push	acc
+      0020B8 74 FD            [12]  544 	mov	a,#___str_0
+      0020BA C0 E0            [24]  545 	push	acc
+      0020BC 74 39            [12]  546 	mov	a,#(___str_0 >> 8)
+      0020BE C0 E0            [24]  547 	push	acc
+      0020C0 74 80            [12]  548 	mov	a,#0x80
+      0020C2 C0 E0            [24]  549 	push	acc
+      0020C4 12 26 2C         [24]  550 	lcall	_printf
+      0020C7 E5 81            [12]  551 	mov	a,sp
+      0020C9 24 FB            [12]  552 	add	a,#0xfb
+      0020CB F5 81            [12]  553 	mov	sp,a
+                                    554 ;	life.c:43: population++;
+      0020CD 90 88 0E         [24]  555 	mov	dptr,#_population
+      0020D0 E0               [24]  556 	movx	a,@dptr
+      0020D1 24 01            [12]  557 	add	a,#0x01
+      0020D3 F0               [24]  558 	movx	@dptr,a
+      0020D4 A3               [24]  559 	inc	dptr
+      0020D5 E0               [24]  560 	movx	a,@dptr
+      0020D6 34 00            [12]  561 	addc	a,#0x00
+      0020D8 F0               [24]  562 	movx	@dptr,a
+                                    563 ;	life.c:45: for (y = 0; y < H; y++) {
+      0020D9 90 88 06         [24]  564 	mov	dptr,#_y
+      0020DC E4               [12]  565 	clr	a
       0020DD F0               [24]  566 	movx	@dptr,a
-      0020DE                        567 00106$:
-                                    568 ;	life.c:46: if (u[y][x]) printf("\033[01m[]\033[m");
-      0020DE 90 88 02         [24]  569 	mov	dptr,#_y
-      0020E1 E0               [24]  570 	movx	a,@dptr
-      0020E2 FE               [12]  571 	mov	r6,a
-      0020E3 A3               [24]  572 	inc	dptr
-      0020E4 E0               [24]  573 	movx	a,@dptr
-      0020E5 C4               [12]  574 	swap	a
-      0020E6 23               [12]  575 	rl	a
-      0020E7 54 E0            [12]  576 	anl	a,#0xe0
-      0020E9 CE               [12]  577 	xch	a,r6
-      0020EA C4               [12]  578 	swap	a
-      0020EB 23               [12]  579 	rl	a
-      0020EC CE               [12]  580 	xch	a,r6
-      0020ED 6E               [12]  581 	xrl	a,r6
-      0020EE CE               [12]  582 	xch	a,r6
-      0020EF 54 E0            [12]  583 	anl	a,#0xe0
-      0020F1 CE               [12]  584 	xch	a,r6
-      0020F2 6E               [12]  585 	xrl	a,r6
-      0020F3 FF               [12]  586 	mov	r7,a
-      0020F4 EE               [12]  587 	mov	a,r6
-      0020F5 24 00            [12]  588 	add	a,#_u
-      0020F7 FE               [12]  589 	mov	r6,a
-      0020F8 EF               [12]  590 	mov	a,r7
-      0020F9 34 80            [12]  591 	addc	a,#(_u >> 8)
-      0020FB FF               [12]  592 	mov	r7,a
-      0020FC 90 88 00         [24]  593 	mov	dptr,#_x
-      0020FF E0               [24]  594 	movx	a,@dptr
-      002100 FC               [12]  595 	mov	r4,a
-      002101 A3               [24]  596 	inc	dptr
-      002102 E0               [24]  597 	movx	a,@dptr
-      002103 FD               [12]  598 	mov	r5,a
-      002104 EC               [12]  599 	mov	a,r4
-      002105 2E               [12]  600 	add	a,r6
-      002106 FE               [12]  601 	mov	r6,a
-      002107 ED               [12]  602 	mov	a,r5
-      002108 3F               [12]  603 	addc	a,r7
-      002109 FF               [12]  604 	mov	r7,a
-      00210A 8E 82            [24]  605 	mov	dpl,r6
-      00210C 8F 83            [24]  606 	mov	dph,r7
-      00210E E0               [24]  607 	movx	a,@dptr
-      00210F 60 17            [24]  608 	jz	00102$
-      002111 74 D5            [12]  609 	mov	a,#___str_1
-      002113 C0 E0            [24]  610 	push	acc
-      002115 74 39            [12]  611 	mov	a,#(___str_1 >> 8)
-      002117 C0 E0            [24]  612 	push	acc
-      002119 74 80            [12]  613 	mov	a,#0x80
-      00211B C0 E0            [24]  614 	push	acc
-      00211D 12 25 F6         [24]  615 	lcall	_printf
-      002120 15 81            [12]  616 	dec	sp
-      002122 15 81            [12]  617 	dec	sp
-      002124 15 81            [12]  618 	dec	sp
-      002126 80 15            [24]  619 	sjmp	00107$
-      002128                        620 00102$:
-                                    621 ;	life.c:47: else printf("  ");
-      002128 74 E0            [12]  622 	mov	a,#___str_2
-      00212A C0 E0            [24]  623 	push	acc
-      00212C 74 39            [12]  624 	mov	a,#(___str_2 >> 8)
-      00212E C0 E0            [24]  625 	push	acc
-      002130 74 80            [12]  626 	mov	a,#0x80
-      002132 C0 E0            [24]  627 	push	acc
-      002134 12 25 F6         [24]  628 	lcall	_printf
-      002137 15 81            [12]  629 	dec	sp
-      002139 15 81            [12]  630 	dec	sp
-      00213B 15 81            [12]  631 	dec	sp
-      00213D                        632 00107$:
-                                    633 ;	life.c:45: for (x = 0; x < W; x++)
-      00213D 90 88 00         [24]  634 	mov	dptr,#_x
-      002140 E0               [24]  635 	movx	a,@dptr
-      002141 24 01            [12]  636 	add	a,#0x01
-      002143 F0               [24]  637 	movx	@dptr,a
-      002144 A3               [24]  638 	inc	dptr
-      002145 E0               [24]  639 	movx	a,@dptr
-      002146 34 00            [12]  640 	addc	a,#0x00
-      002148 F0               [24]  641 	movx	@dptr,a
-      002149 90 88 00         [24]  642 	mov	dptr,#_x
-      00214C E0               [24]  643 	movx	a,@dptr
-      00214D FE               [12]  644 	mov	r6,a
-      00214E A3               [24]  645 	inc	dptr
-      00214F E0               [24]  646 	movx	a,@dptr
-      002150 FF               [12]  647 	mov	r7,a
-      002151 C3               [12]  648 	clr	c
-      002152 EE               [12]  649 	mov	a,r6
-      002153 94 20            [12]  650 	subb	a,#0x20
-      002155 EF               [12]  651 	mov	a,r7
-      002156 64 80            [12]  652 	xrl	a,#0x80
-      002158 94 80            [12]  653 	subb	a,#0x80
-      00215A 50 03            [24]  654 	jnc	00133$
-      00215C 02 20 DE         [24]  655 	ljmp	00106$
-      00215F                        656 00133$:
-                                    657 ;	life.c:48: printf("\r\n");
-      00215F 74 E3            [12]  658 	mov	a,#___str_3
-      002161 C0 E0            [24]  659 	push	acc
-      002163 74 39            [12]  660 	mov	a,#(___str_3 >> 8)
-      002165 C0 E0            [24]  661 	push	acc
-      002167 74 80            [12]  662 	mov	a,#0x80
-      002169 C0 E0            [24]  663 	push	acc
-      00216B 12 25 F6         [24]  664 	lcall	_printf
-      00216E 15 81            [12]  665 	dec	sp
-      002170 15 81            [12]  666 	dec	sp
-      002172 15 81            [12]  667 	dec	sp
-                                    668 ;	life.c:44: for (y = 0; y < H; y++) {
-      002174 90 88 02         [24]  669 	mov	dptr,#_y
-      002177 E0               [24]  670 	movx	a,@dptr
-      002178 24 01            [12]  671 	add	a,#0x01
-      00217A F0               [24]  672 	movx	@dptr,a
-      00217B A3               [24]  673 	inc	dptr
-      00217C E0               [24]  674 	movx	a,@dptr
-      00217D 34 00            [12]  675 	addc	a,#0x00
-      00217F F0               [24]  676 	movx	@dptr,a
-      002180 90 88 02         [24]  677 	mov	dptr,#_y
-      002183 E0               [24]  678 	movx	a,@dptr
-      002184 FE               [12]  679 	mov	r6,a
-      002185 A3               [24]  680 	inc	dptr
-      002186 E0               [24]  681 	movx	a,@dptr
-      002187 FF               [12]  682 	mov	r7,a
-      002188 C3               [12]  683 	clr	c
-      002189 EE               [12]  684 	mov	a,r6
-      00218A 94 20            [12]  685 	subb	a,#0x20
-      00218C EF               [12]  686 	mov	a,r7
-      00218D 64 80            [12]  687 	xrl	a,#0x80
-      00218F 94 80            [12]  688 	subb	a,#0x80
-      002191 50 03            [24]  689 	jnc	00134$
-      002193 02 20 D7         [24]  690 	ljmp	00108$
-      002196                        691 00134$:
-                                    692 ;	life.c:51: return;
-                                    693 ;	life.c:52: }
-      002196 22               [24]  694 	ret
-                                    695 ;------------------------------------------------------------
-                                    696 ;Allocation info for local variables in function 'evolve'
-                                    697 ;------------------------------------------------------------
-                                    698 ;	life.c:54: void evolve(void) {
-                                    699 ;	-----------------------------------------
-                                    700 ;	 function evolve
-                                    701 ;	-----------------------------------------
-      002197                        702 _evolve:
-                                    703 ;	life.c:55: fixed = 1;
-      002197 90 88 0C         [24]  704 	mov	dptr,#_fixed
-      00219A 74 01            [12]  705 	mov	a,#0x01
-      00219C F0               [24]  706 	movx	@dptr,a
-      00219D E4               [12]  707 	clr	a
-      00219E A3               [24]  708 	inc	dptr
-      00219F F0               [24]  709 	movx	@dptr,a
-                                    710 ;	life.c:57: for (y = 0; y < H; y++) {
-      0021A0 90 88 02         [24]  711 	mov	dptr,#_y
-      0021A3 F0               [24]  712 	movx	@dptr,a
-      0021A4 A3               [24]  713 	inc	dptr
-      0021A5 F0               [24]  714 	movx	@dptr,a
-      0021A6                        715 00121$:
-                                    716 ;	life.c:58: for (x = 0; x < W; x++) {
-      0021A6 90 88 00         [24]  717 	mov	dptr,#_x
-      0021A9 E4               [12]  718 	clr	a
-      0021AA F0               [24]  719 	movx	@dptr,a
-      0021AB A3               [24]  720 	inc	dptr
+      0020DE A3               [24]  567 	inc	dptr
+      0020DF F0               [24]  568 	movx	@dptr,a
+      0020E0                        569 00108$:
+                                    570 ;	life.c:46: for (x = 0; x < W; x++)
+      0020E0 90 88 04         [24]  571 	mov	dptr,#_x
+      0020E3 E4               [12]  572 	clr	a
+      0020E4 F0               [24]  573 	movx	@dptr,a
+      0020E5 A3               [24]  574 	inc	dptr
+      0020E6 F0               [24]  575 	movx	@dptr,a
+      0020E7                        576 00106$:
+                                    577 ;	life.c:47: if (u[y][x]) printf("\033[01m[]\033[m");
+      0020E7 90 88 06         [24]  578 	mov	dptr,#_y
+      0020EA E0               [24]  579 	movx	a,@dptr
+      0020EB FE               [12]  580 	mov	r6,a
+      0020EC A3               [24]  581 	inc	dptr
+      0020ED E0               [24]  582 	movx	a,@dptr
+      0020EE C4               [12]  583 	swap	a
+      0020EF 23               [12]  584 	rl	a
+      0020F0 54 E0            [12]  585 	anl	a,#0xe0
+      0020F2 CE               [12]  586 	xch	a,r6
+      0020F3 C4               [12]  587 	swap	a
+      0020F4 23               [12]  588 	rl	a
+      0020F5 CE               [12]  589 	xch	a,r6
+      0020F6 6E               [12]  590 	xrl	a,r6
+      0020F7 CE               [12]  591 	xch	a,r6
+      0020F8 54 E0            [12]  592 	anl	a,#0xe0
+      0020FA CE               [12]  593 	xch	a,r6
+      0020FB 6E               [12]  594 	xrl	a,r6
+      0020FC FF               [12]  595 	mov	r7,a
+      0020FD EE               [12]  596 	mov	a,r6
+      0020FE 24 04            [12]  597 	add	a,#_u
+      002100 FE               [12]  598 	mov	r6,a
+      002101 EF               [12]  599 	mov	a,r7
+      002102 34 80            [12]  600 	addc	a,#(_u >> 8)
+      002104 FF               [12]  601 	mov	r7,a
+      002105 90 88 04         [24]  602 	mov	dptr,#_x
+      002108 E0               [24]  603 	movx	a,@dptr
+      002109 FC               [12]  604 	mov	r4,a
+      00210A A3               [24]  605 	inc	dptr
+      00210B E0               [24]  606 	movx	a,@dptr
+      00210C FD               [12]  607 	mov	r5,a
+      00210D EC               [12]  608 	mov	a,r4
+      00210E 2E               [12]  609 	add	a,r6
+      00210F FE               [12]  610 	mov	r6,a
+      002110 ED               [12]  611 	mov	a,r5
+      002111 3F               [12]  612 	addc	a,r7
+      002112 FF               [12]  613 	mov	r7,a
+      002113 8E 82            [24]  614 	mov	dpl,r6
+      002115 8F 83            [24]  615 	mov	dph,r7
+      002117 E0               [24]  616 	movx	a,@dptr
+      002118 60 17            [24]  617 	jz	00102$
+      00211A 74 0B            [12]  618 	mov	a,#___str_1
+      00211C C0 E0            [24]  619 	push	acc
+      00211E 74 3A            [12]  620 	mov	a,#(___str_1 >> 8)
+      002120 C0 E0            [24]  621 	push	acc
+      002122 74 80            [12]  622 	mov	a,#0x80
+      002124 C0 E0            [24]  623 	push	acc
+      002126 12 26 2C         [24]  624 	lcall	_printf
+      002129 15 81            [12]  625 	dec	sp
+      00212B 15 81            [12]  626 	dec	sp
+      00212D 15 81            [12]  627 	dec	sp
+      00212F 80 15            [24]  628 	sjmp	00107$
+      002131                        629 00102$:
+                                    630 ;	life.c:48: else printf("  ");
+      002131 74 16            [12]  631 	mov	a,#___str_2
+      002133 C0 E0            [24]  632 	push	acc
+      002135 74 3A            [12]  633 	mov	a,#(___str_2 >> 8)
+      002137 C0 E0            [24]  634 	push	acc
+      002139 74 80            [12]  635 	mov	a,#0x80
+      00213B C0 E0            [24]  636 	push	acc
+      00213D 12 26 2C         [24]  637 	lcall	_printf
+      002140 15 81            [12]  638 	dec	sp
+      002142 15 81            [12]  639 	dec	sp
+      002144 15 81            [12]  640 	dec	sp
+      002146                        641 00107$:
+                                    642 ;	life.c:46: for (x = 0; x < W; x++)
+      002146 90 88 04         [24]  643 	mov	dptr,#_x
+      002149 E0               [24]  644 	movx	a,@dptr
+      00214A 24 01            [12]  645 	add	a,#0x01
+      00214C F0               [24]  646 	movx	@dptr,a
+      00214D A3               [24]  647 	inc	dptr
+      00214E E0               [24]  648 	movx	a,@dptr
+      00214F 34 00            [12]  649 	addc	a,#0x00
+      002151 F0               [24]  650 	movx	@dptr,a
+      002152 90 88 04         [24]  651 	mov	dptr,#_x
+      002155 E0               [24]  652 	movx	a,@dptr
+      002156 FE               [12]  653 	mov	r6,a
+      002157 A3               [24]  654 	inc	dptr
+      002158 E0               [24]  655 	movx	a,@dptr
+      002159 FF               [12]  656 	mov	r7,a
+      00215A C3               [12]  657 	clr	c
+      00215B EE               [12]  658 	mov	a,r6
+      00215C 94 20            [12]  659 	subb	a,#0x20
+      00215E EF               [12]  660 	mov	a,r7
+      00215F 64 80            [12]  661 	xrl	a,#0x80
+      002161 94 80            [12]  662 	subb	a,#0x80
+      002163 50 03            [24]  663 	jnc	00133$
+      002165 02 20 E7         [24]  664 	ljmp	00106$
+      002168                        665 00133$:
+                                    666 ;	life.c:49: printf("\r\n");
+      002168 74 19            [12]  667 	mov	a,#___str_3
+      00216A C0 E0            [24]  668 	push	acc
+      00216C 74 3A            [12]  669 	mov	a,#(___str_3 >> 8)
+      00216E C0 E0            [24]  670 	push	acc
+      002170 74 80            [12]  671 	mov	a,#0x80
+      002172 C0 E0            [24]  672 	push	acc
+      002174 12 26 2C         [24]  673 	lcall	_printf
+      002177 15 81            [12]  674 	dec	sp
+      002179 15 81            [12]  675 	dec	sp
+      00217B 15 81            [12]  676 	dec	sp
+                                    677 ;	life.c:45: for (y = 0; y < H; y++) {
+      00217D 90 88 06         [24]  678 	mov	dptr,#_y
+      002180 E0               [24]  679 	movx	a,@dptr
+      002181 24 01            [12]  680 	add	a,#0x01
+      002183 F0               [24]  681 	movx	@dptr,a
+      002184 A3               [24]  682 	inc	dptr
+      002185 E0               [24]  683 	movx	a,@dptr
+      002186 34 00            [12]  684 	addc	a,#0x00
+      002188 F0               [24]  685 	movx	@dptr,a
+      002189 90 88 06         [24]  686 	mov	dptr,#_y
+      00218C E0               [24]  687 	movx	a,@dptr
+      00218D FE               [12]  688 	mov	r6,a
+      00218E A3               [24]  689 	inc	dptr
+      00218F E0               [24]  690 	movx	a,@dptr
+      002190 FF               [12]  691 	mov	r7,a
+      002191 C3               [12]  692 	clr	c
+      002192 EE               [12]  693 	mov	a,r6
+      002193 94 20            [12]  694 	subb	a,#0x20
+      002195 EF               [12]  695 	mov	a,r7
+      002196 64 80            [12]  696 	xrl	a,#0x80
+      002198 94 80            [12]  697 	subb	a,#0x80
+      00219A 50 03            [24]  698 	jnc	00134$
+      00219C 02 20 E0         [24]  699 	ljmp	00108$
+      00219F                        700 00134$:
+                                    701 ;	life.c:52: return;
+                                    702 ;	life.c:53: }
+      00219F 22               [24]  703 	ret
+                                    704 ;------------------------------------------------------------
+                                    705 ;Allocation info for local variables in function 'evolve'
+                                    706 ;------------------------------------------------------------
+                                    707 ;	life.c:55: void evolve(void) {
+                                    708 ;	-----------------------------------------
+                                    709 ;	 function evolve
+                                    710 ;	-----------------------------------------
+      0021A0                        711 _evolve:
+                                    712 ;	life.c:56: fixed = 1;
+      0021A0 90 88 10         [24]  713 	mov	dptr,#_fixed
+      0021A3 74 01            [12]  714 	mov	a,#0x01
+      0021A5 F0               [24]  715 	movx	@dptr,a
+      0021A6 E4               [12]  716 	clr	a
+      0021A7 A3               [24]  717 	inc	dptr
+      0021A8 F0               [24]  718 	movx	@dptr,a
+                                    719 ;	life.c:58: for (y = 0; y < H; y++) {
+      0021A9 90 88 06         [24]  720 	mov	dptr,#_y
       0021AC F0               [24]  721 	movx	@dptr,a
-      0021AD                        722 00119$:
-                                    723 ;	life.c:59: n = 0;
-      0021AD 90 88 08         [24]  724 	mov	dptr,#_n
-      0021B0 E4               [12]  725 	clr	a
-      0021B1 F0               [24]  726 	movx	@dptr,a
-      0021B2 A3               [24]  727 	inc	dptr
+      0021AD A3               [24]  722 	inc	dptr
+      0021AE F0               [24]  723 	movx	@dptr,a
+      0021AF                        724 00121$:
+                                    725 ;	life.c:59: for (x = 0; x < W; x++) {
+      0021AF 90 88 04         [24]  726 	mov	dptr,#_x
+      0021B2 E4               [12]  727 	clr	a
       0021B3 F0               [24]  728 	movx	@dptr,a
-                                    729 ;	life.c:60: for (y1 = y - 1; y1 <= y + 1; y1++)
-      0021B4 90 88 02         [24]  730 	mov	dptr,#_y
-      0021B7 E0               [24]  731 	movx	a,@dptr
-      0021B8 FE               [12]  732 	mov	r6,a
-      0021B9 A3               [24]  733 	inc	dptr
-      0021BA E0               [24]  734 	movx	a,@dptr
-      0021BB FF               [12]  735 	mov	r7,a
-      0021BC 1E               [12]  736 	dec	r6
-      0021BD BE FF 01         [24]  737 	cjne	r6,#0xff,00203$
-      0021C0 1F               [12]  738 	dec	r7
-      0021C1                        739 00203$:
-      0021C1 90 88 06         [24]  740 	mov	dptr,#_y1
-      0021C4 EE               [12]  741 	mov	a,r6
-      0021C5 F0               [24]  742 	movx	@dptr,a
-      0021C6 EF               [12]  743 	mov	a,r7
-      0021C7 A3               [24]  744 	inc	dptr
-      0021C8 F0               [24]  745 	movx	@dptr,a
-      0021C9                        746 00117$:
-      0021C9 90 88 02         [24]  747 	mov	dptr,#_y
-      0021CC E0               [24]  748 	movx	a,@dptr
-      0021CD FE               [12]  749 	mov	r6,a
-      0021CE A3               [24]  750 	inc	dptr
-      0021CF E0               [24]  751 	movx	a,@dptr
-      0021D0 FF               [12]  752 	mov	r7,a
-      0021D1 74 01            [12]  753 	mov	a,#0x01
-      0021D3 2E               [12]  754 	add	a,r6
-      0021D4 FC               [12]  755 	mov	r4,a
-      0021D5 E4               [12]  756 	clr	a
-      0021D6 3F               [12]  757 	addc	a,r7
-      0021D7 FD               [12]  758 	mov	r5,a
-      0021D8 90 88 06         [24]  759 	mov	dptr,#_y1
-      0021DB E0               [24]  760 	movx	a,@dptr
-      0021DC FA               [12]  761 	mov	r2,a
-      0021DD A3               [24]  762 	inc	dptr
-      0021DE E0               [24]  763 	movx	a,@dptr
-      0021DF FB               [12]  764 	mov	r3,a
-      0021E0 C3               [12]  765 	clr	c
-      0021E1 EC               [12]  766 	mov	a,r4
-      0021E2 9A               [12]  767 	subb	a,r2
-      0021E3 ED               [12]  768 	mov	a,r5
-      0021E4 64 80            [12]  769 	xrl	a,#0x80
-      0021E6 8B F0            [24]  770 	mov	b,r3
-      0021E8 63 F0 80         [24]  771 	xrl	b,#0x80
-      0021EB 95 F0            [12]  772 	subb	a,b
-      0021ED 50 03            [24]  773 	jnc	00204$
-      0021EF 02 22 CF         [24]  774 	ljmp	00104$
-      0021F2                        775 00204$:
-                                    776 ;	life.c:61: for (x1 = x - 1; x1 <= x + 1; x1++)
-      0021F2 90 88 00         [24]  777 	mov	dptr,#_x
-      0021F5 E0               [24]  778 	movx	a,@dptr
-      0021F6 FC               [12]  779 	mov	r4,a
-      0021F7 A3               [24]  780 	inc	dptr
-      0021F8 E0               [24]  781 	movx	a,@dptr
-      0021F9 FD               [12]  782 	mov	r5,a
-      0021FA 1C               [12]  783 	dec	r4
-      0021FB BC FF 01         [24]  784 	cjne	r4,#0xff,00205$
-      0021FE 1D               [12]  785 	dec	r5
-      0021FF                        786 00205$:
-      0021FF 90 88 04         [24]  787 	mov	dptr,#_x1
-      002202 EC               [12]  788 	mov	a,r4
-      002203 F0               [24]  789 	movx	@dptr,a
-      002204 ED               [12]  790 	mov	a,r5
-      002205 A3               [24]  791 	inc	dptr
-      002206 F0               [24]  792 	movx	@dptr,a
-      002207                        793 00114$:
-      002207 90 88 00         [24]  794 	mov	dptr,#_x
-      00220A E0               [24]  795 	movx	a,@dptr
-      00220B FC               [12]  796 	mov	r4,a
-      00220C A3               [24]  797 	inc	dptr
-      00220D E0               [24]  798 	movx	a,@dptr
-      00220E FD               [12]  799 	mov	r5,a
-      00220F 0C               [12]  800 	inc	r4
-      002210 BC 00 01         [24]  801 	cjne	r4,#0x00,00206$
-      002213 0D               [12]  802 	inc	r5
-      002214                        803 00206$:
-      002214 90 88 04         [24]  804 	mov	dptr,#_x1
-      002217 E0               [24]  805 	movx	a,@dptr
-      002218 FA               [12]  806 	mov	r2,a
-      002219 A3               [24]  807 	inc	dptr
-      00221A E0               [24]  808 	movx	a,@dptr
-      00221B FB               [12]  809 	mov	r3,a
-      00221C C3               [12]  810 	clr	c
-      00221D EC               [12]  811 	mov	a,r4
-      00221E 9A               [12]  812 	subb	a,r2
-      00221F ED               [12]  813 	mov	a,r5
-      002220 64 80            [12]  814 	xrl	a,#0x80
-      002222 8B F0            [24]  815 	mov	b,r3
-      002224 63 F0 80         [24]  816 	xrl	b,#0x80
-      002227 95 F0            [12]  817 	subb	a,b
-      002229 50 03            [24]  818 	jnc	00207$
-      00222B 02 22 C0         [24]  819 	ljmp	00118$
-      00222E                        820 00207$:
-                                    821 ;	life.c:62: if (u[(y1 + H) % H][(x1 + W) % W])
-      00222E 90 88 06         [24]  822 	mov	dptr,#_y1
-      002231 E0               [24]  823 	movx	a,@dptr
-      002232 FC               [12]  824 	mov	r4,a
-      002233 A3               [24]  825 	inc	dptr
-      002234 E0               [24]  826 	movx	a,@dptr
-      002235 FD               [12]  827 	mov	r5,a
-      002236 74 20            [12]  828 	mov	a,#0x20
-      002238 2C               [12]  829 	add	a,r4
-      002239 FC               [12]  830 	mov	r4,a
-      00223A E4               [12]  831 	clr	a
-      00223B 3D               [12]  832 	addc	a,r5
-      00223C FD               [12]  833 	mov	r5,a
-      00223D C0 03            [24]  834 	push	ar3
-      00223F C0 02            [24]  835 	push	ar2
-      002241 74 20            [12]  836 	mov	a,#0x20
-      002243 C0 E0            [24]  837 	push	acc
-      002245 E4               [12]  838 	clr	a
-      002246 C0 E0            [24]  839 	push	acc
-      002248 8C 82            [24]  840 	mov	dpl,r4
-      00224A 8D 83            [24]  841 	mov	dph,r5
-      00224C 12 26 2F         [24]  842 	lcall	__modsint
-      00224F AC 82            [24]  843 	mov	r4,dpl
-      002251 AD 83            [24]  844 	mov	r5,dph
-      002253 15 81            [12]  845 	dec	sp
-      002255 15 81            [12]  846 	dec	sp
-      002257 D0 02            [24]  847 	pop	ar2
-      002259 D0 03            [24]  848 	pop	ar3
-      00225B ED               [12]  849 	mov	a,r5
-      00225C C4               [12]  850 	swap	a
-      00225D 23               [12]  851 	rl	a
-      00225E 54 E0            [12]  852 	anl	a,#0xe0
-      002260 CC               [12]  853 	xch	a,r4
-      002261 C4               [12]  854 	swap	a
-      002262 23               [12]  855 	rl	a
-      002263 CC               [12]  856 	xch	a,r4
-      002264 6C               [12]  857 	xrl	a,r4
-      002265 CC               [12]  858 	xch	a,r4
-      002266 54 E0            [12]  859 	anl	a,#0xe0
-      002268 CC               [12]  860 	xch	a,r4
-      002269 6C               [12]  861 	xrl	a,r4
-      00226A FD               [12]  862 	mov	r5,a
-      00226B EC               [12]  863 	mov	a,r4
-      00226C 24 00            [12]  864 	add	a,#_u
-      00226E FC               [12]  865 	mov	r4,a
-      00226F ED               [12]  866 	mov	a,r5
-      002270 34 80            [12]  867 	addc	a,#(_u >> 8)
-      002272 FD               [12]  868 	mov	r5,a
-      002273 74 20            [12]  869 	mov	a,#0x20
-      002275 2A               [12]  870 	add	a,r2
-      002276 FA               [12]  871 	mov	r2,a
-      002277 E4               [12]  872 	clr	a
-      002278 3B               [12]  873 	addc	a,r3
-      002279 FB               [12]  874 	mov	r3,a
-      00227A C0 05            [24]  875 	push	ar5
-      00227C C0 04            [24]  876 	push	ar4
-      00227E 74 20            [12]  877 	mov	a,#0x20
-      002280 C0 E0            [24]  878 	push	acc
-      002282 E4               [12]  879 	clr	a
-      002283 C0 E0            [24]  880 	push	acc
-      002285 8A 82            [24]  881 	mov	dpl,r2
-      002287 8B 83            [24]  882 	mov	dph,r3
-      002289 12 26 2F         [24]  883 	lcall	__modsint
-      00228C AA 82            [24]  884 	mov	r2,dpl
-      00228E AB 83            [24]  885 	mov	r3,dph
-      002290 15 81            [12]  886 	dec	sp
-      002292 15 81            [12]  887 	dec	sp
-      002294 D0 04            [24]  888 	pop	ar4
-      002296 D0 05            [24]  889 	pop	ar5
-      002298 EA               [12]  890 	mov	a,r2
-      002299 2C               [12]  891 	add	a,r4
-      00229A FC               [12]  892 	mov	r4,a
-      00229B EB               [12]  893 	mov	a,r3
-      00229C 3D               [12]  894 	addc	a,r5
-      00229D FD               [12]  895 	mov	r5,a
-      00229E 8C 82            [24]  896 	mov	dpl,r4
-      0022A0 8D 83            [24]  897 	mov	dph,r5
-      0022A2 E0               [24]  898 	movx	a,@dptr
-      0022A3 60 0C            [24]  899 	jz	00115$
-                                    900 ;	life.c:63: n++;
-      0022A5 90 88 08         [24]  901 	mov	dptr,#_n
-      0022A8 E0               [24]  902 	movx	a,@dptr
-      0022A9 24 01            [12]  903 	add	a,#0x01
-      0022AB F0               [24]  904 	movx	@dptr,a
-      0022AC A3               [24]  905 	inc	dptr
-      0022AD E0               [24]  906 	movx	a,@dptr
-      0022AE 34 00            [12]  907 	addc	a,#0x00
-      0022B0 F0               [24]  908 	movx	@dptr,a
-      0022B1                        909 00115$:
-                                    910 ;	life.c:61: for (x1 = x - 1; x1 <= x + 1; x1++)
-      0022B1 90 88 04         [24]  911 	mov	dptr,#_x1
-      0022B4 E0               [24]  912 	movx	a,@dptr
-      0022B5 24 01            [12]  913 	add	a,#0x01
-      0022B7 F0               [24]  914 	movx	@dptr,a
-      0022B8 A3               [24]  915 	inc	dptr
-      0022B9 E0               [24]  916 	movx	a,@dptr
-      0022BA 34 00            [12]  917 	addc	a,#0x00
-      0022BC F0               [24]  918 	movx	@dptr,a
-      0022BD 02 22 07         [24]  919 	ljmp	00114$
-      0022C0                        920 00118$:
-                                    921 ;	life.c:60: for (y1 = y - 1; y1 <= y + 1; y1++)
-      0022C0 90 88 06         [24]  922 	mov	dptr,#_y1
-      0022C3 E0               [24]  923 	movx	a,@dptr
-      0022C4 24 01            [12]  924 	add	a,#0x01
-      0022C6 F0               [24]  925 	movx	@dptr,a
-      0022C7 A3               [24]  926 	inc	dptr
-      0022C8 E0               [24]  927 	movx	a,@dptr
-      0022C9 34 00            [12]  928 	addc	a,#0x00
-      0022CB F0               [24]  929 	movx	@dptr,a
-      0022CC 02 21 C9         [24]  930 	ljmp	00117$
-      0022CF                        931 00104$:
-                                    932 ;	life.c:65: if (u[y][x]) n--;
-      0022CF EF               [12]  933 	mov	a,r7
-      0022D0 C4               [12]  934 	swap	a
-      0022D1 23               [12]  935 	rl	a
-      0022D2 54 E0            [12]  936 	anl	a,#0xe0
-      0022D4 CE               [12]  937 	xch	a,r6
-      0022D5 C4               [12]  938 	swap	a
-      0022D6 23               [12]  939 	rl	a
-      0022D7 CE               [12]  940 	xch	a,r6
-      0022D8 6E               [12]  941 	xrl	a,r6
-      0022D9 CE               [12]  942 	xch	a,r6
-      0022DA 54 E0            [12]  943 	anl	a,#0xe0
-      0022DC CE               [12]  944 	xch	a,r6
-      0022DD 6E               [12]  945 	xrl	a,r6
-      0022DE FF               [12]  946 	mov	r7,a
-      0022DF EE               [12]  947 	mov	a,r6
-      0022E0 24 00            [12]  948 	add	a,#_u
-      0022E2 FE               [12]  949 	mov	r6,a
-      0022E3 EF               [12]  950 	mov	a,r7
-      0022E4 34 80            [12]  951 	addc	a,#(_u >> 8)
-      0022E6 FF               [12]  952 	mov	r7,a
-      0022E7 90 88 00         [24]  953 	mov	dptr,#_x
-      0022EA E0               [24]  954 	movx	a,@dptr
-      0022EB FC               [12]  955 	mov	r4,a
-      0022EC A3               [24]  956 	inc	dptr
-      0022ED E0               [24]  957 	movx	a,@dptr
-      0022EE FD               [12]  958 	mov	r5,a
-      0022EF EC               [12]  959 	mov	a,r4
-      0022F0 2E               [12]  960 	add	a,r6
-      0022F1 FE               [12]  961 	mov	r6,a
-      0022F2 ED               [12]  962 	mov	a,r5
-      0022F3 3F               [12]  963 	addc	a,r7
-      0022F4 FF               [12]  964 	mov	r7,a
-      0022F5 8E 82            [24]  965 	mov	dpl,r6
-      0022F7 8F 83            [24]  966 	mov	dph,r7
-      0022F9 E0               [24]  967 	movx	a,@dptr
-      0022FA 60 14            [24]  968 	jz	00106$
-      0022FC 90 88 08         [24]  969 	mov	dptr,#_n
-      0022FF E0               [24]  970 	movx	a,@dptr
-      002300 24 FF            [12]  971 	add	a,#0xff
-      002302 FE               [12]  972 	mov	r6,a
-      002303 A3               [24]  973 	inc	dptr
-      002304 E0               [24]  974 	movx	a,@dptr
-      002305 34 FF            [12]  975 	addc	a,#0xff
-      002307 FF               [12]  976 	mov	r7,a
-      002308 90 88 08         [24]  977 	mov	dptr,#_n
-      00230B EE               [12]  978 	mov	a,r6
-      00230C F0               [24]  979 	movx	@dptr,a
-      00230D EF               [12]  980 	mov	a,r7
-      00230E A3               [24]  981 	inc	dptr
-      00230F F0               [24]  982 	movx	@dptr,a
-      002310                        983 00106$:
-                                    984 ;	life.c:66: nu[y][x] = (n == 3 || (n == 2 && u[y][x]));
-      002310 90 88 02         [24]  985 	mov	dptr,#_y
-      002313 E0               [24]  986 	movx	a,@dptr
-      002314 FE               [12]  987 	mov	r6,a
-      002315 A3               [24]  988 	inc	dptr
-      002316 E0               [24]  989 	movx	a,@dptr
-      002317 C4               [12]  990 	swap	a
-      002318 23               [12]  991 	rl	a
-      002319 54 E0            [12]  992 	anl	a,#0xe0
-      00231B CE               [12]  993 	xch	a,r6
-      00231C C4               [12]  994 	swap	a
-      00231D 23               [12]  995 	rl	a
-      00231E CE               [12]  996 	xch	a,r6
-      00231F 6E               [12]  997 	xrl	a,r6
-      002320 CE               [12]  998 	xch	a,r6
-      002321 54 E0            [12]  999 	anl	a,#0xe0
-      002323 CE               [12] 1000 	xch	a,r6
-      002324 6E               [12] 1001 	xrl	a,r6
-      002325 FF               [12] 1002 	mov	r7,a
-      002326 EE               [12] 1003 	mov	a,r6
-      002327 24 00            [12] 1004 	add	a,#_nu
-      002329 FC               [12] 1005 	mov	r4,a
-      00232A EF               [12] 1006 	mov	a,r7
-      00232B 34 84            [12] 1007 	addc	a,#(_nu >> 8)
-      00232D FD               [12] 1008 	mov	r5,a
-      00232E 90 88 00         [24] 1009 	mov	dptr,#_x
-      002331 E0               [24] 1010 	movx	a,@dptr
-      002332 FA               [12] 1011 	mov	r2,a
-      002333 A3               [24] 1012 	inc	dptr
-      002334 E0               [24] 1013 	movx	a,@dptr
-      002335 FB               [12] 1014 	mov	r3,a
-      002336 EA               [12] 1015 	mov	a,r2
-      002337 2C               [12] 1016 	add	a,r4
-      002338 FC               [12] 1017 	mov	r4,a
-      002339 EB               [12] 1018 	mov	a,r3
-      00233A 3D               [12] 1019 	addc	a,r5
-      00233B FD               [12] 1020 	mov	r5,a
-      00233C 90 88 08         [24] 1021 	mov	dptr,#_n
-      00233F E0               [24] 1022 	movx	a,@dptr
-      002340 F8               [12] 1023 	mov	r0,a
-      002341 A3               [24] 1024 	inc	dptr
-      002342 E0               [24] 1025 	movx	a,@dptr
-      002343 F9               [12] 1026 	mov	r1,a
-      002344 B8 03 05         [24] 1027 	cjne	r0,#0x03,00210$
-      002347 B9 00 02         [24] 1028 	cjne	r1,#0x00,00210$
-      00234A 80 1F            [24] 1029 	sjmp	00130$
-      00234C                       1030 00210$:
-      00234C B8 02 18         [24] 1031 	cjne	r0,#0x02,00129$
-      00234F B9 00 15         [24] 1032 	cjne	r1,#0x00,00129$
-      002352 EE               [12] 1033 	mov	a,r6
-      002353 24 00            [12] 1034 	add	a,#_u
-      002355 FE               [12] 1035 	mov	r6,a
-      002356 EF               [12] 1036 	mov	a,r7
-      002357 34 80            [12] 1037 	addc	a,#(_u >> 8)
-      002359 FF               [12] 1038 	mov	r7,a
-      00235A EA               [12] 1039 	mov	a,r2
-      00235B 2E               [12] 1040 	add	a,r6
-      00235C FA               [12] 1041 	mov	r2,a
-      00235D EB               [12] 1042 	mov	a,r3
-      00235E 3F               [12] 1043 	addc	a,r7
-      00235F FB               [12] 1044 	mov	r3,a
-      002360 8A 82            [24] 1045 	mov	dpl,r2
-      002362 8B 83            [24] 1046 	mov	dph,r3
-      002364 E0               [24] 1047 	movx	a,@dptr
-      002365 70 04            [24] 1048 	jnz	00130$
-      002367                       1049 00129$:
-                                   1050 ;	assignBit
-      002367 C2 00            [12] 1051 	clr	b0
-      002369 80 02            [24] 1052 	sjmp	00131$
-      00236B                       1053 00130$:
-                                   1054 ;	assignBit
-      00236B D2 00            [12] 1055 	setb	b0
-      00236D                       1056 00131$:
-      00236D A2 00            [12] 1057 	mov	c,b0
-      00236F E4               [12] 1058 	clr	a
-      002370 33               [12] 1059 	rlc	a
-      002371 8C 82            [24] 1060 	mov	dpl,r4
-      002373 8D 83            [24] 1061 	mov	dph,r5
-      002375 F0               [24] 1062 	movx	@dptr,a
-                                   1063 ;	life.c:58: for (x = 0; x < W; x++) {
-      002376 90 88 00         [24] 1064 	mov	dptr,#_x
-      002379 E0               [24] 1065 	movx	a,@dptr
-      00237A 24 01            [12] 1066 	add	a,#0x01
-      00237C F0               [24] 1067 	movx	@dptr,a
-      00237D A3               [24] 1068 	inc	dptr
-      00237E E0               [24] 1069 	movx	a,@dptr
-      00237F 34 00            [12] 1070 	addc	a,#0x00
-      002381 F0               [24] 1071 	movx	@dptr,a
-      002382 90 88 00         [24] 1072 	mov	dptr,#_x
-      002385 E0               [24] 1073 	movx	a,@dptr
-      002386 FE               [12] 1074 	mov	r6,a
-      002387 A3               [24] 1075 	inc	dptr
-      002388 E0               [24] 1076 	movx	a,@dptr
-      002389 FF               [12] 1077 	mov	r7,a
-      00238A C3               [12] 1078 	clr	c
-      00238B EE               [12] 1079 	mov	a,r6
-      00238C 94 20            [12] 1080 	subb	a,#0x20
-      00238E EF               [12] 1081 	mov	a,r7
-      00238F 64 80            [12] 1082 	xrl	a,#0x80
-      002391 94 80            [12] 1083 	subb	a,#0x80
-      002393 50 03            [24] 1084 	jnc	00214$
-      002395 02 21 AD         [24] 1085 	ljmp	00119$
-      002398                       1086 00214$:
-                                   1087 ;	life.c:57: for (y = 0; y < H; y++) {
-      002398 90 88 02         [24] 1088 	mov	dptr,#_y
-      00239B E0               [24] 1089 	movx	a,@dptr
-      00239C 24 01            [12] 1090 	add	a,#0x01
-      00239E F0               [24] 1091 	movx	@dptr,a
-      00239F A3               [24] 1092 	inc	dptr
-      0023A0 E0               [24] 1093 	movx	a,@dptr
-      0023A1 34 00            [12] 1094 	addc	a,#0x00
-      0023A3 F0               [24] 1095 	movx	@dptr,a
-      0023A4 90 88 02         [24] 1096 	mov	dptr,#_y
-      0023A7 E0               [24] 1097 	movx	a,@dptr
-      0023A8 FE               [12] 1098 	mov	r6,a
-      0023A9 A3               [24] 1099 	inc	dptr
-      0023AA E0               [24] 1100 	movx	a,@dptr
-      0023AB FF               [12] 1101 	mov	r7,a
-      0023AC C3               [12] 1102 	clr	c
-      0023AD EE               [12] 1103 	mov	a,r6
-      0023AE 94 20            [12] 1104 	subb	a,#0x20
-      0023B0 EF               [12] 1105 	mov	a,r7
-      0023B1 64 80            [12] 1106 	xrl	a,#0x80
-      0023B3 94 80            [12] 1107 	subb	a,#0x80
-      0023B5 50 03            [24] 1108 	jnc	00215$
-      0023B7 02 21 A6         [24] 1109 	ljmp	00121$
-      0023BA                       1110 00215$:
-                                   1111 ;	life.c:70: for (y = 0; y < H; y++)
-      0023BA 90 88 02         [24] 1112 	mov	dptr,#_y
-      0023BD E4               [12] 1113 	clr	a
-      0023BE F0               [24] 1114 	movx	@dptr,a
-      0023BF A3               [24] 1115 	inc	dptr
-      0023C0 F0               [24] 1116 	movx	@dptr,a
-      0023C1                       1117 00125$:
-                                   1118 ;	life.c:71: for (x = 0; x < W; x++)
-      0023C1 90 88 00         [24] 1119 	mov	dptr,#_x
-      0023C4 E4               [12] 1120 	clr	a
-      0023C5 F0               [24] 1121 	movx	@dptr,a
-      0023C6 A3               [24] 1122 	inc	dptr
+      0021B4 A3               [24]  729 	inc	dptr
+      0021B5 F0               [24]  730 	movx	@dptr,a
+      0021B6                        731 00119$:
+                                    732 ;	life.c:60: n = 0;
+      0021B6 90 88 0C         [24]  733 	mov	dptr,#_n
+      0021B9 E4               [12]  734 	clr	a
+      0021BA F0               [24]  735 	movx	@dptr,a
+      0021BB A3               [24]  736 	inc	dptr
+      0021BC F0               [24]  737 	movx	@dptr,a
+                                    738 ;	life.c:61: for (y1 = y - 1; y1 <= y + 1; y1++)
+      0021BD 90 88 06         [24]  739 	mov	dptr,#_y
+      0021C0 E0               [24]  740 	movx	a,@dptr
+      0021C1 FE               [12]  741 	mov	r6,a
+      0021C2 A3               [24]  742 	inc	dptr
+      0021C3 E0               [24]  743 	movx	a,@dptr
+      0021C4 FF               [12]  744 	mov	r7,a
+      0021C5 1E               [12]  745 	dec	r6
+      0021C6 BE FF 01         [24]  746 	cjne	r6,#0xff,00203$
+      0021C9 1F               [12]  747 	dec	r7
+      0021CA                        748 00203$:
+      0021CA 90 88 0A         [24]  749 	mov	dptr,#_y1
+      0021CD EE               [12]  750 	mov	a,r6
+      0021CE F0               [24]  751 	movx	@dptr,a
+      0021CF EF               [12]  752 	mov	a,r7
+      0021D0 A3               [24]  753 	inc	dptr
+      0021D1 F0               [24]  754 	movx	@dptr,a
+      0021D2                        755 00117$:
+      0021D2 90 88 06         [24]  756 	mov	dptr,#_y
+      0021D5 E0               [24]  757 	movx	a,@dptr
+      0021D6 FE               [12]  758 	mov	r6,a
+      0021D7 A3               [24]  759 	inc	dptr
+      0021D8 E0               [24]  760 	movx	a,@dptr
+      0021D9 FF               [12]  761 	mov	r7,a
+      0021DA 74 01            [12]  762 	mov	a,#0x01
+      0021DC 2E               [12]  763 	add	a,r6
+      0021DD FC               [12]  764 	mov	r4,a
+      0021DE E4               [12]  765 	clr	a
+      0021DF 3F               [12]  766 	addc	a,r7
+      0021E0 FD               [12]  767 	mov	r5,a
+      0021E1 90 88 0A         [24]  768 	mov	dptr,#_y1
+      0021E4 E0               [24]  769 	movx	a,@dptr
+      0021E5 FA               [12]  770 	mov	r2,a
+      0021E6 A3               [24]  771 	inc	dptr
+      0021E7 E0               [24]  772 	movx	a,@dptr
+      0021E8 FB               [12]  773 	mov	r3,a
+      0021E9 C3               [12]  774 	clr	c
+      0021EA EC               [12]  775 	mov	a,r4
+      0021EB 9A               [12]  776 	subb	a,r2
+      0021EC ED               [12]  777 	mov	a,r5
+      0021ED 64 80            [12]  778 	xrl	a,#0x80
+      0021EF 8B F0            [24]  779 	mov	b,r3
+      0021F1 63 F0 80         [24]  780 	xrl	b,#0x80
+      0021F4 95 F0            [12]  781 	subb	a,b
+      0021F6 50 03            [24]  782 	jnc	00204$
+      0021F8 02 22 D8         [24]  783 	ljmp	00104$
+      0021FB                        784 00204$:
+                                    785 ;	life.c:62: for (x1 = x - 1; x1 <= x + 1; x1++)
+      0021FB 90 88 04         [24]  786 	mov	dptr,#_x
+      0021FE E0               [24]  787 	movx	a,@dptr
+      0021FF FC               [12]  788 	mov	r4,a
+      002200 A3               [24]  789 	inc	dptr
+      002201 E0               [24]  790 	movx	a,@dptr
+      002202 FD               [12]  791 	mov	r5,a
+      002203 1C               [12]  792 	dec	r4
+      002204 BC FF 01         [24]  793 	cjne	r4,#0xff,00205$
+      002207 1D               [12]  794 	dec	r5
+      002208                        795 00205$:
+      002208 90 88 08         [24]  796 	mov	dptr,#_x1
+      00220B EC               [12]  797 	mov	a,r4
+      00220C F0               [24]  798 	movx	@dptr,a
+      00220D ED               [12]  799 	mov	a,r5
+      00220E A3               [24]  800 	inc	dptr
+      00220F F0               [24]  801 	movx	@dptr,a
+      002210                        802 00114$:
+      002210 90 88 04         [24]  803 	mov	dptr,#_x
+      002213 E0               [24]  804 	movx	a,@dptr
+      002214 FC               [12]  805 	mov	r4,a
+      002215 A3               [24]  806 	inc	dptr
+      002216 E0               [24]  807 	movx	a,@dptr
+      002217 FD               [12]  808 	mov	r5,a
+      002218 0C               [12]  809 	inc	r4
+      002219 BC 00 01         [24]  810 	cjne	r4,#0x00,00206$
+      00221C 0D               [12]  811 	inc	r5
+      00221D                        812 00206$:
+      00221D 90 88 08         [24]  813 	mov	dptr,#_x1
+      002220 E0               [24]  814 	movx	a,@dptr
+      002221 FA               [12]  815 	mov	r2,a
+      002222 A3               [24]  816 	inc	dptr
+      002223 E0               [24]  817 	movx	a,@dptr
+      002224 FB               [12]  818 	mov	r3,a
+      002225 C3               [12]  819 	clr	c
+      002226 EC               [12]  820 	mov	a,r4
+      002227 9A               [12]  821 	subb	a,r2
+      002228 ED               [12]  822 	mov	a,r5
+      002229 64 80            [12]  823 	xrl	a,#0x80
+      00222B 8B F0            [24]  824 	mov	b,r3
+      00222D 63 F0 80         [24]  825 	xrl	b,#0x80
+      002230 95 F0            [12]  826 	subb	a,b
+      002232 50 03            [24]  827 	jnc	00207$
+      002234 02 22 C9         [24]  828 	ljmp	00118$
+      002237                        829 00207$:
+                                    830 ;	life.c:63: if (u[(y1 + H) % H][(x1 + W) % W])
+      002237 90 88 0A         [24]  831 	mov	dptr,#_y1
+      00223A E0               [24]  832 	movx	a,@dptr
+      00223B FC               [12]  833 	mov	r4,a
+      00223C A3               [24]  834 	inc	dptr
+      00223D E0               [24]  835 	movx	a,@dptr
+      00223E FD               [12]  836 	mov	r5,a
+      00223F 74 20            [12]  837 	mov	a,#0x20
+      002241 2C               [12]  838 	add	a,r4
+      002242 FC               [12]  839 	mov	r4,a
+      002243 E4               [12]  840 	clr	a
+      002244 3D               [12]  841 	addc	a,r5
+      002245 FD               [12]  842 	mov	r5,a
+      002246 C0 03            [24]  843 	push	ar3
+      002248 C0 02            [24]  844 	push	ar2
+      00224A 74 20            [12]  845 	mov	a,#0x20
+      00224C C0 E0            [24]  846 	push	acc
+      00224E E4               [12]  847 	clr	a
+      00224F C0 E0            [24]  848 	push	acc
+      002251 8C 82            [24]  849 	mov	dpl,r4
+      002253 8D 83            [24]  850 	mov	dph,r5
+      002255 12 26 65         [24]  851 	lcall	__modsint
+      002258 AC 82            [24]  852 	mov	r4,dpl
+      00225A AD 83            [24]  853 	mov	r5,dph
+      00225C 15 81            [12]  854 	dec	sp
+      00225E 15 81            [12]  855 	dec	sp
+      002260 D0 02            [24]  856 	pop	ar2
+      002262 D0 03            [24]  857 	pop	ar3
+      002264 ED               [12]  858 	mov	a,r5
+      002265 C4               [12]  859 	swap	a
+      002266 23               [12]  860 	rl	a
+      002267 54 E0            [12]  861 	anl	a,#0xe0
+      002269 CC               [12]  862 	xch	a,r4
+      00226A C4               [12]  863 	swap	a
+      00226B 23               [12]  864 	rl	a
+      00226C CC               [12]  865 	xch	a,r4
+      00226D 6C               [12]  866 	xrl	a,r4
+      00226E CC               [12]  867 	xch	a,r4
+      00226F 54 E0            [12]  868 	anl	a,#0xe0
+      002271 CC               [12]  869 	xch	a,r4
+      002272 6C               [12]  870 	xrl	a,r4
+      002273 FD               [12]  871 	mov	r5,a
+      002274 EC               [12]  872 	mov	a,r4
+      002275 24 04            [12]  873 	add	a,#_u
+      002277 FC               [12]  874 	mov	r4,a
+      002278 ED               [12]  875 	mov	a,r5
+      002279 34 80            [12]  876 	addc	a,#(_u >> 8)
+      00227B FD               [12]  877 	mov	r5,a
+      00227C 74 20            [12]  878 	mov	a,#0x20
+      00227E 2A               [12]  879 	add	a,r2
+      00227F FA               [12]  880 	mov	r2,a
+      002280 E4               [12]  881 	clr	a
+      002281 3B               [12]  882 	addc	a,r3
+      002282 FB               [12]  883 	mov	r3,a
+      002283 C0 05            [24]  884 	push	ar5
+      002285 C0 04            [24]  885 	push	ar4
+      002287 74 20            [12]  886 	mov	a,#0x20
+      002289 C0 E0            [24]  887 	push	acc
+      00228B E4               [12]  888 	clr	a
+      00228C C0 E0            [24]  889 	push	acc
+      00228E 8A 82            [24]  890 	mov	dpl,r2
+      002290 8B 83            [24]  891 	mov	dph,r3
+      002292 12 26 65         [24]  892 	lcall	__modsint
+      002295 AA 82            [24]  893 	mov	r2,dpl
+      002297 AB 83            [24]  894 	mov	r3,dph
+      002299 15 81            [12]  895 	dec	sp
+      00229B 15 81            [12]  896 	dec	sp
+      00229D D0 04            [24]  897 	pop	ar4
+      00229F D0 05            [24]  898 	pop	ar5
+      0022A1 EA               [12]  899 	mov	a,r2
+      0022A2 2C               [12]  900 	add	a,r4
+      0022A3 FC               [12]  901 	mov	r4,a
+      0022A4 EB               [12]  902 	mov	a,r3
+      0022A5 3D               [12]  903 	addc	a,r5
+      0022A6 FD               [12]  904 	mov	r5,a
+      0022A7 8C 82            [24]  905 	mov	dpl,r4
+      0022A9 8D 83            [24]  906 	mov	dph,r5
+      0022AB E0               [24]  907 	movx	a,@dptr
+      0022AC 60 0C            [24]  908 	jz	00115$
+                                    909 ;	life.c:64: n++;
+      0022AE 90 88 0C         [24]  910 	mov	dptr,#_n
+      0022B1 E0               [24]  911 	movx	a,@dptr
+      0022B2 24 01            [12]  912 	add	a,#0x01
+      0022B4 F0               [24]  913 	movx	@dptr,a
+      0022B5 A3               [24]  914 	inc	dptr
+      0022B6 E0               [24]  915 	movx	a,@dptr
+      0022B7 34 00            [12]  916 	addc	a,#0x00
+      0022B9 F0               [24]  917 	movx	@dptr,a
+      0022BA                        918 00115$:
+                                    919 ;	life.c:62: for (x1 = x - 1; x1 <= x + 1; x1++)
+      0022BA 90 88 08         [24]  920 	mov	dptr,#_x1
+      0022BD E0               [24]  921 	movx	a,@dptr
+      0022BE 24 01            [12]  922 	add	a,#0x01
+      0022C0 F0               [24]  923 	movx	@dptr,a
+      0022C1 A3               [24]  924 	inc	dptr
+      0022C2 E0               [24]  925 	movx	a,@dptr
+      0022C3 34 00            [12]  926 	addc	a,#0x00
+      0022C5 F0               [24]  927 	movx	@dptr,a
+      0022C6 02 22 10         [24]  928 	ljmp	00114$
+      0022C9                        929 00118$:
+                                    930 ;	life.c:61: for (y1 = y - 1; y1 <= y + 1; y1++)
+      0022C9 90 88 0A         [24]  931 	mov	dptr,#_y1
+      0022CC E0               [24]  932 	movx	a,@dptr
+      0022CD 24 01            [12]  933 	add	a,#0x01
+      0022CF F0               [24]  934 	movx	@dptr,a
+      0022D0 A3               [24]  935 	inc	dptr
+      0022D1 E0               [24]  936 	movx	a,@dptr
+      0022D2 34 00            [12]  937 	addc	a,#0x00
+      0022D4 F0               [24]  938 	movx	@dptr,a
+      0022D5 02 21 D2         [24]  939 	ljmp	00117$
+      0022D8                        940 00104$:
+                                    941 ;	life.c:66: if (u[y][x]) n--;
+      0022D8 EF               [12]  942 	mov	a,r7
+      0022D9 C4               [12]  943 	swap	a
+      0022DA 23               [12]  944 	rl	a
+      0022DB 54 E0            [12]  945 	anl	a,#0xe0
+      0022DD CE               [12]  946 	xch	a,r6
+      0022DE C4               [12]  947 	swap	a
+      0022DF 23               [12]  948 	rl	a
+      0022E0 CE               [12]  949 	xch	a,r6
+      0022E1 6E               [12]  950 	xrl	a,r6
+      0022E2 CE               [12]  951 	xch	a,r6
+      0022E3 54 E0            [12]  952 	anl	a,#0xe0
+      0022E5 CE               [12]  953 	xch	a,r6
+      0022E6 6E               [12]  954 	xrl	a,r6
+      0022E7 FF               [12]  955 	mov	r7,a
+      0022E8 EE               [12]  956 	mov	a,r6
+      0022E9 24 04            [12]  957 	add	a,#_u
+      0022EB FE               [12]  958 	mov	r6,a
+      0022EC EF               [12]  959 	mov	a,r7
+      0022ED 34 80            [12]  960 	addc	a,#(_u >> 8)
+      0022EF FF               [12]  961 	mov	r7,a
+      0022F0 90 88 04         [24]  962 	mov	dptr,#_x
+      0022F3 E0               [24]  963 	movx	a,@dptr
+      0022F4 FC               [12]  964 	mov	r4,a
+      0022F5 A3               [24]  965 	inc	dptr
+      0022F6 E0               [24]  966 	movx	a,@dptr
+      0022F7 FD               [12]  967 	mov	r5,a
+      0022F8 EC               [12]  968 	mov	a,r4
+      0022F9 2E               [12]  969 	add	a,r6
+      0022FA FE               [12]  970 	mov	r6,a
+      0022FB ED               [12]  971 	mov	a,r5
+      0022FC 3F               [12]  972 	addc	a,r7
+      0022FD FF               [12]  973 	mov	r7,a
+      0022FE 8E 82            [24]  974 	mov	dpl,r6
+      002300 8F 83            [24]  975 	mov	dph,r7
+      002302 E0               [24]  976 	movx	a,@dptr
+      002303 60 14            [24]  977 	jz	00106$
+      002305 90 88 0C         [24]  978 	mov	dptr,#_n
+      002308 E0               [24]  979 	movx	a,@dptr
+      002309 24 FF            [12]  980 	add	a,#0xff
+      00230B FE               [12]  981 	mov	r6,a
+      00230C A3               [24]  982 	inc	dptr
+      00230D E0               [24]  983 	movx	a,@dptr
+      00230E 34 FF            [12]  984 	addc	a,#0xff
+      002310 FF               [12]  985 	mov	r7,a
+      002311 90 88 0C         [24]  986 	mov	dptr,#_n
+      002314 EE               [12]  987 	mov	a,r6
+      002315 F0               [24]  988 	movx	@dptr,a
+      002316 EF               [12]  989 	mov	a,r7
+      002317 A3               [24]  990 	inc	dptr
+      002318 F0               [24]  991 	movx	@dptr,a
+      002319                        992 00106$:
+                                    993 ;	life.c:67: nu[y][x] = (n == 3 || (n == 2 && u[y][x]));
+      002319 90 88 06         [24]  994 	mov	dptr,#_y
+      00231C E0               [24]  995 	movx	a,@dptr
+      00231D FE               [12]  996 	mov	r6,a
+      00231E A3               [24]  997 	inc	dptr
+      00231F E0               [24]  998 	movx	a,@dptr
+      002320 C4               [12]  999 	swap	a
+      002321 23               [12] 1000 	rl	a
+      002322 54 E0            [12] 1001 	anl	a,#0xe0
+      002324 CE               [12] 1002 	xch	a,r6
+      002325 C4               [12] 1003 	swap	a
+      002326 23               [12] 1004 	rl	a
+      002327 CE               [12] 1005 	xch	a,r6
+      002328 6E               [12] 1006 	xrl	a,r6
+      002329 CE               [12] 1007 	xch	a,r6
+      00232A 54 E0            [12] 1008 	anl	a,#0xe0
+      00232C CE               [12] 1009 	xch	a,r6
+      00232D 6E               [12] 1010 	xrl	a,r6
+      00232E FF               [12] 1011 	mov	r7,a
+      00232F EE               [12] 1012 	mov	a,r6
+      002330 24 04            [12] 1013 	add	a,#_nu
+      002332 FC               [12] 1014 	mov	r4,a
+      002333 EF               [12] 1015 	mov	a,r7
+      002334 34 84            [12] 1016 	addc	a,#(_nu >> 8)
+      002336 FD               [12] 1017 	mov	r5,a
+      002337 90 88 04         [24] 1018 	mov	dptr,#_x
+      00233A E0               [24] 1019 	movx	a,@dptr
+      00233B FA               [12] 1020 	mov	r2,a
+      00233C A3               [24] 1021 	inc	dptr
+      00233D E0               [24] 1022 	movx	a,@dptr
+      00233E FB               [12] 1023 	mov	r3,a
+      00233F EA               [12] 1024 	mov	a,r2
+      002340 2C               [12] 1025 	add	a,r4
+      002341 FC               [12] 1026 	mov	r4,a
+      002342 EB               [12] 1027 	mov	a,r3
+      002343 3D               [12] 1028 	addc	a,r5
+      002344 FD               [12] 1029 	mov	r5,a
+      002345 90 88 0C         [24] 1030 	mov	dptr,#_n
+      002348 E0               [24] 1031 	movx	a,@dptr
+      002349 F8               [12] 1032 	mov	r0,a
+      00234A A3               [24] 1033 	inc	dptr
+      00234B E0               [24] 1034 	movx	a,@dptr
+      00234C F9               [12] 1035 	mov	r1,a
+      00234D B8 03 05         [24] 1036 	cjne	r0,#0x03,00210$
+      002350 B9 00 02         [24] 1037 	cjne	r1,#0x00,00210$
+      002353 80 1F            [24] 1038 	sjmp	00130$
+      002355                       1039 00210$:
+      002355 B8 02 18         [24] 1040 	cjne	r0,#0x02,00129$
+      002358 B9 00 15         [24] 1041 	cjne	r1,#0x00,00129$
+      00235B EE               [12] 1042 	mov	a,r6
+      00235C 24 04            [12] 1043 	add	a,#_u
+      00235E FE               [12] 1044 	mov	r6,a
+      00235F EF               [12] 1045 	mov	a,r7
+      002360 34 80            [12] 1046 	addc	a,#(_u >> 8)
+      002362 FF               [12] 1047 	mov	r7,a
+      002363 EA               [12] 1048 	mov	a,r2
+      002364 2E               [12] 1049 	add	a,r6
+      002365 FA               [12] 1050 	mov	r2,a
+      002366 EB               [12] 1051 	mov	a,r3
+      002367 3F               [12] 1052 	addc	a,r7
+      002368 FB               [12] 1053 	mov	r3,a
+      002369 8A 82            [24] 1054 	mov	dpl,r2
+      00236B 8B 83            [24] 1055 	mov	dph,r3
+      00236D E0               [24] 1056 	movx	a,@dptr
+      00236E 70 04            [24] 1057 	jnz	00130$
+      002370                       1058 00129$:
+                                   1059 ;	assignBit
+      002370 C2 00            [12] 1060 	clr	b0
+      002372 80 02            [24] 1061 	sjmp	00131$
+      002374                       1062 00130$:
+                                   1063 ;	assignBit
+      002374 D2 00            [12] 1064 	setb	b0
+      002376                       1065 00131$:
+      002376 A2 00            [12] 1066 	mov	c,b0
+      002378 E4               [12] 1067 	clr	a
+      002379 33               [12] 1068 	rlc	a
+      00237A 8C 82            [24] 1069 	mov	dpl,r4
+      00237C 8D 83            [24] 1070 	mov	dph,r5
+      00237E F0               [24] 1071 	movx	@dptr,a
+                                   1072 ;	life.c:59: for (x = 0; x < W; x++) {
+      00237F 90 88 04         [24] 1073 	mov	dptr,#_x
+      002382 E0               [24] 1074 	movx	a,@dptr
+      002383 24 01            [12] 1075 	add	a,#0x01
+      002385 F0               [24] 1076 	movx	@dptr,a
+      002386 A3               [24] 1077 	inc	dptr
+      002387 E0               [24] 1078 	movx	a,@dptr
+      002388 34 00            [12] 1079 	addc	a,#0x00
+      00238A F0               [24] 1080 	movx	@dptr,a
+      00238B 90 88 04         [24] 1081 	mov	dptr,#_x
+      00238E E0               [24] 1082 	movx	a,@dptr
+      00238F FE               [12] 1083 	mov	r6,a
+      002390 A3               [24] 1084 	inc	dptr
+      002391 E0               [24] 1085 	movx	a,@dptr
+      002392 FF               [12] 1086 	mov	r7,a
+      002393 C3               [12] 1087 	clr	c
+      002394 EE               [12] 1088 	mov	a,r6
+      002395 94 20            [12] 1089 	subb	a,#0x20
+      002397 EF               [12] 1090 	mov	a,r7
+      002398 64 80            [12] 1091 	xrl	a,#0x80
+      00239A 94 80            [12] 1092 	subb	a,#0x80
+      00239C 50 03            [24] 1093 	jnc	00214$
+      00239E 02 21 B6         [24] 1094 	ljmp	00119$
+      0023A1                       1095 00214$:
+                                   1096 ;	life.c:58: for (y = 0; y < H; y++) {
+      0023A1 90 88 06         [24] 1097 	mov	dptr,#_y
+      0023A4 E0               [24] 1098 	movx	a,@dptr
+      0023A5 24 01            [12] 1099 	add	a,#0x01
+      0023A7 F0               [24] 1100 	movx	@dptr,a
+      0023A8 A3               [24] 1101 	inc	dptr
+      0023A9 E0               [24] 1102 	movx	a,@dptr
+      0023AA 34 00            [12] 1103 	addc	a,#0x00
+      0023AC F0               [24] 1104 	movx	@dptr,a
+      0023AD 90 88 06         [24] 1105 	mov	dptr,#_y
+      0023B0 E0               [24] 1106 	movx	a,@dptr
+      0023B1 FE               [12] 1107 	mov	r6,a
+      0023B2 A3               [24] 1108 	inc	dptr
+      0023B3 E0               [24] 1109 	movx	a,@dptr
+      0023B4 FF               [12] 1110 	mov	r7,a
+      0023B5 C3               [12] 1111 	clr	c
+      0023B6 EE               [12] 1112 	mov	a,r6
+      0023B7 94 20            [12] 1113 	subb	a,#0x20
+      0023B9 EF               [12] 1114 	mov	a,r7
+      0023BA 64 80            [12] 1115 	xrl	a,#0x80
+      0023BC 94 80            [12] 1116 	subb	a,#0x80
+      0023BE 50 03            [24] 1117 	jnc	00215$
+      0023C0 02 21 AF         [24] 1118 	ljmp	00121$
+      0023C3                       1119 00215$:
+                                   1120 ;	life.c:71: for (y = 0; y < H; y++)
+      0023C3 90 88 06         [24] 1121 	mov	dptr,#_y
+      0023C6 E4               [12] 1122 	clr	a
       0023C7 F0               [24] 1123 	movx	@dptr,a
-      0023C8                       1124 00123$:
-                                   1125 ;	life.c:72: if (u[y][x] != nu[y][x]) {
-      0023C8 90 88 02         [24] 1126 	mov	dptr,#_y
-      0023CB E0               [24] 1127 	movx	a,@dptr
-      0023CC FE               [12] 1128 	mov	r6,a
-      0023CD A3               [24] 1129 	inc	dptr
-      0023CE E0               [24] 1130 	movx	a,@dptr
-      0023CF C4               [12] 1131 	swap	a
-      0023D0 23               [12] 1132 	rl	a
-      0023D1 54 E0            [12] 1133 	anl	a,#0xe0
-      0023D3 CE               [12] 1134 	xch	a,r6
-      0023D4 C4               [12] 1135 	swap	a
-      0023D5 23               [12] 1136 	rl	a
-      0023D6 CE               [12] 1137 	xch	a,r6
-      0023D7 6E               [12] 1138 	xrl	a,r6
-      0023D8 CE               [12] 1139 	xch	a,r6
-      0023D9 54 E0            [12] 1140 	anl	a,#0xe0
-      0023DB CE               [12] 1141 	xch	a,r6
-      0023DC 6E               [12] 1142 	xrl	a,r6
-      0023DD FF               [12] 1143 	mov	r7,a
-      0023DE EE               [12] 1144 	mov	a,r6
-      0023DF 24 00            [12] 1145 	add	a,#_u
-      0023E1 FC               [12] 1146 	mov	r4,a
-      0023E2 EF               [12] 1147 	mov	a,r7
-      0023E3 34 80            [12] 1148 	addc	a,#(_u >> 8)
-      0023E5 FD               [12] 1149 	mov	r5,a
-      0023E6 90 88 00         [24] 1150 	mov	dptr,#_x
-      0023E9 E0               [24] 1151 	movx	a,@dptr
-      0023EA FA               [12] 1152 	mov	r2,a
-      0023EB A3               [24] 1153 	inc	dptr
-      0023EC E0               [24] 1154 	movx	a,@dptr
-      0023ED FB               [12] 1155 	mov	r3,a
-      0023EE EA               [12] 1156 	mov	a,r2
-      0023EF 2C               [12] 1157 	add	a,r4
-      0023F0 F5 82            [12] 1158 	mov	dpl,a
-      0023F2 EB               [12] 1159 	mov	a,r3
-      0023F3 3D               [12] 1160 	addc	a,r5
-      0023F4 F5 83            [12] 1161 	mov	dph,a
-      0023F6 EE               [12] 1162 	mov	a,r6
-      0023F7 24 00            [12] 1163 	add	a,#_nu
-      0023F9 FC               [12] 1164 	mov	r4,a
-      0023FA EF               [12] 1165 	mov	a,r7
-      0023FB 34 84            [12] 1166 	addc	a,#(_nu >> 8)
-      0023FD FD               [12] 1167 	mov	r5,a
-      0023FE EA               [12] 1168 	mov	a,r2
-      0023FF 2C               [12] 1169 	add	a,r4
-      002400 FC               [12] 1170 	mov	r4,a
-      002401 EB               [12] 1171 	mov	a,r3
-      002402 3D               [12] 1172 	addc	a,r5
-      002403 FD               [12] 1173 	mov	r5,a
-      002404 E0               [24] 1174 	movx	a,@dptr
-      002405 F9               [12] 1175 	mov	r1,a
-      002406 8C 82            [24] 1176 	mov	dpl,r4
-      002408 8D 83            [24] 1177 	mov	dph,r5
-      00240A E0               [24] 1178 	movx	a,@dptr
-      00240B FC               [12] 1179 	mov	r4,a
-      00240C E9               [12] 1180 	mov	a,r1
-      00240D B5 04 02         [24] 1181 	cjne	a,ar4,00216$
-      002410 80 2C            [24] 1182 	sjmp	00124$
-      002412                       1183 00216$:
-                                   1184 ;	life.c:73: u[y][x] = nu[y][x];
-      002412 EE               [12] 1185 	mov	a,r6
-      002413 24 00            [12] 1186 	add	a,#_u
-      002415 FC               [12] 1187 	mov	r4,a
-      002416 EF               [12] 1188 	mov	a,r7
-      002417 34 80            [12] 1189 	addc	a,#(_u >> 8)
-      002419 FD               [12] 1190 	mov	r5,a
-      00241A EA               [12] 1191 	mov	a,r2
-      00241B 2C               [12] 1192 	add	a,r4
-      00241C FC               [12] 1193 	mov	r4,a
-      00241D EB               [12] 1194 	mov	a,r3
-      00241E 3D               [12] 1195 	addc	a,r5
-      00241F FD               [12] 1196 	mov	r5,a
-      002420 EE               [12] 1197 	mov	a,r6
-      002421 24 00            [12] 1198 	add	a,#_nu
-      002423 FE               [12] 1199 	mov	r6,a
-      002424 EF               [12] 1200 	mov	a,r7
-      002425 34 84            [12] 1201 	addc	a,#(_nu >> 8)
-      002427 FF               [12] 1202 	mov	r7,a
-      002428 EA               [12] 1203 	mov	a,r2
-      002429 2E               [12] 1204 	add	a,r6
-      00242A F5 82            [12] 1205 	mov	dpl,a
-      00242C EB               [12] 1206 	mov	a,r3
-      00242D 3F               [12] 1207 	addc	a,r7
-      00242E F5 83            [12] 1208 	mov	dph,a
-      002430 E0               [24] 1209 	movx	a,@dptr
-      002431 FF               [12] 1210 	mov	r7,a
-      002432 8C 82            [24] 1211 	mov	dpl,r4
-      002434 8D 83            [24] 1212 	mov	dph,r5
-      002436 F0               [24] 1213 	movx	@dptr,a
-                                   1214 ;	life.c:74: fixed = 0;
-      002437 90 88 0C         [24] 1215 	mov	dptr,#_fixed
-      00243A E4               [12] 1216 	clr	a
-      00243B F0               [24] 1217 	movx	@dptr,a
-      00243C A3               [24] 1218 	inc	dptr
-      00243D F0               [24] 1219 	movx	@dptr,a
-      00243E                       1220 00124$:
-                                   1221 ;	life.c:71: for (x = 0; x < W; x++)
-      00243E 90 88 00         [24] 1222 	mov	dptr,#_x
-      002441 E0               [24] 1223 	movx	a,@dptr
-      002442 24 01            [12] 1224 	add	a,#0x01
-      002444 F0               [24] 1225 	movx	@dptr,a
-      002445 A3               [24] 1226 	inc	dptr
-      002446 E0               [24] 1227 	movx	a,@dptr
-      002447 34 00            [12] 1228 	addc	a,#0x00
-      002449 F0               [24] 1229 	movx	@dptr,a
-      00244A 90 88 00         [24] 1230 	mov	dptr,#_x
-      00244D E0               [24] 1231 	movx	a,@dptr
-      00244E FE               [12] 1232 	mov	r6,a
-      00244F A3               [24] 1233 	inc	dptr
-      002450 E0               [24] 1234 	movx	a,@dptr
-      002451 FF               [12] 1235 	mov	r7,a
-      002452 C3               [12] 1236 	clr	c
-      002453 EE               [12] 1237 	mov	a,r6
-      002454 94 20            [12] 1238 	subb	a,#0x20
-      002456 EF               [12] 1239 	mov	a,r7
-      002457 64 80            [12] 1240 	xrl	a,#0x80
-      002459 94 80            [12] 1241 	subb	a,#0x80
-      00245B 50 03            [24] 1242 	jnc	00217$
-      00245D 02 23 C8         [24] 1243 	ljmp	00123$
-      002460                       1244 00217$:
-                                   1245 ;	life.c:70: for (y = 0; y < H; y++)
-      002460 90 88 02         [24] 1246 	mov	dptr,#_y
-      002463 E0               [24] 1247 	movx	a,@dptr
-      002464 24 01            [12] 1248 	add	a,#0x01
-      002466 F0               [24] 1249 	movx	@dptr,a
-      002467 A3               [24] 1250 	inc	dptr
-      002468 E0               [24] 1251 	movx	a,@dptr
-      002469 34 00            [12] 1252 	addc	a,#0x00
-      00246B F0               [24] 1253 	movx	@dptr,a
-      00246C 90 88 02         [24] 1254 	mov	dptr,#_y
-      00246F E0               [24] 1255 	movx	a,@dptr
-      002470 FE               [12] 1256 	mov	r6,a
-      002471 A3               [24] 1257 	inc	dptr
-      002472 E0               [24] 1258 	movx	a,@dptr
-      002473 FF               [12] 1259 	mov	r7,a
-      002474 C3               [12] 1260 	clr	c
-      002475 EE               [12] 1261 	mov	a,r6
-      002476 94 20            [12] 1262 	subb	a,#0x20
-      002478 EF               [12] 1263 	mov	a,r7
-      002479 64 80            [12] 1264 	xrl	a,#0x80
-      00247B 94 80            [12] 1265 	subb	a,#0x80
-      00247D 50 03            [24] 1266 	jnc	00218$
-      00247F 02 23 C1         [24] 1267 	ljmp	00125$
-      002482                       1268 00218$:
-                                   1269 ;	life.c:77: return;
-                                   1270 ;	life.c:78: }
-      002482 22               [24] 1271 	ret
-                                   1272 ;------------------------------------------------------------
-                                   1273 ;Allocation info for local variables in function 'main'
-                                   1274 ;------------------------------------------------------------
-                                   1275 ;	life.c:80: void main(void) {
-                                   1276 ;	-----------------------------------------
-                                   1277 ;	 function main
-                                   1278 ;	-----------------------------------------
-      002483                       1279 _main:
-                                   1280 ;	life.c:81: i0 = i1 = 0;
-      002483 90 88 10         [24] 1281 	mov	dptr,#_i1
-      002486 E4               [12] 1282 	clr	a
-      002487 F0               [24] 1283 	movx	@dptr,a
-      002488 A3               [24] 1284 	inc	dptr
-      002489 F0               [24] 1285 	movx	@dptr,a
-      00248A 90 88 0E         [24] 1286 	mov	dptr,#_i0
-      00248D F0               [24] 1287 	movx	@dptr,a
-      00248E A3               [24] 1288 	inc	dptr
-      00248F F0               [24] 1289 	movx	@dptr,a
-                                   1290 ;	life.c:83: IT0 = 1;
-                                   1291 ;	assignBit
-      002490 D2 88            [12] 1292 	setb	_IT0
-                                   1293 ;	life.c:84: EX0 = 1;
-                                   1294 ;	assignBit
-      002492 D2 A8            [12] 1295 	setb	_EX0
-                                   1296 ;	life.c:86: IT1 = 1;
-                                   1297 ;	assignBit
-      002494 D2 8A            [12] 1298 	setb	_IT1
-                                   1299 ;	life.c:87: EX1 = 1;
+      0023C8 A3               [24] 1124 	inc	dptr
+      0023C9 F0               [24] 1125 	movx	@dptr,a
+      0023CA                       1126 00125$:
+                                   1127 ;	life.c:72: for (x = 0; x < W; x++)
+      0023CA 90 88 04         [24] 1128 	mov	dptr,#_x
+      0023CD E4               [12] 1129 	clr	a
+      0023CE F0               [24] 1130 	movx	@dptr,a
+      0023CF A3               [24] 1131 	inc	dptr
+      0023D0 F0               [24] 1132 	movx	@dptr,a
+      0023D1                       1133 00123$:
+                                   1134 ;	life.c:73: if (u[y][x] != nu[y][x]) {
+      0023D1 90 88 06         [24] 1135 	mov	dptr,#_y
+      0023D4 E0               [24] 1136 	movx	a,@dptr
+      0023D5 FE               [12] 1137 	mov	r6,a
+      0023D6 A3               [24] 1138 	inc	dptr
+      0023D7 E0               [24] 1139 	movx	a,@dptr
+      0023D8 C4               [12] 1140 	swap	a
+      0023D9 23               [12] 1141 	rl	a
+      0023DA 54 E0            [12] 1142 	anl	a,#0xe0
+      0023DC CE               [12] 1143 	xch	a,r6
+      0023DD C4               [12] 1144 	swap	a
+      0023DE 23               [12] 1145 	rl	a
+      0023DF CE               [12] 1146 	xch	a,r6
+      0023E0 6E               [12] 1147 	xrl	a,r6
+      0023E1 CE               [12] 1148 	xch	a,r6
+      0023E2 54 E0            [12] 1149 	anl	a,#0xe0
+      0023E4 CE               [12] 1150 	xch	a,r6
+      0023E5 6E               [12] 1151 	xrl	a,r6
+      0023E6 FF               [12] 1152 	mov	r7,a
+      0023E7 EE               [12] 1153 	mov	a,r6
+      0023E8 24 04            [12] 1154 	add	a,#_u
+      0023EA FC               [12] 1155 	mov	r4,a
+      0023EB EF               [12] 1156 	mov	a,r7
+      0023EC 34 80            [12] 1157 	addc	a,#(_u >> 8)
+      0023EE FD               [12] 1158 	mov	r5,a
+      0023EF 90 88 04         [24] 1159 	mov	dptr,#_x
+      0023F2 E0               [24] 1160 	movx	a,@dptr
+      0023F3 FA               [12] 1161 	mov	r2,a
+      0023F4 A3               [24] 1162 	inc	dptr
+      0023F5 E0               [24] 1163 	movx	a,@dptr
+      0023F6 FB               [12] 1164 	mov	r3,a
+      0023F7 EA               [12] 1165 	mov	a,r2
+      0023F8 2C               [12] 1166 	add	a,r4
+      0023F9 F5 82            [12] 1167 	mov	dpl,a
+      0023FB EB               [12] 1168 	mov	a,r3
+      0023FC 3D               [12] 1169 	addc	a,r5
+      0023FD F5 83            [12] 1170 	mov	dph,a
+      0023FF EE               [12] 1171 	mov	a,r6
+      002400 24 04            [12] 1172 	add	a,#_nu
+      002402 FC               [12] 1173 	mov	r4,a
+      002403 EF               [12] 1174 	mov	a,r7
+      002404 34 84            [12] 1175 	addc	a,#(_nu >> 8)
+      002406 FD               [12] 1176 	mov	r5,a
+      002407 EA               [12] 1177 	mov	a,r2
+      002408 2C               [12] 1178 	add	a,r4
+      002409 FC               [12] 1179 	mov	r4,a
+      00240A EB               [12] 1180 	mov	a,r3
+      00240B 3D               [12] 1181 	addc	a,r5
+      00240C FD               [12] 1182 	mov	r5,a
+      00240D E0               [24] 1183 	movx	a,@dptr
+      00240E F9               [12] 1184 	mov	r1,a
+      00240F 8C 82            [24] 1185 	mov	dpl,r4
+      002411 8D 83            [24] 1186 	mov	dph,r5
+      002413 E0               [24] 1187 	movx	a,@dptr
+      002414 FC               [12] 1188 	mov	r4,a
+      002415 E9               [12] 1189 	mov	a,r1
+      002416 B5 04 02         [24] 1190 	cjne	a,ar4,00216$
+      002419 80 2C            [24] 1191 	sjmp	00124$
+      00241B                       1192 00216$:
+                                   1193 ;	life.c:74: u[y][x] = nu[y][x];
+      00241B EE               [12] 1194 	mov	a,r6
+      00241C 24 04            [12] 1195 	add	a,#_u
+      00241E FC               [12] 1196 	mov	r4,a
+      00241F EF               [12] 1197 	mov	a,r7
+      002420 34 80            [12] 1198 	addc	a,#(_u >> 8)
+      002422 FD               [12] 1199 	mov	r5,a
+      002423 EA               [12] 1200 	mov	a,r2
+      002424 2C               [12] 1201 	add	a,r4
+      002425 FC               [12] 1202 	mov	r4,a
+      002426 EB               [12] 1203 	mov	a,r3
+      002427 3D               [12] 1204 	addc	a,r5
+      002428 FD               [12] 1205 	mov	r5,a
+      002429 EE               [12] 1206 	mov	a,r6
+      00242A 24 04            [12] 1207 	add	a,#_nu
+      00242C FE               [12] 1208 	mov	r6,a
+      00242D EF               [12] 1209 	mov	a,r7
+      00242E 34 84            [12] 1210 	addc	a,#(_nu >> 8)
+      002430 FF               [12] 1211 	mov	r7,a
+      002431 EA               [12] 1212 	mov	a,r2
+      002432 2E               [12] 1213 	add	a,r6
+      002433 F5 82            [12] 1214 	mov	dpl,a
+      002435 EB               [12] 1215 	mov	a,r3
+      002436 3F               [12] 1216 	addc	a,r7
+      002437 F5 83            [12] 1217 	mov	dph,a
+      002439 E0               [24] 1218 	movx	a,@dptr
+      00243A FF               [12] 1219 	mov	r7,a
+      00243B 8C 82            [24] 1220 	mov	dpl,r4
+      00243D 8D 83            [24] 1221 	mov	dph,r5
+      00243F F0               [24] 1222 	movx	@dptr,a
+                                   1223 ;	life.c:75: fixed = 0;
+      002440 90 88 10         [24] 1224 	mov	dptr,#_fixed
+      002443 E4               [12] 1225 	clr	a
+      002444 F0               [24] 1226 	movx	@dptr,a
+      002445 A3               [24] 1227 	inc	dptr
+      002446 F0               [24] 1228 	movx	@dptr,a
+      002447                       1229 00124$:
+                                   1230 ;	life.c:72: for (x = 0; x < W; x++)
+      002447 90 88 04         [24] 1231 	mov	dptr,#_x
+      00244A E0               [24] 1232 	movx	a,@dptr
+      00244B 24 01            [12] 1233 	add	a,#0x01
+      00244D F0               [24] 1234 	movx	@dptr,a
+      00244E A3               [24] 1235 	inc	dptr
+      00244F E0               [24] 1236 	movx	a,@dptr
+      002450 34 00            [12] 1237 	addc	a,#0x00
+      002452 F0               [24] 1238 	movx	@dptr,a
+      002453 90 88 04         [24] 1239 	mov	dptr,#_x
+      002456 E0               [24] 1240 	movx	a,@dptr
+      002457 FE               [12] 1241 	mov	r6,a
+      002458 A3               [24] 1242 	inc	dptr
+      002459 E0               [24] 1243 	movx	a,@dptr
+      00245A FF               [12] 1244 	mov	r7,a
+      00245B C3               [12] 1245 	clr	c
+      00245C EE               [12] 1246 	mov	a,r6
+      00245D 94 20            [12] 1247 	subb	a,#0x20
+      00245F EF               [12] 1248 	mov	a,r7
+      002460 64 80            [12] 1249 	xrl	a,#0x80
+      002462 94 80            [12] 1250 	subb	a,#0x80
+      002464 50 03            [24] 1251 	jnc	00217$
+      002466 02 23 D1         [24] 1252 	ljmp	00123$
+      002469                       1253 00217$:
+                                   1254 ;	life.c:71: for (y = 0; y < H; y++)
+      002469 90 88 06         [24] 1255 	mov	dptr,#_y
+      00246C E0               [24] 1256 	movx	a,@dptr
+      00246D 24 01            [12] 1257 	add	a,#0x01
+      00246F F0               [24] 1258 	movx	@dptr,a
+      002470 A3               [24] 1259 	inc	dptr
+      002471 E0               [24] 1260 	movx	a,@dptr
+      002472 34 00            [12] 1261 	addc	a,#0x00
+      002474 F0               [24] 1262 	movx	@dptr,a
+      002475 90 88 06         [24] 1263 	mov	dptr,#_y
+      002478 E0               [24] 1264 	movx	a,@dptr
+      002479 FE               [12] 1265 	mov	r6,a
+      00247A A3               [24] 1266 	inc	dptr
+      00247B E0               [24] 1267 	movx	a,@dptr
+      00247C FF               [12] 1268 	mov	r7,a
+      00247D C3               [12] 1269 	clr	c
+      00247E EE               [12] 1270 	mov	a,r6
+      00247F 94 20            [12] 1271 	subb	a,#0x20
+      002481 EF               [12] 1272 	mov	a,r7
+      002482 64 80            [12] 1273 	xrl	a,#0x80
+      002484 94 80            [12] 1274 	subb	a,#0x80
+      002486 50 03            [24] 1275 	jnc	00218$
+      002488 02 23 CA         [24] 1276 	ljmp	00125$
+      00248B                       1277 00218$:
+                                   1278 ;	life.c:78: return;
+                                   1279 ;	life.c:79: }
+      00248B 22               [24] 1280 	ret
+                                   1281 ;------------------------------------------------------------
+                                   1282 ;Allocation info for local variables in function 'main'
+                                   1283 ;------------------------------------------------------------
+                                   1284 ;	life.c:81: void main(void) {
+                                   1285 ;	-----------------------------------------
+                                   1286 ;	 function main
+                                   1287 ;	-----------------------------------------
+      00248C                       1288 _main:
+                                   1289 ;	life.c:82: i0 = i1 = 0;
+      00248C 90 80 02         [24] 1290 	mov	dptr,#_i1
+      00248F E4               [12] 1291 	clr	a
+      002490 F0               [24] 1292 	movx	@dptr,a
+      002491 A3               [24] 1293 	inc	dptr
+      002492 F0               [24] 1294 	movx	@dptr,a
+      002493 90 80 00         [24] 1295 	mov	dptr,#_i0
+      002496 F0               [24] 1296 	movx	@dptr,a
+      002497 A3               [24] 1297 	inc	dptr
+      002498 F0               [24] 1298 	movx	@dptr,a
+                                   1299 ;	life.c:84: IT0 = 1;
                                    1300 ;	assignBit
-      002496 D2 AA            [12] 1301 	setb	_EX1
-                                   1302 ;	life.c:89: EA = 1;
+      002499 D2 88            [12] 1301 	setb	_IT0
+                                   1302 ;	life.c:85: IT1 = 1;
                                    1303 ;	assignBit
-      002498 D2 AF            [12] 1304 	setb	_EA
-                                   1305 ;	life.c:91: while (!i0) {
-      00249A                       1306 00108$:
-      00249A 90 88 0E         [24] 1307 	mov	dptr,#_i0
-      00249D E0               [24] 1308 	movx	a,@dptr
-      00249E F5 F0            [12] 1309 	mov	b,a
-      0024A0 A3               [24] 1310 	inc	dptr
-      0024A1 E0               [24] 1311 	movx	a,@dptr
-      0024A2 45 F0            [12] 1312 	orl	a,b
-      0024A4 60 03            [24] 1313 	jz	00153$
-      0024A6 02 25 AA         [24] 1314 	ljmp	00110$
-      0024A9                       1315 00153$:
-                                   1316 ;	life.c:92: printf("\033[2J\033[mINIT\n\r");
-      0024A9 74 E6            [12] 1317 	mov	a,#___str_4
-      0024AB C0 E0            [24] 1318 	push	acc
-      0024AD 74 39            [12] 1319 	mov	a,#(___str_4 >> 8)
-      0024AF C0 E0            [24] 1320 	push	acc
-      0024B1 74 80            [12] 1321 	mov	a,#0x80
-      0024B3 C0 E0            [24] 1322 	push	acc
-      0024B5 12 25 F6         [24] 1323 	lcall	_printf
-      0024B8 15 81            [12] 1324 	dec	sp
-      0024BA 15 81            [12] 1325 	dec	sp
-      0024BC 15 81            [12] 1326 	dec	sp
-                                   1327 ;	life.c:93: for (y = 0; y < H; y++)
-      0024BE 90 88 02         [24] 1328 	mov	dptr,#_y
-      0024C1 E4               [12] 1329 	clr	a
-      0024C2 F0               [24] 1330 	movx	@dptr,a
-      0024C3 A3               [24] 1331 	inc	dptr
-      0024C4 F0               [24] 1332 	movx	@dptr,a
-      0024C5                       1333 00113$:
-                                   1334 ;	life.c:94: for (x = 0; x < W; x++) {
-      0024C5 90 88 00         [24] 1335 	mov	dptr,#_x
-      0024C8 E4               [12] 1336 	clr	a
-      0024C9 F0               [24] 1337 	movx	@dptr,a
-      0024CA A3               [24] 1338 	inc	dptr
+      00249B D2 8A            [12] 1304 	setb	_IT1
+                                   1305 ;	life.c:86: EX0 = 1;
+                                   1306 ;	assignBit
+      00249D D2 A8            [12] 1307 	setb	_EX0
+                                   1308 ;	life.c:87: EX1 = 1;
+                                   1309 ;	assignBit
+      00249F D2 AA            [12] 1310 	setb	_EX1
+                                   1311 ;	life.c:88: EA = 1;
+                                   1312 ;	assignBit
+      0024A1 D2 AF            [12] 1313 	setb	_EA
+                                   1314 ;	life.c:90: while (!i0) {
+      0024A3                       1315 00109$:
+      0024A3 90 80 00         [24] 1316 	mov	dptr,#_i0
+      0024A6 E0               [24] 1317 	movx	a,@dptr
+      0024A7 F5 F0            [12] 1318 	mov	b,a
+      0024A9 A3               [24] 1319 	inc	dptr
+      0024AA E0               [24] 1320 	movx	a,@dptr
+      0024AB 45 F0            [12] 1321 	orl	a,b
+      0024AD 60 03            [24] 1322 	jz	00158$
+      0024AF 02 25 C8         [24] 1323 	ljmp	00111$
+      0024B2                       1324 00158$:
+                                   1325 ;	life.c:91: printf("\033[2J\033[mINIT\n\r");
+      0024B2 74 1C            [12] 1326 	mov	a,#___str_4
+      0024B4 C0 E0            [24] 1327 	push	acc
+      0024B6 74 3A            [12] 1328 	mov	a,#(___str_4 >> 8)
+      0024B8 C0 E0            [24] 1329 	push	acc
+      0024BA 74 80            [12] 1330 	mov	a,#0x80
+      0024BC C0 E0            [24] 1331 	push	acc
+      0024BE 12 26 2C         [24] 1332 	lcall	_printf
+      0024C1 15 81            [12] 1333 	dec	sp
+      0024C3 15 81            [12] 1334 	dec	sp
+      0024C5 15 81            [12] 1335 	dec	sp
+                                   1336 ;	life.c:92: for (y = 0; y < H; y++)
+      0024C7 90 88 06         [24] 1337 	mov	dptr,#_y
+      0024CA E4               [12] 1338 	clr	a
       0024CB F0               [24] 1339 	movx	@dptr,a
-      0024CC                       1340 00111$:
-                                   1341 ;	life.c:95: c = getchar();
-      0024CC 12 20 72         [24] 1342 	lcall	_getchar
-      0024CF AE 82            [24] 1343 	mov	r6,dpl
-      0024D1 AF 83            [24] 1344 	mov	r7,dph
-      0024D3 90 88 12         [24] 1345 	mov	dptr,#_c
-      0024D6 EE               [12] 1346 	mov	a,r6
-      0024D7 F0               [24] 1347 	movx	@dptr,a
-      0024D8 EF               [12] 1348 	mov	a,r7
-      0024D9 A3               [24] 1349 	inc	dptr
-      0024DA F0               [24] 1350 	movx	@dptr,a
-                                   1351 ;	life.c:96: u[y][x] = c & 1;
-      0024DB 90 88 02         [24] 1352 	mov	dptr,#_y
-      0024DE E0               [24] 1353 	movx	a,@dptr
-      0024DF FC               [12] 1354 	mov	r4,a
-      0024E0 A3               [24] 1355 	inc	dptr
-      0024E1 E0               [24] 1356 	movx	a,@dptr
-      0024E2 C4               [12] 1357 	swap	a
-      0024E3 23               [12] 1358 	rl	a
-      0024E4 54 E0            [12] 1359 	anl	a,#0xe0
-      0024E6 CC               [12] 1360 	xch	a,r4
-      0024E7 C4               [12] 1361 	swap	a
-      0024E8 23               [12] 1362 	rl	a
-      0024E9 CC               [12] 1363 	xch	a,r4
-      0024EA 6C               [12] 1364 	xrl	a,r4
-      0024EB CC               [12] 1365 	xch	a,r4
-      0024EC 54 E0            [12] 1366 	anl	a,#0xe0
-      0024EE CC               [12] 1367 	xch	a,r4
-      0024EF 6C               [12] 1368 	xrl	a,r4
-      0024F0 FD               [12] 1369 	mov	r5,a
-      0024F1 EC               [12] 1370 	mov	a,r4
-      0024F2 24 00            [12] 1371 	add	a,#_u
-      0024F4 FC               [12] 1372 	mov	r4,a
-      0024F5 ED               [12] 1373 	mov	a,r5
-      0024F6 34 80            [12] 1374 	addc	a,#(_u >> 8)
-      0024F8 FD               [12] 1375 	mov	r5,a
-      0024F9 90 88 00         [24] 1376 	mov	dptr,#_x
-      0024FC E0               [24] 1377 	movx	a,@dptr
-      0024FD FA               [12] 1378 	mov	r2,a
-      0024FE A3               [24] 1379 	inc	dptr
-      0024FF E0               [24] 1380 	movx	a,@dptr
-      002500 FB               [12] 1381 	mov	r3,a
-      002501 EA               [12] 1382 	mov	a,r2
-      002502 2C               [12] 1383 	add	a,r4
-      002503 F5 82            [12] 1384 	mov	dpl,a
-      002505 EB               [12] 1385 	mov	a,r3
-      002506 3D               [12] 1386 	addc	a,r5
-      002507 F5 83            [12] 1387 	mov	dph,a
-      002509 53 06 01         [24] 1388 	anl	ar6,#0x01
-      00250C EE               [12] 1389 	mov	a,r6
-      00250D F0               [24] 1390 	movx	@dptr,a
-                                   1391 ;	life.c:94: for (x = 0; x < W; x++) {
-      00250E 90 88 00         [24] 1392 	mov	dptr,#_x
-      002511 E0               [24] 1393 	movx	a,@dptr
-      002512 24 01            [12] 1394 	add	a,#0x01
-      002514 F0               [24] 1395 	movx	@dptr,a
-      002515 A3               [24] 1396 	inc	dptr
-      002516 E0               [24] 1397 	movx	a,@dptr
-      002517 34 00            [12] 1398 	addc	a,#0x00
-      002519 F0               [24] 1399 	movx	@dptr,a
-      00251A 90 88 00         [24] 1400 	mov	dptr,#_x
-      00251D E0               [24] 1401 	movx	a,@dptr
-      00251E FE               [12] 1402 	mov	r6,a
-      00251F A3               [24] 1403 	inc	dptr
-      002520 E0               [24] 1404 	movx	a,@dptr
-      002521 FF               [12] 1405 	mov	r7,a
-      002522 C3               [12] 1406 	clr	c
-      002523 EE               [12] 1407 	mov	a,r6
-      002524 94 20            [12] 1408 	subb	a,#0x20
-      002526 EF               [12] 1409 	mov	a,r7
-      002527 64 80            [12] 1410 	xrl	a,#0x80
-      002529 94 80            [12] 1411 	subb	a,#0x80
-      00252B 40 9F            [24] 1412 	jc	00111$
-                                   1413 ;	life.c:93: for (y = 0; y < H; y++)
-      00252D 90 88 02         [24] 1414 	mov	dptr,#_y
-      002530 E0               [24] 1415 	movx	a,@dptr
-      002531 24 01            [12] 1416 	add	a,#0x01
-      002533 F0               [24] 1417 	movx	@dptr,a
-      002534 A3               [24] 1418 	inc	dptr
-      002535 E0               [24] 1419 	movx	a,@dptr
-      002536 34 00            [12] 1420 	addc	a,#0x00
-      002538 F0               [24] 1421 	movx	@dptr,a
-      002539 90 88 02         [24] 1422 	mov	dptr,#_y
-      00253C E0               [24] 1423 	movx	a,@dptr
-      00253D FE               [12] 1424 	mov	r6,a
-      00253E A3               [24] 1425 	inc	dptr
-      00253F E0               [24] 1426 	movx	a,@dptr
-      002540 FF               [12] 1427 	mov	r7,a
-      002541 C3               [12] 1428 	clr	c
-      002542 EE               [12] 1429 	mov	a,r6
-      002543 94 20            [12] 1430 	subb	a,#0x20
-      002545 EF               [12] 1431 	mov	a,r7
-      002546 64 80            [12] 1432 	xrl	a,#0x80
-      002548 94 80            [12] 1433 	subb	a,#0x80
-      00254A 50 03            [24] 1434 	jnc	00155$
-      00254C 02 24 C5         [24] 1435 	ljmp	00113$
-      00254F                       1436 00155$:
-                                   1437 ;	life.c:98: printf("RDY\n\r");
-      00254F 74 F4            [12] 1438 	mov	a,#___str_5
-      002551 C0 E0            [24] 1439 	push	acc
-      002553 74 39            [12] 1440 	mov	a,#(___str_5 >> 8)
-      002555 C0 E0            [24] 1441 	push	acc
-      002557 74 80            [12] 1442 	mov	a,#0x80
-      002559 C0 E0            [24] 1443 	push	acc
-      00255B 12 25 F6         [24] 1444 	lcall	_printf
-      00255E 15 81            [12] 1445 	dec	sp
-      002560 15 81            [12] 1446 	dec	sp
-      002562 15 81            [12] 1447 	dec	sp
-                                   1448 ;	life.c:99: (void)getchar();
-      002564 12 20 72         [24] 1449 	lcall	_getchar
-                                   1450 ;	life.c:101: population = 0;
-      002567 90 88 0A         [24] 1451 	mov	dptr,#_population
-      00256A E4               [12] 1452 	clr	a
-      00256B F0               [24] 1453 	movx	@dptr,a
-      00256C A3               [24] 1454 	inc	dptr
-      00256D F0               [24] 1455 	movx	@dptr,a
-                                   1456 ;	life.c:103: while (!i1) {
-      00256E                       1457 00105$:
-      00256E 90 88 10         [24] 1458 	mov	dptr,#_i1
-      002571 E0               [24] 1459 	movx	a,@dptr
-      002572 F5 F0            [12] 1460 	mov	b,a
-      002574 A3               [24] 1461 	inc	dptr
-      002575 E0               [24] 1462 	movx	a,@dptr
-      002576 45 F0            [12] 1463 	orl	a,b
-      002578 60 03            [24] 1464 	jz	00156$
-      00257A 02 24 9A         [24] 1465 	ljmp	00108$
-      00257D                       1466 00156$:
-                                   1467 ;	life.c:104: show();
-      00257D 12 20 A5         [24] 1468 	lcall	_show
-                                   1469 ;	life.c:105: evolve();
-      002580 12 21 97         [24] 1470 	lcall	_evolve
-                                   1471 ;	life.c:106: if (fixed) {
-      002583 90 88 0C         [24] 1472 	mov	dptr,#_fixed
-      002586 E0               [24] 1473 	movx	a,@dptr
-      002587 F5 F0            [12] 1474 	mov	b,a
-      002589 A3               [24] 1475 	inc	dptr
-      00258A E0               [24] 1476 	movx	a,@dptr
-      00258B 45 F0            [12] 1477 	orl	a,b
-      00258D 60 DF            [24] 1478 	jz	00105$
-                                   1479 ;	life.c:107: printf("DONE\n\r");
-      00258F 74 FA            [12] 1480 	mov	a,#___str_6
-      002591 C0 E0            [24] 1481 	push	acc
-      002593 74 39            [12] 1482 	mov	a,#(___str_6 >> 8)
-      002595 C0 E0            [24] 1483 	push	acc
-      002597 74 80            [12] 1484 	mov	a,#0x80
-      002599 C0 E0            [24] 1485 	push	acc
-      00259B 12 25 F6         [24] 1486 	lcall	_printf
-      00259E 15 81            [12] 1487 	dec	sp
-      0025A0 15 81            [12] 1488 	dec	sp
-      0025A2 15 81            [12] 1489 	dec	sp
-                                   1490 ;	life.c:108: (void)getchar();
-      0025A4 12 20 72         [24] 1491 	lcall	_getchar
-                                   1492 ;	life.c:109: break;
-      0025A7 02 24 9A         [24] 1493 	ljmp	00108$
-      0025AA                       1494 00110$:
-                                   1495 ;	life.c:114: EA = 0;
-                                   1496 ;	assignBit
-      0025AA C2 AF            [12] 1497 	clr	_EA
-                                   1498 ;	life.c:118: __endasm;
-      0025AC 02 00 00         [24] 1499 	ljmp	0
-                                   1500 ;	life.c:119: }
-      0025AF 22               [24] 1501 	ret
-                                   1502 	.area CSEG    (CODE)
-                                   1503 	.area CONST   (CODE)
-                                   1504 	.area CONST   (CODE)
-      0039C7                       1505 ___str_0:
-      0039C7 1B                    1506 	.db 0x1b
-      0039C8 5B 32 4A              1507 	.ascii "[2J"
-      0039CB 1B                    1508 	.db 0x1b
-      0039CC 5B 6D 25 30 34 78     1509 	.ascii "[m%04x"
-      0039D2 0D                    1510 	.db 0x0d
-      0039D3 0A                    1511 	.db 0x0a
-      0039D4 00                    1512 	.db 0x00
-                                   1513 	.area CSEG    (CODE)
-                                   1514 	.area CONST   (CODE)
-      0039D5                       1515 ___str_1:
-      0039D5 1B                    1516 	.db 0x1b
-      0039D6 5B 30 31 6D 5B 5D     1517 	.ascii "[01m[]"
-      0039DC 1B                    1518 	.db 0x1b
-      0039DD 5B 6D                 1519 	.ascii "[m"
-      0039DF 00                    1520 	.db 0x00
-                                   1521 	.area CSEG    (CODE)
-                                   1522 	.area CONST   (CODE)
-      0039E0                       1523 ___str_2:
-      0039E0 20 20                 1524 	.ascii "  "
-      0039E2 00                    1525 	.db 0x00
-                                   1526 	.area CSEG    (CODE)
-                                   1527 	.area CONST   (CODE)
-      0039E3                       1528 ___str_3:
-      0039E3 0D                    1529 	.db 0x0d
-      0039E4 0A                    1530 	.db 0x0a
-      0039E5 00                    1531 	.db 0x00
-                                   1532 	.area CSEG    (CODE)
-                                   1533 	.area CONST   (CODE)
-      0039E6                       1534 ___str_4:
-      0039E6 1B                    1535 	.db 0x1b
-      0039E7 5B 32 4A              1536 	.ascii "[2J"
-      0039EA 1B                    1537 	.db 0x1b
-      0039EB 5B 6D 49 4E 49 54     1538 	.ascii "[mINIT"
-      0039F1 0A                    1539 	.db 0x0a
-      0039F2 0D                    1540 	.db 0x0d
-      0039F3 00                    1541 	.db 0x00
-                                   1542 	.area CSEG    (CODE)
-                                   1543 	.area CONST   (CODE)
-      0039F4                       1544 ___str_5:
-      0039F4 52 44 59              1545 	.ascii "RDY"
-      0039F7 0A                    1546 	.db 0x0a
-      0039F8 0D                    1547 	.db 0x0d
-      0039F9 00                    1548 	.db 0x00
+      0024CC A3               [24] 1340 	inc	dptr
+      0024CD F0               [24] 1341 	movx	@dptr,a
+      0024CE                       1342 00114$:
+                                   1343 ;	life.c:93: for (x = 0; x < W; x++) {
+      0024CE 90 88 04         [24] 1344 	mov	dptr,#_x
+      0024D1 E4               [12] 1345 	clr	a
+      0024D2 F0               [24] 1346 	movx	@dptr,a
+      0024D3 A3               [24] 1347 	inc	dptr
+      0024D4 F0               [24] 1348 	movx	@dptr,a
+      0024D5                       1349 00112$:
+                                   1350 ;	life.c:94: c = getchar();
+      0024D5 12 20 7A         [24] 1351 	lcall	_getchar
+      0024D8 AE 82            [24] 1352 	mov	r6,dpl
+      0024DA AF 83            [24] 1353 	mov	r7,dph
+      0024DC 90 88 12         [24] 1354 	mov	dptr,#_c
+      0024DF EE               [12] 1355 	mov	a,r6
+      0024E0 F0               [24] 1356 	movx	@dptr,a
+      0024E1 EF               [12] 1357 	mov	a,r7
+      0024E2 A3               [24] 1358 	inc	dptr
+      0024E3 F0               [24] 1359 	movx	@dptr,a
+                                   1360 ;	life.c:95: u[y][x] = c & 1;
+      0024E4 90 88 06         [24] 1361 	mov	dptr,#_y
+      0024E7 E0               [24] 1362 	movx	a,@dptr
+      0024E8 FC               [12] 1363 	mov	r4,a
+      0024E9 A3               [24] 1364 	inc	dptr
+      0024EA E0               [24] 1365 	movx	a,@dptr
+      0024EB C4               [12] 1366 	swap	a
+      0024EC 23               [12] 1367 	rl	a
+      0024ED 54 E0            [12] 1368 	anl	a,#0xe0
+      0024EF CC               [12] 1369 	xch	a,r4
+      0024F0 C4               [12] 1370 	swap	a
+      0024F1 23               [12] 1371 	rl	a
+      0024F2 CC               [12] 1372 	xch	a,r4
+      0024F3 6C               [12] 1373 	xrl	a,r4
+      0024F4 CC               [12] 1374 	xch	a,r4
+      0024F5 54 E0            [12] 1375 	anl	a,#0xe0
+      0024F7 CC               [12] 1376 	xch	a,r4
+      0024F8 6C               [12] 1377 	xrl	a,r4
+      0024F9 FD               [12] 1378 	mov	r5,a
+      0024FA EC               [12] 1379 	mov	a,r4
+      0024FB 24 04            [12] 1380 	add	a,#_u
+      0024FD FC               [12] 1381 	mov	r4,a
+      0024FE ED               [12] 1382 	mov	a,r5
+      0024FF 34 80            [12] 1383 	addc	a,#(_u >> 8)
+      002501 FD               [12] 1384 	mov	r5,a
+      002502 90 88 04         [24] 1385 	mov	dptr,#_x
+      002505 E0               [24] 1386 	movx	a,@dptr
+      002506 FA               [12] 1387 	mov	r2,a
+      002507 A3               [24] 1388 	inc	dptr
+      002508 E0               [24] 1389 	movx	a,@dptr
+      002509 FB               [12] 1390 	mov	r3,a
+      00250A EA               [12] 1391 	mov	a,r2
+      00250B 2C               [12] 1392 	add	a,r4
+      00250C F5 82            [12] 1393 	mov	dpl,a
+      00250E EB               [12] 1394 	mov	a,r3
+      00250F 3D               [12] 1395 	addc	a,r5
+      002510 F5 83            [12] 1396 	mov	dph,a
+      002512 53 06 01         [24] 1397 	anl	ar6,#0x01
+      002515 EE               [12] 1398 	mov	a,r6
+      002516 F0               [24] 1399 	movx	@dptr,a
+                                   1400 ;	life.c:93: for (x = 0; x < W; x++) {
+      002517 90 88 04         [24] 1401 	mov	dptr,#_x
+      00251A E0               [24] 1402 	movx	a,@dptr
+      00251B 24 01            [12] 1403 	add	a,#0x01
+      00251D F0               [24] 1404 	movx	@dptr,a
+      00251E A3               [24] 1405 	inc	dptr
+      00251F E0               [24] 1406 	movx	a,@dptr
+      002520 34 00            [12] 1407 	addc	a,#0x00
+      002522 F0               [24] 1408 	movx	@dptr,a
+      002523 90 88 04         [24] 1409 	mov	dptr,#_x
+      002526 E0               [24] 1410 	movx	a,@dptr
+      002527 FE               [12] 1411 	mov	r6,a
+      002528 A3               [24] 1412 	inc	dptr
+      002529 E0               [24] 1413 	movx	a,@dptr
+      00252A FF               [12] 1414 	mov	r7,a
+      00252B C3               [12] 1415 	clr	c
+      00252C EE               [12] 1416 	mov	a,r6
+      00252D 94 20            [12] 1417 	subb	a,#0x20
+      00252F EF               [12] 1418 	mov	a,r7
+      002530 64 80            [12] 1419 	xrl	a,#0x80
+      002532 94 80            [12] 1420 	subb	a,#0x80
+      002534 40 9F            [24] 1421 	jc	00112$
+                                   1422 ;	life.c:92: for (y = 0; y < H; y++)
+      002536 90 88 06         [24] 1423 	mov	dptr,#_y
+      002539 E0               [24] 1424 	movx	a,@dptr
+      00253A 24 01            [12] 1425 	add	a,#0x01
+      00253C F0               [24] 1426 	movx	@dptr,a
+      00253D A3               [24] 1427 	inc	dptr
+      00253E E0               [24] 1428 	movx	a,@dptr
+      00253F 34 00            [12] 1429 	addc	a,#0x00
+      002541 F0               [24] 1430 	movx	@dptr,a
+      002542 90 88 06         [24] 1431 	mov	dptr,#_y
+      002545 E0               [24] 1432 	movx	a,@dptr
+      002546 FE               [12] 1433 	mov	r6,a
+      002547 A3               [24] 1434 	inc	dptr
+      002548 E0               [24] 1435 	movx	a,@dptr
+      002549 FF               [12] 1436 	mov	r7,a
+      00254A C3               [12] 1437 	clr	c
+      00254B EE               [12] 1438 	mov	a,r6
+      00254C 94 20            [12] 1439 	subb	a,#0x20
+      00254E EF               [12] 1440 	mov	a,r7
+      00254F 64 80            [12] 1441 	xrl	a,#0x80
+      002551 94 80            [12] 1442 	subb	a,#0x80
+      002553 50 03            [24] 1443 	jnc	00160$
+      002555 02 24 CE         [24] 1444 	ljmp	00114$
+      002558                       1445 00160$:
+                                   1446 ;	life.c:97: printf("RDY\n\r");
+      002558 74 2A            [12] 1447 	mov	a,#___str_5
+      00255A C0 E0            [24] 1448 	push	acc
+      00255C 74 3A            [12] 1449 	mov	a,#(___str_5 >> 8)
+      00255E C0 E0            [24] 1450 	push	acc
+      002560 74 80            [12] 1451 	mov	a,#0x80
+      002562 C0 E0            [24] 1452 	push	acc
+      002564 12 26 2C         [24] 1453 	lcall	_printf
+      002567 15 81            [12] 1454 	dec	sp
+      002569 15 81            [12] 1455 	dec	sp
+      00256B 15 81            [12] 1456 	dec	sp
+                                   1457 ;	life.c:98: (void)getchar();
+      00256D 12 20 7A         [24] 1458 	lcall	_getchar
+                                   1459 ;	life.c:100: population = 0;
+      002570 90 88 0E         [24] 1460 	mov	dptr,#_population
+      002573 E4               [12] 1461 	clr	a
+      002574 F0               [24] 1462 	movx	@dptr,a
+      002575 A3               [24] 1463 	inc	dptr
+      002576 F0               [24] 1464 	movx	@dptr,a
+                                   1465 ;	life.c:102: i1 = 0;
+      002577 90 80 02         [24] 1466 	mov	dptr,#_i1
+      00257A F0               [24] 1467 	movx	@dptr,a
+      00257B A3               [24] 1468 	inc	dptr
+      00257C F0               [24] 1469 	movx	@dptr,a
+                                   1470 ;	life.c:103: while (!i0 && !i1) {
+      00257D                       1471 00106$:
+      00257D 90 80 00         [24] 1472 	mov	dptr,#_i0
+      002580 E0               [24] 1473 	movx	a,@dptr
+      002581 F5 F0            [12] 1474 	mov	b,a
+      002583 A3               [24] 1475 	inc	dptr
+      002584 E0               [24] 1476 	movx	a,@dptr
+      002585 45 F0            [12] 1477 	orl	a,b
+      002587 60 03            [24] 1478 	jz	00161$
+      002589 02 24 A3         [24] 1479 	ljmp	00109$
+      00258C                       1480 00161$:
+      00258C 90 80 02         [24] 1481 	mov	dptr,#_i1
+      00258F E0               [24] 1482 	movx	a,@dptr
+      002590 F5 F0            [12] 1483 	mov	b,a
+      002592 A3               [24] 1484 	inc	dptr
+      002593 E0               [24] 1485 	movx	a,@dptr
+      002594 45 F0            [12] 1486 	orl	a,b
+      002596 60 03            [24] 1487 	jz	00162$
+      002598 02 24 A3         [24] 1488 	ljmp	00109$
+      00259B                       1489 00162$:
+                                   1490 ;	life.c:104: show();
+      00259B 12 20 AE         [24] 1491 	lcall	_show
+                                   1492 ;	life.c:105: evolve();
+      00259E 12 21 A0         [24] 1493 	lcall	_evolve
+                                   1494 ;	life.c:106: if (fixed) {
+      0025A1 90 88 10         [24] 1495 	mov	dptr,#_fixed
+      0025A4 E0               [24] 1496 	movx	a,@dptr
+      0025A5 F5 F0            [12] 1497 	mov	b,a
+      0025A7 A3               [24] 1498 	inc	dptr
+      0025A8 E0               [24] 1499 	movx	a,@dptr
+      0025A9 45 F0            [12] 1500 	orl	a,b
+      0025AB 60 D0            [24] 1501 	jz	00106$
+                                   1502 ;	life.c:107: printf("DONE\n\r");
+      0025AD 74 30            [12] 1503 	mov	a,#___str_6
+      0025AF C0 E0            [24] 1504 	push	acc
+      0025B1 74 3A            [12] 1505 	mov	a,#(___str_6 >> 8)
+      0025B3 C0 E0            [24] 1506 	push	acc
+      0025B5 74 80            [12] 1507 	mov	a,#0x80
+      0025B7 C0 E0            [24] 1508 	push	acc
+      0025B9 12 26 2C         [24] 1509 	lcall	_printf
+      0025BC 15 81            [12] 1510 	dec	sp
+      0025BE 15 81            [12] 1511 	dec	sp
+      0025C0 15 81            [12] 1512 	dec	sp
+                                   1513 ;	life.c:108: (void)getchar();
+      0025C2 12 20 7A         [24] 1514 	lcall	_getchar
+                                   1515 ;	life.c:109: break;
+      0025C5 02 24 A3         [24] 1516 	ljmp	00109$
+      0025C8                       1517 00111$:
+                                   1518 ;	life.c:114: EA = 0;
+                                   1519 ;	assignBit
+      0025C8 C2 AF            [12] 1520 	clr	_EA
+                                   1521 ;	life.c:116: printf("TERM\n\r");
+      0025CA 74 37            [12] 1522 	mov	a,#___str_7
+      0025CC C0 E0            [24] 1523 	push	acc
+      0025CE 74 3A            [12] 1524 	mov	a,#(___str_7 >> 8)
+      0025D0 C0 E0            [24] 1525 	push	acc
+      0025D2 74 80            [12] 1526 	mov	a,#0x80
+      0025D4 C0 E0            [24] 1527 	push	acc
+      0025D6 12 26 2C         [24] 1528 	lcall	_printf
+      0025D9 15 81            [12] 1529 	dec	sp
+      0025DB 15 81            [12] 1530 	dec	sp
+      0025DD 15 81            [12] 1531 	dec	sp
+                                   1532 ;	life.c:117: (void)getchar();
+      0025DF 12 20 7A         [24] 1533 	lcall	_getchar
+                                   1534 ;	life.c:121: __endasm;
+      0025E2 02 00 00         [24] 1535 	ljmp	0
+                                   1536 ;	life.c:122: }
+      0025E5 22               [24] 1537 	ret
+                                   1538 	.area CSEG    (CODE)
+                                   1539 	.area CONST   (CODE)
+                                   1540 	.area CONST   (CODE)
+      0039FD                       1541 ___str_0:
+      0039FD 1B                    1542 	.db 0x1b
+      0039FE 5B 32 4A              1543 	.ascii "[2J"
+      003A01 1B                    1544 	.db 0x1b
+      003A02 5B 6D 25 30 34 78     1545 	.ascii "[m%04x"
+      003A08 0D                    1546 	.db 0x0d
+      003A09 0A                    1547 	.db 0x0a
+      003A0A 00                    1548 	.db 0x00
                                    1549 	.area CSEG    (CODE)
                                    1550 	.area CONST   (CODE)
-      0039FA                       1551 ___str_6:
-      0039FA 44 4F 4E 45           1552 	.ascii "DONE"
-      0039FE 0A                    1553 	.db 0x0a
-      0039FF 0D                    1554 	.db 0x0d
-      003A00 00                    1555 	.db 0x00
-                                   1556 	.area CSEG    (CODE)
-                                   1557 	.area XINIT   (CODE)
-                                   1558 	.area CABS    (ABS,CODE)
+      003A0B                       1551 ___str_1:
+      003A0B 1B                    1552 	.db 0x1b
+      003A0C 5B 30 31 6D 5B 5D     1553 	.ascii "[01m[]"
+      003A12 1B                    1554 	.db 0x1b
+      003A13 5B 6D                 1555 	.ascii "[m"
+      003A15 00                    1556 	.db 0x00
+                                   1557 	.area CSEG    (CODE)
+                                   1558 	.area CONST   (CODE)
+      003A16                       1559 ___str_2:
+      003A16 20 20                 1560 	.ascii "  "
+      003A18 00                    1561 	.db 0x00
+                                   1562 	.area CSEG    (CODE)
+                                   1563 	.area CONST   (CODE)
+      003A19                       1564 ___str_3:
+      003A19 0D                    1565 	.db 0x0d
+      003A1A 0A                    1566 	.db 0x0a
+      003A1B 00                    1567 	.db 0x00
+                                   1568 	.area CSEG    (CODE)
+                                   1569 	.area CONST   (CODE)
+      003A1C                       1570 ___str_4:
+      003A1C 1B                    1571 	.db 0x1b
+      003A1D 5B 32 4A              1572 	.ascii "[2J"
+      003A20 1B                    1573 	.db 0x1b
+      003A21 5B 6D 49 4E 49 54     1574 	.ascii "[mINIT"
+      003A27 0A                    1575 	.db 0x0a
+      003A28 0D                    1576 	.db 0x0d
+      003A29 00                    1577 	.db 0x00
+                                   1578 	.area CSEG    (CODE)
+                                   1579 	.area CONST   (CODE)
+      003A2A                       1580 ___str_5:
+      003A2A 52 44 59              1581 	.ascii "RDY"
+      003A2D 0A                    1582 	.db 0x0a
+      003A2E 0D                    1583 	.db 0x0d
+      003A2F 00                    1584 	.db 0x00
+                                   1585 	.area CSEG    (CODE)
+                                   1586 	.area CONST   (CODE)
+      003A30                       1587 ___str_6:
+      003A30 44 4F 4E 45           1588 	.ascii "DONE"
+      003A34 0A                    1589 	.db 0x0a
+      003A35 0D                    1590 	.db 0x0d
+      003A36 00                    1591 	.db 0x00
+                                   1592 	.area CSEG    (CODE)
+                                   1593 	.area CONST   (CODE)
+      003A37                       1594 ___str_7:
+      003A37 54 45 52 4D           1595 	.ascii "TERM"
+      003A3B 0A                    1596 	.db 0x0a
+      003A3C 0D                    1597 	.db 0x0d
+      003A3D 00                    1598 	.db 0x00
+                                   1599 	.area CSEG    (CODE)
+                                   1600 	.area XINIT   (CODE)
+                                   1601 	.area CABS    (ABS,CODE)

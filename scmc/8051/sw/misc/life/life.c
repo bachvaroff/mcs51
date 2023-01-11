@@ -12,7 +12,7 @@ int putchar(int c) __naked {
 	__endasm;
 }
 
-int getchar(void) __naked {
+int getchar(void) {
 	__asm
 		lcall pm2_entry_cin
 		clr dph
@@ -23,17 +23,18 @@ int getchar(void) __naked {
 #define H 32
 #define W 32
 
+int i0, i1;
 char u[H][W], nu[H][W];
 int x, y, x1, y1, n;
 int population, fixed;
-int i0, i1;
 int c;
 
 void int0(void) __interrupt 0 __using 1 {
 	i0 = 1;
 }
 
-void int1(void) __interrupt 1 __using 1 {
+
+void int1(void) __interrupt 2 __using 1 {
 	i1 = 1;
 }
 
@@ -81,11 +82,9 @@ void main(void) {
 	i0 = i1 = 0;
 	
 	IT0 = 1;
-	EX0 = 1;
-		
 	IT1 = 1;
+	EX0 = 1;
 	EX1 = 1;
-	
 	EA = 1;
 	
 	while (!i0) {
@@ -100,7 +99,8 @@ void main(void) {
 		
 		population = 0;
 		
-		while (!i1) {
+		i1 = 0;
+		while (!i0 && !i1) {
 			show();
 			evolve();
 			if (fixed) {
@@ -112,6 +112,9 @@ void main(void) {
 	}
 	
 	EA = 0;
+	
+	printf("TERM\n\r");
+	(void)getchar();
 	
 	__asm
 		ljmp 0

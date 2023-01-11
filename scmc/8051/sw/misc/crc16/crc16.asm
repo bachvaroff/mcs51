@@ -399,18 +399,25 @@ _putchar:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	crc16.c:15: int getchar(void) __naked {
+;	crc16.c:15: int getchar(void) {
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
 _getchar:
-;	naked function: no prologue.
+	ar7 = 0x07
+	ar6 = 0x06
+	ar5 = 0x05
+	ar4 = 0x04
+	ar3 = 0x03
+	ar2 = 0x02
+	ar1 = 0x01
+	ar0 = 0x00
 ;	crc16.c:20: __endasm;
 	lcall	0x0032
 	clr	dph
 	mov	dpl, a
 ;	crc16.c:21: }
-;	naked function: no epilogue.
+	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'int0'
 ;------------------------------------------------------------

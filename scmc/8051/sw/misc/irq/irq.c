@@ -12,7 +12,7 @@ int putchar(int c) __naked {
 	__endasm;
 }
 
-int getchar(void) __naked {
+int getchar(void) {
 	__asm
 		lcall pm2_entry_cin
 		clr dph
