@@ -24,9 +24,9 @@ int getchar(void) {
 #define W 32
 
 int i0, i1;
-char u[H][W], nu[H][W];
+char pu[H][W], u[H][W], nu[H][W];
 int x, y, x1, y1, n;
-int generation[4], j, fixed;
+int generation[4], j, fixed, cycle2;
 int c;
 
 void int0(void) __interrupt 0 __using 1 {
@@ -81,6 +81,11 @@ inline void show(void) {
 
 inline void evolve(void) {
 	fixed = 1;
+	cycle2 = 1;
+	
+	for (y = 0; y < H; y++)
+		for (x = 0; x < W; x++)
+			pu[y][x] = u[y][x];
 	
 	for (y = 0; y < H; y++) {
 		for (x = 0; x < W; x++) {
@@ -96,11 +101,14 @@ inline void evolve(void) {
 	}
 	
 	for (y = 0; y < H; y++)
-		for (x = 0; x < W; x++)
+		for (x = 0; x < W; x++) {
+			if (pu[y][x] != nu[y][x])
+				cycle2 = 0;
 			if (u[y][x] != nu[y][x]) {
 				u[y][x] = nu[y][x];
 				fixed = 0;
 			}
+		}
 	
 	return;
 }
@@ -130,7 +138,7 @@ void main(void) {
 		while (!i0 && !i1) {
 			show();
 			evolve();
-			if (fixed) {
+			if (fixed || cycle2) {
 				printf("DONE\n\r");
 				(void)getchar();
 				break;

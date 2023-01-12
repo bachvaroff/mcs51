@@ -66,8 +66,8 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   0000081C  l_XSEG                          
-C:   00001AE8  l_CSEG                          
+C:   00000C1E  l_XSEG                          
+C:   00001BDE  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002019  s_GSINIT0                       
 C:   0000201C  s_GSINIT1                       
@@ -78,11 +78,11 @@ C:   00002072  s_GSFINAL
 C:   00002072  s_GSINIT                        
 C:   00002072  s_GSINIT5                       
 C:   00002075  s_CSEG                          
-C:   00003B5D  s_CONST                         
-C:   00003BB0  s_XINIT                         
+C:   00003C53  s_CONST                         
+C:   00003CA6  s_XINIT                         
 C:   00008000  s_PSEG                          
 C:   00008000  s_XSEG                          
-C:   0000881C  s_XISEG                         
+C:   00008C1E  s_XISEG                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -294,24 +294,25 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                00008000    0000081C =        2076. bytes (REL,CON,XDATA)
+XSEG                                00008000    00000C1E =        3102. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 D:   00008000  _i0                                life
 D:   00008002  _i1                                life
-D:   00008004  _u                                 life
-D:   00008404  _nu                                life
-D:   00008804  _x                                 life
-D:   00008806  _y                                 life
-D:   00008808  _x1                                life
-D:   0000880A  _y1                                life
-D:   0000880C  _n                                 life
-D:   0000880E  _generation                        life
-D:   00008816  _j                                 life
-D:   00008818  _fixed                             life
-D:   0000881A  _c                                 life
-
+D:   00008004  _pu                                life
+D:   00008404  _u                                 life
+D:   00008804  _nu                                life
+D:   00008C04  _x                                 life
+D:   00008C06  _y                                 life
+D:   00008C08  _x1                                life
+D:   00008C0A  _y1                                life
+D:   00008C0C  _n                                 life
+D:   00008C0E  _generation                        life
+D:   00008C16  _j                                 life
+D:   00008C18  _fixed                             life
+D:   00008C1A  _cycle2                            life
+D:   00008C1C  _c                                 life
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
 
@@ -380,7 +381,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002075    00001AE8 =        6888. bytes (REL,CON,CODE)
+CSEG                                00002075    00001BDE =        7134. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -389,22 +390,22 @@ C:   0000207A  _getchar                           life
 C:   00002082  _int0                              life
 C:   00002098  _int1                              life
 C:   000020AE  _main                              life
-C:   00002755  _vprintf                           vprintf
-C:   0000278C  _printf                            vprintf
-C:   000027C5  __modsint                          _modsint
-C:   00002833  __moduint                          _moduint
-C:   000028B2  __sdcc_external_startup            _startup
-C:   000029E3  __print_format                     printf_large
-C:   00003A8B  __mulint                           _mulint
-C:   00003B29  _strlen                            _strlen
-C:   00003B41  __gptrget                          _gptrget
+C:   0000284B  _vprintf                           vprintf
+C:   00002882  _printf                            vprintf
+C:   000028BB  __modsint                          _modsint
+C:   00002929  __moduint                          _moduint
+C:   000029A8  __sdcc_external_startup            _startup
+C:   00002AD9  __print_format                     printf_large
+C:   00003B81  __mulint                           _mulint
+C:   00003C1F  _strlen                            _strlen
+C:   00003C37  __gptrget                          _gptrget
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003B5D    00000053 =          83. bytes (REL,CON,CODE)
+CONST                               00003C53    00000053 =          83. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
