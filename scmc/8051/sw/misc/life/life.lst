@@ -664,7 +664,7 @@
       0000C6 64 80            [12]  664 	xrl	a,#0x80
       0000C8 94 80            [12]  665 	subb	a,#0x80
       0000CA 40 8B            [24]  666 	jc	00147$
-                                    667 ;	life.c:137: printf("\033[2J\033[mINIT\n\r");
+                                    667 ;	life.c:137: printf("\033[2J\033[mINIT\r\n");
       0000CC 74r1E            [12]  668 	mov	a,#___str_5
       0000CE C0 E0            [24]  669 	push	acc
       0000D0 74s00            [12]  670 	mov	a,#(___str_5 >> 8)
@@ -785,7 +785,7 @@
       00016D 50 03            [24]  785 	jnc	00368$
       00016F 02r00rE8         [24]  786 	ljmp	00151$
       000172                        787 00368$:
-                                    788 ;	life.c:140: printf("RDY\n\r");
+                                    788 ;	life.c:140: printf("RDY\r\n");
       000172 74r2C            [12]  789 	mov	a,#___str_6
       000174 C0 E0            [24]  790 	push	acc
       000176 74s00            [12]  791 	mov	a,#(___str_6 >> 8)
@@ -1943,7 +1943,7 @@
       000789 02r01rCC         [24] 1943 	ljmp	00179$
       00078C                       1944 00399$:
       00078C                       1945 00101$:
-                                   1946 ;	life.c:149: printf("DONE\n\r");
+                                   1946 ;	life.c:149: printf("DONE\r\n");
       00078C 74r32            [12] 1947 	mov	a,#___str_7
       00078E C0 E0            [24] 1948 	push	acc
       000790 74s00            [12] 1949 	mov	a,#(___str_7 >> 8)
@@ -1966,7 +1966,7 @@
       0007AB E0               [24] 1966 	movx	a,@dptr
       0007AC 45 F0            [12] 1967 	orl	a,b
       0007AE 60 18            [24] 1968 	jz	00182$
-                                   1969 ;	life.c:156: printf("BREAK\n\r");
+                                   1969 ;	life.c:156: printf("BREAK\r\n");
       0007B0 74r39            [12] 1970 	mov	a,#___str_8
       0007B2 C0 E0            [24] 1971 	push	acc
       0007B4 74s00            [12] 1972 	mov	a,#(___str_8 >> 8)
@@ -1993,7 +1993,7 @@
                                    1993 ;	life.c:161: EA = 0;
                                    1994 ;	assignBit
       0007D7 C2 AF            [12] 1995 	clr	_EA
-                                   1996 ;	life.c:163: printf("TERM\n\r");
+                                   1996 ;	life.c:163: printf("TERM\r\n");
       0007D9 74r41            [12] 1997 	mov	a,#___str_9
       0007DB C0 E0            [24] 1998 	push	acc
       0007DD 74s00            [12] 1999 	mov	a,#(___str_9 >> 8)
@@ -2050,36 +2050,36 @@
       00001F 5B 32 4A              2050 	.ascii "[2J"
       000022 1B                    2051 	.db 0x1b
       000023 5B 6D 49 4E 49 54     2052 	.ascii "[mINIT"
-      000029 0A                    2053 	.db 0x0a
-      00002A 0D                    2054 	.db 0x0d
+      000029 0D                    2053 	.db 0x0d
+      00002A 0A                    2054 	.db 0x0a
       00002B 00                    2055 	.db 0x00
                                    2056 	.area CSEG    (CODE)
                                    2057 	.area CONST   (CODE)
       00002C                       2058 ___str_6:
       00002C 52 44 59              2059 	.ascii "RDY"
-      00002F 0A                    2060 	.db 0x0a
-      000030 0D                    2061 	.db 0x0d
+      00002F 0D                    2060 	.db 0x0d
+      000030 0A                    2061 	.db 0x0a
       000031 00                    2062 	.db 0x00
                                    2063 	.area CSEG    (CODE)
                                    2064 	.area CONST   (CODE)
       000032                       2065 ___str_7:
       000032 44 4F 4E 45           2066 	.ascii "DONE"
-      000036 0A                    2067 	.db 0x0a
-      000037 0D                    2068 	.db 0x0d
+      000036 0D                    2067 	.db 0x0d
+      000037 0A                    2068 	.db 0x0a
       000038 00                    2069 	.db 0x00
                                    2070 	.area CSEG    (CODE)
                                    2071 	.area CONST   (CODE)
       000039                       2072 ___str_8:
       000039 42 52 45 41 4B        2073 	.ascii "BREAK"
-      00003E 0A                    2074 	.db 0x0a
-      00003F 0D                    2075 	.db 0x0d
+      00003E 0D                    2074 	.db 0x0d
+      00003F 0A                    2075 	.db 0x0a
       000040 00                    2076 	.db 0x00
                                    2077 	.area CSEG    (CODE)
                                    2078 	.area CONST   (CODE)
       000041                       2079 ___str_9:
       000041 54 45 52 4D           2080 	.ascii "TERM"
-      000045 0A                    2081 	.db 0x0a
-      000046 0D                    2082 	.db 0x0d
+      000045 0D                    2081 	.db 0x0d
+      000046 0A                    2082 	.db 0x0a
       000047 00                    2083 	.db 0x00
                                    2084 	.area CSEG    (CODE)
                                    2085 	.area XINIT   (CODE)

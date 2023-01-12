@@ -664,7 +664,7 @@ _main:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jc	00147$
-;	life.c:137: printf("\033[2J\033[mINIT\n\r");
+;	life.c:137: printf("\033[2J\033[mINIT\r\n");
 	mov	a,#___str_5
 	push	acc
 	mov	a,#(___str_5 >> 8)
@@ -785,7 +785,7 @@ _main:
 	jnc	00368$
 	ljmp	00151$
 00368$:
-;	life.c:140: printf("RDY\n\r");
+;	life.c:140: printf("RDY\r\n");
 	mov	a,#___str_6
 	push	acc
 	mov	a,#(___str_6 >> 8)
@@ -1943,7 +1943,7 @@ _main:
 	ljmp	00179$
 00399$:
 00101$:
-;	life.c:149: printf("DONE\n\r");
+;	life.c:149: printf("DONE\r\n");
 	mov	a,#___str_7
 	push	acc
 	mov	a,#(___str_7 >> 8)
@@ -1966,7 +1966,7 @@ _main:
 	movx	a,@dptr
 	orl	a,b
 	jz	00182$
-;	life.c:156: printf("BREAK\n\r");
+;	life.c:156: printf("BREAK\r\n");
 	mov	a,#___str_8
 	push	acc
 	mov	a,#(___str_8 >> 8)
@@ -1993,7 +1993,7 @@ _main:
 ;	life.c:161: EA = 0;
 ;	assignBit
 	clr	_EA
-;	life.c:163: printf("TERM\n\r");
+;	life.c:163: printf("TERM\r\n");
 	mov	a,#___str_9
 	push	acc
 	mov	a,#(___str_9 >> 8)
@@ -2050,36 +2050,36 @@ ___str_5:
 	.ascii "[2J"
 	.db 0x1b
 	.ascii "[mINIT"
-	.db 0x0a
 	.db 0x0d
+	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_6:
 	.ascii "RDY"
-	.db 0x0a
 	.db 0x0d
+	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_7:
 	.ascii "DONE"
-	.db 0x0a
 	.db 0x0d
+	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_8:
 	.ascii "BREAK"
-	.db 0x0a
 	.db 0x0d
+	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_9:
 	.ascii "TERM"
-	.db 0x0a
 	.db 0x0d
+	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)

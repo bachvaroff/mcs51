@@ -640,7 +640,7 @@
                                     640 ;	crc16.c:68: CCRCB_FINISH(crc);
       00219D 80 88            [24]  641 	sjmp	00137$
       00219F                        642 00109$:
-                                    643 ;	crc16.c:69: printf("CRC16=0x%04x\n\r", crc);
+                                    643 ;	crc16.c:69: printf("CRC16=0x%04x\r\n", crc);
       00219F C0 03            [24]  644 	push	ar3
       0021A1 C0 04            [24]  645 	push	ar4
       0021A3 74 93            [12]  646 	mov	a,#___str_2
@@ -830,7 +830,7 @@
       0022BA 02 22 08         [24]  830 	ljmp	00142$
                                     831 ;	crc16.c:78: CCRCB_FINISH(crc);
       0022BD                        832 00120$:
-                                    833 ;	crc16.c:79: printf("CRC16=0x%04x\n\r", crc);
+                                    833 ;	crc16.c:79: printf("CRC16=0x%04x\r\n", crc);
       0022BD E5 10            [12]  834 	mov	a,_bp
       0022BF 24 06            [12]  835 	add	a,#0x06
       0022C1 F8               [12]  836 	mov	r0,a
@@ -938,8 +938,8 @@
       003693                        935 ___str_2:
       003693 43 52 43 31 36 3D 30   936 	.ascii "CRC16=0x%04x"
              78 25 30 34 78
-      00369F 0A                     937 	.db 0x0a
-      0036A0 0D                     938 	.db 0x0d
+      00369F 0D                     937 	.db 0x0d
+      0036A0 0A                     938 	.db 0x0a
       0036A1 00                     939 	.db 0x00
                                     940 	.area CSEG    (CODE)
                                     941 	.area CONST   (CODE)

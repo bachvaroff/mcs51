@@ -519,7 +519,7 @@
       0020C8 E0               [24]  519 	movx	a,@dptr
       0020C9 FD               [12]  520 	mov	r5,a
       0020CA 30 E7 28         [24]  521 	jnb	acc.7,00103$
-                                    522 ;	irq.c:48: printf("working %d...\n\r", i);
+                                    522 ;	irq.c:48: printf("working %d...\r\n", i);
       0020CD C0 07            [24]  523 	push	ar7
       0020CF C0 06            [24]  524 	push	ar6
       0020D1 C0 06            [24]  525 	push	ar6
@@ -545,7 +545,7 @@
                                     545 ;	irq.c:51: EA = 0;
                                     546 ;	assignBit
       0020F5 C2 AF            [12]  547 	clr	_EA
-                                    548 ;	irq.c:52: printf("got interrupt %d\n\r", intr);
+                                    548 ;	irq.c:52: printf("got interrupt %d\r\n", intr);
       0020F7 C0 04            [24]  549 	push	ar4
       0020F9 C0 05            [24]  550 	push	ar5
       0020FB 74 51            [12]  551 	mov	a,#___str_1
@@ -570,8 +570,8 @@
       003441                        570 ___str_0:
       003441 77 6F 72 6B 69 6E 67   571 	.ascii "working %d..."
              20 25 64 2E 2E 2E
-      00344E 0A                     572 	.db 0x0a
-      00344F 0D                     573 	.db 0x0d
+      00344E 0D                     572 	.db 0x0d
+      00344F 0A                     573 	.db 0x0a
       003450 00                     574 	.db 0x00
                                     575 	.area CSEG    (CODE)
                                     576 	.area CONST   (CODE)
@@ -579,8 +579,8 @@
       003451 67 6F 74 20 69 6E 74   578 	.ascii "got interrupt %d"
              65 72 72 75 70 74 20
              25 64
-      003461 0A                     579 	.db 0x0a
-      003462 0D                     580 	.db 0x0d
+      003461 0D                     579 	.db 0x0d
+      003462 0A                     580 	.db 0x0a
       003463 00                     581 	.db 0x00
                                     582 	.area CSEG    (CODE)
                                     583 	.area XINIT   (CODE)

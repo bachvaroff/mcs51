@@ -640,7 +640,7 @@ _main:
 ;	crc16.c:68: CCRCB_FINISH(crc);
 	sjmp	00137$
 00109$:
-;	crc16.c:69: printf("CRC16=0x%04x\n\r", crc);
+;	crc16.c:69: printf("CRC16=0x%04x\r\n", crc);
 	push	ar3
 	push	ar4
 	mov	a,#___str_2
@@ -830,7 +830,7 @@ _main:
 	ljmp	00142$
 ;	crc16.c:78: CCRCB_FINISH(crc);
 00120$:
-;	crc16.c:79: printf("CRC16=0x%04x\n\r", crc);
+;	crc16.c:79: printf("CRC16=0x%04x\r\n", crc);
 	mov	a,_bp
 	add	a,#0x06
 	mov	r0,a
@@ -934,8 +934,8 @@ ___str_1:
 	.area CONST   (CODE)
 ___str_2:
 	.ascii "CRC16=0x%04x"
-	.db 0x0a
 	.db 0x0d
+	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

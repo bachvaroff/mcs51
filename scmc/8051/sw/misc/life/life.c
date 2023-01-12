@@ -93,7 +93,7 @@ inline void loadu(void) {
 			c = getchar();
 			u[y][x] = c & 1;
 		}
-			
+	
 	return;
 }
 
@@ -134,10 +134,10 @@ void main(void) {
 	
 	for (i0 = 0; !i0; ) {
 		clearpu();
-		printf("\033[2J\033[mINIT\n\r");
+		printf("\033[2J\033[mINIT\r\n");
 		
 		loadu();
-		printf("RDY\n\r");
+		printf("RDY\r\n");
 		(void)getchar();
 		
 		cleargen();
@@ -146,21 +146,21 @@ void main(void) {
 			show();
 			evolve();
 			if (fixed || cycle2) {
-				printf("DONE\n\r");
+				printf("DONE\r\n");
 				(void)getchar();
 				break;
 			}
 		}
 		
 		if (i1) {
-			printf("BREAK\n\r");
+			printf("BREAK\r\n");
 			(void)getchar();
 		}
 	}
 	
 	EA = 0;
 	
-	printf("TERM\n\r");
+	printf("TERM\r\n");
 	(void)getchar();
 	
 	__asm

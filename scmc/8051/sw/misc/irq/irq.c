@@ -45,11 +45,11 @@ void main(void) {
 	
 	for (i = 0; ; i++) {
 		if (intr >= 0) break;
-		printf("working %d...\n\r", i);
+		printf("working %d...\r\n", i);
 	}
 	
 	EA = 0;
-	printf("got interrupt %d\n\r", intr);
+	printf("got interrupt %d\r\n", intr);
 	(void)getchar();
 	
 	__asm

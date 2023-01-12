@@ -66,7 +66,7 @@ void main(void) {
 		for (off = 0u; off < len; off++)
 			CCRCB(crc, base[off], bitp);
 		CCRCB_FINISH(crc);
-		printf("CRC16=0x%04x\n\r", crc);
+		printf("CRC16=0x%04x\r\n", crc);
 		
 		len = PLEN;
 		while (1) {
@@ -76,7 +76,7 @@ void main(void) {
 			for (off = 0u; off < len; off++)
 				CCRCB(crc, base[off], bitp);
 			CCRCB_FINISH(crc);
-			printf("CRC16=0x%04x\n\r", crc);
+			printf("CRC16=0x%04x\r\n", crc);
 			
 			if (intr) {
 				EA = 0;

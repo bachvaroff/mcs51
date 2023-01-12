@@ -519,7 +519,7 @@ _main:
 	movx	a,@dptr
 	mov	r5,a
 	jnb	acc.7,00103$
-;	irq.c:48: printf("working %d...\n\r", i);
+;	irq.c:48: printf("working %d...\r\n", i);
 	push	ar7
 	push	ar6
 	push	ar6
@@ -545,7 +545,7 @@ _main:
 ;	irq.c:51: EA = 0;
 ;	assignBit
 	clr	_EA
-;	irq.c:52: printf("got interrupt %d\n\r", intr);
+;	irq.c:52: printf("got interrupt %d\r\n", intr);
 	push	ar4
 	push	ar5
 	mov	a,#___str_1
@@ -569,15 +569,15 @@ _main:
 	.area CONST   (CODE)
 ___str_0:
 	.ascii "working %d..."
-	.db 0x0a
 	.db 0x0d
+	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_1:
 	.ascii "got interrupt %d"
-	.db 0x0a
 	.db 0x0d
+	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)

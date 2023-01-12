@@ -664,7 +664,7 @@
       00213B 64 80            [12]  664 	xrl	a,#0x80
       00213D 94 80            [12]  665 	subb	a,#0x80
       00213F 40 8B            [24]  666 	jc	00147$
-                                    667 ;	life.c:137: printf("\033[2J\033[mINIT\n\r");
+                                    667 ;	life.c:137: printf("\033[2J\033[mINIT\r\n");
       002141 74 9F            [12]  668 	mov	a,#___str_5
       002143 C0 E0            [24]  669 	push	acc
       002145 74 3C            [12]  670 	mov	a,#(___str_5 >> 8)
@@ -785,7 +785,7 @@
       0021E2 50 03            [24]  785 	jnc	00368$
       0021E4 02 21 5D         [24]  786 	ljmp	00151$
       0021E7                        787 00368$:
-                                    788 ;	life.c:140: printf("RDY\n\r");
+                                    788 ;	life.c:140: printf("RDY\r\n");
       0021E7 74 AD            [12]  789 	mov	a,#___str_6
       0021E9 C0 E0            [24]  790 	push	acc
       0021EB 74 3C            [12]  791 	mov	a,#(___str_6 >> 8)
@@ -1943,7 +1943,7 @@
       0027FE 02 22 41         [24] 1943 	ljmp	00179$
       002801                       1944 00399$:
       002801                       1945 00101$:
-                                   1946 ;	life.c:149: printf("DONE\n\r");
+                                   1946 ;	life.c:149: printf("DONE\r\n");
       002801 74 B3            [12] 1947 	mov	a,#___str_7
       002803 C0 E0            [24] 1948 	push	acc
       002805 74 3C            [12] 1949 	mov	a,#(___str_7 >> 8)
@@ -1966,7 +1966,7 @@
       002820 E0               [24] 1966 	movx	a,@dptr
       002821 45 F0            [12] 1967 	orl	a,b
       002823 60 18            [24] 1968 	jz	00182$
-                                   1969 ;	life.c:156: printf("BREAK\n\r");
+                                   1969 ;	life.c:156: printf("BREAK\r\n");
       002825 74 BA            [12] 1970 	mov	a,#___str_8
       002827 C0 E0            [24] 1971 	push	acc
       002829 74 3C            [12] 1972 	mov	a,#(___str_8 >> 8)
@@ -1993,7 +1993,7 @@
                                    1993 ;	life.c:161: EA = 0;
                                    1994 ;	assignBit
       00284C C2 AF            [12] 1995 	clr	_EA
-                                   1996 ;	life.c:163: printf("TERM\n\r");
+                                   1996 ;	life.c:163: printf("TERM\r\n");
       00284E 74 C2            [12] 1997 	mov	a,#___str_9
       002850 C0 E0            [24] 1998 	push	acc
       002852 74 3C            [12] 1999 	mov	a,#(___str_9 >> 8)
@@ -2050,36 +2050,36 @@
       003CA0 5B 32 4A              2050 	.ascii "[2J"
       003CA3 1B                    2051 	.db 0x1b
       003CA4 5B 6D 49 4E 49 54     2052 	.ascii "[mINIT"
-      003CAA 0A                    2053 	.db 0x0a
-      003CAB 0D                    2054 	.db 0x0d
+      003CAA 0D                    2053 	.db 0x0d
+      003CAB 0A                    2054 	.db 0x0a
       003CAC 00                    2055 	.db 0x00
                                    2056 	.area CSEG    (CODE)
                                    2057 	.area CONST   (CODE)
       003CAD                       2058 ___str_6:
       003CAD 52 44 59              2059 	.ascii "RDY"
-      003CB0 0A                    2060 	.db 0x0a
-      003CB1 0D                    2061 	.db 0x0d
+      003CB0 0D                    2060 	.db 0x0d
+      003CB1 0A                    2061 	.db 0x0a
       003CB2 00                    2062 	.db 0x00
                                    2063 	.area CSEG    (CODE)
                                    2064 	.area CONST   (CODE)
       003CB3                       2065 ___str_7:
       003CB3 44 4F 4E 45           2066 	.ascii "DONE"
-      003CB7 0A                    2067 	.db 0x0a
-      003CB8 0D                    2068 	.db 0x0d
+      003CB7 0D                    2067 	.db 0x0d
+      003CB8 0A                    2068 	.db 0x0a
       003CB9 00                    2069 	.db 0x00
                                    2070 	.area CSEG    (CODE)
                                    2071 	.area CONST   (CODE)
       003CBA                       2072 ___str_8:
       003CBA 42 52 45 41 4B        2073 	.ascii "BREAK"
-      003CBF 0A                    2074 	.db 0x0a
-      003CC0 0D                    2075 	.db 0x0d
+      003CBF 0D                    2074 	.db 0x0d
+      003CC0 0A                    2075 	.db 0x0a
       003CC1 00                    2076 	.db 0x00
                                    2077 	.area CSEG    (CODE)
                                    2078 	.area CONST   (CODE)
       003CC2                       2079 ___str_9:
       003CC2 54 45 52 4D           2080 	.ascii "TERM"
-      003CC6 0A                    2081 	.db 0x0a
-      003CC7 0D                    2082 	.db 0x0d
+      003CC6 0D                    2081 	.db 0x0d
+      003CC7 0A                    2082 	.db 0x0a
       003CC8 00                    2083 	.db 0x00
                                    2084 	.area CSEG    (CODE)
                                    2085 	.area XINIT   (CODE)
