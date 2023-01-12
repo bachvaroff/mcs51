@@ -82,11 +82,7 @@ inline void show(void) {
 inline void evolve(void) {
 	fixed = 1;
 	cycle2 = 1;
-	
-	for (y = 0; y < H; y++)
-		for (x = 0; x < W; x++)
-			pu[y][x] = u[y][x];
-	
+		
 	for (y = 0; y < H; y++) {
 		for (x = 0; x < W; x++) {
 			n = 0;
@@ -102,12 +98,10 @@ inline void evolve(void) {
 	
 	for (y = 0; y < H; y++)
 		for (x = 0; x < W; x++) {
-			if (pu[y][x] != nu[y][x])
-				cycle2 = 0;
-			if (u[y][x] != nu[y][x]) {
-				u[y][x] = nu[y][x];
-				fixed = 0;
-			}
+			if (pu[y][x] != nu[y][x]) cycle2 = 0;
+			if (u[y][x] != nu[y][x]) fixed = 0;
+			pu[y][x] = u[y][x];
+			u[y][x] = nu[y][x];
 		}
 	
 	return;
@@ -123,6 +117,9 @@ void main(void) {
 	EA = 1;
 	
 	while (!i0) {
+		for (y = 0; y < H; y++)
+			for (x = 0; x < W; x++)
+				pu[y][x] = 0;
 		printf("\033[2J\033[mINIT\n\r");
 		for (y = 0; y < H; y++)
 			for (x = 0; x < W; x++) {
