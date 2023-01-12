@@ -79,6 +79,24 @@ inline void show(void) {
 	return;
 }
 
+inline void clearpu(void) {
+	for (y = 0; y < H; y++)
+		for (x = 0; x < W; x++)
+			pu[y][x] = 0;
+	
+	return;
+}
+
+inline void loadu(void) {
+	for (y = 0; y < H; y++)
+		for (x = 0; x < W; x++) {
+			c = getchar();
+			u[y][x] = c & 1;
+		}
+			
+	return;
+}
+
 inline void evolve(void) {
 	fixed = 1;
 	cycle2 = 1;
@@ -108,31 +126,23 @@ inline void evolve(void) {
 }
 
 void main(void) {
-	i0 = i1 = 0;
-	
 	IT0 = 1;
 	IT1 = 1;
 	EX0 = 1;
 	EX1 = 1;
 	EA = 1;
 	
-	while (!i0) {
-		for (y = 0; y < H; y++)
-			for (x = 0; x < W; x++)
-				pu[y][x] = 0;
+	for (i0 = 0; !i0; ) {
+		clearpu();
 		printf("\033[2J\033[mINIT\n\r");
-		for (y = 0; y < H; y++)
-			for (x = 0; x < W; x++) {
-				c = getchar();
-				u[y][x] = c & 1;
-			}
+		
+		loadu();
 		printf("RDY\n\r");
 		(void)getchar();
 		
 		cleargen();
 		
-		i1 = 0;
-		while (!i0 && !i1) {
+		for (i1 = 0; !i0 && !i1; ) {
 			show();
 			evolve();
 			if (fixed || cycle2) {
@@ -141,6 +151,7 @@ void main(void) {
 				break;
 			}
 		}
+		
 		if (i1) {
 			printf("BREAK\n\r");
 			(void)getchar();
