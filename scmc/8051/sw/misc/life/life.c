@@ -12,11 +12,12 @@ int putchar(int c) __naked {
 	__endasm;
 }
 
-int getchar(void) {
+int getchar(void) __naked {
 	__asm
 		lcall pm2_entry_cin
-		clr dph
 		mov dpl, a
+		mov dph, #0
+		ret
 	__endasm;
 }
 
@@ -79,20 +80,40 @@ inline void show(void) {
 	return;
 }
 
-inline void clearpu(void) {
+inline void clearu(void) {
 	for (y = 0; y < H; y++)
-		for (x = 0; x < W; x++)
+		for (x = 0; x < W; x++) {
+			u[y][x] = 0;
 			pu[y][x] = 0;
+		}
 	
 	return;
 }
 
 inline void loadu(void) {
+	j = 0;
+	
+	putchar('<');
+	
 	for (y = 0; y < H; y++)
 		for (x = 0; x < W; x++) {
 			c = getchar();
-			u[y][x] = c & 1;
+			if (c == (int)'0') {
+				u[y][x] = 0;
+				j++;
+			} else if (c == (int)'1') {
+				u[y][x] = 1;
+				j++;
+			} else if (c == (int)'#') goto out;
 		}
+	
+out:
+	if (c != (int)'#')
+		while (1) {
+			c = getchar();
+			if (c == (int)'#') break;
+		}
+	printf("%d>\r\n", j);
 	
 	return;
 }
@@ -133,10 +154,15 @@ void main(void) {
 	EA = 1;
 	
 	for (i0 = 0; !i0; ) {
-		clearpu();
+		clearu();
 		printf("\033[2J\033[mINIT\r\n");
+		(void)getchar();
+		
+		printf("LOAD\r\n");
+		(void)getchar();
 		
 		loadu();
+		
 		printf("RDY\r\n");
 		(void)getchar();
 		

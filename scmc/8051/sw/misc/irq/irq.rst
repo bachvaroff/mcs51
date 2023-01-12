@@ -339,11 +339,11 @@
                                     339 	.area HOME    (CODE)
       002000                        340 __interrupt_vect:
       002000 02 20 19         [24]  341 	ljmp	__sdcc_gsinit_startup
-      002003 02 20 82         [24]  342 	ljmp	_int0
+      002003 02 20 83         [24]  342 	ljmp	_int0
       002006                        343 	.ds	5
       00200B 32               [24]  344 	reti
       00200C                        345 	.ds	7
-      002013 02 20 96         [24]  346 	ljmp	_int1
+      002013 02 20 97         [24]  346 	ljmp	_int1
                                     347 ;--------------------------------------------------------
                                     348 ; global & static initialisations
                                     349 ;--------------------------------------------------------
@@ -365,7 +365,7 @@
                                     365 	.area HOME    (CODE)
                                     366 	.area HOME    (CODE)
       002016                        367 __sdcc_program_startup:
-      002016 02 20 AC         [24]  368 	ljmp	_main
+      002016 02 20 AD         [24]  368 	ljmp	_main
                                     369 ;	return from main will return to caller
                                     370 ;--------------------------------------------------------
                                     371 ; code
@@ -390,198 +390,192 @@
                                     390 ;------------------------------------------------------------
                                     391 ;Allocation info for local variables in function 'getchar'
                                     392 ;------------------------------------------------------------
-                                    393 ;	irq.c:15: int getchar(void) {
+                                    393 ;	irq.c:15: int getchar(void) __naked {
                                     394 ;	-----------------------------------------
                                     395 ;	 function getchar
                                     396 ;	-----------------------------------------
       00207A                        397 _getchar:
-                           000007   398 	ar7 = 0x07
-                           000006   399 	ar6 = 0x06
-                           000005   400 	ar5 = 0x05
-                           000004   401 	ar4 = 0x04
-                           000003   402 	ar3 = 0x03
-                           000002   403 	ar2 = 0x02
-                           000001   404 	ar1 = 0x01
-                           000000   405 	ar0 = 0x00
-                                    406 ;	irq.c:20: __endasm;
-      00207A 12 00 32         [24]  407 	lcall	0x0032
-      00207D C2 83            [12]  408 	clr	dph
-      00207F F5 82            [12]  409 	mov	dpl, a
-                                    410 ;	irq.c:21: }
-      002081 22               [24]  411 	ret
-                                    412 ;------------------------------------------------------------
-                                    413 ;Allocation info for local variables in function 'int0'
-                                    414 ;------------------------------------------------------------
-                                    415 ;	irq.c:25: void int0(void) __interrupt 0 __using 1 {
-                                    416 ;	-----------------------------------------
-                                    417 ;	 function int0
-                                    418 ;	-----------------------------------------
-      002082                        419 _int0:
-                           00000F   420 	ar7 = 0x0f
-                           00000E   421 	ar6 = 0x0e
-                           00000D   422 	ar5 = 0x0d
-                           00000C   423 	ar4 = 0x0c
-                           00000B   424 	ar3 = 0x0b
-                           00000A   425 	ar2 = 0x0a
-                           000009   426 	ar1 = 0x09
-                           000008   427 	ar0 = 0x08
-      002082 C0 E0            [24]  428 	push	acc
-      002084 C0 82            [24]  429 	push	dpl
-      002086 C0 83            [24]  430 	push	dph
-                                    431 ;	irq.c:26: intr = 0;
-      002088 90 80 00         [24]  432 	mov	dptr,#_intr
-      00208B E4               [12]  433 	clr	a
-      00208C F0               [24]  434 	movx	@dptr,a
-      00208D A3               [24]  435 	inc	dptr
-      00208E F0               [24]  436 	movx	@dptr,a
-                                    437 ;	irq.c:27: }
-      00208F D0 83            [24]  438 	pop	dph
-      002091 D0 82            [24]  439 	pop	dpl
-      002093 D0 E0            [24]  440 	pop	acc
-      002095 32               [24]  441 	reti
-                                    442 ;	eliminated unneeded mov psw,# (no regs used in bank)
-                                    443 ;	eliminated unneeded push/pop psw
-                                    444 ;	eliminated unneeded push/pop b
-                                    445 ;------------------------------------------------------------
-                                    446 ;Allocation info for local variables in function 'int1'
-                                    447 ;------------------------------------------------------------
-                                    448 ;	irq.c:29: void int1(void) __interrupt 2 __using 1 {
-                                    449 ;	-----------------------------------------
-                                    450 ;	 function int1
-                                    451 ;	-----------------------------------------
-      002096                        452 _int1:
-      002096 C0 E0            [24]  453 	push	acc
-      002098 C0 82            [24]  454 	push	dpl
-      00209A C0 83            [24]  455 	push	dph
-                                    456 ;	irq.c:30: intr = 1;
-      00209C 90 80 00         [24]  457 	mov	dptr,#_intr
-      00209F 74 01            [12]  458 	mov	a,#0x01
-      0020A1 F0               [24]  459 	movx	@dptr,a
-      0020A2 E4               [12]  460 	clr	a
-      0020A3 A3               [24]  461 	inc	dptr
-      0020A4 F0               [24]  462 	movx	@dptr,a
-                                    463 ;	irq.c:31: }
-      0020A5 D0 83            [24]  464 	pop	dph
-      0020A7 D0 82            [24]  465 	pop	dpl
-      0020A9 D0 E0            [24]  466 	pop	acc
-      0020AB 32               [24]  467 	reti
-                                    468 ;	eliminated unneeded mov psw,# (no regs used in bank)
-                                    469 ;	eliminated unneeded push/pop psw
-                                    470 ;	eliminated unneeded push/pop b
-                                    471 ;------------------------------------------------------------
-                                    472 ;Allocation info for local variables in function 'main'
-                                    473 ;------------------------------------------------------------
-                                    474 ;i                         Allocated to registers r6 r7 
-                                    475 ;------------------------------------------------------------
-                                    476 ;	irq.c:33: void main(void) {
-                                    477 ;	-----------------------------------------
-                                    478 ;	 function main
-                                    479 ;	-----------------------------------------
-      0020AC                        480 _main:
-                           000007   481 	ar7 = 0x07
-                           000006   482 	ar6 = 0x06
-                           000005   483 	ar5 = 0x05
-                           000004   484 	ar4 = 0x04
-                           000003   485 	ar3 = 0x03
-                           000002   486 	ar2 = 0x02
-                           000001   487 	ar1 = 0x01
-                           000000   488 	ar0 = 0x00
-                                    489 ;	irq.c:36: intr = -1;
-      0020AC 90 80 00         [24]  490 	mov	dptr,#_intr
-      0020AF 74 FF            [12]  491 	mov	a,#0xff
-      0020B1 F0               [24]  492 	movx	@dptr,a
-      0020B2 A3               [24]  493 	inc	dptr
-      0020B3 F0               [24]  494 	movx	@dptr,a
-                                    495 ;	irq.c:39: IT0 = 1;
+                                    398 ;	naked function: no prologue.
+                                    399 ;	irq.c:21: __endasm;
+      00207A 12 00 32         [24]  400 	lcall	0x0032
+      00207D F5 82            [12]  401 	mov	dpl, a
+      00207F 75 83 00         [24]  402 	mov	dph, #0
+      002082 22               [24]  403 	ret
+                                    404 ;	irq.c:22: }
+                                    405 ;	naked function: no epilogue.
+                                    406 ;------------------------------------------------------------
+                                    407 ;Allocation info for local variables in function 'int0'
+                                    408 ;------------------------------------------------------------
+                                    409 ;	irq.c:26: void int0(void) __interrupt 0 __using 1 {
+                                    410 ;	-----------------------------------------
+                                    411 ;	 function int0
+                                    412 ;	-----------------------------------------
+      002083                        413 _int0:
+                           00000F   414 	ar7 = 0x0f
+                           00000E   415 	ar6 = 0x0e
+                           00000D   416 	ar5 = 0x0d
+                           00000C   417 	ar4 = 0x0c
+                           00000B   418 	ar3 = 0x0b
+                           00000A   419 	ar2 = 0x0a
+                           000009   420 	ar1 = 0x09
+                           000008   421 	ar0 = 0x08
+      002083 C0 E0            [24]  422 	push	acc
+      002085 C0 82            [24]  423 	push	dpl
+      002087 C0 83            [24]  424 	push	dph
+                                    425 ;	irq.c:27: intr = 0;
+      002089 90 80 00         [24]  426 	mov	dptr,#_intr
+      00208C E4               [12]  427 	clr	a
+      00208D F0               [24]  428 	movx	@dptr,a
+      00208E A3               [24]  429 	inc	dptr
+      00208F F0               [24]  430 	movx	@dptr,a
+                                    431 ;	irq.c:28: }
+      002090 D0 83            [24]  432 	pop	dph
+      002092 D0 82            [24]  433 	pop	dpl
+      002094 D0 E0            [24]  434 	pop	acc
+      002096 32               [24]  435 	reti
+                                    436 ;	eliminated unneeded mov psw,# (no regs used in bank)
+                                    437 ;	eliminated unneeded push/pop psw
+                                    438 ;	eliminated unneeded push/pop b
+                                    439 ;------------------------------------------------------------
+                                    440 ;Allocation info for local variables in function 'int1'
+                                    441 ;------------------------------------------------------------
+                                    442 ;	irq.c:30: void int1(void) __interrupt 2 __using 1 {
+                                    443 ;	-----------------------------------------
+                                    444 ;	 function int1
+                                    445 ;	-----------------------------------------
+      002097                        446 _int1:
+      002097 C0 E0            [24]  447 	push	acc
+      002099 C0 82            [24]  448 	push	dpl
+      00209B C0 83            [24]  449 	push	dph
+                                    450 ;	irq.c:31: intr = 1;
+      00209D 90 80 00         [24]  451 	mov	dptr,#_intr
+      0020A0 74 01            [12]  452 	mov	a,#0x01
+      0020A2 F0               [24]  453 	movx	@dptr,a
+      0020A3 E4               [12]  454 	clr	a
+      0020A4 A3               [24]  455 	inc	dptr
+      0020A5 F0               [24]  456 	movx	@dptr,a
+                                    457 ;	irq.c:32: }
+      0020A6 D0 83            [24]  458 	pop	dph
+      0020A8 D0 82            [24]  459 	pop	dpl
+      0020AA D0 E0            [24]  460 	pop	acc
+      0020AC 32               [24]  461 	reti
+                                    462 ;	eliminated unneeded mov psw,# (no regs used in bank)
+                                    463 ;	eliminated unneeded push/pop psw
+                                    464 ;	eliminated unneeded push/pop b
+                                    465 ;------------------------------------------------------------
+                                    466 ;Allocation info for local variables in function 'main'
+                                    467 ;------------------------------------------------------------
+                                    468 ;i                         Allocated to registers r6 r7 
+                                    469 ;------------------------------------------------------------
+                                    470 ;	irq.c:34: void main(void) {
+                                    471 ;	-----------------------------------------
+                                    472 ;	 function main
+                                    473 ;	-----------------------------------------
+      0020AD                        474 _main:
+                           000007   475 	ar7 = 0x07
+                           000006   476 	ar6 = 0x06
+                           000005   477 	ar5 = 0x05
+                           000004   478 	ar4 = 0x04
+                           000003   479 	ar3 = 0x03
+                           000002   480 	ar2 = 0x02
+                           000001   481 	ar1 = 0x01
+                           000000   482 	ar0 = 0x00
+                                    483 ;	irq.c:37: intr = -1;
+      0020AD 90 80 00         [24]  484 	mov	dptr,#_intr
+      0020B0 74 FF            [12]  485 	mov	a,#0xff
+      0020B2 F0               [24]  486 	movx	@dptr,a
+      0020B3 A3               [24]  487 	inc	dptr
+      0020B4 F0               [24]  488 	movx	@dptr,a
+                                    489 ;	irq.c:40: IT0 = 1;
+                                    490 ;	assignBit
+      0020B5 D2 88            [12]  491 	setb	_IT0
+                                    492 ;	irq.c:41: IT1 = 1;
+                                    493 ;	assignBit
+      0020B7 D2 8A            [12]  494 	setb	_IT1
+                                    495 ;	irq.c:43: EX0 = 1;
                                     496 ;	assignBit
-      0020B4 D2 88            [12]  497 	setb	_IT0
-                                    498 ;	irq.c:40: IT1 = 1;
+      0020B9 D2 A8            [12]  497 	setb	_EX0
+                                    498 ;	irq.c:44: EX1 = 1;
                                     499 ;	assignBit
-      0020B6 D2 8A            [12]  500 	setb	_IT1
-                                    501 ;	irq.c:42: EX0 = 1;
+      0020BB D2 AA            [12]  500 	setb	_EX1
+                                    501 ;	irq.c:45: EA = 1;
                                     502 ;	assignBit
-      0020B8 D2 A8            [12]  503 	setb	_EX0
-                                    504 ;	irq.c:43: EX1 = 1;
-                                    505 ;	assignBit
-      0020BA D2 AA            [12]  506 	setb	_EX1
-                                    507 ;	irq.c:44: EA = 1;
-                                    508 ;	assignBit
-      0020BC D2 AF            [12]  509 	setb	_EA
-                                    510 ;	irq.c:46: for (i = 0; ; i++) {
-      0020BE 7E 00            [12]  511 	mov	r6,#0x00
-      0020C0 7F 00            [12]  512 	mov	r7,#0x00
-      0020C2                        513 00104$:
-                                    514 ;	irq.c:47: if (intr >= 0) break;
-      0020C2 90 80 00         [24]  515 	mov	dptr,#_intr
-      0020C5 E0               [24]  516 	movx	a,@dptr
-      0020C6 FC               [12]  517 	mov	r4,a
-      0020C7 A3               [24]  518 	inc	dptr
-      0020C8 E0               [24]  519 	movx	a,@dptr
-      0020C9 FD               [12]  520 	mov	r5,a
-      0020CA 30 E7 28         [24]  521 	jnb	acc.7,00103$
-                                    522 ;	irq.c:48: printf("working %d...\r\n", i);
-      0020CD C0 07            [24]  523 	push	ar7
-      0020CF C0 06            [24]  524 	push	ar6
-      0020D1 C0 06            [24]  525 	push	ar6
-      0020D3 C0 07            [24]  526 	push	ar7
-      0020D5 74 41            [12]  527 	mov	a,#___str_0
-      0020D7 C0 E0            [24]  528 	push	acc
-      0020D9 74 34            [12]  529 	mov	a,#(___str_0 >> 8)
-      0020DB C0 E0            [24]  530 	push	acc
-      0020DD 74 80            [12]  531 	mov	a,#0x80
-      0020DF C0 E0            [24]  532 	push	acc
-      0020E1 12 21 5D         [24]  533 	lcall	_printf
-      0020E4 E5 81            [12]  534 	mov	a,sp
-      0020E6 24 FB            [12]  535 	add	a,#0xfb
-      0020E8 F5 81            [12]  536 	mov	sp,a
-      0020EA D0 06            [24]  537 	pop	ar6
-      0020EC D0 07            [24]  538 	pop	ar7
-                                    539 ;	irq.c:46: for (i = 0; ; i++) {
-      0020EE 0E               [12]  540 	inc	r6
-      0020EF BE 00 D0         [24]  541 	cjne	r6,#0x00,00104$
-      0020F2 0F               [12]  542 	inc	r7
-      0020F3 80 CD            [24]  543 	sjmp	00104$
-      0020F5                        544 00103$:
-                                    545 ;	irq.c:51: EA = 0;
-                                    546 ;	assignBit
-      0020F5 C2 AF            [12]  547 	clr	_EA
-                                    548 ;	irq.c:52: printf("got interrupt %d\r\n", intr);
-      0020F7 C0 04            [24]  549 	push	ar4
-      0020F9 C0 05            [24]  550 	push	ar5
-      0020FB 74 51            [12]  551 	mov	a,#___str_1
-      0020FD C0 E0            [24]  552 	push	acc
-      0020FF 74 34            [12]  553 	mov	a,#(___str_1 >> 8)
-      002101 C0 E0            [24]  554 	push	acc
-      002103 74 80            [12]  555 	mov	a,#0x80
-      002105 C0 E0            [24]  556 	push	acc
-      002107 12 21 5D         [24]  557 	lcall	_printf
-      00210A E5 81            [12]  558 	mov	a,sp
-      00210C 24 FB            [12]  559 	add	a,#0xfb
-      00210E F5 81            [12]  560 	mov	sp,a
-                                    561 ;	irq.c:53: (void)getchar();
-      002110 12 20 7A         [24]  562 	lcall	_getchar
-                                    563 ;	irq.c:57: __endasm;
-      002113 02 00 00         [24]  564 	ljmp	0
-                                    565 ;	irq.c:58: }
-      002116 22               [24]  566 	ret
-                                    567 	.area CSEG    (CODE)
-                                    568 	.area CONST   (CODE)
-                                    569 	.area CONST   (CODE)
-      003441                        570 ___str_0:
-      003441 77 6F 72 6B 69 6E 67   571 	.ascii "working %d..."
+      0020BD D2 AF            [12]  503 	setb	_EA
+                                    504 ;	irq.c:47: for (i = 0; ; i++) {
+      0020BF 7E 00            [12]  505 	mov	r6,#0x00
+      0020C1 7F 00            [12]  506 	mov	r7,#0x00
+      0020C3                        507 00104$:
+                                    508 ;	irq.c:48: if (intr >= 0) break;
+      0020C3 90 80 00         [24]  509 	mov	dptr,#_intr
+      0020C6 E0               [24]  510 	movx	a,@dptr
+      0020C7 FC               [12]  511 	mov	r4,a
+      0020C8 A3               [24]  512 	inc	dptr
+      0020C9 E0               [24]  513 	movx	a,@dptr
+      0020CA FD               [12]  514 	mov	r5,a
+      0020CB 30 E7 28         [24]  515 	jnb	acc.7,00103$
+                                    516 ;	irq.c:49: printf("working %d...\r\n", i);
+      0020CE C0 07            [24]  517 	push	ar7
+      0020D0 C0 06            [24]  518 	push	ar6
+      0020D2 C0 06            [24]  519 	push	ar6
+      0020D4 C0 07            [24]  520 	push	ar7
+      0020D6 74 42            [12]  521 	mov	a,#___str_0
+      0020D8 C0 E0            [24]  522 	push	acc
+      0020DA 74 34            [12]  523 	mov	a,#(___str_0 >> 8)
+      0020DC C0 E0            [24]  524 	push	acc
+      0020DE 74 80            [12]  525 	mov	a,#0x80
+      0020E0 C0 E0            [24]  526 	push	acc
+      0020E2 12 21 5E         [24]  527 	lcall	_printf
+      0020E5 E5 81            [12]  528 	mov	a,sp
+      0020E7 24 FB            [12]  529 	add	a,#0xfb
+      0020E9 F5 81            [12]  530 	mov	sp,a
+      0020EB D0 06            [24]  531 	pop	ar6
+      0020ED D0 07            [24]  532 	pop	ar7
+                                    533 ;	irq.c:47: for (i = 0; ; i++) {
+      0020EF 0E               [12]  534 	inc	r6
+      0020F0 BE 00 D0         [24]  535 	cjne	r6,#0x00,00104$
+      0020F3 0F               [12]  536 	inc	r7
+      0020F4 80 CD            [24]  537 	sjmp	00104$
+      0020F6                        538 00103$:
+                                    539 ;	irq.c:52: EA = 0;
+                                    540 ;	assignBit
+      0020F6 C2 AF            [12]  541 	clr	_EA
+                                    542 ;	irq.c:53: printf("got interrupt %d\r\n", intr);
+      0020F8 C0 04            [24]  543 	push	ar4
+      0020FA C0 05            [24]  544 	push	ar5
+      0020FC 74 52            [12]  545 	mov	a,#___str_1
+      0020FE C0 E0            [24]  546 	push	acc
+      002100 74 34            [12]  547 	mov	a,#(___str_1 >> 8)
+      002102 C0 E0            [24]  548 	push	acc
+      002104 74 80            [12]  549 	mov	a,#0x80
+      002106 C0 E0            [24]  550 	push	acc
+      002108 12 21 5E         [24]  551 	lcall	_printf
+      00210B E5 81            [12]  552 	mov	a,sp
+      00210D 24 FB            [12]  553 	add	a,#0xfb
+      00210F F5 81            [12]  554 	mov	sp,a
+                                    555 ;	irq.c:54: (void)getchar();
+      002111 12 20 7A         [24]  556 	lcall	_getchar
+                                    557 ;	irq.c:58: __endasm;
+      002114 02 00 00         [24]  558 	ljmp	0
+                                    559 ;	irq.c:59: }
+      002117 22               [24]  560 	ret
+                                    561 	.area CSEG    (CODE)
+                                    562 	.area CONST   (CODE)
+                                    563 	.area CONST   (CODE)
+      003442                        564 ___str_0:
+      003442 77 6F 72 6B 69 6E 67   565 	.ascii "working %d..."
              20 25 64 2E 2E 2E
-      00344E 0D                     572 	.db 0x0d
-      00344F 0A                     573 	.db 0x0a
-      003450 00                     574 	.db 0x00
-                                    575 	.area CSEG    (CODE)
-                                    576 	.area CONST   (CODE)
-      003451                        577 ___str_1:
-      003451 67 6F 74 20 69 6E 74   578 	.ascii "got interrupt %d"
+      00344F 0D                     566 	.db 0x0d
+      003450 0A                     567 	.db 0x0a
+      003451 00                     568 	.db 0x00
+                                    569 	.area CSEG    (CODE)
+                                    570 	.area CONST   (CODE)
+      003452                        571 ___str_1:
+      003452 67 6F 74 20 69 6E 74   572 	.ascii "got interrupt %d"
              65 72 72 75 70 74 20
              25 64
-      003461 0D                     579 	.db 0x0d
-      003462 0A                     580 	.db 0x0a
-      003463 00                     581 	.db 0x00
-                                    582 	.area CSEG    (CODE)
-                                    583 	.area XINIT   (CODE)
-                                    584 	.area CABS    (ABS,CODE)
+      003462 0D                     573 	.db 0x0d
+      003463 0A                     574 	.db 0x0a
+      003464 00                     575 	.db 0x00
+                                    576 	.area CSEG    (CODE)
+                                    577 	.area XINIT   (CODE)
+                                    578 	.area CABS    (ABS,CODE)

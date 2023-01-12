@@ -341,10 +341,10 @@ Symbol Table
   F __sdcc_program_startup                                         000016 GR
   7 __start__stack                                                 000000 GR
  18 _getchar                                                       000005 GR
- 18 _int0                                                          00000D GR
- 18 _int1                                                          000021 GR
+ 18 _int0                                                          00000E GR
+ 18 _int1                                                          000022 GR
   C _intr                                                          000000 GR
- 18 _main                                                          000037 GR
+ 18 _main                                                          000038 GR
     _printf                                                        ****** GX
  18 _putchar                                                       000000 GR
     a                                                           =  0000E0 L
@@ -582,7 +582,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size      0   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size     A2   flags   20
+  18 CSEG                                       size     A3   flags   20
   19 CONST                                      size     23   flags   20
   1A XINIT                                      size      0   flags   20
   1B CABS                                       size      0   flags   28
