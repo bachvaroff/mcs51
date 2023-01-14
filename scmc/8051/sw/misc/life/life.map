@@ -66,7 +66,7 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000B6D  l_CSEG                          
+C:   00000BC8  l_CSEG                          
 C:   00000C19  l_XSEG                          
 C:   00002000  s_HOME                          
 C:   00002019  s_GSINIT0                       
@@ -78,8 +78,8 @@ C:   00002072  s_GSFINAL
 C:   00002072  s_GSINIT                        
 C:   00002072  s_GSINIT5                       
 C:   00002075  s_CSEG                          
-C:   00002BE2  s_CONST                         
-C:   00002C38  s_XINIT                         
+C:   00002C3D  s_CONST                         
+C:   00002C93  s_XINIT                         
 C:   00008000  s_PSEG                          
 C:   00008000  s_XSEG                          
 C:   00008C19  s_XISEG                         
@@ -93,7 +93,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000000  .__.ABS.                           _startup
+     00000000  .__.ABS.                           _gptrput
      00000080  _P0                                life
      00000080  _P0_0                              life
      00000081  _P0_1                              life
@@ -236,9 +236,9 @@ Area                                    Addr        Size        Decimal Bytes (A
      000000E0  _A                                 life
      000000E0  _ACC                               life
      000000F0  _B                                 life
-     000000F5  _B_5                               _gptrget
-     000000F6  _B_6                               _gptrget
-     000000F7  _B_7                               _gptrget
+     000000F5  _B_5                               _gptrput
+     000000F6  _B_6                               _gptrput
+     000000F7  _B_7                               _gptrput
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
@@ -381,7 +381,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002075    00000B6D =        2925. bytes (REL,CON,CODE)
+CSEG                                00002075    00000BC8 =        3016. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -389,17 +389,22 @@ C:   00002075  _putchar                           life
 C:   0000207A  _getchar                           life
 C:   00002083  _int0                              life
 C:   00002096  _int1                              life
-C:   000020A9  _main                              life
-C:   00002AD5  __gptrget                          _gptrget
-C:   00002AF1  __modsint                          _modsint
-C:   00002B5F  __moduint                          _moduint
-C:   00002BDE  __sdcc_external_startup            _startup
+C:   000020A9  _show                              life
+C:   0000235D  _main                              life
+C:   00002A18  ___memcpy                          __memcpy
+C:   00002AAB  _memset                            _memset
+C:   00002B15  __gptrget                          _gptrget
+C:   00002B31  __modsint                          _modsint
+C:   00002B9F  __moduint                          _moduint
+C:   00002C1E  __sdcc_external_startup            _startup
+C:   00002C22  __gptrput                          _gptrput
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00002BE2    00000056 =          86. bytes (REL,CON,CODE)
+CONST                               00002C3D    00000056 =          86. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -419,6 +424,10 @@ Libraries Linked                          [ object file ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/mcs51.lib
                                           [ crtxclear.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
+                                          [ __memcpy.rel ]
+/usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
+                                          [ _memset.rel ]
+/usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
                                           [ _bp.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/mcs51.lib
                                           [ crtpagesfr.rel ]
@@ -432,6 +441,8 @@ Libraries Linked                          [ object file ]
                                           [ _moduint.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
                                           [ _startup.rel ]
+/usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
+                                          [ _gptrput.rel ]
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 

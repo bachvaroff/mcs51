@@ -1,4 +1,5 @@
 #include <mcs51/at89x52.h>
+#include <string.h>
 
 #define pm2_entry_cout 0x0030
 #define pm2_entry_cin 0x0032
@@ -47,13 +48,13 @@ inline void printstr(const char *s) {
 	return;
 }
 
-#define A2D(ARR, COLW, ROW, COL) (*(((ARR) + (ROW) * (COLW) + (COL))))
+#define A2D(COLW, ROW, COL) ((ROW) * (COLW) + (COL))
 
 #define H 32
 #define W 32
 
 char i0, i1;
-char pu[H][W], u[H][W], nu[H][W];
+char pu[H * W], u[H * W], nu[H * W];
 int x, y, x1, y1;
 char n;
 int generation[4];
@@ -94,15 +95,17 @@ inline void printgen(void) {
 	return;
 }
 
-inline void show(void) {
-	printstr("\033[2J\033[m");
-	printgen();
-	printstr("\r\n");
-	updategen();
+void show(char hdr) {
+	if (hdr) {
+		printstr("\033[2J\033[m");
+		printgen();
+		printstr("\r\n");
+		updategen();
+	}
 	
 	for (x = 0; x < W; x++) {
 		for (y = 0; y < H; y++)
-			if (u[y][x]) printstr("[]");
+			if (u[A2D(W, y, x)]) printstr("[]");
 			else printstr("##");
 		printstr("\r\n");
 	}
@@ -111,11 +114,8 @@ inline void show(void) {
 }
 
 inline void clearu(void) {
-	for (y = 0; y < H; y++)
-		for (x = 0; x < W; x++) {
-			u[y][x] = 0;
-			pu[y][x] = 0;
-		}
+	memset(u, 0, sizeof (u));
+	memset(pu, 0, sizeof (pu));
 	
 	return;
 }
@@ -129,10 +129,10 @@ inline void loadu(void) {
 		for (x = 0; x < W; x++) {
 			c = getchar();
 			if (c == (int)'0') {
-				u[y][x] = 0;
+				u[A2D(W, y, x)] = 0;
 				j++;
 			} else if (c == (int)'1') {
-				u[y][x] = 1;
+				u[A2D(W, y, x)] = 1;
 				j++;
 			} else if (c == (int)'#') goto out;
 		}
@@ -158,21 +158,21 @@ inline void evolve(void) {
 			n = 0;
 			for (y1 = y - 1; y1 <= y + 1; y1++)
 				for (x1 = x - 1; x1 <= x + 1; x1++)
-					if (u[(y1 + H) % H][(x1 + W) % W])
-						n++;
-
-			if (u[y][x]) n--;
-			nu[y][x] = (n == 3 || (n == 2 && u[y][x]));
+					if (u[A2D(W, (y1 + H) % H, (x1 + W) % W)]) n++;
+			
+			if (u[A2D(W, y, x)]) n--;
+			nu[A2D(W, y, x)] = (n == 3) || ((n == 2) && u[A2D(W, y, x)]);
 		}
 	}
 	
 	for (y = 0; y < H; y++)
 		for (x = 0; x < W; x++) {
-			if (pu[y][x] != nu[y][x]) cycle2 = 0;
-			if (u[y][x] != nu[y][x]) fixed = 0;
-			pu[y][x] = u[y][x];
-			u[y][x] = nu[y][x];
+			if (pu[A2D(W, y, x)] != nu[A2D(W, y, x)]) cycle2 = 0;
+			if (u[A2D(W, y, x)] != nu[A2D(W, y, x)]) fixed = 0;
 		}
+	
+	memcpy(pu, u, sizeof (u));
+	memcpy(u, nu, sizeof (nu));
 	
 	return;
 }
@@ -193,6 +193,7 @@ void main(void) {
 		(void)getchar();
 		
 		loadu();
+		show(0);
 		
 		printstr("RDY\r\n");
 		(void)getchar();
@@ -200,7 +201,7 @@ void main(void) {
 		cleargen();
 		
 		for (i1 = 0; !i0 && !i1; ) {
-			show();
+			show(1);
 			evolve();
 			if (fixed || cycle2) {
 				printstr("DONE\r\n");
