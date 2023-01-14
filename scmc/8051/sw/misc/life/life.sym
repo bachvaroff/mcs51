@@ -338,8 +338,8 @@ Symbol Table
  1A ___str_2                                                       00001B R
  1A ___str_3                                                       00001E R
  1A ___str_4                                                       000021 R
- 1A ___str_5                                                       000025 R
- 1A ___str_6                                                       000033 R
+ 1A ___str_5                                                       000028 R
+ 1A ___str_6                                                       00002C R
  1A ___str_7                                                       00003A R
  1A ___str_8                                                       000040 R
  1A ___str_9                                                       000047 R
@@ -621,7 +621,7 @@ Area Table
   16 GSINIT5                                    size      0   flags   20
   17 GSINIT                                     size      0   flags   20
   18 GSFINAL                                    size      3   flags   20
-  19 CSEG                                       size    9A3   flags   20
+  19 CSEG                                       size    942   flags   20
   1A CONST                                      size     56   flags   20
   1B XINIT                                      size      0   flags   20
   1C CABS                                       size      0   flags   28

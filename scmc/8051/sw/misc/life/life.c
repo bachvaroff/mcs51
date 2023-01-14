@@ -48,14 +48,15 @@ inline void printstr(const char *s) {
 	return;
 }
 
-#define A2D(COLW, ROW, COL) ((ROW) * (COLW) + (COL))
+#define A2D(COLW, ROW, COL) ((int)(ROW) * (int)(COLW) + (int)(COL))
 
 #define H 32
 #define W 32
 
 char i0, i1;
 char pu[H * W], u[H * W], nu[H * W];
-int x, y, x1, y1;
+int x, y;
+int x1, y1;
 char n;
 int generation[4];
 char fixed, cycle2;
@@ -123,7 +124,7 @@ inline void clearu(void) {
 inline void loadu(void) {
 	j = 0;
 	
-	putchar('<');
+	printstr("LOAD <");
 	
 	for (y = 0; y < H; y++)
 		for (x = 0; x < W; x++) {
@@ -152,25 +153,21 @@ out:
 inline void evolve(void) {
 	fixed = 1;
 	cycle2 = 1;
-		
+	
 	for (y = 0; y < H; y++) {
 		for (x = 0; x < W; x++) {
-			n = 0;
+			n = -u[A2D(W, y, x)];
 			for (y1 = y - 1; y1 <= y + 1; y1++)
 				for (x1 = x - 1; x1 <= x + 1; x1++)
-					if (u[A2D(W, (y1 + H) % H, (x1 + W) % W)]) n++;
+					n += u[A2D(W, (y1 + H) % H, (x1 + W) % W)];
 			
-			if (u[A2D(W, y, x)]) n--;
 			nu[A2D(W, y, x)] = (n == 3) || ((n == 2) && u[A2D(W, y, x)]);
-		}
-	}
-	
-	for (y = 0; y < H; y++)
-		for (x = 0; x < W; x++) {
+			
 			if (pu[A2D(W, y, x)] != nu[A2D(W, y, x)]) cycle2 = 0;
 			if (u[A2D(W, y, x)] != nu[A2D(W, y, x)]) fixed = 0;
 		}
-	
+	}
+		
 	memcpy(pu, u, sizeof (u));
 	memcpy(u, nu, sizeof (nu));
 	
@@ -187,9 +184,6 @@ void main(void) {
 	for (i0 = 0; !i0; ) {
 		clearu();
 		printstr("\033[2J\033[mINIT\r\n");
-		(void)getchar();
-		
-		printstr("LOAD\r\n");
 		(void)getchar();
 		
 		loadu();
