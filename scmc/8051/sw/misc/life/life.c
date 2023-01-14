@@ -1,5 +1,4 @@
 #include <mcs51/at89x52.h>
-#include <stdio.h>
 
 #define pm2_entry_cout 0x0030
 #define pm2_entry_cin 0x0032
@@ -21,14 +20,45 @@ int getchar(void) __naked {
 	__endasm;
 }
 
+static const char digits[16] = {
+	'0', '1', '2', '3', '4', '5', '6', '7',
+	'8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+};
+
+inline void print8x(short a) {
+	putchar(digits[(a >> 4) & 0xf]);
+	putchar(digits[a & 0xf]);
+	
+	return;
+}
+
+inline void print16x(int a) {
+	putchar(digits[(a >> 12) & 0xf]);
+	putchar(digits[(a >> 8) & 0xf]);
+	putchar(digits[(a >> 4) & 0xf]);
+	putchar(digits[a & 0xf]);
+	
+	return;
+}
+
+inline void printstr(const char *s) {
+	for (; *s; s++) putchar(*s);
+	
+	return;
+}
+
+#define A2D(ARR, COLW, ROW, COL) (*(((ARR) + (ROW) * (COLW) + (COL))))
+
 #define H 32
 #define W 32
 
-int i0, i1;
+char i0, i1;
 char pu[H][W], u[H][W], nu[H][W];
-int x, y, x1, y1, n;
-int generation[4], j, fixed, cycle2;
-int c;
+int x, y, x1, y1;
+char n;
+int generation[4];
+char fixed, cycle2;
+int j, c;
 
 void int0(void) __interrupt 0 __using 1 {
 	i0 = 1;
@@ -57,7 +87,7 @@ inline void updategen(void) {
 
 inline void printgen(void) {
 	for (j = 0; j < 4; j++) {
-		printf("%04x", generation[3 - j]);
+		print16x(generation[3 - j]);
 		if (j < 3) putchar(' ');
 	}
 	
@@ -65,16 +95,16 @@ inline void printgen(void) {
 }
 
 inline void show(void) {
-	printf("\033[2J\033[m");
+	printstr("\033[2J\033[m");
 	printgen();
-	printf("\r\n");
+	printstr("\r\n");
 	updategen();
 	
 	for (x = 0; x < W; x++) {
 		for (y = 0; y < H; y++)
-			if (u[y][x]) printf("\033[01m[]\033[m");
-			else printf("--");
-		printf("\r\n");
+			if (u[y][x]) printstr("[]");
+			else printstr("##");
+		printstr("\r\n");
 	}
 	
 	return;
@@ -113,7 +143,8 @@ out:
 			c = getchar();
 			if (c == (int)'#') break;
 		}
-	printf("%d>\r\n", j);
+	print16x(j);
+	printstr(">\r\n");
 	
 	return;
 }
@@ -155,15 +186,15 @@ void main(void) {
 	
 	for (i0 = 0; !i0; ) {
 		clearu();
-		printf("\033[2J\033[mINIT\r\n");
+		printstr("\033[2J\033[mINIT\r\n");
 		(void)getchar();
 		
-		printf("LOAD\r\n");
+		printstr("LOAD\r\n");
 		(void)getchar();
 		
 		loadu();
 		
-		printf("RDY\r\n");
+		printstr("RDY\r\n");
 		(void)getchar();
 		
 		cleargen();
@@ -172,21 +203,21 @@ void main(void) {
 			show();
 			evolve();
 			if (fixed || cycle2) {
-				printf("DONE\r\n");
+				printstr("DONE\r\n");
 				(void)getchar();
 				break;
 			}
 		}
 		
 		if (i1) {
-			printf("BREAK\r\n");
+			printstr("BREAK\r\n");
 			(void)getchar();
 		}
 	}
 	
 	EA = 0;
 	
-	printf("TERM\r\n");
+	printstr("TERM\r\n");
 	(void)getchar();
 	
 	__asm

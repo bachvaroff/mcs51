@@ -53,7 +53,7 @@ C:   00000020  s__CODE
 C:   00000021  s_SSEG                          
 C:   00000022  l_GSINIT3                       
 C:   0000002A  l_GSINIT4                       
-C:   00000060  l_CONST                         
+C:   00000056  l_CONST                         
 C:   00000071  l_DSEG                          
 C:   000000DF  l_SSEG                          
 C:   00000100  l_IRAM                          
@@ -66,8 +66,8 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000C1E  l_XSEG                          
-C:   00001D10  l_CSEG                          
+C:   00000B6D  l_CSEG                          
+C:   00000C19  l_XSEG                          
 C:   00002000  s_HOME                          
 C:   00002019  s_GSINIT0                       
 C:   0000201C  s_GSINIT1                       
@@ -78,11 +78,11 @@ C:   00002072  s_GSFINAL
 C:   00002072  s_GSINIT                        
 C:   00002072  s_GSINIT5                       
 C:   00002075  s_CSEG                          
-C:   00003D85  s_CONST                         
-C:   00003DE5  s_XINIT                         
+C:   00002BE2  s_CONST                         
+C:   00002C38  s_XINIT                         
 C:   00008000  s_PSEG                          
 C:   00008000  s_XSEG                          
-C:   00008C1E  s_XISEG                         
+C:   00008C19  s_XISEG                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -93,7 +93,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000000  .__.ABS.                           _gptrget
+     00000000  .__.ABS.                           _startup
      00000080  _P0                                life
      00000080  _P0_0                              life
      00000081  _P0_1                              life
@@ -294,25 +294,25 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                00008000    00000C1E =        3102. bytes (REL,CON,XDATA)
+XSEG                                00008000    00000C19 =        3097. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 D:   00008000  _i0                                life
-D:   00008002  _i1                                life
-D:   00008004  _pu                                life
-D:   00008404  _u                                 life
-D:   00008804  _nu                                life
-D:   00008C04  _x                                 life
-D:   00008C06  _y                                 life
-D:   00008C08  _x1                                life
-D:   00008C0A  _y1                                life
-D:   00008C0C  _n                                 life
-D:   00008C0E  _generation                        life
-D:   00008C16  _j                                 life
-D:   00008C18  _fixed                             life
-D:   00008C1A  _cycle2                            life
-D:   00008C1C  _c                                 life
+D:   00008001  _i1                                life
+D:   00008002  _pu                                life
+D:   00008402  _u                                 life
+D:   00008802  _nu                                life
+D:   00008C02  _x                                 life
+D:   00008C04  _y                                 life
+D:   00008C06  _x1                                life
+D:   00008C08  _y1                                life
+D:   00008C0A  _n                                 life
+D:   00008C0B  _generation                        life
+D:   00008C13  _fixed                             life
+D:   00008C14  _cycle2                            life
+D:   00008C15  _j                                 life
+D:   00008C17  _c                                 life
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
 
@@ -381,31 +381,25 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002075    00001D10 =        7440. bytes (REL,CON,CODE)
+CSEG                                00002075    00000B6D =        2925. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00002075  _putchar                           life
 C:   0000207A  _getchar                           life
 C:   00002083  _int0                              life
-C:   00002099  _int1                              life
-C:   000020AF  _main                              life
-C:   0000297D  _vprintf                           vprintf
-C:   000029B4  _printf                            vprintf
-C:   000029ED  __modsint                          _modsint
-C:   00002A5B  __moduint                          _moduint
-C:   00002ADA  __sdcc_external_startup            _startup
-C:   00002C0B  __print_format                     printf_large
-C:   00003CB3  __mulint                           _mulint
-C:   00003D51  _strlen                            _strlen
-C:   00003D69  __gptrget                          _gptrget
-
+C:   00002096  _int1                              life
+C:   000020A9  _main                              life
+C:   00002AD5  __gptrget                          _gptrget
+C:   00002AF1  __modsint                          _modsint
+C:   00002B5F  __moduint                          _moduint
+C:   00002BDE  __sdcc_external_startup            _startup
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003D85    00000060 =          96. bytes (REL,CON,CODE)
+CONST                               00002BE2    00000056 =          86. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -425,27 +419,19 @@ Libraries Linked                          [ object file ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/mcs51.lib
                                           [ crtxclear.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
-                                          [ vprintf.rel ]
+                                          [ _bp.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/mcs51.lib
                                           [ crtpagesfr.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/mcs51.lib
                                           [ crtstart.rel ]
+/usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
+                                          [ _gptrget.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libint.lib
                                           [ _modsint.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libint.lib
                                           [ _moduint.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
                                           [ _startup.rel ]
-/usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
-                                          [ printf_large.rel ]
-/usr/bin/../share/sdcc/lib/large-stack-auto/libint.lib
-                                          [ _mulint.rel ]
-/usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
-                                          [ _bp.rel ]
-/usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
-                                          [ _strlen.rel ]
-/usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
-                                          [ _gptrget.rel ]
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 
