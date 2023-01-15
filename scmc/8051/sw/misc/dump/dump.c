@@ -1,0 +1,94 @@
+#include <mcs51/at89x52.h>
+
+#define pm2_entry_cout 0x0030
+#define pm2_entry_cin 0x0032
+
+int putchar(int c) __naked {
+	(void)c;
+	__asm
+		mov a, dpl
+		ljmp pm2_entry_cout
+	__endasm;
+}
+
+int getchar(void) __naked {
+	__asm
+		lcall pm2_entry_cin
+		mov dpl, a
+		mov dph, #0
+		ret
+	__endasm;
+}
+
+static const char digits[16] = {
+	'0', '1', '2', '3', '4', '5', '6', '7',
+	'8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+};
+
+inline void print8x(short a) {
+	putchar(digits[(a >> 4) & 0xf]);
+	putchar(digits[a & 0xf]);
+	
+	return;
+}
+
+inline void print16x(int a) {
+	putchar(digits[(a >> 12) & 0xf]);
+	putchar(digits[(a >> 8) & 0xf]);
+	putchar(digits[(a >> 4) & 0xf]);
+	putchar(digits[a & 0xf]);
+	
+	return;
+}
+
+inline void printstr(const char *s) {
+	for (; *s; s++) putchar(*s);
+	
+	return;
+}
+
+char intr;
+
+void int0(void) __interrupt 0 __using 1 {
+	intr = 1;
+}
+
+unsigned char *base;
+unsigned int off, col;
+
+void main(void) {
+	intr = 0;
+	
+	IT0 = 1;
+	EX0 = 1;	
+	EA = 1;
+	
+	P1_7 = 0; /* activate IO address space from 0xe000 to 0xffff */
+	
+	for (base = (unsigned char *)0u; !intr; base += 0x400u) {
+		for (off = 0u; off < 0x400u; off += 0x20u) {
+			print16x((unsigned int)base + off);
+			printstr(" : ");
+			for (col = 0u; col < 0x20u; col++) {
+				print8x(base[off + col]);
+				if (col == 0x1fu) {
+					putchar('\r'); putchar('\n');
+				} else putchar(' ');
+			}
+		}
+		getchar();
+		putchar('\r'); putchar('\n');
+	}
+	
+	P1_7 = 1; /* deactivate IO address space from 0xe000 to 0xffff */
+	
+#ifndef EXTRESET
+	__asm
+		ljmp 0
+	__endasm;
+#else
+/* trigger external reset */
+	PCON |= 2;
+#endif
+}
+
