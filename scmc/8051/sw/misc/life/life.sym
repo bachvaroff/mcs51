@@ -351,13 +351,13 @@ Symbol Table
  10 __sdcc_program_startup                                         000016 GR
   8 __start__stack                                                 000000 GR
     _bp                                                            ****** GX
-  D _bstep                                                         000C0B GR
+  D _bstep                                                         000C0E GR
  19 _busy                                                          0008ED R
-  D _c                                                             000C14 GR
+  D _c                                                             000C0C GR
   D _cycle2                                                        000C11 GR
  1A _digits                                                        000000 R
   D _fixed                                                         000C10 GR
-  D _generation                                                    000C0C GR
+  D _generation                                                    000C12 GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
@@ -368,10 +368,10 @@ Symbol Table
   D _i1                                                            000001 GR
  19 _int0                                                          00000E GR
  19 _int1                                                          000021 GR
-  D _j                                                             000C12 GR
+  D _j                                                             000C0A GR
  19 _main                                                          000299 GR
     _memset                                                        ****** GX
-  D _n                                                             000C0A GR
+  D _n                                                             000C0F GR
   D _nu                                                            000802 GR
   D _pu                                                            000002 GR
  19 _putchar                                                       000000 GR

@@ -54,13 +54,13 @@ inline void printstr(const char *s) {
 #define W 32
 
 char i0, i1;
-char pu[H * W], u[H * W], nu[H * W];
-int x, y;
-int x1, y1;
-char n, bstep;
-int generation[2];
-char fixed, cycle2;
-int j, c;
+
+char pu[H * W], u[H * W], nu[H * W]; /* evolve(), show(), loadu() */
+int x, y; /* evolve(), show(), loadu() */
+int x1, y1; /* evolve() */
+int j, c; /* loadu() */
+char bstep, n, fixed, cycle2; /* evolve() */
+int generation[2]; /* cleargen(), updategen(), printgen(), show() */
 
 void int0(void) __interrupt 0 __using 1 {
 	i0 = 1;
@@ -102,8 +102,11 @@ void show(char hdr) {
 	
 	for (x = 0; x < W; x++) {
 		for (y = 0; y < H; y++)
-			if (u[A2D(W, y, x)]) { putchar('['); putchar(']'); }
-			else { putchar('#'); putchar('#'); }
+			if (u[A2D(W, y, x)]) {
+				putchar('['); putchar(']');
+			} else {
+				putchar('#'); putchar('#');
+			}
 		printstr("\r\n");
 	}
 	
@@ -154,8 +157,7 @@ inline void evolve(void) {
 	bstep = 0;
 	
 	for (y = 0; y < H; y++) {
-		putchar(busy[bstep]);
-		putchar('\r');
+		putchar(busy[bstep]); putchar('\r');
 		bstep = (bstep + 1) & 3;
 		for (x = 0; x < W; x++) {
 			n = -u[A2D(W, y, x)];

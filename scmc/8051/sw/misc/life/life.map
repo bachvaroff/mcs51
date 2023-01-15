@@ -307,13 +307,13 @@ D:   00008C02  _x                                 life
 D:   00008C04  _y                                 life
 D:   00008C06  _x1                                life
 D:   00008C08  _y1                                life
-D:   00008C0A  _n                                 life
-D:   00008C0B  _bstep                             life
-D:   00008C0C  _generation                        life
+D:   00008C0A  _j                                 life
+D:   00008C0C  _c                                 life
+D:   00008C0E  _bstep                             life
+D:   00008C0F  _n                                 life
 D:   00008C10  _fixed                             life
 D:   00008C11  _cycle2                            life
-D:   00008C12  _j                                 life
-D:   00008C14  _c                                 life
+D:   00008C12  _generation                        life
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
