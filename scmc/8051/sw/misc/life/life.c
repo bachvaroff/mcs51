@@ -57,8 +57,8 @@ char i0, i1;
 char pu[H * W], u[H * W], nu[H * W];
 int x, y;
 int x1, y1;
-char n;
-int generation[4];
+char n, bstep;
+int generation[2];
 char fixed, cycle2;
 int j, c;
 
@@ -72,26 +72,22 @@ void int1(void) __interrupt 2 __using 1 {
 }
 
 inline void cleargen(void) {
-	for (j = 0; j < 4; j++)
-		generation[j] = 0;
+	generation[0] = 0;
+	generation[1] = 0;
 	
 	return;
 }
 
-inline void updategen(void) {	
-	for (j = 0; j < 4; j++) {
-		generation[j]++;
-		if (generation[j]) break;
-	}
+inline void updategen(void) {
+	generation[0]++;
+	if (!generation[0]) generation[1]++;
 	
 	return;
 }
 
 inline void printgen(void) {
-	for (j = 0; j < 4; j++) {
-		print16x(generation[3 - j]);
-		if (j < 3) putchar(' ');
-	}
+	print16x(generation[1]);
+	print16x(generation[0]);
 	
 	return;
 }
@@ -106,8 +102,8 @@ void show(char hdr) {
 	
 	for (x = 0; x < W; x++) {
 		for (y = 0; y < H; y++)
-			if (u[A2D(W, y, x)]) printstr("[]");
-			else printstr("##");
+			if (u[A2D(W, y, x)]) { putchar('['); putchar(']'); }
+			else { putchar('#'); putchar('#'); }
 		printstr("\r\n");
 	}
 	
@@ -150,11 +146,17 @@ out:
 	return;
 }
 
+static const char busy[4] = { '\\', '|', '/', '-' };
+
 inline void evolve(void) {
 	fixed = 1;
 	cycle2 = 1;
+	bstep = 0;
 	
 	for (y = 0; y < H; y++) {
+		putchar(busy[bstep]);
+		putchar('\r');
+		bstep = (bstep + 1) & 3;
 		for (x = 0; x < W; x++) {
 			n = -u[A2D(W, y, x)];
 			for (y1 = y - 1; y1 <= y + 1; y1++)
