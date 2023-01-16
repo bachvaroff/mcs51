@@ -2,7 +2,7 @@
 #
 # CUPL(WM)        5.0a Serial# 60008009
 # Device          g22v10  Library DLIB-h-40-1
-# Created         Thu Jan 05 13:53:52 2023
+# Created         Mon Jan 16 12:02:49 2023
 # Name            8051_mctrl_shadow
 # Partno          U0 G22V10
 # Revision        1.0
@@ -12,21 +12,20 @@
 # Assembly        0001
 # Location        Sofia,BG,EU
 #
-# Inputs  1 CSIO00I CSIO17I CSRAMI 
-#         CSRAMO CSROMI CSROMO DDIRI 
-#         DEI DEO RDI WRI 
+# Inputs  1 CSIO00I CSRAMI CSRAMO 
+#         CSROMI CSROMO DEI DEO 
 # Outputs !CSRAMO !CSROMO !DEO CSRAMO.oe 
 #         CSROMO.oe DEO.oe 
-.i 12
+.i 8
 .o 6
 .p 9
--0---------- 1~~~~~
----0-------- 1~~~~~
------0------ ~1~~~~
--0------0--- ~~1~~~
----0----0--- ~~1~~~
------0--0--- ~~1~~~
-1----------- ~~~1~~
-1----------- ~~~~1~
-1----------- ~~~~~1
+-0------ 1~~~~~
+--0----- 1~~~~~
+----0--- ~1~~~~
+-0----0- ~~1~~~
+--0---0- ~~1~~~
+----0-0- ~~1~~~
+1------- ~~~1~~
+1------- ~~~~1~
+1------- ~~~~~1
 .end

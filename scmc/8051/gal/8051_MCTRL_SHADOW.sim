@@ -1,15 +1,11 @@
 %SIGNAL
 PIN   5 =  CSIO00I 
-PIN   6 =  CSIO17I 
 PIN   4 =  CSRAMI 
 PIN  15 =  CSRAMO 
 PIN   3 =  CSROMI 
 PIN  16 =  CSROMO 
-PIN   9 =  DDIRI 
 PIN  10 =  DEI 
 PIN  14 =  DEO 
-PIN   8 =  RDI 
-PIN   7 =  WRI 
 %END
 
 %FIELD

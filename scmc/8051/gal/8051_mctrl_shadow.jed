@@ -1,7 +1,7 @@
 
 CUPL(WM)        5.0a  Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Thu Jan 05 13:53:52 2023
+Created         Mon Jan 16 12:02:49 2023
 Name            8051_mctrl_shadow
 Partno          U0 G22V10
 Revision        1.0
@@ -35,4 +35,4 @@ Location        Sofia,BG,EU
 *L05856 01110011001000110010010101100011
 *L05888 0001
 *C366F
-*F02B
+*F025
