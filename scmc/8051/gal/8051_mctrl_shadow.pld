@@ -12,10 +12,6 @@ Date 24 Dec 2022;
 	inputs
 */
 PIN 10 = DEI;
-PIN 9 = DDIRI;
-PIN 8 = RDI;
-PIN 7 = WRI;
-PIN 6 = CSIO17I;
 PIN 5 = CSIO00I;
 PIN 4 = CSRAMI;
 PIN 3 = CSROMI;

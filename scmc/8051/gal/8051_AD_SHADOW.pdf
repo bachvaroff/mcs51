@@ -1,11 +1,11 @@
-{COMPONENT \\MIDIAN\NASKO\GIT\GITHUB\V\SCMC\8051\GAL\8051_AD_SHADOW.SYM
+{COMPONENT \\MIDIAN\HOMES\GIT\GITHUB\V\SCMC\8051\GAL\8051_AD_SHADOW.SYM
 
  {ENVIRONMENT
   {PDIFvrev 3.00}
   {Program "CUPL(WM) Version 5.0a"}
   {DBtype "Schematic"}
   {DBvrev 1.01}
-  {DBtime "Sat Dec 24 14:30:28 2022 "}
+  {DBtime "Mon Jan 16 11:00:58 2023 "}
   {DBunit "MIL"}
   {DBgrid 10}
   {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
@@ -50,10 +50,10 @@
    {P CSROM_GA' {Pt "I/O"}{Lq 0}{Ploc 360 20}}
    {P CSRAM_GA' {Pt "I/O"}{Lq 0}{Ploc 360 40}}
    {P CSIO00_G' {Pt "I/O"}{Lq 0}{Ploc 360 60}}
-   {P CSIO17_G' {Pt "I/O"}{Lq 0}{Ploc 360 80}}
-   {P WR_GAL' {Pt "I/O"}{Lq 0}{Ploc 360 100}}
-   {P RD_GAL' {Pt "I/O"}{Lq 0}{Ploc 360 120}}
-   {P DDIR_GAL {Pt "I/O"}{Lq 0}{Ploc 360 140}}
+   {P CSIO16_G' {Pt "I/O"}{Lq 0}{Ploc 360 80}}
+   {P CSIO77_G' {Pt "I/O"}{Lq 0}{Ploc 360 100}}
+   {P WR_GAL' {Pt "I/O"}{Lq 0}{Ploc 360 120}}
+   {P RD_GAL' {Pt "I/O"}{Lq 0}{Ploc 360 140}}
    {P DE_GAL' {Pt "I/O"}{Lq 0}{Ploc 360 160}}
   }
 
@@ -126,7 +126,8 @@
    {L 340 100 360 100}
    {C 335 120 5}
    {L 340 120 360 120}
-   {L 330 140 360 140}
+   {C 335 140 5}
+   {L 340 140 360 140}
    {C 335 160 5}
    {L 340 160 360 160}
    [Ly "PINNAM"]
@@ -149,10 +150,10 @@
    {T "CSROM_GA'" 320 20}
    {T "CSRAM_GA'" 320 40}
    {T "CSIO00_G'" 320 60}
-   {T "CSIO17_G'" 320 80}
-   {T "WR_GAL'" 320 100}
-   {T "RD_GAL'" 320 120}
-   {T "DDIR_GAL" 320 140}
+   {T "CSIO16_G'" 320 80}
+   {T "CSIO77_G'" 320 100}
+   {T "WR_GAL'" 320 120}
+   {T "RD_GAL'" 320 140}
    {T "DE_GAL'" 320 160}
    [Ly "DEVICE"]
    [Tj "CT"]
@@ -167,7 +168,7 @@
    {EX
     [Ly "ATTR2"]
     [Ts 12][Tj "CT"][Tr 0][Tm "N"]
-    {At PLD \\MIDIAN\NASKO\GIT\GITHUB\V\SCMC\8051\GAL\8051_AD_SHADOW 230 320}
+    {At PLD \\MIDIAN\HOMES\GIT\GITHUB\V\SCMC\8051\GAL\8051_AD_SHADOW 230 320}
    }
   }
  }
@@ -211,13 +212,13 @@
    }
    {N CSIO00_G'
    }
-   {N CSIO17_G'
+   {N CSIO16_G'
+   }
+   {N CSIO77_G'
    }
    {N WR_GAL'
    }
    {N RD_GAL'
-   }
-   {N DDIR_GAL
    }
    {N DE_GAL'
    }
