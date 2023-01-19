@@ -66,7 +66,6 @@ void int0(void) __interrupt 0 __using 1 {
 	i0 = 1;
 }
 
-
 void int1(void) __interrupt 2 __using 1 {
 	i1 = 1;
 }
