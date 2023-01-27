@@ -160,9 +160,25 @@ inline void evolve(void) {
 		bstep = (bstep + 1) & 3;
 		for (x = 0; x < W; x++) {
 			n = -u[A2D(W, y, x)];
-			for (y1 = y - 1; y1 <= y + 1; y1++)
-				for (x1 = x - 1; x1 <= x + 1; x1++)
-					n += u[A2D(W, (y1 + H) % H, (x1 + W) % W)];
+			
+			y1 = -1; x1 = -1;
+			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
+			y1 = -1; x1 = 0;
+			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
+			y1 = -1; x1 = 1;
+			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
+			y1 = 0; x1 = -1;
+			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
+			y1 = 0; x1 = 0;
+			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
+			y1 = 0; x1 = 1;
+			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
+			y1 = 1; x1 = -1;
+			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
+			y1 = 1; x1 = 0;
+			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
+			y1 = 1; x1 = 1;
+			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
 			
 			nu[A2D(W, y, x)] = (n == 3) || ((n == 2) && u[A2D(W, y, x)]);
 			
