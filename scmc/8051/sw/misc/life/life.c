@@ -213,7 +213,9 @@ void main(void) {
 			c = getchar();
 			if (c == (int)'S') break;
 		}
+/*
 		printstr("START\r\n");
+*/
 		
 		cleargen();
 		
