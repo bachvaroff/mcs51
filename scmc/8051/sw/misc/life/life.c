@@ -202,8 +202,12 @@ void main(void) {
 	
 	for (i0 = 0; !i0; ) {
 		clearu();
+		
 		printstr("\033[2J\033[mINIT\r\n");
-		(void)getchar();
+		while (1) {
+			c = getchar();
+			if (c == (int)'L') break;
+		}
 		
 		loadu();
 		show(0);
@@ -213,9 +217,6 @@ void main(void) {
 			c = getchar();
 			if (c == (int)'S') break;
 		}
-/*
-		printstr("START\r\n");
-*/
 		
 		cleargen();
 		
