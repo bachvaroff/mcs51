@@ -208,8 +208,12 @@ void main(void) {
 		loadu();
 		show(0);
 		
-		printstr("RDY\r\n");
-		(void)getchar();
+		printstr("READY\r\n");
+		while (1) {
+			c = getchar();
+			if (c == (int)'S') break;
+		}
+		printstr("START\r\n");
 		
 		cleargen();
 		
