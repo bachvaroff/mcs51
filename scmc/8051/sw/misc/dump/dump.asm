@@ -409,7 +409,7 @@ _getchar:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'int0'
 ;------------------------------------------------------------
-;	dump.c:52: void int0(void) __interrupt 0 __using 1 {
+;	dump.c:52: void int0(void) __interrupt IE0_VECTOR __using 1 {
 ;	-----------------------------------------
 ;	 function int0
 ;	-----------------------------------------

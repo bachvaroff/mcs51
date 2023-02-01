@@ -62,11 +62,11 @@ int j, c; /* loadu() */
 char bstep, n, fixed, cycle2; /* evolve() */
 int generation[2]; /* cleargen(), updategen(), printgen(), show() */
 
-void int0(void) __interrupt 0 __using 1 {
+void int0(void) __interrupt IE0_VECTOR __using 1 {
 	i0 = 1;
 }
 
-void int1(void) __interrupt 2 __using 1 {
+void int1(void) __interrupt IE1_VECTOR __using 1 {
 	i1 = 1;
 }
 

@@ -40,7 +40,7 @@ int getchar(void) __naked {
 
 int intr;
 
-void int0(void) __interrupt 0 __using 1 {
+void int0(void) __interrupt IE0_VECTOR __using 1 {
 	intr = 1;
 }
 

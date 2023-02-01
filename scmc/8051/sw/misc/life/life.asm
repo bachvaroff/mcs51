@@ -467,7 +467,7 @@ _getchar:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'int0'
 ;------------------------------------------------------------
-;	life.c:65: void int0(void) __interrupt 0 __using 1 {
+;	life.c:65: void int0(void) __interrupt IE0_VECTOR __using 1 {
 ;	-----------------------------------------
 ;	 function int0
 ;	-----------------------------------------
@@ -498,7 +498,7 @@ _int0:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'int1'
 ;------------------------------------------------------------
-;	life.c:69: void int1(void) __interrupt 2 __using 1 {
+;	life.c:69: void int1(void) __interrupt IE1_VECTOR __using 1 {
 ;	-----------------------------------------
 ;	 function int1
 ;	-----------------------------------------

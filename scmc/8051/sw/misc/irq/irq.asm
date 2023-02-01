@@ -406,7 +406,7 @@ _getchar:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'int0'
 ;------------------------------------------------------------
-;	irq.c:26: void int0(void) __interrupt 0 __using 1 {
+;	irq.c:26: void int0(void) __interrupt IE0_VECTOR __using 1 {
 ;	-----------------------------------------
 ;	 function int0
 ;	-----------------------------------------
@@ -439,7 +439,7 @@ _int0:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'int1'
 ;------------------------------------------------------------
-;	irq.c:30: void int1(void) __interrupt 2 __using 1 {
+;	irq.c:30: void int1(void) __interrupt IE1_VECTOR __using 1 {
 ;	-----------------------------------------
 ;	 function int1
 ;	-----------------------------------------
