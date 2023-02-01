@@ -23,7 +23,6 @@
 ; without even the implied warranty of merchantability or fitness
 ; for a particular purpose. 
 
-
 ; You are probably reading this code to see what it looks like
 ; and possibly learn something, or to modify it for some reason.
 ; Either is ok, but please remember that this code uses a number
@@ -39,7 +38,6 @@
 
 ; http://www.pjrc.com/tech/8051/pm2_docs/addons.html
 
-
 ;---------------------------------------------------------;
 ;							  ;
 ;	    PAULMON2's default configuration		  ;
@@ -54,7 +52,6 @@
 ; very easy to custom configure PAULMON2.  Using this form will
 ; edit the code for you, run the AS31 assmebler, and send you the
 ; object code to program into your chip.
-
 
 ; These two parameters control where PAULMON2 will be assembled,
 ; and where it will attempt to LJMP at the interrupt vector locations.
@@ -96,7 +93,6 @@
 ; rom and any baud rate.  Some flash rom chips can write very quickly,
 ; allowing high speed baud rates, but other chips can not.  You milage
 ; will vary...
-
 
 ; Flash ROM parameters.	 If "has_flash" is set to zero, all flash rom
 ; features are turned off, otherwise "bflash" and "eflash" should specify
@@ -153,7 +149,6 @@
 ;.equ    flash_er2_addr, 0x595A + flash_base
 .equ    flash_er2_data, 0x10
 
-
 ; Please note... much of the memory management code only looks at the
 ; upper 8 bits of an address, so it's not a good idea to somehow map
 ; your memory chips (with complex address decoding logic) into chunks
@@ -192,8 +187,6 @@
 ;.equ	erwait1, 40		;fourty delays @22.1184
 .equ	erwait1, 20		;twenty delays for 11.0592 MHz
 .equ	erwait2, 229		;each delay .5 ms @22.1184MHz
-
-
 
 ; These symbols configure paulmon2's internal memory usage.
 ; It is usually not a good idea to change these unless you
@@ -260,7 +253,6 @@ dash_sp:acall	dash
 .org	base+43
 	ljmp	vector+43	;timer2 vector (8052)
 
-
 ;---------------------------------------------------------;
 ;							  ;
 ;	The jump table for user programs to call	  ;
@@ -298,13 +290,11 @@ cin_filter_h:
 	ajmp	asc2hex		;65
 	ljmp	erblock		;67
 
-
 ;---------------------------------------------------------;
 ;							  ;
 ;	       Subroutines for serial I/O		  ;
 ;							  ;
 ;---------------------------------------------------------;
-
 
 cin:	jnb	ri, cin
 	clr	ri
@@ -382,9 +372,6 @@ ghex8q: mov	r3, a
 	orl	a, r3
 	clr	c
 	ret
-
-
-
 
 	;carry set if esc pressed
 	;psw.5 set if return pressed w/ no input
@@ -474,7 +461,6 @@ ghex16y:  ;divide r3-r2 by 16 (shift right by 4)
 	mov	r3, a
 	ret
 
-
 	;carry set if invalid input
 asc2hex:
 	add	a, #208
@@ -494,7 +480,6 @@ hex_maybe:
 	ret
 hex_not:setb	c
 	ret
-
 
 ; Highly code efficient resursive call phex contributed
 ; by Alexander B. Alexandrov <abalex@cbr.spb.ru>
@@ -533,7 +518,6 @@ phex1:	push	acc
 ;	pop	acc
 ;	ret
 
-
 phex16:
 	push	acc
 	mov	a, dph
@@ -542,7 +526,6 @@ phex16:
 	acall	phex
 	pop	acc
 	ret
-
 
 ;a not so well documented feature of pstr is that you can print
 ;multiple consecutive strings without needing to reload dptr
@@ -576,7 +559,6 @@ upper3:	jnc	upper4		;end if acc >= 123
 upper4:	ret
 
 
-
 lenstr: mov	r0, #0	  ;returns length of a string in r0
 	push	acc
 lenstr1:clr	a
@@ -589,7 +571,6 @@ lenstr1:clr	a
 	sjmp	lenstr1
 lenstr2:pop	acc
 	ret
-
 
 esc:  ;checks to see if <ESC> is waiting on serial port
       ;C=clear if no <ESC>, C=set if <ESC> pressed
@@ -604,13 +585,11 @@ esc1:	clr	ri
 esc2:	pop	acc
 	ret
 
-
 ;---------------------------------------------------------;
 ;							  ;
 ;    The 'high-level' stuff to interact with the user	  ;
 ;							  ;
 ;---------------------------------------------------------;
-
 
 menu: ;first we print out the prompt, which isn't as simple
       ;as it may seem, since external code can add to the
@@ -636,8 +615,6 @@ menu0:	acall	upper
 	push	b		  ;to save code later...
 	mov	b, #(menu >> 8)	  ;if bogus input, just ret for
 	push	b		  ;another prompt.
-
-
 
 ;first we'll look through memory for a program header that says
 ;it's a user installed command which matches what the user pressed
@@ -671,7 +648,6 @@ menux2: inc	dph
 	cjne	a, #((emem+1) >> 8) & 255, menux1
 menuxend:
 	mov	a, b
-
 
 ;since we didn't find a user installed command, use the builtin ones
 
@@ -734,14 +710,11 @@ menu_end:			;at this point, we have not found
 				;remember, we pushed menu, so newline
 				;will just return to menu.
 
-;..........................................................
-
 ;---------------------------------------------------------;
 
 ;dnlds1 = "Begin sending Intel HEX format file <ESC> to abort"
 ;dnlds2 = "Download aborted"
 ;dnlds3 = "Download completed"
-
 
 ;16 byte parameter table: (eight 16 bit values)
 ;  *   0 = lines received
@@ -752,8 +725,6 @@ menu_end:			;at this point, we have not found
 ;  *   5 = unexpected begin of line
 ;  *   6 = unexpected hex digits (while waiting for bol)
 ;  *   7 = unexpected non-hex digits (in middle of a line)
-
-
 
 dnld:
 	mov	dptr, #dnlds1		 
@@ -850,8 +821,6 @@ dnld_end_3:
 	acall	cin
 	sjmp	dnld_sum
 
-
-
 dnld_esc:   ;handle esc received in the download stream
 	acall	dnld_dly
 	mov	dptr, #dnlds2	 
@@ -896,8 +865,6 @@ dnld_gp:     ;get parameter, and inc to next one (@r1)
 	jnz	dnldgp2
 	clr	c
 dnldgp2:ret
-
-
 
 ;a spacial version of ghex just for the download.  Does not
 ;look for carriage return or backspace.	 Handles ESC key by
@@ -1019,7 +986,6 @@ dnld_i3:ret
 dnld_i0:acall	dnld_gp		;non-error conditions
 	sjmp	dnld_i2
 
-
 dnld_init:
 	;init all dnld parms to zero.
 	mov	r0, #dnld_parm
@@ -1027,7 +993,6 @@ dnld0:	mov	@r0, #0
 	inc	r0
 	cjne	r0, #dnld_parm + 16, dnld0
 	ret
-
 
 ;dnlds7:  = "Errors:"
 ;dnlds8:  = " bytes unable to write"
@@ -1037,10 +1002,7 @@ dnld0:	mov	@r0, #0
 ;dnlds12: = " unexpected non-hex digits"
 ;dnlds13: = "No errors detected"
 
-
-
 ;---------------------------------------------------------;
-
 
 jump:
 	mov	dptr, #prompt8
@@ -1212,7 +1174,6 @@ dir8:	inc	dph
 ;type5=???
 
 ;---------------------------------------------------------;
-
 
 run:   
 	acall	newline2
@@ -1515,6 +1476,7 @@ abort_it:
 abort2: mov	dptr, #abort
 	ajmp	pcstr_h
 
+;---------------------------------------------------------;
 
 clrm:
 	acall	get_mem
@@ -1570,31 +1532,29 @@ erfr:
 erfr_end:
 	ajmp	pcstr_h
 
-
-
 ;---------------------------------------------------------;
 
 intm:	acall	newline
 	mov	r0, #0
 intm2:	acall	newline
-	cjne	r0, #0x80, intm3 
-	ajmp	newline
-intm3:	mov	a, r0
+	mov	a, r0
 	acall	phex
 	mov	a, #':'
 	acall	cout
-intm4:	acall	space
+intm3:	acall	space
 	mov	a, @r0
 	acall	phex
 	inc	r0
+	cjne	r0, #0, intm4
+	acall	newline
+	ajmp	newline
+intm4:
 	mov	a, r0
 	anl	a, #00001111b
-	jnz	intm4
+	jnz	intm3
 	sjmp	intm2
 
-
-
-
+;---------------------------------------------------------;
 
 ;**************************************************************
 ;**************************************************************
@@ -1605,16 +1565,11 @@ intm4:	acall	space
 ;**************************************************************
 ;**************************************************************
 
-
-
 ;---------------------------------------------------------;
 ;							  ;
 ;   Subroutines for memory managment and non-serial I/O	  ;
 ;							  ;
 ;---------------------------------------------------------;
-
-
-
 
 	; poll the flash rom using it's toggle bit feature
 	; on D6... and wait until the flash rom is not busy
@@ -1640,7 +1595,6 @@ flash_en:
 	mov	a, #flash_en2_data
 	movx	@dptr, a
 	ret
-
 
 ;a routine that writes ACC to into flash memory at DPTR
 ; C is set if error occurs, C is clear if it worked
@@ -1691,7 +1645,6 @@ erall_err:
 	setb	c
 	ret
 
-
 	;send a custom erase command.  This is used by erall,
 	;and it's intended to be callable from the flash memory
 	;so that custom block erase code can be implemented
@@ -1709,9 +1662,6 @@ erblock:
 	pop	acc
 	movx	@dptr, a		;send erase command
 	ajmp	flash_wait
-
-
-
 
 ;finds the next header in the external memory.
 ;  Input DPTR=point to start search (only MSB used)
@@ -1743,9 +1693,6 @@ find3:	mov	a, #(emem >> 8)
 find4:	inc	dph			;keep on searching
 	sjmp	find
 
-
-
-
 ;************************************
 ;To make PAULMON2 able to write to other
 ;types of memory than RAM and flash rom,
@@ -1756,10 +1703,8 @@ find4:	inc	dph			;keep on searching
 ;of memory are in what address ranges
 ;************************************
 
-
 ;Write to Flash ROM or ordinary RAM.  Carry bit will indicate
 ;if the value was successfully written, C=1 if not written.
-
 
 smart_wr:
 	push	acc
@@ -1803,9 +1748,6 @@ wr_flash:
 	pop	acc
 	ret
 
-
-
-
 ;---------------------------------------------------------;
 ;							  ;
 ;	Power-On initialization code and such...	  ;
@@ -1820,10 +1762,6 @@ poweron:
 	mov	ip, a
 	mov	psw, #psw_init
 	mov	sp, #stack
-;	cpl	a
-;	mov	p0, a
-;	mov	p2, a
-;	mov	p3, a
 	mov	a, #mctrl_default
 	mov	p1, a
 	mov	r7, a
@@ -1844,6 +1782,7 @@ cp_byte:
 	inc	dptr
 	mov	a, dph
 	cjne	a, #0x20, cp_byte
+end_cp_shadow:
 	mov	a, #mctrl_shadow
 	mov	p1, a
 	mov	r7, a
@@ -1854,7 +1793,6 @@ cp_byte:
 	mov	r7, a
 	mov	r7, a
 	mov	r7, a
-end_cp_shadow:
 
 ;Before we start doing any I/O, a short delay is required so
 ;that any external hardware which may be in "reset mode" can
@@ -1919,7 +1857,6 @@ welcm4: lcall	cout
 	mov	r7, #(pgm >> 8)
 	ljmp	menu
 
-
 stcode: mov	dptr, #bmem	 ;search for startup routines
 stcode2:lcall	find
 	jnc	stcode5
@@ -1943,6 +1880,8 @@ stcode4:inc	dph
 	cjne	a, #((emem+1) >> 8) & 255, stcode2
 stcode5:ret			;now we've executed all of 'em
 
+;---------------------------------------------------------;
+
 setbaud_reset:
 	mov	a, #baud_const	;skip if user supplied baud rate constant
 setbaud:
@@ -1954,7 +1893,7 @@ setbaud:
 	setb	tr1		;start the baud rate timer
 	ret
 
-
+;---------------------------------------------------------;
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -1962,8 +1901,6 @@ setbaud:
 ;     they're down here in the second 2k page.		  ;
 ;							  ;
 ;---------------------------------------------------------;
-
-
 
 ;this twisted bit of code looks for escape sequences for
 ;up, down, left, right, pageup, and pagedown, as well
@@ -2064,13 +2001,14 @@ cinfw4: pop	acc
 	mov	r2, a
 	ret
 
-
-
+;---------------------------------------------------------;
 
 pint8u: ;prints the unsigned 8 bit value in Acc in base 10
 	push	b
 	push	acc
 	sjmp	pint8b
+
+;---------------------------------------------------------;
 
 pint8:	;prints the signed 8 bit value in Acc in base 10
 	push	b
@@ -2103,7 +2041,7 @@ pint8e: mov	a, b
 	pop	b
 	ret
 
-
+;---------------------------------------------------------;
 
 	;print 16 bit unsigned integer in DPTR, using base 10.
 pint16u:	;warning, destroys r2, r3, r4, r5, psw.5
@@ -2159,6 +2097,8 @@ pint16h:mov	a, b		;and finally the ones digit
 	pop	acc
 	ret
 
+;---------------------------------------------------------;
+
 ;ok, it's a cpu hog and a nasty way to divide, but this code
 ;requires only 21 bytes!  Divides r2-r3 by r4-r5 and leaves
 ;quotient in r2-r3 and returns remainder in acc.  If Intel
@@ -2184,7 +2124,7 @@ pint16y:inc	r0
 	mov	a, r0
 	ret
 
-
+;---------------------------------------------------------;
 
 ;pcstr prints the compressed strings.  A dictionary of 128 words is
 ;stored in 4 bit packed binary format.	When pcstr finds a byte in
@@ -2235,6 +2175,8 @@ pcstr2: pop	acc
 	mov	r0, a
 	pop	acc
 	ret
+
+;---------------------------------------------------------;
 
 ;dcomp actually takes care of printing a word from the dictionary
 
@@ -2303,7 +2245,6 @@ gnn2:	mov	r4, #0
 	swap	a
 	anl	a, #00001111b
 	ret
-
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -2430,5 +2371,4 @@ clrm_cmd: .db	31,237,131,0
 erfr_cmd: .db	31,203,153,144,0
 erfr_ok:  .db	31,153,144,203,'d',13,14
 erfr_err: .db	31,133,155,13,14
-
 

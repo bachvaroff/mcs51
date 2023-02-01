@@ -34,12 +34,6 @@
 .equ    step_key, 'S'		;single step run
 .equ    vtedit_key, 'V'           ;memory editor
 
-;for testing in ram
-;.equ    list_key, 'K'           ;list (disassemble)
-;.equ    step_key, 'W'           ;single step run
-;.equ    vtedit_key, 'V'           ;memory editor
-
-
 
 ;location of two bytes used by single-step in internal ram which we
 ;hope the user's program won't write over while it's running.  These

@@ -32,13 +32,7 @@
                    
 0000:              .equ    list_key, 'L'            ;list (disassemble)
 0000:              .equ    step_key, 'S'            ;single step run
-0000:              .equ    vtedit_key, 'E'           ;memory editor
-                   
-                   ;for testing in ram
-                   ;.equ    list_key, 'K'           ;list (disassemble)
-                   ;.equ    step_key, 'W'           ;single step run
-                   ;.equ    vtedit_key, 'E'           ;memory editor
-                   
+0000:              .equ    vtedit_key, 'V'           ;memory editor
                    
                    
                    ;location of two bytes used by single-step in internal ram w
@@ -1300,7 +1294,7 @@
 1800:              .org     locat+0x800
 1800: A5 E5 E0 A5 
                    .db      0xA5,0xE5,0xE0,0xA5     ;signiture
-1804: FE 45 00 00 
+1804: FE 56 00 00 
                    .db      254,vtedit_key,0,0      ;id (254=user installed com
 1808: 00 00 00 00 
                    .db      0,0,0,0                         ;prompt code vector
