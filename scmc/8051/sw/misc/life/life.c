@@ -209,12 +209,14 @@ void main(void) {
 			if (c == (int)'L') break;
 		}
 		
+reload:
 		loadu();
 		show(0);
 		
 		printstr("READY\r\n");
 		while (1) {
 			c = getchar();
+			if (c == (int)'L') goto reload;
 			if (c == (int)'S') break;
 		}
 		

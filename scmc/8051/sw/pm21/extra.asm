@@ -32,12 +32,12 @@
 
 .equ    list_key, 'L'		;list (disassemble)
 .equ    step_key, 'S'		;single step run
-.equ    vtedit_key, 'E'           ;memory editor
+.equ    vtedit_key, 'V'           ;memory editor
 
 ;for testing in ram
 ;.equ    list_key, 'K'           ;list (disassemble)
 ;.equ    step_key, 'W'           ;single step run
-;.equ    vtedit_key, 'E'           ;memory editor
+;.equ    vtedit_key, 'V'           ;memory editor
 
 
 
