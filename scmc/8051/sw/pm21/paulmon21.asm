@@ -730,37 +730,41 @@ dnld:
 	mov	dptr, #dnlds1		 
 	acall	pcstr_h		   ;"begin sending file <ESC> to abort"
 	acall	dnld_init
-
-	  ;look for begining of line marker ':'
-dnld1:	acall	cin
+	
+dnld1:
+	;look for begining of line marker ':'
+	acall	cin
 	cjne	a, #27, dnld2	;Test for escape
 	sjmp	dnld_esc
 
 dnld2:	cjne	a, #':', dnld2b
 	sjmp	dnld2d
-dnld2b:	  ;check to see if it's a hex digit, error if it is
+dnld2b:
+	;check to see if it's a hex digit, error if it is
 	acall	asc2hex
 	jc	dnld1
 	mov	r1, #6
 	acall	dnld_inc
 	sjmp	dnld1
 
-dnld_now: ;entry point for main menu detecting ":" character
-	mov	a, #'^'
-	acall	cout
+dnld_now:
+	;entry point for main menu detecting ":" character
+	;mov	a, #'^'
+	;acall	cout
 	acall	dnld_init
 
 dnld2d:	mov	r1, #0
 	acall	dnld_inc
 
-	  ;begin taking in the line of data
-dnld3:	;mov	a, #'.'
+dnld3:
+	;begin taking in the line of data
+	;mov	a, #'.'
 	;acall	cout
 	mov	r4, #0		;r4 will count up checksum
 	acall	dnld_ghex
 	mov	r0, a		;R0 = # of data bytes
-	mov	a, #'.'
-	acall	cout
+	;mov	a, #'.'
+	;acall	cout
 	acall	dnld_ghex
 	mov	dph, a		;High byte of load address
 	acall	dnld_ghex
