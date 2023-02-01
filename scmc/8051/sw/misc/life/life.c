@@ -200,9 +200,7 @@ void main(void) {
 	EX1 = 1;
 	EA = 1;
 	
-	for (i0 = 0; !i0; ) {
-		clearu();
-		
+	for (i0 = 0; !i0; ) {		
 		printstr("\033[2J\033[mINIT\r\n");
 		while (1) {
 			c = getchar();
@@ -210,6 +208,7 @@ void main(void) {
 		}
 		
 reload:
+		clearu();
 		loadu();
 		show(0);
 		
