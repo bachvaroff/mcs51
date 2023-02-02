@@ -67,7 +67,7 @@ CABS                                00000000    00000000 =           0. bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00000C16  l_XSEG                          
-C:   00000CCB  l_CSEG                          
+C:   00000CF8  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002019  s_GSINIT0                       
 C:   0000201C  s_GSINIT1                       
@@ -78,8 +78,8 @@ C:   00002072  s_GSFINAL
 C:   00002072  s_GSINIT                        
 C:   00002072  s_GSINIT5                       
 C:   00002075  s_CSEG                          
-C:   00002D40  s_CONST                         
-C:   00002D92  s_XINIT                         
+C:   00002D6D  s_CONST                         
+C:   00002DBF  s_XINIT                         
 C:   00008000  s_PSEG                          
 C:   00008000  s_XSEG                          
 C:   00008C16  s_XISEG                         
@@ -383,7 +383,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002075    00000CCB =        3275. bytes (REL,CON,CODE)
+CSEG                                00002075    00000CF8 =        3320. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -393,20 +393,20 @@ C:   00002083  _int0                              life
 C:   00002096  _int1                              life
 C:   000020A9  _show                              life
 C:   0000230E  _main                              life
-C:   00002B1B  ___memcpy                          __memcpy
-C:   00002BAE  _memset                            _memset
-C:   00002C18  __gptrget                          _gptrget
-C:   00002C34  __modsint                          _modsint
-C:   00002CA2  __moduint                          _moduint
-C:   00002D21  __sdcc_external_startup            _startup
-C:   00002D25  __gptrput                          _gptrput
+C:   00002B48  ___memcpy                          __memcpy
+C:   00002BDB  _memset                            _memset
+C:   00002C45  __gptrget                          _gptrget
+C:   00002C61  __modsint                          _modsint
+C:   00002CCF  __moduint                          _moduint
+C:   00002D4E  __sdcc_external_startup            _startup
+C:   00002D52  __gptrput                          _gptrput
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00002D40    00000052 =          82. bytes (REL,CON,CODE)
+CONST                               00002D6D    00000052 =          82. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

@@ -204,6 +204,7 @@ void main(void) {
 		printstr("\033[2J\033[mINIT\r\n");
 		while (1) {
 			c = getchar();
+			if (i0 || (c == (int)'T')) goto terminate;
 			if (c == (int)'L') break;
 		}
 		
@@ -215,6 +216,7 @@ reload:
 		printstr("READY\r\n");
 		while (1) {
 			c = getchar();
+			if (i0 || (c == (int)'T')) goto terminate;
 			if (c == (int)'L') goto reload;
 			if (c == (int)'S') break;
 		}
@@ -237,8 +239,8 @@ reload:
 		}
 	}
 	
+terminate:
 	EA = 0;
-	
 	printstr("TERM\r\n");
 	(void)getchar();
 	
