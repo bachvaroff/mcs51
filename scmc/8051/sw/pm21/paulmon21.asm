@@ -174,6 +174,8 @@
 .equ	edit_key, 'E'		;edit memory
 .equ	clrm_key, 'C'		;clear memory
 .equ	erfr_key, 'Z'		;erase flash rom
+.equ	eio77_key, '<'
+.equ	dio77_key, '>'
 
 ; timing parameters for AMD Flash ROM 28F256.  These parameters
 ; and pretty conservative and they seem to work with crystals
@@ -626,7 +628,7 @@ menu0:	acall	upper
 
 menux:	mov	b, a		;now search for external commands...
 	mov	dptr, #bmem
-menux1: acall	find
+menux1: lcall	find
 	jnc	menuxend	   ;searched all the commands?
 	mov	dpl, #4
 	clr	a
@@ -702,7 +704,15 @@ menu1m: cjne	a, #intm_key, menu1n
 	mov	dptr, #intm_cmd
 	acall	pcstr_h
 	ljmp	intm
-menu1n:
+menu1n:	cjne	a, #eio77_key, menu1o
+	mov	dptr, #eio77_cmd
+	acall	pcstr_h
+	ljmp	eio77
+menu1o:	cjne	a, #dio77_key, menu1p
+	mov	dptr, #dio77_cmd
+	acall	pcstr_h
+	ljmp	dio77
+menu1p:
 
     ;invalid input, no commands to run...
 menu_end:			;at this point, we have not found
@@ -1119,7 +1129,7 @@ dir0a:	acall	space
 	acall	pcstr_h
 
 	mov	dph, #(bmem >> 8)
-dir1:	acall	find		;find the next program in memory
+dir1:	lcall	find		;find the next program in memory
 	jc	dir2
 dir_end:ajmp	newline		;we're done if no more found
 dir2:
@@ -1188,7 +1198,7 @@ run2:	inc	dph
 	mov	a, dph
 	cjne	a, #((emem+1) >> 8) & 255, run2b
 	sjmp	run3
-run2b:	acall	find
+run2b:	lcall	find
 	jnc	run3		;have we found 'em all??
 	mov	dpl, #4
 	clr	a
@@ -1248,7 +1258,7 @@ run5:	inc	dph
 	mov	a, dph
 	cjne	a, #((emem+1) >> 8) & 255, run5b
 	sjmp	run8
-run5b:	acall	find
+run5b:	lcall	find
 	jnc	run8		;Shouldn't ever do this jump!
 	mov	dpl, #4
 	clr	a
@@ -1306,10 +1316,16 @@ help:
 	;mov	 dptr, #erfr_cmd
 	acall	help2
 help_skerfm:
+	mov	r4, #eio77_key
+	mov	 dptr, #eio77_cmd
+	acall	help2
+	mov	r4, #dio77_key
+	mov	 dptr, #dio77_cmd
+	acall	help2
 	mov	dptr, #help2txt
 	acall	pcstr_h
 	mov	dptr, #bmem
-help3:	acall	find
+help3:	lcall	find
 	jnc	help4
 	mov	dpl, #4
 	clr	a
@@ -1560,6 +1576,16 @@ intm4:
 
 ;---------------------------------------------------------;
 
+eio77:
+	clr	p1.7
+	ajmp	newline
+	
+dio77:
+	setb	p1.7
+	ajmp	newline
+
+;---------------------------------------------------------;
+
 ;**************************************************************
 ;**************************************************************
 ;*****							  *****
@@ -1632,7 +1658,7 @@ prgmend:pop	acc
 erall:
 	mov	dptr, #flash_er2_addr
 	mov	a, #flash_er2_data
-	acall	erblock			;use erblock to send erase all
+	lcall	erblock			;use erblock to send erase all
 	mov	dptr, #bflash
 erall2:	clr	a
 	movc	a, @a+dptr		;read back flash memory
@@ -1656,16 +1682,16 @@ erblock:
 	push	acc
 	push	dpl
 	push	dph
-	acall	flash_en		;send flash enable stuff
+	lcall	flash_en		;send flash enable stuff
 	mov	dptr, #flash_er1_addr
 	mov	a, #flash_er1_data
 	movx	@dptr, a		;send erase enable
-	acall	flash_en		;send flash enable stuff
+	lcall	flash_en		;send flash enable stuff
 	pop	dph
 	pop	dpl
 	pop	acc
 	movx	@dptr, a		;send erase command
-	ajmp	flash_wait
+	ljmp	flash_wait
 
 ;finds the next header in the external memory.
 ;  Input DPTR=point to start search (only MSB used)
@@ -2375,4 +2401,6 @@ clrm_cmd: .db	31,237,131,0
 erfr_cmd: .db	31,203,153,144,0
 erfr_ok:  .db	31,153,144,203,'d',13,14
 erfr_err: .db	31,133,155,13,14
+eio77_cmd: .db "Enable nCSIO77",0
+dio77_cmd: .db "Disable nCSIO77",0
 
