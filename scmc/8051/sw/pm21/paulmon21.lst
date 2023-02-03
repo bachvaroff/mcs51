@@ -1724,7 +1724,7 @@
                    ; send a custom erase command. This is used by erall,
                    ; and it's intended to be callable from the flash memory
                    ; so that custom block erase code can be implemented
-                            
+                   
                    erblock:
 0807: C0 E0                 push    acc
 0809: C0 82                 push    dpl
