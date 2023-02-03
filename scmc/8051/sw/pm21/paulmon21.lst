@@ -1122,8 +1122,9 @@
                    
                    ;---------------------------------------------------------;
                    
+                   ; edit external ram...
+                   
                    edit:
-                   ;edit external ram...
 048D: 90 0D A6              mov     dptr, #edits1
 0490: 11 45                 acall   pcstr_h
 0492: 11 06                 acall   r6r7todptr

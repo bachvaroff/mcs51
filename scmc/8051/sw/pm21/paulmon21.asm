@@ -1122,8 +1122,9 @@ dump5:	ajmp	newline
 
 ;---------------------------------------------------------;
 
+; edit external ram...
+
 edit:
-;edit external ram...
 	mov	dptr, #edits1
 	acall	pcstr_h
 	acall	r6r7todptr
