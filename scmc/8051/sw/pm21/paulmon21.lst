@@ -234,21 +234,24 @@
 0013:              .org     base+19
 0013: 02 20 13              ljmp    vector+19       ;ext int1 vector
                    
-0016: 74 2D        dash:    mov     a, #'-'                 ;seems kinda trivia
+                   dash:
+0016: 74 2D                 mov     a, #'-'                 ;seems kinda trivia
 0018: 01 76                 ajmp    cout            ;this appears in code, it t
 001A: 00                    nop                     ;bytes, but an acall takes 
                    
 001B:              .org     base+27
 001B: 02 20 1B              ljmp    vector+27       ;timer1 vector
                    
-001E: 11 76        cout_sp:acall    cout
+                   cout_sp:
+001E: 11 76                 acall   cout
 0020: 01 74                 ajmp    space
 0022: 00                    nop
                    
 0023:              .org     base+35
 0023: 02 20 23              ljmp    vector+35       ;uart vector
                    
-0026: 11 16        dash_sp:acall    dash
+                   dash_sp:
+0026: 11 16                 acall   dash
 0028: 01 74                 ajmp    space
 002A: 00                    nop
                    
@@ -298,25 +301,33 @@
                    ;                                                          ;
                    ;---------------------------------------------------------;
                    
-006A: 30 98 FD     cin:     jnb     ri, cin
+                   cin:
+006A: 30 98 FD              jnb     ri, cin
 006D: C2 98                 clr     ri
 006F: E5 99                 mov     a, sbuf
 0071: 22                    ret
                    
-0072: 11 74        dspace: acall    space
-0074: 74 20        space:   mov     a, #' '
-0076: 30 99 FD     cout:    jnb     ti, cout
+                   ;---------------------------------------------------------;
+                   
+                   dspace:
+0072: 11 74                 acall   space
+                   space:
+0074: 74 20                 mov     a, #' '
+                   cout:
+0076: 30 99 FD              jnb     ti, cout
 0079: C2 99                 clr     ti              ;clr ti before the mov to s
 007B: F5 99                 mov     sbuf, a
 007D: 22                    ret
                    
-                   ;clearing ti before reading sbuf takes care of the case wher
-                   ;interrupts may be enabled... if an interrupt were to happen
-                   ;between those two instructions, the serial port will just
-                   ;wait a while, but in the other order and the character coul
-                   ;finish transmitting (during the interrupt routine) and then
-                   ;ti would be cleared and never set again by the hardware, ca
-                   ;the next call to cout to hang forever!
+                   ;---------------------------------------------------------;
+                   
+                   ; clearing ti before reading sbuf takes care of the case whe
+                   ; interrupts may be enabled... if an interrupt were to happe
+                   ; between those two instructions, the serial port will just
+                   ; wait a while, but in the other order and the character cou
+                   ; finish transmitting (during the interrupt routine) and the
+                   ; ti would be cleared and never set again by the hardware, c
+                   ; the next call to cout to hang forever!
                    
                    newline2:                        ;print two newlines
 007E: 11 80                 acall   newline
@@ -328,11 +339,15 @@
 008A: D0 E0                 pop     acc
 008C: 22                    ret
                    
-                            ;get 2 digit hex number from serial port
-                            ; c = set if ESC pressed, clear otherwise
-                            ; psw.5 = set if return w/ no input, clear otherwis
+                   ;---------------------------------------------------------;
+                   
+                   ; get 2 digit hex number from serial port
+                   ; c = set if ESC pressed, clear otherwise
+                   ; psw.5 = set if return w/ no input, clear otherwise
+                   
                    ghex:
-008D: C2 D5        ghex8:   clr     psw.5
+                   ghex8:
+008D: C2 D5                 clr     psw.5
                    ghex8c:
 008F: 11 62                 acall   cin_filter_h    ;get first digit
 0091: 31 9A                 acall   upper
@@ -375,8 +390,11 @@
 00CF: C3                    clr     c
 00D0: 22                    ret
                    
-                            ;carry set if esc pressed
-                            ;psw.5 set if return pressed w/ no input
+                   ;---------------------------------------------------------;
+                   
+                   ; carry set if esc pressed
+                   ; psw.5 set if return pressed w/ no input
+                   
                    ghex16:
 00D1: 7A 00                 mov     r2, #0          ;start out with 0
 00D3: 7B 00                 mov     r3, #0
@@ -483,6 +501,8 @@
 0165: D3           hex_not:setb     c
 0166: 22                    ret
                    
+                   ;---------------------------------------------------------;
+                   
                    ; Highly code efficient resursive call phex contributed
                    ; by Alexander B. Alexandrov <abalex@cbr.spb.ru>
                    
@@ -499,6 +519,8 @@
 0174: 11 76                 acall   cout
 0176: D0 E0                 pop     acc
 0178: 22                    ret
+                   
+                   ;---------------------------------------------------------;
                    
                    ; the old code... easier to understand
                    ;        push    acc
@@ -529,12 +551,15 @@
 0183: D0 E0                 pop     acc
 0185: 22                    ret
                    
-                   ;a not so well documented feature of pstr is that you can pr
-                   ;multiple consecutive strings without needing to reload dptr
-                   ;(which takes 3 bytes of code!)... this is useful for insert
-                   ;numbers or spaces between strings.
+                   ;---------------------------------------------------------;
                    
-0186: C0 E0        pstr:    push    acc
+                   ; a not so well documented feature of pstr is that you can p
+                   ; multiple consecutive strings without needing to reload dpt
+                   ; (which takes 3 bytes of code!)... this is useful for inser
+                   ; numbers or spaces between strings.
+                   
+                   pstr:
+0186: C0 E0                 push    acc
 0188: E4           pstr1:   clr     a
 0189: 93                    movc    a, @a+dptr
 018A: A3                    inc     dptr
@@ -547,7 +572,9 @@
 0197: D0 E0        pstr2:   pop     acc
 0199: 22                    ret
                    
-                   ;converts the ascii code in Acc to uppercase, if it is lower
+                   ;---------------------------------------------------------;
+                   
+                   ; converts the ascii code in Acc to uppercase, if it is lowe
                    
                    ; Code efficient (saves 6 byes) upper contributed
                    ; by Alexander B. Alexandrov <abalex@cbr.spb.ru>
@@ -560,8 +587,10 @@
 01A4: 24 E0                 add     a, #224                 ;convert to upperca
 01A6: 22           upper4:  ret
                    
+                   ;---------------------------------------------------------;
                    
-01A7: 78 00        lenstr: mov      r0, #0    ;returns length of a string in r0
+                   lenstr:
+01A7: 78 00                 mov     r0, #0    ;returns length of a string in r0
 01A9: C0 E0                 push    acc
 01AB: E4           lenstr1:clr      a
 01AC: 93                    movc    a,@a+dptr
@@ -574,9 +603,13 @@
 01B7: D0 E0        lenstr2:pop      acc
 01B9: 22                    ret
                    
-                   esc:  ;checks to see if <ESC> is waiting on serial port
-                         ;C=clear if no <ESC>, C=set if <ESC> pressed
-                         ;buffer is flushed
+                   ;---------------------------------------------------------;
+                   
+                   ; checks to see if <ESC> is waiting on serial port
+                   ; C=clear if no <ESC>, C=set if <ESC> pressed
+                   ; buffer is flushed
+                   
+                   esc:
 01BA: C0 E0                 push    acc
 01BC: C3                    clr     c
 01BD: 30 98 08              jnb     ri,esc2
@@ -593,9 +626,10 @@
                    ;                                                          ;
                    ;---------------------------------------------------------;
                    
-                   menu: ;first we print out the prompt, which isn't as simple
-                         ;as it may seem, since external code can add to the
-                         ;prompt, so we've got to find and execute all of 'em.
+                   menu:
+                   ; first we print out the prompt, which isn't as simple
+                   ; as it may seem, since external code can add to the
+                   ; prompt, so we've got to find and execute all of 'em.
 01CB: 90 0D 22              mov     dptr, #prompt1    ;give 'em the first part 
 01CE: 11 45                 acall   pcstr_h
 01D0: EF                    mov     a, r7
@@ -605,26 +639,26 @@
                             ;mov     dptr, #prompt2
 01D6: 31 86                 acall   pstr
                    
-                   ;now we're finally past the prompt, so let's get some input
+                   ; now we're finally past the prompt, so let's get some input
 01D8: 11 62                 acall   cin_filter_h    ;get the input, finally
 01DA: B4 3A 04              cjne    a, #':', menu0
 01DD: 51 CF                 acall   dnld_now
 01DF: 80 EA                 sjmp    menu
 01E1: 31 9A        menu0:   acall   upper
                    
-                   ;push return address onto stack so we can just jump to the p
+                   ; push return address onto stack so we can just jump to the 
 01E3: 75 F0 CB              mov     b, #(menu & 255)  ;we push the return addre
 01E6: C0 F0                 push    b                 ;to save code later...
 01E8: 75 F0 01              mov     b, #(menu >> 8)           ;if bogus input, 
 01EB: C0 F0                 push    b                 ;another prompt.
                    
-                   ;first we'll look through memory for a program header that s
-                   ;it's a user installed command which matches what the user p
+                   ; first we'll look through memory for a program header that 
+                   ; it's a user installed command which matches what the user 
                    
-                   ;user installed commands need to avoid changing R6/R7, which
-                   ;the memory pointer.  The stack pointer can't be changed obv
-                   ;all the other general purpose registers should be available
-                   ;user commands to alter as they wish.
+                   ; user installed commands need to avoid changing R6/R7, whic
+                   ; the memory pointer.  The stack pointer can't be changed ob
+                   ; all the other general purpose registers should be availabl
+                   ; user commands to alter as they wish.
                    
 01ED: F5 F0        menux:   mov     b, a            ;now search for external co
 01EF: 90 10 00              mov     dptr, #bmem
@@ -651,7 +685,7 @@
                    menuxend:
 021B: E5 F0                 mov     a, b
                    
-                   ;since we didn't find a user installed command, use the buil
+                   ; since we didn't find a user installed command, use the bui
                    
                    menu1a:
 021D: B4 3F 07     menu1b:  cjne    a, #help_key, menu1c
@@ -714,7 +748,7 @@
 02AD: 02 07 A6              ljmp    dio77
                    menu1p:
                    
-                       ;invalid input, no commands to run...
+                   ; invalid input, no commands to run...
                    menu_end:                        ;at this point, we have not
 02B0: 01 80                 ajmp    newline                 ;anything to run, s
                                                     ;remember, we pushed menu, 
@@ -722,11 +756,11 @@
                    
                    ;---------------------------------------------------------;
                    
-                   ;dnlds1 = "Begin sending Intel HEX format file <ESC> to abor
-                   ;dnlds2 = "Download aborted"
-                   ;dnlds3 = "Download completed"
+                   ; dnlds1 = "Begin sending Intel HEX format file <ESC> to abo
+                   ; dnlds2 = "Download aborted"
+                   ; dnlds3 = "Download completed"
                    
-                   ;16 byte parameter table: (eight 16 bit values)
+                   ; 16 byte parameter table: (eight 16 bit values)
                    ;  *   0 = lines received
                    ;  *   1 = bytes received
                    ;  *   2 = bytes written
@@ -880,14 +914,14 @@
 035F: C3                    clr     c
 0360: 22           dnldgp2:ret
                    
-                   ;a spacial version of ghex just for the download.  Does not
-                   ;look for carriage return or backspace.   Handles ESC key by
-                   ;poping the return address (I know, nasty, but it saves many
-                   ;bytes of code in this 4k ROM) and then jumps to the esc
-                   ;key handling.   This ghex doesn't echo characters, and if i
-                   ;sees ':', it pops the return and jumps to an error handler
-                   ;for ':' in the middle of a line.  Non-hex digits also jump
-                   ;to error handlers, depending on which digit.
+                   ; a special version of ghex just for the download.  Does not
+                   ; look for carriage return or backspace. Handles ESC key by
+                   ; poping the return address (I know, nasty, but it saves man
+                   ; bytes of code in this 4k ROM) and then jumps to the esc
+                   ; key handling.  This ghex doesn't echo characters, and if i
+                   ; sees ':', it pops the return and jumps to an error handler
+                   ; for ':' in the middle of a line.  Non-hex digits also jump
+                   ; to error handlers, depending on which digit.
                               
                    dnld_ghex:
 0361: 11 6A        dnldgh1:acall    cin
@@ -1046,7 +1080,6 @@
 0448: 75 81 07              mov     sp, #7          ;start w/ sp=7, like a real
 044B: 73                    jmp     @a+dptr
                    
-                   
                    ;---------------------------------------------------------;
                    
                    dump:    
@@ -1089,7 +1122,8 @@
                    
                    ;---------------------------------------------------------;
                    
-                   edit:       ;edit external ram...
+                   edit:
+                   ;edit external ram...
 048D: 90 0D A6              mov     dptr, #edits1
 0490: 11 45                 acall   pcstr_h
 0492: 11 06                 acall   r6r7todptr
@@ -1181,11 +1215,10 @@
 0536: B4 00 9A              cjne    a, #((emem+1) >> 8) & 255, dir1
 0539: 81 D8                 ajmp    dir_end
                    
-                   
-                   ;type1=Ext Command
-                   ;type4=Startup
-                   ;type2=Program
-                   ;type5=???
+                   ; type1=Ext Command
+                   ; type4=Startup
+                   ; type2=Program
+                   ; type5=???
                    
                    ;---------------------------------------------------------;
                    
@@ -1357,7 +1390,6 @@
                    ;---------------------------------------------------------;
                    
                    upld:
-                   
 0659: D1 F0                 acall   get_mem
                             ;assume we've got the beginning address in r3/r2
                             ;and the final address in r5/r4 (r4=lsb)...
@@ -1445,7 +1477,6 @@
 06DA: 31 67                 acall   phex
 06DC: 01 7E        upld8:   ajmp    newline2
                    
-                   
                    line_dly: ;a brief delay between line while uploading, so th
                             ;receiving host can be slow (i.e. most windows soft
 06DE: E8                    mov     a, r0
@@ -1463,10 +1494,11 @@
                    
                    ;---------------------------------------------------------;
                    
-                   get_mem:     ;this thing gets the begin and end locations fo
-                                 ;a few commands.  If an esc or enter w/ no inp
-                                 ;it pops it's own return and returns to the me
-                                 ;(nasty programming, but we need tight code fo
+                   get_mem:
+                   ; this thing gets the begin and end locations for
+                   ; a few commands.  If an esc or enter w/ no input,
+                   ; it pops it's own return and returns to the menu
+                   ; (nasty programming, but we need tight code for 4k rom)
 06F0: 11 7E                 acall   newline2
 06F2: 90 0D 88              mov     dptr, #beg_str
 06F5: 11 45                 acall   pcstr_h
@@ -1506,8 +1538,7 @@
 0730: 31 9A                 acall   upper
 0732: B4 59 EB              cjne    a, #'Y', abort_it
 0735: 11 7E                 acall   newline2
-                        ;now we actually do it
-                   
+                   ; now we actually do it
 0737: 8B 83        clrm2:   mov     dph, r3
 0739: 8A 82                 mov     dpl, r2
 073B: E4           clrm3:   clr     a
@@ -1554,7 +1585,8 @@
                    
                    ;---------------------------------------------------------;
                    
-0781: 11 80        intm:    acall   newline
+                   intm:
+0781: 11 80                 acall   newline
 0783: 78 00                 mov     r0, #0
 0785: 11 80        intm2:   acall   newline
 0787: E8                    mov     a, r0
@@ -1580,6 +1612,8 @@
 07A2: C2 97                 clr     p1.7
 07A4: 01 80                 ajmp    newline
                             
+                   ;---------------------------------------------------------;
+                   
                    dio77:
 07A6: D2 97                 setb    p1.7
 07A8: 01 80                 ajmp    newline
@@ -1601,9 +1635,10 @@
                    ;                                                          ;
                    ;---------------------------------------------------------;
                    
-                            ; poll the flash rom using it's toggle bit feature
-                            ; on D6... and wait until the flash rom is not busy
-                            ; dptr must be initialized with the address to read
+                   ; poll the flash rom using it's toggle bit feature
+                   ; on D6... and wait until the flash rom is not busy
+                   ; dptr must be initialized with the address to read
+                   
                    flash_wait:
 07AA: C0 F0                 push    b
 07AC: E4                    clr     a
@@ -1616,7 +1651,10 @@
 07B6: D0 F0                 pop     b
 07B8: 22                    ret
                    
-                            ;send the flash enable codes
+                   ;---------------------------------------------------------;
+                   
+                   ; send the flash enable codes
+                   
                    flash_en:
 07B9: 90 D5 55              mov     dptr, #flash_en1_addr
 07BC: 74 AA                 mov     a, #flash_en1_data
@@ -1626,10 +1664,13 @@
 07C4: F0                    movx    @dptr, a
 07C5: 22                    ret
                    
-                   ;a routine that writes ACC to into flash memory at DPTR
+                   ;---------------------------------------------------------;
+                   
+                   ; a routine that writes ACC to into flash memory at DPTR
                    ; C is set if error occurs, C is clear if it worked
                    
-07C6: C8           prgm:    xch     a, r0
+                   prgm:
+07C6: C8                    xch     a, r0
 07C7: C0 E0                 push    acc
 07C9: C0 82                 push    dpl
 07CB: C0 83                 push    dph
@@ -1651,6 +1692,8 @@
 07E4: D0 E0        prgmend:pop      acc
 07E6: C8                    xch     a, r0
 07E7: 22                    ret
+                   
+                   ;---------------------------------------------------------;
                    
                    ; erase the entire flash rom
                    ; C=1 if failure, C=0 if ok
@@ -1675,9 +1718,12 @@
 0805: D3                    setb    c
 0806: 22                    ret
                    
-                            ;send a custom erase command.  This is used by eral
-                            ;and it's intended to be callable from the flash me
-                            ;so that custom block erase code can be implemented
+                   ;---------------------------------------------------------;
+                   
+                   ; send a custom erase command. This is used by erall,
+                   ; and it's intended to be callable from the flash memory
+                   ; so that custom block erase code can be implemented
+                            
                    erblock:
 0807: C0 E0                 push    acc
 0809: C0 82                 push    dpl
@@ -1693,10 +1739,13 @@
 081F: F0                    movx    @dptr, a                ;send erase command
 0820: 02 07 AA              ljmp    flash_wait
                    
-                   ;finds the next header in the external memory.
-                   ;  Input DPTR=point to start search (only MSB used)
-                   ;  Output DPTR=location of next module
-                   ;    C=set if a header found, C=clear if no more headers
+                   ;---------------------------------------------------------;
+                   
+                   ; finds the next header in the external memory.
+                   ; Input DPTR=point to start search (only MSB used)
+                   ; Output DPTR=location of next module
+                   ; C=set if a header found, C=clear if no more headers
+                   
 0823: 75 82 00     find:    mov     dpl, #0
 0826: E4                    clr     a
 0827: 93                    movc    a, @a+dptr
@@ -1723,18 +1772,20 @@
 0849: 05 83        find4:   inc     dph                     ;keep on searching
 084B: 80 D6                 sjmp    find
                    
+                   ;---------------------------------------------------------;
+                   
                    ;************************************
-                   ;To make PAULMON2 able to write to other
-                   ;types of memory than RAM and flash rom,
-                   ;modify this "smart_wr" routine.  This
-                   ;code doesn't accept any inputs other
-                   ;that the address (dptr) and value (acc),
-                   ;so this routine must know which types
-                   ;of memory are in what address ranges
+                   ; To make PAULMON2 able to write to other
+                   ; types of memory than RAM and flash rom,
+                   ; modify this "smart_wr" routine.  This
+                   ; code doesn't accept any inputs other
+                   ; that the address (dptr) and value (acc),
+                   ; so this routine must know which types
+                   ; of memory are in what address ranges
                    ;************************************
                    
-                   ;Write to Flash ROM or ordinary RAM.  Carry bit will indicat
-                   ;if the value was successfully written, C=1 if not written.
+                   ; Write to Flash ROM or ordinary RAM.  Carry bit will indica
+                   ; if the value was successfully written, C=1 if not written.
                    
                    smart_wr:
 084D: C0 E0                 push    acc
@@ -1784,7 +1835,7 @@
                    ;                                                          ;
                    ;---------------------------------------------------------;
                    
-                   ;first the hardware has to get initialized.
+                   ; first the hardware has to get initialized.
                    
                    poweron:
 088A: E4                    clr     a
@@ -1824,13 +1875,13 @@
 08B7: FF                    mov     r7, a
 08B8: FF                    mov     r7, a
                    
-                   ;Before we start doing any I/O, a short delay is required so
-                   ;that any external hardware which may be in "reset mode" can
-                   ;initialize.  This is typically a problem when a 82C55 chip
-                   ;is used and its reset line is driven from the R-C reset
-                   ;circuit used for the 8051.  Because the 82C55 reset pin
-                   ;switches from zero to one at a higher voltage than the 8051
-                   ;any 82C55 chips would still be in reset mode right now...
+                   ; Before we start doing any I/O, a short delay is required s
+                   ; that any external hardware which may be in "reset mode" ca
+                   ; initialize.  This is typically a problem when a 82C55 chip
+                   ; is used and its reset line is driven from the R-C reset
+                   ; circuit used for the 8051.  Because the 82C55 reset pin
+                   ; switches from zero to one at a higher voltage than the 805
+                   ; any 82C55 chips would still be in reset mode right now...
                    
                    rst_dly:
 08B9: 79 C8                 mov     r1, #200        ;approx 100000 cycles
@@ -1838,8 +1889,8 @@
 08BD: DA FE                 djnz    r2, *
 08BF: D9 FA                 djnz    r1, rdly2
                    
-                   ;Check for the Erase-on-startup signal and erase Flash ROM 
-                   ;if it's there.
+                   ; Check for the Erase-on-startup signal and erase Flash ROM 
+                   ; if it's there.
                    
 08C1: 74 00                 mov     a, #has_flash
 08C3: 60 13                 jz      skip_erase
@@ -1855,20 +1906,20 @@
 08D5: 12 07 E8              lcall   erall           ;and this'll delete the fla
                    skip_erase:
                    
-                   ;run any user initialization programs in external memory
+                   ; run any user initialization programs in external memory
 08D8: 75 F0 F9              mov     b, #249
 08DB: 31 0A                 acall   stcode
                    
-                   ;initialize the serial port, auto baud detect if necessary
+                   ; initialize the serial port, auto baud detect if necessary
 08DD: 31 37                 acall   setbaud_reset           ;set up the serial 
                             ;mov    a, th1
                             ;lcall  phex
                    
-                   ;run the start-up programs in external memory.
+                   ; run the start-up programs in external memory.
 08DF: 75 F0 FD              mov     b, #253
 08E2: 31 0A                 acall   stcode
                    
-                   ;now print out the nice welcome message
+                   ; now print out the nice welcome message
                    
                    welcome:
 08E4: 78 18                 mov     r0, #24
@@ -1932,14 +1983,14 @@
                    ;                                                          ;
                    ;---------------------------------------------------------;
                    
-                   ;this twisted bit of code looks for escape sequences for
-                   ;up, down, left, right, pageup, and pagedown, as well
-                   ;as ordinary escape and ordinary characters.  Escape
-                   ;sequences are required to arrive with each character
-                   ;nearly back-to-back to the others, otherwise the characters
-                   ;are treated as ordinary user keystroaks.  cin_filter
-                   ;returns a single byte when it sees the multi-byte escape
-                   ;sequence, as shown here.
+                   ; this twisted bit of code looks for escape sequences for
+                   ; up, down, left, right, pageup, and pagedown, as well
+                   ; as ordinary escape and ordinary characters.  Escape
+                   ; sequences are required to arrive with each character
+                   ; nearly back-to-back to the others, otherwise the character
+                   ; are treated as ordinary user keystroaks.  cin_filter
+                   ; returns a single byte when it sees the multi-byte escape
+                   ; sequence, as shown here.
                    
                    ; return value    key          escape sequence
                    ;   11 (^K)       up           1B 5B 41
@@ -2003,8 +2054,8 @@
 09A6: 80 A1                 sjmp    cin_filter
                    cinf_notpg:
 09A8: D0 E0                 pop     acc
-                   ;unrecognized escape... eat up everything that's left coming
-                   ;quickly, then begin looking again
+                   ; unrecognized escape... eat up everything that's left comin
+                   ; quickly, then begin looking again
                    cinf_consume:
 09AA: 31 B7                 acall   cinf_wait
 09AC: 30 98 9A              jnb     ri, cin_filter
@@ -2012,11 +2063,11 @@
 09B2: B4 1B F5              cjne    a, #esc_char, cinf_consume
 09B5: 80 A1                 sjmp    cinf2
                    
-                   ;this thing waits for a character to be received for approx
-                   ;4 character transmit time periods.  It returns immedately
-                   ;or after the entire wait time.   It does not remove the cha
-                   ;from the buffer, so ri should be checked to see if somethin
-                   ;actually did show up while it was waiting
+                   ; this thing waits for a character to be received for approx
+                   ; 4 character transmit time periods.  It returns immedately
+                   ; or after the entire wait time. It does not remove the char
+                   ; from the buffer, so ri should be checked to see if somethi
+                   ; actually did show up while it was waiting
 09B7:                       .equ    char_delay, 4           ;number of char xmi
                    cinf_wait:
 09B7: EA                    mov     a, r2
@@ -2033,14 +2084,18 @@
                    
                    ;---------------------------------------------------------;
                    
-                   pint8u: ;prints the unsigned 8 bit value in Acc in base 10
+                   ; prints the unsigned 8 bit value in Acc in base 10
+                   
+                   pint8u:
 09CA: C0 F0                 push    b
 09CC: C0 E0                 push    acc
 09CE: 80 13                 sjmp    pint8b
                    
                    ;---------------------------------------------------------;
                    
-                   pint8:   ;prints the signed 8 bit value in Acc in base 10
+                   ; prints the signed 8 bit value in Acc in base 10
+                   
+                   pint8:
 09D0: C0 F0                 push    b
 09D2: C0 E0                 push    acc
 09D4: 30 E7 0C              jnb     acc.7, pint8b
@@ -2073,8 +2128,10 @@
                    
                    ;---------------------------------------------------------;
                    
-                            ;print 16 bit unsigned integer in DPTR, using base 
-                   pint16u:         ;warning, destroys r2, r3, r4, r5, psw.5
+                   ; print 16 bit unsigned integer in DPTR, using base 10.
+                   ; warning, destroys r2, r3, r4, r5, psw.5
+                   
+                   pint16u:
 0A0E: C0 E0                 push    acc
 0A10: E8                    mov     a, r0
 0A11: C0 E0                 push    acc
@@ -2129,13 +2186,15 @@
                    
                    ;---------------------------------------------------------;
                    
-                   ;ok, it's a cpu hog and a nasty way to divide, but this code
-                   ;requires only 21 bytes!  Divides r2-r3 by r4-r5 and leaves
-                   ;quotient in r2-r3 and returns remainder in acc.  If Intel
-                   ;had made a proper divide, then this would be much easier.
+                   ; ok, it's a cpu hog and a nasty way to divide, but this cod
+                   ; requires only 21 bytes!  Divides r2-r3 by r4-r5 and leaves
+                   ; quotient in r2-r3 and returns remainder in acc.  If Intel
+                   ; had made a proper divide, then this would be much easier.
                    
-0A6C: 78 00        pint16x:mov      r0, #0
-0A6E: 08           pint16y:inc      r0
+                   pint16x:
+0A6C: 78 00                 mov     r0, #0
+                   pint16y:
+0A6E: 08                    inc     r0
 0A6F: C3                    clr     c
 0A70: EA                    mov     a, r2
 0A71: 9C                    subb    a, r4
@@ -2156,11 +2215,11 @@
                    
                    ;---------------------------------------------------------;
                    
-                   ;pcstr prints the compressed strings.  A dictionary of 128 w
-                   ;stored in 4 bit packed binary format.   When pcstr finds a 
-                   ;a string with the high bit set, it prints the word from the
-                   ;A few bytes have special functions and everything else prin
-                   ;it were an ordinary string.
+                   ; pcstr prints the compressed strings.  A dictionary of 128 
+                   ; stored in 4 bit packed binary format.  When pcstr finds a 
+                   ; a string with the high bit set, it prints the word from th
+                   ; A few bytes have special functions and everything else pri
+                   ; it were an ordinary string.
                    
                    ; special codes for pcstr:
                    ;    0 = end of string
@@ -2168,7 +2227,8 @@
                    ;   14 = CR/LF and end of string
                    ;   31 = next word code should be capitalized
                    
-0A81: C0 E0        pcstr:   push    acc
+                   pcstr:
+0A81: C0 E0                 push    acc
 0A83: E8                    mov     a, r0
 0A84: C0 E0                 push    acc
 0A86: E9                    mov     a, r1
@@ -2208,12 +2268,12 @@
                    
                    ;---------------------------------------------------------;
                    
-                   ;dcomp actually takes care of printing a word from the dicti
-                   
+                   ; dcomp actually takes care of printing a word from the dict
                    ; dptr = position in packed words table
                    ; r4=0 if next nibble is low, r4=255 if next nibble is high
                    
-0AC6: 54 7F        decomp: anl      a, #0x7F
+                   decomp:
+0AC6: 54 7F                 anl     a, #0x7F
 0AC8: F8                    mov     r0, a           ;r0 counts which word
 0AC9: 20 D1 03              jb      psw.1, decomp1  ;avoid leading space if fir
 0ACC: 12 00 74              lcall   space
@@ -2288,7 +2348,7 @@
                    ;                                                          ;
                    ;---------------------------------------------------------;
                    
-                   ;this is the dictionary of 128 words used by pcstr.
+                   ; this is the dictionary of 128 words used by pcstr.
                    
                    words:
 0B3B: 82 90 E8 23 
