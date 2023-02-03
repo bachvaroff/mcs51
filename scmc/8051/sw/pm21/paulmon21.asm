@@ -522,26 +522,6 @@ phex1:	push	acc
 
 ;---------------------------------------------------------;
 
-; the old code... easier to understand
-;	push	acc
-;	swap	a
-;	anl	a, #15
-;	add	a, #246
-;	jnc	phex_b
-;	add	a, #7
-;phex_b:add	a, #58
-;	acall	cout
-;	pop	acc
-;phex1:	push	acc
-;	anl	a, #15
-;	add	a, #246
-;	jnc	phex_c
-;	add	a, #7
-;phex_c:add	a, #58
-;	acall	cout
-;	pop	acc
-;	ret
-
 phex16:
 	push	acc
 	mov	a, dph
