@@ -50,7 +50,7 @@ inline void printstr(const char *s) {
 
 #define A2D(COLW, ROW, COL) ((int)(ROW) * (int)(COLW) + (int)(COL))
 
-#define H 32
+#define H 64
 #define W 32
 
 char i0, i1;

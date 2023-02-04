@@ -349,11 +349,11 @@ _i0::
 _i1::
 	.ds 1
 _pu::
-	.ds 1024
+	.ds 2048
 _u::
-	.ds 1024
+	.ds 2048
 _nu::
-	.ds 1024
+	.ds 2048
 _x::
 	.ds 2
 _y::
@@ -912,7 +912,7 @@ _show:
 	mov	r7,a
 	clr	c
 	mov	a,r6
-	subb	a,#0x20
+	subb	a,#0x40
 	mov	a,r7
 	xrl	a,#0x80
 	subb	a,#0x80
@@ -1076,7 +1076,7 @@ _main:
 ;	life.c:116: memset(u, 0, sizeof (u));
 	clr	a
 	push	acc
-	mov	a,#0x04
+	mov	a,#0x08
 	push	acc
 	clr	a
 	push	acc
@@ -1089,7 +1089,7 @@ _main:
 ;	life.c:117: memset(pu, 0, sizeof (pu));
 	clr	a
 	push	acc
-	mov	a,#0x04
+	mov	a,#0x08
 	push	acc
 	clr	a
 	push	acc
@@ -1305,7 +1305,7 @@ _main:
 	mov	r7,a
 	clr	c
 	mov	a,r6
-	subb	a,#0x20
+	subb	a,#0x40
 	mov	a,r7
 	xrl	a,#0x80
 	subb	a,#0x80
@@ -1650,7 +1650,7 @@ _main:
 	subb	a,r5
 	mov	@r0,a
 ;	life.c:165: n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
-	mov	a,#0x1f
+	mov	a,#0x3f
 	add	a,r6
 	mov	r4,a
 	clr	a
@@ -1660,7 +1660,7 @@ _main:
 	push	ar6
 	push	ar3
 	push	ar2
-	mov	a,#0x20
+	mov	a,#0x40
 	push	acc
 	clr	a
 	push	acc
@@ -1862,7 +1862,7 @@ _main:
 	add	a,@r0
 	mov	@r1,a
 ;	life.c:171: n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
-	mov	a,#0x20
+	mov	a,#0x40
 	add	a,r6
 	mov	r4,a
 	clr	a
@@ -1872,7 +1872,7 @@ _main:
 	push	ar6
 	push	ar3
 	push	ar2
-	mov	a,#0x20
+	mov	a,#0x40
 	push	acc
 	clr	a
 	push	acc
@@ -2002,7 +2002,7 @@ _main:
 	add	a,@r0
 	mov	@r1,a
 ;	life.c:177: n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
-	mov	a,#0x21
+	mov	a,#0x41
 	add	a,r6
 	mov	r6,a
 	clr	a
@@ -2010,7 +2010,7 @@ _main:
 	mov	r7,a
 	push	ar3
 	push	ar2
-	mov	a,#0x20
+	mov	a,#0x40
 	push	acc
 	clr	a
 	push	acc
@@ -2323,7 +2323,7 @@ _main:
 	mov	r7,a
 	clr	c
 	mov	a,r6
-	subb	a,#0x20
+	subb	a,#0x40
 	mov	a,r7
 	xrl	a,#0x80
 	subb	a,#0x80
@@ -2333,7 +2333,7 @@ _main:
 ;	life.c:190: memcpy(pu, u, sizeof (u));
 	clr	a
 	push	acc
-	mov	a,#0x04
+	mov	a,#0x08
 	push	acc
 	mov	a,#_u
 	push	acc
@@ -2350,7 +2350,7 @@ _main:
 ;	life.c:191: memcpy(u, nu, sizeof (nu));
 	clr	a
 	push	acc
-	mov	a,#0x04
+	mov	a,#0x08
 	push	acc
 	mov	a,#_nu
 	push	acc

@@ -66,8 +66,8 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000C16  l_XSEG                          
 C:   00000CF8  l_CSEG                          
+C:   00001816  l_XSEG                          
 C:   00002000  s_HOME                          
 C:   00002019  s_GSINIT0                       
 C:   0000201C  s_GSINIT1                       
@@ -82,7 +82,7 @@ C:   00002D6D  s_CONST
 C:   00002DBF  s_XINIT                         
 C:   00008000  s_PSEG                          
 C:   00008000  s_XSEG                          
-C:   00008C16  s_XISEG                         
+C:   00009816  s_XISEG                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -294,26 +294,26 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                00008000    00000C16 =        3094. bytes (REL,CON,XDATA)
+XSEG                                00008000    00001816 =        6166. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 D:   00008000  _i0                                life
 D:   00008001  _i1                                life
 D:   00008002  _pu                                life
-D:   00008402  _u                                 life
-D:   00008802  _nu                                life
-D:   00008C02  _x                                 life
-D:   00008C04  _y                                 life
-D:   00008C06  _x1                                life
-D:   00008C08  _y1                                life
-D:   00008C0A  _j                                 life
-D:   00008C0C  _c                                 life
-D:   00008C0E  _bstep                             life
-D:   00008C0F  _n                                 life
-D:   00008C10  _fixed                             life
-D:   00008C11  _cycle2                            life
-D:   00008C12  _generation                        life
+D:   00008802  _u                                 life
+D:   00009002  _nu                                life
+D:   00009802  _x                                 life
+D:   00009804  _y                                 life
+D:   00009806  _x1                                life
+D:   00009808  _y1                                life
+D:   0000980A  _j                                 life
+D:   0000980C  _c                                 life
+D:   0000980E  _bstep                             life
+D:   0000980F  _n                                 life
+D:   00009810  _fixed                             life
+D:   00009811  _cycle2                            life
+D:   00009812  _generation                        life
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
