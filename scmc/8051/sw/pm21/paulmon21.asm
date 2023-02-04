@@ -194,14 +194,14 @@
 ; It is usually not a good idea to change these unless you
 ; know that you really have to.
 
+; |00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|10|11|12|13|14|15|16|17|
+; |r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  .  .  .  .  dnld  .  .  .  .  .  .  |
+;                                                                        \__ sp
 .equ	psw_init, 0		;value for psw (which reg bank to use)
 .equ	dnld_parm, 0x08		;block of 16 bytes for download
 .equ	stack, 0x17		;location of the stack
-;|00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|10|11|12|13|14|15|16|17|
-;|r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  .  .  .  .  dnld  .  .  .  .  .  .  |
-;                                                                  sp__/
 
-;|P1.7|P1.6|P1.5|P1.4|P1.3|P1.2|P1.1|P1.0|
+; |P1.7|P1.6|P1.5|P1.4|P1.3|P1.2|P1.1|P1.0|
 .equ	mctrl_default,	0b11111111
 .equ	mctrl_shadow,	0b11111110
 
@@ -212,51 +212,65 @@
 ;							  ;
 ;---------------------------------------------------------;
 
+;------ RESET --------------------------------------------;
 .org	base
-	ljmp	poweron		;reset vector
+	ljmp	poweron
+;------ RESET --------------------------------------------;
 
+;------ IE0_VECTOR ---------------------------------------;
 .org	base+3
-	ljmp	vector+3	;ext int0 vector
+	ljmp	vector+3
+;------ IE0_VECTOR ---------------------------------------;
 
 r6r7todptr:
 	mov	dpl, r6
 	mov	dph, r7
 	ret
 
+;------ TF0_VECTOR ---------------------------------------;
 .org	base+11
-	ljmp	vector+11	;timer0 vector
+	ljmp	vector+11
+;------ TF0_VECTOR ---------------------------------------;
 
 dptrtor6r7:
 	mov	r6, dpl
 	mov	r7, dph
 	ret
 
+;------ IE1_VECTOR ---------------------------------------;
 .org	base+19
-	ljmp	vector+19	;ext int1 vector
+	ljmp	vector+19
+;------ IE1_VECTOR ---------------------------------------;
 
 dash:
 	mov	a, #'-'		;seems kinda trivial, but each time
 	ajmp	cout		;this appears in code, it takes 4
 	nop			;bytes, but an acall takes only 2
 
+;------ TF1_VECTOR ---------------------------------------;
 .org	base+27
-	ljmp	vector+27	;timer1 vector
+	ljmp	vector+27
+;------ TF1_VECTOR ---------------------------------------;
 
 cout_sp:
 	acall	cout
 	ajmp	space
 	nop
 
+;------ SI0_VECTOR ---------------------------------------;
 .org	base+35
-	ljmp	vector+35	;uart vector
+	ljmp	vector+35
+;------ SI0_VECTOR ---------------------------------------;
 
 dash_sp:
 	acall	dash
 	ajmp	space
 	nop
 
+;------ TF2_VECTOR --- EX2_VECTOR ------------------------;
 .org	base+43
-	ljmp	vector+43	;timer2 vector (8052)
+	ljmp	vector+43
+;------ TF2_VECTOR --- EX2_VECTOR ------------------------;
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -265,10 +279,11 @@ dash_sp:
 ;							  ;
 ;---------------------------------------------------------;
 
-.org	base+46		;never change this line!!  Other
-			;programs depend on these locations
-			;to access paulmon2 functions
+; Never change this line!! Other
+; programs depend on these locations
+; to access paulmon2 functions
 
+.org	base+46
 	ajmp	phex1		;2E
 	ajmp	cout		;30
 	ajmp	cin		;32
@@ -321,8 +336,8 @@ cout:
 
 ;---------------------------------------------------------;
 
-; clearing ti before reading sbuf takes care of the case where
-; interrupts may be enabled... if an interrupt were to happen
+; Clearing ti before reading sbuf takes care of the case where
+; interrupts may be enabled... If an interrupt were to happen
 ; between those two instructions, the serial port will just
 ; wait a while, but in the other order and the character could
 ; finish transmitting (during the interrupt routine) and then
@@ -555,7 +570,6 @@ pstr2:	pop	acc
 ;---------------------------------------------------------;
 
 ; converts the ascii code in Acc to uppercase, if it is lowercase
-
 ; Code efficient (saves 6 byes) upper contributed
 ; by Alexander B. Alexandrov <abalex@cbr.spb.ru>
 
@@ -729,10 +743,13 @@ menu1o:	cjne	a, #dio77_key, menu1p
 menu1p:
 
 ; invalid input, no commands to run...
-menu_end:			;at this point, we have not found
-	ajmp	newline		;anything to run, so we give up.
-				;remember, we pushed menu, so newline
-				;will just return to menu.
+; at this point, we have not found
+; anything to run, so we give up.
+; remember, we pushed menu, so newline
+; will just return to menu.
+
+menu_end:
+	ajmp	newline
 
 ;---------------------------------------------------------;
 
@@ -855,18 +872,22 @@ dnld_esc:   ;handle esc received in the download stream
 	acall	pcstr_h		   ;"download aborted."
 	sjmp	dnld_sum
 
-dnld_dly:   ;a short delay since most terminal emulation programs
-	    ;won't be ready to receive anything immediately after
-	    ;they've transmitted a file... even on a fast Pentium(tm)
-	    ;machine with 16550 uarts!
+; a short delay since most terminal emulation programs
+; won't be ready to receive anything immediately after
+; they've transmitted a file... even on a fast Pentium(tm)
+; machine with 16550 uarts!
+
+dnld_dly:
 	mov	r0, #0
 dnlddly2:mov	r1, #0
 	djnz	r1, *		;roughly 128k cycles, appox 0.1 sec
 	djnz	r0, dnlddly2
 	ret
 
-dnld_inc:     ;increment parameter specified by R1
-	      ;note, values in Acc and R1 are destroyed
+; increment parameter specified by R1
+; note, values in Acc and R1 are destroyed
+
+dnld_inc:
 	mov	a, r1
 	anl	a, #00000111b	;just in case
 	rl	a
@@ -877,11 +898,14 @@ dnld_inc:     ;increment parameter specified by R1
 	jnz	dnldin2
 	inc	r1
 	inc	@r1
-dnldin2:ret
+dnldin2:
+	ret
 
-dnld_gp:     ;get parameter, and inc to next one (@r1)
-	     ;carry clear if parameter is zero.
-	     ;16 bit value returned in dptr
+; get parameter, and inc to next one (@r1)
+; carry clear if parameter is zero.
+; 16 bit value returned in dptr
+
+dnld_gp:
 	setb	c
 	mov	dpl, @r1
 	inc	r1
@@ -892,7 +916,8 @@ dnld_gp:     ;get parameter, and inc to next one (@r1)
 	mov	a, dph
 	jnz	dnldgp2
 	clr	c
-dnldgp2:ret
+dnldgp2:
+	ret
 
 ; a special version of ghex just for the download.  Does not
 ; look for carriage return or backspace. Handles ESC key by
@@ -947,7 +972,9 @@ dnldghA:xch	a, r2
 ;dnlds6a = " bytes received"
 ;dnlds6b = " bytes written"
 
-dnld_sum:    ;print out download summary
+; print out download summary
+
+dnld_sum:
 	mov	a, r6
 	push	acc
 	mov	a, r7
@@ -965,20 +992,23 @@ dnld_sum:    ;print out download summary
 	mov	r7, #dnlds6b >> 8
 	acall	dnld_i0
 
-dnld_err:    ;now print out error summary
+; now print out error summary
+
+dnld_err:
 	mov	r2, #5
 dnlder2:acall	dnld_gp
 	jc	dnlder3		;any errors?
 	djnz	r2, dnlder2
-	 ;no errors, so we print the nice message
+; no errors, so we print the nice message
 	mov	dptr, #dnlds13
 	acall	pcstr_h
 	sjmp	dlnd_sum_done
 
-dnlder3:  ;there were errors, so now we print 'em
+dnlder3:
+; there were errors, so now we print 'em
 	mov	dptr, #dnlds7
 	acall	pcstr_h
-	  ;but let's not be nasty... only print if necessary
+; but let's not be nasty... only print if necessary
 	mov	r1, #(dnld_parm+6)
 	mov	r6, #dnlds8 & 255
 	mov	r7, #dnlds8 >> 8
@@ -1005,19 +1035,24 @@ dlnd_sum_done:
 dnld_item:
 	acall	dnld_gp		;error conditions
 	jnc	dnld_i3
-dnld_i2:acall	space
+dnld_i2:
+	acall	space
 	lcall	pint16u
 	acall	r6r7todptr
 	acall	pcstr_h
-dnld_i3:ret
+dnld_i3:
+	ret
 
-dnld_i0:acall	dnld_gp		;non-error conditions
+dnld_i0:
+	acall	dnld_gp		;non-error conditions
 	sjmp	dnld_i2
 
+; init all dnld parms to zero.
+
 dnld_init:
-	;init all dnld parms to zero.
 	mov	r0, #dnld_parm
-dnld0:	mov	@r0, #0
+dnld0:
+	mov	@r0, #0
 	inc	r0
 	cjne	r0, #dnld_parm + 16, dnld0
 	ret

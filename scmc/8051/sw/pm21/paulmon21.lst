@@ -194,14 +194,14 @@
                    ; It is usually not a good idea to change these unless you
                    ; know that you really have to.
                    
+                   ; |00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|10|11|12|
+                   ; |r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  .  .  .  .  dnld  .  .
+                   ;                                                           
 0000:              .equ     psw_init, 0             ;value for psw (which reg b
 0000:              .equ     dnld_parm, 0x08                 ;block of 16 bytes 
 0000:              .equ     stack, 0x17             ;location of the stack
-                   ;|00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|10|11|12|1
-                   ;|r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  .  .  .  .  dnld  .  . 
-                   ;                                                           
                    
-                   ;|P1.7|P1.6|P1.5|P1.4|P1.3|P1.2|P1.1|P1.0|
+                   ; |P1.7|P1.6|P1.5|P1.4|P1.3|P1.2|P1.1|P1.0|
 0000:              .equ     mctrl_default,  0b11111111
 0000:              .equ     mctrl_shadow,   0b11111110
                    
@@ -212,51 +212,65 @@
                    ;                                                          ;
                    ;---------------------------------------------------------;
                    
+                   ;------ RESET --------------------------------------------;
 0000:              .org     base
-0000: 02 08 8A              ljmp    poweron                 ;reset vector
+0000: 02 08 8A              ljmp    poweron
+                   ;------ RESET --------------------------------------------;
                    
+                   ;------ IE0_VECTOR ---------------------------------------;
 0003:              .org     base+3
-0003: 02 20 03              ljmp    vector+3        ;ext int0 vector
+0003: 02 20 03              ljmp    vector+3
+                   ;------ IE0_VECTOR ---------------------------------------;
                    
                    r6r7todptr:
 0006: 8E 82                 mov     dpl, r6
 0008: 8F 83                 mov     dph, r7
 000A: 22                    ret
                    
+                   ;------ TF0_VECTOR ---------------------------------------;
 000B:              .org     base+11
-000B: 02 20 0B              ljmp    vector+11       ;timer0 vector
+000B: 02 20 0B              ljmp    vector+11
+                   ;------ TF0_VECTOR ---------------------------------------;
                    
                    dptrtor6r7:
 000E: AE 82                 mov     r6, dpl
 0010: AF 83                 mov     r7, dph
 0012: 22                    ret
                    
+                   ;------ IE1_VECTOR ---------------------------------------;
 0013:              .org     base+19
-0013: 02 20 13              ljmp    vector+19       ;ext int1 vector
+0013: 02 20 13              ljmp    vector+19
+                   ;------ IE1_VECTOR ---------------------------------------;
                    
                    dash:
 0016: 74 2D                 mov     a, #'-'                 ;seems kinda trivia
 0018: 01 76                 ajmp    cout            ;this appears in code, it t
 001A: 00                    nop                     ;bytes, but an acall takes 
                    
+                   ;------ TF1_VECTOR ---------------------------------------;
 001B:              .org     base+27
-001B: 02 20 1B              ljmp    vector+27       ;timer1 vector
+001B: 02 20 1B              ljmp    vector+27
+                   ;------ TF1_VECTOR ---------------------------------------;
                    
                    cout_sp:
 001E: 11 76                 acall   cout
 0020: 01 74                 ajmp    space
 0022: 00                    nop
                    
+                   ;------ SI0_VECTOR ---------------------------------------;
 0023:              .org     base+35
-0023: 02 20 23              ljmp    vector+35       ;uart vector
+0023: 02 20 23              ljmp    vector+35
+                   ;------ SI0_VECTOR ---------------------------------------;
                    
                    dash_sp:
 0026: 11 16                 acall   dash
 0028: 01 74                 ajmp    space
 002A: 00                    nop
                    
+                   ;------ TF2_VECTOR --- EX2_VECTOR ------------------------;
 002B:              .org     base+43
-002B: 02 20 2B              ljmp    vector+43       ;timer2 vector (8052)
+002B: 02 20 2B              ljmp    vector+43
+                   ;------ TF2_VECTOR --- EX2_VECTOR ------------------------;
                    
                    ;---------------------------------------------------------;
                    ;                                                          ;
@@ -265,10 +279,11 @@
                    ;                                                          ;
                    ;---------------------------------------------------------;
                    
-002E:              .org     base+46                 ;never change this line!!  
-                                            ;programs depend on these locations
-                                            ;to access paulmon2 functions
+                   ; Never change this line!! Other
+                   ; programs depend on these locations
+                   ; to access paulmon2 functions
                    
+002E:              .org     base+46
 002E: 21 6A                 ajmp    phex1           ;2E
 0030: 01 76                 ajmp    cout            ;30
 0032: 01 6A                 ajmp    cin             ;32
@@ -321,8 +336,8 @@
                    
                    ;---------------------------------------------------------;
                    
-                   ; clearing ti before reading sbuf takes care of the case whe
-                   ; interrupts may be enabled... if an interrupt were to happe
+                   ; Clearing ti before reading sbuf takes care of the case whe
+                   ; interrupts may be enabled... If an interrupt were to happe
                    ; between those two instructions, the serial port will just
                    ; wait a while, but in the other order and the character cou
                    ; finish transmitting (during the interrupt routine) and the
@@ -555,7 +570,6 @@
                    ;---------------------------------------------------------;
                    
                    ; converts the ascii code in Acc to uppercase, if it is lowe
-                   
                    ; Code efficient (saves 6 byes) upper contributed
                    ; by Alexander B. Alexandrov <abalex@cbr.spb.ru>
                    
@@ -729,10 +743,13 @@
                    menu1p:
                    
                    ; invalid input, no commands to run...
-                   menu_end:                        ;at this point, we have not
-02B0: 01 80                 ajmp    newline                 ;anything to run, s
-                                                    ;remember, we pushed menu, 
-                                                    ;will just return to menu.
+                   ; at this point, we have not found
+                   ; anything to run, so we give up.
+                   ; remember, we pushed menu, so newline
+                   ; will just return to menu.
+                   
+                   menu_end:
+02B0: 01 80                 ajmp    newline
                    
                    ;---------------------------------------------------------;
                    
@@ -855,18 +872,22 @@
 0335: 11 45                 acall   pcstr_h                    ;"download abort
 0337: 80 6D                 sjmp    dnld_sum
                    
-                   dnld_dly:   ;a short delay since most terminal emulation pro
-                                ;won't be ready to receive anything immediately
-                                ;they've transmitted a file... even on a fast P
-                                ;machine with 16550 uarts!
+                   ; a short delay since most terminal emulation programs
+                   ; won't be ready to receive anything immediately after
+                   ; they've transmitted a file... even on a fast Pentium(tm)
+                   ; machine with 16550 uarts!
+                   
+                   dnld_dly:
 0339: 78 00                 mov     r0, #0
 033B: 79 00        dnlddly2:mov     r1, #0
 033D: D9 FE                 djnz    r1, *           ;roughly 128k cycles, appox
 033F: D8 FA                 djnz    r0, dnlddly2
 0341: 22                    ret
                    
-                   dnld_inc:     ;increment parameter specified by R1
-                                  ;note, values in Acc and R1 are destroyed
+                   ; increment parameter specified by R1
+                   ; note, values in Acc and R1 are destroyed
+                   
+                   dnld_inc:
 0342: E9                    mov     a, r1
 0343: 54 07                 anl     a, #00000111b   ;just in case
 0345: 23                    rl      a
@@ -877,11 +898,14 @@
 034B: 70 02                 jnz     dnldin2
 034D: 09                    inc     r1
 034E: 07                    inc     @r1
-034F: 22           dnldin2:ret
+                   dnldin2:
+034F: 22                    ret
                    
-                   dnld_gp:     ;get parameter, and inc to next one (@r1)
-                                 ;carry clear if parameter is zero.
-                                 ;16 bit value returned in dptr
+                   ; get parameter, and inc to next one (@r1)
+                   ; carry clear if parameter is zero.
+                   ; 16 bit value returned in dptr
+                   
+                   dnld_gp:
 0350: D3                    setb    c
 0351: 87 82                 mov     dpl, @r1
 0353: 09                    inc     r1
@@ -892,7 +916,8 @@
 035B: E5 83                 mov     a, dph
 035D: 70 01                 jnz     dnldgp2
 035F: C3                    clr     c
-0360: 22           dnldgp2:ret
+                   dnldgp2:
+0360: 22                    ret
                    
                    ; a special version of ghex just for the download.  Does not
                    ; look for carriage return or backspace. Handles ESC key by
@@ -947,7 +972,9 @@
                    ;dnlds6a = " bytes received"
                    ;dnlds6b = " bytes written"
                    
-                   dnld_sum:    ;print out download summary
+                   ; print out download summary
+                   
+                   dnld_sum:
 03A6: EE                    mov     a, r6
 03A7: C0 E0                 push    acc
 03A9: EF                    mov     a, r7
@@ -965,20 +992,23 @@
 03C1: 7F 0D                 mov     r7, #dnlds6b >> 8
 03C3: 91 0F                 acall   dnld_i0
                    
-                   dnld_err:    ;now print out error summary
+                   ; now print out error summary
+                   
+                   dnld_err:
 03C5: 7A 05                 mov     r2, #5
 03C7: 71 50        dnlder2:acall    dnld_gp
 03C9: 40 09                 jc      dnlder3                 ;any errors?
 03CB: DA FA                 djnz    r2, dnlder2
-                             ;no errors, so we print the nice message
+                   ; no errors, so we print the nice message
 03CD: 90 0E 32              mov     dptr, #dnlds13
 03D0: 11 45                 acall   pcstr_h
 03D2: 80 25                 sjmp    dlnd_sum_done
                    
-                   dnlder3:  ;there were errors, so now we print 'em
+                   dnlder3:
+                   ; there were errors, so now we print 'em
 03D4: 90 0E 01              mov     dptr, #dnlds7
 03D7: 11 45                 acall   pcstr_h
-                              ;but let's not be nasty... only print if necessar
+                   ; but let's not be nasty... only print if necessary
 03D9: 79 0E                 mov     r1, #(dnld_parm+6)
 03DB: 7E 05                 mov     r6, #dnlds8 & 255
 03DD: 7F 0E                 mov     r7, #dnlds8 >> 8
@@ -1005,19 +1035,24 @@
                    dnld_item:
 0401: 71 50                 acall   dnld_gp                 ;error conditions
 0403: 50 09                 jnc     dnld_i3
-0405: 11 74        dnld_i2:acall    space
+                   dnld_i2:
+0405: 11 74                 acall   space
 0407: 12 0A 0E              lcall   pint16u
 040A: 11 06                 acall   r6r7todptr
 040C: 11 45                 acall   pcstr_h
-040E: 22           dnld_i3:ret
+                   dnld_i3:
+040E: 22                    ret
                    
-040F: 71 50        dnld_i0:acall    dnld_gp                 ;non-error conditio
+                   dnld_i0:
+040F: 71 50                 acall   dnld_gp                 ;non-error conditio
 0411: 80 F2                 sjmp    dnld_i2
                    
+                   ; init all dnld parms to zero.
+                   
                    dnld_init:
-                            ;init all dnld parms to zero.
 0413: 78 08                 mov     r0, #dnld_parm
-0415: 76 00        dnld0:   mov     @r0, #0
+                   dnld0:
+0415: 76 00                 mov     @r0, #0
 0417: 08                    inc     r0
 0418: B8 18 FA              cjne    r0, #dnld_parm + 16, dnld0
 041B: 22                    ret
