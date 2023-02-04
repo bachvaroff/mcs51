@@ -1,5 +1,6 @@
 #include <mcs51/at89x52.h>
 #include <string.h>
+#include <ctype.h>
 
 #define pm2_entry_cout 0x0030
 #define pm2_entry_cin 0x0032
@@ -206,7 +207,7 @@ void main(void) {
 	for (i0 = 0; !i0; ) {		
 		printstr("\033[2J\033[mINIT\r\n");
 		while (1) {
-			c = getchar();
+			c = toupper(getchar());
 			if (i0 || (c == (int)'T')) goto terminate;
 			if (c == (int)'L') break;
 		}
@@ -218,7 +219,7 @@ reload:
 		
 		printstr("READY\r\n");
 		while (1) {
-			c = getchar();
+			c = toupper(getchar());
 			if (i0 || (c == (int)'T')) goto terminate;
 			if (c == (int)'L') goto reload;
 			if (c == (int)'S') break;
