@@ -230,7 +230,9 @@ reload:
 			show(1);
 			evolve();
 			if (fixed || cycle2) {
-				printstr("DONE\r\n");
+				printstr("DONE ");
+				if (fixed) printstr("FIXED\r\n");
+				else printstr("CYCLE2\r\n");
 				(void)getchar();
 				break;
 			}
