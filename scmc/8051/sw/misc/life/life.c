@@ -151,8 +151,8 @@ out:
 static const char busy[4] = { '\\', '|', '/', '-' };
 
 inline void evolve(void) {
-	fixed = 1;
-	cycle2 = 1;
+	fixed = 0;
+	cycle2 = 0;
 	bstep = 0;
 	
 	for (y = 0; y < H; y++) {
@@ -181,12 +181,14 @@ inline void evolve(void) {
 			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
 			
 			nu[A2D(W, y, x)] = (n == 3) || ((n == 2) && u[A2D(W, y, x)]);
-			
-			if (pu[A2D(W, y, x)] != nu[A2D(W, y, x)]) cycle2 = 0;
-			if (u[A2D(W, y, x)] != nu[A2D(W, y, x)]) fixed = 0;
+			cycle2 |= pu[A2D(W, y, x)] ^ nu[A2D(W, y, x)];
+			fixed |= u[A2D(W, y, x)] ^ nu[A2D(W, y, x)];
 		}
 	}
-		
+	
+	cycle2 = !cycle2;
+	fixed = !fixed;
+	
 	memcpy(pu, u, sizeof (u));
 	memcpy(u, nu, sizeof (nu));
 	

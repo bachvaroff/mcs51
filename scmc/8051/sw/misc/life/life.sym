@@ -352,7 +352,7 @@ Symbol Table
   8 __start__stack                                                 000000 GR
     _bp                                                            ****** GX
   D _bstep                                                         00180E GR
- 19 _busy                                                          000ACF R
+ 19 _busy                                                          000AE3 R
   D _c                                                             00180C GR
   D _cycle2                                                        001811 GR
  1A _digits                                                        000000 R
@@ -621,7 +621,7 @@ Area Table
   16 GSINIT5                                    size      0   flags   20
   17 GSINIT                                     size      0   flags   20
   18 GSFINAL                                    size      3   flags   20
-  19 CSEG                                       size    AD3   flags   20
+  19 CSEG                                       size    AE7   flags   20
   1A CONST                                      size     52   flags   20
   1B XINIT                                      size      0   flags   20
   1C CABS                                       size      0   flags   28
