@@ -21,9 +21,9 @@ int getchar(void) __naked {
 	__endasm;
 }
 
-static const char digits[16] = {
+__idata static const char digits[16] = {
 	'0', '1', '2', '3', '4', '5', '6', '7',
-	'8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+	'8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
 };
 
 inline void print8x(short a) {
@@ -48,19 +48,7 @@ inline void printstr(const char *s) {
 	return;
 }
 
-#define A2D(COLW, ROW, COL) ((int)(ROW) * (int)(COLW) + (int)(COL))
-
-#define H 64
-#define W 32
-
-char i0, i1;
-
-char pu[H * W], u[H * W], nu[H * W]; /* evolve(), show(), loadu() */
-int x, y; /* evolve(), show(), loadu() */
-int x1, y1; /* evolve() */
-int j, c; /* loadu() */
-char bstep, n, fixed, cycle2; /* evolve() */
-int generation[2]; /* cleargen(), updategen(), printgen(), show() */
+__idata static char i0, i1;
 
 void int0(void) __interrupt IE0_VECTOR __using 1 {
 	i0 = 1;
@@ -69,6 +57,19 @@ void int0(void) __interrupt IE0_VECTOR __using 1 {
 void int1(void) __interrupt IE1_VECTOR __using 1 {
 	i1 = 1;
 }
+
+#define A2D(COLW, ROW, COL) ((int)(ROW) * (int)(COLW) + (int)(COL))
+
+#define H 64
+#define W 32
+
+static char pu[H * W], u[H * W], nu[H * W]; /* evolve(), show(), loadu() */
+
+__idata static int x, y; /* evolve(), show(), loadu() */
+__idata static int j, c; /* loadu() */
+__idata static char bstep, n, fixed, cycle2; /* evolve() */
+__idata static int x1, y1; /* evolve() */
+__idata static int generation[2]; /* cleargen(), updategen(), printgen(), show() */
 
 inline void cleargen(void) {
 	generation[0] = 0;
@@ -148,7 +149,7 @@ out:
 	return;
 }
 
-static const char busy[4] = { '\\', '|', '/', '-' };
+__idata static const char busy[4] = { '\\', '|', '/', '-' };
 
 inline void evolve(void) {
 	fixed = 0;
