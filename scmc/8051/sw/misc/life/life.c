@@ -126,17 +126,26 @@ inline void loadu(void) {
 	
 	printstr("LOAD <");
 	
-	for (y = 0; y < H; y++)
+	for (y = 0; y < H; y++) {
 		for (x = 0; x < W; x++) {
-			c = getchar();
-			if (c == (int)'0') {
-				u[A2D(W, y, x)] = 0;
-				j++;
-			} else if (c == (int)'1') {
-				u[A2D(W, y, x)] = 1;
-				j++;
-			} else if (c == (int)'#') goto out;
+			while (1) {
+				c = toupper(getchar());
+				if (c == (int)'0') {
+					u[A2D(W, y, x)] = 0;
+					j++;
+					break;
+				} else if (c == (int)'1') {
+					u[A2D(W, y, x)] = 1;
+					j++;
+					break;
+				} else if (c == (int)'S') goto br_inner;
+				else if (c == (int)'#') goto out;
+			}
+			continue;
+br_inner:
+			break;
 		}
+	}
 	
 out:
 	if (c != (int)'#')
@@ -209,7 +218,7 @@ void main(void) {
 		while (1) {
 			c = toupper(getchar());
 			if (i0 || (c == (int)'T')) goto terminate;
-			if (c == (int)'L') break;
+			else if (c == (int)'L') break;
 		}
 		
 reload:
@@ -221,8 +230,8 @@ reload:
 		while (1) {
 			c = toupper(getchar());
 			if (i0 || (c == (int)'T')) goto terminate;
-			if (c == (int)'L') goto reload;
-			if (c == (int)'S') break;
+			else if (c == (int)'L') goto reload;
+			else if (c == (int)'S') break;
 		}
 		
 		cleargen();
