@@ -977,7 +977,7 @@ _main:
 	mov	r0,#_i0
 	mov	@r0,#0x00
 00220$:
-;	life.c:217: printstr("\033[2J\033[mINIT\r\n");
+;	life.c:217: printstr("\033[2J\033[mLIFE INIT\r\n");
 	mov	r5,#___str_4
 	mov	r6,#(___str_4 >> 8)
 	mov	r7,#0x80
@@ -2388,7 +2388,7 @@ ___str_4:
 	.db 0x1b
 	.ascii "[2J"
 	.db 0x1b
-	.ascii "[mINIT"
+	.ascii "[mLIFE INIT"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00

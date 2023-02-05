@@ -53,7 +53,7 @@ C:   0000002A  l_GSINIT4
 C:   0000002A  l_ISEG                          
 C:   0000004B  s_SSEG                          
 C:   00000050  l_GSINIT                        
-C:   00000052  l_CONST                         
+C:   00000057  l_CONST                         
 C:   00000071  l_DSEG                          
 C:   000000B5  l_SSEG                          
 C:   00000100  l_IRAM                          
@@ -79,7 +79,7 @@ C:   00002072  s_GSINIT5
 C:   000020C2  s_GSFINAL                       
 C:   000020C5  s_CSEG                          
 C:   00002D05  s_CONST                         
-C:   00002D57  s_XINIT                         
+C:   00002D5C  s_XINIT                         
 C:   00008000  s_PSEG                          
 C:   00008000  s_XSEG                          
 C:   00009800  s_XISEG                         
@@ -408,7 +408,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00002D05    00000052 =          82. bytes (REL,CON,CODE)
+CONST                               00002D05    00000057 =          87. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

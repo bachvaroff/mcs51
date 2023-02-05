@@ -214,7 +214,7 @@ void main(void) {
 	EA = 1;
 	
 	for (i0 = 0; !i0; ) {		
-		printstr("\033[2J\033[mINIT\r\n");
+		printstr("\033[2J\033[mLIFE INIT\r\n");
 		while (1) {
 			c = toupper(getchar());
 			if (i0 || (c == (int)'T')) goto terminate;
