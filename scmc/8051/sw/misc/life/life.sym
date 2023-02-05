@@ -333,16 +333,16 @@ Symbol Table
     _WR                                                         =  0000B6 G
     ___memcpy                                                      ****** GX
  1A ___str_0                                                       000000 R
- 1A ___str_1                                                       000008 R
- 1A ___str_10                                                      000050 R
- 1A ___str_2                                                       00000B R
- 1A ___str_3                                                       000012 R
- 1A ___str_4                                                       000016 R
- 1A ___str_5                                                       000029 R
- 1A ___str_6                                                       000031 R
- 1A ___str_7                                                       000037 R
- 1A ___str_8                                                       00003F R
- 1A ___str_9                                                       000048 R
+ 1A ___str_1                                                       00000C R
+ 1A ___str_10                                                      000054 R
+ 1A ___str_2                                                       00000F R
+ 1A ___str_3                                                       000016 R
+ 1A ___str_4                                                       00001A R
+ 1A ___str_5                                                       00002D R
+ 1A ___str_6                                                       000035 R
+ 1A ___str_7                                                       00003B R
+ 1A ___str_8                                                       000043 R
+ 1A ___str_9                                                       00004C R
     __gptrget                                                      ****** GX
  10 __interrupt_vect                                               000000 R
     __mcs51_genRAMCLEAR                                            ****** GX
@@ -625,7 +625,7 @@ Area Table
   17 GSINIT                                     size     50   flags   20
   18 GSFINAL                                    size      3   flags   20
   19 CSEG                                       size    9F4   flags   20
-  1A CONST                                      size     57   flags   20
+  1A CONST                                      size     5B   flags   20
   1B XINIT                                      size      0   flags   20
   1C CABS                                       size      0   flags   28
 

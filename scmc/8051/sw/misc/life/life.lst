@@ -577,7 +577,7 @@
       000029 70 03            [24]  577 	jnz	00190$
       00002B 02r01r7E         [24]  578 	ljmp	00102$
       00002E                        579 00190$:
-                                    580 ;	life.c:98: printstr("\033[2J\033[m");
+                                    580 ;	life.c:98: printstr("\033[2J\033[mGEN ");
       00002E 7Dr00            [12]  581 	mov	r5,#___str_0
       000030 7Es00            [12]  582 	mov	r6,#(___str_0 >> 8)
       000032 7F 80            [12]  583 	mov	r7,#0x80
@@ -595,7 +595,7 @@
       000044 8B 83            [24]  595 	mov	dph,r3
       000046 12r00r00         [24]  596 	lcall	_putchar
       000049 0D               [12]  597 	inc	r5
-                                    598 ;	life.c:98: printstr("\033[2J\033[m");
+                                    598 ;	life.c:98: printstr("\033[2J\033[mGEN ");
       00004A BD 00 E7         [24]  599 	cjne	r5,#0x00,00121$
       00004D 0E               [12]  600 	inc	r6
       00004E 80 E4            [24]  601 	sjmp	00121$
@@ -741,7 +741,7 @@
       00012D 8E 83            [24]  741 	mov	dph,r6
       00012F 12r00r00         [24]  742 	lcall	_putchar
                                     743 ;	life.c:100: printstr("\r\n");
-      000132 7Dr08            [12]  744 	mov	r5,#___str_1
+      000132 7Dr0C            [12]  744 	mov	r5,#___str_1
       000134 7Es00            [12]  745 	mov	r6,#(___str_1 >> 8)
       000136 7F 80            [12]  746 	mov	r7,#0x80
                                     747 ;	life.c:49: return;
@@ -874,7 +874,7 @@
       0001E3 94 80            [12]  874 	subb	a,#0x80
       0001E5 40 A3            [24]  875 	jc	00126$
                                     876 ;	life.c:111: printstr("\r\n");
-      0001E7 7Dr08            [12]  877 	mov	r5,#___str_1
+      0001E7 7Dr0C            [12]  877 	mov	r5,#___str_1
       0001E9 7Es00            [12]  878 	mov	r6,#(___str_1 >> 8)
       0001EB 7F 80            [12]  879 	mov	r7,#0x80
                                     880 ;	life.c:49: return;
@@ -978,7 +978,7 @@
       000239 76 00            [12]  978 	mov	@r0,#0x00
       00023B                        979 00220$:
                                     980 ;	life.c:217: printstr("\033[2J\033[mLIFE INIT\r\n");
-      00023B 7Dr16            [12]  981 	mov	r5,#___str_4
+      00023B 7Dr1A            [12]  981 	mov	r5,#___str_4
       00023D 7Es00            [12]  982 	mov	r6,#(___str_4 >> 8)
       00023F 7F 80            [12]  983 	mov	r7,#0x80
                                     984 ;	life.c:49: return;
@@ -1057,7 +1057,7 @@
       0002BB 08               [12] 1057 	inc	r0
       0002BC F6               [12] 1058 	mov	@r0,a
                                    1059 ;	life.c:127: printstr("LOAD <");
-      0002BD 7Dr0B            [12] 1060 	mov	r5,#___str_2
+      0002BD 7Dr0F            [12] 1060 	mov	r5,#___str_2
       0002BF 7Es00            [12] 1061 	mov	r6,#(___str_2 >> 8)
       0002C1 7F 80            [12] 1062 	mov	r7,#0x80
                                    1063 ;	life.c:49: return;
@@ -1341,7 +1341,7 @@
       000442 8E 83            [24] 1341 	mov	dph,r6
       000444 12r00r00         [24] 1342 	lcall	_putchar
                                    1343 ;	life.c:157: printstr(">\r\n");
-      000447 7Dr12            [12] 1344 	mov	r5,#___str_3
+      000447 7Dr16            [12] 1344 	mov	r5,#___str_3
       000449 7Es00            [12] 1345 	mov	r6,#(___str_3 >> 8)
       00044B 7F 80            [12] 1346 	mov	r7,#0x80
                                    1347 ;	life.c:49: return;
@@ -1367,7 +1367,7 @@
       000469 75 82 00         [24] 1367 	mov	dpl,#0x00
       00046C 12r00r26         [24] 1368 	lcall	_show
                                    1369 ;	life.c:229: printstr("READY\r\n");
-      00046F 7Dr29            [12] 1370 	mov	r5,#___str_5
+      00046F 7Dr2D            [12] 1370 	mov	r5,#___str_5
       000471 7Es00            [12] 1371 	mov	r6,#(___str_5 >> 8)
       000473 7F 80            [12] 1372 	mov	r7,#0x80
                                    1373 ;	life.c:49: return;
@@ -2208,7 +2208,7 @@
       000924                       2208 00480$:
       000924                       2209 00126$:
                                    2210 ;	life.c:243: printstr("DONE ");
-      000924 7Dr31            [12] 2211 	mov	r5,#___str_6
+      000924 7Dr35            [12] 2211 	mov	r5,#___str_6
       000926 7Es00            [12] 2212 	mov	r6,#(___str_6 >> 8)
       000928 7F 80            [12] 2213 	mov	r7,#0x80
                                    2214 ;	life.c:49: return;
@@ -2234,7 +2234,7 @@
       000946 78r1C            [12] 2234 	mov	r0,#_fixed
       000948 E6               [12] 2235 	mov	a,@r0
       000949 60 22            [24] 2236 	jz	00124$
-      00094B 7Dr37            [12] 2237 	mov	r5,#___str_7
+      00094B 7Dr3B            [12] 2237 	mov	r5,#___str_7
       00094D 7Es00            [12] 2238 	mov	r6,#(___str_7 >> 8)
       00094F 7F 80            [12] 2239 	mov	r7,#0x80
                                    2240 ;	life.c:49: return;
@@ -2257,7 +2257,7 @@
       00096B 80 E4            [24] 2257 	sjmp	00208$
       00096D                       2258 00124$:
                                    2259 ;	life.c:245: else printstr("CYCLE2\r\n");
-      00096D 7Dr3F            [12] 2260 	mov	r5,#___str_8
+      00096D 7Dr43            [12] 2260 	mov	r5,#___str_8
       00096F 7Es00            [12] 2261 	mov	r6,#(___str_8 >> 8)
       000971 7F 80            [12] 2262 	mov	r7,#0x80
                                    2263 ;	life.c:49: return;
@@ -2288,7 +2288,7 @@
       000994 E6               [12] 2288 	mov	a,@r0
       000995 60 25            [24] 2289 	jz	00221$
                                    2290 ;	life.c:252: printstr("BREAK\r\n");
-      000997 7Dr48            [12] 2291 	mov	r5,#___str_9
+      000997 7Dr4C            [12] 2291 	mov	r5,#___str_9
       000999 7Es00            [12] 2292 	mov	r6,#(___str_9 >> 8)
       00099B 7F 80            [12] 2293 	mov	r7,#0x80
                                    2294 ;	life.c:49: return;
@@ -2325,7 +2325,7 @@
                                    2325 ;	assignBit
       0009C4 C2 AF            [12] 2326 	clr	_EA
                                    2327 ;	life.c:259: printstr("TERM\r\n");
-      0009C6 7Dr50            [12] 2328 	mov	r5,#___str_10
+      0009C6 7Dr54            [12] 2328 	mov	r5,#___str_10
       0009C8 7Es00            [12] 2329 	mov	r6,#(___str_10 >> 8)
       0009CA 7F 80            [12] 2330 	mov	r7,#0x80
                                    2331 ;	life.c:49: return;
@@ -2362,77 +2362,77 @@
       000000 1B                    2362 	.db 0x1b
       000001 5B 32 4A              2363 	.ascii "[2J"
       000004 1B                    2364 	.db 0x1b
-      000005 5B 6D                 2365 	.ascii "[m"
-      000007 00                    2366 	.db 0x00
+      000005 5B 6D 47 45 4E 20     2365 	.ascii "[mGEN "
+      00000B 00                    2366 	.db 0x00
                                    2367 	.area CSEG    (CODE)
                                    2368 	.area CONST   (CODE)
-      000008                       2369 ___str_1:
-      000008 0D                    2370 	.db 0x0d
-      000009 0A                    2371 	.db 0x0a
-      00000A 00                    2372 	.db 0x00
+      00000C                       2369 ___str_1:
+      00000C 0D                    2370 	.db 0x0d
+      00000D 0A                    2371 	.db 0x0a
+      00000E 00                    2372 	.db 0x00
                                    2373 	.area CSEG    (CODE)
                                    2374 	.area CONST   (CODE)
-      00000B                       2375 ___str_2:
-      00000B 4C 4F 41 44 20 3C     2376 	.ascii "LOAD <"
-      000011 00                    2377 	.db 0x00
+      00000F                       2375 ___str_2:
+      00000F 4C 4F 41 44 20 3C     2376 	.ascii "LOAD <"
+      000015 00                    2377 	.db 0x00
                                    2378 	.area CSEG    (CODE)
                                    2379 	.area CONST   (CODE)
-      000012                       2380 ___str_3:
-      000012 3E                    2381 	.ascii ">"
-      000013 0D                    2382 	.db 0x0d
-      000014 0A                    2383 	.db 0x0a
-      000015 00                    2384 	.db 0x00
+      000016                       2380 ___str_3:
+      000016 3E                    2381 	.ascii ">"
+      000017 0D                    2382 	.db 0x0d
+      000018 0A                    2383 	.db 0x0a
+      000019 00                    2384 	.db 0x00
                                    2385 	.area CSEG    (CODE)
                                    2386 	.area CONST   (CODE)
-      000016                       2387 ___str_4:
-      000016 1B                    2388 	.db 0x1b
-      000017 5B 32 4A              2389 	.ascii "[2J"
-      00001A 1B                    2390 	.db 0x1b
-      00001B 5B 6D 4C 49 46 45 20  2391 	.ascii "[mLIFE INIT"
+      00001A                       2387 ___str_4:
+      00001A 1B                    2388 	.db 0x1b
+      00001B 5B 32 4A              2389 	.ascii "[2J"
+      00001E 1B                    2390 	.db 0x1b
+      00001F 5B 6D 4C 49 46 45 20  2391 	.ascii "[mLIFE INIT"
              49 4E 49 54
-      000026 0D                    2392 	.db 0x0d
-      000027 0A                    2393 	.db 0x0a
-      000028 00                    2394 	.db 0x00
+      00002A 0D                    2392 	.db 0x0d
+      00002B 0A                    2393 	.db 0x0a
+      00002C 00                    2394 	.db 0x00
                                    2395 	.area CSEG    (CODE)
                                    2396 	.area CONST   (CODE)
-      000029                       2397 ___str_5:
-      000029 52 45 41 44 59        2398 	.ascii "READY"
-      00002E 0D                    2399 	.db 0x0d
-      00002F 0A                    2400 	.db 0x0a
-      000030 00                    2401 	.db 0x00
+      00002D                       2397 ___str_5:
+      00002D 52 45 41 44 59        2398 	.ascii "READY"
+      000032 0D                    2399 	.db 0x0d
+      000033 0A                    2400 	.db 0x0a
+      000034 00                    2401 	.db 0x00
                                    2402 	.area CSEG    (CODE)
                                    2403 	.area CONST   (CODE)
-      000031                       2404 ___str_6:
-      000031 44 4F 4E 45 20        2405 	.ascii "DONE "
-      000036 00                    2406 	.db 0x00
+      000035                       2404 ___str_6:
+      000035 44 4F 4E 45 20        2405 	.ascii "DONE "
+      00003A 00                    2406 	.db 0x00
                                    2407 	.area CSEG    (CODE)
                                    2408 	.area CONST   (CODE)
-      000037                       2409 ___str_7:
-      000037 46 49 58 45 44        2410 	.ascii "FIXED"
-      00003C 0D                    2411 	.db 0x0d
-      00003D 0A                    2412 	.db 0x0a
-      00003E 00                    2413 	.db 0x00
+      00003B                       2409 ___str_7:
+      00003B 46 49 58 45 44        2410 	.ascii "FIXED"
+      000040 0D                    2411 	.db 0x0d
+      000041 0A                    2412 	.db 0x0a
+      000042 00                    2413 	.db 0x00
                                    2414 	.area CSEG    (CODE)
                                    2415 	.area CONST   (CODE)
-      00003F                       2416 ___str_8:
-      00003F 43 59 43 4C 45 32     2417 	.ascii "CYCLE2"
-      000045 0D                    2418 	.db 0x0d
-      000046 0A                    2419 	.db 0x0a
-      000047 00                    2420 	.db 0x00
+      000043                       2416 ___str_8:
+      000043 43 59 43 4C 45 32     2417 	.ascii "CYCLE2"
+      000049 0D                    2418 	.db 0x0d
+      00004A 0A                    2419 	.db 0x0a
+      00004B 00                    2420 	.db 0x00
                                    2421 	.area CSEG    (CODE)
                                    2422 	.area CONST   (CODE)
-      000048                       2423 ___str_9:
-      000048 42 52 45 41 4B        2424 	.ascii "BREAK"
-      00004D 0D                    2425 	.db 0x0d
-      00004E 0A                    2426 	.db 0x0a
-      00004F 00                    2427 	.db 0x00
+      00004C                       2423 ___str_9:
+      00004C 42 52 45 41 4B        2424 	.ascii "BREAK"
+      000051 0D                    2425 	.db 0x0d
+      000052 0A                    2426 	.db 0x0a
+      000053 00                    2427 	.db 0x00
                                    2428 	.area CSEG    (CODE)
                                    2429 	.area CONST   (CODE)
-      000050                       2430 ___str_10:
-      000050 54 45 52 4D           2431 	.ascii "TERM"
-      000054 0D                    2432 	.db 0x0d
-      000055 0A                    2433 	.db 0x0a
-      000056 00                    2434 	.db 0x00
+      000054                       2430 ___str_10:
+      000054 54 45 52 4D           2431 	.ascii "TERM"
+      000058 0D                    2432 	.db 0x0d
+      000059 0A                    2433 	.db 0x0a
+      00005A 00                    2434 	.db 0x00
                                    2435 	.area CSEG    (CODE)
                                    2436 	.area XINIT   (CODE)
                                    2437 	.area CABS    (ABS,CODE)

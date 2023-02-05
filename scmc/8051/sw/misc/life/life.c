@@ -95,7 +95,7 @@ inline void printgen(void) {
 
 void show(char hdr) {
 	if (hdr) {
-		printstr("\033[2J\033[m");
+		printstr("\033[2J\033[mGEN ");
 		printgen();
 		printstr("\r\n");
 		updategen();

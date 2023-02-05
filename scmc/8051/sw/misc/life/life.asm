@@ -577,7 +577,7 @@ _show:
 	jnz	00190$
 	ljmp	00102$
 00190$:
-;	life.c:98: printstr("\033[2J\033[m");
+;	life.c:98: printstr("\033[2J\033[mGEN ");
 	mov	r5,#___str_0
 	mov	r6,#(___str_0 >> 8)
 	mov	r7,#0x80
@@ -595,7 +595,7 @@ _show:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	life.c:98: printstr("\033[2J\033[m");
+;	life.c:98: printstr("\033[2J\033[mGEN ");
 	cjne	r5,#0x00,00121$
 	inc	r6
 	sjmp	00121$
@@ -2362,7 +2362,7 @@ ___str_0:
 	.db 0x1b
 	.ascii "[2J"
 	.db 0x1b
-	.ascii "[m"
+	.ascii "[mGEN "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
