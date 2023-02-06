@@ -5,7 +5,7 @@
   {Program "CUPL(WM) Version 5.0a"}
   {DBtype "Schematic"}
   {DBvrev 1.01}
-  {DBtime "Mon Jan 16 12:02:49 2023 "}
+  {DBtime "Tue Feb 07 00:14:34 2023 "}
   {DBunit "MIL"}
   {DBgrid 10}
   {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
@@ -33,22 +33,25 @@
  {SYMBOL
   {PIN_DEF
    [Ly "PINCON"]
-   {P CSROMI {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
-   {P CSRAMI {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
-   {P CSIO00I {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
+   {P CSROMI {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
+   {P CSRAMI {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
+   {P CSIO00I {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
+   {P CSIO16I {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
    {P DEI {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
    {P DEO {Pt "I/O"}{Lq 0}{Ploc 330 20}}
    {P CSRAMO {Pt "I/O"}{Lq 0}{Ploc 330 40}}
    {P CSROMO {Pt "I/O"}{Lq 0}{Ploc 330 60}}
+   {P A16O {Pt "I/O"}{Lq 0}{Ploc 330 80}}
   }
 
   {PKG
    [Ly "REFDES"]
    [Ts 25][Tj "CB"][Tr 0][Tm "N"]
-   {Rdl 215 110}
+   {Rdl 215 130}
 
    [Ly "PINNUM"]
    [Ts 15][Tj "RC"]
+   {Pnl 120 110}
    {Pnl 120 90}
    {Pnl 120 70}
    {Pnl 120 50}
@@ -57,14 +60,16 @@
    {Pnl 310 30}
    {Pnl 310 50}
    {Pnl 310 70}
+   {Pnl 310 90}
 
-   {Sd A 3 4 5 10 14 15 16}
+   {Sd A 3 4 5 6 10 14 15 16 17}
   }
 
   {PIC
    [Ly "GATE"]
    [Ts 15][Tj "LC"][Tr 0][Tm "N"]
-   {R 130 100 300 0}
+   {R 130 120 300 0}
+   {L 130 100 100 100}
    {L 130 80 100 80}
    {L 130 60 100 60}
    {L 130 40 100 40}
@@ -72,16 +77,19 @@
    {L 300 20 330 20}
    {L 300 40 330 40}
    {L 300 60 330 60}
+   {L 300 80 330 80}
    [Ly "PINNAM"]
    [Tj "LC"]
-   {T "CSROMI" 140 80}
-   {T "CSRAMI" 140 60}
-   {T "CSIO00I" 140 40}
+   {T "CSROMI" 140 100}
+   {T "CSRAMI" 140 80}
+   {T "CSIO00I" 140 60}
+   {T "CSIO16I" 140 40}
    {T "DEI" 140 20}
    [Tj "RC"]
    {T "DEO" 290 20}
    {T "CSRAMO" 290 40}
    {T "CSROMO" 290 60}
+   {T "A16O" 290 80}
    [Ly "DEVICE"]
    [Tj "CT"]
    {T "G22V10" 215 -10}
@@ -95,7 +103,7 @@
    {EX
     [Ly "ATTR2"]
     [Ts 12][Tj "CT"][Tr 0][Tm "N"]
-    {At PLD \\MIDIAN\HOMES\GIT\GITHUB\V\SCMC\8051\GAL\8051_MCTRL_SHADOW 215 100}
+    {At PLD \\MIDIAN\HOMES\GIT\GITHUB\V\SCMC\8051\GAL\8051_MCTRL_SHADOW 215 120}
    }
   }
  }
@@ -111,6 +119,8 @@
    }
    {N CSIO00I
    }
+   {N CSIO16I
+   }
    {N DEI
    }
    {N DEO
@@ -118,6 +128,8 @@
    {N CSRAMO
    }
    {N CSROMO
+   }
+   {N A16O
    }
   }
 

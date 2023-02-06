@@ -1,5 +1,7 @@
 %SIGNAL
+PIN  17 =  A16O 
 PIN   5 =  CSIO00I 
+PIN   6 =  CSIO16I 
 PIN   4 =  CSRAMI 
 PIN  15 =  CSRAMO 
 PIN   3 =  CSROMI 
@@ -12,8 +14,12 @@ PIN  14 =  DEO
 %END
 
 %EQUATION
+!A16O =>
+    CSIO16I
+
 !CSRAMO =>
     !CSIO00I
+  # !CSIO16I
   # !CSRAMI
 
 !CSROMO =>
@@ -21,8 +27,12 @@ PIN  14 =  DEO
 
 !DEO =>
     !CSIO00I & !DEI
+  # !CSIO16I & !DEI
   # !CSRAMI & !DEI
   # !CSROMI & !DEI
+
+A16O.oe  =>
+    1 
 
 CSRAMO.oe  =>
     1 

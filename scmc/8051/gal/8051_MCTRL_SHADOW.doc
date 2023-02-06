@@ -1,12 +1,12 @@
 
 *******************************************************************************
-                               8051_mctrl_shadow
+                               8051_MCTRL_SHADOW
 *******************************************************************************
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Mon Jan 16 12:02:49 2023
-Name            8051_mctrl_shadow
+Created         Tue Feb 07 00:14:34 2023
+Name            8051_MCTRL_SHADOW
 Partno          U0 G22V10
 Revision        1.0
 Date            24 Dec 2022
@@ -19,8 +19,12 @@ Location        Sofia,BG,EU
                             Expanded Product Terms
 ===============================================================================
 
+!A16O =>
+    CSIO16I
+
 !CSRAMO =>
     !CSIO00I
+  # !CSIO16I
   # !CSRAMI
 
 !CSROMO =>
@@ -28,8 +32,12 @@ Location        Sofia,BG,EU
 
 !DEO =>
     !CSIO00I & !DEI
+  # !CSIO16I & !DEI
   # !CSRAMI & !DEI
   # !CSROMI & !DEI
+
+A16O.oe  =>
+    1 
 
 CSRAMO.oe  =>
     1 
@@ -49,13 +57,16 @@ Pin Variable                                    Pterms   Max     Min
 Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
 --- --------            ---     ---     ----    ------  ------  -----   
 
+    A16O                        17       V        1       14      2     
     CSIO00I                     5        V        -       -       -     
+    CSIO16I                     6        V        -       -       -     
     CSRAMI                      4        V        -       -       -     
-    CSRAMO                      15       V        2       10      2     
+    CSRAMO                      15       V        3       10      2     
     CSROMI                      3        V        -       -       -     
     CSROMO                      16       V        1       12      2     
     DEI                         10       V        -       -       -     
-    DEO                         14       V        3       8       2     
+    DEO                         14       V        4       8       2     
+    A16O                oe      17       D        1       1       0     
     CSRAMO              oe      15       D        1       1       0     
     CSROMO              oe      16       D        1       1       0     
     DEO                 oe      14       D        1       1       0     
@@ -165,9 +176,9 @@ Pin #18  05818 Mode  xx
  03520 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03564 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
-Pin #17  05820 Mode  xx 
- 03652 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 03696 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #17  05820 Mode  x- 
+ 03652 -------------------------------------------- 
+ 03696 --------------------x----------------------- 
  03740 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03784 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03828 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -198,8 +209,8 @@ Pin #16  05822 Mode  x-
 Pin #15  05824 Mode  x- 
  04884 -------------------------------------------- 
  04928 -----------------x-------------------------- 
- 04972 -------------x------------------------------ 
- 05016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04972 ---------------------x---------------------- 
+ 05016 -------------x------------------------------ 
  05060 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05104 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05148 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -210,9 +221,9 @@ Pin #15  05824 Mode  x-
 Pin #14  05826 Mode  x- 
  05368 -------------------------------------------- 
  05412 -----------------x-------------------x------ 
- 05456 -------------x-----------------------x------ 
- 05500 ---------x---------------------------x------ 
- 05544 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05456 ---------------------x---------------x------ 
+ 05500 -------------x-----------------------x------ 
+ 05544 ---------x---------------------------x------ 
  05588 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05632 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05676 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -227,15 +238,15 @@ LEGEND    X : fuse not blown
 ===============================================================================
 
                                ______________
-                              |8051_mctrl_sha|
+                              |8051_MCTRL_SHA|
                           x---|1           24|---x Vcc                      
                           x---|2           23|---x                          
                    CSROMI x---|3           22|---x                          
                    CSRAMI x---|4           21|---x                          
                   CSIO00I x---|5           20|---x                          
-                          x---|6           19|---x                          
+                  CSIO16I x---|6           19|---x                          
                           x---|7           18|---x                          
-                          x---|8           17|---x                          
+                          x---|8           17|---x A16O                     
                           x---|9           16|---x CSROMO                   
                       DEI x---|10          15|---x CSRAMO                   
                           x---|11          14|---x DEO                      
