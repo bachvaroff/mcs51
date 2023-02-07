@@ -34,6 +34,34 @@
 	lcall	nl
 	lcall	cin
 	
+	clr	p1.2
+	mov	dptr, #0x4000
+	mov	r0, #0xaa
+	mov	r1, #0x60
+	acall	fill
+	
+	setb	p1.2
+	mov	dptr, #0x4000
+	mov	r0, #0x55
+	mov	r1, #0x60
+	acall	fill
+
+	clr	p1.2
+	mov	dptr, #0x4000
+	mov	r1, #0x60
+	acall	dump
+	
+	lcall	nl
+	lcall	cin
+	
+	setb	p1.2
+	mov	dptr, #0x4000
+	mov	r1, #0x60
+	acall	dump
+
+	lcall	nl
+	lcall	cin
+	
 	ljmp	0x0000
 	
 ;--------
