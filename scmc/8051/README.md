@@ -1,7 +1,7 @@
 fully functional MCS51 system based on AT89S52
 	fully buffered external bus
 	128K external SRAM chip
-	128K external flash chip substituting the internal flash (0x0000-0x1fff)
+	128K external flash chip replacing the internal flash (0x0000-0x1fff)
 	
 	64K unified address space, MOVC≡ MOVX, nEA = 0, 8x8K pages
 	
