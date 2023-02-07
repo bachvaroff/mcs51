@@ -25,7 +25,7 @@ test:
 	mov	r6, #0x00
 	mov	r7, #0x40
 	acall	test_page
-	mov	r0, #0xAA
+	mov	r0, #0xaa
 	mov	r1, #0x60
 	mov	r6, #0x00
 	mov	r7, #0x40
