@@ -5,9 +5,8 @@ fully functional MCS51 system based on AT89S52
 	
 	64K unified address space, MOVC≡ MOVX, nEA = 0, 8x8K pages
 	
-	8K external flash
-		on startup flash -> RAM shadow, flash disabled
-	8K external RAM
+	8K external flash (0x0000-0x1fff, startup flash)
+	8K external RAM (0x0000-0x1fff on startup flash -> RAM shadow, flash disabled)
 		page 0 0x0000-0x1fff
 	
 	48K external RAM (0x2000-0xdfff low 6 pages, A16 = 0, default)
@@ -21,4 +20,4 @@ fully functional MCS51 system based on AT89S52
 	
 	8K external RAM (0xe000-0xffff, default)
 	8K bus IO space (0xe000-0xffff, control signals)
-		page 7
+		page 7 0xe000-0xffff
