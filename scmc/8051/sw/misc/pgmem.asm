@@ -146,8 +146,6 @@ test:
 	mov	r7, #0xe0
 	acall	test_page
 ;--------------------------------
-	lcall	nl
-	lcall	cin
 	ljmp	0x0000
 
 ;--------
