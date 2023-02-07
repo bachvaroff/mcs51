@@ -175,6 +175,10 @@ fill:
 
 ;--------
 dump:
+	lcall	phex16
+	mov	a, #' '
+	lcall	cout	
+dumpb:
 	movx	a, @dptr
 	lcall	phex
 	inc	dptr
@@ -186,6 +190,7 @@ dump:
 print_sp:
 	mov	a, #' '
 	lcall	cout
+	sjmp	dumpb
 next:
 	mov	a, dph
 	xrl	a, r1
