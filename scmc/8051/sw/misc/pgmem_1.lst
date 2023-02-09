@@ -13,37 +13,37 @@
 4004: 79 40                 mov     r1, #0x40
 4006: 7E 00                 mov     r6, #0x00
 4008: 7F 20                 mov     r7, #0x20
-400A: 11 2F                 acall   test_page
+400A: 11 35                 acall   test_page
 400C: 78 AA                 mov     r0, #0xaa
 400E: 79 40                 mov     r1, #0x40
 4010: 7E 00                 mov     r6, #0x00
 4012: 7F 20                 mov     r7, #0x20
-4014: 11 2F                 acall   test_page
+4014: 11 35                 acall   test_page
 4016: D2 91                 setb    p1.1
 4018: 78 55                 mov     r0, #0x55
 401A: 79 40                 mov     r1, #0x40
 401C: 7E 00                 mov     r6, #0x00
 401E: 7F 20                 mov     r7, #0x20
-4020: 11 2F                 acall   test_page
+4020: 11 35                 acall   test_page
 4022: 78 AA                 mov     r0, #0xaa
 4024: 79 40                 mov     r1, #0x40
 4026: 7E 00                 mov     r6, #0x00
 4028: 7F 20                 mov     r7, #0x20
-402A: 11 2F                 acall   test_page
+402A: 11 35                 acall   test_page
+402C: 12 00 48              lcall   nl
+402F: 12 00 32              lcall   cin
                    ;--------------------------------
-402C: 02 00 00              ljmp    0x0000
+4032: 02 00 00              ljmp    0x0000
                    
                    ;--------
                    ; r0 = fill byte; r1 = final dph; r6 = dpl; r7 = dph
                    test_page:
-402F: 8E 82                 mov     dpl, r6
-4031: 8F 83                 mov     dph, r7
-4033: 11 42                 acall   fill
 4035: 8E 82                 mov     dpl, r6
 4037: 8F 83                 mov     dph, r7
-4039: 11 4B                 acall   dump
-403B: 12 00 48              lcall   nl
-403E: 12 00 32              lcall   cin
+4039: 11 42                 acall   fill
+403B: 8E 82                 mov     dpl, r6
+403D: 8F 83                 mov     dph, r7
+403F: 11 4B                 acall   dump
 4041: 22                    ret
                    ;--------
                             
