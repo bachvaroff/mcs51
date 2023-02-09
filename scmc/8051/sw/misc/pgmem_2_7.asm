@@ -30,6 +30,8 @@ test:
 	mov	r6, #0x00
 	mov	r7, #0x40
 	acall	test_page
+	lcall	nl
+	lcall	cin
 ;--------------------------------
 	clr	p1.3
 	mov	r0, #0x55
@@ -53,6 +55,8 @@ test:
 	mov	r6, #0x00
 	mov	r7, #0x60
 	acall	test_page
+	lcall	nl
+	lcall	cin
 ;--------------------------------
 	clr	p1.4
 	mov	r0, #0x55
@@ -76,6 +80,8 @@ test:
 	mov	r6, #0x00
 	mov	r7, #0x80
 	acall	test_page
+	lcall	nl
+	lcall	cin
 ;--------------------------------
 	clr	p1.5
 	mov	r0, #0x55
@@ -99,6 +105,8 @@ test:
 	mov	r6, #0x00
 	mov	r7, #0xa0
 	acall	test_page
+	lcall	nl
+	lcall	cin
 ;--------------------------------
 	clr	p1.6
 	mov	r0, #0x55
@@ -122,6 +130,8 @@ test:
 	mov	r6, #0x00
 	mov	r7, #0xc0
 	acall	test_page
+	lcall	nl
+	lcall	cin
 ;--------------------------------
 	clr	p1.7
 	mov	r0, #0x55
@@ -145,6 +155,8 @@ test:
 	mov	r6, #0x00
 	mov	r7, #0xe0
 	acall	test_page
+	lcall	nl
+	lcall	cin
 ;--------------------------------
 	ljmp	0x0000
 
@@ -157,8 +169,6 @@ test_page:
 	mov	dpl, r6
 	mov	dph, r7
 	acall	dump
-	lcall	nl
-	lcall	cin
 	ret
 ;--------
 	

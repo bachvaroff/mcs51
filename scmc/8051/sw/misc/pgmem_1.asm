@@ -30,6 +30,8 @@ test:
 	mov	r6, #0x00
 	mov	r7, #0x20
 	acall	test_page
+	lcall	nl
+	lcall	cin
 ;--------------------------------
 	ljmp	0x0000
 
@@ -42,8 +44,6 @@ test_page:
 	mov	dpl, r6
 	mov	dph, r7
 	acall	dump
-	lcall	nl
-	lcall	cin
 	ret
 ;--------
 	

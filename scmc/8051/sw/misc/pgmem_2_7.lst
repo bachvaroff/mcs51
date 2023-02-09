@@ -1,0 +1,200 @@
+0000:              .equ     cin, 0x0032
+0000:              .equ     cout, 0x0030
+0000:              .equ     phex, 0x0034
+0000:              .equ     phex16, 0x0036
+0000:              .equ     nl, 0x0048
+                   
+2000:              .org     0x2000
+                   
+                   test:
+                   ;--------------------------------
+2000: C2 92                 clr     p1.2
+2002: 78 55                 mov     r0, #0x55
+2004: 79 60                 mov     r1, #0x60
+2006: 7E 00                 mov     r6, #0x00
+2008: 7F 40                 mov     r7, #0x40
+200A: 31 0B                 acall   test_page
+200C: 78 AA                 mov     r0, #0xaa
+200E: 79 60                 mov     r1, #0x60
+2010: 7E 00                 mov     r6, #0x00
+2012: 7F 40                 mov     r7, #0x40
+2014: 31 0B                 acall   test_page
+2016: D2 92                 setb    p1.2
+2018: 78 55                 mov     r0, #0x55
+201A: 79 60                 mov     r1, #0x60
+201C: 7E 00                 mov     r6, #0x00
+201E: 7F 40                 mov     r7, #0x40
+2020: 31 0B                 acall   test_page
+2022: 78 AA                 mov     r0, #0xaa
+2024: 79 60                 mov     r1, #0x60
+2026: 7E 00                 mov     r6, #0x00
+2028: 7F 40                 mov     r7, #0x40
+202A: 31 0B                 acall   test_page
+                   ;--------------------------------
+202C: C2 93                 clr     p1.3
+202E: 78 55                 mov     r0, #0x55
+2030: 79 80                 mov     r1, #0x80
+2032: 7E 00                 mov     r6, #0x00
+2034: 7F 60                 mov     r7, #0x60
+2036: 31 0B                 acall   test_page
+2038: 78 AA                 mov     r0, #0xaa
+203A: 79 80                 mov     r1, #0x80
+203C: 7E 00                 mov     r6, #0x00
+203E: 7F 60                 mov     r7, #0x60
+2040: 31 0B                 acall   test_page
+2042: D2 93                 setb    p1.3
+2044: 78 55                 mov     r0, #0x55
+2046: 79 80                 mov     r1, #0x80
+2048: 7E 00                 mov     r6, #0x00
+204A: 7F 60                 mov     r7, #0x60
+204C: 31 0B                 acall   test_page
+204E: 78 AA                 mov     r0, #0xaa
+2050: 79 80                 mov     r1, #0x80
+2052: 7E 00                 mov     r6, #0x00
+2054: 7F 60                 mov     r7, #0x60
+2056: 31 0B                 acall   test_page
+                   ;--------------------------------
+2058: C2 94                 clr     p1.4
+205A: 78 55                 mov     r0, #0x55
+205C: 79 A0                 mov     r1, #0xa0
+205E: 7E 00                 mov     r6, #0x00
+2060: 7F 80                 mov     r7, #0x80
+2062: 31 0B                 acall   test_page
+2064: 78 AA                 mov     r0, #0xaa
+2066: 79 A0                 mov     r1, #0xa0
+2068: 7E 00                 mov     r6, #0x00
+206A: 7F 80                 mov     r7, #0x80
+206C: 31 0B                 acall   test_page
+206E: D2 94                 setb    p1.4
+2070: 78 55                 mov     r0, #0x55
+2072: 79 A0                 mov     r1, #0xa0
+2074: 7E 00                 mov     r6, #0x00
+2076: 7F 80                 mov     r7, #0x80
+2078: 31 0B                 acall   test_page
+207A: 78 AA                 mov     r0, #0xaa
+207C: 79 A0                 mov     r1, #0xa0
+207E: 7E 00                 mov     r6, #0x00
+2080: 7F 80                 mov     r7, #0x80
+2082: 31 0B                 acall   test_page
+                   ;--------------------------------
+2084: C2 95                 clr     p1.5
+2086: 78 55                 mov     r0, #0x55
+2088: 79 C0                 mov     r1, #0xc0
+208A: 7E 00                 mov     r6, #0x00
+208C: 7F A0                 mov     r7, #0xa0
+208E: 31 0B                 acall   test_page
+2090: 78 AA                 mov     r0, #0xaa
+2092: 79 C0                 mov     r1, #0xc0
+2094: 7E 00                 mov     r6, #0x00
+2096: 7F A0                 mov     r7, #0xa0
+2098: 31 0B                 acall   test_page
+209A: D2 95                 setb    p1.5
+209C: 78 55                 mov     r0, #0x55
+209E: 79 C0                 mov     r1, #0xc0
+20A0: 7E 00                 mov     r6, #0x00
+20A2: 7F A0                 mov     r7, #0xa0
+20A4: 31 0B                 acall   test_page
+20A6: 78 AA                 mov     r0, #0xaa
+20A8: 79 C0                 mov     r1, #0xc0
+20AA: 7E 00                 mov     r6, #0x00
+20AC: 7F A0                 mov     r7, #0xa0
+20AE: 31 0B                 acall   test_page
+                   ;--------------------------------
+20B0: C2 96                 clr     p1.6
+20B2: 78 55                 mov     r0, #0x55
+20B4: 79 E0                 mov     r1, #0xe0
+20B6: 7E 00                 mov     r6, #0x00
+20B8: 7F C0                 mov     r7, #0xc0
+20BA: 31 0B                 acall   test_page
+20BC: 78 AA                 mov     r0, #0xaa
+20BE: 79 E0                 mov     r1, #0xe0
+20C0: 7E 00                 mov     r6, #0x00
+20C2: 7F C0                 mov     r7, #0xc0
+20C4: 31 0B                 acall   test_page
+20C6: D2 96                 setb    p1.6
+20C8: 78 55                 mov     r0, #0x55
+20CA: 79 E0                 mov     r1, #0xe0
+20CC: 7E 00                 mov     r6, #0x00
+20CE: 7F C0                 mov     r7, #0xc0
+20D0: 31 0B                 acall   test_page
+20D2: 78 AA                 mov     r0, #0xaa
+20D4: 79 E0                 mov     r1, #0xe0
+20D6: 7E 00                 mov     r6, #0x00
+20D8: 7F C0                 mov     r7, #0xc0
+20DA: 31 0B                 acall   test_page
+                   ;--------------------------------
+20DC: C2 97                 clr     p1.7
+20DE: 78 55                 mov     r0, #0x55
+20E0: 79 00                 mov     r1, #0x00
+20E2: 7E 00                 mov     r6, #0x00
+20E4: 7F E0                 mov     r7, #0xe0
+20E6: 31 0B                 acall   test_page
+20E8: 78 AA                 mov     r0, #0xaa
+20EA: 79 00                 mov     r1, #0x00
+20EC: 7E 00                 mov     r6, #0x00
+20EE: 7F E0                 mov     r7, #0xe0
+20F0: 31 0B                 acall   test_page
+20F2: D2 97                 setb    p1.7
+20F4: 78 55                 mov     r0, #0x55
+20F6: 79 00                 mov     r1, #0x00
+20F8: 7E 00                 mov     r6, #0x00
+20FA: 7F E0                 mov     r7, #0xe0
+20FC: 31 0B                 acall   test_page
+20FE: 78 AA                 mov     r0, #0xaa
+2100: 79 00                 mov     r1, #0x00
+2102: 7E 00                 mov     r6, #0x00
+2104: 7F E0                 mov     r7, #0xe0
+2106: 31 0B                 acall   test_page
+                   ;--------------------------------
+2108: 02 00 00              ljmp    0x0000
+                   
+                   ;--------
+                   ; r0 = fill byte; r1 = final dph; r6 = dpl; r7 = dph
+                   test_page:
+210B: 8E 82                 mov     dpl, r6
+210D: 8F 83                 mov     dph, r7
+210F: 31 1E                 acall   fill
+2111: 8E 82                 mov     dpl, r6
+2113: 8F 83                 mov     dph, r7
+2115: 31 27                 acall   dump
+2117: 12 00 48              lcall   nl
+211A: 12 00 32              lcall   cin
+211D: 22                    ret
+                   ;--------
+                            
+                   ;--------
+                   fill:
+211E: E8                    mov     a, r0
+211F: F0                    movx    @dptr, a
+2120: A3                    inc     dptr
+2121: E5 83                 mov     a, dph
+2123: 69                    xrl     a, r1
+2124: 70 F8                 jnz     fill
+2126: 22                    ret
+                   ;--------
+                   
+                   ;--------
+                   dump:
+2127: 12 00 36              lcall   phex16
+212A: 74 20                 mov     a, #' '
+212C: 12 00 30              lcall   cout    
+                   dumpb:
+212F: E0                    movx    a, @dptr
+2130: 12 00 34              lcall   phex
+2133: A3                    inc     dptr
+2134: E5 82                 mov     a, dpl
+2136: 54 1F                 anl     a, #0x1f
+2138: 70 05                 jnz     print_sp
+213A: 12 00 48              lcall   nl
+213D: 80 07                 sjmp    next
+                   print_sp:
+213F: 74 20                 mov     a, #' '
+2141: 12 00 30              lcall   cout
+2144: 80 E9                 sjmp    dumpb
+                   next:
+2146: E5 83                 mov     a, dph
+2148: 69                    xrl     a, r1
+2149: 70 DC                 jnz     dump
+214B: 22                    ret
+                   ;--------
+                   
