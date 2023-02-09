@@ -1,5 +1,3 @@
-.org	0x2000
-
 .equ	cin, 0x0032
 .equ	phex16, 0x0036
 .equ	nl, 0x0048
@@ -10,6 +8,8 @@
 .equ	final_h, 0x00
 .equ	poly_l, 0x21
 .equ	poly_h, 0x10
+
+.org	0x2000
 
 calc_crc16:
 	acall	init_crc16
