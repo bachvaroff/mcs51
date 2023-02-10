@@ -119,13 +119,11 @@ TABLE ADDRESS => DECODE {
 	'b'010111xxxxxxx0 => 'b'10000101;
 	'b'001111xxxxxxx0 => 'b'10000110;
 	
-/* no bus cycle, RD = 1, DE off */
-	'b'000xxxxxxxxxxx => 'b'00000010;
-		
-/* bus error, RD = 1, DE off */
-	'b'111xxxxxxxxxxx => 'b'00000010;
-	'b'110xxxxxxxxxxx => 'b'00000010;
-	'b'101xxxxxxxxxxx => 'b'00000010;
-	'b'011xxxxxxxxxxx => 'b'00000010;
+/* no bus cycle or bus error */
+	'b'000xxxxxxxxxxx => 'b'00000000;
+	'b'111xxxxxxxxxxx => 'b'00000000;
+	'b'110xxxxxxxxxxx => 'b'00000000;
+	'b'101xxxxxxxxxxx => 'b'00000000;
+	'b'011xxxxxxxxxxx => 'b'00000000;
 }
 

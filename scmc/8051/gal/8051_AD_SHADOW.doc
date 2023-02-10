@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Tue Feb 07 00:15:19 2023
+Created         Fri Feb 10 14:20:43 2023
 Name            8051_AD_SHADOW
 Partno          U0 G22V10
 Revision        1.2
@@ -92,7 +92,9 @@ DECODE =>
   # !PSEN_MCU & !RD_MCU & !WR_MCU
 
 !RD_GAL =>
-    !PSEN_MCU & !RD_MCU & WR_MCU
+    WR_MCU
+  # PSEN_MCU & RD_MCU
+  # !PSEN_MCU & !RD_MCU
 
 !WR_GAL =>
     PSEN_MCU
@@ -158,7 +160,7 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
     P16_MCU                     5        V        -       -       -     
     P17_MCU                     4        V        -       -       -     
  !  PSEN_MCU                    1        V        -       -       -     
- !  RD_GAL                      22       V        1       10      2     
+ !  RD_GAL                      22       V        3       10      2     
  !  RD_MCU                      3        V        -       -       -     
  !  WR_GAL                      21       V        3       12      2     
  !  WR_MCU                      2        V        -       -       -     
@@ -202,9 +204,9 @@ Pin #23  05808 Mode  --
  00396 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #22  05810 Mode  -- 
  00440 -------------------------------------------- 
- 00484 x----x--x----------------------------------- 
- 00528 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 00572 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00484 -----x-------------------------------------- 
+ 00528 -x-------x---------------------------------- 
+ 00572 x-------x----------------------------------- 
  00616 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00660 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
