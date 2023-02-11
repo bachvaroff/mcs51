@@ -790,8 +790,8 @@ dnld2b:
 
 dnld_now:
 	;entry point for main menu detecting ":" character
-	;mov	a, #'^'
-	;acall	cout
+	mov	a, #':'
+	acall	cout
 	acall	dnld_init
 
 dnld2d:	mov	r1, #0
