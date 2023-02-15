@@ -14,20 +14,19 @@
 .equ	locat, 0x1000		;location for these commands (usually 1000)
 .equ	paulmon2, 0x0000	;location where paulmon2 is at (usually 0000)
 
-.equ    phex1, 0x2E+paulmon2
-.equ    cout, 0x30+paulmon2		;send acc to uart
-.equ    phex, 0x34+paulmon2		;print acc in hex
-.equ    phex16, 0x36+paulmon2		;print dptr in hex
-.equ    pstr, 0x38+paulmon2		;print string @dptr
-.equ    ghex, 0x3A+paulmon2		;get two-digit hex (acc)
-.equ    ghex16, 0x3C+paulmon2		;get four-digit hex (dptr)
-.equ	upper, 0x40+paulmon2		;convert acc to uppercase
-.equ	newline, 0x48+paulmon2
-.equ	pcstr, 0x45+paulmon2
-.equ	pint, 0x50+paulmon2
-.equ	smart_wr, 0x56+paulmon2
-.equ	cin_filter, 0x62+paulmon2
-.equ	asc2hex, 0x65+paulmon2
+.equ    phex1, paulmon2 + 0x2E
+.equ    cout, paulmon2 + 0x30		;send acc to uart
+.equ    phex, paulmon2 + 0x34		;print acc in hex
+.equ    phex16, paulmon2 + 0x36		;print dptr in hex
+.equ    pstr, paulmon2 + 0x38		;print string @dptr
+.equ    ghex, paulmon2 + 0x3A		;get two-digit hex (acc)
+.equ    ghex16, paulmon2 + 0x3C		;get four-digit hex (dptr)
+.equ	upper, paulmon2 + 0x40		;convert acc to uppercase
+.equ	newline, paulmon2 + 0x48
+.equ	pcstr, paulmon2 + 0x45
+.equ	pint, paulmon2 + 0x50
+.equ	cin_filter, paulmon2 + 0x5F
+.equ	asc2hex, paulmon2 + 0x62
 
 
 .equ    list_key, 'L'		;list (disassemble)
@@ -1278,7 +1277,7 @@ input_ascii:
 	cjne	a, b, cmd_abort		;check that input is an ascii char
 	mov	dph, r7
 	mov	dpl, r6
-	lcall	smart_wr		;write the char to memory
+	movx	@dptr, a
 	ajmp	cmd_right
 
 input_hex:
@@ -1304,7 +1303,7 @@ input_hex_2nd:
 	swap	a			;shift nibbles
 	anl	a, #11110000b		;just in case
 	add	a, r0			;add in this input to lower part
-	lcall	smart_wr		;write back to memory
+	movx	@dptr, a
 	mov	a, r4
 	clr	acc.3
 	mov	r4, a
@@ -1345,7 +1344,7 @@ inck2d:	jnb	acc.3, inck2b
 inck2e: mov     dph, r7                 ;load dptr with address
         mov     dpl, r6
 	mov	a, r5
-        lcall   smart_wr                ;write to memory
+        movx	@dptr, a
 	mov	a, r4
 	clr	acc.3
 	mov	r4, a
@@ -1401,7 +1400,7 @@ cmd_fill_ok:
 	;fill, and r2 has the fill value.
 cmd_fill_loop:
 	mov	a, r2
-	lcall	smart_wr
+	movx	@dptr, a
 	mov	a, r6
 	cjne	a, dpl, cmd_fill_next
 	mov	a, r7

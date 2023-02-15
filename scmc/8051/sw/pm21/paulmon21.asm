@@ -284,31 +284,31 @@ dash_sp:
 ; to access paulmon2 functions
 
 .org	base+46
-	ajmp	phex1		;2E
-	ajmp	cout		;30
-	ajmp	cin		;32
-	ajmp	phex		;34
-	ajmp	phex16		;36
-	ajmp	pstr		;38
-	ajmp	ghex		;3A
-	ajmp	ghex16		;3C
-	ajmp	esc		;4E
-	ajmp	upper		;40
-	ljmp	setbaud		;42
-pcstr_h:ljmp	pcstr		;45
-	ajmp	newline		;48
-	ljmp	lenstr		;4A
-	ljmp	pint8u		;4D
-	ljmp	pint8		;50
-	ljmp	pint16u		;53
-	ljmp	smart_wr	;56
-	ljmp	prgm		;59
-	ljmp	erall		;5C
-	ljmp	find		;5F
+	ajmp	phex1		; 0x2E
+	ajmp	cout		; 0x30
+	ajmp	cin		; 0x32
+	ajmp	phex		; 0x34
+	ajmp	phex16		; 0x36
+	ajmp	pstr		; 0x38
+	ajmp	ghex		; 0x3A
+	ajmp	ghex16		; 0x3C
+	ajmp	esc		; 0x4E
+	ajmp	upper		; 0x40
+	ljmp	setbaud		; 0x42
+pcstr_h:
+	ljmp	pcstr		; 0x45
+	ajmp	newline		; 0x48
+	ljmp	lenstr		; 0x4A
+	ljmp	pint8u		; 0x4D
+	ljmp	pint8		; 0x50
+	ljmp	pint16u		; 0x53
+	ljmp	prgm		; 0x56
+	ljmp	erall		; 0x59
+	ljmp	find		; 0x5C
 cin_filter_h:
-	ljmp	cin_filter	;62
-	ajmp	asc2hex		;65
-	ljmp	erblock		;67
+	ljmp	cin_filter	; 0x5F
+	ajmp	asc2hex		; 0x62
+	ljmp	erblock		; 0x64
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -821,12 +821,8 @@ dnld5:	mov	a, r0
 	mov	r1, #1
 	acall	dnld_inc	;count total data bytes received
 	mov	a, r2
-	lcall	smart_wr	;c=1 if an error writing
-	clr	a
-	addc	a, #2
-	mov	r1, a
-;     2 = bytes written
-;     3 = bytes unable to write
+	movx	@dptr, a
+	mov	r1, #2
 	acall	dnld_inc
 	inc	dptr
 	djnz	r0, dnld5
@@ -1158,7 +1154,7 @@ edit1:	acall	phex16
 	jb	psw.5,edit2
 	jc	edit2
 	acall	r6r7todptr
-	lcall	smart_wr
+	movx	@dptr, a
 	acall	newline
 	acall	r6r7todptr
 	inc	dptr
@@ -1558,7 +1554,7 @@ clrm:
 clrm2:	mov	dph, r3
 	mov	dpl, r2
 clrm3:	clr	a
-	lcall	smart_wr
+	movx	@dptr, a
 	mov	a, r5
 	cjne	a, dph, clrm4
 	mov	a, r4
@@ -1790,61 +1786,6 @@ find4:	inc	dph			;keep on searching
 
 ;---------------------------------------------------------;
 
-;************************************
-; To make PAULMON2 able to write to other
-; types of memory than RAM and flash rom,
-; modify this "smart_wr" routine.  This
-; code doesn't accept any inputs other
-; that the address (dptr) and value (acc),
-; so this routine must know which types
-; of memory are in what address ranges
-;************************************
-
-; Write to Flash ROM or ordinary RAM.  Carry bit will indicate
-; if the value was successfully written, C=1 if not written.
-
-smart_wr:
-	push	acc
-	push	b
-	mov	b, a
-	;do we even have a flash rom?
-	mov	a, #has_flash
-	jz	wr_ram
-	;there is a flash rom, but is this address in it?
-	mov	a, dph
-	cjne	a, #(eflash >> 8), isfl3
-	sjmp	wr_flash
-isfl3:	jnc	wr_ram
-	cjne	a, #(bflash >> 8), isfl4
-	sjmp	wr_flash
-isfl4:	jnc	wr_flash
-	;sjmp	wr_ram
-
-wr_ram: mov	a, b
-	movx	@dptr, a	;write the value to memory
-	clr	a
-	movc	a, @a+dptr	;read it back from code memory
-	clr	c
-	subb	a, b
-	jz	smwrok
-	movx	a, @dptr	;read it back from data memory
-	clr	c
-	subb	a, b
-	jz	smwrok
-smwrbad:setb	c
-	sjmp	smwrxit
-smwrok: clr	c
-smwrxit:pop	b
-	pop	acc
-	ret
-
-wr_flash:
-	mov	a, b
-	lcall	prgm
-	pop	b
-	pop	acc
-	ret
-
 ;---------------------------------------------------------;
 ;							  ;
 ;	Power-On initialization code and such...	  ;
@@ -1891,20 +1832,6 @@ end_cp_shadow:
 	mov	r7, a
 	mov	r7, a
 
-; Before we start doing any I/O, a short delay is required so
-; that any external hardware which may be in "reset mode" can
-; initialize.  This is typically a problem when a 82C55 chip
-; is used and its reset line is driven from the R-C reset
-; circuit used for the 8051.  Because the 82C55 reset pin
-; switches from zero to one at a higher voltage than the 8051,
-; any 82C55 chips would still be in reset mode right now...
-
-rst_dly:
-	mov	r1, #200	;approx 100000 cycles
-rdly2:	mov	r2, #249	;500 cycles
-	djnz	r2, *
-	djnz	r1, rdly2
-
 ; Check for the Erase-on-startup signal and erase Flash ROM 
 ; if it's there.
 
@@ -1926,12 +1853,10 @@ skip_erase:
 	mov	b, #249
 	acall	stcode
 
-; initialize the serial port, auto baud detect if necessary
-	acall	setbaud_reset		;set up the serial port
-	;mov	a, th1
-	;lcall	phex
+; initialize the serial port
+	acall	setbaud_reset
 
-; run the start-up programs in external memory.
+; run the start-up programs in external memory
 	mov	b, #253
 	acall	stcode
 
