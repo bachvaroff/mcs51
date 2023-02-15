@@ -1,8 +1,7 @@
 ; PAULMON2, a user-friendly 8051 monitor, by Paul Stoffregen
 ; Please email comments, suggestions, bugs to paul@pjrc.com
 
-; Version 2.1, flash rom changed from 28F256 (obsolete) to
-;   the standard 39F512 algorithm (4 cycle write, 6 cycle erase).
+; Version 2.1
 ;   Some code size improvements, contributed by Alexander B. Alexandrov
 ;   Download can now start from main menu prompt
 
@@ -64,8 +63,7 @@
 ; for program headers, user installed commands, start-up programs, etc.
 ; "bmem" and "emem" should be use so they exclude memory areas where
 ; perphreal devices may be mapped, as reading memory from an io chip
-; may reconfigure it unexpectedly.  If flash rom is used, "bmem" and "emem"
-; should also include the space where the flash rom is mapped.
+; may reconfigure it unexpectedly.
 
 .equ	pgm, 0x2000		;default location for the user program
 .equ	bmem, 0x1000		;where is the beginning of memory
@@ -81,80 +79,6 @@
 ;.equ	baud_const, 243		;4808 baud w/ 12 MHz
 
 .equ	line_delay, 6		;num of char times to pause during uploads
-
-; About download speed: when writing to ram, PAULMON2 can accept data
-; at the maximum baud rate (baud_const=255 or 57600 baud w/ 11.0592 MHz).
-; Most terminal emulation programs introduce intentional delays when
-; sending ascii data, which you would want to turn off for downloading
-; larger programs into ram.  For Flash ROM, the maximum speed is set by
-; the time it takes to program each location... 9600 baud seems to work
-; nicely for the AMD 28F256 chip.  The "character pacing" delay in a
-; terminal emulation program should be sufficient to download to flash
-; rom and any baud rate.  Some flash rom chips can write very quickly,
-; allowing high speed baud rates, but other chips can not.  You milage
-; will vary...
-
-; Flash ROM parameters.	 If "has_flash" is set to zero, all flash rom
-; features are turned off, otherwise "bflash" and "eflash" should specify
-; the memory range which is flash rom.	Though AMD doesn't suggest it,
-; you may be able to map only a part of the flash rom with your address
-; decoder logic (and not use the rest), but you should be careful that
-; "bflash" and "eflash" don't include and memory which is NOT flash rom
-; so that the erase algorithm won't keep applying erase pulses until it
-; finally gives up (which will stress the thin oxide and degrade the
-; flash rom's life and reliability).  "erase_pin" allows you to specify
-; the bit address for a pin which (if held low) will tell PAULMON2 to
-; erase the flash rom chip when it starts up.  This is useful if you
-; download programs with the "start-up" headers on them and the code you've
-; put in the flash rom crashes!
-
-.equ	has_flash, 0		;set to non-zero value if flash installed
-.equ	bflash, 0x8000		;first memory location of Flash ROM
-.equ	eflash, 0xFFFF		;last memory location of Flash ROM
-.equ	erase_pin, 0		;00 = disable erase pin feature
-;.equ	erase_pin, 0xB5		;B5 = pin 15, P3.5 (T1)
-
-; Development Board Wiring, http://www.pjrc.com/tech/8051/
-; wiring is not a simple A0 to A0... works fine, but requires the
-; special Flash ROM programming addresses to be encoded.
-;Flash: A15 A14 A13 A12 A11 A10  A9  A8  A7  A6  A5  A4  A3  A2  A1  A0
-;8051:   -  A14 A13  A1  A9  A8 A10 A11  A0  A3  A2  A4  A5  A6  A7 A12
-;
-;0x5555  0   1   0   1   0   1   0   1   0   1   0   1   0   1   0   1
-;0x595A  0   1   0   1   1   0   0   1   0   1   0   1   1   0   1   0
-;
-;0x2AAA  0   0   1   0   1   0   1   0   1   0   1   0   1   0   1   0
-;0x26A5  0   0   1   0   0   1   1   0   1   0   1   0   0   1   0   1
-
-;sets the base address to add to the flash memory register addresses.
-.equ    flash_base, bflash
-
-.equ   flash_en1_addr, 0x5555 + flash_base
-;.equ    flash_en1_addr, 0x595A + flash_base
-.equ    flash_en1_data, 0xAA
-
-.equ   flash_en2_addr, 0x2AAA + flash_base
-;.equ    flash_en2_addr, 0x26A5 + flash_base
-.equ    flash_en2_data, 0x55
-
-.equ   flash_wr_addr, 0x5555 + flash_base
-;.equ    flash_wr_addr, 0x595A + flash_base
-.equ    flash_wr_data, 0xA0
-
-.equ   flash_er1_addr, 0x5555 + flash_base
-;.equ    flash_er1_addr, 0x595A + flash_base
-.equ    flash_er1_data, 0x80
-
-.equ   flash_er2_addr, 0x5555 + flash_base
-;.equ    flash_er2_addr, 0x595A + flash_base
-.equ    flash_er2_data, 0x10
-
-; Please note... much of the memory management code only looks at the
-; upper 8 bits of an address, so it's not a good idea to somehow map
-; your memory chips (with complex address decoding logic) into chunks
-; less than 256 bytes.	In other words, only using a piece of a flash
-; rom chip and mapping it between C43A to F91B would confuse PAULMON2
-; (as well as require quit a bit of address decoding logic circuitry)
 
 ; Several people didn't like the key definations in PAULMON1.
 ; Actually, I didn't like 'em either, but I never took the time
@@ -173,22 +97,8 @@
 .equ	intm_key, 'I'		;hex dump internal memory
 .equ	edit_key, 'E'		;edit memory
 .equ	clrm_key, 'C'		;clear memory
-.equ	erfr_key, 'Z'		;erase flash rom
 .equ	eio77_key, '<'
 .equ	dio77_key, '>'
-
-; timing parameters for AMD Flash ROM 28F256.  These parameters
-; and pretty conservative and they seem to work with crystals
-; between 6 MHz to 24 MHz... (tested with AMD 28F256 chips only)
-; unless you know this is a problem, it is probably not a good
-; idea to fiddle with these.
-
-;.equ	pgmwait, 10		;22.1184 MHz crystal assumed
-.equ	pgmwait, 19		;11.0592 MHz
-.equ	verwait, 5
-;.equ	erwait1, 40		;fourty delays @22.1184
-.equ	erwait1, 20		;twenty delays for 11.0592 MHz
-.equ	erwait2, 229		;each delay .5 ms @22.1184MHz
 
 ; These symbols configure paulmon2's internal memory usage.
 ; It is usually not a good idea to change these unless you
@@ -302,13 +212,10 @@ pcstr_h:
 	ljmp	pint8u		; 0x4D
 	ljmp	pint8		; 0x50
 	ljmp	pint16u		; 0x53
-	ljmp	prgm		; 0x56
-	ljmp	erall		; 0x59
-	ljmp	find		; 0x5C
+	ljmp	find		; 0x56
 cin_filter_h:
-	ljmp	cin_filter	; 0x5F
-	ajmp	asc2hex		; 0x62
-	ljmp	erblock		; 0x64
+	ljmp	cin_filter	; 0x59
+	ajmp	asc2hex		; 0x5C
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -722,25 +629,19 @@ menu1k: cjne	a, #clrm_key, menu1l
 	mov	dptr, #clrm_cmd
 	acall	pcstr_h
 	ajmp	clrm
-menu1l: cjne	a, #erfr_key, menu1m
-	mov	a, #has_flash
-	jz	menu_end
-	mov	dptr, #erfr_cmd
-	acall	pcstr_h
-	ajmp	erfr
-menu1m: cjne	a, #intm_key, menu1n
+menu1l: cjne	a, #intm_key, menu1m
 	mov	dptr, #intm_cmd
 	acall	pcstr_h
 	ljmp	intm
-menu1n:	cjne	a, #eio77_key, menu1o
+menu1m:	cjne	a, #eio77_key, menu1n
 	mov	dptr, #eio77_cmd
 	acall	pcstr_h
 	ljmp	eio77
-menu1o:	cjne	a, #dio77_key, menu1p
+menu1n:	cjne	a, #dio77_key, menu1o
 	mov	dptr, #dio77_cmd
 	acall	pcstr_h
 	ljmp	dio77
-menu1p:
+menu1o:
 
 ; invalid input, no commands to run...
 ; at this point, we have not found
@@ -1355,17 +1256,11 @@ help:
 	mov	r4, #clrm_key
 	;mov	 dptr, #clrm_cmd
 	acall	help2
-	mov	a, #has_flash
-	jz	help_skerfm
-	mov	r4, #erfr_key
-	;mov	 dptr, #erfr_cmd
-	acall	help2
-help_skerfm:
 	mov	r4, #eio77_key
-	mov	 dptr, #eio77_cmd
+	mov	dptr, #eio77_cmd
 	acall	help2
 	mov	r4, #dio77_key
-	mov	 dptr, #dio77_cmd
+	mov	dptr, #dio77_cmd
 	acall	help2
 	mov	dptr, #help2txt
 	acall	pcstr_h
@@ -1576,27 +1471,6 @@ nloc:
 
 ;---------------------------------------------------------;
 
-erfr:
-	acall	newline2
-	mov	dptr, #erfr_cmd
-	acall	pcstr_h
-	mov	a, #','
-	acall	cout_sp
-	mov	dptr, #sure
-	acall	pcstr_h
-	acall	cin_filter_h
-	acall	upper
-	cjne	a, #'Y', abort_it
-	acall	newline2
-	lcall	erall
-	mov	dptr, #erfr_ok
-	jnc	erfr_end
-	mov	dptr, #erfr_err
-erfr_end:
-	ajmp	pcstr_h
-
-;---------------------------------------------------------;
-
 intm:
 	acall	newline
 	mov	r0, #0
@@ -1640,116 +1514,6 @@ dio77:
 ;*****							  *****
 ;**************************************************************
 ;**************************************************************
-
-;---------------------------------------------------------;
-;							  ;
-;   Subroutines for memory managment and non-serial I/O	  ;
-;							  ;
-;---------------------------------------------------------;
-
-; poll the flash rom using it's toggle bit feature
-; on D6... and wait until the flash rom is not busy
-; dptr must be initialized with the address to read
-
-flash_wait:
-	push	b
-	clr	a
-	movc	a, @a+dptr
-flwt2:	mov	b, a
-	inc	r5
-	clr	a
-	movc	a, @a+dptr
-	cjne	a, b, flwt2
-	pop	b
-	ret
-
-;---------------------------------------------------------;
-
-; send the flash enable codes
-
-flash_en:
-	mov	dptr, #flash_en1_addr
-	mov	a, #flash_en1_data
-	movx	@dptr, a
-	mov	dptr, #flash_en2_addr
-	mov	a, #flash_en2_data
-	movx	@dptr, a
-	ret
-
-;---------------------------------------------------------;
-
-; a routine that writes ACC to into flash memory at DPTR
-; C is set if error occurs, C is clear if it worked
-
-prgm:
-	xch	a, r0
-	push	acc
-	push	dpl
-	push	dph
-	acall	flash_en		;do first step, enable writing
-	mov	dptr, #flash_wr_addr
-	mov	a, #flash_wr_data
-	movx	@dptr, a		;send flash write command
-	pop	dph
-	pop	dpl
-	mov	a, r0
-	movx	@dptr, a		;write the data
-	acall	flash_wait		;wait until it's done
-	clr	a
-	movc	a, @a+dptr		;read it back
-	clr	c
-	xrl	a, r0
-	jz	prgmend			;check if data written ok
-	setb	c
-prgmend:pop	acc
-	xch	a, r0
-	ret
-
-;---------------------------------------------------------;
-
-; erase the entire flash rom
-; C=1 if failure, C=0 if ok
-
-erall:
-	mov	dptr, #flash_er2_addr
-	mov	a, #flash_er2_data
-	lcall	erblock			;use erblock to send erase all
-	mov	dptr, #bflash
-erall2:	clr	a
-	movc	a, @a+dptr		;read back flash memory
-	cpl	a
-	jnz	erall_err		;check if it's really erased
-	inc	dptr
-	mov	a, #((eflash+1) & 255)
-	cjne	a, dpl, erall2
-	mov	a, #(((eflash+1) >> 8) & 255)
-	cjne	a, dph, erall2
-	clr	c
-	ret
-erall_err:
-	setb	c
-	ret
-
-;---------------------------------------------------------;
-
-; send a custom erase command. This is used by erall,
-; and it's intended to be callable from the flash memory
-; so that custom block erase code can be implemented
-
-erblock:
-	push	acc
-	push	dpl
-	push	dph
-	lcall	flash_en		;send flash enable stuff
-	mov	dptr, #flash_er1_addr
-	mov	a, #flash_er1_data
-	movx	@dptr, a		;send erase enable
-	lcall	flash_en		;send flash enable stuff
-	pop	dph
-	pop	dpl
-	pop	acc
-	movx	@dptr, a		;send erase command
-	ljmp	flash_wait
 
 ;---------------------------------------------------------;
 
@@ -1831,44 +1595,28 @@ end_cp_shadow:
 	mov	r7, a
 	mov	r7, a
 	mov	r7, a
-
-; Check for the Erase-on-startup signal and erase Flash ROM 
-; if it's there.
-
-	mov	a, #has_flash
-	jz	skip_erase
-	mov	a, #erase_pin
-	jz	skip_erase
-	mov	r0, #250	;check it 250 times, just to be sure
-chk_erase:
-	mov	c, erase_pin
-	mov	r1, #200
-	djnz	r1, *		;short delay
-	jc	skip_erase	;skip erase if this bit is not low
-	djnz	r0, chk_erase
-	lcall	erall		;and this'll delete the flash rom
-skip_erase:
-
+	
 ; run any user initialization programs in external memory
 	mov	b, #249
 	acall	stcode
 
 ; initialize the serial port
-	acall	setbaud_reset
+	lcall	setbaud_reset
 
 ; run the start-up programs in external memory
 	mov	b, #253
 	acall	stcode
 
 ; now print out the nice welcome message
-
 welcome:
 	mov	r0, #24
-welcm2: lcall	newline
+welcm2:
+	lcall	newline
 	djnz	r0, welcm2
 	mov	r0, #15
 	mov	a, #' '
-welcm4: lcall	cout
+welcm4:
+	lcall	cout
 	djnz	r0, welcm4
 	mov	dptr, #logon1
 	lcall	pcstr
@@ -1879,8 +1627,10 @@ welcm4: lcall	cout
 	mov	r7, #(pgm >> 8)
 	ljmp	menu
 
-stcode: mov	dptr, #bmem	 ;search for startup routines
-stcode2:lcall	find
+stcode:
+	mov	dptr, #bmem	 ;search for startup routines
+stcode2:
+	lcall	find
 	jnc	stcode5
 	mov	dpl, #4
 	clr	a
@@ -1895,12 +1645,15 @@ stcode2:lcall	find
 	mov	dpl, #64
 	clr	a
 	jmp	@a+dptr		;jump to the startup code
-stcode3:pop	dph		;hopefully it'll return to here
+stcode3:
+	pop	dph		;hopefully it'll return to here
 	pop	b
-stcode4:inc	dph
+stcode4:
+	inc	dph
 	mov	a, dph
 	cjne	a, #((emem+1) >> 8) & 255, stcode2
-stcode5:ret			;now we've executed all of 'em
+stcode5:
+	ret			;now we've executed all of 'em
 
 ;---------------------------------------------------------;
 
@@ -2399,9 +2152,6 @@ dump_cmd: .db	31,132,219,154,131,0
 intm_cmd: .db	31,132,219,192,131,0
 edit_cmd: .db	31,156,154,146,0
 clrm_cmd: .db	31,237,131,0
-erfr_cmd: .db	31,203,153,144,0
-erfr_ok:  .db	31,153,144,203,'d',13,14
-erfr_err: .db	31,133,155,13,14
 eio77_cmd: .db "Enable nCSIO77",0
 dio77_cmd: .db "Disable nCSIO77",0
 
