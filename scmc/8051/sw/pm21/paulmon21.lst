@@ -2,8 +2,8 @@
                    ; Please email comments, suggestions, bugs to paul@pjrc.com
                    
                    ; Version 2.1
-                   ;   Some code size improvements, contributed by Alexander B.
-                   ;   Download can now start from main menu prompt
+                   ;        Some code size improvements, contributed by Alexand
+                   ;        Download can now start from main menu prompt
                    
                    ; It's free.  PAULMON2 is in the public domain.  You may cop
                    ; sections of code from PAULMON2 into your own programs, eve
@@ -87,8 +87,8 @@
                    ; can guess what to do below, but don't use lowercase.
                    
 0000:              .equ     help_key, '?'           ;help screen
-0000:              .equ     dir_key,  'M'           ;directory
-0000:              .equ     run_key,  'R'           ;run program
+0000:              .equ     dir_key, 'M'            ;directory
+0000:              .equ     run_key, 'R'            ;run program
 0000:              .equ     dnld_key, 'D'           ;download
 0000:              .equ     upld_key, 'U'           ;upload
 0000:              .equ     nloc_key, 'N'           ;new memory location
@@ -345,9 +345,9 @@
 00DB: B4 08 02              cjne    a, #8, ghex16f
 00DE: 80 03                 sjmp    ghex16k
                    ghex16f:
-00E0: B4 7F 0C              cjne    a, #127, ghex16g  ;handle backspace
+00E0: B4 7F 0C              cjne    a, #127, ghex16g        ;handle backspace
                    ghex16k:
-00E3: BC 04 02              cjne    r4, #4, ghex16e           ;have they entere
+00E3: BC 04 02              cjne    r4, #4, ghex16e                 ;have they 
 00E6: 80 E5                 sjmp    ghex16c
                    ghex16e:
 00E8: 11 6A                 acall   cout
@@ -355,7 +355,7 @@
 00EC: 0C                    inc     r4
 00ED: 80 DE                 sjmp    ghex16c
                    ghex16g:
-00EF: B4 0D 10              cjne    a, #13, ghex16i           ;return key
+00EF: B4 0D 10              cjne    a, #13, ghex16i                 ;return key
 00F2: 8B 83                 mov     dph, r3
 00F4: 8A 82                 mov     dpl, r2
 00F6: BC 04 07              cjne    r4, #4, ghex16h
@@ -367,7 +367,7 @@
 0100: C3                    clr     c
 0101: 22                    ret
                    ghex16i:
-0102: FD                    mov     r5, a             ;keep copy of original ke
+0102: FD                    mov     r5, a                   ;keep copy of origi
 0103: 31 41                 acall   asc2hex
 0105: 40 C6                 jc      ghex16c
 0107: CD                    xch     a, r5
@@ -387,7 +387,8 @@
 011C: 8B 83                 mov     dph, r3
 011E: 22                    ret
                    
-                   ghex16x:  ;multiply r3-r2 by 16 (shift left by 4)
+                   ghex16x:
+                            ;multiply r3-r2 by 16 (shift left by 4)
 011F: EB                    mov     a, r3
 0120: C4                    swap    a
 0121: 54 F0                 anl     a, #11110000b
@@ -403,7 +404,8 @@
 012E: FA                    mov     r2, a
 012F: 22                    ret
                    
-                   ghex16y:  ;divide r3-r2 by 16 (shift right by 4)
+                   ghex16y:
+                            ;divide r3-r2 by 16 (shift right by 4)
 0130: EA                    mov     a, r2
 0131: C4                    swap    a
 0132: 54 0F                 anl     a, #00001111b
@@ -419,8 +421,8 @@
 013F: FB                    mov     r3, a
 0140: 22                    ret
                    
-                            ;carry set if invalid input
                    asc2hex:
+                            ;carry set if invalid input
 0141: 24 D0                 add     a, #208
 0143: 50 14                 jnc     hex_not
 0145: 24 F6                 add     a, #246
@@ -515,7 +517,7 @@
                    ;---------------------------------------------------------;
                    
                    lenstr:
-019B: 78 00                 mov     r0, #0    ;returns length of a string in r0
+019B: 78 00                 mov     r0, #0          ;returns length of a string
 019D: C0 E0                 push    acc
                    lenstr1:
 019F: E4                    clr     a
@@ -559,7 +561,7 @@
                    ; first we print out the prompt, which isn't as simple
                    ; as it may seem, since external code can add to the
                    ; prompt, so we've got to find and execute all of 'em.
-01BF: 90 0C 02              mov     dptr, #prompt1    ;give 'em the first part 
+01BF: 90 0C 02              mov     dptr, #prompt1          ;give 'em the first
 01C2: 11 45                 acall   pcstr_h
 01C4: EF                    mov     a, r7
 01C5: 31 5B                 acall   phex
@@ -569,7 +571,7 @@
 01CA: 31 7A                 acall   pstr
                    
                    ; now we're finally past the prompt, so let's get some input
-01CC: 11 59                 acall   cin_filter_h    ;get the input, finally
+01CC: 11 59                 acall   cin_filter_h            ;get the input, fin
 01CE: B4 3A 04              cjne    a, #':', menu0
 01D1: 51 B5                 acall   dnld_now
 01D3: 80 EA                 sjmp    menu
@@ -577,10 +579,10 @@
 01D5: 31 8E                 acall   upper
                    
                    ; push return address onto stack so we can just jump to the 
-01D7: 75 F0 BF              mov     b, #(menu & 255)  ;we push the return addre
-01DA: C0 F0                 push    b                 ;to save code later...
-01DC: 75 F0 01              mov     b, #(menu >> 8)           ;if bogus input, 
-01DF: C0 F0                 push    b                 ;another prompt.
+01D7: 75 F0 BF              mov     b, #(menu & 255)        ;we push the return
+01DA: C0 F0                 push    b                       ;to save code later
+01DC: 75 F0 01              mov     b, #(menu >> 8)                 ;if bogus i
+01DF: C0 F0                 push    b                       ;another prompt.
                    
                    ; first we'll look through memory for a program header that 
                    ; it's a user installed command which matches what the user 
@@ -594,18 +596,18 @@
 01E3: 90 10 00              mov     dptr, #bmem
                    menux1:
 01E6: 12 07 5E              lcall   find
-01E9: 50 24                 jnc     menuxend           ;searched all the comman
+01E9: 50 24                 jnc     menuxend        ;searched all the commands?
 01EB: 75 82 04              mov     dpl, #4
 01EE: E4                    clr     a
 01EF: 93                    movc    a,@a+dptr
-01F0: B4 FE 15              cjne    a, #254, menux2          ;only FE is an ext
+01F0: B4 FE 15              cjne    a, #254, menux2         ;only FE is an ext 
 01F3: 05 82                 inc     dpl
 01F5: E4                    clr     a
 01F6: 93                    movc    a,@a+dptr
-01F7: B5 F0 0E              cjne    a, b, menux2      ;only run if they want it
+01F7: B5 F0 0E              cjne    a, b, menux2    ;only run if they want it
 01FA: 11 68                 acall   space
 01FC: 75 82 20              mov     dpl, #32
-01FF: 31 7A                 acall   pstr               ;print command name
+01FF: 31 7A                 acall   pstr            ;print command name
 0201: 11 74                 acall   newline
 0203: 75 82 40              mov     dpl, #64
 0206: E4                    clr     a
@@ -714,7 +716,7 @@
                    
                    dnld:
 0298: 90 0C 9C              mov     dptr, #dnlds1            
-029B: 11 45                 acall   pcstr_h                    ;"begin sending 
+029B: 11 45                 acall   pcstr_h                 ;"begin sending fil
 029D: 71 F9                 acall   dnld_init
                             
                    dnld1:
@@ -792,7 +794,8 @@
 02F8: D8 FC                 djnz    r0, dnld_ukn2
 02FA: 80 EC                 sjmp    dnld_get_cksum
                    
-                   dnld_end:   ;handles the proper end-of-download marker
+                   dnld_end:
+                            ;handles the proper end-of-download marker
 02FC: E8                    mov     a, r0
 02FD: 60 04                 jz      dnld_end_3      ;should usually be zero
                    dnld_end_2:
@@ -804,17 +807,18 @@
 0306: 70 E5                 jnz     dnld_sumerr
 0308: 71 1F                 acall   dnld_dly
 030A: 90 0C BB              mov     dptr, #dnlds3
-030D: 11 45                 acall   pcstr_h                    ;"download went 
+030D: 11 45                 acall   pcstr_h                 ;"download went ok.
                             ;consume any cr or lf character that may have been
                             ;on the end of the last line
 030F: 30 98 7A              jnb     ri, dnld_sum
 0312: 11 5E                 acall   cin
 0314: 80 76                 sjmp    dnld_sum
                    
-                   dnld_esc:   ;handle esc received in the download stream
+                   dnld_esc:
+                            ;handle esc received in the download stream
 0316: 71 1F                 acall   dnld_dly
 0318: 90 0C B3              mov     dptr, #dnlds2    
-031B: 11 45                 acall   pcstr_h                    ;"download abort
+031B: 11 45                 acall   pcstr_h                 ;"download aborted.
 031D: 80 6D                 sjmp    dnld_sum
                    
                    ; a short delay since most terminal emulation programs
@@ -873,7 +877,7 @@
                    ; sees ':', it pops the return and jumps to an error handler
                    ; for ':' in the middle of a line.  Non-hex digits also jump
                    ; to error handlers, depending on which digit.
-                              
+                   
                    dnld_ghex:
                    dnldgh1:
 0347: 11 5E                 acall   cin
@@ -1199,7 +1203,7 @@
 0506: 90 0D 66              mov     dptr, #type5    ;who knows what the hell it
                    
                    dir7:
-0509: 11 45                 acall   pcstr_h                    ;print out the t
+0509: 11 45                 acall   pcstr_h                 ;print out the type
 050B: 8A 83                 mov     dph, r2                 ;go back and find t
 050D: 11 74                 acall   newline
 050F: 74 FF                 mov     a, #(emem >> 8)
@@ -1218,7 +1222,7 @@
                    
                    ;---------------------------------------------------------;
                    
-                   run:   
+                   run:
 051F: 11 72                 acall   newline2
 0521: 7A FF                 mov     r2, #255        ;first print the menu, coun
 0523: 90 10 00              mov     dptr, #bmem
@@ -1363,7 +1367,7 @@
 0608: 75 82 04              mov     dpl, #4
 060B: E4                    clr     a
 060C: 93                    movc    a,@a+dptr
-060D: B4 FE 11              cjne    a, #254, help3a            ;only FE is an e
+060D: B4 FE 11              cjne    a, #254, help3a         ;only FE is an ext 
 0610: 11 66                 acall   dspace
 0612: 05 82                 inc     dpl
 0614: E4                    clr     a
@@ -1632,7 +1636,8 @@
                    ; Output DPTR=location of next module
                    ; C=set if a header found, C=clear if no more headers
                    
-075E: 75 82 00     find:    mov     dpl, #0
+                   find:
+075E: 75 82 00              mov     dpl, #0
 0761: E4                    clr     a
 0762: 93                    movc    a, @a+dptr
 0763: B4 A5 17              cjne    a, #0xA5, find3
@@ -2358,7 +2363,7 @@
       C0 64 25 00 
                             .db     0x2F, 0x14, 0x4F, 0x51, 0xC0, 0x64, 0x25, 0
                    
-                   ;STR
+                   ; STR
                    
                    logon1:
 0BC3: 57 65 6C 63 
@@ -2368,6 +2373,7 @@
       20 62 79 1F 
       F8 1F FE 0D 
       0E                    .db     "Welcome", 128, 148, "2 v2.1, by", 31, 248,
+                   
                    logon2:
 0BDC: 20 20 53 65 
       65 94 32 2E 
@@ -2377,24 +2383,30 @@
 0BEF: 94 32 2E 48 
       44 52 B4 D5 
       8D 2E 0E              .db     148, "2.HDR", 180, 213, 141, ".", 14
+                   
                    abort:
 0BFA: 20 1F 9E 1F 
       A0 21 0D 0E 
                             .db     " ", 31, 158, 31, 160, "!", 13, 14
+                   
                    prompt1:
 0C02: 94 32 20 4C 
       6F 63 3A 00 
                             .db     148, "2 Loc:", 0
+                   
                    prompt2:
-                            ;must follow prompt1
+                   ; must follow prompt1
 0C0A: 20 3E A0              .db     " >", 160
+                   
                    prompt3:
 0C0D: 86 CA 82 28 
       00                    .db     134, 202, 130, '(', 0
+                   
                    prompt4:
 0C12: 29 2C 95 8C 
       80 C8 3A 20 
       00                    .db     "),", 149, 140, 128, 200, ": ", 0
+                   
                    prompt5:
 0C1B: 1F 97 82 C3 
       73 C7 A6 83 
@@ -2403,50 +2415,62 @@
       4D 50 80 86 
       A1 72 82 0D 
       0E                    .db     186, " JUMP", 128, 134, 161, "r", 130, 13, 
+                   
                    prompt6:
 0C31: 0D 0D 1F 87 
       83 81 3A 20 
       00                    .db     13, 13, 31, 135, 131, 129, ": ", 0
+                   
                    prompt7:
 0C3A: 1F E4 FB 20 
       6B 65 79 3A 
       20 00                 .db     31, 228, 251, " key: ", 0
+                   
                    prompt8:
 0C44: 0D 0D 1F 88 
       80 83 81 20 
       28 00                 .db     13, 13, 31, 136, 128, 131, 129, " (", 0
+                   
                    prompt9:
 0C4E: 0D 0D 1F 82 
       1F FD 00              .db     13, 13, 31, 130, 31, 253, 0
+                   
                    prompt9b:
-                            ;must follow prompt9
+                   ; must follow prompt9
 0C55: 1F 81 20 20 
       20 20 20 1F 
       C9 0E                 .db     31, 129, 32, 32, 32, 32, 32, 31, 201, 14
+                   
                    prompt10:
 0C5F: 29 20 1F 87 
       1F B2 3A 20 
       00                    .db     ") ", 31, 135, 31, 178, ": ", 0
+                   
                    beg_str:
 0C68: 46 69 72 73 
       74 1F 81 3A 
       20 00                 .db     "First", 31, 129, ": ", 0
+                   
                    end_str:
 0C72: 4C 61 73 74 
       1F 81 3A 20 
       20 00                 .db     "Last", 31, 129, ":", 32, 32, 0
+                   
                    sure:
 0C7C: 1F B9 A1 20 
       73 75 72 65 
       3F 00                 .db     31, 185, 161, " sure?", 0
+                   
                    edits1:
 0C86: 0D 0D 1F 9C 
       9A 92 2C 8C 
       80 C8 0E              .db     13, 13, 31, 156, 154, 146, ",", 140, 128, 2
+                   
                    edits2:
 0C91: 20 20 1F 9C 
       C1 2C 8E 81 
       F7 0D 0E              .db     "  ", 31, 156, 193, ",", 142, 129, 247, 13,
+                   
                    dnlds1:
 0C9C: 0D 0D 1F 9F 
       20 61 73 63 
@@ -2455,128 +2479,165 @@
                             .db     13, 13, 31, 159, " ascii", 249, 150, 31, 15
 0CAC: 2C 95 8C 80 
       A0 0D 0E              .db     ",", 149, 140, 128, 160, 13, 14
+                   
                    dnlds2:
 0CB3: 0D 1F 8A A0 
       65 64 0D 0E 
                             .db     13, 31, 138, 160, "ed", 13, 14
+                   
                    dnlds3:
 0CBB: 0D 1F 8A C1 
       64 0D 0E              .db     13, 31, 138, 193, "d", 13, 14
+                   
                    dnlds4:
 0CC2: 53 75 6D 6D 
       61 72 79 3A 
       0E                    .db     "Summary:", 14
+                   
                    dnlds5:
 0CCB: 20 C6 73 91 
       64 0E                 .db     " ", 198, "s", 145, "d", 14
+                   
                    dnlds6a:
 0CD1: 20 8B 91 64 
       0E                    .db     " ", 139, 145, "d", 14
+                   
                    dnlds6b:
 0CD6: 20 8B 20 77 
       72 69 74 74 
       65 6E 0E              .db     " ", 139, " written", 14
+                   
                    dnlds7:
 0CE1: 1F 9B 3A 0E 
                             .db     31, 155, ":", 14
+                   
                    dnlds8:
 0CE5: 20 8B 20 75 
       6E 61 62 6C 
       65 80 20 77 
       72 69 74 65 
       0E                    .db     " ", 139, " unable", 128, " write", 14
+                   
                    dnlds9:
 0CF6: 20 20 62 61 
       64 F5 73 0E 
                             .db     32, 32, "bad", 245, "s", 14
+                   
                    dnlds10:
 0CFE: 20 85 9F 96 
       C6 0E                 .db     " ", 133, 159, 150, 198, 14
+                   
                    dnlds11:
 0D04: 20 85 84 9D 
       0E                    .db     " ", 133, 132, 157, 14
+                   
                    dnlds12:
 0D09: 20 85 20 6E 
       6F 6E 84 9D 
       0E                    .db     " ", 133, " non", 132, 157, 14
+                   
                    dnlds13:
 0D12: 1F 97 9B 20 
       64 65 74 65 
       63 74 65 64 
       0D 0E                 .db     31, 151, 155, " detected", 13, 14
+                   
                    runs1:
 0D20: 0D 86 6E 69 
       6E 67 82 3A 
       0D 0E                 .db     13, 134, "ning", 130, ":", 13, 14
+                   
                    uplds3:
 0D2A: 0D 0D 53 65 
       6E 64 69 6E 
       67 1F 98 84 
       89 AC 20 20 
       00                    .db     13, 13, "Sending", 31, 152, 132, 137, 172, 
+                   
                    uplds4:
-                            ;must follow uplds3
+                   ; must follow uplds3
 0D3B: 20 80 20 20 
       00                    .db     " ", 128, 32, 32, 0
+                   
                    help1txt:
 0D40: 0D 0D 53 74 
       61 6E 64 61 
       72 64 1F 9E 
       73 0E                 .db     13, 13, "Standard", 31, 158, "s", 14
+                   
                    help2txt:
 0D4E: 1F DA 1F F4 
       65 64 1F 9E 
       73 0E                 .db     31, 218, 31, 244, "ed", 31, 158, "s", 14
+                   
                    type1:
 0D58: 1F 9A 9E 00 
                             .db     31, 154, 158, 0
+                   
                    type2:
 0D5C: 1F 82 00              .db     31, 130, 0
+                   
                    type4:
 0D5F: 1F 8F 1F E2 
       1F AA 00              .db     31, 143, 31, 226, 31, 170, 0
+                   
                    type5:
 0D66: 3F 3F 3F 00 
                             .db     "???", 0
+                   
                    help_cmd2:
 0D6A: 1F D7 00              .db     31, 215, 0
+                   
                    help_cmd:
 0D6D: 1F 8E D7 D1 
       00                    .db     31, 142, 215, 209, 0
-                            ;these 10 _cmd string must be in order
+                   
+                   ;these _cmd string must be in order
+                   
                    dir_cmd:
 0D72: 1F D1 82 73 
       00                    .db     31, 209, 130, "s", 0
+                   
                    run_cmd:
 0D77: 1F 86 82 00 
                             .db     31, 134, 130, 0
+                   
                    dnld_cmd:
 0D7B: 1F 8A 00              .db     31, 138, 0
+                   
                    upld_cmd:
 0D7E: 1F 93 00              .db     31, 147, 0
+                   
                    nloc_cmd:
 0D81: 1F 87 81 00 
                             .db     31, 135, 129, 0
+                   
                    jump_cmd:
 0D85: 1F 88 80 83 
       81 00                 .db     31, 136, 128, 131, 129, 0
+                   
                    dump_cmd:
 0D8B: 1F 84 DB 9A 
       83 00                 .db     31, 132, 219, 154, 131, 0
+                   
                    intm_cmd:
 0D91: 1F 84 DB C0 
       83 00                 .db     31, 132, 219, 192, 131, 0
+                   
                    edit_cmd:
 0D97: 1F 9C 9A 92 
       00                    .db     31, 156, 154, 146, 0
+                   
                    clrm_cmd:
 0D9C: 1F ED 83 00 
                             .db     31, 237, 131, 0
+                   
                    eio77_cmd:
 0DA0: 45 6E 61 62 
       6C 65 20 6E 
       43 53 49 4F 
       37 37 00              .db     "Enable nCSIO77", 0
+                   
                    dio77_cmd:
 0DAF: 44 69 73 61 
       62 6C 65 20 

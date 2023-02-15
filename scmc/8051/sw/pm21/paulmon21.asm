@@ -2,8 +2,8 @@
 ; Please email comments, suggestions, bugs to paul@pjrc.com
 
 ; Version 2.1
-;   Some code size improvements, contributed by Alexander B. Alexandrov
-;   Download can now start from main menu prompt
+;	Some code size improvements, contributed by Alexander B. Alexandrov
+;	Download can now start from main menu prompt
 
 ; It's free.  PAULMON2 is in the public domain.  You may copy
 ; sections of code from PAULMON2 into your own programs, even
@@ -87,8 +87,8 @@
 ; can guess what to do below, but don't use lowercase.
 
 .equ	help_key, '?'		;help screen
-.equ	dir_key,  'M'		;directory
-.equ	run_key,  'R'		;run program
+.equ	dir_key, 'M'		;directory
+.equ	run_key, 'R'		;run program
 .equ	dnld_key, 'D'		;download
 .equ	upld_key, 'U'		;upload
 .equ	nloc_key, 'N'		;new memory location
@@ -345,9 +345,9 @@ ghex16d:
 	cjne	a, #8, ghex16f
 	sjmp	ghex16k
 ghex16f:
-	cjne	a, #127, ghex16g  ;handle backspace
+	cjne	a, #127, ghex16g	;handle backspace
 ghex16k:
-	cjne	r4, #4, ghex16e	  ;have they entered anything yet?
+	cjne	r4, #4, ghex16e		;have they entered anything yet?
 	sjmp	ghex16c
 ghex16e:
 	acall	cout
@@ -355,7 +355,7 @@ ghex16e:
 	inc	r4
 	sjmp	ghex16c
 ghex16g:
-	cjne	a, #13, ghex16i	  ;return key
+	cjne	a, #13, ghex16i		;return key
 	mov	dph, r3
 	mov	dpl, r2
 	cjne	r4, #4, ghex16h
@@ -367,7 +367,7 @@ ghex16h:
 	clr	c
 	ret
 ghex16i:
-	mov	r5, a		  ;keep copy of original keystroke
+	mov	r5, a			;keep copy of original keystroke
 	acall	asc2hex
 	jc	ghex16c
 	xch	a, r5
@@ -387,7 +387,8 @@ ghex16i:
 	mov	dph, r3
 	ret
 
-ghex16x:  ;multiply r3-r2 by 16 (shift left by 4)
+ghex16x:
+	;multiply r3-r2 by 16 (shift left by 4)
 	mov	a, r3
 	swap	a
 	anl	a, #11110000b
@@ -403,7 +404,8 @@ ghex16x:  ;multiply r3-r2 by 16 (shift left by 4)
 	mov	r2, a
 	ret
 
-ghex16y:  ;divide r3-r2 by 16 (shift right by 4)
+ghex16y:
+	;divide r3-r2 by 16 (shift right by 4)
 	mov	a, r2
 	swap	a
 	anl	a, #00001111b
@@ -419,8 +421,8 @@ ghex16y:  ;divide r3-r2 by 16 (shift right by 4)
 	mov	r3, a
 	ret
 
-	;carry set if invalid input
 asc2hex:
+	;carry set if invalid input
 	add	a, #208
 	jnc	hex_not
 	add	a, #246
@@ -515,7 +517,7 @@ upper4:
 ;---------------------------------------------------------;
 
 lenstr:
-	mov	r0, #0	  ;returns length of a string in r0
+	mov	r0, #0		;returns length of a string in r0
 	push	acc
 lenstr1:
 	clr	a
@@ -559,7 +561,7 @@ menu:
 ; first we print out the prompt, which isn't as simple
 ; as it may seem, since external code can add to the
 ; prompt, so we've got to find and execute all of 'em.
-	mov	dptr, #prompt1	  ;give 'em the first part of prompt
+	mov	dptr, #prompt1		;give 'em the first part of prompt
 	acall	pcstr_h
 	mov	a, r7
 	acall	phex
@@ -569,7 +571,7 @@ menu:
 	acall	pstr
 
 ; now we're finally past the prompt, so let's get some input
-	acall	cin_filter_h	;get the input, finally
+	acall	cin_filter_h		;get the input, finally
 	cjne	a, #':', menu0
 	acall	dnld_now
 	sjmp	menu
@@ -577,10 +579,10 @@ menu0:
 	acall	upper
 
 ; push return address onto stack so we can just jump to the program
-	mov	b, #(menu & 255)  ;we push the return address now,
-	push	b		  ;to save code later...
-	mov	b, #(menu >> 8)	  ;if bogus input, just ret for
-	push	b		  ;another prompt.
+	mov	b, #(menu & 255)	;we push the return address now,
+	push	b			;to save code later...
+	mov	b, #(menu >> 8)		;if bogus input, just ret for
+	push	b			;another prompt.
 
 ; first we'll look through memory for a program header that says
 ; it's a user installed command which matches what the user pressed
@@ -594,18 +596,18 @@ menux:	mov	b, a		;now search for external commands...
 	mov	dptr, #bmem
 menux1:
 	lcall	find
-	jnc	menuxend	   ;searched all the commands?
+	jnc	menuxend	;searched all the commands?
 	mov	dpl, #4
 	clr	a
 	movc	a,@a+dptr
-	cjne	a, #254, menux2	 ;only FE is an ext command
+	cjne	a, #254, menux2	;only FE is an ext command
 	inc	dpl
 	clr	a
 	movc	a,@a+dptr
-	cjne	a, b, menux2	  ;only run if they want it
+	cjne	a, b, menux2	;only run if they want it
 	acall	space
 	mov	dpl, #32
-	acall	pstr		   ;print command name
+	acall	pstr		;print command name
 	acall	newline
 	mov	dpl, #64
 	clr	a
@@ -714,7 +716,7 @@ menu_end:
 
 dnld:
 	mov	dptr, #dnlds1		 
-	acall	pcstr_h		   ;"begin sending file <ESC> to abort"
+	acall	pcstr_h		;"begin sending file <ESC> to abort"
 	acall	dnld_init
 	
 dnld1:
@@ -792,7 +794,8 @@ dnld_ukn2:
 	djnz	r0, dnld_ukn2
 	sjmp	dnld_get_cksum
 
-dnld_end:   ;handles the proper end-of-download marker
+dnld_end:
+	;handles the proper end-of-download marker
 	mov	a, r0
 	jz	dnld_end_3	;should usually be zero
 dnld_end_2:
@@ -804,17 +807,18 @@ dnld_end_3:
 	jnz	dnld_sumerr
 	acall	dnld_dly
 	mov	dptr, #dnlds3
-	acall	pcstr_h		   ;"download went ok..."
+	acall	pcstr_h		;"download went ok..."
 	;consume any cr or lf character that may have been
 	;on the end of the last line
 	jnb	ri, dnld_sum
 	acall	cin
 	sjmp	dnld_sum
 
-dnld_esc:   ;handle esc received in the download stream
+dnld_esc:
+	;handle esc received in the download stream
 	acall	dnld_dly
 	mov	dptr, #dnlds2	 
-	acall	pcstr_h		   ;"download aborted."
+	acall	pcstr_h		;"download aborted."
 	sjmp	dnld_sum
 
 ; a short delay since most terminal emulation programs
@@ -873,7 +877,7 @@ dnldgp2:
 ; sees ':', it pops the return and jumps to an error handler
 ; for ':' in the middle of a line.  Non-hex digits also jump
 ; to error handlers, depending on which digit.
-	  
+
 dnld_ghex:
 dnldgh1:
 	acall	cin
@@ -1199,7 +1203,7 @@ dir6:
 	mov	dptr, #type5	;who knows what the hell it is
 
 dir7:
-	acall	pcstr_h		   ;print out the type
+	acall	pcstr_h		;print out the type
 	mov	dph, r2		;go back and find the next one
 	acall	newline
 	mov	a, #(emem >> 8)
@@ -1218,7 +1222,7 @@ dir8:
 
 ;---------------------------------------------------------;
 
-run:   
+run:
 	acall	newline2
 	mov	r2, #255	;first print the menu, count items
 	mov	dptr, #bmem
@@ -1363,7 +1367,7 @@ help3:
 	mov	dpl, #4
 	clr	a
 	movc	a,@a+dptr
-	cjne	a, #254, help3a	   ;only FE is an ext command
+	cjne	a, #254, help3a	;only FE is an ext command
 	acall	dspace
 	inc	dpl
 	clr	a
@@ -1632,7 +1636,8 @@ dio77:
 ; Output DPTR=location of next module
 ; C=set if a header found, C=clear if no more headers
 
-find:	mov	dpl, #0
+find:
+	mov	dpl, #0
 	clr	a
 	movc	a, @a+dptr
 	cjne	a, #0xA5, find3
@@ -2246,125 +2251,181 @@ words:
 	.db	0xF7, 0x69, 0x0C, 0x35, 0x1B, 0x70, 0x82, 0x2F
 	.db	0x2F, 0x14, 0x4F, 0x51, 0xC0, 0x64, 0x25, 0x00
 
-;STR
+; STR
 
 logon1:
 	.db	"Welcome", 128, 148, "2 v2.1, by", 31, 248, 31, 254, 13, 14
+
 logon2:
 	.db	32, 32, "See", 148, "2.DOC,", 148, "2.EQU", 164
 	.db	148, "2.HDR", 180, 213, 141, ".", 14
+
 abort:
 	.db	" ", 31, 158, 31, 160, "!", 13, 14
+
 prompt1:
 	.db	148, "2 Loc:", 0
+
 prompt2:
-	;must follow prompt1
+; must follow prompt1
 	.db	" >", 160
+
 prompt3:
 	.db	134, 202, 130, '(', 0
+
 prompt4:
 	.db	"),", 149, 140, 128, 200, ": ", 0
+
 prompt5:
 	.db	31, 151, 130, 195, "s", 199, 166, 131, ","
 	.db	186, " JUMP", 128, 134, 161, "r", 130, 13, 14
+
 prompt6:
 	.db	13, 13, 31, 135, 131, 129, ": ", 0
+
 prompt7:
 	.db	31, 228, 251, " key: ", 0
+
 prompt8:
 	.db	13, 13, 31, 136, 128, 131, 129, " (", 0
+
 prompt9:
 	.db	13, 13, 31, 130, 31, 253, 0
+
 prompt9b:
-	;must follow prompt9
+; must follow prompt9
 	.db	31, 129, 32, 32, 32, 32, 32, 31, 201, 14
+
 prompt10:
 	.db	") ", 31, 135, 31, 178, ": ", 0
+
 beg_str:
 	.db	"First", 31, 129, ": ", 0
+
 end_str:
 	.db	"Last", 31, 129, ":", 32, 32, 0
+
 sure:
 	.db	31, 185, 161, " sure?", 0
+
 edits1:
 	.db	13, 13, 31, 156, 154, 146, ",", 140, 128, 200, 14
+
 edits2:
 	.db	"  ", 31, 156, 193, ",", 142, 129, 247, 13, 14
+
 dnlds1:
 	.db	13, 13, 31, 159, " ascii", 249, 150, 31, 152, 132, 137
 	.db	",", 149, 140, 128, 160, 13, 14
+
 dnlds2:
 	.db	13, 31, 138, 160, "ed", 13, 14
+
 dnlds3:
 	.db	13, 31, 138, 193, "d", 13, 14
+
 dnlds4:
 	.db	"Summary:", 14
+
 dnlds5:
 	.db	" ", 198, "s", 145, "d", 14
+
 dnlds6a:
 	.db	" ", 139, 145, "d", 14
+
 dnlds6b:
 	.db	" ", 139, " written", 14
+
 dnlds7:
 	.db	31, 155, ":", 14
+
 dnlds8:
 	.db	" ", 139, " unable", 128, " write", 14
+
 dnlds9:
 	.db	32, 32, "bad", 245, "s", 14
+
 dnlds10:
 	.db	" ", 133, 159, 150, 198, 14
+
 dnlds11:
 	.db	" ", 133, 132, 157, 14
+
 dnlds12:
 	.db	" ", 133, " non", 132, 157, 14
+
 dnlds13:
 	.db	31, 151, 155, " detected", 13, 14
+
 runs1:
 	.db	13, 134, "ning", 130, ":", 13, 14
+
 uplds3:
 	.db	13, 13, "Sending", 31, 152, 132, 137, 172, 32, 32, 0
+
 uplds4:
-	;must follow uplds3
+; must follow uplds3
 	.db	" ", 128, 32, 32, 0
+
 help1txt:
 	.db	13, 13, "Standard", 31, 158, "s", 14
+
 help2txt:
 	.db	31, 218, 31, 244, "ed", 31, 158, "s", 14
+
 type1:
 	.db	31, 154, 158, 0
+
 type2:
 	.db	31, 130, 0
+
 type4:
 	.db	31, 143, 31, 226, 31, 170, 0
+
 type5:
 	.db	"???", 0
+
 help_cmd2:
 	.db	31, 215, 0
+
 help_cmd:
 	.db	31, 142, 215, 209, 0
-	;these 10 _cmd string must be in order
+
+;these _cmd string must be in order
+
 dir_cmd:
 	.db	31, 209, 130, "s", 0
+
 run_cmd:
 	.db	31, 134, 130, 0
+
 dnld_cmd:
 	.db	31, 138, 0
+
 upld_cmd:
 	.db	31, 147, 0
+
 nloc_cmd:
 	.db	31, 135, 129, 0
+
 jump_cmd:
 	.db	31, 136, 128, 131, 129, 0
+
 dump_cmd:
 	.db	31, 132, 219, 154, 131, 0
+
 intm_cmd:
 	.db	31, 132, 219, 192, 131, 0
+
 edit_cmd:
 	.db	31, 156, 154, 146, 0
+
 clrm_cmd:
 	.db	31, 237, 131, 0
+
 eio77_cmd:
 	.db	"Enable nCSIO77", 0
+
 dio77_cmd:
 	.db	"Disable nCSIO77", 0
 
