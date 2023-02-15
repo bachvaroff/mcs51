@@ -253,7 +253,8 @@ cout:
 
 newline2:			;print two newlines
 	acall	newline
-newline:push	acc		;print one newline
+newline:
+	push	acc		;print one newline
 	mov	a, #13
 	acall	cout
 	mov	a, #10
@@ -274,15 +275,18 @@ ghex8c:
 	acall	cin_filter_h	;get first digit
 	acall	upper
 	cjne	a, #27, ghex8f
-ghex8d: setb	c
+ghex8d:
+	setb	c
 	clr	a
 	ret
-ghex8f: cjne	a, #13, ghex8h
+ghex8f:
+	cjne	a, #13, ghex8h
 	setb	psw.5
 	clr	c
 	clr	a
 	ret
-ghex8h: mov	r2, a
+ghex8h:
+	mov	r2, a
 	acall	asc2hex
 	jc	ghex8c
 	xch	a, r2		;r2 will hold hex value of 1st digit
@@ -292,16 +296,21 @@ ghex8j:
 	acall	upper
 	cjne	a, #27, ghex8k
 	sjmp	ghex8d
-ghex8k: cjne	a, #13, ghex8m
+ghex8k:
+	cjne	a, #13, ghex8m
 	mov	a, r2
 	clr	c
 	ret
-ghex8m: cjne	a, #8, ghex8p
-ghex8n: acall	cout
+ghex8m:
+	cjne	a, #8, ghex8p
+ghex8n:
+	acall	cout
 	sjmp	ghex8c
-ghex8p: cjne	a, #21, ghex8q
+ghex8p:
+	cjne	a, #21, ghex8q
 	sjmp	ghex8n
-ghex8q: mov	r3, a
+ghex8q:
+	mov	r3, a
 	acall	asc2hex
 	jc	ghex8j
 	xch	a, r3
@@ -332,16 +341,21 @@ ghex16c:
 	mov	dph, a
 	mov	dpl, a
 	ret
-ghex16d:cjne	a, #8, ghex16f
+ghex16d:
+	cjne	a, #8, ghex16f
 	sjmp	ghex16k
-ghex16f:cjne	a, #127, ghex16g  ;handle backspace
-ghex16k:cjne	r4, #4, ghex16e	  ;have they entered anything yet?
+ghex16f:
+	cjne	a, #127, ghex16g  ;handle backspace
+ghex16k:
+	cjne	r4, #4, ghex16e	  ;have they entered anything yet?
 	sjmp	ghex16c
-ghex16e:acall	cout
+ghex16e:
+	acall	cout
 	acall	ghex16y
 	inc	r4
 	sjmp	ghex16c
-ghex16g:cjne	a, #13, ghex16i	  ;return key
+ghex16g:
+	cjne	a, #13, ghex16i	  ;return key
 	mov	dph, r3
 	mov	dpl, r2
 	cjne	r4, #4, ghex16h
@@ -349,9 +363,11 @@ ghex16g:cjne	a, #13, ghex16i	  ;return key
 	mov	dph, a
 	mov	dpl, a
 	setb	psw.5
-ghex16h:clr	c
+ghex16h:
+	clr	c
 	ret
-ghex16i:mov	r5, a		  ;keep copy of original keystroke
+ghex16i:
+	mov	r5, a		  ;keep copy of original keystroke
 	acall	asc2hex
 	jc	ghex16c
 	xch	a, r5
@@ -420,7 +436,8 @@ hex_maybe:
 	add	a, #16
 	clr	c
 	ret
-hex_not:setb	c
+hex_not:
+	setb	c
 	ret
 
 ;---------------------------------------------------------;
@@ -431,8 +448,10 @@ hex_not:setb	c
 phex:
 phex8:
 	acall	phex_b
-phex_b:	swap	a		;SWAP A will be twice => A unchanged
-phex1:	push	acc
+phex_b:
+	swap	a		;SWAP A will be twice => A unchanged
+phex1:
+	push	acc
 	anl	a, #15
 	add	a, #0x90	; acc is 0x9X, where X is hex digit
 	da	a		; if A to F, C=1 and lower four bits are 0..5
@@ -462,7 +481,8 @@ phex16:
 
 pstr:
 	push	acc
-pstr1:	clr	a
+pstr1:
+	clr	a
 	movc	a, @a+dptr
 	inc	dptr
 	jz	pstr2
@@ -471,7 +491,8 @@ pstr1:	clr	a
 	acall	cout
 	jc	pstr2
 	sjmp	pstr1
-pstr2:	pop	acc
+pstr2:
+	pop	acc
 	ret
 
 ;---------------------------------------------------------;
@@ -482,18 +503,22 @@ pstr2:	pop	acc
 
 upper:
 	cjne	a, #97, upper2
-upper2:	jc	upper4		;end if acc < 97
+upper2:
+	jc	upper4		;end if acc < 97
 	cjne	a, #123, upper3
-upper3:	jnc	upper4		;end if acc >= 123
+upper3:
+	jnc	upper4		;end if acc >= 123
 	add	a, #224		;convert to uppercase
-upper4:	ret
+upper4:
+	ret
 
 ;---------------------------------------------------------;
 
 lenstr:
 	mov	r0, #0	  ;returns length of a string in r0
 	push	acc
-lenstr1:clr	a
+lenstr1:
+	clr	a
 	movc	a,@a+dptr
 	jz	lenstr2
 	mov	c,acc.7
@@ -501,7 +526,8 @@ lenstr1:clr	a
 	Jc	lenstr2
 	inc	dptr
 	sjmp	lenstr1
-lenstr2:pop	acc
+lenstr2:
+	pop	acc
 	ret
 
 ;---------------------------------------------------------;
@@ -517,8 +543,10 @@ esc:
 	mov	a,sbuf
 	cjne	a,#27,esc1
 	setb	c
-esc1:	clr	ri
-esc2:	pop	acc
+esc1:
+	clr	ri
+esc2:
+	pop	acc
 	ret
 
 ;---------------------------------------------------------;
@@ -545,7 +573,8 @@ menu:
 	cjne	a, #':', menu0
 	acall	dnld_now
 	sjmp	menu
-menu0:	acall	upper
+menu0:
+	acall	upper
 
 ; push return address onto stack so we can just jump to the program
 	mov	b, #(menu & 255)  ;we push the return address now,
@@ -563,7 +592,8 @@ menu0:	acall	upper
 
 menux:	mov	b, a		;now search for external commands...
 	mov	dptr, #bmem
-menux1: lcall	find
+menux1:
+	lcall	find
 	jnc	menuxend	   ;searched all the commands?
 	mov	dpl, #4
 	clr	a
@@ -580,7 +610,8 @@ menux1: lcall	find
 	mov	dpl, #64
 	clr	a
 	jmp	@a+dptr		;take a leap of faith and jump to it!
-menux2: inc	dph
+menux2:
+	inc	dph
 	mov	a, dph
 	cjne	a, #((emem+1) >> 8) & 255, menux1
 menuxend:
@@ -589,55 +620,68 @@ menuxend:
 ; since we didn't find a user installed command, use the builtin ones
 
 menu1a:
-menu1b:	cjne	a, #help_key, menu1c
+menu1b:
+	cjne	a, #help_key, menu1c
 	mov	dptr, #help_cmd2
 	acall	pcstr_h
 	ajmp	help
-menu1c: cjne	a, #dir_key, menu1d
+menu1c:
+	cjne	a, #dir_key, menu1d
 	mov	dptr, #dir_cmd
 	acall	pcstr_h
 	ajmp	dir
-menu1d: cjne	a, #run_key, menu1e
+menu1d:
+	cjne	a, #run_key, menu1e
 	mov	dptr, #run_cmd
 	acall	pcstr_h
 	ajmp	run
-menu1e: cjne	a, #dnld_key, menu1f
+menu1e:
+	cjne	a, #dnld_key, menu1f
 	mov	dptr, #dnld_cmd
 	acall	pcstr_h
 	ajmp	dnld
-menu1f: cjne	a, #upld_key, menu1g
+menu1f:
+	cjne	a, #upld_key, menu1g
 	mov	dptr, #upld_cmd
 	acall	pcstr_h
 	ajmp	upld
-menu1g: cjne	a, #nloc_key, menu1h
+menu1g:
+	cjne	a, #nloc_key, menu1h
 	mov	dptr, #nloc_cmd
 	acall	pcstr_h
 	ajmp	nloc
-menu1h: cjne	a, #jump_key, menu1i
+menu1h:
+	cjne	a, #jump_key, menu1i
 	mov	dptr, #jump_cmd
 	acall	pcstr_h
 	ajmp	jump
-menu1i: cjne	a, #dump_key, menu1j
+menu1i:
+	cjne	a, #dump_key, menu1j
 	mov	dptr, #dump_cmd
 	acall	pcstr_h
 	ajmp	dump
-menu1j: cjne	a, #edit_key, menu1k
+menu1j:
+	cjne	a, #edit_key, menu1k
 	mov	dptr, #edit_cmd
 	acall	pcstr_h
 	ajmp	edit
-menu1k: cjne	a, #clrm_key, menu1l
+menu1k:
+	cjne	a, #clrm_key, menu1l
 	mov	dptr, #clrm_cmd
 	acall	pcstr_h
 	ajmp	clrm
-menu1l: cjne	a, #intm_key, menu1m
+menu1l:
+	cjne	a, #intm_key, menu1m
 	mov	dptr, #intm_cmd
 	acall	pcstr_h
 	ljmp	intm
-menu1m:	cjne	a, #eio77_key, menu1n
+menu1m:
+	cjne	a, #eio77_key, menu1n
 	mov	dptr, #eio77_cmd
 	acall	pcstr_h
 	ljmp	eio77
-menu1n:	cjne	a, #dio77_key, menu1o
+menu1n:
+	cjne	a, #dio77_key, menu1o
 	mov	dptr, #dio77_cmd
 	acall	pcstr_h
 	ljmp	dio77
@@ -679,7 +723,8 @@ dnld1:
 	cjne	a, #27, dnld2	;Test for escape
 	sjmp	dnld_esc
 
-dnld2:	cjne	a, #':', dnld2b
+dnld2:
+	cjne	a, #':', dnld2b
 	sjmp	dnld2d
 dnld2b:
 	;check to see if it's a hex digit, error if it is
@@ -695,7 +740,8 @@ dnld_now:
 	acall	cout
 	acall	dnld_init
 
-dnld2d:	mov	r1, #0
+dnld2d:
+	mov	r1, #0
 	acall	dnld_inc
 
 dnld3:
@@ -714,8 +760,10 @@ dnld3:
 	acall	dnld_ghex	;Record type
 	cjne	a, #1, dnld4	;End record?
 	sjmp	dnld_end
-dnld4:	jnz	dnld_unknown	;is it a unknown record type???
-dnld5:	mov	a, r0
+dnld4:
+	jnz	dnld_unknown	;is it a unknown record type???
+dnld5:
+	mov	a, r0
 	jz	dnld_get_cksum
 	acall	dnld_ghex	;Get data byte
 	mov	r2, a
@@ -776,7 +824,8 @@ dnld_esc:   ;handle esc received in the download stream
 
 dnld_dly:
 	mov	r0, #0
-dnlddly2:mov	r1, #0
+dnlddly2:
+	mov	r1, #0
 	djnz	r1, *		;roughly 128k cycles, appox 0.1 sec
 	djnz	r0, dnlddly2
 	ret
@@ -826,36 +875,46 @@ dnldgp2:
 ; to error handlers, depending on which digit.
 	  
 dnld_ghex:
-dnldgh1:acall	cin
+dnldgh1:
+	acall	cin
 	acall	upper
 	cjne	a, #27, dnldgh3
-dnldgh2:pop	acc
+dnldgh2:
+	pop	acc
 	pop	acc
 	sjmp	dnld_esc
-dnldgh3:cjne	a, #':', dnldgh5
-dnldgh4:mov	r1, #5		;handle unexpected beginning of line
+dnldgh3:
+	cjne	a, #':', dnldgh5
+dnldgh4:
+	mov	r1, #5		;handle unexpected beginning of line
 	acall	dnld_inc
 	pop	acc
 	pop	acc
 	ajmp	dnld3		;and now we're on a new line!
-dnldgh5:acall	asc2hex
+dnldgh5:
+	acall	asc2hex
 	jnc	dnldgh6
 	mov	r1, #7
 	acall	dnld_inc
 	sjmp	dnldgh1
-dnldgh6:mov	r2, a		;keep first digit in r2
-dnldgh7:acall	cin
+dnldgh6:
+	mov	r2, a		;keep first digit in r2
+dnldgh7:
+	acall	cin
 	acall	upper
 	cjne	a, #27, dnldgh8
 	sjmp	dnldgh2
-dnldgh8:cjne	a, #':', dnldgh9
+dnldgh8:
+	cjne	a, #':', dnldgh9
 	sjmp	dnldgh4
-dnldgh9:acall	asc2hex
+dnldgh9:
+	acall	asc2hex
 	jnc	dnldghA
 	mov	r1, #7
 	acall	dnld_inc
 	sjmp	dnldgh7
-dnldghA:xch	a, r2
+dnldghA:
+	xch	a, r2
 	swap	a
 	orl	a, r2
 	mov	r2, a
@@ -893,7 +952,8 @@ dnld_sum:
 
 dnld_err:
 	mov	r2, #5
-dnlder2:acall	dnld_gp
+dnlder2:
+	acall	dnld_gp
 	jc	dnlder3		;any errors?
 	djnz	r2, dnlder2
 ; no errors, so we print the nice message
@@ -977,7 +1037,8 @@ jump:
 	ajmp	abort2
 jump2:
 	acall	dptrtor6r7
-jump3:	acall	newline
+jump3:
+	acall	newline
 	mov	dptr, #runs1
 	acall	pcstr_h
 	acall	r6r7todptr
@@ -987,7 +1048,8 @@ jump_doit:  ;jump to user code @dptr (this used by run command also)
 	mov	psw, a
 	mov	b, a
 	mov	r0, #7
-jditclr:mov	@r0, a		;clear r7 to r1
+jditclr:
+	mov	@r0, a		;clear r7 to r1
 	djnz	r0, jditclr	;clear r0
 	mov	sp, #7		;start w/ sp=7, like a real reset
 	jmp	@a+dptr
@@ -997,13 +1059,15 @@ jditclr:mov	@r0, a		;clear r7 to r1
 dump:	
 	mov	r2, #16		;number of lines to print
 	acall	newline2
-dump1:	acall	r6r7todptr
+dump1:
+	acall	r6r7todptr
 	acall	phex16		;tell 'em the memory location
 	mov	a,#':'
 	acall	cout_sp
 	mov	r3, #16		;r3 counts # of bytes to print
 	acall	r6r7todptr
-dump2:	clr	a
+dump2:
+	clr	a
 	movc	a, @a+dptr
 	inc	dptr
 	acall	phex		;print each byte in hex
@@ -1012,16 +1076,19 @@ dump2:	clr	a
 	acall	dspace		;print a couple extra space
 	mov	r3, #16
 	acall	r6r7todptr
-dump3:	clr	a
+dump3:
+	clr	a
 	movc	a, @a+dptr
 	inc	dptr
 	anl	a, #01111111b	;avoid unprintable characters
 	cjne	a, #127, dump3b
 	clr	a		;avoid 127/255 (delete/rubout) char
-dump3b: add	a, #224
+dump3b:
+	add	a, #224
 	jc	dump4
 	clr	a		;avoid control characters
-dump4:	add	a, #32
+dump4:
+	add	a, #32
 	acall	cout
 	djnz	r3, dump3
 	acall	newline
@@ -1030,7 +1097,8 @@ dump4:	add	a, #32
 	acall	esc
 	jc	dump5
 	djnz	r2, dump1	;loop back up to print next line
-dump5:	ajmp	newline
+dump5:
+	ajmp	newline
 
 ;---------------------------------------------------------;
 
@@ -1040,7 +1108,8 @@ edit:
 	mov	dptr, #edits1
 	acall	pcstr_h
 	acall	r6r7todptr
-edit1:	acall	phex16
+edit1:
+	acall	phex16
 	mov	a,#':'
 	acall	cout_sp
 	mov	a,#'('
@@ -1061,7 +1130,8 @@ edit1:	acall	phex16
 	inc	dptr
 	acall	dptrtor6r7
 	ajmp	edit1
-edit2:	mov	dptr,#edits2
+edit2:
+	mov	dptr,#edits2
 	ajmp	pcstr_h
 
 ;---------------------------------------------------------;
@@ -1070,15 +1140,18 @@ dir:
 	mov	dptr, #prompt9
 	acall	pcstr_h
 	mov	r0, #21
-dir0a:	acall	space
+dir0a:
+	acall	space
 	djnz	r0, dir0a
 	;mov	dptr, #prompt9b
 	acall	pcstr_h
 
 	mov	dph, #(bmem >> 8)
-dir1:	lcall	find		;find the next program in memory
+dir1:
+	lcall	find		;find the next program in memory
 	jc	dir2
-dir_end:ajmp	newline		;we're done if no more found
+dir_end:
+	ajmp	newline		;we're done if no more found
 dir2:
 	acall	dspace
 	mov	dpl, #32	;print its name
@@ -1090,40 +1163,50 @@ dir2:
 	subb	a, r0
 	mov	r0, a
 	mov	a, #' '		;print the right # of spaces
-dir3:	acall	cout
+dir3:
+	acall	cout
 	djnz	r0, dir3
 	mov	dpl, #0
 	acall	phex16		;print the memory location
 	mov	r0, #6
 	mov	a, #' '
-dir4:	acall	cout
+dir4:
+	acall	cout
 	djnz	r0, dir4
 	mov	dpl, #4		;now figure out what type it is
 	clr	a
 	movc	a, @a+dptr
 	mov	r2, dph		;save this, we're inside a search
 
-dir5:	cjne	a, #254, dir5b
+dir5:
+	cjne	a, #254, dir5b
 	mov	dptr, #type1	;it's an external command
 	sjmp	dir7
-dir5b:	cjne	a, #253, dir5c
-dir5bb: mov	dptr, #type4	;it's a startup routine
+dir5b:
+	cjne	a, #253, dir5c
+dir5bb:
+	mov	dptr, #type4	;it's a startup routine
 	sjmp	dir7
-dir5c:	cjne	a, #35, dir5d
+dir5c:
+	cjne	a, #35, dir5d
 	mov	dptr, #type2	;it's an ordinary program
 	sjmp	dir7
-dir5d:	cjne	a, #249, dir5e
+dir5d:
+	cjne	a, #249, dir5e
 	sjmp	dir5bb
 dir5e:
-dir6:	mov	dptr, #type5	;who knows what the hell it is
+dir6:
+	mov	dptr, #type5	;who knows what the hell it is
 
-dir7:	acall	pcstr_h		   ;print out the type
+dir7:
+	acall	pcstr_h		   ;print out the type
 	mov	dph, r2		;go back and find the next one
 	acall	newline
 	mov	a, #(emem >> 8)
 	cjne	a, dph, dir8	;did we just print the last one?
 	ajmp	dir_end
-dir8:	inc	dph
+dir8:
+	inc	dph
 	mov	a, dph
 	cjne	a, #((emem+1) >> 8) & 255, dir1
 	ajmp	dir_end
@@ -1140,11 +1223,13 @@ run:
 	mov	r2, #255	;first print the menu, count items
 	mov	dptr, #bmem
 	dec	dph
-run2:	inc	dph
+run2:
+	inc	dph
 	mov	a, dph
 	cjne	a, #((emem+1) >> 8) & 255, run2b
 	sjmp	run3
-run2b:	lcall	find
+run2b:
+	lcall	find
 	jnc	run3		;have we found 'em all??
 	mov	dpl, #4
 	clr	a
@@ -1162,10 +1247,12 @@ run2b:	lcall	find
 	acall	pstr		;and the command name
 	acall	newline
 	ajmp	run2		;and continue doing this
-run3:	cjne	r2, #255, run4	;are there any to run??
+run3:
+	cjne	r2, #255, run4	;are there any to run??
 	mov	dptr, #prompt5
 	ajmp	pcstr_h
-run4:	mov	dptr, #prompt3	;ask the big question!
+run4:
+	mov	dptr, #prompt3	;ask the big question!
 	acall	pcstr_h
 	mov	a, #'A'
 	acall	cout
@@ -1178,14 +1265,16 @@ run4:	mov	dptr, #prompt3	;ask the big question!
 	acall	cin_filter_h
 	cjne	a, #27, run4aa	;they they hit <ESC>
 	ajmp	newline
-run4aa: mov	r3, a
+run4aa:
+	mov	r3, a
 	mov	a, #31
 	clr	c
 	subb	a, r2
 	mov	a, r3
 	jc	run4a
 	acall	upper
-run4a:	acall	cout
+run4a:
+	acall	cout
 	mov	r3, a
 	acall	newline
 	;check to see if it's under 32, if so convert to uppercase
@@ -1200,11 +1289,13 @@ run4a:	acall	cout
 	inc	r3
 	mov	dptr, #bmem
 	dec	dph
-run5:	inc	dph
+run5:
+	inc	dph
 	mov	a, dph
 	cjne	a, #((emem+1) >> 8) & 255, run5b
 	sjmp	run8
-run5b:	lcall	find
+run5b:
+	lcall	find
 	jnc	run8		;Shouldn't ever do this jump!
 	mov	dpl, #4
 	clr	a
@@ -1216,7 +1307,8 @@ run5b:	lcall	find
 	acall	newline
 	mov	dpl, #64
 	ajmp	jump_doit
-run8:	ret
+run8:
+	ret
 
 ;---------------------------------------------------------;
 
@@ -1265,7 +1357,8 @@ help:
 	mov	dptr, #help2txt
 	acall	pcstr_h
 	mov	dptr, #bmem
-help3:	lcall	find
+help3:
+	lcall	find
 	jnc	help4
 	mov	dpl, #4
 	clr	a
@@ -1280,7 +1373,8 @@ help3:	lcall	find
 	mov	dpl, #32
 	acall	pstr
 	acall	newline
-help3a: inc	dph
+help3a:
+	inc	dph
 	mov	a, dph
 	cjne	a, #((emem+1) >> 8) & 255, help3
 help4:	
@@ -1328,11 +1422,13 @@ upld:
 	acall	cin
 	cjne	a, #27, upld2e
 	ajmp	abort_it
-upld2e: acall	newline
+upld2e:
+	acall	newline
 	mov	dpl, r2
 	mov	dph, r3
 
-upld3:	mov	a, r4		;how many more bytes to output??
+upld3:
+	mov	a, r4		;how many more bytes to output??
 	clr	c
 	subb	a, dpl
 	mov	r2, a
@@ -1344,8 +1440,10 @@ upld3:	mov	a, r4		;how many more bytes to output??
 	anl	a, #11110000b
 	jnz	upld4		;if >= 16 left, then do next 16
 	sjmp	upld5		;otherwise just finish it off
-upld4:	mov	r2, #16
-upld5:	mov	a, #':'		;begin the line
+upld4:
+	mov	r2, #16
+upld5:
+	mov	a, #':'		;begin the line
 	acall	cout
 	mov	a, r2
 	acall	phex		;output # of data bytes
@@ -1356,7 +1454,8 @@ upld5:	mov	a, #':'		;begin the line
 	mov	r3, a		;r3 will become checksum
 	clr	a
 	acall	phex		;output 00 code for data
-upld6:	clr	a
+upld6:
+	clr	a
 	movc	a, @a+dptr
 	acall	phex		;output each byte
 	add	a, r3
@@ -1372,7 +1471,8 @@ upld6:	clr	a
 	acall	esc
 	jnc	upld3		;keep working if no esc pressed
 	sjmp	abort_it
-upld7:	mov	a, #':'
+upld7:
+	mov	a, #':'
 	acall	cout
 	clr	a
 	acall	phex
@@ -1382,15 +1482,18 @@ upld7:	mov	a, #':'
 	acall	phex
 	mov	a, #255
 	acall	phex
-upld8:	ajmp	newline2
+upld8:
+	ajmp	newline2
 
 line_dly: ;a brief delay between line while uploading, so the
 	;receiving host can be slow (i.e. most windows software)
 	mov	a, r0
 	push	acc
 	mov	r0, #line_delay*2
-line_d2:mov	a, th0		;get baud rate const
-line_d3:inc	a
+line_d2:
+	mov	a, th0		;get baud rate const
+line_d3:
+	inc	a
 	nop
 	nop
 	jnz	line_d3
@@ -1428,11 +1531,13 @@ get_mem:
 	jb	psw.5, pop_it
 	ajmp	newline
 
-pop_it: pop	acc
+pop_it:
+	pop	acc
 	pop	acc
 abort_it:
 	acall	newline
-abort2: mov	dptr, #abort
+abort2:
+	mov	dptr, #abort
 	ajmp	pcstr_h
 
 ;---------------------------------------------------------;
@@ -1446,16 +1551,19 @@ clrm:
 	cjne	a, #'Y', abort_it
 	acall	newline2
 ; now we actually do it
-clrm2:	mov	dph, r3
+clrm2:
+	mov	dph, r3
 	mov	dpl, r2
-clrm3:	clr	a
+clrm3:
+	clr	a
 	movx	@dptr, a
 	mov	a, r5
 	cjne	a, dph, clrm4
 	mov	a, r4
 	cjne	a, dpl, clrm4
 	ret
-clrm4:	inc	dptr
+clrm4:
+	inc	dptr
 	sjmp	clrm3
 
 ;---------------------------------------------------------;
@@ -1474,12 +1582,14 @@ nloc:
 intm:
 	acall	newline
 	mov	r0, #0
-intm2:	acall	newline
+intm2:
+	acall	newline
 	mov	a, r0
 	acall	phex
 	mov	a, #':'
 	acall	cout
-intm3:	acall	space
+intm3:
+	acall	space
 	mov	a, @r0
 	acall	phex
 	inc	r0
@@ -1541,11 +1651,13 @@ find:	mov	dpl, #0
 	mov	dpl, #0			;found one here!
 	setb	c
 	ret
-find3:	mov	a, #(emem >> 8)
+find3:
+	mov	a, #(emem >> 8)
 	cjne	a, dph, find4		;did we just check the end
 	clr	c
 	ret
-find4:	inc	dph			;keep on searching
+find4:
+	inc	dph			;keep on searching
 	sjmp	find
 
 ;---------------------------------------------------------;
@@ -1701,39 +1813,50 @@ cin_filter:
 	lcall	cin
 	cjne	a, #esc_char, cinf_end
 	;if esc was already in sbuf, just ignore it
-cinf1:	lcall	cin
+cinf1:
+	lcall	cin
 	cjne	a, #esc_char, cinf_end
-cinf2:	acall	cinf_wait
+cinf2:
+	acall	cinf_wait
 	jb	ri, cinf4
 	mov	a, #esc_char
 	ret			;an ordinary ESC
 
-cinf4:	;if we get here, it's a control code, since a character
+cinf4:
+	;if we get here, it's a control code, since a character
 	;was received shortly after receiving an ESC character
 	lcall	cin
 	cjne	a, #'[', cinf_consume
 	acall	cinf_wait
 	jnb	ri, cin_filter
 	lcall	cin
-cinf5a: cjne	a, #'A', cinf5b
+cinf5a:
+	cjne	a, #'A', cinf5b
 	mov	a, #11
 	ret
-cinf5b: cjne	a, #'B', cinf5c
+cinf5b:
+	cjne	a, #'B', cinf5c
 	mov	a, #10
 	ret
-cinf5c: cjne	a, #'C', cinf5d
+cinf5c:
+	cjne	a, #'C', cinf5d
 	mov	a, #21
 	ret
-cinf5d: cjne	a, #'D', cinf5e
+cinf5d:
+	cjne	a, #'D', cinf5e
 	mov	a, #8
 	ret
-cinf5e: cjne	a, #0x35, cinf5f
+cinf5e:
+	cjne	a, #0x35, cinf5f
 	sjmp	cinf8
-cinf5f: cjne	a, #0x36, cinf5g
+cinf5f:
+	cjne	a, #0x36, cinf5g
 	sjmp	cinf8
-cinf5g: sjmp	cinf_consume		;unknown escape sequence
+cinf5g:
+	sjmp	cinf_consume		;unknown escape sequence
 
-cinf8:	;when we get here, we've got the sequence for pageup/pagedown
+cinf8:
+	;when we get here, we've got the sequence for pageup/pagedown
 	;but there's one more incoming byte to check...
 	push	acc
 	acall	cinf_wait
@@ -1742,7 +1865,8 @@ cinf8:	;when we get here, we've got the sequence for pageup/pagedown
 	cjne	a, #0x7E, cinf_notpg
 	pop	acc
 	add	a, #228
-cinf_end: ret
+cinf_end:
+	ret
 cinf_restart:
 	pop	acc
 	sjmp	cin_filter
@@ -1767,12 +1891,15 @@ cinf_wait:
 	mov	a, r2
 	push	acc
 	mov	r2, #char_delay*5
-cinfw2: mov	a, th0
-cinfw3: jb	ri, cinfw4
+cinfw2:
+	mov	a, th0
+cinfw3:
+	jb	ri, cinfw4
 	inc	a
 	jnz	cinfw3
 	djnz	r2, cinfw2
-cinfw4: pop	acc
+cinfw4:
+	pop	acc
 	mov	r2, a
 	ret
 
@@ -1799,21 +1926,25 @@ pint8:
 	push	acc
 	cpl	a
 	add	a, #1
-pint8b: mov	b, #100
+pint8b:
+	mov	b, #100
 	div	ab
 	setb	f0
 	jz	pint8c
 	clr	f0
 	add	a, #'0'
 	lcall	cout
-pint8c: mov	a, b
+pint8c:
+	mov	a, b
 	mov	b, #10
 	div	ab
 	jnb	f0, pint8d
 	jz	pint8e
-pint8d: add	a, #'0'
+pint8d:
+	add	a, #'0'
 	lcall	cout
-pint8e: mov	a, b
+pint8e:
+	mov	a, b
 	add	a, #'0'
 	lcall	cout
 	pop	acc
@@ -1833,7 +1964,8 @@ pint16u:
 	mov	r2, dpl
 	mov	r3, dph
 
-pint16a:mov	r4, #16		;ten-thousands digit
+pint16a:
+	mov	r4, #16		;ten-thousands digit
 	mov	r5, #39
 	acall	pint16x
 	jz	pint16b
@@ -1841,34 +1973,41 @@ pint16a:mov	r4, #16		;ten-thousands digit
 	lcall	cout
 	setb	psw.5
 
-pint16b:mov	r4, #232	;thousands digit
+pint16b:
+	mov	r4, #232	;thousands digit
 	mov	r5, #3
 	acall	pint16x
 	jnz	pint16c
 	jnb	psw.5, pint16d
-pint16c:add	a, #'0'
+pint16c:
+	add	a, #'0'
 	lcall	cout
 	setb	psw.5
 
-pint16d:mov	r4, #100	;hundreds digit
+pint16d:
+	mov	r4, #100	;hundreds digit
 	mov	r5, #0
 	acall	pint16x
 	jnz	pint16e
 	jnb	psw.5, pint16f
-pint16e:add	a, #'0'
+pint16e:
+	add	a, #'0'
 	lcall	cout
 	setb	psw.5
 
-pint16f:mov	a, r2		;tens digit
+pint16f:
+	mov	a, r2		;tens digit
 	mov	r3, b
 	mov	b, #10
 	div	ab
 	jnz	pint16g
 	jnb	psw.5, pint16h
-pint16g:add	a, #'0'
+pint16g:
+	add	a, #'0'
 	lcall	cout
 
-pint16h:mov	a, b		;and finally the ones digit
+pint16h:
+	mov	a, b		;and finally the ones digit
 	mov	b, r3
 	add	a, #'0'
 	lcall	cout
@@ -1931,27 +2070,32 @@ pcstr:
 	push	acc
 	setb	psw.1
 	setb	psw.5
-pcstr1: clr	a
+pcstr1:
+	clr	a
 	movc	a, @a+dptr
 	inc	dptr
 	jz	pcstr2
 	jb	acc.7, decomp
 	anl	a, #0x7F
-pcstrs1:cjne	a, #13, pcstrs2
+pcstrs1:
+	cjne	a, #13, pcstrs2
 	lcall	newline
 	setb	psw.1
 	sjmp	pcstr1
-pcstrs2:cjne	a, #31, pcstrs3
+pcstrs2:
+	cjne	a, #31, pcstrs3
 	clr	psw.5
 	sjmp	pcstr1
-pcstrs3:cjne	a, #14, pcstrs4
+pcstrs3:
+	cjne	a, #14, pcstrs4
 	lcall	newline
 	sjmp	pcstr2
 pcstrs4:
 	clr	psw.1
 	lcall	cout
 	sjmp	pcstr1
-pcstr2: pop	acc
+pcstr2:
+	pop	acc
 	mov	r4, a
 	pop	acc
 	mov	r1, a
@@ -1971,7 +2115,8 @@ decomp:
 	mov	r0, a		;r0 counts which word
 	jb	psw.1, decomp1	;avoid leading space if first word
 	lcall	space
-decomp1:clr	psw.1
+decomp1:
+	clr	psw.1
 	push	dpl
 	push	dph
 	mov	dptr, #words
@@ -1981,12 +2126,14 @@ decomp1:clr	psw.1
 	;here we must seek past all the words in the table
 	;that come before the one we're supposed to print
 	mov	r1, a
-dcomp2: acall	get_next_nibble
+dcomp2:
+	acall	get_next_nibble
 	jnz	dcomp2
 	;when we get here, a word has been skipped... keep doing
 	;this until we're pointing to the correct one
 	djnz	r1, dcomp2
-dcomp3: ;now we're pointing to the correct word, so all we have
+dcomp3:
+	;now we're pointing to the correct word, so all we have
 	;to do is print it out
 	acall	get_next_nibble
 	jz	dcomp_end
@@ -1997,34 +2144,40 @@ dcomp3: ;now we're pointing to the correct word, so all we have
 	movc	a, @a+pc
 	sjmp	dcomp5
 	.db	"hfwgybxvkqjz"
-dcomp4: ;the character is one of the 14 most commonly used
+dcomp4:
+	;the character is one of the 14 most commonly used
 	inc	a
 	movc	a, @a+pc
 	sjmp	dcomp5
 	.db	"etarnisolumpdc"
-dcomp5: ;decide if it should be uppercase or lowercase
+dcomp5:
+	;decide if it should be uppercase or lowercase
 	mov	c, psw.5
 	mov	acc.5, c
 	setb	psw.5
 	cjne	r0, #20, dcomp6
 	clr	acc.5
-dcomp6: cjne	r0, #12, dcomp7
+dcomp6:
+	cjne	r0, #12, dcomp7
 	clr	acc.5
-dcomp7: lcall	cout
+dcomp7:
+	lcall	cout
 	sjmp	dcomp3
 dcomp_end:
 	pop	dph
 	pop	dpl
 	ajmp	pcstr1
 
-get_next_nibble:	;...and update dptr and r4, of course
+get_next_nibble:
+	;...and update dptr and r4, of course
 	clr	a
 	movc	a, @a+dptr
 	cjne	r4, #0, gnn2
 	mov	r4, #255
 	anl	a, #00001111b
 	ret
-gnn2:	mov	r4, #0
+gnn2:
+	mov	r4, #0
 	inc	dptr
 	swap	a
 	anl	a, #00001111b
@@ -2095,63 +2248,123 @@ words:
 
 ;STR
 
-logon1: .db	"Welcome",128,148,"2 v2.1, by",31,248,31,254,13,14
-logon2: .db	32,32,"See",148,"2.DOC,",148,"2.EQU",164
-	.db	148,"2.HDR",180,213,141,".",14
-abort:	.db	" ",31,158,31,160,"!",13,14
-prompt1:.db	148,"2 Loc:",0
-prompt2:.db	" >", 160	;must follow after prompt1
-prompt3:.db	134,202,130,'(',0
-prompt4:.db	"),",149,140,128,200,": ",0
-prompt5:.db	31,151,130,195,"s",199,166,131,","
-	.db	186," JUMP",128,134,161,"r",130,13,14
-prompt6:.db	13,13,31,135,131,129,": ",0
-prompt7:.db	31,228,251," key: ",0
-prompt8:.db	13,13,31,136,128,131,129," (",0
-prompt9:.db	13,13,31,130,31,253,0
-prompt9b:.db	 31,129,32,32,32,32,32,31,201,14	;must follow prompt9
-prompt10:.db	") ",31,135,31,178,": ",0
-beg_str:.db	"First",31,129,": ",0
-end_str:.db	"Last",31,129,":",32,32,0
-sure:	.db	31,185,161," sure?",0
-edits1: .db	13,13,31,156,154,146,",",140,128,200,14
-edits2: .db	"  ",31,156,193,",",142,129,247,13,14
-dnlds1: .db	13,13,31,159," ascii",249,150,31,152,132,137
-	.db	",",149,140,128,160,13,14
-dnlds2: .db	13,31,138,160,"ed",13,14
-dnlds3: .db	13,31,138,193,"d",13,14
-dnlds4: .db	"Summary:",14
-dnlds5: .db	" ",198,"s",145,"d",14
-dnlds6a:.db	" ",139,145,"d",14
-dnlds6b:.db	" ",139," written",14
-dnlds7: .db	31,155,":",14
-dnlds8: .db	" ",139," unable",128," write",14
-dnlds9: .db	32,32,"bad",245,"s",14
-dnlds10:.db	" ",133,159,150,198,14
-dnlds11:.db	" ",133,132,157,14
-dnlds12:.db	" ",133," non",132,157,14
-dnlds13:.db	31,151,155," detected",13,14
-runs1:	.db	13,134,"ning",130,":",13,14
-uplds3: .db	13,13,"Sending",31,152,132,137,172,32,32,0
-uplds4: .db	" ",128,32,32,0		;must follow uplds3
-help1txt:.db	13,13,"Standard",31,158,"s",14
-help2txt:.db	31,218,31,244,"ed",31,158,"s",14
-type1:	.db	31,154,158,0
-type2:	.db	31,130,0
-type4:	.db	31,143,31,226,31,170,0
-type5:	.db	"???",0
-help_cmd2:.db	31,215,0
-help_cmd: .db	31,142,215,209,0	;these 11 _cmd string must be in order
-dir_cmd:  .db	31,209,130,"s",0
-run_cmd:  .db	31,134,130,0
-dnld_cmd: .db	31,138,0
-upld_cmd: .db	31,147,0
-nloc_cmd: .db	31,135,129,0
-jump_cmd: .db	31,136,128,131,129,0
-dump_cmd: .db	31,132,219,154,131,0
-intm_cmd: .db	31,132,219,192,131,0
-edit_cmd: .db	31,156,154,146,0
-clrm_cmd: .db	31,237,131,0
-eio77_cmd: .db "Enable nCSIO77",0
-dio77_cmd: .db "Disable nCSIO77",0
+logon1:
+	.db	"Welcome", 128, 148, "2 v2.1, by", 31, 248, 31, 254, 13, 14
+logon2:
+	.db	32, 32, "See", 148, "2.DOC,", 148, "2.EQU", 164
+	.db	148, "2.HDR", 180, 213, 141, ".", 14
+abort:
+	.db	" ", 31, 158, 31, 160, "!", 13, 14
+prompt1:
+	.db	148, "2 Loc:", 0
+prompt2:
+	;must follow prompt1
+	.db	" >", 160
+prompt3:
+	.db	134, 202, 130, '(', 0
+prompt4:
+	.db	"),", 149, 140, 128, 200, ": ", 0
+prompt5:
+	.db	31, 151, 130, 195, "s", 199, 166, 131, ","
+	.db	186, " JUMP", 128, 134, 161, "r", 130, 13, 14
+prompt6:
+	.db	13, 13, 31, 135, 131, 129, ": ", 0
+prompt7:
+	.db	31, 228, 251, " key: ", 0
+prompt8:
+	.db	13, 13, 31, 136, 128, 131, 129, " (", 0
+prompt9:
+	.db	13, 13, 31, 130, 31, 253, 0
+prompt9b:
+	;must follow prompt9
+	.db	31, 129, 32, 32, 32, 32, 32, 31, 201, 14
+prompt10:
+	.db	") ", 31, 135, 31, 178, ": ", 0
+beg_str:
+	.db	"First", 31, 129, ": ", 0
+end_str:
+	.db	"Last", 31, 129, ":", 32, 32, 0
+sure:
+	.db	31, 185, 161, " sure?", 0
+edits1:
+	.db	13, 13, 31, 156, 154, 146, ",", 140, 128, 200, 14
+edits2:
+	.db	"  ", 31, 156, 193, ",", 142, 129, 247, 13, 14
+dnlds1:
+	.db	13, 13, 31, 159, " ascii", 249, 150, 31, 152, 132, 137
+	.db	",", 149, 140, 128, 160, 13, 14
+dnlds2:
+	.db	13, 31, 138, 160, "ed", 13, 14
+dnlds3:
+	.db	13, 31, 138, 193, "d", 13, 14
+dnlds4:
+	.db	"Summary:", 14
+dnlds5:
+	.db	" ", 198, "s", 145, "d", 14
+dnlds6a:
+	.db	" ", 139, 145, "d", 14
+dnlds6b:
+	.db	" ", 139, " written", 14
+dnlds7:
+	.db	31, 155, ":", 14
+dnlds8:
+	.db	" ", 139, " unable", 128, " write", 14
+dnlds9:
+	.db	32, 32, "bad", 245, "s", 14
+dnlds10:
+	.db	" ", 133, 159, 150, 198, 14
+dnlds11:
+	.db	" ", 133, 132, 157, 14
+dnlds12:
+	.db	" ", 133, " non", 132, 157, 14
+dnlds13:
+	.db	31, 151, 155, " detected", 13, 14
+runs1:
+	.db	13, 134, "ning", 130, ":", 13, 14
+uplds3:
+	.db	13, 13, "Sending", 31, 152, 132, 137, 172, 32, 32, 0
+uplds4:
+	;must follow uplds3
+	.db	" ", 128, 32, 32, 0
+help1txt:
+	.db	13, 13, "Standard", 31, 158, "s", 14
+help2txt:
+	.db	31, 218, 31, 244, "ed", 31, 158, "s", 14
+type1:
+	.db	31, 154, 158, 0
+type2:
+	.db	31, 130, 0
+type4:
+	.db	31, 143, 31, 226, 31, 170, 0
+type5:
+	.db	"???", 0
+help_cmd2:
+	.db	31, 215, 0
+help_cmd:
+	.db	31, 142, 215, 209, 0
+	;these 10 _cmd string must be in order
+dir_cmd:
+	.db	31, 209, 130, "s", 0
+run_cmd:
+	.db	31, 134, 130, 0
+dnld_cmd:
+	.db	31, 138, 0
+upld_cmd:
+	.db	31, 147, 0
+nloc_cmd:
+	.db	31, 135, 129, 0
+jump_cmd:
+	.db	31, 136, 128, 131, 129, 0
+dump_cmd:
+	.db	31, 132, 219, 154, 131, 0
+intm_cmd:
+	.db	31, 132, 219, 192, 131, 0
+edit_cmd:
+	.db	31, 156, 154, 146, 0
+clrm_cmd:
+	.db	31, 237, 131, 0
+eio77_cmd:
+	.db	"Enable nCSIO77", 0
+dio77_cmd:
+	.db	"Disable nCSIO77", 0
 
