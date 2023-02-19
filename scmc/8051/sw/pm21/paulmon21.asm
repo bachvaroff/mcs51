@@ -1738,7 +1738,7 @@ stcode5:
 ;---------------------------------------------------------;
 
 setbaud_reset:
-	mov	a, #baud_const	; skip if user supplied baud rate constant
+	mov	a, #baud_const
 setbaud:
 	mov	th1, a
 	mov	tl1, a

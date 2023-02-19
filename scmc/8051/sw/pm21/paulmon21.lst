@@ -521,7 +521,7 @@
                    lenstr1:
 019E: E0                    movx    a, @dptr
 019F: 60 08                 jz      lenstr2
-01A1: A2 E7                 mov     c,acc.7
+01A1: A2 E7                 mov     c, acc.7
 01A3: 08                    inc     r0
 01A4: 40 03                 Jc      lenstr2
 01A6: A3                    inc     dptr
@@ -539,9 +539,9 @@
                    esc:
 01AC: C0 E0                 push    acc
 01AE: C3                    clr     c
-01AF: 30 98 08              jnb     ri,esc2
-01B2: E5 99                 mov     a,sbuf
-01B4: B4 1B 01              cjne    a,#27,esc1
+01AF: 30 98 08              jnb     ri, esc2
+01B2: E5 99                 mov     a, sbuf
+01B4: B4 1B 01              cjne    a, #27, esc1
 01B7: D3                    setb    c
                    esc1:
 01B8: C2 98                 clr     ri
@@ -1060,7 +1060,7 @@
                    dump1:
 0435: 11 06                 acall   r6r7todptr
 0437: 31 6D                 acall   phex16          ; tell 'em the memory locat
-0439: 74 3A                 mov     a,#':'
+0439: 74 3A                 mov     a, #':'
 043B: 11 1E                 acall   cout_sp
 043D: 7B 10                 mov     r3, #16                 ; r3 counts # of by
 043F: 11 06                 acall   r6r7todptr
@@ -1106,17 +1106,17 @@
 0475: 11 06                 acall   r6r7todptr
                    edit1:
 0477: 31 6D                 acall   phex16
-0479: 74 3A                 mov     a,#':'
+0479: 74 3A                 mov     a, #':'
 047B: 11 1E                 acall   cout_sp
-047D: 74 28                 mov     a,#'('
+047D: 74 28                 mov     a, #'('
 047F: 11 6A                 acall   cout
 0481: 11 0E                 acall   dptrtor6r7
 0483: E0                    movx    a, @dptr
 0484: 31 5B                 acall   phex
-0486: 90 0C 6C              mov     dptr,#prompt10
+0486: 90 0C 6C              mov     dptr, #prompt10
 0489: 11 45                 acall   pcstr_h
 048B: 11 81                 acall   ghex
-048D: 20 D5 0E              jb      psw.5,edit2
+048D: 20 D5 0E              jb      psw.5, edit2
 0490: 40 0C                 jc      edit2
 0492: 11 06                 acall   r6r7todptr
 0494: F0                    movx    @dptr, a
@@ -1126,7 +1126,7 @@
 049A: 11 0E                 acall   dptrtor6r7
 049C: 81 77                 ajmp    edit1
                    edit2:
-049E: 90 0C 9E              mov     dptr,#edits2
+049E: 90 0C 9E              mov     dptr, #edits2
 04A1: 01 45                 ajmp    pcstr_h
                    
                    ;---------------------------------------------------------;
@@ -1738,7 +1738,7 @@
                    ;---------------------------------------------------------;
                    
                    setbaud_reset:
-0826: 74 FF                 mov     a, #baud_const  ; skip if user supplied bau
+0826: 74 FF                 mov     a, #baud_const
                    setbaud:
 0828: F5 8D                 mov     th1, a
 082A: F5 8B                 mov     tl1, a
