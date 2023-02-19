@@ -521,7 +521,7 @@ lenstr:
 lenstr1:
 	movx	a, @dptr
 	jz	lenstr2
-	mov	c,acc.7
+	mov	c, acc.7
 	inc	r0
 	Jc	lenstr2
 	inc	dptr
@@ -539,9 +539,9 @@ lenstr2:
 esc:
 	push	acc
 	clr	c
-	jnb	ri,esc2
-	mov	a,sbuf
-	cjne	a,#27,esc1
+	jnb	ri, esc2
+	mov	a, sbuf
+	cjne	a, #27, esc1
 	setb	c
 esc1:
 	clr	ri
@@ -1060,7 +1060,7 @@ dump:
 dump1:
 	acall	r6r7todptr
 	acall	phex16		; tell 'em the memory location
-	mov	a,#':'
+	mov	a, #':'
 	acall	cout_sp
 	mov	r3, #16		; r3 counts # of bytes to print
 	acall	r6r7todptr
@@ -1106,17 +1106,17 @@ edit:
 	acall	r6r7todptr
 edit1:
 	acall	phex16
-	mov	a,#':'
+	mov	a, #':'
 	acall	cout_sp
-	mov	a,#'('
+	mov	a, #'('
 	acall	cout
 	acall	dptrtor6r7
 	movx	a, @dptr
 	acall	phex
-	mov	dptr,#prompt10
+	mov	dptr, #prompt10
 	acall	pcstr_h
 	acall	ghex
-	jb	psw.5,edit2
+	jb	psw.5, edit2
 	jc	edit2
 	acall	r6r7todptr
 	movx	@dptr, a
@@ -1126,7 +1126,7 @@ edit1:
 	acall	dptrtor6r7
 	ajmp	edit1
 edit2:
-	mov	dptr,#edits2
+	mov	dptr, #edits2
 	ajmp	pcstr_h
 
 ;---------------------------------------------------------;
