@@ -708,8 +708,8 @@
                    ;  *   7 = unexpected non-hex digits (in middle of a line)
                    
                    dnld:
-0297: 90 0C A9              mov     dptr, #dnlds1            
-029A: 11 45                 acall   pcstr_h                 ;"begin sending fil
+0297: 90 0C A9              mov     dptr, #dnlds1   ; "begin sending file <ESC>
+029A: 11 45                 acall   pcstr_h
 029C: 71 F8                 acall   dnld_init
                             
                    dnld1:
@@ -799,8 +799,8 @@
 0304: EC                    mov     a, r4
 0305: 70 E5                 jnz     dnld_sumerr
 0307: 71 1E                 acall   dnld_dly
-0309: 90 0C C8              mov     dptr, #dnlds3
-030C: 11 45                 acall   pcstr_h                 ;"download went ok.
+0309: 90 0C C8              mov     dptr, #dnlds3   ; "download went ok..."
+030C: 11 45                 acall   pcstr_h
                             ; consume any cr or lf character that may have been
                             ; on the end of the last line
 030E: 30 98 7A              jnb     ri, dnld_sum
@@ -810,8 +810,8 @@
                    dnld_esc:
                             ; handle esc received in the download stream
 0315: 71 1E                 acall   dnld_dly
-0317: 90 0C C0              mov     dptr, #dnlds2    
-031A: 11 45                 acall   pcstr_h                 ;"download aborted.
+0317: 90 0C C0              mov     dptr, #dnlds2   ; "download aborted."    
+031A: 11 45                 acall   pcstr_h
 031C: 80 6D                 sjmp    dnld_sum
                    
                    ; a short delay since most terminal emulation programs
