@@ -1301,34 +1301,34 @@
 05BC: 90 0D 7A              mov     dptr, #help_cmd
 05BF: D1 42                 acall   help2
 05C1: 7C 4D                 mov     r4, #dir_key
-05C3: 90 0D 7F              mov      dptr, #dir_cmd
+05C3: 90 0D 7F              mov     dptr, #dir_cmd
 05C6: D1 42                 acall   help2
 05C8: 7C 52                 mov     r4, #run_key
-05CA: 90 0D 84              mov      dptr, #run_cmd
+05CA: 90 0D 84              mov     dptr, #run_cmd
 05CD: D1 42                 acall   help2
 05CF: 7C 44                 mov     r4, #dnld_key
-05D1: 90 0D 88              mov      dptr, #dnld_cmd
+05D1: 90 0D 88              mov     dptr, #dnld_cmd
 05D4: D1 42                 acall   help2
 05D6: 7C 55                 mov     r4, #upld_key
-05D8: 90 0D 8B              mov      dptr, #upld_cmd
+05D8: 90 0D 8B              mov     dptr, #upld_cmd
 05DB: D1 42                 acall   help2
 05DD: 7C 4E                 mov     r4, #nloc_key
-05DF: 90 0D 8E              mov      dptr, #nloc_cmd
+05DF: 90 0D 8E              mov     dptr, #nloc_cmd
 05E2: D1 42                 acall   help2
 05E4: 7C 4A                 mov     r4, #jump_key
-05E6: 90 0D 92              mov      dptr, #jump_cmd
+05E6: 90 0D 92              mov     dptr, #jump_cmd
 05E9: D1 42                 acall   help2
 05EB: 7C 48                 mov     r4, #dump_key
-05ED: 90 0D 98              mov      dptr, #dump_cmd
+05ED: 90 0D 98              mov     dptr, #dump_cmd
 05F0: D1 42                 acall   help2
 05F2: 7C 49                 mov     r4, #intm_key
 05F4: 90 0D 9E              mov     dptr, #intm_cmd
 05F7: D1 42                 acall   help2
 05F9: 7C 45                 mov     r4, #edit_key
-05FB: 90 0D A4              mov      dptr, #edit_cmd
+05FB: 90 0D A4              mov     dptr, #edit_cmd
 05FE: D1 42                 acall   help2
 0600: 7C 43                 mov     r4, #clrm_key
-0602: 90 0D A9              mov      dptr, #clrm_cmd
+0602: 90 0D A9              mov     dptr, #clrm_cmd
 0605: D1 42                 acall   help2
 0607: 7C 3C                 mov     r4, #eio77_key
 0609: 90 0D AD              mov     dptr, #eio77_cmd
