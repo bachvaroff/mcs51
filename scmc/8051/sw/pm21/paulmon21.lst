@@ -2135,7 +2135,7 @@
 0A16: 21 7F                 ajmp    pcstr1
                    
                    get_next_nibble:
-                            ;...and update dptr and r4, of course
+                            ; ... and update dptr and r4, of course
 0A18: E0                    movx    a, @dptr
 0A19: BC 00 05              cjne    r4, #0, gnn2
 0A1C: 7C FF                 mov     r4, #255

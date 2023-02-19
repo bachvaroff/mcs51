@@ -2129,7 +2129,7 @@ dcomp_end:
 	ajmp	pcstr1
 
 get_next_nibble:
-	;...and update dptr and r4, of course
+	; ... and update dptr and r4, of course
 	movx	a, @dptr
 	cjne	r4, #0, gnn2
 	mov	r4, #255
