@@ -112,8 +112,8 @@
 .equ	stack, 0x17		; location of the stack
 
 ; |P1.7|P1.6|P1.5|P1.4|P1.3|P1.2|P1.1|P1.0|
-.equ	mctrl_default,	0b11111111
-.equ	mctrl_shadow,	0b11111110
+.equ	mctrl_default,	11111111b
+.equ	mctrl_shadow,	11111110b
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -1737,9 +1737,9 @@ setbaud_reset:
 setbaud:
 	mov	th1, a
 	mov	tl1, a
-	mov	tmod, #0x21	; set timer #1 for 8 bit auto-reload
-	mov	pcon, #0x80	; configure built-in uart
-	mov	scon, #0x52
+	mov	tmod, #00100001b	; set timer #1 for 8 bit auto-reload
+	mov	pcon, #10000000b	; configure built-in uart
+	mov	scon, #01010010b
 	setb	tr1		; start the baud rate timer
 	ret
 

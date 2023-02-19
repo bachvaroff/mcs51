@@ -112,8 +112,8 @@
 0000:              .equ     stack, 0x17             ; location of the stack
                    
                    ; |P1.7|P1.6|P1.5|P1.4|P1.3|P1.2|P1.1|P1.0|
-0000:              .equ     mctrl_default,  0b11111111
-0000:              .equ     mctrl_shadow,   0b11111110
+0000:              .equ     mctrl_default,  11111111b
+0000:              .equ     mctrl_shadow,   11111110b
                    
                    ;---------------------------------------------------------;
                    ;                                                          ;
@@ -1737,9 +1737,9 @@
                    setbaud:
 0828: F5 8D                 mov     th1, a
 082A: F5 8B                 mov     tl1, a
-082C: 75 89 21              mov     tmod, #0x21     ; set timer #1 for 8 bit au
-082F: 75 87 80              mov     pcon, #0x80     ; configure built-in uart
-0832: 75 98 52              mov     scon, #0x52
+082C: 75 89 21              mov     tmod, #00100001b        ; set timer #1 for 
+082F: 75 87 80              mov     pcon, #10000000b        ; configure built-i
+0832: 75 98 52              mov     scon, #01010010b
 0835: D2 8E                 setb    tr1             ; start the baud rate timer
 0837: 22                    ret
                    
