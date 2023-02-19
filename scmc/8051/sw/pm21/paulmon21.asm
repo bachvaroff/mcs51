@@ -128,8 +128,8 @@
 ;------ RESET --------------------------------------------;
 
 ;------ IE0_VECTOR ---------------------------------------;
-.org	base+3
-	ljmp	vector+3
+.org	base + 3
+	ljmp	vector + 3
 ;------ IE0_VECTOR ---------------------------------------;
 
 r6r7todptr:
@@ -138,8 +138,8 @@ r6r7todptr:
 	ret
 
 ;------ TF0_VECTOR ---------------------------------------;
-.org	base+11
-	ljmp	vector+11
+.org	base + 11
+	ljmp	vector + 11
 ;------ TF0_VECTOR ---------------------------------------;
 
 dptrtor6r7:
@@ -148,8 +148,8 @@ dptrtor6r7:
 	ret
 
 ;------ IE1_VECTOR ---------------------------------------;
-.org	base+19
-	ljmp	vector+19
+.org	base + 19
+	ljmp	vector + 19
 ;------ IE1_VECTOR ---------------------------------------;
 
 dash:
@@ -158,8 +158,8 @@ dash:
 	nop			; bytes, but an acall takes only 2
 
 ;------ TF1_VECTOR ---------------------------------------;
-.org	base+27
-	ljmp	vector+27
+.org	base + 27
+	ljmp	vector + 27
 ;------ TF1_VECTOR ---------------------------------------;
 
 cout_sp:
@@ -168,8 +168,8 @@ cout_sp:
 	nop
 
 ;------ SI0_VECTOR ---------------------------------------;
-.org	base+35
-	ljmp	vector+35
+.org	base + 35
+	ljmp	vector + 35
 ;------ SI0_VECTOR ---------------------------------------;
 
 dash_sp:
@@ -178,8 +178,8 @@ dash_sp:
 	nop
 
 ;------ TF2_VECTOR --- EX2_VECTOR ------------------------;
-.org	base+43
-	ljmp	vector+43
+.org	base + 43
+	ljmp	vector + 43
 ;------ TF2_VECTOR --- EX2_VECTOR ------------------------;
 
 ;---------------------------------------------------------;
@@ -193,7 +193,7 @@ dash_sp:
 ; programs depend on these locations
 ; to access paulmon2 functions
 
-.org	base+46
+.org	base + 46
 	ajmp	phex1		; 0x2E
 	ajmp	cout		; 0x30
 	ajmp	cin		; 0x32
@@ -608,7 +608,7 @@ menux1:
 menux2:
 	inc	dph
 	mov	a, dph
-	cjne	a, #((emem+1) >> 8) & 255, menux1
+	cjne	a, #((emem + 1) >> 8) & 255, menux1
 menuxend:
 	mov	a, b
 
@@ -963,7 +963,7 @@ dnlder3:
 	mov	dptr, #dnlds7
 	acall	pcstr_h
 ; but let's not be nasty... only print if necessary
-	mov	r1, #(dnld_parm+6)
+	mov	r1, #(dnld_parm + 6)
 	mov	r6, #dnlds8 & 255
 	mov	r7, #dnlds8 >> 8
 	acall	dnld_item
@@ -1202,7 +1202,7 @@ dir7:
 dir8:
 	inc	dph
 	mov	a, dph
-	cjne	a, #((emem+1) >> 8) & 255, dir1
+	cjne	a, #((emem + 1) >> 8) & 255, dir1
 	ajmp	dir_end
 
 ; type1=Ext Command
@@ -1220,7 +1220,7 @@ run:
 run2:
 	inc	dph
 	mov	a, dph
-	cjne	a, #((emem+1) >> 8) & 255, run2b
+	cjne	a, #((emem + 1) >> 8) & 255, run2b
 	sjmp	run3
 run2b:
 	lcall	find
@@ -1285,7 +1285,7 @@ run4a:
 run5:
 	inc	dph
 	mov	a, dph
-	cjne	a, #((emem+1) >> 8) & 255, run5b
+	cjne	a, #((emem + 1) >> 8) & 255, run5b
 	sjmp	run8
 run5b:
 	lcall	find
@@ -1366,7 +1366,7 @@ help3:
 help3a:
 	inc	dph
 	mov	a, dph
-	cjne	a, #((emem+1) >> 8) & 255, help3
+	cjne	a, #((emem + 1) >> 8) & 255, help3
 help4:	
 	ajmp	newline
 
@@ -1726,7 +1726,7 @@ stcode3:
 stcode4:
 	inc	dph
 	mov	a, dph
-	cjne	a, #((emem+1) >> 8) & 255, stcode2
+	cjne	a, #((emem + 1) >> 8) & 255, stcode2
 stcode5:
 	ret			; now we've executed all of 'em
 

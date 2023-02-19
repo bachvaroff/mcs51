@@ -128,8 +128,8 @@
                    ;------ RESET --------------------------------------------;
                    
                    ;------ IE0_VECTOR ---------------------------------------;
-0003:              .org     base+3
-0003: 02 20 03              ljmp    vector+3
+0003:              .org     base + 3
+0003: 02 20 03              ljmp    vector + 3
                    ;------ IE0_VECTOR ---------------------------------------;
                    
                    r6r7todptr:
@@ -138,8 +138,8 @@
 000A: 22                    ret
                    
                    ;------ TF0_VECTOR ---------------------------------------;
-000B:              .org     base+11
-000B: 02 20 0B              ljmp    vector+11
+000B:              .org     base + 11
+000B: 02 20 0B              ljmp    vector + 11
                    ;------ TF0_VECTOR ---------------------------------------;
                    
                    dptrtor6r7:
@@ -148,8 +148,8 @@
 0012: 22                    ret
                    
                    ;------ IE1_VECTOR ---------------------------------------;
-0013:              .org     base+19
-0013: 02 20 13              ljmp    vector+19
+0013:              .org     base + 19
+0013: 02 20 13              ljmp    vector + 19
                    ;------ IE1_VECTOR ---------------------------------------;
                    
                    dash:
@@ -158,8 +158,8 @@
 001A: 00                    nop                     ; bytes, but an acall takes
                    
                    ;------ TF1_VECTOR ---------------------------------------;
-001B:              .org     base+27
-001B: 02 20 1B              ljmp    vector+27
+001B:              .org     base + 27
+001B: 02 20 1B              ljmp    vector + 27
                    ;------ TF1_VECTOR ---------------------------------------;
                    
                    cout_sp:
@@ -168,8 +168,8 @@
 0022: 00                    nop
                    
                    ;------ SI0_VECTOR ---------------------------------------;
-0023:              .org     base+35
-0023: 02 20 23              ljmp    vector+35
+0023:              .org     base + 35
+0023: 02 20 23              ljmp    vector + 35
                    ;------ SI0_VECTOR ---------------------------------------;
                    
                    dash_sp:
@@ -178,8 +178,8 @@
 002A: 00                    nop
                    
                    ;------ TF2_VECTOR --- EX2_VECTOR ------------------------;
-002B:              .org     base+43
-002B: 02 20 2B              ljmp    vector+43
+002B:              .org     base + 43
+002B: 02 20 2B              ljmp    vector + 43
                    ;------ TF2_VECTOR --- EX2_VECTOR ------------------------;
                    
                    ;---------------------------------------------------------;
@@ -193,7 +193,7 @@
                    ; programs depend on these locations
                    ; to access paulmon2 functions
                    
-002E:              .org     base+46
+002E:              .org     base + 46
 002E: 21 5E                 ajmp    phex1           ; 0x2E
 0030: 01 6A                 ajmp    cout            ; 0x30
 0032: 01 5E                 ajmp    cin             ; 0x32
@@ -608,7 +608,7 @@
                    menux2:
 0207: 05 83                 inc     dph
 0209: E5 83                 mov     a, dph
-020B: B4 00 D9              cjne    a, #((emem+1) >> 8) & 255, menux1
+020B: B4 00 D9              cjne    a, #((emem + 1) >> 8) & 255, menux1
                    menuxend:
 020E: E5 F0                 mov     a, b
                    
@@ -963,7 +963,7 @@
 03B9: 90 0C EE              mov     dptr, #dnlds7
 03BC: 11 45                 acall   pcstr_h
                    ; but let's not be nasty... only print if necessary
-03BE: 79 0E                 mov     r1, #(dnld_parm+6)
+03BE: 79 0E                 mov     r1, #(dnld_parm + 6)
 03C0: 7E F2                 mov     r6, #dnlds8 & 255
 03C2: 7F 0C                 mov     r7, #dnlds8 >> 8
 03C4: 71 E6                 acall   dnld_item
@@ -1202,7 +1202,7 @@
                    dir8:
 0514: 05 83                 inc     dph
 0516: E5 83                 mov     a, dph
-0518: B4 00 9B              cjne    a, #((emem+1) >> 8) & 255, dir1
+0518: B4 00 9B              cjne    a, #((emem + 1) >> 8) & 255, dir1
 051B: 81 BB                 ajmp    dir_end
                    
                    ; type1=Ext Command
@@ -1220,7 +1220,7 @@
                    run2:
 0526: 05 83                 inc     dph
 0528: E5 83                 mov     a, dph
-052A: B4 00 02              cjne    a, #((emem+1) >> 8) & 255, run2b
+052A: B4 00 02              cjne    a, #((emem + 1) >> 8) & 255, run2b
 052D: 80 21                 sjmp    run3
                    run2b:
 052F: 12 07 78              lcall   find
@@ -1285,7 +1285,7 @@
                    run5:
 0594: 05 83                 inc     dph
 0596: E5 83                 mov     a, dph
-0598: B4 00 02              cjne    a, #((emem+1) >> 8) & 255, run5b
+0598: B4 00 02              cjne    a, #((emem + 1) >> 8) & 255, run5b
 059B: 80 17                 sjmp    run8
                    run5b:
 059D: 12 07 78              lcall   find
@@ -1366,7 +1366,7 @@
                    help3a:
 0639: 05 83                 inc     dph
 063B: E5 83                 mov     a, dph
-063D: B4 00 DD              cjne    a, #((emem+1) >> 8) & 255, help3
+063D: B4 00 DD              cjne    a, #((emem + 1) >> 8) & 255, help3
                    help4:   
 0640: 01 74                 ajmp    newline
                    
@@ -1726,7 +1726,7 @@
                    stcode4:
 081E: 05 83                 inc     dph
 0820: E5 83                 mov     a, dph
-0822: B4 00 D8              cjne    a, #((emem+1) >> 8) & 255, stcode2
+0822: B4 00 D8              cjne    a, #((emem + 1) >> 8) & 255, stcode2
                    stcode5:
 0825: 22                    ret                     ; now we've executed all of
                    
