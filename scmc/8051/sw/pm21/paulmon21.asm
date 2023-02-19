@@ -563,7 +563,7 @@ menu:
 	acall	phex
 	mov	a, r6
 	acall	phex
-	; mov	 dptr, #prompt2
+	mov	 dptr, #prompt2
 	acall	pstr
 
 ; now we're finally past the prompt, so let's get some input
@@ -1145,7 +1145,7 @@ dir:
 dir0a:
 	acall	space
 	djnz	r0, dir0a
-	; mov	dptr, #prompt9b
+	mov	dptr, #prompt9b
 	acall	pcstr_h
 
 	mov	dph, #(bmem >> 8)
@@ -1321,34 +1321,34 @@ help:
 	mov	dptr, #help_cmd
 	acall	help2
 	mov	r4, #dir_key
-	; mov	 dptr, #dir_cmd
+	mov	 dptr, #dir_cmd
 	acall	help2
 	mov	r4, #run_key
-	; mov	 dptr, #run_cmd
+	mov	 dptr, #run_cmd
 	acall	help2
 	mov	r4, #dnld_key
-	; mov	 dptr, #dnld_cmd
+	mov	 dptr, #dnld_cmd
 	acall	help2
 	mov	r4, #upld_key
-	; mov	 dptr, #upld_cmd
+	mov	 dptr, #upld_cmd
 	acall	help2
 	mov	r4, #nloc_key
-	; mov	 dptr, #nloc_cmd
+	mov	 dptr, #nloc_cmd
 	acall	help2
 	mov	r4, #jump_key
-	; mov	 dptr, #jump_cmd
+	mov	 dptr, #jump_cmd
 	acall	help2
 	mov	r4, #dump_key
-	; mov	 dptr, #dump_cmd
+	mov	 dptr, #dump_cmd
 	acall	help2
 	mov	r4, #intm_key
-	; mov	dptr, #intm_cmd
+	mov	dptr, #intm_cmd
 	acall	help2
 	mov	r4, #edit_key
-	; mov	 dptr, #edit_cmd
+	mov	 dptr, #edit_cmd
 	acall	help2
 	mov	r4, #clrm_key
-	; mov	 dptr, #clrm_cmd
+	mov	 dptr, #clrm_cmd
 	acall	help2
 	mov	r4, #eio77_key
 	mov	dptr, #eio77_cmd
@@ -1404,7 +1404,7 @@ upld:
 	acall	phex
 	mov	a, r2
 	acall	phex
-	; mov	 dptr, #uplds4
+	mov	 dptr, #uplds4
 	acall	pcstr_h
 	mov	a, r5
 	acall	phex
@@ -1696,14 +1696,14 @@ end_cp_shadow:
 	
 ; run any user initialization programs in external memory
 	mov	b, #249
-	acall	stcode
+	lcall	stcode
 
 ; initialize the serial port
 	lcall	setbaud_reset
 
 ; run the start-up programs in external memory
 	mov	b, #253
-	acall	stcode
+	lcall	stcode
 
 ; now print out the nice welcome message
 welcome:
