@@ -124,7 +124,7 @@
 
 ;------ RESET --------------------------------------------;
 .org	base
-	ljmp	poweron
+	ljmp	reset
 ;------ RESET --------------------------------------------;
 
 ;------ IE0_VECTOR ---------------------------------------;
@@ -1049,7 +1049,7 @@ jump_doit:
 jditclr:
 	mov	@r0, a		; clear r7 to r1
 	djnz	r0, jditclr	; clear r0
-	mov	sp, #7		; start w/ sp=7, like a real reset
+	mov	sp, #7		; start with sp=7, like a real reset
 	jmp	@a+dptr
 
 ;---------------------------------------------------------;
@@ -1639,15 +1639,10 @@ find4:
 
 ;---------------------------------------------------------;
 
-;---------------------------------------------------------;
-;							  ;
-;	Power-On initialization code and such...	  ;
-;							  ;
-;---------------------------------------------------------;
+; initialize the hardware on reset
+; copy flash to memory
 
-; first the hardware has to get initialized.
-
-poweron:
+reset:
 	clr	a
 	mov	ie, a		; all interrupts off
 	mov	ip, a

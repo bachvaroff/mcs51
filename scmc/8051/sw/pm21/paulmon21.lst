@@ -124,7 +124,7 @@
                    
                    ;------ RESET --------------------------------------------;
 0000:              .org     base
-0000: 02 07 9E              ljmp    poweron
+0000: 02 07 9E              ljmp    reset
                    ;------ RESET --------------------------------------------;
                    
                    ;------ IE0_VECTOR ---------------------------------------;
@@ -1049,7 +1049,7 @@
                    jditclr:
 042A: F6                    mov     @r0, a          ; clear r7 to r1
 042B: D8 FD                 djnz    r0, jditclr     ; clear r0
-042D: 75 81 07              mov     sp, #7          ; start w/ sp=7, like a rea
+042D: 75 81 07              mov     sp, #7          ; start with sp=7, like a r
 0430: 73                    jmp     @a+dptr
                    
                    ;---------------------------------------------------------;
@@ -1639,15 +1639,10 @@
                    
                    ;---------------------------------------------------------;
                    
-                   ;---------------------------------------------------------;
-                   ;                                                          ;
-                   ;        Power-On initialization code and such...          ;
-                   ;                                                          ;
-                   ;---------------------------------------------------------;
+                   ; initialize the hardware on reset
+                   ; copy flash to memory
                    
-                   ; first the hardware has to get initialized.
-                   
-                   poweron:
+                   reset:
 079E: E4                    clr     a
 079F: F5 A8                 mov     ie, a           ; all interrupts off
 07A1: F5 B8                 mov     ip, a
