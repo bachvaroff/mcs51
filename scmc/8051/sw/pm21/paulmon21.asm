@@ -72,11 +72,11 @@
 ; To set the baud rate, use this formula
 ; baud_const = 256 - (crystal / (12 * 16 * baud))
 
-.equ	baud_const, 255		;57600 baud w/ 11.0592 MHz
-;.equ	baud_const, 253		;19200 baud w/ 11.0592 MHz
-;.equ	baud_const, 250		;9600 baud w/ 11.0592 MHz
-;.equ	baud_const, 252		;19200 baud w/ 14.7456 MHz
-;.equ	baud_const, 243		;4808 baud w/ 12 MHz
+.equ	baud_const, 255		; 57600 baud with 11.0592MHz
+;.equ	baud_const, 253		; 19200 baud with 11.0592MHz
+;.equ	baud_const, 250		; 9600 baud with 11.0592MHz
+;.equ	baud_const, 254		; 38400 baud with 14.7456MHz
+;.equ	baud_const, 252		; 19200 baud with 14.7456MHz
 
 .equ	line_delay, 6		; num of char times to pause during uploads
 
