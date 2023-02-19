@@ -613,82 +613,72 @@
 020E: E5 F0                 mov     a, b
                    
                    ; since we didn't find a user installed command, use the bui
-                   
-                   menu1a:
-                   menu1b:
-0210: B4 3F 07              cjne    a, #help_key, menu1c
+                   menui1:
+0210: B4 3F 07              cjne    a, #help_key, menui2
 0213: 90 0D 77              mov     dptr, #help_cmd2
 0216: 11 45                 acall   pcstr_h
 0218: A1 B5                 ajmp    help
-                   menu1c:
-021A: B4 4D 07              cjne    a, #dir_key, menu1d
+                   menui2:
+021A: B4 4D 07              cjne    a, #dir_key, menui3
 021D: 90 0D 7F              mov     dptr, #dir_cmd
 0220: 11 45                 acall   pcstr_h
 0222: 81 A3                 ajmp    dir
-                   menu1d:
-0224: B4 52 07              cjne    a, #run_key, menu1e
+                   menui3:
+0224: B4 52 07              cjne    a, #run_key, menui4
 0227: 90 0D 84              mov     dptr, #run_cmd
 022A: 11 45                 acall   pcstr_h
 022C: A1 1D                 ajmp    run
-                   menu1e:
-022E: B4 44 07              cjne    a, #dnld_key, menu1f
+                   menui4:
+022E: B4 44 07              cjne    a, #dnld_key, menui5
 0231: 90 0D 88              mov     dptr, #dnld_cmd
 0234: 11 45                 acall   pcstr_h
 0236: 41 97                 ajmp    dnld
-                   menu1f:
-0238: B4 55 07              cjne    a, #upld_key, menu1g
+                   menui5:
+0238: B4 55 07              cjne    a, #upld_key, menui6
 023B: 90 0D 8B              mov     dptr, #upld_cmd
 023E: 11 45                 acall   pcstr_h
 0240: C1 4D                 ajmp    upld
-                   menu1g:
-0242: B4 4E 07              cjne    a, #nloc_key, menu1h
+                   menui6:
+0242: B4 4E 07              cjne    a, #nloc_key, menui7
 0245: 90 0D 8E              mov     dptr, #nloc_cmd
 0248: 11 45                 acall   pcstr_h
 024A: E1 3F                 ajmp    nloc
-                   menu1h:
-024C: B4 4A 07              cjne    a, #jump_key, menu1i
+                   menui7:
+024C: B4 4A 07              cjne    a, #jump_key, menui8
 024F: 90 0D 92              mov     dptr, #jump_cmd
 0252: 11 45                 acall   pcstr_h
 0254: 81 01                 ajmp    jump
-                   menu1i:
-0256: B4 48 07              cjne    a, #dump_key, menu1j
+                   menui8:
+0256: B4 48 07              cjne    a, #dump_key, menui9
 0259: 90 0D 98              mov     dptr, #dump_cmd
 025C: 11 45                 acall   pcstr_h
 025E: 81 31                 ajmp    dump
-                   menu1j:
-0260: B4 45 07              cjne    a, #edit_key, menu1k
+                   menui9:
+0260: B4 45 07              cjne    a, #edit_key, menui10
 0263: 90 0D A4              mov     dptr, #edit_cmd
 0266: 11 45                 acall   pcstr_h
 0268: 81 70                 ajmp    edit
-                   menu1k:
-026A: B4 43 07              cjne    a, #clrm_key, menu1l
+                   menui10:
+026A: B4 43 07              cjne    a, #clrm_key, menui11
 026D: 90 0D A9              mov     dptr, #clrm_cmd
 0270: 11 45                 acall   pcstr_h
 0272: E1 1D                 ajmp    clrm
-                   menu1l:
-0274: B4 49 08              cjne    a, #intm_key, menu1m
+                   menui11:
+0274: B4 49 08              cjne    a, #intm_key, menui12
 0277: 90 0D 9E              mov     dptr, #intm_cmd
 027A: 11 45                 acall   pcstr_h
 027C: 02 07 4F              ljmp    intm
-                   menu1m:
-027F: B4 3C 08              cjne    a, #eio77_key, menu1n
+                   menui12:
+027F: B4 3C 08              cjne    a, #eio77_key, menui13
 0282: 90 0D AD              mov     dptr, #eio77_cmd
 0285: 11 45                 acall   pcstr_h
 0287: 02 07 70              ljmp    eio77
-                   menu1n:
-028A: B4 3E 08              cjne    a, #dio77_key, menu1o
+                   menui13:
+028A: B4 3E 08              cjne    a, #dio77_key, menuiend
 028D: 90 0D BC              mov     dptr, #dio77_cmd
 0290: 11 45                 acall   pcstr_h
 0292: 02 07 74              ljmp    dio77
-                   menu1o:
-                   
-                   ; invalid input, no commands to run...
-                   ; at this point, we have not found
-                   ; anything to run, so we give up.
-                   ; remember, we pushed menu, so newline
-                   ; will just return to menu.
-                   
-                   menu_end:
+                   menuiend:
 0295: 01 74                 ajmp    newline
                    
                    ;---------------------------------------------------------;

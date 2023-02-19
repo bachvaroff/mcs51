@@ -613,82 +613,72 @@ menuxend:
 	mov	a, b
 
 ; since we didn't find a user installed command, use the builtin ones
-
-menu1a:
-menu1b:
-	cjne	a, #help_key, menu1c
+menui1:
+	cjne	a, #help_key, menui2
 	mov	dptr, #help_cmd2
 	acall	pcstr_h
 	ajmp	help
-menu1c:
-	cjne	a, #dir_key, menu1d
+menui2:
+	cjne	a, #dir_key, menui3
 	mov	dptr, #dir_cmd
 	acall	pcstr_h
 	ajmp	dir
-menu1d:
-	cjne	a, #run_key, menu1e
+menui3:
+	cjne	a, #run_key, menui4
 	mov	dptr, #run_cmd
 	acall	pcstr_h
 	ajmp	run
-menu1e:
-	cjne	a, #dnld_key, menu1f
+menui4:
+	cjne	a, #dnld_key, menui5
 	mov	dptr, #dnld_cmd
 	acall	pcstr_h
 	ajmp	dnld
-menu1f:
-	cjne	a, #upld_key, menu1g
+menui5:
+	cjne	a, #upld_key, menui6
 	mov	dptr, #upld_cmd
 	acall	pcstr_h
 	ajmp	upld
-menu1g:
-	cjne	a, #nloc_key, menu1h
+menui6:
+	cjne	a, #nloc_key, menui7
 	mov	dptr, #nloc_cmd
 	acall	pcstr_h
 	ajmp	nloc
-menu1h:
-	cjne	a, #jump_key, menu1i
+menui7:
+	cjne	a, #jump_key, menui8
 	mov	dptr, #jump_cmd
 	acall	pcstr_h
 	ajmp	jump
-menu1i:
-	cjne	a, #dump_key, menu1j
+menui8:
+	cjne	a, #dump_key, menui9
 	mov	dptr, #dump_cmd
 	acall	pcstr_h
 	ajmp	dump
-menu1j:
-	cjne	a, #edit_key, menu1k
+menui9:
+	cjne	a, #edit_key, menui10
 	mov	dptr, #edit_cmd
 	acall	pcstr_h
 	ajmp	edit
-menu1k:
-	cjne	a, #clrm_key, menu1l
+menui10:
+	cjne	a, #clrm_key, menui11
 	mov	dptr, #clrm_cmd
 	acall	pcstr_h
 	ajmp	clrm
-menu1l:
-	cjne	a, #intm_key, menu1m
+menui11:
+	cjne	a, #intm_key, menui12
 	mov	dptr, #intm_cmd
 	acall	pcstr_h
 	ljmp	intm
-menu1m:
-	cjne	a, #eio77_key, menu1n
+menui12:
+	cjne	a, #eio77_key, menui13
 	mov	dptr, #eio77_cmd
 	acall	pcstr_h
 	ljmp	eio77
-menu1n:
-	cjne	a, #dio77_key, menu1o
+menui13:
+	cjne	a, #dio77_key, menuiend
 	mov	dptr, #dio77_cmd
 	acall	pcstr_h
 	ljmp	dio77
-menu1o:
-
-; invalid input, no commands to run...
-; at this point, we have not found
-; anything to run, so we give up.
-; remember, we pushed menu, so newline
-; will just return to menu.
-
-menu_end:
+menuiend:
 	ajmp	newline
 
 ;---------------------------------------------------------;
