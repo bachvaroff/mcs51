@@ -484,8 +484,7 @@ phex16:
 pstr:
 	push	acc
 pstr1:
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	inc	dptr
 	jz	pstr2
 	mov	c, acc.7
@@ -520,8 +519,7 @@ lenstr:
 	mov	r0, #0		; returns length of a string in r0
 	push	acc
 lenstr1:
-	clr	a
-	movc	a,@a+dptr
+	movx	a, @dptr
 	jz	lenstr2
 	mov	c,acc.7
 	inc	r0
@@ -595,12 +593,10 @@ menux1:
 	lcall	find
 	jnc	menuxend	; searched all the commands?
 	mov	dpl, #4
-	clr	a
-	movc	a,@a+dptr
+	movx	a, @dptr
 	cjne	a, #254, menux2	; only FE is an ext command
 	inc	dpl
-	clr	a
-	movc	a,@a+dptr
+	movx	a, @dptr
 	cjne	a, b, menux2	; only run if they want it
 	acall	space
 	mov	dpl, #32
@@ -1069,8 +1065,7 @@ dump1:
 	mov	r3, #16		; r3 counts # of bytes to print
 	acall	r6r7todptr
 dump2:
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	inc	dptr
 	acall	phex		; print each byte in hex
 	acall	space
@@ -1079,8 +1074,7 @@ dump2:
 	mov	r3, #16
 	acall	r6r7todptr
 dump3:
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	inc	dptr
 	anl	a, #01111111b	; avoid unprintable characters
 	cjne	a, #127, dump3b
@@ -1117,8 +1111,7 @@ edit1:
 	mov	a,#'('
 	acall	cout
 	acall	dptrtor6r7
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	acall	phex
 	mov	dptr,#prompt10
 	acall	pcstr_h
@@ -1176,8 +1169,7 @@ dir4:
 	acall	cout
 	djnz	r0, dir4
 	mov	dpl, #4		; now figure out what type it is
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	mov	r2, dph		; save this, we're inside a search
 
 dir5:
@@ -1234,8 +1226,7 @@ run2b:
 	lcall	find
 	jnc	run3		; have we found 'em all??
 	mov	dpl, #4
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	orl	a, #00000011b
 	cpl	a
 	jz	run2		; this one doesn't run... find next
@@ -1300,8 +1291,7 @@ run5b:
 	lcall	find
 	jnc	run8		; Shouldn't ever do this jump!
 	mov	dpl, #4
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	orl	a, #00000011b
 	cpl	a
 	jz	run5		; this one doesn't run... find next
@@ -1363,13 +1353,11 @@ help3:
 	lcall	find
 	jnc	help4
 	mov	dpl, #4
-	clr	a
-	movc	a,@a+dptr
+	movx	a, @dptr
 	cjne	a, #254, help3a	; only FE is an ext command
 	acall	dspace
 	inc	dpl
-	clr	a
-	movc	a,@a+dptr
+	movx	a, @dptr
 	acall	cout
 	acall	dash_sp
 	mov	dpl, #32
@@ -1457,8 +1445,7 @@ upld5:
 	clr	a
 	acall	phex		; output 00 code for data
 upld6:
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	acall	phex		; output each byte
 	add	a, r3
 	mov	r3, a
@@ -1627,20 +1614,16 @@ dio77:
 
 find:
 	mov	dpl, #0
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	cjne	a, #0xA5, find3
 	inc	dptr
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	cjne	a, #0xE5, find3
 	inc	dptr
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	cjne	a, #0xE0, find3
 	inc	dptr
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	cjne	a, #0xA5, find3
 	mov	dpl, #0			; found one here!
 	setb	c
@@ -1731,8 +1714,7 @@ stcode2:
 	lcall	find
 	jnc	stcode5
 	mov	dpl, #4
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	cjne	a, b, stcode4	; only startup code if matches B
 	push	b
 	push	dph
@@ -2050,8 +2032,7 @@ pcstr:
 	setb	psw.1
 	setb	psw.5
 pcstr1:
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	inc	dptr
 	jz	pcstr2
 	jb	acc.7, decomp
@@ -2149,8 +2130,7 @@ dcomp_end:
 
 get_next_nibble:
 	;...and update dptr and r4, of course
-	clr	a
-	movc	a, @a+dptr
+	movx	a, @dptr
 	cjne	r4, #0, gnn2
 	mov	r4, #255
 	anl	a, #00001111b
@@ -2241,7 +2221,6 @@ prompt1:
 	.db	148, "2 Loc:", 0
 
 prompt2:
-; must follow prompt1
 	.db	" >", 160
 
 prompt3:
@@ -2267,7 +2246,6 @@ prompt9:
 	.db	13, 13, 31, 130, 31, 253, 0
 
 prompt9b:
-; must follow prompt9
 	.db	31, 129, 32, 32, 32, 32, 32, 31, 201, 14
 
 prompt10:
@@ -2338,7 +2316,6 @@ uplds3:
 	.db	13, 13, "Sending", 31, 152, 132, 137, 172, 32, 32, 0
 
 uplds4:
-; must follow uplds3
 	.db	" ", 128, 32, 32, 0
 
 help1txt:
@@ -2364,8 +2341,6 @@ help_cmd2:
 
 help_cmd:
 	.db	31, 142, 215, 209, 0
-
-; these _cmd string must be in order
 
 dir_cmd:
 	.db	31, 209, 130, "s", 0
