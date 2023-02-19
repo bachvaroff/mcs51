@@ -588,7 +588,8 @@
                    ; all the other general purpose registers should be availabl
                    ; user commands to alter as they wish.
                    
-01E1: F5 F0        menux:   mov     b, a            ; now search for external c
+                   menux:
+01E1: F5 F0                 mov     b, a            ; now search for external c
 01E3: 90 10 00              mov     dptr, #bmem
                    menux1:
 01E6: 12 07 5E              lcall   find

@@ -588,7 +588,8 @@ menu0:
 ; all the other general purpose registers should be available for
 ; user commands to alter as they wish.
 
-menux:	mov	b, a		; now search for external commands...
+menux:
+	mov	b, a		; now search for external commands...
 	mov	dptr, #bmem
 menux1:
 	lcall	find
