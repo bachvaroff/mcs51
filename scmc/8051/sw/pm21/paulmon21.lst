@@ -1638,6 +1638,9 @@
 07A1: F5 B8                 mov     ip, a
 07A3: 75 D0 00              mov     psw, #psw_init
 07A6: 75 81 17              mov     sp, #stack
+                            
+                   ; force P1 to output
+                   ; internal PFETs P1.7-0 active + external pullup
 07A9: 74 FF                 mov     a, #mctrl_default
 07AB: F5 90                 mov     p1, a
 07AD: FF                    mov     r7, a
@@ -1655,6 +1658,9 @@
 07B8: E5 83                 mov     a, dph
 07BA: B4 20 F7              cjne    a, #0x20, cp_byte
                    end_cp_shadow:
+                   
+                   ; force P1 to output
+                   ; internal PFETs P1.7-1 active + external pullup, internal N
 07BD: 74 FE                 mov     a, #mctrl_shadow
 07BF: F5 90                 mov     p1, a
 07C1: FF                    mov     r7, a

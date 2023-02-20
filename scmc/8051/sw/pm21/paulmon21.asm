@@ -1638,6 +1638,9 @@ reset:
 	mov	ip, a
 	mov	psw, #psw_init
 	mov	sp, #stack
+	
+; force P1 to output
+; internal PFETs P1.7-0 active + external pullup
 	mov	a, #mctrl_default
 	mov	p1, a
 	mov	r7, a
@@ -1655,6 +1658,9 @@ cp_byte:
 	mov	a, dph
 	cjne	a, #0x20, cp_byte
 end_cp_shadow:
+
+; force P1 to output
+; internal PFETs P1.7-1 active + external pullup, internal NFET P1.0 active
 	mov	a, #mctrl_shadow
 	mov	p1, a
 	mov	r7, a
