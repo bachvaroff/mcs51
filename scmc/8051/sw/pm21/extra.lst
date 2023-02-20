@@ -24,9 +24,9 @@
 0000:              .equ     upper, paulmon2 + 0x40          ;convert acc to upp
 0000:              .equ     newline, paulmon2 + 0x48
 0000:              .equ     pcstr, paulmon2 + 0x45
-0000:              .equ     pint, paulmon2 + 0x50
-0000:              .equ     cin_filter, paulmon2 + 0x5F
-0000:              .equ     asc2hex, paulmon2 + 0x62
+0000:              .equ     pint8, paulmon2 + 0x50
+0000:              .equ     cin_filter, paulmon2 + 0x59
+0000:              .equ     asc2hex, paulmon2 + 0x5C
                    
                    
 0000:              .equ    list_key, 'L'            ;list (disassemble)
@@ -944,7 +944,7 @@
                    
                    ;SINGLE STEP
                    
-1579: 12 00 5F     step1:  lcall   cin_filter
+1579: 12 00 59     step1:  lcall   cin_filter
 157C: 12 00 40             lcall   upper
 157F: B4 0D 02     step2:  cjne    a, #13, step7
 1582: 81 DE                ajmp    done
@@ -1323,7 +1323,7 @@
 1844: EC                    mov     a, r4
 1845: C2 E3                 clr     acc.3
 1847: FC                    mov     r4, a
-1848: 12 00 5F     main2:   lcall   cin_filter
+1848: 12 00 59     main2:   lcall   cin_filter
 184B: 31 15                 acall   input_ck_2nd
 184D: B4 1B 02     cmd1:    cjne    a, #27, cmd2            ;quit
 1850: 61 85                 ajmp    quit
@@ -1410,7 +1410,7 @@
                    input_hex:
 18EC: E5 F0                 mov     a, b
 18EE: 12 00 40              lcall   upper
-18F1: 12 00 62              lcall   asc2hex
+18F1: 12 00 5C              lcall   asc2hex
 18F4: 40 E3                 jc      cmd_abort               ;ignore if not hex
 18F6: F8                    mov     r0, a                   ;keep hex value of 
 18F7: 8F 83                mov     dph, r7                  ;load dptr with add
@@ -1454,7 +1454,7 @@
 1924: D0 E0                 pop     acc
 1926: C0 E0                 push    acc
 1928: 12 00 40              lcall   upper
-192B: 12 00 62              lcall   asc2hex
+192B: 12 00 5C              lcall   asc2hex
 192E: 50 EE                 jnc     inck2c          ;proceed normally if it is 
                             ;if we get here, we did not get a hex legal char
 1930: D0 E0                 pop     acc
@@ -2104,7 +2104,7 @@
 1D3E: 02 00 38     pstr_hh:ljmp     pstr
 1D41: 02 00 48     newline_hh:ljmp  newline
 1D44: 02 00 45     pcstr_hh:ljmp    pcstr
-1D47: 02 00 50     pint_hh:ljmp     pint
+1D47: 02 00 50     pint_hh:ljmp     pint8
                    
                    
                    

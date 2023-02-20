@@ -24,9 +24,9 @@
 .equ	upper, paulmon2 + 0x40		;convert acc to uppercase
 .equ	newline, paulmon2 + 0x48
 .equ	pcstr, paulmon2 + 0x45
-.equ	pint, paulmon2 + 0x50
-.equ	cin_filter, paulmon2 + 0x5F
-.equ	asc2hex, paulmon2 + 0x62
+.equ	pint8, paulmon2 + 0x50
+.equ	cin_filter, paulmon2 + 0x59
+.equ	asc2hex, paulmon2 + 0x5C
 
 
 .equ    list_key, 'L'		;list (disassemble)
@@ -1923,7 +1923,7 @@ phex_hh:ljmp	phex
 pstr_hh:ljmp	pstr
 newline_hh:ljmp	newline
 pcstr_hh:ljmp	pcstr
-pint_hh:ljmp	pint
+pint_hh:ljmp	pint8
 
 
 
