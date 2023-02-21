@@ -70,7 +70,8 @@
 .equ	emem, 0xFFFF		; end of the memory
 
 ; To set the baud rate, use this formula
-; baud_const = 256 - (crystal / (12 * 16 * baud))
+; baud_const = 256 - (OSC / 12) / (16 * baud)
+; baud_const = 256 - T1 / (16 * baud)
 
 .equ	baud_const, 255		; 57600 baud with 11.0592MHz
 ;.equ	baud_const, 253		; 19200 baud with 11.0592MHz
