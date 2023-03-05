@@ -11,13 +11,30 @@ main:
 	mov	p2, a
 	mov	r0, #0x00
 	mov	dptr, #0x4008
-	mov	a, #0x08
-loop:
-	dec	a
+	
+	mov	r1, #0x00
+	mov	r2, #0xF5
+floop:
+	mov	a, r2
 	movx	@r0, a
+	add	a, #0x08
 	movx	@dptr, a
+	inc	r2
+	
 	inc	r0
 	inc	dptr
-	jnz	loop
+
+	inc	r1
+	cjne	r1, #0x08, floop
+
+	mov	r0, #0x00
+ploop:
+	movx	a, @r0
+	lcall	phex
+	lcall	nl
+	inc	r0
+	cjne	r0, #0x10, ploop
+	
+	lcall	cin
 	
 	ljmp	0x0000
