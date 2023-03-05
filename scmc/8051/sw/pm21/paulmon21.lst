@@ -1683,67 +1683,66 @@
                             
                    ; run any user initialization programs in external memory
 07C5: 75 F0 F9              mov     b, #249
-07C8: 12 07 FA              lcall   stcode
+07C8: 12 07 FF              lcall   stcode
                    
                    ; initialize the serial port
-07CB: 12 08 26              lcall   setbaud_reset
+07CB: 74 FF                 mov     a, #baud_const
+07CD: 75 F0 21              mov     b, #tmod_cfg_OSC
+07D0: 12 08 2B              lcall   setbaud
                    
                    ; run the start-up programs in external memory
-07CE: 75 F0 FD              mov     b, #253
-07D1: 12 07 FA              lcall   stcode
+07D3: 75 F0 FD              mov     b, #253
+07D6: 12 07 FF              lcall   stcode
                    
                    ; now print out the nice welcome message
                    welcome:
-07D4: 78 18                 mov     r0, #24
+07D9: 78 18                 mov     r0, #24
                    welcm2:
-07D6: 12 00 74              lcall   newline
-07D9: D8 FB                 djnz    r0, welcm2
-07DB: 78 0F                 mov     r0, #15
-07DD: 74 20                 mov     a, #' '
+07DB: 12 00 74              lcall   newline
+07DE: D8 FB                 djnz    r0, welcm2
+07E0: 78 0F                 mov     r0, #15
+07E2: 74 20                 mov     a, #' '
                    welcm4:
-07DF: 12 00 6A              lcall   cout
-07E2: D8 FB                 djnz    r0, welcm4
-07E4: 90 0B D3              mov     dptr, #logon1
-07E7: 12 09 73              lcall   pcstr
-07EA: 90 0B EC              mov     dptr, #logon2
-07ED: 12 09 73              lcall   pcstr
-07F0: 12 04 A3              lcall   dir
-07F3: 7E 00                 mov     r6, #(pgm & 255)
-07F5: 7F 20                 mov     r7, #(pgm >> 8)
-07F7: 02 01 BD              ljmp    menu
+07E4: 12 00 6A              lcall   cout
+07E7: D8 FB                 djnz    r0, welcm4
+07E9: 90 0B D3              mov     dptr, #logon1
+07EC: 12 09 73              lcall   pcstr
+07EF: 90 0B EC              mov     dptr, #logon2
+07F2: 12 09 73              lcall   pcstr
+07F5: 12 04 A3              lcall   dir
+07F8: 7E 00                 mov     r6, #(pgm & 255)
+07FA: 7F 20                 mov     r7, #(pgm >> 8)
+07FC: 02 01 BD              ljmp    menu
                    
                    stcode:
-07FA: 90 10 00              mov     dptr, #bmem      ; search for startup routi
+07FF: 90 10 00              mov     dptr, #bmem      ; search for startup routi
                    stcode2:
-07FD: 12 07 78              lcall   find
-0800: 50 23                 jnc     stcode5
-0802: 75 82 04              mov     dpl, #4
-0805: E0                    movx    a, @dptr
-0806: B5 F0 15              cjne    a, b, stcode4   ; only startup code if matc
-0809: C0 F0                 push    b
-080B: C0 83                 push    dph
-080D: 74 1A                 mov     a, #(stcode3 & 255)
-080F: C0 E0                 push    acc
-0811: 74 08                 mov     a, #(stcode3 >> 8)
-0813: C0 E0                 push    acc
-0815: 75 82 40              mov     dpl, #64
-0818: E4                    clr     a
-0819: 73                    jmp     @a+dptr                 ; jump to the start
+0802: 12 07 78              lcall   find
+0805: 50 23                 jnc     stcode5
+0807: 75 82 04              mov     dpl, #4
+080A: E0                    movx    a, @dptr
+080B: B5 F0 15              cjne    a, b, stcode4   ; only startup code if matc
+080E: C0 F0                 push    b
+0810: C0 83                 push    dph
+0812: 74 1F                 mov     a, #(stcode3 & 255)
+0814: C0 E0                 push    acc
+0816: 74 08                 mov     a, #(stcode3 >> 8)
+0818: C0 E0                 push    acc
+081A: 75 82 40              mov     dpl, #64
+081D: E4                    clr     a
+081E: 73                    jmp     @a+dptr                 ; jump to the start
                    stcode3:
-081A: D0 83                 pop     dph             ; hopefully it'll return to
-081C: D0 F0                 pop     b
+081F: D0 83                 pop     dph             ; hopefully it'll return to
+0821: D0 F0                 pop     b
                    stcode4:
-081E: 05 83                 inc     dph
-0820: E5 83                 mov     a, dph
-0822: B4 00 D8              cjne    a, #((emem + 1) >> 8) & 255, stcode2
+0823: 05 83                 inc     dph
+0825: E5 83                 mov     a, dph
+0827: B4 00 D8              cjne    a, #((emem + 1) >> 8) & 255, stcode2
                    stcode5:
-0825: 22                    ret                     ; now we've executed all of
+082A: 22                    ret                     ; now we've executed all of
                    
                    ;---------------------------------------------------------;
                    
-                   setbaud_reset:
-0826: 74 FF                 mov     a, #baud_const
-0828: 75 F0 21              mov     b, #tmod_cfg_OSC
                    setbaud:
 082B: F5 8D                 mov     th1, a
 082D: F5 8B                 mov     tl1, a

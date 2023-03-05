@@ -1686,7 +1686,9 @@ end_cp_shadow:
 	lcall	stcode
 
 ; initialize the serial port
-	lcall	setbaud_reset
+	mov	a, #baud_const
+	mov	b, #tmod_cfg_OSC
+	lcall	setbaud
 
 ; run the start-up programs in external memory
 	mov	b, #253
@@ -1741,9 +1743,6 @@ stcode5:
 
 ;---------------------------------------------------------;
 
-setbaud_reset:
-	mov	a, #baud_const
-	mov	b, #tmod_cfg_OSC
 setbaud:
 	mov	th1, a
 	mov	tl1, a
