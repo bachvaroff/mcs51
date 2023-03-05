@@ -110,7 +110,7 @@
 0000:              .equ     intm_key, 'I'           ; hex dump internal memory
 0000:              .equ     edit_key, 'E'           ; edit memory
 0000:              .equ     clrm_key, 'C'           ; clear memory
-0000:              .equ     crc16_key, 'V'          ; calculate crc16
+0000:              .equ     crc16_key, 'W'          ; calculate crc16
 0000:              .equ     eio77_key, '<'
 0000:              .equ     dio77_key, '>'
                    
@@ -706,7 +706,7 @@
 0292: 02 07 E6              ljmp    dio77
                             
                    menui14:
-0295: B4 56 08              cjne    a, #crc16_key, menuiend
+0295: B4 57 08              cjne    a, #crc16_key, menuiend
 0298: 90 0E 22              mov     dptr, #crc16_cmd
 029B: 11 45                 acall   pcstr_h
 029D: 02 07 61              ljmp    calc_crc16
@@ -1375,7 +1375,7 @@
 060D: 90 0E 1E              mov     dptr, #clrm_cmd
 0610: D1 54                 acall   help2
                             
-0612: 7C 56                 mov     r4, #crc16_key
+0612: 7C 57                 mov     r4, #crc16_key
 0614: 90 0E 22              mov     dptr, #crc16_cmd
 0617: D1 54                 acall   help2
                             

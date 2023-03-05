@@ -110,7 +110,7 @@
 .equ	intm_key, 'I'		; hex dump internal memory
 .equ	edit_key, 'E'		; edit memory
 .equ	clrm_key, 'C'		; clear memory
-.equ	crc16_key, 'V'		; calculate crc16
+.equ	crc16_key, 'W'		; calculate crc16
 .equ	eio77_key, '<'
 .equ	dio77_key, '>'
 
