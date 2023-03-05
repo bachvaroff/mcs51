@@ -110,6 +110,7 @@
 .equ	intm_key, 'I'		; hex dump internal memory
 .equ	edit_key, 'E'		; edit memory
 .equ	clrm_key, 'C'		; clear memory
+.equ	crc16_key, 'V'		; calculate crc16
 .equ	eio77_key, '<'
 .equ	dio77_key, '>'
 
@@ -631,66 +632,85 @@ menui1:
 	mov	dptr, #help_cmd2
 	acall	pcstr_h
 	ajmp	help
+	
 menui2:
 	cjne	a, #dir_key, menui3
 	mov	dptr, #dir_cmd
 	acall	pcstr_h
 	ajmp	dir
+	
 menui3:
 	cjne	a, #run_key, menui4
 	mov	dptr, #run_cmd
 	acall	pcstr_h
 	ajmp	run
+	
 menui4:
 	cjne	a, #dnld_key, menui5
 	mov	dptr, #dnld_cmd
 	acall	pcstr_h
 	ajmp	dnld
+	
 menui5:
 	cjne	a, #upld_key, menui6
 	mov	dptr, #upld_cmd
 	acall	pcstr_h
 	ajmp	upld
+	
 menui6:
 	cjne	a, #nloc_key, menui7
 	mov	dptr, #nloc_cmd
 	acall	pcstr_h
 	ajmp	nloc
+	
 menui7:
 	cjne	a, #jump_key, menui8
 	mov	dptr, #jump_cmd
 	acall	pcstr_h
 	ajmp	jump
+	
 menui8:
 	cjne	a, #dump_key, menui9
 	mov	dptr, #dump_cmd
 	acall	pcstr_h
 	ajmp	dump
+	
 menui9:
 	cjne	a, #edit_key, menui10
 	mov	dptr, #edit_cmd
 	acall	pcstr_h
 	ajmp	edit
+	
 menui10:
 	cjne	a, #clrm_key, menui11
 	mov	dptr, #clrm_cmd
 	acall	pcstr_h
 	ajmp	clrm
+	
 menui11:
 	cjne	a, #intm_key, menui12
 	mov	dptr, #intm_cmd
 	acall	pcstr_h
 	ljmp	intm
+	
 menui12:
 	cjne	a, #eio77_key, menui13
 	mov	dptr, #eio77_cmd
 	acall	pcstr_h
 	ljmp	eio77
+	
 menui13:
-	cjne	a, #dio77_key, menuiend
+	cjne	a, #dio77_key, menui14
 	mov	dptr, #dio77_cmd
 	acall	pcstr_h
 	ljmp	dio77
+	
+menui14:
+	cjne	a, #crc16_key, menuiend
+	mov	dptr, #crc16_cmd
+	acall	pcstr_h
+	ljmp	calc_crc16
+	
 menuiend:
 	ajmp	newline
 
@@ -1310,45 +1330,63 @@ run8:
 help:
 	mov	dptr, #help1txt
 	acall	pcstr_h
+	
 	mov	r4, #help_key
 	mov	dptr, #help_cmd
 	acall	help2
+	
 	mov	r4, #dir_key
 	mov	dptr, #dir_cmd
 	acall	help2
+	
 	mov	r4, #run_key
 	mov	dptr, #run_cmd
 	acall	help2
+	
 	mov	r4, #dnld_key
 	mov	dptr, #dnld_cmd
 	acall	help2
+	
 	mov	r4, #upld_key
 	mov	dptr, #upld_cmd
 	acall	help2
+	
 	mov	r4, #nloc_key
 	mov	dptr, #nloc_cmd
 	acall	help2
+	
 	mov	r4, #jump_key
 	mov	dptr, #jump_cmd
 	acall	help2
+	
 	mov	r4, #dump_key
 	mov	dptr, #dump_cmd
 	acall	help2
+	
 	mov	r4, #intm_key
 	mov	dptr, #intm_cmd
 	acall	help2
+	
 	mov	r4, #edit_key
 	mov	dptr, #edit_cmd
 	acall	help2
+	
 	mov	r4, #clrm_key
 	mov	dptr, #clrm_cmd
 	acall	help2
+	
+	mov	r4, #crc16_key
+	mov	dptr, #crc16_cmd
+	acall	help2
+	
 	mov	r4, #eio77_key
 	mov	dptr, #eio77_cmd
 	acall	help2
+	
 	mov	r4, #dio77_key
 	mov	dptr, #dio77_cmd
 	acall	help2
+	
 	mov	dptr, #help2txt
 	acall	pcstr_h
 	mov	dptr, #bmem
@@ -1536,6 +1574,17 @@ abort2:
 
 ;---------------------------------------------------------;
 
+nloc:
+	mov	dptr, #prompt6
+	acall	pcstr_h
+	acall	ghex16
+	jc	abort2
+	jb	psw.5, abort2
+	acall	dptrtor6r7
+	ajmp	newline2
+
+;---------------------------------------------------------;
+
 clrm:
 	acall	get_mem
 	mov	dptr, #sure
@@ -1562,15 +1611,103 @@ clrm4:
 
 ;---------------------------------------------------------;
 
-nloc:
-	mov	dptr, #prompt6
+calc_crc16:
+	acall	get_mem
+	acall	newline
+	
+	mov	dph, r3
+	mov	dpl, r2
+	acall	init_crc16
+	
+calc_loop:
+	movx	a, @dptr
+	acall	update_crc16
+	
+	mov	a, r5
+	cjne	a, dph, calc_skip
+	mov	a, r4
+	cjne	a, dpl, calc_skip
+	
+	acall	finish_crc16
+	
+	mov	dptr, #crc16_res
 	acall	pcstr_h
-	acall	ghex16
-	jc	abort2
-	jb	psw.5, abort2
-	acall	dptrtor6r7
+	mov	dpl, r2
+	mov	dph, r3
+	lcall	phex16
 	ajmp	newline2
+	
+calc_skip:
+	inc	dptr
+	sjmp	calc_loop
 
+.equ	initial_l, 0xff
+.equ	initial_h, 0xff
+	
+init_crc16:
+	mov	r2, #initial_l
+	mov	r3, #initial_h
+	ret
+	
+.equ	final_l, 0x00
+.equ	final_h, 0x00
+	
+finish_crc16:
+	mov	a, r2
+	xrl	a, #final_l
+	mov	r2, a
+	mov	a, r3
+	xrl	a, #final_h
+	mov	r3, a
+	ret
+	
+.equ	poly_l, 0x21
+.equ	poly_h, 0x10
+	
+update_crc16:
+	mov	b, a
+	mov	a, #0x80
+	
+loop:
+	mov	r0, a
+	mov	a, b
+	
+	anl	a, r0
+	jz	skip0
+	mov	a, #1
+skip0:
+	mov	r1, a
+	mov	a, r3
+	rl	a
+	anl	a, #1
+	xrl	a, r1
+	mov	r1, a
+	
+	mov     a, r2
+	add     a, r2
+	mov     r2, a
+	mov     a, r3
+	rlc     a
+	mov     r3, a
+	
+	mov	a, r1
+	jz	skip1
+	
+	mov	a, r2
+	xrl	a, #poly_l
+	mov	r2, a
+	mov	a, r3
+	xrl	a, #poly_h
+	mov	r3, a
+	
+skip1:
+	mov	a, r0
+	clr	c
+	rrc	a
+	jnz	loop
+		
+	ret
+	
 ;---------------------------------------------------------;
 
 intm:
@@ -2376,6 +2513,12 @@ edit_cmd:
 clrm_cmd:
 	.db	31, 237, 131, 0
 
+crc16_cmd:
+	.db	"Calculate CRC16", 0
+	
+crc16_res:
+	.db	"CRC16 = ", 0
+	
 eio77_cmd:
 	.db	"Enable nCSIO77", 0
 

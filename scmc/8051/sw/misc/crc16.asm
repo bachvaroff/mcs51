@@ -24,56 +24,56 @@ next_byte:
 	
 	acall	finish_crc16
 	
-	mov	dpl, r6
-	mov	dph, r7
+	mov	dpl, r2
+	mov	dph, r3
 	lcall	phex16
 	lcall	nl
 	lcall	cin
 	ljmp	0x0000
 
 init_crc16:
-	mov	r6, #initial_l
-	mov	r7, #initial_h
+	mov	r2, #initial_l
+	mov	r3, #initial_h
 	ret
 	
 update_crc16:
-	mov	r0, a
+	mov	b, a
 	mov	a, #0x80
 	
 loop:
-	mov	r1, a
-	mov	a, r0
+	mov	r0, a
+	mov	a, b
 	
-	anl	a, r1
+	anl	a, r0
 	jz	skip0
 	mov	a, #1
 skip0:
-	mov	r2, a
-	mov	a, r7
+	mov	r1, a
+	mov	a, r3
 	rl	a
 	anl	a, #1
-	xrl	a, r2
-	mov	r2, a
+	xrl	a, r1
+	mov	r1, a
 	
-	mov     a, r6
-	add     a, r6
-	mov     r6, a
-	mov     a, r7
+	mov     a, r2
+	add     a, r2
+	mov     r2, a
+	mov     a, r3
 	rlc     a
-	mov     r7, a
+	mov     r3, a
 	
-	mov	a, r2
+	mov	a, r1
 	jz	skip1
 	
-	mov	a, r6
+	mov	a, r2
 	xrl	a, #poly_l
-	mov	r6, a
-	mov	a, r7
+	mov	r2, a
+	mov	a, r3
 	xrl	a, #poly_h
-	mov	r7, a
+	mov	r3, a
 	
 skip1:
-	mov	a, r1
+	mov	a, r0
 	clr	c
 	rrc	a
 	jnz	loop
@@ -81,11 +81,11 @@ skip1:
 	ret
 	
 finish_crc16:
-	mov	a, r6
+	mov	a, r2
 	xrl	a, #final_l
-	mov	r6, a
-	mov	a, r7
+	mov	r2, a
+	mov	a, r3
 	xrl	a, #final_h
-	mov	r7, a
+	mov	r3, a
 	ret
 	
