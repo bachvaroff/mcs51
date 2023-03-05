@@ -1649,15 +1649,15 @@
 078B: 7B FF                 mov     r3, #initial_h
 078D: 22                    ret
                             
-078E:              .equ     final_l, 0xff
-078E:              .equ     final_h, 0xff
+078E:              .equ     final_l, 0x00
+078E:              .equ     final_h, 0x00
                             
                    finish_crc16:
 078E: EA                    mov     a, r2
-078F: 64 FF                 xrl     a, #final_l
+078F: 64 00                 xrl     a, #final_l
 0791: FA                    mov     r2, a
 0792: EB                    mov     a, r3
-0793: 64 FF                 xrl     a, #final_h
+0793: 64 00                 xrl     a, #final_h
 0795: FB                    mov     r3, a
 0796: 22                    ret
                             
