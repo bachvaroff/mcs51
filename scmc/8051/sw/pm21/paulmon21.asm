@@ -73,11 +73,23 @@
 ; baud_const = 256 - (OSC / 12) / (16 * baud)
 ; baud_const = 256 - T1 / (16 * baud)
 
-.equ	baud_const, 255		; 57600 baud with 11.0592MHz
-;.equ	baud_const, 253		; 19200 baud with 11.0592MHz
-;.equ	baud_const, 250		; 9600 baud with 11.0592MHz
-;.equ	baud_const, 254		; 38400 baud with 14.7456MHz
-;.equ	baud_const, 252		; 19200 baud with 14.7456MHz
+.equ	tmod_cfg, 00100001b	; T1 mode 2, system oscilltor (OSC)
+.equ	baud_const, 255		; 57600 baud with OSC 11.0592MHz
+;.equ	baud_const, 253		; 19200 baud with OSC 11.0592MHz
+;.equ	baud_const, 250		; 9600 baud with OSC 11.0592MHz
+;.equ	baud_const, 254		; 38400 baud with OSC 14.7456MHz
+;.equ	baud_const, 252		; 19200 baud with OSC 14.7456MHz
+
+;.equ	tmod_cfg, 01100001b	; T1 mode 2, external oscilltor (T1)
+;.equ	baud_const, 255		; 115200 baud with T1 1.8432MHz
+;.equ	baud_const, 254		; 57600 baud with T1 1.8432MHz
+;.equ	baud_const, 253		; 38400 baud with T1 1.8432MHz
+;.equ	baud_const, 250		; 19200 baud with T1 1.8432MHz
+;.equ	baud_const, 244		; 9600 baud with T1 1.8432MHz
+;.equ	baud_const, 232		; 4800 baud with T1 1.8432MHz
+;.equ	baud_const, 208		; 2400 baud with T1 1.8432MHz
+;.equ	baud_const, 160		; 1200 baud with T1 1.8432MHz
+;.equ	baud_const, 64		; 600 baud with T1 1.8432MHz
 
 .equ	line_delay, 6		; num of char times to pause during uploads
 
@@ -1734,10 +1746,10 @@ setbaud_reset:
 setbaud:
 	mov	th1, a
 	mov	tl1, a
-	mov	tmod, #00100001b	; set timer #1 for 8 bit auto-reload
-	mov	pcon, #10000000b	; configure built-in uart
+	mov	tmod, #tmod_cfg
+	mov	pcon, #10000000b
 	mov	scon, #01010010b
-	setb	tr1		; start the baud rate timer
+	setb	tr1
 	ret
 
 ;---------------------------------------------------------;

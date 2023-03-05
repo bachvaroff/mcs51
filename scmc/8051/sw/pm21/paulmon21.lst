@@ -73,11 +73,23 @@
                    ; baud_const = 256 - (OSC / 12) / (16 * baud)
                    ; baud_const = 256 - T1 / (16 * baud)
                    
-0000:              .equ     baud_const, 255                 ; 57600 baud with 1
-                   ;.equ    baud_const, 253                 ; 19200 baud with 1
-                   ;.equ    baud_const, 250                 ; 9600 baud with 11
-                   ;.equ    baud_const, 254                 ; 38400 baud with 1
-                   ;.equ    baud_const, 252                 ; 19200 baud with 1
+0000:              .equ     tmod_cfg, 00100001b     ; T1 mode 2, system oscillt
+0000:              .equ     baud_const, 255                 ; 57600 baud with O
+                   ;.equ    baud_const, 253                 ; 19200 baud with O
+                   ;.equ    baud_const, 250                 ; 9600 baud with OS
+                   ;.equ    baud_const, 254                 ; 38400 baud with O
+                   ;.equ    baud_const, 252                 ; 19200 baud with O
+                   
+                   ;.equ    tmod_cfg, 01100001b     ; T1 mode 2, external oscil
+                   ;.equ    baud_const, 255                 ; 115200 baud with 
+                   ;.equ    baud_const, 254                 ; 57600 baud with T
+                   ;.equ    baud_const, 253                 ; 38400 baud with T
+                   ;.equ    baud_const, 250                 ; 19200 baud with T
+                   ;.equ    baud_const, 244                 ; 9600 baud with T1
+                   ;.equ    baud_const, 232                 ; 4800 baud with T1
+                   ;.equ    baud_const, 208                 ; 2400 baud with T1
+                   ;.equ    baud_const, 160                 ; 1200 baud with T1
+                   ;.equ    baud_const, 64          ; 600 baud with T1 1.8432MH
                    
 0000:              .equ     line_delay, 6           ; num of char times to paus
                    
@@ -1734,10 +1746,10 @@
                    setbaud:
 0828: F5 8D                 mov     th1, a
 082A: F5 8B                 mov     tl1, a
-082C: 75 89 21              mov     tmod, #00100001b        ; set timer #1 for 
-082F: 75 87 80              mov     pcon, #10000000b        ; configure built-i
+082C: 75 89 21              mov     tmod, #tmod_cfg
+082F: 75 87 80              mov     pcon, #10000000b
 0832: 75 98 52              mov     scon, #01010010b
-0835: D2 8E                 setb    tr1             ; start the baud rate timer
+0835: D2 8E                 setb    tr1
 0837: 22                    ret
                    
                    ;---------------------------------------------------------;
