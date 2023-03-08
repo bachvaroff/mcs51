@@ -1633,10 +1633,10 @@
 0776: 7F FF                 mov     r7, #initial_h
 0778: F1 AA                 acall   init_crc16
                             
-077A: AE 21                 mov     r6, poly_l
-077C: AF 10                 mov     r7, poly_h
-077E: 8B 83                 mov     dph, r3
-0780: 8A 82                 mov     dpl, r2
+077A: 8B 83                 mov     dph, r3
+077C: 8A 82                 mov     dpl, r2
+077E: 7E 21                 mov     r6, #poly_l
+0780: 7F 10                 mov     r7, #poly_h
                    calc_loop:
 0782: E0                    movx    a, @dptr
 0783: F1 B6                 acall   update_crc16

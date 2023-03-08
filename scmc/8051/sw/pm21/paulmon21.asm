@@ -1633,10 +1633,10 @@ calc_crc16:
 	mov	r7, #initial_h
 	acall	init_crc16
 	
-	mov	r6, poly_l
-	mov	r7, poly_h
 	mov	dph, r3
 	mov	dpl, r2
+	mov	r6, #poly_l
+	mov	r7, #poly_h
 calc_loop:
 	movx	a, @dptr
 	acall	update_crc16
