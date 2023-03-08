@@ -230,6 +230,9 @@ pcstr_h:
 cin_filter_h:
 	ljmp	cin_filter	; 0x59
 	ajmp	asc2hex		; 0x5C
+	ljmp	init_crc16	; 0x5E
+	ljmp	update_crc16	; 0x61
+	ljmp	finish_crc16	; 0x64
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -1611,14 +1614,29 @@ clrm4:
 
 ;---------------------------------------------------------;
 
+.equ	initial_l, 0xff
+.equ	initial_h, 0xff
+.equ	final_l, 0x00
+.equ	final_h, 0x00
+.equ	poly_l, 0x21
+.equ	poly_h, 0x10
+
 calc_crc16:
 	acall	get_mem
 	acall	newline
 	
-	mov	dph, r3
-	mov	dpl, r2
+	acall	r6r7todptr
+	push	dpl
+	push	dph
+	
+	mov	r6, #initial_l
+	mov	r7, #initial_h
 	acall	init_crc16
 	
+	mov	r6, poly_l
+	mov	r7, poly_h
+	mov	dph, r3
+	mov	dpl, r2
 calc_loop:
 	movx	a, @dptr
 	acall	update_crc16
@@ -1628,6 +1646,8 @@ calc_loop:
 	mov	a, r4
 	cjne	a, dpl, calc_skip
 	
+	mov	r6, #final_l
+	mov	r7, #final_h
 	acall	finish_crc16
 	
 	mov	dptr, #crc16_res
@@ -1635,34 +1655,32 @@ calc_loop:
 	mov	dpl, r2
 	mov	dph, r3
 	lcall	phex16
+	
+	pop	dph
+	pop	dpl
+	acall	dptrtor6r7
+	
 	ajmp	newline2
 	
 calc_skip:
 	inc	dptr
 	sjmp	calc_loop
-
-.equ	initial_l, 0xff
-.equ	initial_h, 0xff
 	
 init_crc16:
-	mov	r2, #initial_l
-	mov	r3, #initial_h
-	ret
-	
-.equ	final_l, 0x00
-.equ	final_h, 0x00
-	
-finish_crc16:
-	mov	a, r2
-	xrl	a, #final_l
+	mov	a, r6
 	mov	r2, a
-	mov	a, r3
-	xrl	a, #final_h
+	mov	a, r7
 	mov	r3, a
 	ret
-	
-.equ	poly_l, 0x21
-.equ	poly_h, 0x10
+		
+finish_crc16:
+	mov	a, r2
+	xrl	a, r6
+	mov	r2, a
+	mov	a, r3
+	xrl	a, r7
+	mov	r3, a
+	ret
 	
 update_crc16:
 	mov	b, a
@@ -1694,10 +1712,10 @@ skip0:
 	jz	skip1
 	
 	mov	a, r2
-	xrl	a, #poly_l
+	xrl	a, r6
 	mov	r2, a
 	mov	a, r3
-	xrl	a, #poly_h
+	xrl	a, r7
 	mov	r3, a
 	
 skip1:
@@ -1737,13 +1755,13 @@ intm4:
 
 eio77:
 	clr	p1.7
-	ajmp	newline
+	ljmp	newline
 	
 ;---------------------------------------------------------;
 
 dio77:
 	setb	p1.7
-	ajmp	newline
+	ljmp	newline
 
 ;---------------------------------------------------------;
 
