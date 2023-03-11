@@ -72,7 +72,7 @@
 ; To set the baud rate, use this formula
 ; baud_const = 256 - (OSC / 12) / (16 * baud)
 
-.equ	tmod_cfg, 00100001b	; T1 mode 2, system oscillator (OSC)
+.equ	tmod_cfg, 00100001b	; T1 mode 2, timer
 .equ	baud_const, 255		; 57600 baud with OSC 11.0592MHz
 ;.equ	baud_const, 253		; 19200 baud with OSC 11.0592MHz
 ;.equ	baud_const, 250		; 9600 baud with OSC 11.0592MHz
