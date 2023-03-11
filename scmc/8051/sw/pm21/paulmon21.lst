@@ -1623,13 +1623,13 @@
 076E: 11 06                 acall   r6r7todptr
 0770: C0 82                 push    dpl
 0772: C0 83                 push    dph
+0774: 8A 82                 mov     dpl, r2
+0776: 8B 83                 mov     dph, r3
                                     
-0774: 7E FF                 mov     r6, #initial_l
-0776: 7F FF                 mov     r7, #initial_h
-0778: F1 A5                 acall   init_crc16
+0778: 7E FF                 mov     r6, #initial_l
+077A: 7F FF                 mov     r7, #initial_h
+077C: F1 A5                 acall   init_crc16
                             
-077A: 8B 83                 mov     dph, r3
-077C: 8A 82                 mov     dpl, r2
 077E: 7E 21                 mov     r6, #poly_l
 0780: 7F 10                 mov     r7, #poly_h
                    calc_loop:

@@ -1623,13 +1623,13 @@ calc_crc16:
 	acall	r6r7todptr
 	push	dpl
 	push	dph
+	mov	dpl, r2
+	mov	dph, r3
 		
 	mov	r6, #initial_l
 	mov	r7, #initial_h
 	acall	init_crc16
 	
-	mov	dph, r3
-	mov	dpl, r2
 	mov	r6, #poly_l
 	mov	r7, #poly_h
 calc_loop:
