@@ -1623,10 +1623,7 @@ calc_crc16:
 	acall	r6r7todptr
 	push	dpl
 	push	dph
-	
-	mov	dptr, #crc16_res
-	acall	pcstr_h
-	
+		
 	mov	r6, #initial_l
 	mov	r7, #initial_h
 	acall	init_crc16
@@ -2527,9 +2524,6 @@ clrm_cmd:
 
 crc16_cmd:
 	.db	"Calculate CRC16", 0
-	
-crc16_res:
-	.db	"CRC16 = ", 0
 	
 eio77_cmd:
 	.db	"Enable nCSIO77", 0
