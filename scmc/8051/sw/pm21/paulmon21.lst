@@ -73,17 +73,17 @@
                    ; baud_const = 65536 - (OSC / 32) / baud
                    
                    ; 0xfffa @ 57600bps
-0000:              .equ     bch, 0xff
-0000:              .equ     bcl, 0xfa
+0000:              .equ     bc_h, 0xff
+0000:              .equ     bc_l, 0xfa
                    ; 0xfffa @ 38400bps
-                   ;.equ    bch, 0xff
-                   ;.equ    bcl, 0xf7
+                   ;.equ    bc_h, 0xff
+                   ;.equ    bc_l, 0xf7
                    ; 0xffee @ 19200bps
-                   ;.equ    bch, 0xff
-                   ;.equ    bcl, 0xee
+                   ;.equ    bc_h, 0xff
+                   ;.equ    bc_l, 0xee
                    ; 0xffdc @ 9600bps
-                   ;.equ    bch, 0xff
-                   ;.equ    bcl, 0xdc
+                   ;.equ    bc_h, 0xff
+                   ;.equ    bc_l, 0xdc
                    
 0000:              .equ     line_delay, 6           ; num of char times to paus
                    
@@ -1835,8 +1835,8 @@
 085A: 12 08 91              lcall   stcode
                    
                    ; initialize the serial port
-085D: 74 FA                 mov     a, #bcl
-085F: 75 F0 FF              mov     b, #bch
+085D: 74 FA                 mov     a, #bc_l
+085F: 75 F0 FF              mov     b, #bc_h
 0862: 12 08 BD              lcall   setbaud
                    
                    ; run the start-up programs in external memory

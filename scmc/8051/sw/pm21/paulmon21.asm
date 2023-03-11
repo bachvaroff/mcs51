@@ -73,17 +73,17 @@
 ; baud_const = 65536 - (OSC / 32) / baud
 
 ; 0xfffa @ 57600bps
-.equ	bch, 0xff
-.equ	bcl, 0xfa
+.equ	bc_h, 0xff
+.equ	bc_l, 0xfa
 ; 0xfffa @ 38400bps
-;.equ	bch, 0xff
-;.equ	bcl, 0xf7
+;.equ	bc_h, 0xff
+;.equ	bc_l, 0xf7
 ; 0xffee @ 19200bps
-;.equ	bch, 0xff
-;.equ	bcl, 0xee
+;.equ	bc_h, 0xff
+;.equ	bc_l, 0xee
 ; 0xffdc @ 9600bps
-;.equ	bch, 0xff
-;.equ	bcl, 0xdc
+;.equ	bc_h, 0xff
+;.equ	bc_l, 0xdc
 
 .equ	line_delay, 6		; num of char times to pause during uploads
 
@@ -1835,8 +1835,8 @@ end_cp_shadow:
 	lcall	stcode
 
 ; initialize the serial port
-	mov	a, #bcl
-	mov	b, #bch
+	mov	a, #bc_l
+	mov	b, #bc_h
 	lcall	setbaud
 
 ; run the start-up programs in external memory
