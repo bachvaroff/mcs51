@@ -1624,6 +1624,9 @@ calc_crc16:
 	push	dpl
 	push	dph
 	
+	mov	dptr, #crc16_res
+	acall	pcstr_h
+	
 	mov	r6, #initial_l
 	mov	r7, #initial_h
 	acall	init_crc16
@@ -1645,8 +1648,6 @@ calc_loop:
 	mov	r7, #final_h
 	acall	finish_crc16
 	
-	mov	dptr, #crc16_res
-	acall	pcstr_h
 	mov	dpl, r2
 	mov	dph, r3
 	lcall	phex16

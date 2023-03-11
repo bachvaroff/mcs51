@@ -1624,29 +1624,30 @@
 0770: C0 82                 push    dpl
 0772: C0 83                 push    dph
                             
-0774: 7E FF                 mov     r6, #initial_l
-0776: 7F FF                 mov     r7, #initial_h
-0778: F1 AA                 acall   init_crc16
+0774: 90 0E 50              mov     dptr, #crc16_res
+0777: 11 45                 acall   pcstr_h
                             
-077A: 8B 83                 mov     dph, r3
-077C: 8A 82                 mov     dpl, r2
-077E: 7E 21                 mov     r6, #poly_l
-0780: 7F 10                 mov     r7, #poly_h
+0779: 7E FF                 mov     r6, #initial_l
+077B: 7F FF                 mov     r7, #initial_h
+077D: F1 AA                 acall   init_crc16
+                            
+077F: 8B 83                 mov     dph, r3
+0781: 8A 82                 mov     dpl, r2
+0783: 7E 21                 mov     r6, #poly_l
+0785: 7F 10                 mov     r7, #poly_h
                    calc_loop:
-0782: E0                    movx    a, @dptr
-0783: F1 B6                 acall   update_crc16
+0787: E0                    movx    a, @dptr
+0788: F1 B6                 acall   update_crc16
                             
-0785: ED                    mov     a, r5
-0786: B5 83 1E              cjne    a, dph, calc_skip
-0789: EC                    mov     a, r4
-078A: B5 82 1A              cjne    a, dpl, calc_skip
+078A: ED                    mov     a, r5
+078B: B5 83 19              cjne    a, dph, calc_skip
+078E: EC                    mov     a, r4
+078F: B5 82 15              cjne    a, dpl, calc_skip
                             
-078D: 7E 00                 mov     r6, #final_l
-078F: 7F 00                 mov     r7, #final_h
-0791: F1 AF                 acall   finish_crc16
+0792: 7E 00                 mov     r6, #final_l
+0794: 7F 00                 mov     r7, #final_h
+0796: F1 AF                 acall   finish_crc16
                             
-0793: 90 0E 50              mov     dptr, #crc16_res
-0796: 11 45                 acall   pcstr_h
 0798: 8A 82                 mov     dpl, r2
 079A: 8B 83                 mov     dph, r3
 079C: 12 01 76              lcall   phex16
@@ -1659,7 +1660,7 @@
                             
                    calc_skip:
 07A7: A3                    inc     dptr
-07A8: 80 D8                 sjmp    calc_loop
+07A8: 80 DD                 sjmp    calc_loop
                             
                    init_crc16:
 07AA: EE                    mov     a, r6
