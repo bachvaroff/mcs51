@@ -1891,6 +1891,8 @@ stcode5:
 ;---------------------------------------------------------;
 
 setbaud:
+	mov	tl2, a
+	mov	th2, b
 	mov	rcap2l, a
 	mov	rcap2h, b
 	mov	t2con, #00110000b
