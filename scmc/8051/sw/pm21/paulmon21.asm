@@ -71,25 +71,13 @@
 
 ; To set the baud rate, use this formula
 ; baud_const = 256 - (OSC / 12) / (16 * baud)
-; baud_const = 256 - T1 / (16 * baud)
 
-.equ	tmod_cfg_OSC, 00100001b	; T1 mode 2, system oscillator (OSC)
+.equ	tmod_cfg, 00100001b	; T1 mode 2, system oscillator (OSC)
 .equ	baud_const, 255		; 57600 baud with OSC 11.0592MHz
 ;.equ	baud_const, 253		; 19200 baud with OSC 11.0592MHz
 ;.equ	baud_const, 250		; 9600 baud with OSC 11.0592MHz
 ;.equ	baud_const, 254		; 38400 baud with OSC 14.7456MHz
 ;.equ	baud_const, 252		; 19200 baud with OSC 14.7456MHz
-
-.equ	tmod_cfg_T1, 01100001b	; T1 mode 2, external oscillator (T1)
-;.equ	baud_const, 255		; 115200 baud with T1 1.8432MHz
-;.equ	baud_const, 254		; 57600 baud with T1 1.8432MHz
-;.equ	baud_const, 253		; 38400 baud with T1 1.8432MHz
-;.equ	baud_const, 250		; 19200 baud with T1 1.8432MHz
-;.equ	baud_const, 244		; 9600 baud with T1 1.8432MHz
-;.equ	baud_const, 232		; 4800 baud with T1 1.8432MHz
-;.equ	baud_const, 208		; 2400 baud with T1 1.8432MHz
-;.equ	baud_const, 160		; 1200 baud with T1 1.8432MHz
-;.equ	baud_const, 64		; 600 baud with T1 1.8432MHz
 
 .equ	line_delay, 6		; num of char times to pause during uploads
 
@@ -1842,7 +1830,6 @@ end_cp_shadow:
 
 ; initialize the serial port
 	mov	a, #baud_const
-	mov	b, #tmod_cfg_OSC
 	lcall	setbaud
 
 ; run the start-up programs in external memory
@@ -1901,7 +1888,7 @@ stcode5:
 setbaud:
 	mov	th1, a
 	mov	tl1, a
-	mov	tmod, b
+	mov	tmod, #tmod_cfg
 	mov	pcon, #10000000b
 	mov	scon, #01010010b
 	setb	tr1
