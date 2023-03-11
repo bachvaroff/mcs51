@@ -70,14 +70,20 @@
 .equ	emem, 0xFFFF		; end of the memory
 
 ; To set the baud rate, use this formula
-; baud_const = 256 - (OSC / 12) / (16 * baud)
+; baud_const = 65536 - (OSC / 32) / baud
 
-.equ	tmod_cfg, 00100001b	; T1 mode 2, timer
-.equ	baud_const, 255		; 57600 baud with OSC 11.0592MHz
-;.equ	baud_const, 253		; 19200 baud with OSC 11.0592MHz
-;.equ	baud_const, 250		; 9600 baud with OSC 11.0592MHz
-;.equ	baud_const, 254		; 38400 baud with OSC 14.7456MHz
-;.equ	baud_const, 252		; 19200 baud with OSC 14.7456MHz
+; 0xfffa @ 57600bps
+.equ	bch, 0xff
+.equ	bcl, 0xfa
+; 0xfffa @ 38400bps
+;.equ	bch, 0xff
+;.equ	bcl, 0xf7
+; 0xffee @ 19200bps
+;.equ	bch, 0xff
+;.equ	bcl, 0xee
+; 0xffdc @ 9600bps
+;.equ	bch, 0xff
+;.equ	bcl, 0xdc
 
 .equ	line_delay, 6		; num of char times to pause during uploads
 
@@ -1829,7 +1835,8 @@ end_cp_shadow:
 	lcall	stcode
 
 ; initialize the serial port
-	mov	a, #baud_const
+	mov	a, #bcl
+	mov	b, #bch
 	lcall	setbaud
 
 ; run the start-up programs in external memory
@@ -1886,12 +1893,11 @@ stcode5:
 ;---------------------------------------------------------;
 
 setbaud:
-	mov	th1, a
-	mov	tl1, a
-	mov	tmod, #tmod_cfg
-	mov	pcon, #10000000b
+	mov	rcap2l, a
+	mov	rcap2h, b
+	mov	t2con, #00110000b
 	mov	scon, #01010010b
-	setb	tr1
+	setb	tr2
 	ret
 
 ;---------------------------------------------------------;
