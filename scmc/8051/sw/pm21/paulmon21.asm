@@ -120,8 +120,9 @@
 
 ; |00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|10|11|12|13|14|15|16|17|
 ; |r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  .  .  .  .  dnld  .  .  .  .  .  .  |
-;                                                                        \__ sp
+;									 \__ sp
 .equ	psw_init, 0		; value for psw (which reg bank to use)
+.equ	p2_init, 0xff		; boot time default page is at 0xff00
 .equ	dnld_parm, 0x08		; block of 16 bytes for download
 .equ	stack, 0x17		; location of the stack
 
@@ -1802,15 +1803,15 @@ find4:
 
 reset:
 	clr	a
-	mov	ie, a		; all interrupts off
+	mov	ie, a
 	mov	ip, a
 	mov	psw, #psw_init
 	mov	sp, #stack
+	mov	p2, #p2_init
 	
 ; force P1 to output
 ; internal PFETs P1.7-0 active + external pullup
-	mov	a, #mctrl_default
-	mov	p1, a
+	mov	p1, #mctrl_default
 	mov	r7, a
 	mov	r7, a
 	mov	r7, a
@@ -1829,8 +1830,7 @@ end_cp_shadow:
 
 ; force P1 to output
 ; internal PFETs P1.7-1 active + external pullup, internal NFET P1.0 active
-	mov	a, #mctrl_shadow
-	mov	p1, a
+	mov	p1, #mctrl_shadow
 	mov	r7, a
 	mov	r7, a
 	mov	r7, a
