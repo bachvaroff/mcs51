@@ -69,9 +69,7 @@
 .equ	bmem, 0x1000		; where is the beginning of memory
 .equ	emem, 0xFFFF		; end of the memory
 
-; To set the baud rate, use this formula
-; baud_const = 65536 - (OSC / 32) / baud
-
+; bc = 65536 - (OSC / 32) / baud
 ; 0xfffa @ 57600bps
 .equ	bc_h, 0xff
 .equ	bc_l, 0xfa
