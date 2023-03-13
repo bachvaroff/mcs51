@@ -2,11 +2,11 @@
 	
 	fully buffered external bus
 	128K external SRAM chip
-	256K external flash chip in place of the internal flash (0x0000-0x1fff)
+	128K external flash chip in place of the internal flash (0x0000-0x1fff)
 	
 	64K unified address space, MOVC≡MOVX, nEA = 0, 8x8K pages
 	
-	8K external flash + external RAM (0x0000-0x1fff, startup flash I, shadow ram D, P1.0 = 1)
+	8K external flash / 8K external RAM (0x0000-0x1fff, startup flash I, shadow ram D, P1.0 = 1)
 	8K unified external RAM (0x0000-0x1fff, shadow RAM I/D, P1.0 = 0)
 		page 0 0x0000-0x1fff (P1.0)
 	
@@ -18,5 +18,10 @@
 		page 5 0xa000-0xbfff (P1.5)
 		page 6 0xc000-0xdfff (P1.6)
 	
-	8K external RAM / bus IO space (0xe000-0xffff, nCSRAM = !P1.7, nCSIO77 = P1.7)
+	8K external RAM
 		page 7 0xe000-0xffff (P1.7)
+	4K external RAM high page
+		page 7l 0xe000-efff (P1.7, A12, A16)
+	4K bus IO space
+		page 7h 0xf000-0xffff (P1.7, A12, A16)
+
