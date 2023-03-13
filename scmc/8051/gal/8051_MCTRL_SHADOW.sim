@@ -26,10 +26,8 @@ PIN  14 =  DEO
     !CSROMI
 
 !DEO =>
-    !CSIO00I & !DEI
-  # !CSIO16I & !DEI
-  # !CSRAMI & !DEI
-  # !CSROMI & !DEI
+    !CSRAMO & !DEI
+  # !CSROMO & !DEI
 
 A16O.oe  =>
     1 
