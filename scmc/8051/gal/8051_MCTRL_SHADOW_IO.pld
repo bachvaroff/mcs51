@@ -1,0 +1,38 @@
+Name 8051_MCTRL_SHADOW_IO;
+Assembly 0001;
+Revision 1.0;
+PartNo U0 G22V10;
+Device G22V10;
+Company DXC;
+Designer Atanas Bachvaroff;
+Location Sofia,BG,EU;
+Date 13 Mar 2023;
+
+/*
+	inputs
+*/
+PIN 11 = A12I;
+PIN 10 = DEI;
+PIN 7 = CSIO77I;
+PIN 6 = CSIO16I;
+PIN 5 = CSIO00I;
+PIN 4 = CSRAMI;
+PIN 3 = CSROMI;
+
+/*
+	outputs
+*/
+PIN 14 = DEO;
+PIN 15 = CSRAMO;
+PIN 16 = CSROMO;
+PIN 17 = A16O;
+
+LOWER_HALF = CSIO77I # A12I;
+CSRAM = CSRAMI & CSIO00I & CSIO16I & LOWER_HALF;
+CSROM = CSROMI;
+
+A16O = !(CSIO16I & LOWER_HALF);
+CSRAMO = CSRAM;
+CSROMO = CSROM;
+DEO = DEI # (CSROM & CSRAM);
+

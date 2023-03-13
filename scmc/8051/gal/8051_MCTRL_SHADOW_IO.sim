@@ -1,0 +1,62 @@
+%SIGNAL
+PIN  11 =  A12I 
+PIN  17 =  A16O 
+PIN   5 =  CSIO00I 
+PIN   6 =  CSIO16I 
+PIN   7 =  CSIO77I 
+PIN   4 =  CSRAMI 
+PIN  15 =  CSRAMO 
+PIN   3 =  CSROMI 
+PIN  16 =  CSROMO 
+PIN  10 =  DEI 
+PIN  14 =  DEO 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+!A16O =>
+    A12I & CSIO16I
+  # CSIO16I & CSIO77I
+
+CSRAM =>
+    CSIO00I & CSIO16I & CSIO77I & CSRAMI
+  # A12I & CSIO00I & CSIO16I & CSRAMI
+
+!CSRAMO =>
+    !CSIO00I
+  # !CSIO16I
+  # !CSRAMI
+  # !A12I & !CSIO77I
+
+CSROM =>
+    CSROMI
+
+!CSROMO =>
+    !CSROMI
+
+!DEO =>
+    !CSIO00I & !DEI
+  # !CSIO16I & !DEI
+  # !CSRAMI & !DEI
+  # !CSROMI & !DEI
+  # !A12I & !CSIO77I & !DEI
+
+LOWER_HALF =>
+    CSIO77I
+  # A12I
+
+A16O.oe  =>
+    1 
+
+CSRAMO.oe  =>
+    1 
+
+CSROMO.oe  =>
+    1 
+
+DEO.oe  =>
+    1 
+
+%END
