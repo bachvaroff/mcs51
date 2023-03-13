@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Mon Mar 13 12:21:26 2023
+Created         Mon Mar 13 12:32:22 2023
 Name            8051_MCTRL_SHADOW
 Partno          U0 G22V10
 Revision        1.0
@@ -22,17 +22,25 @@ Location        Sofia,BG,EU
 !A16O =>
     CSIO16I
 
+CSRAM =>
+    CSIO00I & CSIO16I & CSRAMI
+
 !CSRAMO =>
     !CSIO00I
   # !CSIO16I
   # !CSRAMI
 
+CSROM =>
+    CSROMI
+
 !CSROMO =>
     !CSROMI
 
 !DEO =>
-    !CSRAMO & !DEI
-  # !CSROMO & !DEI
+    !CSIO00I & !DEI
+  # !CSIO16I & !DEI
+  # !CSRAMI & !DEI
+  # !CSROMI & !DEI
 
 A16O.oe  =>
     1 
@@ -58,12 +66,14 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
     A16O                        17       V        1       14      2     
     CSIO00I                     5        V        -       -       -     
     CSIO16I                     6        V        -       -       -     
+    CSRAM                       0        I        1       -       -     
     CSRAMI                      4        V        -       -       -     
     CSRAMO                      15       V        3       10      2     
+    CSROM                       0        I        1       -       -     
     CSROMI                      3        V        -       -       -     
     CSROMO                      16       V        1       12      2     
     DEI                         10       V        -       -       -     
-    DEO                         14       V        2       8       2     
+    DEO                         14       V        4       8       2     
     A16O                oe      17       D        1       1       0     
     CSRAMO              oe      15       D        1       1       0     
     CSROMO              oe      16       D        1       1       0     
@@ -218,10 +228,10 @@ Pin #15  05824 Mode  x-
  05324 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #14  05826 Mode  x- 
  05368 -------------------------------------------- 
- 05412 -----------------------------------x-x------ 
- 05456 -------------------------------x-----x------ 
- 05500 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 05544 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 05412 -----------------x-------------------x------ 
+ 05456 ---------------------x---------------x------ 
+ 05500 -------------x-----------------------x------ 
+ 05544 ---------x---------------------------x------ 
  05588 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05632 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05676 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
