@@ -117,6 +117,7 @@
 .equ	p2_init, 0xff		; boot time default page is at 0xff00
 .equ	dnld_parm, 0x08		; block of 16 bytes for download
 .equ	stack, 0x17		; location of the stack
+.equ	stack_reset, 0x07
 
 ; |P1.7|P1.6|P1.5|P1.4|P1.3|P1.2|P1.1|P1.0|
 .equ	mctrl_default,	11111111b
@@ -1060,15 +1061,14 @@ jump3:
 	acall	r6r7todptr
 
 jump_doit:
-	; jump to user code @dptr (this used by run command also)
 	clr	a
 	mov	psw, a
+	mov	sp, #stack_reset
 	mov	b, a
-	mov	r0, #7
-jditclr:
-	mov	@r0, a		; clear r7 to r1
-	djnz	r0, jditclr	; clear r0
-	mov	sp, #7		; start with sp=7, like a real reset
+	mov	r0, #0xff
+clrintram:
+	mov	@r0, a
+	djnz	r0, clrintram
 	jmp	@a+dptr
 
 ;---------------------------------------------------------;

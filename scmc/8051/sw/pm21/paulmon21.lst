@@ -117,6 +117,7 @@
 0000:              .equ     p2_init, 0xff           ; boot time default page is
 0000:              .equ     dnld_parm, 0x08                 ; block of 16 bytes
 0000:              .equ     stack, 0x17             ; location of the stack
+0000:              .equ     stack_reset, 0x07
                    
                    ; |P1.7|P1.6|P1.5|P1.4|P1.3|P1.2|P1.1|P1.0|
 0000:              .equ     mctrl_default,  11111111b
@@ -1060,15 +1061,14 @@
 0435: 11 06                 acall   r6r7todptr
                    
                    jump_doit:
-                            ; jump to user code @dptr (this used by run command
 0437: E4                    clr     a
 0438: F5 D0                 mov     psw, a
-043A: F5 F0                 mov     b, a
-043C: 78 07                 mov     r0, #7
-                   jditclr:
-043E: F6                    mov     @r0, a          ; clear r7 to r1
-043F: D8 FD                 djnz    r0, jditclr     ; clear r0
-0441: 75 81 07              mov     sp, #7          ; start with sp=7, like a r
+043A: 75 81 07              mov     sp, #stack_reset
+043D: F5 F0                 mov     b, a
+043F: 78 FF                 mov     r0, #0xff
+                   clrintram:
+0441: F6                    mov     @r0, a
+0442: D8 FD                 djnz    r0, clrintram
 0444: 73                    jmp     @a+dptr
                    
                    ;---------------------------------------------------------;
