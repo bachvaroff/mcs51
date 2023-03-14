@@ -1,0 +1,55 @@
+Name 8051_IO_TEMPLATE;
+Assembly 0001;
+Revision 1.0;
+PartNo U0 G22V10;
+Device G22V10;
+Company DXC;
+Designer Atanas Bachvaroff;
+Location Sofia,BG,EU;
+Date 14 Mar 2023;
+
+/*
+	inputs
+*/
+/*
+PIN 13 = ...
+*/
+PIN 11 = A12I;
+PIN 10 = DEI;
+/*
+PIN 9 = ...
+PIN 8 = ...
+*/
+PIN 7 = CSIO77I;
+PIN 6 = A11I;
+PIN 5 = A10I;
+PIN 4 = A9I;
+PIN 3 = A8I;
+/*
+PIN 2 = ...
+PIN 3 = ...
+*/
+
+/*
+	outputs
+*/
+PIN 14 = DEO;
+PIN 15 = CSIOO;
+/*
+PIN 16 = ...
+PIN 17 = ...
+PIN 18 = ...
+PIN 19 = ...
+PIN 20 = ...
+PIN 21 = ...
+PIN 22 = ...
+PIN 23 = ...
+*/
+
+UPPER_HALF_IO77 = CSIO77I # !A12I;
+BOARD_ID = A11I # A10I # A9I # A8I; /* 0xF000-0xF0FF */
+CSIO = BOARD_ID # UPPER_HALF_IO77;
+
+CSIOO = CSIO;
+DEO = DEI # CSIO;
+
