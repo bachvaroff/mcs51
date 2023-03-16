@@ -1860,7 +1860,7 @@
 0893: E5 83                 mov     a, dph
 0895: B4 20 F7              cjne    a, #0x20, cp_byte
                    end_cp_shadow:
-                   
+                            
                    ; force P1 to output
                    ; internal PFETs P1.7-1 active + external pullup, internal N
 0898: 75 90 FE              mov     p1, #mctrl_shadow
@@ -1869,19 +1869,19 @@
 089D: FF                    mov     r7, a
 089E: FF                    mov     r7, a
                             
-                   ; run any user initialization programs in external memory
-089F: 75 F0 F9              mov     b, #249
-08A2: 12 08 D9              lcall   stcode
-                   
                    ; initialize the serial port
-08A5: 74 FA                 mov     a, #bc_l
-08A7: 75 F0 FF              mov     b, #bc_h
-08AA: 12 09 05              lcall   setbaud
-                   
+089F: 74 FA                 mov     a, #bc_l
+08A1: 75 F0 FF              mov     b, #bc_h
+08A4: 12 09 05              lcall   setbaud
+                            
+                   ; run any user initialization programs in external memory
+08A7: 75 F0 F9              mov     b, #249
+08AA: 12 08 D9              lcall   stcode
+                                    
                    ; run the start-up programs in external memory
 08AD: 75 F0 FD              mov     b, #253
 08B0: 12 08 D9              lcall   stcode
-                   
+                            
                    ; now print out the nice welcome message
                    welcome:
 08B3: 78 18                 mov     r0, #24

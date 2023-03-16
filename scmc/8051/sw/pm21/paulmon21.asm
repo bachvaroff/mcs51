@@ -1860,7 +1860,7 @@ cp_byte:
 	mov	a, dph
 	cjne	a, #0x20, cp_byte
 end_cp_shadow:
-
+	
 ; force P1 to output
 ; internal PFETs P1.7-1 active + external pullup, internal NFET P1.0 active
 	mov	p1, #mctrl_shadow
@@ -1869,19 +1869,19 @@ end_cp_shadow:
 	mov	r7, a
 	mov	r7, a
 	
-; run any user initialization programs in external memory
-	mov	b, #249
-	lcall	stcode
-
 ; initialize the serial port
 	mov	a, #bc_l
 	mov	b, #bc_h
 	lcall	setbaud
-
+	
+; run any user initialization programs in external memory
+	mov	b, #249
+	lcall	stcode
+		
 ; run the start-up programs in external memory
 	mov	b, #253
 	lcall	stcode
-
+	
 ; now print out the nice welcome message
 welcome:
 	mov	r0, #24
