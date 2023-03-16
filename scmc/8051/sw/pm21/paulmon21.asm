@@ -103,6 +103,7 @@
 .equ	edit_key, 'E'		; edit memory
 .equ	clrm_key, 'C'		; clear memory
 .equ	crc16_key, 'W'		; calculate crc16
+.equ	baud_key, 'B'		; reset baudrate
 .equ	eio77_key, '<'
 .equ	dio77_key, '>'
 
@@ -703,11 +704,17 @@ menui13:
 	ljmp	dio77
 	
 menui14:
-	cjne	a, #crc16_key, menuiend
+	cjne	a, #crc16_key, menui15
 	mov	dptr, #crc16_cmd
 	acall	pcstr_h
 	ljmp	calc_crc16
 	
+menui15:
+	cjne	a, #baud_key, menuiend
+	mov	dptr, #baud_cmd
+	acall	pcstr_h
+	ljmp	reset_baud
+
 menuiend:
 	ajmp	newline
 
@@ -1371,6 +1378,10 @@ help:
 	mov	dptr, #clrm_cmd
 	acall	help2
 	
+	mov	r4, #baud_key
+	mov	dptr, #baud_cmd
+	acall	help2
+	
 	mov	r4, #crc16_key
 	mov	dptr, #crc16_cmd
 	acall	help2
@@ -1518,7 +1529,7 @@ line_dly:
 	push	acc
 	mov	r0, #line_delay*2
 line_d2:
-	mov	a, th0		; get baud rate const
+	mov	a, th2		; get baud rate const
 line_d3:
 	inc	a
 	nop
@@ -1604,7 +1615,39 @@ clrm3:
 clrm4:
 	inc	dptr
 	sjmp	clrm3
+;---------------------------------------------------------;
 
+reset_baud:
+	acall	newline2
+	mov	dptr, #baudprompt
+	acall	pcstr_h
+	
+	acall	ghex16
+	jc	bailout
+	jb	psw.5, bailout
+	push	dpl
+	push	dph
+	
+	mov	dptr, #sure
+	acall	pcstr_h
+	acall	cin_filter_h
+	acall	upper
+	cjne	a, #'Y', bailout_pop
+	acall	newline2
+	
+	pop	b
+	pop	acc
+	lcall	setbaud
+	ret
+	
+bailout_pop:
+	pop	acc
+	pop	acc
+bailout:
+	acall	newline
+	mov	dptr, #abort
+	ajmp	pcstr_h
+	
 ;---------------------------------------------------------;
 
 .equ	initial_l, 0xff
@@ -1720,22 +1763,22 @@ skip1:
 ;---------------------------------------------------------;
 
 intm:
-	acall	newline
+	lcall	newline
 	mov	r0, #0
 intm2:
-	acall	newline
+	lcall	newline
 	mov	a, r0
-	acall	phex
+	lcall	phex
 	mov	a, #':'
-	acall	cout
+	lcall	cout
 intm3:
-	acall	space
+	lcall	space
 	mov	a, @r0
-	acall	phex
+	lcall	phex
 	inc	r0
 	cjne	r0, #0, intm4
-	acall	newline
-	ajmp	newline
+	lcall	newline
+	ljmp	newline
 intm4:
 	mov	a, r0
 	anl	a, #00001111b
@@ -1889,6 +1932,7 @@ stcode5:
 ;---------------------------------------------------------;
 
 setbaud:
+	clr	tr2
 	mov	tl2, a
 	mov	th2, b
 	mov	rcap2l, a
@@ -2003,7 +2047,7 @@ cinf_wait:
 	push	acc
 	mov	r2, #char_delay*5
 cinfw2:
-	mov	a, th0
+	mov	a, th2
 cinfw3:
 	jb	ri, cinfw4
 	inc	a
@@ -2530,4 +2574,10 @@ eio77_cmd:
 
 dio77_cmd:
 	.db	"Disable nCSIO77", 0
+	
+baud_cmd:
+	.db	"Reset baud rate", 0
+	
+baudprompt:
+	.db	"Enter new baud const: ", 0
 
