@@ -573,7 +573,7 @@ menu:
 	acall	phex
 	mov	a, r6
 	acall	phex
-	mov	 dptr, #prompt2
+	mov	dptr, #prompt2
 	acall	pstr
 
 ; now we're finally past the prompt, so let's get some input
