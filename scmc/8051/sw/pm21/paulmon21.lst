@@ -573,7 +573,7 @@
 01CC: 31 64                 acall   phex
 01CE: EE                    mov     a, r6
 01CF: 31 64                 acall   phex
-01D1: 90 0C F9              mov      dptr, #prompt2
+01D1: 90 0C F9              mov     dptr, #prompt2
 01D4: 31 83                 acall   pstr
                    
                    ; now we're finally past the prompt, so let's get some input
