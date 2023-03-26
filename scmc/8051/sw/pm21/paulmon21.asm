@@ -1406,7 +1406,7 @@ help3:
 	acall	dspace
 	inc	dpl
 	movx	a, @dptr
-	acall	cout
+	acall	cout_sp
 	acall	dash_sp
 	mov	dpl, #32
 	acall	pstr
@@ -1421,7 +1421,7 @@ help4:
 help2:				; print 11 standard lines
 	acall	dspace		; given key in R4 and name in dptr
 	mov	a, r4
-	acall	cout
+	acall	cout_sp
 	acall	dash_sp
 	acall	pcstr_h
 	ajmp	newline

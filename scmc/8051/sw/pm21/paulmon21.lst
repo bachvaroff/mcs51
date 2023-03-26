@@ -1406,7 +1406,7 @@
 0656: 11 6F                 acall   dspace
 0658: 05 82                 inc     dpl
 065A: E0                    movx    a, @dptr
-065B: 11 73                 acall   cout
+065B: 11 1E                 acall   cout_sp
 065D: 11 26                 acall   dash_sp
 065F: 75 82 20              mov     dpl, #32
 0662: 31 83                 acall   pstr
@@ -1421,7 +1421,7 @@
                    help2:                           ; print 11 standard lines
 066F: 11 6F                 acall   dspace          ; given key in R4 and name 
 0671: EC                    mov     a, r4
-0672: 11 73                 acall   cout
+0672: 11 1E                 acall   cout_sp
 0674: 11 26                 acall   dash_sp
 0676: 11 45                 acall   pcstr_h
 0678: 01 7D                 ajmp    newline
