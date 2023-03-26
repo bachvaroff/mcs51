@@ -1,0 +1,6 @@
+2000:              .org 0x2000
+                   
+                   reset:
+2000: 43 87 02              orl pcon, #2
+                   inf_loop:
+2003: 80 FE                 sjmp inf_loop
