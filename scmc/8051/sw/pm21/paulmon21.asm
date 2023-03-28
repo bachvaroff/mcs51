@@ -1800,8 +1800,7 @@ intm3:
 	lcall	phex
 	inc	r0
 	cjne	r0, #0, intm4
-	lcall	crlf
-	ljmp	crlf
+	ljmp	dcrlf
 intm4:
 	mov	a, r0
 	anl	a, #00001111b
