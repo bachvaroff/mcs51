@@ -67,12 +67,14 @@
                    
 0000:              .equ     pgm, 0x2000             ; default location for the 
 0000:              .equ     bmem, 0x1000            ; where is the beginning of
-0000:              .equ     emem, 0xFFFF            ; end of the memory
+0000:              .equ     emem, 0xDFFF            ; end of the memory
                    
+                   ;---------------------------------------------------------;
                    ; bc = 65536 - (OSC / 32) / baud
+                   ;---------------------------------------------------------;
                    ; 0xfffa @ 57600bps @ 11.059MHz
-0000:              .equ     bc_h, 0xff
-0000:              .equ     bc_l, 0xfa
+                   ;.equ    bc_h, 0xff
+                   ;.equ    bc_l, 0xfa
                    ; 0xfffa @ 38400bps @ 11.059MHz
                    ;.equ    bc_h, 0xff
                    ;.equ    bc_l, 0xf7
@@ -82,6 +84,20 @@
                    ; 0xffdc @ 9600bps @ 11.059MHz
                    ;.equ    bc_h, 0xff
                    ;.equ    bc_l, 0xdc
+                   ;---------------------------------------------------------;
+                   ; 0xfff7 @ 57600bps @ 16.5888MHz
+0000:              .equ     bc_h, 0xff
+0000:              .equ     bc_l, 0xf7
+                   ; 0xffee @ 28800bps @ 16.5888MHz
+                   ;.equ    bc_h, 0xff
+                   ;.equ    bc_l, 0xee
+                   ; 0xffe5 @ 19200bps @ 16.5888MHz
+                   ;.equ    bc_h, 0xff
+                   ;.equ    bc_l, 0xe5
+                   ; 0xffca @ 9600bps @ 16.5888MHz
+                   ;.equ    bc_h, 0xff
+                   ;.equ    bc_l, 0xca
+                   ;---------------------------------------------------------;
                    
 0000:              .equ     line_delay, 6           ; num of char times to paus
                    
@@ -107,21 +123,21 @@
 0000:              .equ     eio77_key, '<'
 0000:              .equ     dio77_key, '>'
                    
-                   ; These symbols configure paulmon2's internal memory usage.
-                   ; It is usually not a good idea to change these unless you
-                   ; know that you really have to.
-                   
-                   ; |00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|10|11|12|
-                   ; |r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  .  .  .  .  dnld  .  .
-                   ;                                                           
 0000:              .equ     psw_init, 0             ; value for psw (which reg 
 0000:              .equ     p2_init, 0xff           ; boot time default page is
 0000:              .equ     dnld_parm, 0x08                 ; block of 16 bytes
-0000:              .equ     stack, 0x17             ; location of the stack
-0000:              .equ     stack_reset, 0x07
+                   ; |00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|
+                   ;                         \__ sp_reset
+                   ; |10|11|12|13|14|15|16|17|
+                   ;                         \__ sp_init
+                   ;
+                   ; |r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  dnld  .  .  |
+                   ; |  .  .  .  dnld  .  .  |
+0000:              .equ     sp_init, 0x17           ; location of the stack
+0000:              .equ     sp_reset, 0x07
                    
                    ; |P1.7|P1.6|P1.5|P1.4|P1.3|P1.2|P1.1|P1.0|
-0000:              .equ     mctrl_default,  11111111b
+0000:              .equ     mctrl_reset,    11111111b
 0000:              .equ     mctrl_shadow,   11111110b
                    
                    ;---------------------------------------------------------;
@@ -620,7 +636,7 @@
                    menux2:
 0210: 05 83                 inc     dph
 0212: E5 83                 mov     a, dph
-0214: B4 00 D9              cjne    a, #((emem + 1) >> 8) & 255, menux1
+0214: B4 E0 D9              cjne    a, #((emem + 1) >> 8) & 255, menux1
                    menuxend:
 0217: E5 F0                 mov     a, b
                    
@@ -1070,7 +1086,7 @@
                    jump_doit:
 0442: E4                    clr     a
 0443: F5 D0                 mov     psw, a
-0445: 75 81 07              mov     sp, #stack_reset
+0445: 75 81 07              mov     sp, #sp_reset
 0448: F5 F0                 mov     b, a
 044A: 78 FF                 mov     r0, #0xff
                    clrintram:
@@ -1222,13 +1238,13 @@
 0526: 11 45                 acall   pcstr_h                 ; print out the typ
 0528: 8A 83                 mov     dph, r2                 ; go back and find 
 052A: 11 7D                 acall   newline
-052C: 74 FF                 mov     a, #(emem >> 8)
+052C: 74 DF                 mov     a, #(emem >> 8)
 052E: B5 83 02              cjne    a, dph, dir8    ; did we just print the las
 0531: 81 DA                 ajmp    dir_end
                    dir8:
 0533: 05 83                 inc     dph
 0535: E5 83                 mov     a, dph
-0537: B4 00 9B              cjne    a, #((emem + 1) >> 8) & 255, dir1
+0537: B4 E0 9B              cjne    a, #((emem + 1) >> 8) & 255, dir1
 053A: 81 DA                 ajmp    dir_end
                    
                    ; type1=Ext Command
@@ -1246,7 +1262,7 @@
                    run2:
 0545: 05 83                 inc     dph
 0547: E5 83                 mov     a, dph
-0549: B4 00 02              cjne    a, #((emem + 1) >> 8) & 255, run2b
+0549: B4 E0 02              cjne    a, #((emem + 1) >> 8) & 255, run2b
 054C: 80 21                 sjmp    run3
                    run2b:
 054E: 12 08 51              lcall   find
@@ -1311,7 +1327,7 @@
                    run5:
 05B3: 05 83                 inc     dph
 05B5: E5 83                 mov     a, dph
-05B7: B4 00 02              cjne    a, #((emem + 1) >> 8) & 255, run5b
+05B7: B4 E0 02              cjne    a, #((emem + 1) >> 8) & 255, run5b
 05BA: 80 17                 sjmp    run8
                    run5b:
 05BC: 12 08 51              lcall   find
@@ -1414,7 +1430,7 @@
                    help3a:
 0666: 05 83                 inc     dph
 0668: E5 83                 mov     a, dph
-066A: B4 00 DD              cjne    a, #((emem + 1) >> 8) & 255, help3
+066A: B4 E0 DD              cjne    a, #((emem + 1) >> 8) & 255, help3
                    help4:   
 066D: 01 7D                 ajmp    newline
                    
@@ -1821,7 +1837,7 @@
 086A: D3                    setb    c
 086B: 22                    ret
                    find3:
-086C: 74 FF                 mov     a, #(emem >> 8)
+086C: 74 DF                 mov     a, #(emem >> 8)
 086E: B5 83 02              cjne    a, dph, find4           ; did we just check
 0871: C3                    clr     c
 0872: 22                    ret
@@ -1839,12 +1855,12 @@
 0878: F5 A8                 mov     ie, a
 087A: F5 B8                 mov     ip, a
 087C: 75 D0 00              mov     psw, #psw_init
-087F: 75 81 17              mov     sp, #stack
+087F: 75 81 17              mov     sp, #sp_init
 0882: 75 A0 FF              mov     p2, #p2_init
                             
                    ; force P1 to output
                    ; internal PFETs P1.7-0 active + external pullup
-0885: 75 90 FF              mov     p1, #mctrl_default
+0885: 75 90 FF              mov     p1, #mctrl_reset
 0888: FF                    mov     r7, a
 0889: FF                    mov     r7, a
 088A: FF                    mov     r7, a
@@ -1870,7 +1886,7 @@
 089E: FF                    mov     r7, a
                             
                    ; initialize the serial port
-089F: 74 FA                 mov     a, #bc_l
+089F: 74 F7                 mov     a, #bc_l
 08A1: 75 F0 FF              mov     b, #bc_h
 08A4: 12 09 05              lcall   setbaud
                             
@@ -1925,7 +1941,7 @@
                    stcode4:
 08FD: 05 83                 inc     dph
 08FF: E5 83                 mov     a, dph
-0901: B4 00 D8              cjne    a, #((emem + 1) >> 8) & 255, stcode2
+0901: B4 E0 D8              cjne    a, #((emem + 1) >> 8) & 255, stcode2
                    stcode5:
 0904: 22                    ret                     ; now we've executed all of
                    

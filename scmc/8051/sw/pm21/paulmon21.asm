@@ -67,12 +67,14 @@
 
 .equ	pgm, 0x2000		; default location for the user program
 .equ	bmem, 0x1000		; where is the beginning of memory
-.equ	emem, 0xFFFF		; end of the memory
+.equ	emem, 0xDFFF		; end of the memory
 
+;---------------------------------------------------------;
 ; bc = 65536 - (OSC / 32) / baud
+;---------------------------------------------------------;
 ; 0xfffa @ 57600bps @ 11.059MHz
-.equ	bc_h, 0xff
-.equ	bc_l, 0xfa
+;.equ	bc_h, 0xff
+;.equ	bc_l, 0xfa
 ; 0xfffa @ 38400bps @ 11.059MHz
 ;.equ	bc_h, 0xff
 ;.equ	bc_l, 0xf7
@@ -82,6 +84,20 @@
 ; 0xffdc @ 9600bps @ 11.059MHz
 ;.equ	bc_h, 0xff
 ;.equ	bc_l, 0xdc
+;---------------------------------------------------------;
+; 0xfff7 @ 57600bps @ 16.5888MHz
+.equ	bc_h, 0xff
+.equ	bc_l, 0xf7
+; 0xffee @ 28800bps @ 16.5888MHz
+;.equ	bc_h, 0xff
+;.equ	bc_l, 0xee
+; 0xffe5 @ 19200bps @ 16.5888MHz
+;.equ	bc_h, 0xff
+;.equ	bc_l, 0xe5
+; 0xffca @ 9600bps @ 16.5888MHz
+;.equ	bc_h, 0xff
+;.equ	bc_l, 0xca
+;---------------------------------------------------------;
 
 .equ	line_delay, 6		; num of char times to pause during uploads
 
@@ -107,21 +123,21 @@
 .equ	eio77_key, '<'
 .equ	dio77_key, '>'
 
-; These symbols configure paulmon2's internal memory usage.
-; It is usually not a good idea to change these unless you
-; know that you really have to.
-
-; |00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|10|11|12|13|14|15|16|17|
-; |r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  .  .  .  .  dnld  .  .  .  .  .  .  |
-;									 \__ sp
 .equ	psw_init, 0		; value for psw (which reg bank to use)
 .equ	p2_init, 0xff		; boot time default page is at 0xff00
 .equ	dnld_parm, 0x08		; block of 16 bytes for download
-.equ	stack, 0x17		; location of the stack
-.equ	stack_reset, 0x07
+; |00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|
+;			 \__ sp_reset
+; |10|11|12|13|14|15|16|17|
+;			 \__ sp_init
+;
+; |r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  dnld  .  .  |
+; |  .  .  .  dnld  .  .  |
+.equ	sp_init, 0x17		; location of the stack
+.equ	sp_reset, 0x07
 
 ; |P1.7|P1.6|P1.5|P1.4|P1.3|P1.2|P1.1|P1.0|
-.equ	mctrl_default,	11111111b
+.equ	mctrl_reset,	11111111b
 .equ	mctrl_shadow,	11111110b
 
 ;---------------------------------------------------------;
@@ -1070,7 +1086,7 @@ jump3:
 jump_doit:
 	clr	a
 	mov	psw, a
-	mov	sp, #stack_reset
+	mov	sp, #sp_reset
 	mov	b, a
 	mov	r0, #0xff
 clrintram:
@@ -1839,12 +1855,12 @@ reset:
 	mov	ie, a
 	mov	ip, a
 	mov	psw, #psw_init
-	mov	sp, #stack
+	mov	sp, #sp_init
 	mov	p2, #p2_init
 	
 ; force P1 to output
 ; internal PFETs P1.7-0 active + external pullup
-	mov	p1, #mctrl_default
+	mov	p1, #mctrl_reset
 	mov	r7, a
 	mov	r7, a
 	mov	r7, a
