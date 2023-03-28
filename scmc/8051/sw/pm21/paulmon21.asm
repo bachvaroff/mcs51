@@ -232,7 +232,7 @@ dash_sp:
 	ljmp	setbaud		; 0x42
 pcstr_h:
 	ljmp	pcstr		; 0x45
-	ajmp	newline		; 0x48
+	ajmp	crlf		; 0x48
 	ljmp	lenstr		; 0x4A
 	ljmp	pint8u		; 0x4D
 	ljmp	pint8		; 0x50
@@ -279,9 +279,9 @@ cout:
 ; ti would be cleared and never set again by the hardware, causing
 ; the next call to cout to hang forever!
 
-newline2:			; print two newlines
-	acall	newline
-newline:
+dcrlf:			; print two newlines
+	acall	crlf
+crlf:
 	push	acc		; print one newline
 	mov	a, #13
 	acall	cout
@@ -629,7 +629,7 @@ menux1:
 	acall	space
 	mov	dpl, #32
 	acall	pstr		; print command name
-	acall	newline
+	acall	crlf
 	mov	dpl, #64
 	clr	a
 	jmp	@a+dptr		; take a leap of faith and jump to it!
@@ -732,7 +732,7 @@ menui15:
 	ljmp	reset_baud
 
 menuiend:
-	ajmp	newline
+	ajmp	crlf
 
 ;---------------------------------------------------------;
 
@@ -1027,7 +1027,7 @@ dlnd_sum_done:
 	mov	r7, a
 	pop	acc
 	mov	r6, a
-	ajmp	newline
+	ajmp	crlf
 
 dnld_item:
 	acall	dnld_gp		; error conditions
@@ -1078,7 +1078,7 @@ jump:
 jump2:
 	acall	dptrtor6r7
 jump3:
-	acall	newline
+	acall	crlf
 	mov	dptr, #runs1
 	acall	pcstr_h
 	acall	r6r7todptr
@@ -1098,7 +1098,7 @@ clrintram:
 
 dump:	
 	mov	r2, #16		; number of lines to print
-	acall	newline2
+	acall	dcrlf
 dump1:
 	acall	r6r7todptr
 	acall	phex16		; tell 'em the memory location
@@ -1129,14 +1129,14 @@ dump4:
 	add	a, #32
 	acall	cout
 	djnz	r3, dump3
-	acall	newline
+	acall	crlf
 	acall	line_dly
 	acall	dptrtor6r7
 	acall	esc
 	jc	dump5
 	djnz	r2, dump1	; loop back up to print next line
 dump5:
-	ajmp	newline
+	ajmp	crlf
 
 ;---------------------------------------------------------;
 
@@ -1162,7 +1162,7 @@ edit1:
 	jc	edit2
 	acall	r6r7todptr
 	movx	@dptr, a
-	acall	newline
+	acall	crlf
 	acall	r6r7todptr
 	inc	dptr
 	acall	dptrtor6r7
@@ -1188,7 +1188,7 @@ dir1:
 	lcall	find		; find the next program in memory
 	jc	dir2
 dir_end:
-	ajmp	newline		; we're done if no more found
+	ajmp	crlf		; we're done if no more found
 dir2:
 	acall	dspace
 	mov	dpl, #32	; print its name
@@ -1237,7 +1237,7 @@ dir6:
 dir7:
 	acall	pcstr_h		; print out the type
 	mov	dph, r2		; go back and find the next one
-	acall	newline
+	acall	crlf
 	mov	a, #(emem >> 8)
 	cjne	a, dph, dir8	; did we just print the last one?
 	ajmp	dir_end
@@ -1255,7 +1255,7 @@ dir8:
 ;---------------------------------------------------------;
 
 run:
-	acall	newline2
+	acall	dcrlf
 	mov	r2, #255	; first print the menu, count items
 	mov	dptr, #bmem
 	dec	dph
@@ -1280,7 +1280,7 @@ run2b:
 	acall	dash_sp
 	mov	dpl, #32
 	acall	pstr		; and the command name
-	acall	newline
+	acall	crlf
 	ajmp	run2		; and continue doing this
 run3:
 	cjne	r2, #255, run4	; are there any to run??
@@ -1299,7 +1299,7 @@ run4:
 	acall	pcstr_h
 	acall	cin_filter_h
 	cjne	a, #27, run4aa	; they they hit <ESC>
-	ajmp	newline
+	ajmp	crlf
 run4aa:
 	mov	r3, a
 	mov	a, #31
@@ -1311,7 +1311,7 @@ run4aa:
 run4a:
 	acall	cout
 	mov	r3, a
-	acall	newline
+	acall	crlf
 	; check to see if it's under 32, if so convert to uppercase
 	mov	a, r3
 	add	a, #(256 - 'A')
@@ -1338,7 +1338,7 @@ run5b:
 	cpl	a
 	jz	run5		; this one doesn't run... find next
 	djnz	r3, run5	; count til we find the one they want
-	acall	newline
+	acall	crlf
 	mov	dpl, #64
 	ajmp	jump_doit
 run8:
@@ -1426,13 +1426,13 @@ help3:
 	acall	dash_sp
 	mov	dpl, #32
 	acall	pstr
-	acall	newline
+	acall	crlf
 help3a:
 	inc	dph
 	mov	a, dph
 	cjne	a, #((emem + 1) >> 8) & 255, help3
 help4:	
-	ajmp	newline
+	ajmp	crlf
 
 help2:				; print 11 standard lines
 	acall	dspace		; given key in R4 and name in dptr
@@ -1440,7 +1440,7 @@ help2:				; print 11 standard lines
 	acall	cout_sp
 	acall	dash_sp
 	acall	pcstr_h
-	ajmp	newline
+	ajmp	crlf
 
 ;---------------------------------------------------------;
 
@@ -1462,7 +1462,7 @@ upld:
 	acall	phex
 	mov	a, r4
 	acall	phex
-	acall	newline
+	acall	crlf
 
 	; need to adjust end location by 1...
 	mov	dph, r5
@@ -1477,7 +1477,7 @@ upld:
 	cjne	a, #27, upld2e
 	ajmp	abort_it
 upld2e:
-	acall	newline
+	acall	crlf
 	mov	dpl, r2
 	mov	dph, r3
 
@@ -1519,7 +1519,7 @@ upld6:
 	cpl	a
 	inc	a
 	acall	phex		; and finally the checksum
-	acall	newline
+	acall	crlf
 	acall	line_dly
 	acall	esc
 	jnc	upld3		; keep working if no esc pressed
@@ -1536,7 +1536,7 @@ upld7:
 	mov	a, #255
 	acall	phex
 upld8:
-	ajmp	newline2
+	ajmp	dcrlf
 
 line_dly:
 	; a brief delay between line while uploading, so the
@@ -1564,7 +1564,7 @@ line_d3:
 ; (nasty programming, but we need tight code for 4k rom)
 
 get_mem:
-	acall	newline2
+	acall	dcrlf
 	mov	dptr, #beg_str
 	acall	pcstr_h
 	acall	ghex16
@@ -1572,7 +1572,7 @@ get_mem:
 	jb	psw.5, pop_it
 	push	dph
 	push	dpl
-	acall	newline
+	acall	crlf
 	mov	dptr, #end_str
 	acall	pcstr_h
 	acall	ghex16
@@ -1584,13 +1584,13 @@ get_mem:
 	mov	r3, a
 	jc	pop_it
 	jb	psw.5, pop_it
-	ajmp	newline
+	ajmp	crlf
 
 pop_it:
 	pop	acc
 	pop	acc
 abort_it:
-	acall	newline
+	acall	crlf
 abort2:
 	mov	dptr, #abort
 	ajmp	pcstr_h
@@ -1604,7 +1604,7 @@ nloc:
 	jc	abort2
 	jb	psw.5, abort2
 	acall	dptrtor6r7
-	ajmp	newline2
+	ajmp	dcrlf
 
 ;---------------------------------------------------------;
 
@@ -1615,7 +1615,7 @@ clrm:
 	acall	cin_filter_h
 	acall	upper
 	cjne	a, #'Y', abort_it
-	acall	newline2
+	acall	dcrlf
 clrm2:
 	; now we actually do it
 	mov	dph, r3
@@ -1634,7 +1634,7 @@ clrm4:
 ;---------------------------------------------------------;
 
 reset_baud:
-	acall	newline2
+	acall	dcrlf
 	mov	dptr, #baudprompt
 	acall	pcstr_h
 	
@@ -1649,7 +1649,7 @@ reset_baud:
 	acall	cin_filter_h
 	acall	upper
 	cjne	a, #'Y', bailout_pop
-	acall	newline2
+	acall	dcrlf
 	
 	pop	b
 	pop	acc
@@ -1660,7 +1660,7 @@ bailout_pop:
 	pop	acc
 	pop	acc
 bailout:
-	acall	newline
+	acall	crlf
 	mov	dptr, #abort
 	ajmp	pcstr_h
 	
@@ -1675,7 +1675,7 @@ bailout:
 
 calc_crc16:
 	acall	get_mem
-	acall	newline
+	acall	crlf
 	
 	acall	r6r7todptr
 	push	dpl
@@ -1710,7 +1710,7 @@ calc_loop:
 	pop	dpl
 	acall	dptrtor6r7
 	
-	ajmp	newline2
+	ajmp	dcrlf
 	
 calc_skip:
 	inc	dptr
@@ -1779,10 +1779,10 @@ skip1:
 ;---------------------------------------------------------;
 
 intm:
-	lcall	newline
+	lcall	crlf
 	mov	r0, #0
 intm2:
-	lcall	newline
+	lcall	crlf
 	mov	a, r0
 	lcall	phex
 	mov	a, #':'
@@ -1793,8 +1793,8 @@ intm3:
 	lcall	phex
 	inc	r0
 	cjne	r0, #0, intm4
-	lcall	newline
-	ljmp	newline
+	lcall	crlf
+	ljmp	crlf
 intm4:
 	mov	a, r0
 	anl	a, #00001111b
@@ -1805,13 +1805,13 @@ intm4:
 
 eio77:
 	clr	p1.7
-	ljmp	newline
+	ljmp	crlf
 	
 ;---------------------------------------------------------;
 
 dio77:
 	setb	p1.7
-	ljmp	newline
+	ljmp	crlf
 
 ;---------------------------------------------------------;
 
@@ -1902,7 +1902,7 @@ end_cp_shadow:
 welcome:
 	mov	r0, #24
 welcm2:
-	lcall	newline
+	lcall	crlf
 	djnz	r0, welcm2
 	mov	r0, #15
 	mov	a, #' '
@@ -2249,7 +2249,7 @@ pcstr1:
 	anl	a, #0x7F
 pcstrs1:
 	cjne	a, #13, pcstrs2
-	lcall	newline
+	lcall	crlf
 	setb	psw.1
 	sjmp	pcstr1
 pcstrs2:
@@ -2258,7 +2258,7 @@ pcstrs2:
 	sjmp	pcstr1
 pcstrs3:
 	cjne	a, #14, pcstrs4
-	lcall	newline
+	lcall	crlf
 	sjmp	pcstr2
 pcstrs4:
 	clr	psw.1

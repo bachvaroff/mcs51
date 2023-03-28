@@ -232,7 +232,7 @@
 0042: 02 09 05              ljmp    setbaud                 ; 0x42
                    pcstr_h:
 0045: 02 0A 52              ljmp    pcstr           ; 0x45
-0048: 01 7D                 ajmp    newline                 ; 0x48
+0048: 01 7D                 ajmp    crlf            ; 0x48
 004A: 02 01 A3              ljmp    lenstr          ; 0x4A
 004D: 02 09 9B              ljmp    pint8u          ; 0x4D
 0050: 02 09 A1              ljmp    pint8           ; 0x50
@@ -279,9 +279,9 @@
                    ; ti would be cleared and never set again by the hardware, c
                    ; the next call to cout to hang forever!
                    
-                   newline2:                        ; print two newlines
-007B: 11 7D                 acall   newline
-                   newline:
+                   dcrlf:                   ; print two newlines
+007B: 11 7D                 acall   crlf
+                   crlf:
 007D: C0 E0                 push    acc             ; print one newline
 007F: 74 0D                 mov     a, #13
 0081: 11 73                 acall   cout
@@ -629,7 +629,7 @@
 0202: 11 71                 acall   space
 0204: 75 82 20              mov     dpl, #32
 0207: 31 83                 acall   pstr            ; print command name
-0209: 11 7D                 acall   newline
+0209: 11 7D                 acall   crlf
 020B: 75 82 40              mov     dpl, #64
 020E: E4                    clr     a
 020F: 73                    jmp     @a+dptr                 ; take a leap of fa
@@ -732,7 +732,7 @@
 02B1: 02 07 7C              ljmp    reset_baud
                    
                    menuiend:
-02B4: 01 7D                 ajmp    newline
+02B4: 01 7D                 ajmp    crlf
                    
                    ;---------------------------------------------------------;
                    
@@ -1027,7 +1027,7 @@
 03FF: FF                    mov     r7, a
 0400: D0 E0                 pop     acc
 0402: FE                    mov     r6, a
-0403: 01 7D                 ajmp    newline
+0403: 01 7D                 ajmp    crlf
                    
                    dnld_item:
 0405: 71 54                 acall   dnld_gp                 ; error conditions
@@ -1078,7 +1078,7 @@
                    jump2:
 0437: 11 0E                 acall   dptrtor6r7
                    jump3:
-0439: 11 7D                 acall   newline
+0439: 11 7D                 acall   crlf
 043B: 90 0E 0F              mov     dptr, #runs1
 043E: 11 45                 acall   pcstr_h
 0440: 11 06                 acall   r6r7todptr
@@ -1098,7 +1098,7 @@
                    
                    dump:    
 0450: 7A 10                 mov     r2, #16                 ; number of lines t
-0452: 11 7B                 acall   newline2
+0452: 11 7B                 acall   dcrlf
                    dump1:
 0454: 11 06                 acall   r6r7todptr
 0456: 31 76                 acall   phex16          ; tell 'em the memory locat
@@ -1129,14 +1129,14 @@
 047B: 24 20                 add     a, #32
 047D: 11 73                 acall   cout
 047F: DB ED                 djnz    r3, dump3
-0481: 11 7D                 acall   newline
+0481: 11 7D                 acall   crlf
 0483: F1 01                 acall   line_dly
 0485: 11 0E                 acall   dptrtor6r7
 0487: 31 B5                 acall   esc
 0489: 40 02                 jc      dump5
 048B: DA C7                 djnz    r2, dump1       ; loop back up to print nex
                    dump5:
-048D: 01 7D                 ajmp    newline
+048D: 01 7D                 ajmp    crlf
                    
                    ;---------------------------------------------------------;
                    
@@ -1162,7 +1162,7 @@
 04AF: 40 0C                 jc      edit2
 04B1: 11 06                 acall   r6r7todptr
 04B3: F0                    movx    @dptr, a
-04B4: 11 7D                 acall   newline
+04B4: 11 7D                 acall   crlf
 04B6: 11 06                 acall   r6r7todptr
 04B8: A3                    inc     dptr
 04B9: 11 0E                 acall   dptrtor6r7
@@ -1188,7 +1188,7 @@
 04D5: 12 08 51              lcall   find            ; find the next program in 
 04D8: 40 02                 jc      dir2
                    dir_end:
-04DA: 01 7D                 ajmp    newline                 ; we're done if no 
+04DA: 01 7D                 ajmp    crlf            ; we're done if no more fou
                    dir2:
 04DC: 11 6F                 acall   dspace
 04DE: 75 82 20              mov     dpl, #32        ; print its name
@@ -1237,7 +1237,7 @@
                    dir7:
 0526: 11 45                 acall   pcstr_h                 ; print out the typ
 0528: 8A 83                 mov     dph, r2                 ; go back and find 
-052A: 11 7D                 acall   newline
+052A: 11 7D                 acall   crlf
 052C: 74 DF                 mov     a, #(emem >> 8)
 052E: B5 83 02              cjne    a, dph, dir8    ; did we just print the las
 0531: 81 DA                 ajmp    dir_end
@@ -1255,7 +1255,7 @@
                    ;---------------------------------------------------------;
                    
                    run:
-053C: 11 7B                 acall   newline2
+053C: 11 7B                 acall   dcrlf
 053E: 7A FF                 mov     r2, #255        ; first print the menu, cou
 0540: 90 10 00              mov     dptr, #bmem
 0543: 15 83                 dec     dph
@@ -1280,7 +1280,7 @@
 0564: 11 26                 acall   dash_sp
 0566: 75 82 20              mov     dpl, #32
 0569: 31 83                 acall   pstr            ; and the command name
-056B: 11 7D                 acall   newline
+056B: 11 7D                 acall   crlf
 056D: A1 45                 ajmp    run2            ; and continue doing this
                    run3:
 056F: BA FF 05              cjne    r2, #255, run4  ; are there any to run??
@@ -1299,7 +1299,7 @@
 058A: 11 45                 acall   pcstr_h
 058C: 11 59                 acall   cin_filter_h
 058E: B4 1B 02              cjne    a, #27, run4aa  ; they they hit <ESC>
-0591: 01 7D                 ajmp    newline
+0591: 01 7D                 ajmp    crlf
                    run4aa:
 0593: FB                    mov     r3, a
 0594: 74 1F                 mov     a, #31
@@ -1311,7 +1311,7 @@
                    run4a:
 059D: 11 73                 acall   cout
 059F: FB                    mov     r3, a
-05A0: 11 7D                 acall   newline
+05A0: 11 7D                 acall   crlf
                             ; check to see if it's under 32, if so convert to u
 05A2: EB                    mov     a, r3
 05A3: 24 BF                 add     a, #(256 - 'A')
@@ -1338,7 +1338,7 @@
 05C7: F4                    cpl     a
 05C8: 60 E9                 jz      run5            ; this one doesn't run... f
 05CA: DB E7                 djnz    r3, run5        ; count til we find the one
-05CC: 11 7D                 acall   newline
+05CC: 11 7D                 acall   crlf
 05CE: 75 82 40              mov     dpl, #64
 05D1: 81 42                 ajmp    jump_doit
                    run8:
@@ -1426,13 +1426,13 @@
 065D: 11 26                 acall   dash_sp
 065F: 75 82 20              mov     dpl, #32
 0662: 31 83                 acall   pstr
-0664: 11 7D                 acall   newline
+0664: 11 7D                 acall   crlf
                    help3a:
 0666: 05 83                 inc     dph
 0668: E5 83                 mov     a, dph
 066A: B4 E0 DD              cjne    a, #((emem + 1) >> 8) & 255, help3
                    help4:   
-066D: 01 7D                 ajmp    newline
+066D: 01 7D                 ajmp    crlf
                    
                    help2:                           ; print 11 standard lines
 066F: 11 6F                 acall   dspace          ; given key in R4 and name 
@@ -1440,7 +1440,7 @@
 0672: 11 1E                 acall   cout_sp
 0674: 11 26                 acall   dash_sp
 0676: 11 45                 acall   pcstr_h
-0678: 01 7D                 ajmp    newline
+0678: 01 7D                 ajmp    crlf
                    
                    ;---------------------------------------------------------;
                    
@@ -1462,7 +1462,7 @@
 068D: 31 64                 acall   phex
 068F: EC                    mov     a, r4
 0690: 31 64                 acall   phex
-0692: 11 7D                 acall   newline
+0692: 11 7D                 acall   crlf
                    
                             ; need to adjust end location by 1...
 0694: 8D 83                 mov     dph, r5
@@ -1477,7 +1477,7 @@
 06A4: B4 1B 02              cjne    a, #27, upld2e
 06A7: E1 43                 ajmp    abort_it
                    upld2e:
-06A9: 11 7D                 acall   newline
+06A9: 11 7D                 acall   crlf
 06AB: 8A 82                 mov     dpl, r2
 06AD: 8B 83                 mov     dph, r3
                    
@@ -1519,7 +1519,7 @@
 06DF: F4                    cpl     a
 06E0: 04                    inc     a
 06E1: 31 64                 acall   phex            ; and finally the checksum
-06E3: 11 7D                 acall   newline
+06E3: 11 7D                 acall   crlf
 06E5: F1 01                 acall   line_dly
 06E7: 31 B5                 acall   esc
 06E9: 50 C4                 jnc     upld3           ; keep working if no esc pr
@@ -1536,7 +1536,7 @@
 06FB: 74 FF                 mov     a, #255
 06FD: 31 64                 acall   phex
                    upld8:
-06FF: 01 7B                 ajmp    newline2
+06FF: 01 7B                 ajmp    dcrlf
                    
                    line_dly:
                             ; a brief delay between line while uploading, so th
@@ -1564,7 +1564,7 @@
                    ; (nasty programming, but we need tight code for 4k rom)
                    
                    get_mem:
-0713: 11 7B                 acall   newline2
+0713: 11 7B                 acall   dcrlf
 0715: 90 0D 57              mov     dptr, #beg_str
 0718: 11 45                 acall   pcstr_h
 071A: 11 CE                 acall   ghex16
@@ -1572,7 +1572,7 @@
 071E: 20 D5 1E              jb      psw.5, pop_it
 0721: C0 83                 push    dph
 0723: C0 82                 push    dpl
-0725: 11 7D                 acall   newline
+0725: 11 7D                 acall   crlf
 0727: 90 0D 61              mov     dptr, #end_str
 072A: 11 45                 acall   pcstr_h
 072C: 11 CE                 acall   ghex16
@@ -1584,13 +1584,13 @@
 0737: FB                    mov     r3, a
 0738: 40 05                 jc      pop_it
 073A: 20 D5 02              jb      psw.5, pop_it
-073D: 01 7D                 ajmp    newline
+073D: 01 7D                 ajmp    crlf
                    
                    pop_it:
 073F: D0 E0                 pop     acc
 0741: D0 E0                 pop     acc
                    abort_it:
-0743: 11 7D                 acall   newline
+0743: 11 7D                 acall   crlf
                    abort2:
 0745: 90 0C E9              mov     dptr, #abort
 0748: 01 45                 ajmp    pcstr_h
@@ -1604,7 +1604,7 @@
 0751: 40 F2                 jc      abort2
 0753: 20 D5 EF              jb      psw.5, abort2
 0756: 11 0E                 acall   dptrtor6r7
-0758: 01 7B                 ajmp    newline2
+0758: 01 7B                 ajmp    dcrlf
                    
                    ;---------------------------------------------------------;
                    
@@ -1615,7 +1615,7 @@
 0761: 11 59                 acall   cin_filter_h
 0763: 31 96                 acall   upper
 0765: B4 59 DB              cjne    a, #'Y', abort_it
-0768: 11 7B                 acall   newline2
+0768: 11 7B                 acall   dcrlf
                    clrm2:
                             ; now we actually do it
 076A: 8B 83                 mov     dph, r3
@@ -1634,7 +1634,7 @@
                    ;---------------------------------------------------------;
                    
                    reset_baud:
-077C: 11 7B                 acall   newline2
+077C: 11 7B                 acall   dcrlf
 077E: 90 0E CE              mov     dptr, #baudprompt
 0781: 11 45                 acall   pcstr_h
                             
@@ -1649,7 +1649,7 @@
 0793: 11 59                 acall   cin_filter_h
 0795: 31 96                 acall   upper
 0797: B4 59 0A              cjne    a, #'Y', bailout_pop
-079A: 11 7B                 acall   newline2
+079A: 11 7B                 acall   dcrlf
                             
 079C: D0 F0                 pop     b
 079E: D0 E0                 pop     acc
@@ -1660,7 +1660,7 @@
 07A4: D0 E0                 pop     acc
 07A6: D0 E0                 pop     acc
                    bailout:
-07A8: 11 7D                 acall   newline
+07A8: 11 7D                 acall   crlf
 07AA: 90 0C E9              mov     dptr, #abort
 07AD: 01 45                 ajmp    pcstr_h
                             
@@ -1675,7 +1675,7 @@
                    
                    calc_crc16:
 07AF: F1 13                 acall   get_mem
-07B1: 11 7D                 acall   newline
+07B1: 11 7D                 acall   crlf
                             
 07B3: 11 06                 acall   r6r7todptr
 07B5: C0 82                 push    dpl
@@ -1710,7 +1710,7 @@
 07E1: D0 82                 pop     dpl
 07E3: 11 0E                 acall   dptrtor6r7
                             
-07E5: 01 7B                 ajmp    newline2
+07E5: 01 7B                 ajmp    dcrlf
                             
                    calc_skip:
 07E7: A3                    inc     dptr
@@ -1779,10 +1779,10 @@
                    ;---------------------------------------------------------;
                    
                    intm:
-081E: 12 00 7D              lcall   newline
+081E: 12 00 7D              lcall   crlf
 0821: 78 00                 mov     r0, #0
                    intm2:
-0823: 12 00 7D              lcall   newline
+0823: 12 00 7D              lcall   crlf
 0826: E8                    mov     a, r0
 0827: 12 01 64              lcall   phex
 082A: 74 3A                 mov     a, #':'
@@ -1793,8 +1793,8 @@
 0833: 12 01 64              lcall   phex
 0836: 08                    inc     r0
 0837: B8 00 06              cjne    r0, #0, intm4
-083A: 12 00 7D              lcall   newline
-083D: 02 00 7D              ljmp    newline
+083A: 12 00 7D              lcall   crlf
+083D: 02 00 7D              ljmp    crlf
                    intm4:
 0840: E8                    mov     a, r0
 0841: 54 0F                 anl     a, #00001111b
@@ -1805,13 +1805,13 @@
                    
                    eio77:
 0847: C2 97                 clr     p1.7
-0849: 02 00 7D              ljmp    newline
+0849: 02 00 7D              ljmp    crlf
                             
                    ;---------------------------------------------------------;
                    
                    dio77:
 084C: D2 97                 setb    p1.7
-084E: 02 00 7D              ljmp    newline
+084E: 02 00 7D              ljmp    crlf
                    
                    ;---------------------------------------------------------;
                    
@@ -1902,7 +1902,7 @@
                    welcome:
 08B3: 78 18                 mov     r0, #24
                    welcm2:
-08B5: 12 00 7D              lcall   newline
+08B5: 12 00 7D              lcall   crlf
 08B8: D8 FB                 djnz    r0, welcm2
 08BA: 78 0F                 mov     r0, #15
 08BC: 74 20                 mov     a, #' '
@@ -2249,7 +2249,7 @@
 0A68: 54 7F                 anl     a, #0x7F
                    pcstrs1:
 0A6A: B4 0D 07              cjne    a, #13, pcstrs2
-0A6D: 12 00 7D              lcall   newline
+0A6D: 12 00 7D              lcall   crlf
 0A70: D2 D1                 setb    psw.1
 0A72: 80 ED                 sjmp    pcstr1
                    pcstrs2:
@@ -2258,7 +2258,7 @@
 0A79: 80 E6                 sjmp    pcstr1
                    pcstrs3:
 0A7B: B4 0E 05              cjne    a, #14, pcstrs4
-0A7E: 12 00 7D              lcall   newline
+0A7E: 12 00 7D              lcall   crlf
 0A81: 80 07                 sjmp    pcstr2
                    pcstrs4:
 0A83: C2 D1                 clr     psw.1
