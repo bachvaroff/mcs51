@@ -1717,22 +1717,28 @@ calc_skip:
 	sjmp	calc_loop
 	
 init_crc16:
+	push	acc
 	mov	a, r6
 	mov	r2, a
 	mov	a, r7
 	mov	r3, a
+	pop	acc
 	ret
-		
+	
 finish_crc16:
+	push	acc
 	mov	a, r2
 	xrl	a, r6
 	mov	r2, a
 	mov	a, r3
 	xrl	a, r7
 	mov	r3, a
+	pop	acc
 	ret
 	
 update_crc16:
+	push	b
+	
 	mov	b, a
 	mov	a, #0x80
 	
@@ -1773,7 +1779,8 @@ skip1:
 	clr	c
 	rrc	a
 	jnz	loop
-		
+	
+	pop	b
 	ret
 	
 ;---------------------------------------------------------;
