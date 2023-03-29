@@ -1644,6 +1644,7 @@ reset_baud:
 	push	dpl
 	push	dph
 	
+	acall	crlf
 	mov	dptr, #sure
 	acall	pcstr_h
 	acall	cin_filter_h
@@ -1691,7 +1692,7 @@ calc_crc16:
 	mov	r7, #poly_h
 calc_loop:
 	movx	a, @dptr
-	acall	update_crc16
+	lcall	update_crc16
 	
 	mov	a, r5
 	cjne	a, dph, calc_skip
