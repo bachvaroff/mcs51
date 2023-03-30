@@ -24,7 +24,7 @@
 0000:              .equ     upper, 0x40
 0000:              .equ     setbaud, 0x42
 0000:              .equ     pcstr, 0x45
-0000:              .equ     newline, 0x48
+0000:              .equ     crlf, 0x48
 0000:              .equ     lenstr, 0x4A
 0000:              .equ     pint8u, 0x4D
 0000:              .equ     pint8, 0x50
@@ -82,7 +82,7 @@
 1020: 4C 69 73 74 
       00           .db      "List",0
                    
-1025: 02 00 48     newline_h:ljmp   newline
+1025: 02 00 48     crlf_h:ljmp      crlf
                    
 1040:              .org     locat+64                ;executable code begins her
                    
@@ -96,12 +96,12 @@
                    ;        r6 = program counter (lsb)
                    ;        r7 = program counter (msb)
                    
-1040: 11 25        list:    acall   newline_h
+1040: 11 25        list:    acall   crlf_h
 1042: 7D 14                 mov     r5, #20
 1044: C2 D1                 clr     psw.1           ;use ordinary long format
 1046: 11 4C        list2:   acall   disasm
 1048: DD FC                 djnz    r5, list2
-104A: 01 25                 ajmp    newline_h
+104A: 01 25                 ajmp    crlf_h
                    
                    disasm:
                    ;print out the memory location and fetch the next three byte
@@ -269,7 +269,7 @@
 1119: E4                    clr     a
 111A: 73                   jmp     @a+dptr
                    dasm2:  
-111B: 01 25                 ajmp    newline_h
+111B: 01 25                 ajmp    crlf_h
                    
                    
 111D: 41 2D        oprt:   ajmp   opcd1           ;addr11
@@ -777,7 +777,7 @@
 147F: 51 4F                 acall   phex_h
 1481: E8                    mov     a, r0
 1482: 51 4F                 acall   phex_h
-1484: 01 25                 ajmp    newline_h
+1484: 01 25                 ajmp    crlf_h
 1486: E5 B8        ssrun5:  mov     a, ip           ;set to high priority inter
 1488: 54 04                 anl     a, #00000100b
 148A: F5 B8                 mov     ip, a
@@ -796,7 +796,7 @@
 14A2: 50 07                jnc     ssrun6
 14A4: 90 1D 69             mov     dptr,#abort
 14A7: 31 97                acall   pstr_h
-14A9: 01 25                ajmp    newline_h
+14A9: 01 25                ajmp    crlf_h
 14AB: AE 82        ssrun6:  mov     r6, dpl                 ;where we'll begin 
 14AD: AF 83                 mov     r7, dph
 14AF: C2 8A        ssrun7:  clr     tcon.2          ;need low-level triggered i
@@ -1016,9 +1016,9 @@
 15EF: 51 4F                acall   phex_h
 15F1: 08                   inc     r0
 15F2: D9 F8                djnz    r1, ssdmp2
-15F4: 11 25                acall   newline_h
+15F4: 11 25                acall   crlf_h
 15F6: B8 80 EE             cjne    r0, #0x80, ssdmp1
-15F9: 11 25                acall   newline_h
+15F9: 11 25                acall   crlf_h
 15FB: A1 79                 ajmp    step1
                    
                    
@@ -1068,7 +1068,7 @@
 1656: 51 4F                acall   phex_h
 1658: E5 8B                mov     a, 8Bh
 165A: 51 4F                acall   phex_h
-165C: 11 25                acall   newline_h
+165C: 11 25                acall   crlf_h
 165E: A1 79                ajmp    step1
                    
 1660: 31 97        psfr:   acall   pstr_h
@@ -1133,7 +1133,7 @@
 16B7: 40 08                jc      chacc2
 16B9: 20 D5 05              jb      psw.5, chacc2
 16BC: F6                   mov     @r0, a
-16BD: 11 25                acall   newline_h
+16BD: 11 25                acall   crlf_h
 16BF: A1 79                ajmp    step1
 16C1: 90 1D 69     chacc2: mov     dptr, #abort
 16C4: 31 97                acall   pstr_h
@@ -1745,15 +1745,15 @@
 1ABE: 90 1C F4             mov     dptr, #str_cl            ;clear screen
 1AC1: B1 3E                acall   pstr_hh
 1AC3: 91 33                 acall   print_title_line
-1AC5: B1 41                 acall   newline_hh
+1AC5: B1 41                 acall   crlf_hh
 1AC7: 91 10                 acall   print_addr_line
-1AC9: B1 41                 acall   newline_hh
+1AC9: B1 41                 acall   crlf_hh
 1ACB: 91 2A                 acall   print_dash_line
-1ACD: B1 41                acall   newline_hh
+1ACD: B1 41                acall   crlf_hh
 1ACF: 74 10                 mov     a, #16
 1AD1: 71 CD                 acall   cursor_down
 1AD3: 91 2A                acall   print_dash_line
-1AD5: B1 41                acall   newline_hh
+1AD5: B1 41                acall   crlf_hh
 1AD7: 91 5C                acall   print_commands
                    redraw_data:
 1AD9: 71 C7                 acall   cursor_home
@@ -1764,7 +1764,7 @@
 1AE2: 8F 83                 mov     dph, r7
                             ;now display the data
 1AE4: 78 10                 mov     r0, #16
-1AE6: B1 41        rd2:     acall   newline_hh
+1AE6: B1 41        rd2:     acall   crlf_hh
 1AE8: 12 00 36              lcall   phex16
 1AEB: 74 3A                 mov     a, #':'
 1AED: B1 38                 acall   cout_hh
@@ -1875,7 +1875,7 @@
 1B89: F4                    cpl     a
 1B8A: 24 13                 add     a, #19
 1B8C: 71 CD                 acall   cursor_down
-1B8E: A1 41                 ajmp    newline_hh
+1B8E: A1 41                 ajmp    crlf_hh
                    
                    
                    ascii_only:
@@ -2110,7 +2110,7 @@
 1D38: 02 00 30     cout_hh:ljmp     cout
 1D3B: 02 00 34     phex_hh:ljmp     phex
 1D3E: 02 00 38     pstr_hh:ljmp     pstr
-1D41: 02 00 48     newline_hh:ljmp  newline
+1D41: 02 00 48     crlf_hh:ljmp     crlf
 1D44: 02 00 45     pcstr_hh:ljmp    pcstr
 1D47: 02 00 50     pint_hh:ljmp     pint8
                    

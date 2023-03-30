@@ -24,7 +24,7 @@
 .equ	upper, 0x40
 .equ	setbaud, 0x42
 .equ	pcstr, 0x45
-.equ	newline, 0x48
+.equ	crlf, 0x48
 .equ	lenstr, 0x4A
 .equ	pint8u, 0x4D
 .equ	pint8, 0x50
@@ -73,7 +73,7 @@
 .db	255,255,255,255		;length and checksum (255=unused)
 .db	"List",0
 
-newline_h:ljmp	newline
+crlf_h:ljmp	crlf
 
 .org	locat+64                ;executable code begins here
 
@@ -87,12 +87,12 @@ newline_h:ljmp	newline
 ;	r6 = program counter (lsb)
 ;	r7 = program counter (msb)
 
-list:	acall	newline_h
+list:	acall	crlf_h
 	mov	r5, #20
 	clr	psw.1		;use ordinary long format
 list2:	acall	disasm
 	djnz	r5, list2
-	ajmp	newline_h
+	ajmp	crlf_h
 
 disasm:
 ;print out the memory location and fetch the next three bytes
@@ -260,7 +260,7 @@ am_unpack:
 	clr	a
         jmp     @a+dptr
 dasm2:  
-	ajmp	newline_h
+	ajmp	crlf_h
 
 
 oprt:   ajmp   opcd1           ;addr11
@@ -731,7 +731,7 @@ ssrun4:	mov	r0, dpl
 	acall	phex_h
 	mov	a, r0
 	acall	phex_h
-	ajmp	newline_h
+	ajmp	crlf_h
 ssrun5:	mov	a, ip		;set to high priority interrupt
 	anl	a, #00000100b
 	mov	ip, a
@@ -750,7 +750,7 @@ ssrun5:	mov	a, ip		;set to high priority interrupt
         jnc     ssrun6
         mov     dptr,#abort
         acall   pstr_h
-        ajmp    newline_h
+        ajmp    crlf_h
 ssrun6:	mov	r6, dpl		;where we'll begin executing
 	mov	r7, dph
 ssrun7:	clr	tcon.2		;need low-level triggered int1
@@ -970,9 +970,9 @@ ssdmp2: acall   space_h
         acall   phex_h
         inc     r0
         djnz    r1, ssdmp2
-        acall   newline_h
+        acall   crlf_h
         cjne    r0, #0x80, ssdmp1
-        acall   newline_h
+        acall   crlf_h
 	ajmp	step1
 
 
@@ -1022,7 +1022,7 @@ ssreg:
         acall   phex_h
         mov     a, 8Bh
         acall   phex_h
-        acall   newline_h
+        acall   crlf_h
         ajmp    step1
 
 psfr:   acall   pstr_h
@@ -1087,7 +1087,7 @@ sschacc:
         jc      chacc2
 	jb	psw.5, chacc2
         mov     @r0, a
-        acall   newline_h
+        acall   crlf_h
         ajmp    step1
 chacc2: mov     dptr, #abort
         acall   pstr_h
@@ -1610,15 +1610,15 @@ redraw:
         mov     dptr, #str_cl		;clear screen
         acall   pstr_hh
 	acall	print_title_line
-	acall	newline_hh
+	acall	crlf_hh
 	acall	print_addr_line
-	acall	newline_hh
+	acall	crlf_hh
 	acall	print_dash_line
-        acall   newline_hh
+        acall   crlf_hh
 	mov	a, #16
 	acall	cursor_down
         acall   print_dash_line
-        acall   newline_hh
+        acall   crlf_hh
         acall   print_commands
 redraw_data:
 	acall	cursor_home
@@ -1629,7 +1629,7 @@ redraw_data:
 	mov	dph, r7
 	;now display the data
 	mov	r0, #16
-rd2:	acall	newline_hh
+rd2:	acall	crlf_hh
 	lcall	phex16
 	mov	a, #':'
 	acall	cout_hh
@@ -1740,7 +1740,7 @@ quit:	mov	a, r6
 	cpl	a
 	add	a, #19
 	acall	cursor_down
-	ajmp	newline_hh
+	ajmp	crlf_hh
 
 
 ascii_only:
@@ -1929,7 +1929,7 @@ str_data: .db "DATA",0
 cout_hh:ljmp	cout
 phex_hh:ljmp	phex
 pstr_hh:ljmp	pstr
-newline_hh:ljmp	newline
+crlf_hh:ljmp	crlf
 pcstr_hh:ljmp	pcstr
 pint_hh:ljmp	pint8
 

@@ -10,7 +10,7 @@
 .equ	upper, 0x40
 .equ	setbaud, 0x42
 .equ	pcstr, 0x45
-.equ	newline, 0x48
+.equ	crlf, 0x48
 .equ	lenstr, 0x4A
 .equ	pint8u, 0x4D
 .equ	pint8, 0x50
