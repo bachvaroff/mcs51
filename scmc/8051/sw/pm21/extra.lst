@@ -11,23 +11,31 @@
                    
                    ; http://www.pjrc.com/tech/8051/pm2_docs/index.html
                    
+                   ; monitor functions
+0000:              .equ     phex1, 0x2E
+0000:              .equ     cout, 0x30
+0000:              .equ     cin, 0x32
+0000:              .equ     phex, 0x34
+0000:              .equ     phex16, 0x36
+0000:              .equ     pstr, 0x38
+0000:              .equ     ghex, 0x3A
+0000:              .equ     ghex16, 0x3C
+0000:              .equ     esc, 0x4E
+0000:              .equ     upper, 0x40
+0000:              .equ     setbaud, 0x42
+0000:              .equ     pcstr, 0x45
+0000:              .equ     newline, 0x48
+0000:              .equ     lenstr, 0x4A
+0000:              .equ     pint8u, 0x4D
+0000:              .equ     pint8, 0x50
+0000:              .equ     pint16u, 0x53
+0000:              .equ     find, 0x56
+0000:              .equ     asc2hex, 0x59
+0000:              .equ     init_crc16, 0x5B
+0000:              .equ     update_crc16, 0x5E
+0000:              .equ     finish_crc16, 0x61
+                   
 0000:              .equ     locat, 0x1000           ;location for these command
-0000:              .equ     paulmon2, 0x0000        ;location where paulmon2 is
-                   
-0000:              .equ    phex1, paulmon2 + 0x2E
-0000:              .equ    cout, paulmon2 + 0x30            ;send acc to uart
-0000:              .equ    phex, paulmon2 + 0x34            ;print acc in hex
-0000:              .equ    phex16, paulmon2 + 0x36          ;print dptr in hex
-0000:              .equ    pstr, paulmon2 + 0x38            ;print string @dptr
-0000:              .equ    ghex, paulmon2 + 0x3A            ;get two-digit hex 
-0000:              .equ    ghex16, paulmon2 + 0x3C          ;get four-digit hex
-0000:              .equ     upper, paulmon2 + 0x40          ;convert acc to upp
-0000:              .equ     newline, paulmon2 + 0x48
-0000:              .equ     pcstr, paulmon2 + 0x45
-0000:              .equ     pint8, paulmon2 + 0x50
-0000:              .equ     cin_filter, paulmon2 + 0x59
-0000:              .equ     asc2hex, paulmon2 + 0x5C
-                   
                    
 0000:              .equ    list_key, 'L'            ;list (disassemble)
 0000:              .equ    step_key, 'S'            ;single step run
@@ -944,7 +952,7 @@
                    
                    ;SINGLE STEP
                    
-1579: 12 00 59     step1:  lcall   cin_filter
+1579: 12 00 32     step1:  lcall   cin
 157C: 12 00 40             lcall   upper
 157F: B4 0D 02     step2:  cjne    a, #13, step7
 1582: 81 DE                ajmp    done
@@ -1323,7 +1331,7 @@
 1844: EC                    mov     a, r4
 1845: C2 E3                 clr     acc.3
 1847: FC                    mov     r4, a
-1848: 12 00 59     main2:   lcall   cin_filter
+1848: 12 00 32     main2:   lcall   cin
 184B: 31 15                 acall   input_ck_2nd
 184D: B4 1B 02     cmd1:    cjne    a, #27, cmd2            ;quit
 1850: 61 85                 ajmp    quit
@@ -1410,7 +1418,7 @@
                    input_hex:
 18EC: E5 F0                 mov     a, b
 18EE: 12 00 40              lcall   upper
-18F1: 12 00 5C              lcall   asc2hex
+18F1: 12 00 59              lcall   asc2hex
 18F4: 40 E3                 jc      cmd_abort               ;ignore if not hex
 18F6: F8                    mov     r0, a                   ;keep hex value of 
 18F7: 8F 83                mov     dph, r7                  ;load dptr with add
@@ -1454,7 +1462,7 @@
 1924: D0 E0                 pop     acc
 1926: C0 E0                 push    acc
 1928: 12 00 40              lcall   upper
-192B: 12 00 5C              lcall   asc2hex
+192B: 12 00 59              lcall   asc2hex
 192E: 50 EE                 jnc     inck2c          ;proceed normally if it is 
                             ;if we get here, we did not get a hex legal char
 1930: D0 E0                 pop     acc

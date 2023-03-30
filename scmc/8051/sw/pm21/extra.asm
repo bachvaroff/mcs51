@@ -11,23 +11,31 @@
 
 ; http://www.pjrc.com/tech/8051/pm2_docs/index.html
 
+; monitor functions
+.equ	phex1, 0x2E
+.equ	cout, 0x30
+.equ	cin, 0x32
+.equ	phex, 0x34
+.equ	phex16, 0x36
+.equ	pstr, 0x38
+.equ	ghex, 0x3A
+.equ	ghex16, 0x3C
+.equ	esc, 0x4E
+.equ	upper, 0x40
+.equ	setbaud, 0x42
+.equ	pcstr, 0x45
+.equ	newline, 0x48
+.equ	lenstr, 0x4A
+.equ	pint8u, 0x4D
+.equ	pint8, 0x50
+.equ	pint16u, 0x53
+.equ	find, 0x56
+.equ	asc2hex, 0x59
+.equ	init_crc16, 0x5B
+.equ	update_crc16, 0x5E
+.equ	finish_crc16, 0x61
+
 .equ	locat, 0x1000		;location for these commands (usually 1000)
-.equ	paulmon2, 0x0000	;location where paulmon2 is at (usually 0000)
-
-.equ    phex1, paulmon2 + 0x2E
-.equ    cout, paulmon2 + 0x30		;send acc to uart
-.equ    phex, paulmon2 + 0x34		;print acc in hex
-.equ    phex16, paulmon2 + 0x36		;print dptr in hex
-.equ    pstr, paulmon2 + 0x38		;print string @dptr
-.equ    ghex, paulmon2 + 0x3A		;get two-digit hex (acc)
-.equ    ghex16, paulmon2 + 0x3C		;get four-digit hex (dptr)
-.equ	upper, paulmon2 + 0x40		;convert acc to uppercase
-.equ	newline, paulmon2 + 0x48
-.equ	pcstr, paulmon2 + 0x45
-.equ	pint8, paulmon2 + 0x50
-.equ	cin_filter, paulmon2 + 0x59
-.equ	asc2hex, paulmon2 + 0x5C
-
 
 .equ    list_key, 'L'		;list (disassemble)
 .equ    step_key, 'S'		;single step run
@@ -898,7 +906,7 @@ step:    ;this is the single step interrupt service code...
 
 ;SINGLE STEP
 
-step1:  lcall   cin_filter
+step1:  lcall   cin
         lcall   upper
 step2:  cjne    a, #13, step7
         ajmp    done
@@ -1196,7 +1204,7 @@ main:
 	mov	a, r4
 	clr	acc.3
 	mov	r4, a
-main2:	lcall   cin_filter
+main2:	lcall   cin
 	acall	input_ck_2nd
 cmd1:	cjne	a, #27, cmd2		;quit
 	ajmp	quit

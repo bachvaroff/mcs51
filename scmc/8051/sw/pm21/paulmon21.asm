@@ -99,8 +99,6 @@
 ;.equ	bc_l, 0xca
 ;---------------------------------------------------------;
 
-.equ	line_delay, 6		; num of char times to pause during uploads
-
 ; Several people didn't like the key definations in PAULMON1.
 ; Actually, I didn't like 'em either, but I never took the time
 ; to change it.	 Eventually I got used to them, but now it's
@@ -214,9 +212,7 @@ dash_sp:
 ;							  ;
 ;---------------------------------------------------------;
 
-; Never change this line!! Other
-; programs depend on these locations
-; to access paulmon2 functions
+; Update paulmon21.equ accordingly
 
 .org	base + 46
 	ajmp	phex1		; 0x2E
@@ -238,12 +234,10 @@ pcstr_h:
 	ljmp	pint8		; 0x50
 	ljmp	pint16u		; 0x53
 	ljmp	find		; 0x56
-cin_filter_h:
-	ljmp	cin_filter	; 0x59
-	ajmp	asc2hex		; 0x5C
-	ljmp	init_crc16	; 0x5E
-	ljmp	update_crc16	; 0x61
-	ljmp	finish_crc16	; 0x64
+	ajmp	asc2hex		; 0x59
+	ljmp	init_crc16	; 0x5B
+	ljmp	update_crc16	; 0x5E
+	ljmp	finish_crc16	; 0x61
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -300,7 +294,7 @@ ghex:
 ghex8:
 	clr	psw.5
 ghex8c:
-	acall	cin_filter_h	; get first digit
+	acall	cin	; get first digit
 	acall	upper
 	cjne	a, #27, ghex8f
 ghex8d:
@@ -320,7 +314,7 @@ ghex8h:
 	xch	a, r2		; r2 will hold hex value of 1st digit
 	acall	cout
 ghex8j:
-	acall	cin_filter_h	; get second digit
+	acall	cin	; get second digit
 	acall	upper
 	cjne	a, #27, ghex8k
 	sjmp	ghex8d
@@ -361,7 +355,7 @@ ghex16:
 	clr	psw.5
 
 ghex16c:
-	acall	cin_filter_h
+	acall	cin
 	acall	upper
 	cjne	a, #27, ghex16d
 	setb	c		; handle esc key
@@ -593,7 +587,7 @@ menu:
 	acall	pstr
 
 ; now we're finally past the prompt, so let's get some input
-	acall	cin_filter_h		; get the input, finally
+	acall	cin		; get the input, finally
 	cjne	a, #':', menu0
 	acall	dnld_now
 	sjmp	menu
@@ -1130,7 +1124,6 @@ dump4:
 	acall	cout
 	djnz	r3, dump3
 	acall	crlf
-	acall	line_dly
 	acall	dptrtor6r7
 	acall	esc
 	jc	dump5
@@ -1297,7 +1290,7 @@ run4:
 	acall	cout
 	mov	dptr, #prompt4
 	acall	pcstr_h
-	acall	cin_filter_h
+	acall	cin
 	cjne	a, #27, run4aa	; they they hit <ESC>
 	ajmp	crlf
 run4aa:
@@ -1520,7 +1513,6 @@ upld6:
 	inc	a
 	acall	phex		; and finally the checksum
 	acall	crlf
-	acall	line_dly
 	acall	esc
 	jnc	upld3		; keep working if no esc pressed
 	sjmp	abort_it
@@ -1537,24 +1529,6 @@ upld7:
 	acall	phex
 upld8:
 	ajmp	dcrlf
-
-line_dly:
-	; a brief delay between line while uploading, so the
-	; receiving host can be slow (i.e. most windows software)
-	mov	a, r0
-	push	acc
-	mov	r0, #line_delay*2
-line_d2:
-	mov	a, th2		; get baud rate const
-line_d3:
-	inc	a
-	nop
-	nop
-	jnz	line_d3
-	djnz	r0, line_d2
-	pop	acc
-	mov	r0, a
-	ret
 
 ;---------------------------------------------------------;
 
@@ -1612,7 +1586,7 @@ clrm:
 	acall	get_mem
 	mov	dptr, #sure
 	acall	pcstr_h
-	acall	cin_filter_h
+	acall	cin
 	acall	upper
 	cjne	a, #'Y', abort_it
 	acall	dcrlf
@@ -1647,7 +1621,7 @@ reset_baud:
 	acall	crlf
 	mov	dptr, #sure
 	acall	pcstr_h
-	acall	cin_filter_h
+	acall	cin
 	acall	upper
 	cjne	a, #'Y', bailout_pop
 	acall	dcrlf
@@ -1963,122 +1937,6 @@ setbaud:
 	mov	t2con, #00110000b
 	mov	scon, #01010010b
 	setb	tr2
-	ret
-
-;---------------------------------------------------------;
-
-; this twisted bit of code looks for escape sequences for
-; up, down, left, right, pageup, and pagedown, as well
-; as ordinary escape and ordinary characters. Escape
-; sequences are required to arrive with each character
-; nearly back-to-back to the others, otherwise the characters
-; are treated as ordinary user keystroaks. cin_filter
-; returns a single byte when it sees the multi-byte escape
-; sequence, as shown here.
-
-; return value	 key		escape sequence
-;   11 (^K)	 up		1B 5B 41
-;   10 (^J)	 down		1B 5B 42
-;   21 (^U)	 right		1B 5B 43
-;    8 (^H)	 left		1B 5B 44
-;   25 (^Y)	 page up	1B 5B 35 7E
-;   26 (^Z)	 page down	1B 5B 36 7E
-
-.equ	esc_char, 27
-
-cin_filter:
-	jnb	ri, cinf1
-	lcall	cin
-	cjne	a, #esc_char, cinf_end
-	; if esc was already in sbuf, just ignore it
-cinf1:
-	lcall	cin
-	cjne	a, #esc_char, cinf_end
-cinf2:
-	acall	cinf_wait
-	jb	ri, cinf4
-	mov	a, #esc_char
-	ret			; an ordinary ESC
-
-cinf4:
-	; if we get here, it's a control code, since a character
-	; was received shortly after receiving an ESC character
-	lcall	cin
-	cjne	a, #'[', cinf_consume
-	acall	cinf_wait
-	jnb	ri, cin_filter
-	lcall	cin
-cinf5a:
-	cjne	a, #'A', cinf5b
-	mov	a, #11
-	ret
-cinf5b:
-	cjne	a, #'B', cinf5c
-	mov	a, #10
-	ret
-cinf5c:
-	cjne	a, #'C', cinf5d
-	mov	a, #21
-	ret
-cinf5d:
-	cjne	a, #'D', cinf5e
-	mov	a, #8
-	ret
-cinf5e:
-	cjne	a, #0x35, cinf5f
-	sjmp	cinf8
-cinf5f:
-	cjne	a, #0x36, cinf5g
-	sjmp	cinf8
-cinf5g:
-	sjmp	cinf_consume		; unknown escape sequence
-
-cinf8:
-	; when we get here, we've got the sequence for pageup/pagedown
-	; but there's one more incoming byte to check...
-	push	acc
-	acall	cinf_wait
-	jnb	ri, cinf_restart
-	lcall	cin
-	cjne	a, #0x7E, cinf_notpg
-	pop	acc
-	add	a, #228
-cinf_end:
-	ret
-cinf_restart:
-	pop	acc
-	sjmp	cin_filter
-cinf_notpg:
-	pop	acc
-; unrecognized escape... eat up everything that's left coming in
-; quickly, then begin looking again
-cinf_consume:
-	acall	cinf_wait
-	jnb	ri, cin_filter
-	lcall	cin
-	cjne	a, #esc_char, cinf_consume
-	sjmp	cinf2
-
-; this thing waits for a character to be received for approx
-; 4 character transmit time periods. It returns immedately
-; or after the entire wait time. It does not remove the character
-; from the buffer, so ri should be checked to see if something
-; actually did show up while it was waiting
-	.equ	char_delay, 4		; number of char xmit times to wait
-cinf_wait:
-	mov	a, r2
-	push	acc
-	mov	r2, #char_delay*5
-cinfw2:
-	mov	a, th2
-cinfw3:
-	jb	ri, cinfw4
-	inc	a
-	jnz	cinfw3
-	djnz	r2, cinfw2
-cinfw4:
-	pop	acc
-	mov	r2, a
 	ret
 
 ;---------------------------------------------------------;

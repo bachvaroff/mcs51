@@ -16,6 +16,8 @@
 .equ	pint8, 0x50
 .equ	pint16u, 0x53
 .equ	find, 0x56
-.equ	cin_filter, 0x59
-.equ	asc2hex, 0x5C
+.equ	asc2hex, 0x59
+.equ	init_crc16, 0x5B
+.equ	update_crc16, 0x5E
+.equ	finish_crc16, 0x61
 
