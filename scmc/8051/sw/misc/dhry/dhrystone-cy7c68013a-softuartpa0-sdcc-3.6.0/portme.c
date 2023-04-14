@@ -1,0 +1,56 @@
+/* Target-specific functions for making Dhrystone work on the CY7C68013A
+   Author: Philipp Klaus Krause */
+
+#include <mcs51/at89x52.h>
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+
+#define pm2_entry_cout 0x0030
+int putchar(int c) __naked {
+	(void)c;
+	__asm
+		mov a, dpl
+		ljmp pm2_entry_cout
+	__endasm;
+}
+
+volatile __near unsigned long int clocktime;
+volatile _Bool clockupdate;
+
+volatile __near unsigned char sendcounter;
+volatile __near unsigned int senddata;
+volatile _Bool sending;
+
+void init(void)
+{
+	// Configure timer 0 for 1000 clock ticks / second
+	TH0 = (65536 - 1382) / 256;
+	TL0 = (65536 - 1382) % 256;
+	TMOD = 0x01;
+	IE = 0x82;
+	TCON |= 0x50; // Start timers
+}
+
+void clockinc(void) __interrupt TF0_VECTOR
+{
+	TH0 = (65536 - 1382) / 256;
+	TL0 = (65536 - 1382) % 256;
+	clocktime++;
+	clockupdate = true;
+}
+
+unsigned long int clock(void)
+{
+	unsigned long int ctmp;
+
+	do
+	{
+		clockupdate = false;
+		ctmp = clocktime;
+	} while (clockupdate);
+	
+	return(ctmp);
+}
+
+

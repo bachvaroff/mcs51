@@ -61,8 +61,8 @@ void int1(void) __interrupt IE1_VECTOR __using 1 {
 
 #define A2D(COLW, ROW, COL) ((int)(ROW) * (int)(COLW) + (int)(COL))
 
-#define H 128
-#define W 32
+#define H 192
+#define W 48
 
 static char pu[H * W], u[H * W], nu[H * W]; /* evolve(), show(), loadu() */
 
@@ -123,19 +123,19 @@ inline void loadu(void) {
 	
 	printstr("LOAD <");
 	
-	for (y = 0; y < H; y++) {
+	for (y = 0; y < (H * W); y += W) {
 		for (x = 0; x < W; x++) {
 			while (1) {
-				c = toupper(getchar());
+				c = getchar();
 				if (c == (int)'0') {
-					u[A2D(W, y, x)] = 0;
+					u[y + x] = 0;
 					j++;
 					break;
 				} else if (c == (int)'1') {
-					u[A2D(W, y, x)] = 1;
+					u[y + x] = 1;
 					j++;
 					break;
-				} else if (c == (int)'S') goto br_inner;
+				} else if (c == (int)'~') goto br_inner;
 				else if (c == (int)'#') goto out;
 			}
 			continue;

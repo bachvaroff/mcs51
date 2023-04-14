@@ -360,11 +360,11 @@ _busy:
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
 _pu:
-	.ds 4096
+	.ds 9216
 _u:
-	.ds 4096
+	.ds 9216
 _nu:
-	.ds 4096
+	.ds 9216
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
@@ -810,22 +810,17 @@ _show:
 00126$:
 ;	life.c:106: if (u[A2D(W, y, x)]) putchar('1');
 	mov	r0,#_y
-	mov	ar6,@r0
+	mov	a,@r0
+	push	acc
 	inc	r0
 	mov	a,@r0
-	swap	a
-	rl	a
-	anl	a,#0xe0
-	xch	a,r6
-	swap	a
-	rl	a
-	xch	a,r6
-	xrl	a,r6
-	xch	a,r6
-	anl	a,#0xe0
-	xch	a,r6
-	xrl	a,r6
-	mov	r7,a
+	push	acc
+	mov	dptr,#0x0030
+	lcall	__mulint
+	mov	r6,dpl
+	mov	r7,dph
+	dec	sp
+	dec	sp
 	mov	r0,#_x
 	mov	a,@r0
 	add	a,r6
@@ -862,7 +857,7 @@ _show:
 	mov	r0,#_y
 	clr	c
 	mov	a,@r0
-	subb	a,#0x80
+	subb	a,#0xc0
 	inc	r0
 	mov	a,@r0
 	xrl	a,#0x80
@@ -901,7 +896,7 @@ _show:
 	mov	r0,#_x
 	clr	c
 	mov	a,@r0
-	subb	a,#0x20
+	subb	a,#0x30
 	inc	r0
 	mov	a,@r0
 	xrl	a,#0x80
@@ -1022,7 +1017,7 @@ _main:
 ;	life.c:115: memset(u, 0, sizeof (u));
 	clr	a
 	push	acc
-	mov	a,#0x10
+	mov	a,#0x24
 	push	acc
 	clr	a
 	push	acc
@@ -1035,7 +1030,7 @@ _main:
 ;	life.c:116: memset(pu, 0, sizeof (pu));
 	clr	a
 	push	acc
-	mov	a,#0x10
+	mov	a,#0x24
 	push	acc
 	clr	a
 	push	acc
@@ -1074,7 +1069,7 @@ _main:
 	inc	r6
 	sjmp	00189$
 00138$:
-;	life.c:126: for (y = 0; y < H; y++) {
+;	life.c:126: for (y = 0; y < (H * W); y += W) {
 	mov	r0,#_y
 	clr	a
 	mov	@r0,a
@@ -1089,9 +1084,8 @@ _main:
 	mov	@r0,a
 ;	life.c:128: while (1) {
 00151$:
-;	life.c:129: c = toupper(getchar());
+;	life.c:129: c = getchar();
 	lcall	_getchar
-	lcall	_toupper
 	mov	r6,dpl
 	mov	r7,dph
 	mov	r0,#_c
@@ -1101,31 +1095,16 @@ _main:
 ;	life.c:130: if (c == (int)'0') {
 	cjne	r6,#0x30,00149$
 	cjne	r7,#0x00,00149$
-;	life.c:131: u[A2D(W, y, x)] = 0;
+;	life.c:131: u[y + x] = 0;
 	mov	r0,#_y
-	mov	ar4,@r0
-	inc	r0
-	mov	a,@r0
-	swap	a
-	rl	a
-	anl	a,#0xe0
-	xch	a,r4
-	swap	a
-	rl	a
-	xch	a,r4
-	xrl	a,r4
-	xch	a,r4
-	anl	a,#0xe0
-	xch	a,r4
-	xrl	a,r4
-	mov	r5,a
-	mov	r0,#_x
-	mov	a,@r0
-	add	a,r4
+	mov	r1,#_x
+	mov	a,@r1
+	add	a,@r0
 	mov	r4,a
+	inc	r1
+	mov	a,@r1
 	inc	r0
-	mov	a,@r0
-	addc	a,r5
+	addc	a,@r0
 	mov	r5,a
 	mov	a,r4
 	add	a,#_u
@@ -1148,31 +1127,16 @@ _main:
 ;	life.c:134: } else if (c == (int)'1') {
 	cjne	r6,#0x31,00147$
 	cjne	r7,#0x00,00147$
-;	life.c:135: u[A2D(W, y, x)] = 1;
+;	life.c:135: u[y + x] = 1;
 	mov	r0,#_y
-	mov	ar4,@r0
-	inc	r0
-	mov	a,@r0
-	swap	a
-	rl	a
-	anl	a,#0xe0
-	xch	a,r4
-	swap	a
-	rl	a
-	xch	a,r4
-	xrl	a,r4
-	xch	a,r4
-	anl	a,#0xe0
-	xch	a,r4
-	xrl	a,r4
-	mov	r5,a
-	mov	r0,#_x
-	mov	a,@r0
-	add	a,r4
+	mov	r1,#_x
+	mov	a,@r1
+	add	a,@r0
 	mov	r4,a
+	inc	r1
+	mov	a,@r1
 	inc	r0
-	mov	a,@r0
-	addc	a,r5
+	addc	a,@r0
 	mov	r5,a
 	mov	a,r4
 	add	a,#_u
@@ -1192,18 +1156,16 @@ _main:
 ;	life.c:137: break;
 	sjmp	00154$
 00147$:
-;	life.c:138: } else if (c == (int)'S') goto br_inner;
-	cjne	r6,#0x53,00447$
+;	life.c:138: } else if (c == (int)'~') goto br_inner;
+	cjne	r6,#0x7e,00447$
 	cjne	r7,#0x00,00447$
 	sjmp	00193$
 00447$:
 ;	life.c:139: else if (c == (int)'#') goto out;
-	cjne	r6,#0x23,00448$
-	cjne	r7,#0x00,00448$
-	sjmp	00164$
-00448$:
-	ljmp	00151$
 ;	life.c:143: break;
+	cjne	r6,#0x23,00151$
+	cjne	r7,#0x00,00151$
+	sjmp	00164$
 00154$:
 ;	life.c:127: for (x = 0; x < W; x++) {
 	mov	r0,#_x
@@ -1215,7 +1177,7 @@ _main:
 	mov	r0,#_x
 	clr	c
 	mov	a,@r0
-	subb	a,#0x20
+	subb	a,#0x30
 	inc	r0
 	mov	a,@r0
 	xrl	a,#0x80
@@ -1224,31 +1186,31 @@ _main:
 	ljmp	00151$
 00450$:
 00193$:
-;	life.c:126: for (y = 0; y < H; y++) {
+;	life.c:126: for (y = 0; y < (H * W); y += W) {
 	mov	r0,#_y
-	inc	@r0
-	cjne	@r0,#0x00,00451$
+	mov	a,#0x30
+	add	a,@r0
+	mov	@r0,a
+	clr	a
 	inc	r0
-	inc	@r0
-00451$:
+	addc	a,@r0
+	mov	@r0,a
 	mov	r0,#_y
 	clr	c
-	mov	a,@r0
-	subb	a,#0x80
 	inc	r0
 	mov	a,@r0
 	xrl	a,#0x80
-	subb	a,#0x80
-	jnc	00452$
+	subb	a,#0xa4
+	jnc	00451$
 	ljmp	00192$
-00452$:
+00451$:
 ;	life.c:147: out:
 00164$:
 ;	life.c:148: if (c != (int)'#')
-	cjne	r6,#0x23,00453$
-	cjne	r7,#0x00,00453$
+	cjne	r6,#0x23,00452$
+	cjne	r7,#0x00,00452$
 	sjmp	00163$
-00453$:
+00452$:
 ;	life.c:149: while (1) {
 00160$:
 ;	life.c:150: c = getchar();
@@ -1274,9 +1236,9 @@ _main:
 	mov	r5,a
 	swap	a
 	anl	a,#0x0f
-	jnb	acc.3,00456$
+	jnb	acc.3,00455$
 	orl	a,#0xf0
-00456$:
+00455$:
 	mov	r6,a
 	rlc	a
 	subb	a,acc
@@ -1313,9 +1275,9 @@ _main:
 	xch	a,r6
 	xrl	a,r6
 	xch	a,r6
-	jnb	acc.3,00457$
+	jnb	acc.3,00456$
 	orl	a,#0xf0
-00457$:
+00456$:
 	anl	ar6,#0x0f
 	mov	a,r6
 	add	a,#_digits
@@ -1396,18 +1358,18 @@ _main:
 ;	life.c:229: if (i0 || (c == (int)'T')) goto terminate;
 	mov	r0,#_i0
 	mov	a,@r0
-	jz	00462$
+	jz	00461$
+	ljmp	00133$
+00461$:
+	cjne	r6,#0x54,00462$
+	cjne	r7,#0x00,00462$
 	ljmp	00133$
 00462$:
-	cjne	r6,#0x54,00463$
-	cjne	r7,#0x00,00463$
-	ljmp	00133$
-00463$:
 ;	life.c:230: else if (c == (int)'L') goto reload;
-	cjne	r6,#0x4c,00464$
-	cjne	r7,#0x00,00464$
+	cjne	r6,#0x4c,00463$
+	cjne	r7,#0x00,00463$
 	ljmp	00110$
-00464$:
+00463$:
 ;	life.c:231: else if (c == (int)'S') break;
 	cjne	r6,#0x53,00121$
 	cjne	r7,#0x00,00121$
@@ -1427,14 +1389,14 @@ _main:
 00215$:
 	mov	r0,#_i0
 	mov	a,@r0
+	jz	00466$
+	ljmp	00129$
+00466$:
+	mov	r0,#_i1
+	mov	a,@r0
 	jz	00467$
 	ljmp	00129$
 00467$:
-	mov	r0,#_i1
-	mov	a,@r0
-	jz	00468$
-	ljmp	00129$
-00468$:
 ;	life.c:237: show(1);
 	mov	dpl,#0x01
 	lcall	_show
@@ -1483,27 +1445,22 @@ _main:
 00200$:
 ;	life.c:170: n = -u[A2D(W, y, x)];
 	mov	r0,#_y
-	mov	a,_bp
-	add	a,#0x03
-	mov	r1,a
 	mov	a,@r0
-	mov	@r1,a
+	push	acc
 	inc	r0
 	mov	a,@r0
-	swap	a
-	rl	a
-	anl	a,#0xe0
-	xch	a,@r1
-	swap	a
-	rl	a
-	xch	a,@r1
-	xrl	a,@r1
-	xch	a,@r1
-	anl	a,#0xe0
-	xch	a,@r1
-	xrl	a,@r1
-	inc	r1
-	mov	@r1,a
+	push	acc
+	mov	dptr,#0x0030
+	lcall	__mulint
+	mov	r0,_bp
+	inc	r0
+	inc	r0
+	inc	r0
+	mov	@r0,dpl
+	inc	r0
+	mov	@r0,dph
+	dec	sp
+	dec	sp
 	mov	a,_bp
 	add	a,#0x03
 	mov	r0,a
@@ -1548,14 +1505,14 @@ _main:
 	inc	r0
 	addc	a,@r0
 	mov	r5,a
-	mov	a,#0x80
+	mov	a,#0xc0
 	add	a,r2
 	mov	r2,a
 	clr	a
 	addc	a,r5
 	mov	r5,a
 	push	ar3
-	mov	a,#0x80
+	mov	a,#0xc0
 	push	acc
 	clr	a
 	push	acc
@@ -1566,21 +1523,15 @@ _main:
 	mov	r5,dph
 	dec	sp
 	dec	sp
+	push	ar4
+	push	ar5
+	mov	dptr,#0x0030
+	lcall	__mulint
+	mov	r4,dpl
+	mov	r5,dph
+	dec	sp
+	dec	sp
 	pop	ar3
-	mov	a,r5
-	swap	a
-	rl	a
-	anl	a,#0xe0
-	xch	a,r4
-	swap	a
-	rl	a
-	xch	a,r4
-	xrl	a,r4
-	xch	a,r4
-	anl	a,#0xe0
-	xch	a,r4
-	xrl	a,r4
-	mov	r5,a
 	mov	r0,#_x
 	mov	a,#0xff
 	add	a,@r0
@@ -1589,7 +1540,7 @@ _main:
 	inc	r0
 	addc	a,@r0
 	mov	r7,a
-	mov	a,#0x20
+	mov	a,#0x30
 	add	a,r2
 	mov	r2,a
 	clr	a
@@ -1598,7 +1549,7 @@ _main:
 	push	ar5
 	push	ar4
 	push	ar3
-	mov	a,#0x20
+	mov	a,#0x30
 	push	acc
 	clr	a
 	push	acc
@@ -1650,7 +1601,7 @@ _main:
 	mov	a,_bp
 	add	a,#0x07
 	mov	r0,a
-	mov	a,#0x20
+	mov	a,#0x30
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1660,7 +1611,7 @@ _main:
 	push	ar5
 	push	ar4
 	push	ar3
-	mov	a,#0x20
+	mov	a,#0x30
 	push	acc
 	clr	a
 	push	acc
@@ -1702,7 +1653,7 @@ _main:
 	mov	a,_bp
 	add	a,#0x07
 	mov	r0,a
-	mov	a,#0x21
+	mov	a,#0x31
 	add	a,@r0
 	mov	r6,a
 	clr	a
@@ -1712,7 +1663,7 @@ _main:
 	push	ar5
 	push	ar4
 	push	ar3
-	mov	a,#0x20
+	mov	a,#0x30
 	push	acc
 	clr	a
 	push	acc
@@ -1755,7 +1706,7 @@ _main:
 	mov	a,_bp
 	add	a,#0x0b
 	mov	r0,a
-	mov	a,#0x80
+	mov	a,#0xc0
 	add	a,@r0
 	mov	r2,a
 	clr	a
@@ -1765,7 +1716,7 @@ _main:
 	push	ar7
 	push	ar6
 	push	ar3
-	mov	a,#0x80
+	mov	a,#0xc0
 	push	acc
 	clr	a
 	push	acc
@@ -1776,28 +1727,22 @@ _main:
 	mov	r5,dph
 	dec	sp
 	dec	sp
+	push	ar4
+	push	ar5
+	mov	dptr,#0x0030
+	lcall	__mulint
+	xch	a,r0
+	mov	a,_bp
+	add	a,#0x0d
+	xch	a,r0
+	mov	@r0,dpl
+	inc	r0
+	mov	@r0,dph
+	dec	sp
+	dec	sp
 	pop	ar3
 	pop	ar6
 	pop	ar7
-	mov	a,_bp
-	add	a,#0x0d
-	mov	r0,a
-	mov	@r0,ar4
-	mov	a,r5
-	swap	a
-	rl	a
-	anl	a,#0xe0
-	xch	a,@r0
-	swap	a
-	rl	a
-	xch	a,@r0
-	xrl	a,@r0
-	xch	a,@r0
-	anl	a,#0xe0
-	xch	a,@r0
-	xrl	a,@r0
-	inc	r0
-	mov	@r0,a
 	mov	a,_bp
 	add	a,#0x0d
 	mov	r0,a
@@ -1869,7 +1814,7 @@ _main:
 	mov	a,_bp
 	add	a,#0x0b
 	mov	r0,a
-	mov	a,#0x81
+	mov	a,#0xc1
 	add	a,@r0
 	mov	r4,a
 	clr	a
@@ -1879,7 +1824,7 @@ _main:
 	push	ar7
 	push	ar6
 	push	ar3
-	mov	a,#0x80
+	mov	a,#0xc0
 	push	acc
 	clr	a
 	push	acc
@@ -1890,28 +1835,22 @@ _main:
 	mov	r5,dph
 	dec	sp
 	dec	sp
+	push	ar4
+	push	ar5
+	mov	dptr,#0x0030
+	lcall	__mulint
+	xch	a,r0
+	mov	a,_bp
+	add	a,#0x0d
+	xch	a,r0
+	mov	@r0,dpl
+	inc	r0
+	mov	@r0,dph
+	dec	sp
+	dec	sp
 	pop	ar3
 	pop	ar6
 	pop	ar7
-	mov	a,_bp
-	add	a,#0x0d
-	mov	r0,a
-	mov	@r0,ar4
-	mov	a,r5
-	swap	a
-	rl	a
-	anl	a,#0xe0
-	xch	a,@r0
-	swap	a
-	rl	a
-	xch	a,@r0
-	xrl	a,@r0
-	xch	a,@r0
-	anl	a,#0xe0
-	xch	a,@r0
-	xrl	a,@r0
-	inc	r0
-	mov	@r0,a
 	mov	a,_bp
 	add	a,#0x0d
 	mov	r0,a
@@ -2000,9 +1939,9 @@ _main:
 	mov	a,@r0
 	addc	a,#(_nu >> 8)
 	mov	r6,a
-	cjne	r7,#0x03,00469$
+	cjne	r7,#0x03,00468$
 	sjmp	00228$
-00469$:
+00468$:
 	cjne	r7,#0x02,00227$
 	mov	a,_bp
 	add	a,#0x03
@@ -2044,22 +1983,17 @@ _main:
 	movx	@dptr,a
 ;	life.c:192: cycle2 |= pu[A2D(W, y, x)] ^ nu[A2D(W, y, x)];
 	mov	r0,#_y
-	mov	ar6,@r0
+	mov	a,@r0
+	push	acc
 	inc	r0
 	mov	a,@r0
-	swap	a
-	rl	a
-	anl	a,#0xe0
-	xch	a,r6
-	swap	a
-	rl	a
-	xch	a,r6
-	xrl	a,r6
-	xch	a,r6
-	anl	a,#0xe0
-	xch	a,r6
-	xrl	a,r6
-	mov	r7,a
+	push	acc
+	mov	dptr,#0x0030
+	lcall	__mulint
+	mov	r6,dpl
+	mov	r7,dph
+	dec	sp
+	dec	sp
 	mov	r0,#_x
 	mov	a,@r0
 	add	a,r6
@@ -2105,44 +2039,44 @@ _main:
 ;	life.c:169: for (x = 0; x < W; x++) {
 	mov	r0,#_x
 	inc	@r0
-	cjne	@r0,#0x00,00473$
+	cjne	@r0,#0x00,00472$
 	inc	r0
 	inc	@r0
-00473$:
+00472$:
 	mov	r0,#_x
 	clr	c
 	mov	a,@r0
-	subb	a,#0x20
+	subb	a,#0x30
 	inc	r0
 	mov	a,@r0
 	xrl	a,#0x80
 	subb	a,#0x80
-	jnc	00474$
+	jnc	00473$
 	ljmp	00200$
-00474$:
+00473$:
 ;	life.c:166: for (y = 0; y < H; y++) {
 	mov	r0,#_y
 	inc	@r0
-	cjne	@r0,#0x00,00475$
+	cjne	@r0,#0x00,00474$
 	inc	r0
 	inc	@r0
-00475$:
+00474$:
 	mov	r0,#_y
 	clr	c
 	mov	a,@r0
-	subb	a,#0x80
+	subb	a,#0xc0
 	inc	r0
 	mov	a,@r0
 	xrl	a,#0x80
 	subb	a,#0x80
-	jnc	00476$
+	jnc	00475$
 	ljmp	00202$
-00476$:
+00475$:
 ;	life.c:197: cycle2 = !cycle2;
 	mov	r0,#_cycle2
 	mov	a,@r0
-	cjne	a,#0x01,00477$
-00477$:
+	cjne	a,#0x01,00476$
+00476$:
 	mov	b0,c
 	mov	r0,#_cycle2
 	clr	a
@@ -2151,8 +2085,8 @@ _main:
 ;	life.c:198: fixed = !fixed;
 	mov	r0,#_fixed
 	mov	a,@r0
-	cjne	a,#0x01,00478$
-00478$:
+	cjne	a,#0x01,00477$
+00477$:
 	mov	b0,c
 	mov	r0,#_fixed
 	clr	a
@@ -2161,7 +2095,7 @@ _main:
 ;	life.c:200: memcpy(pu, u, sizeof (u));
 	clr	a
 	push	acc
-	mov	a,#0x10
+	mov	a,#0x24
 	push	acc
 	mov	a,#_u
 	push	acc
@@ -2178,7 +2112,7 @@ _main:
 ;	life.c:201: memcpy(u, nu, sizeof (nu));
 	clr	a
 	push	acc
-	mov	a,#0x10
+	mov	a,#0x24
 	push	acc
 	mov	a,#_nu
 	push	acc
@@ -2198,9 +2132,9 @@ _main:
 	jnz	00126$
 	mov	r0,#_cycle2
 	mov	a,@r0
-	jnz	00480$
+	jnz	00479$
 	ljmp	00215$
-00480$:
+00479$:
 00126$:
 ;	life.c:240: printstr("DONE ");
 	mov	r5,#___str_6
@@ -2311,9 +2245,9 @@ _main:
 ;	life.c:213: for (i0 = 0; !i0; ) {		
 	mov	r0,#_i0
 	mov	a,@r0
-	jnz	00491$
+	jnz	00490$
 	ljmp	00220$
-00491$:
+00490$:
 ;	life.c:254: terminate:
 00133$:
 ;	life.c:255: EA = 0;

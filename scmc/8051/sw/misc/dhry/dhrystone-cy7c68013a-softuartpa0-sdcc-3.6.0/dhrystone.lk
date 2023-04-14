@@ -1,0 +1,21 @@
+-muwx
+-i dhrystone.ihx
+-M
+-Y
+-b HOME = 0x2000
+-b XSEG = 0x8000
+-b PSEG = 0x8000
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k /usr/bin/../share/sdcc/lib/large
+-k /usr/share/sdcc/lib/large
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+dhry_1.rel
+dhry_2.rel
+portme.rel
+
+-e
