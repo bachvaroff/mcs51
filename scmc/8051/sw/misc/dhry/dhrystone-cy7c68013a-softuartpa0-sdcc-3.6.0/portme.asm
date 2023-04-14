@@ -278,6 +278,8 @@ _CY	=	0x00d7
 ;--------------------------------------------------------
 	.area REG_BANK_0	(REL,OVR,DATA)
 	.ds 8
+	.area REG_BANK_1	(REL,OVR,DATA)
+	.ds 8
 ;--------------------------------------------------------
 ; internal ram data
 ;--------------------------------------------------------
@@ -407,20 +409,24 @@ _init:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'clockinc'
 ;------------------------------------------------------------
-;	portme.c:35: void clockinc(void) __interrupt TF0_VECTOR
+;	portme.c:35: void clockinc(void) __interrupt TF0_VECTOR __using 1
 ;	-----------------------------------------
 ;	 function clockinc
 ;	-----------------------------------------
 _clockinc:
+	ar7 = 0x0f
+	ar6 = 0x0e
+	ar5 = 0x0d
+	ar4 = 0x0c
+	ar3 = 0x0b
+	ar2 = 0x0a
+	ar1 = 0x09
+	ar0 = 0x08
 	push	acc
 	push	dpl
 	push	dph
-	push	ar7
-	push	ar6
-	push	ar5
-	push	ar4
 	push	psw
-	mov	psw,#0x00
+	mov	psw,#0x08
 ;	portme.c:37: TH0 = (65536 - 1382) / 256;
 ;	genAssign
 	mov	_TH0,#0xfa
@@ -458,10 +464,6 @@ _clockinc:
 ;	Peephole 500	removed redundant label 00101$
 ;	portme.c:41: }
 	pop	psw
-	pop	ar4
-	pop	ar5
-	pop	ar6
-	pop	ar7
 	pop	dph
 	pop	dpl
 	pop	acc
@@ -477,6 +479,14 @@ _clockinc:
 ;	 function clock
 ;	-----------------------------------------
 _clock:
+	ar7 = 0x07
+	ar6 = 0x06
+	ar5 = 0x05
+	ar4 = 0x04
+	ar3 = 0x03
+	ar2 = 0x02
+	ar1 = 0x01
+	ar0 = 0x00
 ;	portme.c:47: do
 00101$:
 ;	portme.c:49: clockupdate = false;

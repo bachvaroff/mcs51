@@ -32,7 +32,7 @@ void init(void)
 	TCON |= 0x50; // Start timers
 }
 
-void clockinc(void) __interrupt TF0_VECTOR
+void clockinc(void) __interrupt TF0_VECTOR __using 1
 {
 	TH0 = (65536 - 1382) / 256;
 	TL0 = (65536 - 1382) % 256;

@@ -288,20 +288,20 @@
                                     288 ; internal ram data
                                     289 ;--------------------------------------------------------
                                     290 	.area DSEG    (DATA)
-      000011                        291 _Proc_8_sloc0_1_0:
-      000011                        292 	.ds 2
-      000013                        293 _Proc_8_sloc1_1_0:
-      000013                        294 	.ds 3
-      000016                        295 _Proc_8_sloc2_1_0:
-      000016                        296 	.ds 3
-      000019                        297 _Proc_8_sloc3_1_0:
-      000019                        298 	.ds 2
-      00001B                        299 _Proc_8_sloc4_1_0:
-      00001B                        300 	.ds 2
-      00001D                        301 _Proc_8_sloc5_1_0:
-      00001D                        302 	.ds 3
-      000020                        303 _Func_2_sloc0_1_0:
-      000020                        304 	.ds 3
+      000019                        291 _Proc_8_sloc0_1_0:
+      000019                        292 	.ds 2
+      00001B                        293 _Proc_8_sloc1_1_0:
+      00001B                        294 	.ds 3
+      00001E                        295 _Proc_8_sloc2_1_0:
+      00001E                        296 	.ds 3
+      000021                        297 _Proc_8_sloc3_1_0:
+      000021                        298 	.ds 2
+      000023                        299 _Proc_8_sloc4_1_0:
+      000023                        300 	.ds 2
+      000025                        301 _Proc_8_sloc5_1_0:
+      000025                        302 	.ds 3
+      000028                        303 _Func_2_sloc0_1_0:
+      000028                        304 	.ds 3
                                     305 ;--------------------------------------------------------
                                     306 ; overlayable items in internal ram 
                                     307 ;--------------------------------------------------------
@@ -436,7 +436,7 @@
       003062 8E 83            [24]  436 	mov	dph,r6
       003064 8F F0            [24]  437 	mov	b,r7
                                     438 ;	Peephole 191	removed redundant mov
-      003066 12 37 5F         [24]  439 	lcall	__gptrput
+      003066 12 37 4F         [24]  439 	lcall	__gptrput
                                     440 ;	dhry_2.c:36: if (! Func_3 (Enum_Val_Par))
                                     441 ;	genCall
       003069 8C 82            [24]  442 	mov	dpl,r4
@@ -462,7 +462,7 @@
       003085 8E 83            [24]  462 	mov	dph,r6
       003087 8F F0            [24]  463 	mov	b,r7
       003089 74 03            [12]  464 	mov	a,#0x03
-      00308B 12 37 5F         [24]  465 	lcall	__gptrput
+      00308B 12 37 4F         [24]  465 	lcall	__gptrput
       00308E                        466 00102$:
                                     467 ;	dhry_2.c:39: switch (Enum_Val_Par)
                                     468 ;	genAssign
@@ -506,7 +506,7 @@
                                     506 ;	Peephole 112.b	changed ljmp to sjmp
                                     507 ;	Peephole 251.b	replaced sjmp 00112$ to ret with ret
                                     508 ;	Peephole 400.a	replaced lcall/ret with ljmp
-      0030AE 02 37 5F         [24]  509 	ljmp	__gptrput
+      0030AE 02 37 4F         [24]  509 	ljmp	__gptrput
       0030B1                        510 00104$:
                                     511 ;	dhry_2.c:45: if (Int_Glob > 100)
                                     512 ;	genAssign
@@ -541,7 +541,7 @@
                                     541 ;	Peephole 112.b	changed ljmp to sjmp
                                     542 ;	Peephole 251.b	replaced sjmp 00112$ to ret with ret
                                     543 ;	Peephole 400.a	replaced lcall/ret with ljmp
-      0030CF 02 37 5F         [24]  544 	ljmp	__gptrput
+      0030CF 02 37 4F         [24]  544 	ljmp	__gptrput
       0030D2                        545 00106$:
                                     546 ;	dhry_2.c:48: else *Enum_Ref_Par = Ident_4;
                                     547 ;	genPointerSet
@@ -555,7 +555,7 @@
                                     555 ;	Peephole 112.b	changed ljmp to sjmp
                                     556 ;	Peephole 251.b	replaced sjmp 00112$ to ret with ret
                                     557 ;	Peephole 400.a	replaced lcall/ret with ljmp
-      0030DA 02 37 5F         [24]  558 	ljmp	__gptrput
+      0030DA 02 37 4F         [24]  558 	ljmp	__gptrput
       0030DD                        559 00108$:
                                     560 ;	dhry_2.c:51: *Enum_Ref_Par = Ident_2;
                                     561 ;	genPointerSet
@@ -569,7 +569,7 @@
                                     569 ;	Peephole 112.b	changed ljmp to sjmp
                                     570 ;	Peephole 251.b	replaced sjmp 00112$ to ret with ret
                                     571 ;	Peephole 400.a	replaced lcall/ret with ljmp
-      0030E5 02 37 5F         [24]  572 	ljmp	__gptrput
+      0030E5 02 37 4F         [24]  572 	ljmp	__gptrput
       0030E8                        573 00110$:
                                     574 ;	dhry_2.c:55: *Enum_Ref_Par = Ident_3;
                                     575 ;	genPointerSet
@@ -581,7 +581,7 @@
                                     581 ;	dhry_2.c:57: } /* switch */
                                     582 ;	dhry_2.c:58: } /* Proc_6 */
                                     583 ;	Peephole 400.c	replaced lcall with ljmp
-      0030F0 02 37 5F         [24]  584 	ljmp	__gptrput
+      0030F0 02 37 4F         [24]  584 	ljmp	__gptrput
       0030F3                        585 00112$:
       0030F3 22               [24]  586 	ret
                                     587 ;------------------------------------------------------------
@@ -653,12 +653,12 @@
       003129 8C 83            [24]  653 	mov	dph,r4
       00312B 8D F0            [24]  654 	mov	b,r5
       00312D EE               [12]  655 	mov	a,r6
-      00312E 12 37 5F         [24]  656 	lcall	__gptrput
+      00312E 12 37 4F         [24]  656 	lcall	__gptrput
       003131 A3               [24]  657 	inc	dptr
       003132 EF               [12]  658 	mov	a,r7
                                     659 ;	dhry_2.c:75: } /* Proc_7 */
                                     660 ;	Peephole 400.b	replaced lcall/ret with ljmp
-      003133 02 37 5F         [24]  661 	ljmp	__gptrput
+      003133 02 37 4F         [24]  661 	ljmp	__gptrput
                                     662 ;
                                     663 ;------------------------------------------------------------
                                     664 ;Allocation info for local variables in function 'Proc_8'
@@ -714,48 +714,48 @@
                                     714 ;	genAssign
       003155 90 94 B9         [24]  715 	mov	dptr,#_Proc_8_Arr_1_Par_Ref_65536_56
       003158 E0               [24]  716 	movx	a,@dptr
-      003159 F5 13            [12]  717 	mov	_Proc_8_sloc1_1_0,a
+      003159 F5 1B            [12]  717 	mov	_Proc_8_sloc1_1_0,a
       00315B A3               [24]  718 	inc	dptr
       00315C E0               [24]  719 	movx	a,@dptr
-      00315D F5 14            [12]  720 	mov	(_Proc_8_sloc1_1_0 + 1),a
+      00315D F5 1C            [12]  720 	mov	(_Proc_8_sloc1_1_0 + 1),a
       00315F A3               [24]  721 	inc	dptr
       003160 E0               [24]  722 	movx	a,@dptr
-      003161 F5 15            [12]  723 	mov	(_Proc_8_sloc1_1_0 + 2),a
+      003161 F5 1D            [12]  723 	mov	(_Proc_8_sloc1_1_0 + 2),a
                                     724 ;	genLeftShift
                                     725 ;	genLeftShiftLiteral (1), size 2
                                     726 ;	genlshFixed
       003163 EC               [12]  727 	mov	a,r4
                                     728 ;	Peephole 254	optimized left shift
       003164 2C               [12]  729 	add	a,r4
-      003165 F5 11            [12]  730 	mov	_Proc_8_sloc0_1_0,a
+      003165 F5 19            [12]  730 	mov	_Proc_8_sloc0_1_0,a
       003167 ED               [12]  731 	mov	a,r5
       003168 33               [12]  732 	rlc	a
-      003169 F5 12            [12]  733 	mov	(_Proc_8_sloc0_1_0 + 1),a
+      003169 F5 1A            [12]  733 	mov	(_Proc_8_sloc0_1_0 + 1),a
                                     734 ;	genPlus
-      00316B E5 11            [12]  735 	mov	a,_Proc_8_sloc0_1_0
-      00316D 25 13            [12]  736 	add	a,_Proc_8_sloc1_1_0
-      00316F F5 16            [12]  737 	mov	_Proc_8_sloc2_1_0,a
-      003171 E5 12            [12]  738 	mov	a,(_Proc_8_sloc0_1_0 + 1)
-      003173 35 14            [12]  739 	addc	a,(_Proc_8_sloc1_1_0 + 1)
-      003175 F5 17            [12]  740 	mov	(_Proc_8_sloc2_1_0 + 1),a
-      003177 85 15 18         [24]  741 	mov	(_Proc_8_sloc2_1_0 + 2),(_Proc_8_sloc1_1_0 + 2)
+      00316B E5 19            [12]  735 	mov	a,_Proc_8_sloc0_1_0
+      00316D 25 1B            [12]  736 	add	a,_Proc_8_sloc1_1_0
+      00316F F5 1E            [12]  737 	mov	_Proc_8_sloc2_1_0,a
+      003171 E5 1A            [12]  738 	mov	a,(_Proc_8_sloc0_1_0 + 1)
+      003173 35 1C            [12]  739 	addc	a,(_Proc_8_sloc1_1_0 + 1)
+      003175 F5 1F            [12]  740 	mov	(_Proc_8_sloc2_1_0 + 1),a
+      003177 85 1D 20         [24]  741 	mov	(_Proc_8_sloc2_1_0 + 2),(_Proc_8_sloc1_1_0 + 2)
                                     742 ;	genAssign
       00317A 90 94 B7         [24]  743 	mov	dptr,#_Proc_8_PARM_4
       00317D E0               [24]  744 	movx	a,@dptr
-      00317E F5 19            [12]  745 	mov	_Proc_8_sloc3_1_0,a
+      00317E F5 21            [12]  745 	mov	_Proc_8_sloc3_1_0,a
       003180 A3               [24]  746 	inc	dptr
       003181 E0               [24]  747 	movx	a,@dptr
-      003182 F5 1A            [12]  748 	mov	(_Proc_8_sloc3_1_0 + 1),a
+      003182 F5 22            [12]  748 	mov	(_Proc_8_sloc3_1_0 + 1),a
                                     749 ;	genPointerSet
                                     750 ;	genGenPointerSet
-      003184 85 16 82         [24]  751 	mov	dpl,_Proc_8_sloc2_1_0
-      003187 85 17 83         [24]  752 	mov	dph,(_Proc_8_sloc2_1_0 + 1)
-      00318A 85 18 F0         [24]  753 	mov	b,(_Proc_8_sloc2_1_0 + 2)
-      00318D E5 19            [12]  754 	mov	a,_Proc_8_sloc3_1_0
-      00318F 12 37 5F         [24]  755 	lcall	__gptrput
+      003184 85 1E 82         [24]  751 	mov	dpl,_Proc_8_sloc2_1_0
+      003187 85 1F 83         [24]  752 	mov	dph,(_Proc_8_sloc2_1_0 + 1)
+      00318A 85 20 F0         [24]  753 	mov	b,(_Proc_8_sloc2_1_0 + 2)
+      00318D E5 21            [12]  754 	mov	a,_Proc_8_sloc3_1_0
+      00318F 12 37 4F         [24]  755 	lcall	__gptrput
       003192 A3               [24]  756 	inc	dptr
-      003193 E5 1A            [12]  757 	mov	a,(_Proc_8_sloc3_1_0 + 1)
-      003195 12 37 5F         [24]  758 	lcall	__gptrput
+      003193 E5 22            [12]  757 	mov	a,(_Proc_8_sloc3_1_0 + 1)
+      003195 12 37 4F         [24]  758 	lcall	__gptrput
                                     759 ;	dhry_2.c:89: Arr_1_Par_Ref [Int_Loc+1] = Arr_1_Par_Ref [Int_Loc];
                                     760 ;	genPlus
                                     761 ;	genPlusIncr
@@ -778,22 +778,22 @@
       0031A4 FA               [12]  778 	mov	r2,a
                                     779 ;	genPlus
       0031A5 E8               [12]  780 	mov	a,r0
-      0031A6 25 13            [12]  781 	add	a,_Proc_8_sloc1_1_0
+      0031A6 25 1B            [12]  781 	add	a,_Proc_8_sloc1_1_0
       0031A8 F8               [12]  782 	mov	r0,a
       0031A9 EA               [12]  783 	mov	a,r2
-      0031AA 35 14            [12]  784 	addc	a,(_Proc_8_sloc1_1_0 + 1)
+      0031AA 35 1C            [12]  784 	addc	a,(_Proc_8_sloc1_1_0 + 1)
       0031AC FA               [12]  785 	mov	r2,a
-      0031AD AB 15            [24]  786 	mov	r3,(_Proc_8_sloc1_1_0 + 2)
+      0031AD AB 1D            [24]  786 	mov	r3,(_Proc_8_sloc1_1_0 + 2)
                                     787 ;	genPointerSet
                                     788 ;	genGenPointerSet
       0031AF 88 82            [24]  789 	mov	dpl,r0
       0031B1 8A 83            [24]  790 	mov	dph,r2
       0031B3 8B F0            [24]  791 	mov	b,r3
-      0031B5 E5 19            [12]  792 	mov	a,_Proc_8_sloc3_1_0
-      0031B7 12 37 5F         [24]  793 	lcall	__gptrput
+      0031B5 E5 21            [12]  792 	mov	a,_Proc_8_sloc3_1_0
+      0031B7 12 37 4F         [24]  793 	lcall	__gptrput
       0031BA A3               [24]  794 	inc	dptr
-      0031BB E5 1A            [12]  795 	mov	a,(_Proc_8_sloc3_1_0 + 1)
-      0031BD 12 37 5F         [24]  796 	lcall	__gptrput
+      0031BB E5 22            [12]  795 	mov	a,(_Proc_8_sloc3_1_0 + 1)
+      0031BD 12 37 4F         [24]  796 	lcall	__gptrput
                                     797 ;	dhry_2.c:90: Arr_1_Par_Ref [Int_Loc+30] = Int_Loc;
                                     798 ;	genPlus
                                     799 ;	genPlusIncr
@@ -816,33 +816,33 @@
       0031CC FB               [12]  816 	mov	r3,a
                                     817 ;	genPlus
       0031CD EA               [12]  818 	mov	a,r2
-      0031CE 25 13            [12]  819 	add	a,_Proc_8_sloc1_1_0
+      0031CE 25 1B            [12]  819 	add	a,_Proc_8_sloc1_1_0
       0031D0 FA               [12]  820 	mov	r2,a
       0031D1 EB               [12]  821 	mov	a,r3
-      0031D2 35 14            [12]  822 	addc	a,(_Proc_8_sloc1_1_0 + 1)
+      0031D2 35 1C            [12]  822 	addc	a,(_Proc_8_sloc1_1_0 + 1)
       0031D4 F9               [12]  823 	mov	r1,a
-      0031D5 AB 15            [24]  824 	mov	r3,(_Proc_8_sloc1_1_0 + 2)
+      0031D5 AB 1D            [24]  824 	mov	r3,(_Proc_8_sloc1_1_0 + 2)
                                     825 ;	genPointerSet
                                     826 ;	genGenPointerSet
       0031D7 8A 82            [24]  827 	mov	dpl,r2
       0031D9 89 83            [24]  828 	mov	dph,r1
       0031DB 8B F0            [24]  829 	mov	b,r3
       0031DD EC               [12]  830 	mov	a,r4
-      0031DE 12 37 5F         [24]  831 	lcall	__gptrput
+      0031DE 12 37 4F         [24]  831 	lcall	__gptrput
       0031E1 A3               [24]  832 	inc	dptr
       0031E2 ED               [12]  833 	mov	a,r5
-      0031E3 12 37 5F         [24]  834 	lcall	__gptrput
+      0031E3 12 37 4F         [24]  834 	lcall	__gptrput
                                     835 ;	dhry_2.c:91: for (Int_Index = Int_Loc; Int_Index <= Int_Loc+1; ++Int_Index)
                                     836 ;	genAssign
       0031E6 90 94 B2         [24]  837 	mov	dptr,#_Proc_8_PARM_2
       0031E9 E0               [24]  838 	movx	a,@dptr
-      0031EA F5 1D            [12]  839 	mov	_Proc_8_sloc5_1_0,a
+      0031EA F5 25            [12]  839 	mov	_Proc_8_sloc5_1_0,a
       0031EC A3               [24]  840 	inc	dptr
       0031ED E0               [24]  841 	movx	a,@dptr
-      0031EE F5 1E            [12]  842 	mov	(_Proc_8_sloc5_1_0 + 1),a
+      0031EE F5 26            [12]  842 	mov	(_Proc_8_sloc5_1_0 + 1),a
       0031F0 A3               [24]  843 	inc	dptr
       0031F1 E0               [24]  844 	movx	a,@dptr
-      0031F2 F5 1F            [12]  845 	mov	(_Proc_8_sloc5_1_0 + 2),a
+      0031F2 F5 27            [12]  845 	mov	(_Proc_8_sloc5_1_0 + 2),a
                                     846 ;	genAssign
       0031F4 90 94 DD         [24]  847 	mov	dptr,#__mulint_PARM_2
       0031F7 EC               [12]  848 	mov	a,r4
@@ -857,42 +857,42 @@
       003201 C0 06            [24]  857 	push	ar6
       003203 C0 05            [24]  858 	push	ar5
       003205 C0 04            [24]  859 	push	ar4
-      003207 12 37 7A         [24]  860 	lcall	__mulint
-      00320A 85 82 19         [24]  861 	mov	_Proc_8_sloc3_1_0,dpl
-      00320D 85 83 1A         [24]  862 	mov	(_Proc_8_sloc3_1_0 + 1),dph
+      003207 12 37 6A         [24]  860 	lcall	__mulint
+      00320A 85 82 21         [24]  861 	mov	_Proc_8_sloc3_1_0,dpl
+      00320D 85 83 22         [24]  862 	mov	(_Proc_8_sloc3_1_0 + 1),dph
       003210 D0 04            [24]  863 	pop	ar4
       003212 D0 05            [24]  864 	pop	ar5
       003214 D0 06            [24]  865 	pop	ar6
       003216 D0 07            [24]  866 	pop	ar7
                                     867 ;	genPlus
-      003218 E5 19            [12]  868 	mov	a,_Proc_8_sloc3_1_0
-      00321A 25 1D            [12]  869 	add	a,_Proc_8_sloc5_1_0
-      00321C F5 16            [12]  870 	mov	_Proc_8_sloc2_1_0,a
-      00321E E5 1A            [12]  871 	mov	a,(_Proc_8_sloc3_1_0 + 1)
-      003220 35 1E            [12]  872 	addc	a,(_Proc_8_sloc5_1_0 + 1)
-      003222 F5 17            [12]  873 	mov	(_Proc_8_sloc2_1_0 + 1),a
-      003224 85 1F 18         [24]  874 	mov	(_Proc_8_sloc2_1_0 + 2),(_Proc_8_sloc5_1_0 + 2)
+      003218 E5 21            [12]  868 	mov	a,_Proc_8_sloc3_1_0
+      00321A 25 25            [12]  869 	add	a,_Proc_8_sloc5_1_0
+      00321C F5 1E            [12]  870 	mov	_Proc_8_sloc2_1_0,a
+      00321E E5 22            [12]  871 	mov	a,(_Proc_8_sloc3_1_0 + 1)
+      003220 35 26            [12]  872 	addc	a,(_Proc_8_sloc5_1_0 + 1)
+      003222 F5 1F            [12]  873 	mov	(_Proc_8_sloc2_1_0 + 1),a
+      003224 85 27 20         [24]  874 	mov	(_Proc_8_sloc2_1_0 + 2),(_Proc_8_sloc5_1_0 + 2)
                                     875 ;	genPlus
                                     876 ;	genPlusIncr
       003227 74 06            [12]  877 	mov	a,#0x06
       003229 2E               [12]  878 	add	a,r6
-      00322A F5 13            [12]  879 	mov	_Proc_8_sloc1_1_0,a
+      00322A F5 1B            [12]  879 	mov	_Proc_8_sloc1_1_0,a
                                     880 ;	Peephole 181	changed mov to clr
       00322C E4               [12]  881 	clr	a
       00322D 3F               [12]  882 	addc	a,r7
-      00322E F5 14            [12]  883 	mov	(_Proc_8_sloc1_1_0 + 1),a
+      00322E F5 1C            [12]  883 	mov	(_Proc_8_sloc1_1_0 + 1),a
                                     884 ;	genAssign
-      003230 8C 1B            [24]  885 	mov	_Proc_8_sloc4_1_0,r4
-      003232 8D 1C            [24]  886 	mov	(_Proc_8_sloc4_1_0 + 1),r5
+      003230 8C 23            [24]  885 	mov	_Proc_8_sloc4_1_0,r4
+      003232 8D 24            [24]  886 	mov	(_Proc_8_sloc4_1_0 + 1),r5
       003234                        887 00103$:
                                     888 ;	genCmpGt
                                     889 ;	genCmp
       003234 C3               [12]  890 	clr	c
-      003235 E5 13            [12]  891 	mov	a,_Proc_8_sloc1_1_0
-      003237 95 1B            [12]  892 	subb	a,_Proc_8_sloc4_1_0
-      003239 E5 14            [12]  893 	mov	a,(_Proc_8_sloc1_1_0 + 1)
+      003235 E5 1B            [12]  891 	mov	a,_Proc_8_sloc1_1_0
+      003237 95 23            [12]  892 	subb	a,_Proc_8_sloc4_1_0
+      003239 E5 1C            [12]  893 	mov	a,(_Proc_8_sloc1_1_0 + 1)
       00323B 64 80            [12]  894 	xrl	a,#0x80
-      00323D 85 1C F0         [24]  895 	mov	b,(_Proc_8_sloc4_1_0 + 1)
+      00323D 85 24 F0         [24]  895 	mov	b,(_Proc_8_sloc4_1_0 + 1)
       003240 63 F0 80         [24]  896 	xrl	b,#0x80
       003243 95 F0            [12]  897 	subb	a,b
                                     898 ;	genIfxJump
@@ -905,53 +905,53 @@
                                     905 ;	genLeftShift
                                     906 ;	genLeftShiftLiteral (1), size 2
                                     907 ;	genlshFixed
-      003247 E5 1B            [12]  908 	mov	a,_Proc_8_sloc4_1_0
+      003247 E5 23            [12]  908 	mov	a,_Proc_8_sloc4_1_0
                                     909 ;	Peephole 254	optimized left shift
-      003249 25 1B            [12]  910 	add	a,_Proc_8_sloc4_1_0
+      003249 25 23            [12]  910 	add	a,_Proc_8_sloc4_1_0
       00324B F8               [12]  911 	mov	r0,a
-      00324C E5 1C            [12]  912 	mov	a,(_Proc_8_sloc4_1_0 + 1)
+      00324C E5 24            [12]  912 	mov	a,(_Proc_8_sloc4_1_0 + 1)
       00324E 33               [12]  913 	rlc	a
       00324F FB               [12]  914 	mov	r3,a
                                     915 ;	genPlus
       003250 E8               [12]  916 	mov	a,r0
-      003251 25 16            [12]  917 	add	a,_Proc_8_sloc2_1_0
+      003251 25 1E            [12]  917 	add	a,_Proc_8_sloc2_1_0
       003253 F8               [12]  918 	mov	r0,a
       003254 EB               [12]  919 	mov	a,r3
-      003255 35 17            [12]  920 	addc	a,(_Proc_8_sloc2_1_0 + 1)
+      003255 35 1F            [12]  920 	addc	a,(_Proc_8_sloc2_1_0 + 1)
       003257 FB               [12]  921 	mov	r3,a
-      003258 AA 18            [24]  922 	mov	r2,(_Proc_8_sloc2_1_0 + 2)
+      003258 AA 20            [24]  922 	mov	r2,(_Proc_8_sloc2_1_0 + 2)
                                     923 ;	genPointerSet
                                     924 ;	genGenPointerSet
       00325A 88 82            [24]  925 	mov	dpl,r0
       00325C 8B 83            [24]  926 	mov	dph,r3
       00325E 8A F0            [24]  927 	mov	b,r2
       003260 EC               [12]  928 	mov	a,r4
-      003261 12 37 5F         [24]  929 	lcall	__gptrput
+      003261 12 37 4F         [24]  929 	lcall	__gptrput
       003264 A3               [24]  930 	inc	dptr
       003265 ED               [12]  931 	mov	a,r5
-      003266 12 37 5F         [24]  932 	lcall	__gptrput
+      003266 12 37 4F         [24]  932 	lcall	__gptrput
                                     933 ;	dhry_2.c:91: for (Int_Index = Int_Loc; Int_Index <= Int_Loc+1; ++Int_Index)
                                     934 ;	genPlus
                                     935 ;	genPlusIncr
-      003269 05 1B            [12]  936 	inc	_Proc_8_sloc4_1_0
+      003269 05 23            [12]  936 	inc	_Proc_8_sloc4_1_0
       00326B E4               [12]  937 	clr	a
                                     938 ;	genIpop
                                     939 ;	Peephole 112.b	changed ljmp to sjmp
                                     940 ;	Peephole 243	avoided branch to sjmp
-      00326C B5 1B C5         [24]  941 	cjne	a,_Proc_8_sloc4_1_0,00103$
-      00326F 05 1C            [12]  942 	inc	(_Proc_8_sloc4_1_0 + 1)
+      00326C B5 23 C5         [24]  941 	cjne	a,_Proc_8_sloc4_1_0,00103$
+      00326F 05 24            [12]  942 	inc	(_Proc_8_sloc4_1_0 + 1)
                                     943 ;	Peephole 500	removed redundant label 00117$
       003271 80 C1            [24]  944 	sjmp	00103$
       003273                        945 00101$:
                                     946 ;	dhry_2.c:93: Arr_2_Par_Ref [Int_Loc] [Int_Loc-1] += 1;
                                     947 ;	genPlus
-      003273 E5 19            [12]  948 	mov	a,_Proc_8_sloc3_1_0
-      003275 25 1D            [12]  949 	add	a,_Proc_8_sloc5_1_0
+      003273 E5 21            [12]  948 	mov	a,_Proc_8_sloc3_1_0
+      003275 25 25            [12]  949 	add	a,_Proc_8_sloc5_1_0
       003277 F8               [12]  950 	mov	r0,a
-      003278 E5 1A            [12]  951 	mov	a,(_Proc_8_sloc3_1_0 + 1)
-      00327A 35 1E            [12]  952 	addc	a,(_Proc_8_sloc5_1_0 + 1)
+      003278 E5 22            [12]  951 	mov	a,(_Proc_8_sloc3_1_0 + 1)
+      00327A 35 26            [12]  952 	addc	a,(_Proc_8_sloc5_1_0 + 1)
       00327C FA               [12]  953 	mov	r2,a
-      00327D AB 1F            [24]  954 	mov	r3,(_Proc_8_sloc5_1_0 + 2)
+      00327D AB 27            [24]  954 	mov	r3,(_Proc_8_sloc5_1_0 + 2)
                                     955 ;	genCast
                                     956 ;	genMinus
                                     957 ;	genMinusDec
@@ -976,10 +976,10 @@
       003287 88 82            [24]  976 	mov	dpl,r0
       003289 8A 83            [24]  977 	mov	dph,r2
       00328B 8B F0            [24]  978 	mov	b,r3
-      00328D 12 44 A4         [24]  979 	lcall	__gptrget
+      00328D 12 44 94         [24]  979 	lcall	__gptrget
       003290 FC               [12]  980 	mov	r4,a
       003291 A3               [24]  981 	inc	dptr
-      003292 12 44 A4         [24]  982 	lcall	__gptrget
+      003292 12 44 94         [24]  982 	lcall	__gptrget
       003295 FD               [12]  983 	mov	r5,a
                                     984 ;	genPlus
                                     985 ;	genPlusIncr
@@ -993,10 +993,10 @@
       00329D 8A 83            [24]  993 	mov	dph,r2
       00329F 8B F0            [24]  994 	mov	b,r3
       0032A1 EC               [12]  995 	mov	a,r4
-      0032A2 12 37 5F         [24]  996 	lcall	__gptrput
+      0032A2 12 37 4F         [24]  996 	lcall	__gptrput
       0032A5 A3               [24]  997 	inc	dptr
       0032A6 ED               [12]  998 	mov	a,r5
-      0032A7 12 37 5F         [24]  999 	lcall	__gptrput
+      0032A7 12 37 4F         [24]  999 	lcall	__gptrput
                                    1000 ;	dhry_2.c:94: Arr_2_Par_Ref [Int_Loc+20] [Int_Loc] = Arr_1_Par_Ref [Int_Loc];
                                    1001 ;	genPlus
       0032AA 90 94 DD         [24] 1002 	mov	dptr,#__mulint_PARM_2
@@ -1012,22 +1012,22 @@
                                    1012 ;	genCall
                                    1013 ;	Peephole 182.b	used 16 bit load of dptr
       0032B5 90 00 64         [24] 1014 	mov	dptr,#0x0064
-      0032B8 12 37 7A         [24] 1015 	lcall	__mulint
+      0032B8 12 37 6A         [24] 1015 	lcall	__mulint
       0032BB AE 82            [24] 1016 	mov	r6,dpl
       0032BD AF 83            [24] 1017 	mov	r7,dph
                                    1018 ;	genPlus
       0032BF EE               [12] 1019 	mov	a,r6
-      0032C0 25 1D            [12] 1020 	add	a,_Proc_8_sloc5_1_0
+      0032C0 25 25            [12] 1020 	add	a,_Proc_8_sloc5_1_0
       0032C2 FE               [12] 1021 	mov	r6,a
       0032C3 EF               [12] 1022 	mov	a,r7
-      0032C4 35 1E            [12] 1023 	addc	a,(_Proc_8_sloc5_1_0 + 1)
+      0032C4 35 26            [12] 1023 	addc	a,(_Proc_8_sloc5_1_0 + 1)
       0032C6 FF               [12] 1024 	mov	r7,a
-      0032C7 AD 1F            [24] 1025 	mov	r5,(_Proc_8_sloc5_1_0 + 2)
+      0032C7 AD 27            [24] 1025 	mov	r5,(_Proc_8_sloc5_1_0 + 2)
                                    1026 ;	genPlus
-      0032C9 E5 11            [12] 1027 	mov	a,_Proc_8_sloc0_1_0
+      0032C9 E5 19            [12] 1027 	mov	a,_Proc_8_sloc0_1_0
       0032CB 2E               [12] 1028 	add	a,r6
       0032CC FE               [12] 1029 	mov	r6,a
-      0032CD E5 12            [12] 1030 	mov	a,(_Proc_8_sloc0_1_0 + 1)
+      0032CD E5 1A            [12] 1030 	mov	a,(_Proc_8_sloc0_1_0 + 1)
       0032CF 3F               [12] 1031 	addc	a,r7
       0032D0 FF               [12] 1032 	mov	r7,a
                                    1033 ;	genAssign
@@ -1041,10 +1041,10 @@
       0032DA E0               [24] 1041 	movx	a,@dptr
       0032DB FC               [12] 1042 	mov	r4,a
                                    1043 ;	genPlus
-      0032DC E5 11            [12] 1044 	mov	a,_Proc_8_sloc0_1_0
+      0032DC E5 19            [12] 1044 	mov	a,_Proc_8_sloc0_1_0
       0032DE 2A               [12] 1045 	add	a,r2
       0032DF FA               [12] 1046 	mov	r2,a
-      0032E0 E5 12            [12] 1047 	mov	a,(_Proc_8_sloc0_1_0 + 1)
+      0032E0 E5 1A            [12] 1047 	mov	a,(_Proc_8_sloc0_1_0 + 1)
       0032E2 3B               [12] 1048 	addc	a,r3
       0032E3 FB               [12] 1049 	mov	r3,a
                                    1050 ;	genPointerGet
@@ -1052,10 +1052,10 @@
       0032E4 8A 82            [24] 1052 	mov	dpl,r2
       0032E6 8B 83            [24] 1053 	mov	dph,r3
       0032E8 8C F0            [24] 1054 	mov	b,r4
-      0032EA 12 44 A4         [24] 1055 	lcall	__gptrget
+      0032EA 12 44 94         [24] 1055 	lcall	__gptrget
       0032ED FA               [12] 1056 	mov	r2,a
       0032EE A3               [24] 1057 	inc	dptr
-      0032EF 12 44 A4         [24] 1058 	lcall	__gptrget
+      0032EF 12 44 94         [24] 1058 	lcall	__gptrget
       0032F2 FB               [12] 1059 	mov	r3,a
                                    1060 ;	genPointerSet
                                    1061 ;	genGenPointerSet
@@ -1063,10 +1063,10 @@
       0032F5 8F 83            [24] 1063 	mov	dph,r7
       0032F7 8D F0            [24] 1064 	mov	b,r5
       0032F9 EA               [12] 1065 	mov	a,r2
-      0032FA 12 37 5F         [24] 1066 	lcall	__gptrput
+      0032FA 12 37 4F         [24] 1066 	lcall	__gptrput
       0032FD A3               [24] 1067 	inc	dptr
       0032FE EB               [12] 1068 	mov	a,r3
-      0032FF 12 37 5F         [24] 1069 	lcall	__gptrput
+      0032FF 12 37 4F         [24] 1069 	lcall	__gptrput
                                    1070 ;	dhry_2.c:95: Int_Glob = 5;
                                    1071 ;	genAssign
       003302 90 80 06         [24] 1072 	mov	dptr,#_Int_Glob
@@ -1161,13 +1161,13 @@
                                    1161 ;	genAssign
       00333C 90 94 C1         [24] 1162 	mov	dptr,#_Func_2_Str_1_Par_Ref_65536_62
       00333F E0               [24] 1163 	movx	a,@dptr
-      003340 F5 20            [12] 1164 	mov	_Func_2_sloc0_1_0,a
+      003340 F5 28            [12] 1164 	mov	_Func_2_sloc0_1_0,a
       003342 A3               [24] 1165 	inc	dptr
       003343 E0               [24] 1166 	movx	a,@dptr
-      003344 F5 21            [12] 1167 	mov	(_Func_2_sloc0_1_0 + 1),a
+      003344 F5 29            [12] 1167 	mov	(_Func_2_sloc0_1_0 + 1),a
       003346 A3               [24] 1168 	inc	dptr
       003347 E0               [24] 1169 	movx	a,@dptr
-      003348 F5 22            [12] 1170 	mov	(_Func_2_sloc0_1_0 + 2),a
+      003348 F5 2A            [12] 1170 	mov	(_Func_2_sloc0_1_0 + 2),a
                                    1171 ;	genAssign
       00334A 90 94 BE         [24] 1172 	mov	dptr,#_Func_2_PARM_2
       00334D E0               [24] 1173 	movx	a,@dptr
@@ -1200,18 +1200,18 @@
                                    1200 ;	dhry_2.c:135: if (Func_1 (Str_1_Par_Ref[Int_Loc],
                                    1201 ;	genPlus
       003368 E8               [12] 1202 	mov	a,r0
-      003369 25 20            [12] 1203 	add	a,_Func_2_sloc0_1_0
+      003369 25 28            [12] 1203 	add	a,_Func_2_sloc0_1_0
       00336B FD               [12] 1204 	mov	r5,a
       00336C E9               [12] 1205 	mov	a,r1
-      00336D 35 21            [12] 1206 	addc	a,(_Func_2_sloc0_1_0 + 1)
+      00336D 35 29            [12] 1206 	addc	a,(_Func_2_sloc0_1_0 + 1)
       00336F FE               [12] 1207 	mov	r6,a
-      003370 AF 22            [24] 1208 	mov	r7,(_Func_2_sloc0_1_0 + 2)
+      003370 AF 2A            [24] 1208 	mov	r7,(_Func_2_sloc0_1_0 + 2)
                                    1209 ;	genPointerGet
                                    1210 ;	genGenPointerGet
       003372 8D 82            [24] 1211 	mov	dpl,r5
       003374 8E 83            [24] 1212 	mov	dph,r6
       003376 8F F0            [24] 1213 	mov	b,r7
-      003378 12 44 A4         [24] 1214 	lcall	__gptrget
+      003378 12 44 94         [24] 1214 	lcall	__gptrget
       00337B FD               [12] 1215 	mov	r5,a
                                    1216 ;	dhry_2.c:136: Str_2_Par_Ref[Int_Loc+1]) == Ident_1)
                                    1217 ;	genPlus
@@ -1239,7 +1239,7 @@
       00338F 8E 82            [24] 1239 	mov	dpl,r6
       003391 89 83            [24] 1240 	mov	dph,r1
       003393 8F F0            [24] 1241 	mov	b,r7
-      003395 12 44 A4         [24] 1242 	lcall	__gptrget
+      003395 12 44 94         [24] 1242 	lcall	__gptrget
                                    1243 ;	genAssign
                                    1244 ;	Peephole 301	mov r6,a removed
       003398 90 94 BC         [24] 1245 	mov	dptr,#_Func_1_PARM_2
@@ -1368,7 +1368,7 @@
       00340C 8D 82            [24] 1368 	mov	dpl,r5
       00340E 8E 83            [24] 1369 	mov	dph,r6
       003410 8F F0            [24] 1370 	mov	b,r7
-      003412 12 37 9A         [24] 1371 	lcall	_strcmp
+      003412 12 37 8A         [24] 1371 	lcall	_strcmp
       003415 AE 82            [24] 1372 	mov	r6,dpl
       003417 AF 83            [24] 1373 	mov	r7,dph
                                    1374 ;	genCmpGt
