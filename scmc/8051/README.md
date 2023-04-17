@@ -1,27 +1,35 @@
-	fully functional MCS51 system based on AT89S52, featuring:
-	
-	fully buffered external bus
-	128K external SRAM chip
-	128K external flash chip in place of the internal flash (0x0000-0x1fff)
-	
-	64K unified address space, MOVC≡MOVX, nEA = 0, 8x8K pages
-	
-	8K external flash / 8K external RAM (0x0000-0x1fff, startup flash I, shadow ram D, P1.0 = 1)
-	8K unified external RAM (0x0000-0x1fff, shadow RAM I/D, P1.0 = 0)
-		page 0 0x0000-0x1fff (P1.0)
-	
-	48K external RAM (0x2000-0xdfff low / high 6 pages, A16 = !P1.1-6, nCSRAM = !P1.1-6, nCSIO16 = P1.1-6)
-		page 1 0x2000-0x3fff (P1.1)
-		page 2 0x4000-0x5fff (P1.2)
-		page 3 0x6000-0x7fff (P1.3)
-		page 4 0x8000-0x9fff (P1.4)
-		page 5 0xa000-0xbfff (P1.5)
-		page 6 0xc000-0xdfff (P1.6)
-	
-	8K external RAM
-		page 7 0xe000-0xffff (P1.7)
-	4K external RAM high page
-		page 7l 0xe000-efff (P1.7, A12, A16)
-	4K bus IO space
-		page 7h 0xf000-0xffff (P1.7, A12, A16)
+A fully functional MCS51 system based on AT89S52, featuring:
+ * 16.5888MHz external oscillator (UART friendly)
+ * reset controller / watchdor
+ * fully buffered external bus
+ * 128K external sram
+ * 128K external flash (replacing the internal flash, DS80C320 ready)
+ * 64K unified address space, MOVC≡MOVX, nEA = 0, 8x8K pages
+ * software controlled memory map via P1.0-7
+	- P1.0
+		1 : 0x0000-0x1fff x (nPSEN = 0) flash
+		1 : 0x0000-0x1fff rw (nRD = 0 / nWR = 0) sram (shadow copy of the flash memory)
+		0 : 0x0000-0x1fff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+	- P1.1
+		1 : 0x2000-0x3fff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+		0 : 0x12000-0x13fff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+	- P1.2
+		1 : 0x4000-0x5fff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+		0 : 0x14000-0x15fff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+	- P1.3
+		1 : 0x6000-0x7fff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+		0 : 0x16000-0x17fff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+	- P1.4
+		1 : 0x8000-0x8fff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+		0 : 0x18000-0x19fff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+	- P1.5
+		1 : 0xa000-0xbfff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+		0 : 0x1a000-0x1bfff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+	- P1.6
+		1 : 0xc000-0xdfff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+		0 : 0x1c000-0x1dfff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+	- P1.7
+		1 : 0xe000-0xffff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+		0 : 0x1e000-0x1efff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) sram
+		0 : 0xf000-0xffff rwx (nRD = 0 / nWR = 0 / nPSEN = 0) IO
 
