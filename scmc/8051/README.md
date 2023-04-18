@@ -1,6 +1,6 @@
 A fully functional MCS51 system based on AT89S52, featuring:
  * 16.5888MHz external oscillator (UART friendly)
- * reset controller / watchdor
+ * reset controller / watchdog
  * fully buffered external bus
  * 128K external sram
  * 128K external flash (replacing the internal flash, DS80C320 ready)
