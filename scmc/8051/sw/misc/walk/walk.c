@@ -96,7 +96,10 @@ next:
 				reset();
 			}
 			
-			(void)stpush(&cur);
+			if (!stpush(&cur)) {
+				(void)puts("Memory error");
+				reset();
+			}
 			cur = t;
 			goto process;
 		}
@@ -130,7 +133,7 @@ int main(void) {
 			for (j = 0; j < COLS; j++)
 				g[i][j] = 0x55;
 		
-		printf("%s", "\033[2J");
+		puts("\033[2J");
 		initial.r = rand() % ROWS;
 		initial.c = rand() % COLS;
 		walk(&initial);
