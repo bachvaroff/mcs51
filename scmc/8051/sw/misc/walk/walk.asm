@@ -1459,12 +1459,12 @@ _main:
 	add	a,#0x03
 	mov	r7,a
 	mov	r6,a
-00103$:
+00107$:
 	mov	r0,#_i0
 	mov	a,@r0
-	jnz	00138$
-	ljmp	00105$
-00138$:
+	jnz	00168$
+	ljmp	00109$
+00168$:
 ;	walk.c:132: for (i = 0; i < ROWS; i++)
 	mov	a,_bp
 	add	a,#0x07
@@ -1476,7 +1476,7 @@ _main:
 	mov	r2,#0x00
 	mov	r3,#0x00
 ;	walk.c:133: for (j = 0; j < COLS; j++)
-00113$:
+00121$:
 	mov	r0,_bp
 	inc	r0
 	mov	a,r2
@@ -1488,7 +1488,7 @@ _main:
 	mov	@r0,a
 	mov	r4,#0x00
 	mov	r5,#0x00
-00106$:
+00110$:
 ;	walk.c:134: g[i][j] = 0x55;
 	mov	r0,_bp
 	inc	r0
@@ -1503,16 +1503,16 @@ _main:
 	movx	@dptr,a
 ;	walk.c:133: for (j = 0; j < COLS; j++)
 	inc	r4
-	cjne	r4,#0x00,00139$
+	cjne	r4,#0x00,00169$
 	inc	r5
-00139$:
+00169$:
 	clr	c
 	mov	a,r4
 	subb	a,#0xc0
 	mov	a,r5
 	xrl	a,#0x80
 	subb	a,#0x80
-	jc	00106$
+	jc	00110$
 ;	walk.c:132: for (i = 0; i < ROWS; i++)
 	mov	a,#0xc0
 	add	a,r2
@@ -1524,10 +1524,10 @@ _main:
 	add	a,#0x07
 	mov	r0,a
 	inc	@r0
-	cjne	@r0,#0x00,00141$
+	cjne	@r0,#0x00,00171$
 	inc	r0
 	inc	@r0
-00141$:
+00171$:
 	mov	a,_bp
 	add	a,#0x07
 	mov	r0,a
@@ -1538,7 +1538,7 @@ _main:
 	mov	a,@r0
 	xrl	a,#0x80
 	subb	a,#0x80
-	jc	00113$
+	jc	00121$
 ;	walk.c:136: puts("\033[2J");
 	mov	dptr,#___str_3
 	mov	b,#0x80
@@ -1609,42 +1609,143 @@ _main:
 	lcall	_walk
 	pop	ar6
 	pop	ar7
-	ljmp	00103$
-00105$:
-;	walk.c:142: EA = 0;
+;	walk.c:141: for (i = 0; i < ROWS; i++)
+	mov	a,_bp
+	add	a,#0x07
+	mov	r0,a
+	clr	a
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	mov	r2,#0x00
+	mov	r3,#0x00
+;	walk.c:142: for (j = 0; j < COLS; j++)
+00126$:
+	mov	r0,_bp
+	inc	r0
+	mov	a,r2
+	add	a,#_g
+	mov	@r0,a
+	mov	a,r3
+	addc	a,#(_g >> 8)
+	inc	r0
+	mov	@r0,a
+	mov	r4,#0x00
+	mov	r5,#0x00
+00114$:
+;	walk.c:143: if (g[i][j] != 0xaa) {
+	push	ar6
+	mov	r0,_bp
+	inc	r0
+	mov	a,r4
+	add	a,@r0
+	mov	dpl,a
+	mov	a,r5
+	inc	r0
+	addc	a,@r0
+	mov	dph,a
+	movx	a,@dptr
+	mov	r6,a
+	cjne	r6,#0xaa,00173$
+	pop	ar6
+	sjmp	00115$
+00173$:
+	pop	ar6
+;	walk.c:144: (void)puts("Memory error");
+	mov	dptr,#___str_1
+	mov	b,#0x80
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar3
+	push	ar2
+	lcall	_puts
+	pop	ar2
+	pop	ar3
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	walk.c:145: reset();
+	lcall	_reset
+00115$:
+;	walk.c:142: for (j = 0; j < COLS; j++)
+	inc	r4
+	cjne	r4,#0x00,00174$
+	inc	r5
+00174$:
+	clr	c
+	mov	a,r4
+	subb	a,#0xc0
+	mov	a,r5
+	xrl	a,#0x80
+	subb	a,#0x80
+	jc	00114$
+;	walk.c:141: for (i = 0; i < ROWS; i++)
+	mov	a,#0xc0
+	add	a,r2
+	mov	r2,a
+	clr	a
+	addc	a,r3
+	mov	r3,a
+	mov	a,_bp
+	add	a,#0x07
+	mov	r0,a
+	inc	@r0
+	cjne	@r0,#0x00,00176$
+	inc	r0
+	inc	@r0
+00176$:
+	mov	a,_bp
+	add	a,#0x07
+	mov	r0,a
+	clr	c
+	mov	a,@r0
+	subb	a,#0x30
+	inc	r0
+	mov	a,@r0
+	xrl	a,#0x80
+	subb	a,#0x80
+	jnc	00177$
+	ljmp	00126$
+00177$:
+	ljmp	00107$
+00109$:
+;	walk.c:149: EA = 0;
 ;	assignBit
 	clr	_EA
-;	walk.c:146: __endasm;
+;	walk.c:153: __endasm;
 	ljmp	0
-;	walk.c:148: return 0;
+;	walk.c:155: return 0;
 	mov	dptr,#0x0000
-;	walk.c:149: }
+;	walk.c:156: }
 	mov	sp,_bp
 	pop	_bp
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'stinit'
 ;------------------------------------------------------------
-;	walk.c:151: static void stinit(void) {
+;	walk.c:158: static void stinit(void) {
 ;	-----------------------------------------
 ;	 function stinit
 ;	-----------------------------------------
 _stinit:
-;	walk.c:152: sp = -1;
+;	walk.c:159: sp = -1;
 	mov	dptr,#_sp
 	mov	a,#0xff
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	walk.c:153: return;
-;	walk.c:154: }
+;	walk.c:160: return;
+;	walk.c:161: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'stpush'
 ;------------------------------------------------------------
 ;t                         Allocated to registers r5 r6 r7 
 ;------------------------------------------------------------
-;	walk.c:156: static int stpush(struct node *t) {
+;	walk.c:163: static int stpush(struct node *t) {
 ;	-----------------------------------------
 ;	 function stpush
 ;	-----------------------------------------
@@ -1652,7 +1753,7 @@ _stpush:
 	mov	r5,dpl
 	mov	r6,dph
 	mov	r7,b
-;	walk.c:157: if (sp == (SMAX - 1)) return 0;
+;	walk.c:164: if (sp == (SMAX - 1)) return 0;
 	mov	dptr,#_sp
 	movx	a,@dptr
 	mov	r3,a
@@ -1664,7 +1765,7 @@ _stpush:
 	mov	dptr,#0x0000
 	ret
 00102$:
-;	walk.c:158: sp++;
+;	walk.c:165: sp++;
 	mov	dptr,#_sp
 	mov	a,#0x01
 	add	a,r3
@@ -1673,7 +1774,7 @@ _stpush:
 	addc	a,r4
 	inc	dptr
 	movx	@dptr,a
-;	walk.c:159: stack[sp] = *t;
+;	walk.c:166: stack[sp] = *t;
 	mov	dptr,#_sp
 	movx	a,@dptr
 	mov	r3,a
@@ -1713,16 +1814,16 @@ _stpush:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	walk.c:160: return 1;
+;	walk.c:167: return 1;
 	mov	dptr,#0x0001
-;	walk.c:161: }
+;	walk.c:168: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'stpop'
 ;------------------------------------------------------------
 ;t                         Allocated to registers r5 r6 r7 
 ;------------------------------------------------------------
-;	walk.c:163: static int stpop(struct node *t) {
+;	walk.c:170: static int stpop(struct node *t) {
 ;	-----------------------------------------
 ;	 function stpop
 ;	-----------------------------------------
@@ -1730,7 +1831,7 @@ _stpop:
 	mov	r5,dpl
 	mov	r6,dph
 	mov	r7,b
-;	walk.c:164: if (sp == -1) return 0;
+;	walk.c:171: if (sp == -1) return 0;
 	mov	dptr,#_sp
 	movx	a,@dptr
 	mov	r3,a
@@ -1742,7 +1843,7 @@ _stpop:
 	mov	dptr,#0x0000
 	ret
 00102$:
-;	walk.c:165: *t = stack[sp];
+;	walk.c:172: *t = stack[sp];
 	mov	a,r3
 	add	a,r3
 	mov	r3,a
@@ -1776,7 +1877,7 @@ _stpop:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	walk.c:166: sp--;
+;	walk.c:173: sp--;
 	mov	dptr,#_sp
 	movx	a,@dptr
 	add	a,#0xff
@@ -1791,9 +1892,9 @@ _stpop:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	walk.c:167: return 1;
+;	walk.c:174: return 1;
 	mov	dptr,#0x0001
-;	walk.c:168: }
+;	walk.c:175: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

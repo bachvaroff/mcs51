@@ -137,6 +137,13 @@ int main(void) {
 		initial.r = rand() % ROWS;
 		initial.c = rand() % COLS;
 		walk(&initial);
+		
+		for (i = 0; i < ROWS; i++)
+			for (j = 0; j < COLS; j++)
+				if (g[i][j] != 0xaa) {
+					(void)puts("Memory error");
+					reset();
+				}
 	}
 	
 	EA = 0;

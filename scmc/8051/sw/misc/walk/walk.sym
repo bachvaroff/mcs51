@@ -366,9 +366,9 @@ Symbol Table
   C _sp                                                            00B400 R
     _srand                                                         ****** GX
   C _stack                                                         002400 R
- 18 _stinit                                                        0006F9 R
- 18 _stpop                                                         000763 R
- 18 _stpush                                                        000702 R
+ 18 _stinit                                                        000789 R
+ 18 _stpop                                                         0007F3 R
+ 18 _stpush                                                        000792 R
  18 _walk                                                          00001D GR
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -600,7 +600,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size      9   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    7C5   flags   20
+  18 CSEG                                       size    855   flags   20
   19 CONST                                      size     36   flags   20
   1A XINIT                                      size      0   flags   20
   1B CABS                                       size      0   flags   28
