@@ -43,6 +43,7 @@ struct node {
 
 static char g[ROWS][COLS];
 
+/*
 #define NMAX 4
 
 static const struct node neigh[NMAX] = {
@@ -51,6 +52,16 @@ static const struct node neigh[NMAX] = {
 	{ 0, +1 },
 	{ +1, 0 }
 };
+*/
+
+#define NMAX 8
+
+static const struct node neigh[NMAX] = {
+	{ -1, -1 },	{ -1, 0 },	{ -1, +1 },
+	{  0, -1 },			{  0, +1 },
+	{ +1, -1 },	{ +1, 0 },	{ +1, +1 }
+};
+
 
 #define SMAX (ROWS * COLS)
 
@@ -60,7 +71,19 @@ static void stinit(void);
 static int stpush(struct node *t);
 static int stpop(struct node *t);
 
-void walk(struct node *nstart) {
+static void update(struct node *t, struct node *cur, int j) {
+	t->r = cur->r + neigh[j].r;
+	t->c = cur->c + neigh[j].c;
+	
+	if (t->r < 0) t->r += ROWS;
+	else if (t->r >= ROWS) t->r -= ROWS;
+	if (t->c < 0) t->c += COLS;
+	else if (t->c >= COLS) t->c -= COLS;
+	
+	return;
+}
+
+static void walk(struct node *nstart) {
 	struct node cur, t;
 	int j, f;
 	
@@ -72,9 +95,7 @@ process:
 	
 next:
 	for (j = 0, f = 0; j < NMAX; j++) {
-		t.r = cur.r + neigh[j].r;
-		t.c = cur.c + neigh[j].c;
-		if ((t.r < 0) || (t.r == ROWS) || (t.c < 0) || (t.c == COLS)) continue;
+		update(&t, &cur, j);
 		
 		if (g[t.r][t.c] == 0x55) f++;
 		else if (g[t.r][t.c] != 0xaa) {
@@ -86,9 +107,7 @@ next:
 	if (f) {
 		while (1) {
 			j = rand() % NMAX;
-			t.r = cur.r + neigh[j].r;
-			t.c = cur.c + neigh[j].c;
-			if ((t.r < 0) || (t.r == ROWS) || (t.c < 0) || (t.c == COLS)) continue;
+			update(&t, &cur, j);
 			
 			if (g[t.r][t.c] == 0xaa) continue;
 			else if (g[t.r][t.c] != 0x55) {
