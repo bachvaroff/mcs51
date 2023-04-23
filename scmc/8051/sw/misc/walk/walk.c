@@ -96,9 +96,11 @@ static void walk(struct node *nstart) {
 
 process:
 	g[cur.r][cur.c] = 0xaa;
-	printf("\033[%d;%dHo", cur.r + 1, cur.c + 1);
+	printf("\033[%d;%dHo", cur.r + 3, cur.c + 1);
 	
 next:
+	printf("\033[1;1H% 8d% 8d% 8d", sp, cur.r, cur.c);
+	
 	for (j = 0, f = 0; j < NMAX; j++) {
 		if (!update(&t, &cur, j)) continue;
 		f++;
@@ -118,7 +120,7 @@ next:
 		}
 	}
 	
-	printf("\033[%d;%dH.", cur.r + 1, cur.c + 1);
+	printf("\033[%d;%dH.", cur.r + 3, cur.c + 1);
 	
 	if (!stpop(&cur)) goto term;
 	goto next;
