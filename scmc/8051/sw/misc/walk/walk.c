@@ -71,7 +71,7 @@ static void stinit(void);
 static int stpush(struct node *t);
 static int stpop(struct node *t);
 
-static void update(struct node *t, struct node *cur, int j) {
+static int update(struct node *t, struct node *cur, int j) {
 	t->r = cur->r + neigh[j].r;
 	t->c = cur->c + neigh[j].c;
 	
@@ -80,7 +80,7 @@ static void update(struct node *t, struct node *cur, int j) {
 	if (t->c < 0) t->c += COLS;
 	else if (t->c >= COLS) t->c -= COLS;
 	
-	return;
+	return 1;
 }
 
 static void walk(struct node *nstart) {
@@ -95,7 +95,7 @@ process:
 	
 next:
 	for (j = 0, f = 0; j < NMAX; j++) {
-		update(&t, &cur, j);
+		if (!update(&t, &cur, j)) continue;
 		
 		if (g[t.r][t.c] == 0x55) f++;
 		else if (g[t.r][t.c] != 0xaa) {
@@ -107,7 +107,7 @@ next:
 	if (f) {
 		while (1) {
 			j = rand() % NMAX;
-			update(&t, &cur, j);
+			if (!update(&t, &cur, j)) continue;
 			
 			if (g[t.r][t.c] == 0xaa) continue;
 			else if (g[t.r][t.c] != 0x55) {
