@@ -96,10 +96,10 @@ static void walk(struct node *nstart) {
 
 process:
 	g[cur.r][cur.c] = 0xaa;
-	printf("\033[%d;%dHo", cur.r + 3, cur.c + 1);
+	printf("\033[%d;%dHo", cur.r + 4, cur.c + 1);
 	
 next:
-	printf("\033[1;1H% 8d% 8d% 8d", sp, cur.r, cur.c);
+	printf("\033[2;1H% 8d% 8d% 8d", sp, cur.r, cur.c);
 	
 	for (j = 0, f = 0; j < NMAX; j++) {
 		if (!update(&t, &cur, j)) continue;
@@ -120,7 +120,7 @@ next:
 		}
 	}
 	
-	printf("\033[%d;%dH.", cur.r + 3, cur.c + 1);
+	printf("\033[%d;%dH.", cur.r + 4, cur.c + 1);
 	
 	if (!stpop(&cur)) goto term;
 	goto next;
@@ -132,6 +132,7 @@ term:
 int main(void) {
 	static volatile __xdata int *R = (__xdata int *)0xfffe;
 	struct node initial;
+	unsigned int N = 0u;
 	int i, j;
 	
 	i0 = 1;
@@ -151,6 +152,7 @@ int main(void) {
 		puts("\033[2J");
 		initial.r = rand() % ROWS;
 		initial.c = rand() % COLS;
+		printf("\033[1;1H% 8u% 8d% 8d", N, initial.r, initial.c);
 		walk(&initial);
 		
 		for (i = 0; i < ROWS; i++)
@@ -159,6 +161,8 @@ int main(void) {
 					(void)puts("Memory error");
 					reset();
 				}
+		
+		N++;
 	}
 	
 	EA = 0;
