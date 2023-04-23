@@ -62,7 +62,6 @@ static const struct node neigh[NMAX] = {
 	{ +1, -1 },	{ +1, 0 },	{ +1, +1 }
 };
 
-
 #define SMAX (ROWS * COLS)
 
 static struct node stack[SMAX];
@@ -80,6 +79,12 @@ static int update(struct node *t, struct node *cur, int j) {
 	if (t->c < 0) t->c += COLS;
 	else if (t->c >= COLS) t->c -= COLS;
 	
+	if (g[t->r][t->c] == 0xaa) return 0;
+	else if (g[t->r][t->c] != 0x55) {
+		(void)puts("Memory error");
+		reset();
+	}
+	
 	return 1;
 }
 
@@ -96,25 +101,14 @@ process:
 next:
 	for (j = 0, f = 0; j < NMAX; j++) {
 		if (!update(&t, &cur, j)) continue;
-		
-		if (g[t.r][t.c] == 0x55) f++;
-		else if (g[t.r][t.c] != 0xaa) {
-			(void)puts("Memory error");
-			reset();
-		}
+		f++;
 	}
 	
 	if (f) {
 		while (1) {
 			j = rand() % NMAX;
 			if (!update(&t, &cur, j)) continue;
-			
-			if (g[t.r][t.c] == 0xaa) continue;
-			else if (g[t.r][t.c] != 0x55) {
-				(void)puts("Memory error");
-				reset();
-			}
-			
+						
 			if (!stpush(&cur)) {
 				(void)puts("Memory error");
 				reset();

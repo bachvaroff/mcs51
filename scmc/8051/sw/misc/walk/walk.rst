@@ -316,14 +316,14 @@
                                     316 ; external ram data
                                     317 ;--------------------------------------------------------
                                     318 	.area XSEG    (XDATA)
-      004100                        319 _g:
-      004100                        320 	.ds 9216
-      006500                        321 _stack:
-      006500                        322 	.ds 36864
-      00F500                        323 _sp:
-      00F500                        324 	.ds 2
-      00F502                        325 _main_R_65536_65:
-      00F502                        326 	.ds 2
+      004000                        319 _g:
+      004000                        320 	.ds 9216
+      006400                        321 _stack:
+      006400                        322 	.ds 36864
+      00F400                        323 _sp:
+      00F400                        324 	.ds 2
+      00F402                        325 _main_R_65536_64:
+      00F402                        326 	.ds 2
                                     327 ;--------------------------------------------------------
                                     328 ; absolute external ram data
                                     329 ;--------------------------------------------------------
@@ -369,10 +369,10 @@
                                     369 ;i                         Allocated to stack - _bp +7
                                     370 ;j                         Allocated to registers r4 r5 
                                     371 ;sloc0                     Allocated to stack - _bp +1
-                                    372 ;R                         Allocated with name '_main_R_65536_65'
+                                    372 ;R                         Allocated with name '_main_R_65536_64'
                                     373 ;------------------------------------------------------------
-                                    374 ;	walk.c:137: static volatile __xdata int *R = (__xdata int *)0xfffe;
-      002062 90 F5 02         [24]  375 	mov	dptr,#_main_R_65536_65
+                                    374 ;	walk.c:131: static volatile __xdata int *R = (__xdata int *)0xfffe;
+      002062 90 F4 02         [24]  375 	mov	dptr,#_main_R_65536_64
       002065 74 FE            [12]  376 	mov	a,#0xfe
       002067 F0               [24]  377 	movx	@dptr,a
       002068 04               [12]  378 	inc	a
@@ -386,7 +386,7 @@
                                     386 	.area HOME    (CODE)
                                     387 	.area HOME    (CODE)
       002006                        388 __sdcc_program_startup:
-      002006 02 27 88         [24]  389 	ljmp	_main
+      002006 02 26 7C         [24]  389 	ljmp	_main
                                     390 ;	return from main will return to caller
                                     391 ;--------------------------------------------------------
                                     392 ; code
@@ -475,7 +475,7 @@
                                     475 ;sloc1                     Allocated to stack - _bp +6
                                     476 ;sloc2                     Allocated to stack - _bp +8
                                     477 ;------------------------------------------------------------
-                                    478 ;	walk.c:74: static int update(struct node *t, struct node *cur, int j) {
+                                    478 ;	walk.c:73: static int update(struct node *t, struct node *cur, int j) {
                                     479 ;	-----------------------------------------
                                     480 ;	 function update
                                     481 ;	-----------------------------------------
@@ -496,7 +496,7 @@
       002096 E5 81            [12]  496 	mov	a,sp
       002098 24 07            [12]  497 	add	a,#0x07
       00209A F5 81            [12]  498 	mov	sp,a
-                                    499 ;	walk.c:75: t->r = cur->r + neigh[j].r;
+                                    499 ;	walk.c:74: t->r = cur->r + neigh[j].r;
       00209C E5 10            [12]  500 	mov	a,_bp
       00209E 24 FB            [12]  501 	add	a,#0xfb
       0020A0 F8               [12]  502 	mov	r0,a
@@ -511,10 +511,10 @@
       0020AF E5 10            [12]  511 	mov	a,_bp
       0020B1 24 04            [12]  512 	add	a,#0x04
       0020B3 F8               [12]  513 	mov	r0,a
-      0020B4 12 2C FC         [24]  514 	lcall	__gptrget
+      0020B4 12 2B F0         [24]  514 	lcall	__gptrget
       0020B7 F6               [12]  515 	mov	@r0,a
       0020B8 A3               [24]  516 	inc	dptr
-      0020B9 12 2C FC         [24]  517 	lcall	__gptrget
+      0020B9 12 2B F0         [24]  517 	lcall	__gptrget
       0020BC 08               [12]  518 	inc	r0
       0020BD F6               [12]  519 	mov	@r0,a
       0020BE E5 10            [12]  520 	mov	a,_bp
@@ -543,11 +543,11 @@
       0020DA 24 06            [12]  543 	add	a,#0x06
       0020DC F8               [12]  544 	mov	r0,a
       0020DD E6               [12]  545 	mov	a,@r0
-      0020DE 24 F6            [12]  546 	add	a,#_neigh
+      0020DE 24 EA            [12]  546 	add	a,#_neigh
       0020E0 F5 82            [12]  547 	mov	dpl,a
       0020E2 08               [12]  548 	inc	r0
       0020E3 E6               [12]  549 	mov	a,@r0
-      0020E4 34 3F            [12]  550 	addc	a,#(_neigh >> 8)
+      0020E4 34 3E            [12]  550 	addc	a,#(_neigh >> 8)
       0020E6 F5 83            [12]  551 	mov	dph,a
       0020E8 E4               [12]  552 	clr	a
       0020E9 93               [24]  553 	movc	a,@a+dptr
@@ -574,11 +574,11 @@
       002103 08               [12]  574 	inc	r0
       002104 86 F0            [24]  575 	mov	b,@r0
       002106 EF               [12]  576 	mov	a,r7
-      002107 12 2A F1         [24]  577 	lcall	__gptrput
+      002107 12 29 E5         [24]  577 	lcall	__gptrput
       00210A A3               [24]  578 	inc	dptr
       00210B EE               [12]  579 	mov	a,r6
-      00210C 12 2A F1         [24]  580 	lcall	__gptrput
-                                    581 ;	walk.c:76: t->c = cur->c + neigh[j].c;
+      00210C 12 29 E5         [24]  580 	lcall	__gptrput
+                                    581 ;	walk.c:75: t->c = cur->c + neigh[j].c;
       00210F A8 10            [24]  582 	mov	r0,_bp
       002111 08               [12]  583 	inc	r0
       002112 E5 10            [12]  584 	mov	a,_bp
@@ -605,20 +605,20 @@
       00212B 8A 82            [24]  605 	mov	dpl,r2
       00212D 8B 83            [24]  606 	mov	dph,r3
       00212F 8C F0            [24]  607 	mov	b,r4
-      002131 12 2C FC         [24]  608 	lcall	__gptrget
+      002131 12 2B F0         [24]  608 	lcall	__gptrget
       002134 FA               [12]  609 	mov	r2,a
       002135 A3               [24]  610 	inc	dptr
-      002136 12 2C FC         [24]  611 	lcall	__gptrget
+      002136 12 2B F0         [24]  611 	lcall	__gptrget
       002139 FB               [12]  612 	mov	r3,a
       00213A E5 10            [12]  613 	mov	a,_bp
       00213C 24 06            [12]  614 	add	a,#0x06
       00213E F8               [12]  615 	mov	r0,a
       00213F E6               [12]  616 	mov	a,@r0
-      002140 24 F6            [12]  617 	add	a,#_neigh
+      002140 24 EA            [12]  617 	add	a,#_neigh
       002142 FC               [12]  618 	mov	r4,a
       002143 08               [12]  619 	inc	r0
       002144 E6               [12]  620 	mov	a,@r0
-      002145 34 3F            [12]  621 	addc	a,#(_neigh >> 8)
+      002145 34 3E            [12]  621 	addc	a,#(_neigh >> 8)
       002147 FD               [12]  622 	mov	r5,a
       002148 8C 82            [24]  623 	mov	dpl,r4
       00214A 8D 83            [24]  624 	mov	dph,r5
@@ -646,11 +646,11 @@
       002165 08               [12]  646 	inc	r0
       002166 86 F0            [24]  647 	mov	b,@r0
       002168 EA               [12]  648 	mov	a,r2
-      002169 12 2A F1         [24]  649 	lcall	__gptrput
+      002169 12 29 E5         [24]  649 	lcall	__gptrput
       00216C A3               [24]  650 	inc	dptr
       00216D EB               [12]  651 	mov	a,r3
-      00216E 12 2A F1         [24]  652 	lcall	__gptrput
-                                    653 ;	walk.c:78: if (t->r < 0) t->r += ROWS;
+      00216E 12 29 E5         [24]  652 	lcall	__gptrput
+                                    653 ;	walk.c:77: if (t->r < 0) t->r += ROWS;
       002171 A8 10            [24]  654 	mov	r0,_bp
       002173 08               [12]  655 	inc	r0
       002174 86 82            [24]  656 	mov	dpl,@r0
@@ -658,10 +658,10 @@
       002177 86 83            [24]  658 	mov	dph,@r0
       002179 08               [12]  659 	inc	r0
       00217A 86 F0            [24]  660 	mov	b,@r0
-      00217C 12 2C FC         [24]  661 	lcall	__gptrget
+      00217C 12 2B F0         [24]  661 	lcall	__gptrget
       00217F FD               [12]  662 	mov	r5,a
       002180 A3               [24]  663 	inc	dptr
-      002181 12 2C FC         [24]  664 	lcall	__gptrget
+      002181 12 2B F0         [24]  664 	lcall	__gptrget
       002184 FC               [12]  665 	mov	r4,a
       002185 EE               [12]  666 	mov	a,r6
       002186 30 E7 1D         [24]  667 	jnb	acc.7,00104$
@@ -679,13 +679,13 @@
       002198 08               [12]  679 	inc	r0
       002199 86 F0            [24]  680 	mov	b,@r0
       00219B EF               [12]  681 	mov	a,r7
-      00219C 12 2A F1         [24]  682 	lcall	__gptrput
+      00219C 12 29 E5         [24]  682 	lcall	__gptrput
       00219F A3               [24]  683 	inc	dptr
       0021A0 EE               [12]  684 	mov	a,r6
-      0021A1 12 2A F1         [24]  685 	lcall	__gptrput
+      0021A1 12 29 E5         [24]  685 	lcall	__gptrput
       0021A4 80 27            [24]  686 	sjmp	00105$
       0021A6                        687 00104$:
-                                    688 ;	walk.c:79: else if (t->r >= ROWS) t->r -= ROWS;
+                                    688 ;	walk.c:78: else if (t->r >= ROWS) t->r -= ROWS;
       0021A6 C3               [12]  689 	clr	c
       0021A7 ED               [12]  690 	mov	a,r5
       0021A8 94 30            [12]  691 	subb	a,#0x30
@@ -707,12 +707,12 @@
       0021C1 08               [12]  707 	inc	r0
       0021C2 86 F0            [24]  708 	mov	b,@r0
       0021C4 ED               [12]  709 	mov	a,r5
-      0021C5 12 2A F1         [24]  710 	lcall	__gptrput
+      0021C5 12 29 E5         [24]  710 	lcall	__gptrput
       0021C8 A3               [24]  711 	inc	dptr
       0021C9 EC               [12]  712 	mov	a,r4
-      0021CA 12 2A F1         [24]  713 	lcall	__gptrput
+      0021CA 12 29 E5         [24]  713 	lcall	__gptrput
       0021CD                        714 00105$:
-                                    715 ;	walk.c:80: if (t->c < 0) t->c += COLS;
+                                    715 ;	walk.c:79: if (t->c < 0) t->c += COLS;
       0021CD E5 10            [12]  716 	mov	a,_bp
       0021CF 24 08            [12]  717 	add	a,#0x08
       0021D1 F8               [12]  718 	mov	r0,a
@@ -721,9 +721,9 @@
       0021D5 86 83            [24]  721 	mov	dph,@r0
       0021D7 08               [12]  722 	inc	r0
       0021D8 86 F0            [24]  723 	mov	b,@r0
-      0021DA 12 2C FC         [24]  724 	lcall	__gptrget
+      0021DA 12 2B F0         [24]  724 	lcall	__gptrget
       0021DD A3               [24]  725 	inc	dptr
-      0021DE 12 2C FC         [24]  726 	lcall	__gptrget
+      0021DE 12 2B F0         [24]  726 	lcall	__gptrget
       0021E1 30 E7 35         [24]  727 	jnb	acc.7,00109$
       0021E4 E5 10            [12]  728 	mov	a,_bp
       0021E6 24 08            [12]  729 	add	a,#0x08
@@ -733,10 +733,10 @@
       0021EC 86 83            [24]  733 	mov	dph,@r0
       0021EE 08               [12]  734 	inc	r0
       0021EF 86 F0            [24]  735 	mov	b,@r0
-      0021F1 12 2C FC         [24]  736 	lcall	__gptrget
+      0021F1 12 2B F0         [24]  736 	lcall	__gptrget
       0021F4 FE               [12]  737 	mov	r6,a
       0021F5 A3               [24]  738 	inc	dptr
-      0021F6 12 2C FC         [24]  739 	lcall	__gptrget
+      0021F6 12 2B F0         [24]  739 	lcall	__gptrget
       0021F9 FF               [12]  740 	mov	r7,a
       0021FA 74 C0            [12]  741 	mov	a,#0xc0
       0021FC 2E               [12]  742 	add	a,r6
@@ -753,13 +753,13 @@
       00220B 08               [12]  753 	inc	r0
       00220C 86 F0            [24]  754 	mov	b,@r0
       00220E EE               [12]  755 	mov	a,r6
-      00220F 12 2A F1         [24]  756 	lcall	__gptrput
+      00220F 12 29 E5         [24]  756 	lcall	__gptrput
       002212 A3               [24]  757 	inc	dptr
       002213 EF               [12]  758 	mov	a,r7
-      002214 12 2A F1         [24]  759 	lcall	__gptrput
+      002214 12 29 E5         [24]  759 	lcall	__gptrput
       002217 80 55            [24]  760 	sjmp	00110$
       002219                        761 00109$:
-                                    762 ;	walk.c:81: else if (t->c >= COLS) t->c -= COLS;
+                                    762 ;	walk.c:80: else if (t->c >= COLS) t->c -= COLS;
       002219 E5 10            [12]  763 	mov	a,_bp
       00221B 24 08            [12]  764 	add	a,#0x08
       00221D F8               [12]  765 	mov	r0,a
@@ -768,10 +768,10 @@
       002221 86 83            [24]  768 	mov	dph,@r0
       002223 08               [12]  769 	inc	r0
       002224 86 F0            [24]  770 	mov	b,@r0
-      002226 12 2C FC         [24]  771 	lcall	__gptrget
+      002226 12 2B F0         [24]  771 	lcall	__gptrget
       002229 FE               [12]  772 	mov	r6,a
       00222A A3               [24]  773 	inc	dptr
-      00222B 12 2C FC         [24]  774 	lcall	__gptrget
+      00222B 12 2B F0         [24]  774 	lcall	__gptrget
       00222E FF               [12]  775 	mov	r7,a
       00222F C3               [12]  776 	clr	c
       002230 EE               [12]  777 	mov	a,r6
@@ -788,10 +788,10 @@
       002242 86 83            [24]  788 	mov	dph,@r0
       002244 08               [12]  789 	inc	r0
       002245 86 F0            [24]  790 	mov	b,@r0
-      002247 12 2C FC         [24]  791 	lcall	__gptrget
+      002247 12 2B F0         [24]  791 	lcall	__gptrget
       00224A FE               [12]  792 	mov	r6,a
       00224B A3               [24]  793 	inc	dptr
-      00224C 12 2C FC         [24]  794 	lcall	__gptrget
+      00224C 12 2B F0         [24]  794 	lcall	__gptrget
       00224F FF               [12]  795 	mov	r7,a
       002250 EE               [12]  796 	mov	a,r6
       002251 24 40            [12]  797 	add	a,#0x40
@@ -808,1354 +808,1192 @@
       002262 08               [12]  808 	inc	r0
       002263 86 F0            [24]  809 	mov	b,@r0
       002265 EE               [12]  810 	mov	a,r6
-      002266 12 2A F1         [24]  811 	lcall	__gptrput
+      002266 12 29 E5         [24]  811 	lcall	__gptrput
       002269 A3               [24]  812 	inc	dptr
       00226A EF               [12]  813 	mov	a,r7
-      00226B 12 2A F1         [24]  814 	lcall	__gptrput
+      00226B 12 29 E5         [24]  814 	lcall	__gptrput
       00226E                        815 00110$:
-                                    816 ;	walk.c:83: return 1;
-      00226E 90 00 01         [24]  817 	mov	dptr,#0x0001
-                                    818 ;	walk.c:84: }
-      002271 85 10 81         [24]  819 	mov	sp,_bp
-      002274 D0 10            [24]  820 	pop	_bp
-      002276 22               [24]  821 	ret
-                                    822 ;------------------------------------------------------------
-                                    823 ;Allocation info for local variables in function 'walk'
-                                    824 ;------------------------------------------------------------
-                                    825 ;nstart                    Allocated to registers 
-                                    826 ;cur                       Allocated to stack - _bp +12
-                                    827 ;t                         Allocated to stack - _bp +16
-                                    828 ;j                         Allocated to stack - _bp +20
-                                    829 ;f                         Allocated to stack - _bp +22
-                                    830 ;sloc0                     Allocated to stack - _bp +1
-                                    831 ;sloc1                     Allocated to stack - _bp +2
-                                    832 ;sloc2                     Allocated to stack - _bp +3
-                                    833 ;sloc3                     Allocated to stack - _bp +4
-                                    834 ;sloc4                     Allocated to stack - _bp +20
-                                    835 ;sloc5                     Allocated to stack - _bp +5
-                                    836 ;sloc6                     Allocated to stack - _bp +22
-                                    837 ;sloc7                     Allocated to stack - _bp +6
-                                    838 ;sloc8                     Allocated to stack - _bp +7
-                                    839 ;sloc9                     Allocated to stack - _bp +8
-                                    840 ;sloc10                    Allocated to stack - _bp +11
-                                    841 ;------------------------------------------------------------
-                                    842 ;	walk.c:86: static void walk(struct node *nstart) {
-                                    843 ;	-----------------------------------------
-                                    844 ;	 function walk
-                                    845 ;	-----------------------------------------
-      002277                        846 _walk:
-      002277 C0 10            [24]  847 	push	_bp
-      002279 E5 81            [12]  848 	mov	a,sp
-      00227B F5 10            [12]  849 	mov	_bp,a
-      00227D 24 17            [12]  850 	add	a,#0x17
-      00227F F5 81            [12]  851 	mov	sp,a
-      002281 AD 82            [24]  852 	mov	r5,dpl
-      002283 AE 83            [24]  853 	mov	r6,dph
-      002285 AF F0            [24]  854 	mov	r7,b
-                                    855 ;	walk.c:90: cur = *nstart;
-      002287 E5 10            [12]  856 	mov	a,_bp
-      002289 24 0C            [12]  857 	add	a,#0x0c
-      00228B F9               [12]  858 	mov	r1,a
-      00228C FA               [12]  859 	mov	r2,a
-      00228D 7B 00            [12]  860 	mov	r3,#0x00
-      00228F 7C 40            [12]  861 	mov	r4,#0x40
-      002291 C0 01            [24]  862 	push	ar1
-      002293 74 04            [12]  863 	mov	a,#0x04
-      002295 C0 E0            [24]  864 	push	acc
-      002297 E4               [12]  865 	clr	a
-      002298 C0 E0            [24]  866 	push	acc
-      00229A C0 05            [24]  867 	push	ar5
-      00229C C0 06            [24]  868 	push	ar6
-      00229E C0 07            [24]  869 	push	ar7
-      0022A0 8A 82            [24]  870 	mov	dpl,r2
-      0022A2 8B 83            [24]  871 	mov	dph,r3
-      0022A4 8C F0            [24]  872 	mov	b,r4
-      0022A6 12 2B AA         [24]  873 	lcall	___memcpy
-      0022A9 E5 81            [12]  874 	mov	a,sp
-      0022AB 24 FB            [12]  875 	add	a,#0xfb
-      0022AD F5 81            [12]  876 	mov	sp,a
-      0022AF D0 01            [24]  877 	pop	ar1
-                                    878 ;	walk.c:92: process:
-      0022B1 E5 10            [12]  879 	mov	a,_bp
-      0022B3 24 07            [12]  880 	add	a,#0x07
-      0022B5 F8               [12]  881 	mov	r0,a
-      0022B6 A6 01            [24]  882 	mov	@r0,ar1
-      0022B8 E5 10            [12]  883 	mov	a,_bp
-      0022BA 24 10            [12]  884 	add	a,#0x10
-      0022BC F8               [12]  885 	mov	r0,a
-      0022BD C0 00            [24]  886 	push	ar0
-      0022BF E5 10            [12]  887 	mov	a,_bp
-      0022C1 24 06            [12]  888 	add	a,#0x06
-      0022C3 F8               [12]  889 	mov	r0,a
-      0022C4 A6 01            [24]  890 	mov	@r0,ar1
-      0022C6 D0 00            [24]  891 	pop	ar0
-      0022C8 74 02            [12]  892 	mov	a,#0x02
-      0022CA 28               [12]  893 	add	a,r0
-      0022CB FD               [12]  894 	mov	r5,a
-      0022CC C0 00            [24]  895 	push	ar0
-      0022CE E5 10            [12]  896 	mov	a,_bp
-      0022D0 24 0B            [12]  897 	add	a,#0x0b
-      0022D2 F8               [12]  898 	mov	r0,a
-      0022D3 A6 01            [24]  899 	mov	@r0,ar1
-      0022D5 D0 00            [24]  900 	pop	ar0
-      0022D7 88 03            [24]  901 	mov	ar3,r0
-      0022D9 C0 00            [24]  902 	push	ar0
-      0022DB E5 10            [12]  903 	mov	a,_bp
-      0022DD 24 05            [12]  904 	add	a,#0x05
-      0022DF F8               [12]  905 	mov	r0,a
-      0022E0 A6 05            [24]  906 	mov	@r0,ar5
-      0022E2 A8 10            [24]  907 	mov	r0,_bp
-      0022E4 08               [12]  908 	inc	r0
-      0022E5 A6 01            [24]  909 	mov	@r0,ar1
-      0022E7 D0 00            [24]  910 	pop	ar0
-      0022E9 C0 01            [24]  911 	push	ar1
-      0022EB A9 10            [24]  912 	mov	r1,_bp
-      0022ED 09               [12]  913 	inc	r1
-      0022EE 09               [12]  914 	inc	r1
-      0022EF A7 00            [24]  915 	mov	@r1,ar0
-      0022F1 D0 01            [24]  916 	pop	ar1
-      0022F3 C0 00            [24]  917 	push	ar0
-      0022F5 E5 10            [12]  918 	mov	a,_bp
-      0022F7 24 03            [12]  919 	add	a,#0x03
-      0022F9 F8               [12]  920 	mov	r0,a
-      0022FA A6 01            [24]  921 	mov	@r0,ar1
-      0022FC E5 10            [12]  922 	mov	a,_bp
-      0022FE 24 04            [12]  923 	add	a,#0x04
-      002300 F8               [12]  924 	mov	r0,a
-      002301 74 02            [12]  925 	mov	a,#0x02
-      002303 29               [12]  926 	add	a,r1
-      002304 F6               [12]  927 	mov	@r0,a
-      002305 D0 00            [24]  928 	pop	ar0
-      002307                        929 00101$:
-                                    930 ;	walk.c:93: g[cur.r][cur.c] = 0xaa;
-      002307 87 02            [24]  931 	mov	ar2,@r1
-      002309 09               [12]  932 	inc	r1
-      00230A 87 06            [24]  933 	mov	ar6,@r1
-      00230C 19               [12]  934 	dec	r1
-      00230D C0 05            [24]  935 	push	ar5
-      00230F C0 03            [24]  936 	push	ar3
-      002311 C0 01            [24]  937 	push	ar1
-      002313 C0 00            [24]  938 	push	ar0
-      002315 C0 02            [24]  939 	push	ar2
-      002317 C0 06            [24]  940 	push	ar6
-      002319 90 00 C0         [24]  941 	mov	dptr,#0x00c0
-      00231C 12 2B 0C         [24]  942 	lcall	__mulint
-      00231F AA 82            [24]  943 	mov	r2,dpl
-      002321 AE 83            [24]  944 	mov	r6,dph
-      002323 15 81            [12]  945 	dec	sp
-      002325 15 81            [12]  946 	dec	sp
-      002327 D0 00            [24]  947 	pop	ar0
-      002329 D0 01            [24]  948 	pop	ar1
-      00232B D0 03            [24]  949 	pop	ar3
-      00232D D0 05            [24]  950 	pop	ar5
-      00232F EA               [12]  951 	mov	a,r2
-      002330 24 00            [12]  952 	add	a,#_g
-      002332 FF               [12]  953 	mov	r7,a
-      002333 EE               [12]  954 	mov	a,r6
-      002334 34 41            [12]  955 	addc	a,#(_g >> 8)
-      002336 FC               [12]  956 	mov	r4,a
-      002337 C0 00            [24]  957 	push	ar0
-      002339 E5 10            [12]  958 	mov	a,_bp
-      00233B 24 04            [12]  959 	add	a,#0x04
-      00233D F8               [12]  960 	mov	r0,a
-      00233E 86 00            [24]  961 	mov	ar0,@r0
-      002340 86 02            [24]  962 	mov	ar2,@r0
-      002342 08               [12]  963 	inc	r0
-      002343 86 06            [24]  964 	mov	ar6,@r0
-      002345 18               [12]  965 	dec	r0
-      002346 EA               [12]  966 	mov	a,r2
-      002347 2F               [12]  967 	add	a,r7
-      002348 F5 82            [12]  968 	mov	dpl,a
-      00234A EE               [12]  969 	mov	a,r6
-      00234B 3C               [12]  970 	addc	a,r4
-      00234C F5 83            [12]  971 	mov	dph,a
-      00234E 74 AA            [12]  972 	mov	a,#0xaa
-      002350 F0               [24]  973 	movx	@dptr,a
-                                    974 ;	walk.c:94: printf("\033[%d;%dHo", cur.r + 1, cur.c + 1);
-      002351 E5 10            [12]  975 	mov	a,_bp
-      002353 24 04            [12]  976 	add	a,#0x04
-      002355 F8               [12]  977 	mov	r0,a
-      002356 86 00            [24]  978 	mov	ar0,@r0
-      002358 86 02            [24]  979 	mov	ar2,@r0
-      00235A 08               [12]  980 	inc	r0
-      00235B 86 06            [24]  981 	mov	ar6,@r0
-      00235D 18               [12]  982 	dec	r0
-      00235E D0 00            [24]  983 	pop	ar0
-      002360 74 01            [12]  984 	mov	a,#0x01
-      002362 2A               [12]  985 	add	a,r2
-      002363 FF               [12]  986 	mov	r7,a
-      002364 E4               [12]  987 	clr	a
-      002365 3E               [12]  988 	addc	a,r6
-      002366 FC               [12]  989 	mov	r4,a
-      002367 87 02            [24]  990 	mov	ar2,@r1
-      002369 09               [12]  991 	inc	r1
-      00236A 87 06            [24]  992 	mov	ar6,@r1
-      00236C 19               [12]  993 	dec	r1
-      00236D 0A               [12]  994 	inc	r2
-      00236E BA 00 01         [24]  995 	cjne	r2,#0x00,00186$
-      002371 0E               [12]  996 	inc	r6
-      002372                        997 00186$:
-      002372 C0 05            [24]  998 	push	ar5
-      002374 C0 03            [24]  999 	push	ar3
-      002376 C0 01            [24] 1000 	push	ar1
-      002378 C0 00            [24] 1001 	push	ar0
-      00237A C0 07            [24] 1002 	push	ar7
-      00237C C0 04            [24] 1003 	push	ar4
-      00237E C0 02            [24] 1004 	push	ar2
-      002380 C0 06            [24] 1005 	push	ar6
-      002382 74 16            [12] 1006 	mov	a,#___str_0
-      002384 C0 E0            [24] 1007 	push	acc
-      002386 74 40            [12] 1008 	mov	a,#(___str_0 >> 8)
-      002388 C0 E0            [24] 1009 	push	acc
-      00238A 74 80            [12] 1010 	mov	a,#0x80
-      00238C C0 E0            [24] 1011 	push	acc
-      00238E 12 2C C3         [24] 1012 	lcall	_printf
-      002391 E5 81            [12] 1013 	mov	a,sp
-      002393 24 F9            [12] 1014 	add	a,#0xf9
-      002395 F5 81            [12] 1015 	mov	sp,a
-      002397 D0 00            [24] 1016 	pop	ar0
-      002399 D0 01            [24] 1017 	pop	ar1
-      00239B D0 03            [24] 1018 	pop	ar3
-      00239D D0 05            [24] 1019 	pop	ar5
-                                   1020 ;	walk.c:133: return;
-                                   1021 ;	walk.c:97: for (j = 0, f = 0; j < NMAX; j++) {
-      00239F                       1022 00137$:
-      00239F C0 00            [24] 1023 	push	ar0
-      0023A1 E5 10            [12] 1024 	mov	a,_bp
-      0023A3 24 16            [12] 1025 	add	a,#0x16
-      0023A5 F8               [12] 1026 	mov	r0,a
-      0023A6 E4               [12] 1027 	clr	a
-      0023A7 F6               [12] 1028 	mov	@r0,a
-      0023A8 08               [12] 1029 	inc	r0
-      0023A9 F6               [12] 1030 	mov	@r0,a
-      0023AA E5 10            [12] 1031 	mov	a,_bp
-      0023AC 24 14            [12] 1032 	add	a,#0x14
-      0023AE F8               [12] 1033 	mov	r0,a
-      0023AF E4               [12] 1034 	clr	a
-      0023B0 F6               [12] 1035 	mov	@r0,a
-      0023B1 08               [12] 1036 	inc	r0
-      0023B2 F6               [12] 1037 	mov	@r0,a
-      0023B3 D0 00            [24] 1038 	pop	ar0
-      0023B5                       1039 00130$:
-      0023B5 C0 00            [24] 1040 	push	ar0
-      0023B7 E5 10            [12] 1041 	mov	a,_bp
-      0023B9 24 14            [12] 1042 	add	a,#0x14
-      0023BB F8               [12] 1043 	mov	r0,a
-      0023BC C3               [12] 1044 	clr	c
-      0023BD E6               [12] 1045 	mov	a,@r0
-      0023BE 94 08            [12] 1046 	subb	a,#0x08
-      0023C0 08               [12] 1047 	inc	r0
-      0023C1 E6               [12] 1048 	mov	a,@r0
-      0023C2 64 80            [12] 1049 	xrl	a,#0x80
-      0023C4 94 80            [12] 1050 	subb	a,#0x80
-      0023C6 D0 00            [24] 1051 	pop	ar0
-      0023C8 40 03            [24] 1052 	jc	00187$
-      0023CA 02 24 F3         [24] 1053 	ljmp	00111$
-      0023CD                       1054 00187$:
-                                   1055 ;	walk.c:98: if (!update(&t, &cur, j)) continue;
-      0023CD C0 00            [24] 1056 	push	ar0
-      0023CF E5 10            [12] 1057 	mov	a,_bp
-      0023D1 24 07            [12] 1058 	add	a,#0x07
-      0023D3 F8               [12] 1059 	mov	r0,a
-      0023D4 C0 01            [24] 1060 	push	ar1
-      0023D6 E5 10            [12] 1061 	mov	a,_bp
-      0023D8 24 08            [12] 1062 	add	a,#0x08
-      0023DA F9               [12] 1063 	mov	r1,a
-      0023DB E6               [12] 1064 	mov	a,@r0
-      0023DC F7               [12] 1065 	mov	@r1,a
-      0023DD 09               [12] 1066 	inc	r1
-      0023DE 77 00            [12] 1067 	mov	@r1,#0x00
-      0023E0 09               [12] 1068 	inc	r1
-      0023E1 77 40            [12] 1069 	mov	@r1,#0x40
-      0023E3 D0 01            [24] 1070 	pop	ar1
-      0023E5 D0 00            [24] 1071 	pop	ar0
-      0023E7 88 04            [24] 1072 	mov	ar4,r0
-      0023E9 7E 00            [12] 1073 	mov	r6,#0x00
-      0023EB 7F 40            [12] 1074 	mov	r7,#0x40
-      0023ED C0 05            [24] 1075 	push	ar5
-      0023EF C0 03            [24] 1076 	push	ar3
-      0023F1 C0 01            [24] 1077 	push	ar1
-      0023F3 C0 00            [24] 1078 	push	ar0
-      0023F5 85 00 F0         [24] 1079 	mov	b,ar0
-      0023F8 E5 10            [12] 1080 	mov	a,_bp
-      0023FA 24 14            [12] 1081 	add	a,#0x14
-      0023FC F8               [12] 1082 	mov	r0,a
-      0023FD E6               [12] 1083 	mov	a,@r0
-      0023FE C0 E0            [24] 1084 	push	acc
-      002400 08               [12] 1085 	inc	r0
-      002401 E6               [12] 1086 	mov	a,@r0
+                                    816 ;	walk.c:82: if (g[t->r][t->c] == 0xaa) return 0;
+      00226E A8 10            [24]  817 	mov	r0,_bp
+      002270 08               [12]  818 	inc	r0
+      002271 86 82            [24]  819 	mov	dpl,@r0
+      002273 08               [12]  820 	inc	r0
+      002274 86 83            [24]  821 	mov	dph,@r0
+      002276 08               [12]  822 	inc	r0
+      002277 86 F0            [24]  823 	mov	b,@r0
+      002279 12 2B F0         [24]  824 	lcall	__gptrget
+      00227C FE               [12]  825 	mov	r6,a
+      00227D A3               [24]  826 	inc	dptr
+      00227E 12 2B F0         [24]  827 	lcall	__gptrget
+      002281 FF               [12]  828 	mov	r7,a
+      002282 C0 06            [24]  829 	push	ar6
+      002284 C0 07            [24]  830 	push	ar7
+      002286 90 00 C0         [24]  831 	mov	dptr,#0x00c0
+      002289 12 2A 00         [24]  832 	lcall	__mulint
+      00228C AE 82            [24]  833 	mov	r6,dpl
+      00228E AF 83            [24]  834 	mov	r7,dph
+      002290 15 81            [12]  835 	dec	sp
+      002292 15 81            [12]  836 	dec	sp
+      002294 EE               [12]  837 	mov	a,r6
+      002295 24 00            [12]  838 	add	a,#_g
+      002297 FE               [12]  839 	mov	r6,a
+      002298 EF               [12]  840 	mov	a,r7
+      002299 34 40            [12]  841 	addc	a,#(_g >> 8)
+      00229B FF               [12]  842 	mov	r7,a
+      00229C E5 10            [12]  843 	mov	a,_bp
+      00229E 24 08            [12]  844 	add	a,#0x08
+      0022A0 F8               [12]  845 	mov	r0,a
+      0022A1 86 82            [24]  846 	mov	dpl,@r0
+      0022A3 08               [12]  847 	inc	r0
+      0022A4 86 83            [24]  848 	mov	dph,@r0
+      0022A6 08               [12]  849 	inc	r0
+      0022A7 86 F0            [24]  850 	mov	b,@r0
+      0022A9 12 2B F0         [24]  851 	lcall	__gptrget
+      0022AC FC               [12]  852 	mov	r4,a
+      0022AD A3               [24]  853 	inc	dptr
+      0022AE 12 2B F0         [24]  854 	lcall	__gptrget
+      0022B1 FD               [12]  855 	mov	r5,a
+      0022B2 EC               [12]  856 	mov	a,r4
+      0022B3 2E               [12]  857 	add	a,r6
+      0022B4 F5 82            [12]  858 	mov	dpl,a
+      0022B6 ED               [12]  859 	mov	a,r5
+      0022B7 3F               [12]  860 	addc	a,r7
+      0022B8 F5 83            [12]  861 	mov	dph,a
+      0022BA E0               [24]  862 	movx	a,@dptr
+      0022BB FF               [12]  863 	mov	r7,a
+      0022BC BF AA 05         [24]  864 	cjne	r7,#0xaa,00114$
+      0022BF 90 00 00         [24]  865 	mov	dptr,#0x0000
+      0022C2 80 62            [24]  866 	sjmp	00116$
+      0022C4                        867 00114$:
+                                    868 ;	walk.c:83: else if (g[t->r][t->c] != 0x55) {
+      0022C4 A8 10            [24]  869 	mov	r0,_bp
+      0022C6 08               [12]  870 	inc	r0
+      0022C7 86 82            [24]  871 	mov	dpl,@r0
+      0022C9 08               [12]  872 	inc	r0
+      0022CA 86 83            [24]  873 	mov	dph,@r0
+      0022CC 08               [12]  874 	inc	r0
+      0022CD 86 F0            [24]  875 	mov	b,@r0
+      0022CF 12 2B F0         [24]  876 	lcall	__gptrget
+      0022D2 FE               [12]  877 	mov	r6,a
+      0022D3 A3               [24]  878 	inc	dptr
+      0022D4 12 2B F0         [24]  879 	lcall	__gptrget
+      0022D7 FF               [12]  880 	mov	r7,a
+      0022D8 C0 06            [24]  881 	push	ar6
+      0022DA C0 07            [24]  882 	push	ar7
+      0022DC 90 00 C0         [24]  883 	mov	dptr,#0x00c0
+      0022DF 12 2A 00         [24]  884 	lcall	__mulint
+      0022E2 AE 82            [24]  885 	mov	r6,dpl
+      0022E4 AF 83            [24]  886 	mov	r7,dph
+      0022E6 15 81            [12]  887 	dec	sp
+      0022E8 15 81            [12]  888 	dec	sp
+      0022EA EE               [12]  889 	mov	a,r6
+      0022EB 24 00            [12]  890 	add	a,#_g
+      0022ED FE               [12]  891 	mov	r6,a
+      0022EE EF               [12]  892 	mov	a,r7
+      0022EF 34 40            [12]  893 	addc	a,#(_g >> 8)
+      0022F1 FF               [12]  894 	mov	r7,a
+      0022F2 E5 10            [12]  895 	mov	a,_bp
+      0022F4 24 08            [12]  896 	add	a,#0x08
+      0022F6 F8               [12]  897 	mov	r0,a
+      0022F7 86 82            [24]  898 	mov	dpl,@r0
+      0022F9 08               [12]  899 	inc	r0
+      0022FA 86 83            [24]  900 	mov	dph,@r0
+      0022FC 08               [12]  901 	inc	r0
+      0022FD 86 F0            [24]  902 	mov	b,@r0
+      0022FF 12 2B F0         [24]  903 	lcall	__gptrget
+      002302 FC               [12]  904 	mov	r4,a
+      002303 A3               [24]  905 	inc	dptr
+      002304 12 2B F0         [24]  906 	lcall	__gptrget
+      002307 FD               [12]  907 	mov	r5,a
+      002308 EC               [12]  908 	mov	a,r4
+      002309 2E               [12]  909 	add	a,r6
+      00230A F5 82            [12]  910 	mov	dpl,a
+      00230C ED               [12]  911 	mov	a,r5
+      00230D 3F               [12]  912 	addc	a,r7
+      00230E F5 83            [12]  913 	mov	dph,a
+      002310 E0               [24]  914 	movx	a,@dptr
+      002311 FF               [12]  915 	mov	r7,a
+      002312 BF 55 02         [24]  916 	cjne	r7,#0x55,00148$
+      002315 80 0C            [24]  917 	sjmp	00115$
+      002317                        918 00148$:
+                                    919 ;	walk.c:84: (void)puts("Memory error");
+      002317 90 3F 0A         [24]  920 	mov	dptr,#___str_0
+      00231A 75 F0 80         [24]  921 	mov	b,#0x80
+      00231D 12 2B 31         [24]  922 	lcall	_puts
+                                    923 ;	walk.c:85: reset();
+      002320 12 20 88         [24]  924 	lcall	_reset
+      002323                        925 00115$:
+                                    926 ;	walk.c:88: return 1;
+      002323 90 00 01         [24]  927 	mov	dptr,#0x0001
+      002326                        928 00116$:
+                                    929 ;	walk.c:89: }
+      002326 85 10 81         [24]  930 	mov	sp,_bp
+      002329 D0 10            [24]  931 	pop	_bp
+      00232B 22               [24]  932 	ret
+                                    933 ;------------------------------------------------------------
+                                    934 ;Allocation info for local variables in function 'walk'
+                                    935 ;------------------------------------------------------------
+                                    936 ;nstart                    Allocated to registers 
+                                    937 ;cur                       Allocated to stack - _bp +11
+                                    938 ;t                         Allocated to stack - _bp +15
+                                    939 ;j                         Allocated to stack - _bp +19
+                                    940 ;f                         Allocated to registers r3 r2 
+                                    941 ;sloc0                     Allocated to stack - _bp +1
+                                    942 ;sloc1                     Allocated to stack - _bp +2
+                                    943 ;sloc2                     Allocated to stack - _bp +3
+                                    944 ;sloc3                     Allocated to stack - _bp +19
+                                    945 ;sloc4                     Allocated to stack - _bp +4
+                                    946 ;sloc5                     Allocated to stack - _bp +22
+                                    947 ;sloc6                     Allocated to stack - _bp +5
+                                    948 ;sloc7                     Allocated to stack - _bp +6
+                                    949 ;sloc8                     Allocated to stack - _bp +7
+                                    950 ;sloc9                     Allocated to stack - _bp +8
+                                    951 ;------------------------------------------------------------
+                                    952 ;	walk.c:91: static void walk(struct node *nstart) {
+                                    953 ;	-----------------------------------------
+                                    954 ;	 function walk
+                                    955 ;	-----------------------------------------
+      00232C                        956 _walk:
+      00232C C0 10            [24]  957 	push	_bp
+      00232E E5 81            [12]  958 	mov	a,sp
+      002330 F5 10            [12]  959 	mov	_bp,a
+      002332 24 14            [12]  960 	add	a,#0x14
+      002334 F5 81            [12]  961 	mov	sp,a
+      002336 AD 82            [24]  962 	mov	r5,dpl
+      002338 AE 83            [24]  963 	mov	r6,dph
+      00233A AF F0            [24]  964 	mov	r7,b
+                                    965 ;	walk.c:95: cur = *nstart;
+      00233C E5 10            [12]  966 	mov	a,_bp
+      00233E 24 0B            [12]  967 	add	a,#0x0b
+      002340 F9               [12]  968 	mov	r1,a
+      002341 FA               [12]  969 	mov	r2,a
+      002342 7B 00            [12]  970 	mov	r3,#0x00
+      002344 7C 40            [12]  971 	mov	r4,#0x40
+      002346 C0 01            [24]  972 	push	ar1
+      002348 74 04            [12]  973 	mov	a,#0x04
+      00234A C0 E0            [24]  974 	push	acc
+      00234C E4               [12]  975 	clr	a
+      00234D C0 E0            [24]  976 	push	acc
+      00234F C0 05            [24]  977 	push	ar5
+      002351 C0 06            [24]  978 	push	ar6
+      002353 C0 07            [24]  979 	push	ar7
+      002355 8A 82            [24]  980 	mov	dpl,r2
+      002357 8B 83            [24]  981 	mov	dph,r3
+      002359 8C F0            [24]  982 	mov	b,r4
+      00235B 12 2A 9E         [24]  983 	lcall	___memcpy
+      00235E E5 81            [12]  984 	mov	a,sp
+      002360 24 FB            [12]  985 	add	a,#0xfb
+      002362 F5 81            [12]  986 	mov	sp,a
+      002364 D0 01            [24]  987 	pop	ar1
+                                    988 ;	walk.c:97: process:
+      002366 E5 10            [12]  989 	mov	a,_bp
+      002368 24 07            [12]  990 	add	a,#0x07
+      00236A F8               [12]  991 	mov	r0,a
+      00236B A6 01            [24]  992 	mov	@r0,ar1
+      00236D E5 10            [12]  993 	mov	a,_bp
+      00236F 24 0F            [12]  994 	add	a,#0x0f
+      002371 FE               [12]  995 	mov	r6,a
+      002372 E5 10            [12]  996 	mov	a,_bp
+      002374 24 03            [12]  997 	add	a,#0x03
+      002376 F8               [12]  998 	mov	r0,a
+      002377 A6 01            [24]  999 	mov	@r0,ar1
+      002379 E5 10            [12] 1000 	mov	a,_bp
+      00237B 24 06            [12] 1001 	add	a,#0x06
+      00237D F8               [12] 1002 	mov	r0,a
+      00237E A6 01            [24] 1003 	mov	@r0,ar1
+      002380 E5 10            [12] 1004 	mov	a,_bp
+      002382 24 05            [12] 1005 	add	a,#0x05
+      002384 F8               [12] 1006 	mov	r0,a
+      002385 A6 06            [24] 1007 	mov	@r0,ar6
+      002387 E5 10            [12] 1008 	mov	a,_bp
+      002389 24 04            [12] 1009 	add	a,#0x04
+      00238B F8               [12] 1010 	mov	r0,a
+      00238C A6 01            [24] 1011 	mov	@r0,ar1
+      00238E A8 10            [24] 1012 	mov	r0,_bp
+      002390 08               [12] 1013 	inc	r0
+      002391 A6 06            [24] 1014 	mov	@r0,ar6
+      002393 A8 10            [24] 1015 	mov	r0,_bp
+      002395 08               [12] 1016 	inc	r0
+      002396 08               [12] 1017 	inc	r0
+      002397 A6 01            [24] 1018 	mov	@r0,ar1
+      002399 74 02            [12] 1019 	mov	a,#0x02
+      00239B 29               [12] 1020 	add	a,r1
+      00239C F8               [12] 1021 	mov	r0,a
+      00239D                       1022 00101$:
+                                   1023 ;	walk.c:98: g[cur.r][cur.c] = 0xaa;
+      00239D 87 02            [24] 1024 	mov	ar2,@r1
+      00239F 09               [12] 1025 	inc	r1
+      0023A0 87 05            [24] 1026 	mov	ar5,@r1
+      0023A2 19               [12] 1027 	dec	r1
+      0023A3 C0 06            [24] 1028 	push	ar6
+      0023A5 C0 01            [24] 1029 	push	ar1
+      0023A7 C0 00            [24] 1030 	push	ar0
+      0023A9 C0 02            [24] 1031 	push	ar2
+      0023AB C0 05            [24] 1032 	push	ar5
+      0023AD 90 00 C0         [24] 1033 	mov	dptr,#0x00c0
+      0023B0 12 2A 00         [24] 1034 	lcall	__mulint
+      0023B3 AA 82            [24] 1035 	mov	r2,dpl
+      0023B5 AD 83            [24] 1036 	mov	r5,dph
+      0023B7 15 81            [12] 1037 	dec	sp
+      0023B9 15 81            [12] 1038 	dec	sp
+      0023BB D0 00            [24] 1039 	pop	ar0
+      0023BD D0 01            [24] 1040 	pop	ar1
+      0023BF D0 06            [24] 1041 	pop	ar6
+      0023C1 EA               [12] 1042 	mov	a,r2
+      0023C2 24 00            [12] 1043 	add	a,#_g
+      0023C4 FF               [12] 1044 	mov	r7,a
+      0023C5 ED               [12] 1045 	mov	a,r5
+      0023C6 34 40            [12] 1046 	addc	a,#(_g >> 8)
+      0023C8 FC               [12] 1047 	mov	r4,a
+      0023C9 86 02            [24] 1048 	mov	ar2,@r0
+      0023CB 08               [12] 1049 	inc	r0
+      0023CC 86 05            [24] 1050 	mov	ar5,@r0
+      0023CE 18               [12] 1051 	dec	r0
+      0023CF EA               [12] 1052 	mov	a,r2
+      0023D0 2F               [12] 1053 	add	a,r7
+      0023D1 F5 82            [12] 1054 	mov	dpl,a
+      0023D3 ED               [12] 1055 	mov	a,r5
+      0023D4 3C               [12] 1056 	addc	a,r4
+      0023D5 F5 83            [12] 1057 	mov	dph,a
+      0023D7 74 AA            [12] 1058 	mov	a,#0xaa
+      0023D9 F0               [24] 1059 	movx	@dptr,a
+                                   1060 ;	walk.c:99: printf("\033[%d;%dHo", cur.r + 1, cur.c + 1);
+      0023DA 86 02            [24] 1061 	mov	ar2,@r0
+      0023DC 08               [12] 1062 	inc	r0
+      0023DD 86 05            [24] 1063 	mov	ar5,@r0
+      0023DF 18               [12] 1064 	dec	r0
+      0023E0 74 01            [12] 1065 	mov	a,#0x01
+      0023E2 2A               [12] 1066 	add	a,r2
+      0023E3 FF               [12] 1067 	mov	r7,a
+      0023E4 E4               [12] 1068 	clr	a
+      0023E5 3D               [12] 1069 	addc	a,r5
+      0023E6 FC               [12] 1070 	mov	r4,a
+      0023E7 87 02            [24] 1071 	mov	ar2,@r1
+      0023E9 09               [12] 1072 	inc	r1
+      0023EA 87 05            [24] 1073 	mov	ar5,@r1
+      0023EC 19               [12] 1074 	dec	r1
+      0023ED 0A               [12] 1075 	inc	r2
+      0023EE BA 00 01         [24] 1076 	cjne	r2,#0x00,00160$
+      0023F1 0D               [12] 1077 	inc	r5
+      0023F2                       1078 00160$:
+      0023F2 C0 06            [24] 1079 	push	ar6
+      0023F4 C0 01            [24] 1080 	push	ar1
+      0023F6 C0 00            [24] 1081 	push	ar0
+      0023F8 C0 07            [24] 1082 	push	ar7
+      0023FA C0 04            [24] 1083 	push	ar4
+      0023FC C0 02            [24] 1084 	push	ar2
+      0023FE C0 05            [24] 1085 	push	ar5
+      002400 74 17            [12] 1086 	mov	a,#___str_1
       002402 C0 E0            [24] 1087 	push	acc
-      002404 A8 F0            [24] 1088 	mov	r0,b
-      002406 85 00 F0         [24] 1089 	mov	b,ar0
-      002409 E5 10            [12] 1090 	mov	a,_bp
-      00240B 24 08            [12] 1091 	add	a,#0x08
-      00240D F8               [12] 1092 	mov	r0,a
-      00240E E6               [12] 1093 	mov	a,@r0
-      00240F C0 E0            [24] 1094 	push	acc
-      002411 08               [12] 1095 	inc	r0
-      002412 E6               [12] 1096 	mov	a,@r0
-      002413 C0 E0            [24] 1097 	push	acc
-      002415 08               [12] 1098 	inc	r0
-      002416 E6               [12] 1099 	mov	a,@r0
-      002417 C0 E0            [24] 1100 	push	acc
-      002419 8C 82            [24] 1101 	mov	dpl,r4
-      00241B 8E 83            [24] 1102 	mov	dph,r6
-      00241D 8F F0            [24] 1103 	mov	b,r7
-      00241F 12 20 8B         [24] 1104 	lcall	_update
-      002422 AE 82            [24] 1105 	mov	r6,dpl
-      002424 AF 83            [24] 1106 	mov	r7,dph
-      002426 E5 81            [12] 1107 	mov	a,sp
-      002428 24 FB            [12] 1108 	add	a,#0xfb
-      00242A F5 81            [12] 1109 	mov	sp,a
-      00242C D0 00            [24] 1110 	pop	ar0
-      00242E D0 01            [24] 1111 	pop	ar1
-      002430 D0 03            [24] 1112 	pop	ar3
-      002432 D0 05            [24] 1113 	pop	ar5
-      002434 EE               [12] 1114 	mov	a,r6
-      002435 4F               [12] 1115 	orl	a,r7
-      002436 70 03            [24] 1116 	jnz	00188$
-      002438 02 24 E1         [24] 1117 	ljmp	00110$
-      00243B                       1118 00188$:
-                                   1119 ;	walk.c:100: if (g[t.r][t.c] == 0x55) f++;
-      00243B 86 06            [24] 1120 	mov	ar6,@r0
-      00243D 08               [12] 1121 	inc	r0
-      00243E 86 07            [24] 1122 	mov	ar7,@r0
-      002440 18               [12] 1123 	dec	r0
-      002441 C0 05            [24] 1124 	push	ar5
-      002443 C0 03            [24] 1125 	push	ar3
-      002445 C0 01            [24] 1126 	push	ar1
-      002447 C0 00            [24] 1127 	push	ar0
-      002449 C0 06            [24] 1128 	push	ar6
-      00244B C0 07            [24] 1129 	push	ar7
-      00244D 90 00 C0         [24] 1130 	mov	dptr,#0x00c0
-      002450 12 2B 0C         [24] 1131 	lcall	__mulint
-      002453 AE 82            [24] 1132 	mov	r6,dpl
-      002455 AF 83            [24] 1133 	mov	r7,dph
-      002457 15 81            [12] 1134 	dec	sp
-      002459 15 81            [12] 1135 	dec	sp
-      00245B D0 00            [24] 1136 	pop	ar0
-      00245D D0 01            [24] 1137 	pop	ar1
-      00245F D0 03            [24] 1138 	pop	ar3
-      002461 D0 05            [24] 1139 	pop	ar5
-      002463 EE               [12] 1140 	mov	a,r6
-      002464 24 00            [12] 1141 	add	a,#_g
-      002466 FA               [12] 1142 	mov	r2,a
-      002467 EF               [12] 1143 	mov	a,r7
-      002468 34 41            [12] 1144 	addc	a,#(_g >> 8)
-      00246A FC               [12] 1145 	mov	r4,a
-      00246B C0 00            [24] 1146 	push	ar0
-      00246D E5 10            [12] 1147 	mov	a,_bp
-      00246F 24 08            [12] 1148 	add	a,#0x08
-      002471 F8               [12] 1149 	mov	r0,a
-      002472 C0 01            [24] 1150 	push	ar1
-      002474 A9 05            [24] 1151 	mov	r1,ar5
-      002476 E7               [12] 1152 	mov	a,@r1
-      002477 F6               [12] 1153 	mov	@r0,a
-      002478 09               [12] 1154 	inc	r1
-      002479 E7               [12] 1155 	mov	a,@r1
-      00247A 08               [12] 1156 	inc	r0
-      00247B F6               [12] 1157 	mov	@r0,a
-      00247C D0 01            [24] 1158 	pop	ar1
-      00247E E5 10            [12] 1159 	mov	a,_bp
-      002480 24 08            [12] 1160 	add	a,#0x08
-      002482 F8               [12] 1161 	mov	r0,a
-      002483 E6               [12] 1162 	mov	a,@r0
-      002484 2A               [12] 1163 	add	a,r2
-      002485 F5 82            [12] 1164 	mov	dpl,a
-      002487 08               [12] 1165 	inc	r0
-      002488 E6               [12] 1166 	mov	a,@r0
-      002489 3C               [12] 1167 	addc	a,r4
-      00248A F5 83            [12] 1168 	mov	dph,a
-      00248C D0 00            [24] 1169 	pop	ar0
-      00248E E0               [24] 1170 	movx	a,@dptr
-      00248F FC               [12] 1171 	mov	r4,a
-      002490 BC 55 11         [24] 1172 	cjne	r4,#0x55,00108$
-      002493 C0 00            [24] 1173 	push	ar0
-      002495 E5 10            [12] 1174 	mov	a,_bp
-      002497 24 16            [12] 1175 	add	a,#0x16
-      002499 F8               [12] 1176 	mov	r0,a
-      00249A 06               [12] 1177 	inc	@r0
-      00249B B6 00 02         [24] 1178 	cjne	@r0,#0x00,00191$
-      00249E 08               [12] 1179 	inc	r0
-      00249F 06               [12] 1180 	inc	@r0
-      0024A0                       1181 00191$:
-      0024A0 D0 00            [24] 1182 	pop	ar0
-      0024A2 80 3D            [24] 1183 	sjmp	00110$
-      0024A4                       1184 00108$:
-                                   1185 ;	walk.c:101: else if (g[t.r][t.c] != 0xaa) {
-      0024A4 EE               [12] 1186 	mov	a,r6
-      0024A5 24 00            [12] 1187 	add	a,#_g
-      0024A7 FE               [12] 1188 	mov	r6,a
-      0024A8 EF               [12] 1189 	mov	a,r7
-      0024A9 34 41            [12] 1190 	addc	a,#(_g >> 8)
-      0024AB FF               [12] 1191 	mov	r7,a
-      0024AC C0 00            [24] 1192 	push	ar0
-      0024AE E5 10            [12] 1193 	mov	a,_bp
-      0024B0 24 08            [12] 1194 	add	a,#0x08
-      0024B2 F8               [12] 1195 	mov	r0,a
-      0024B3 E6               [12] 1196 	mov	a,@r0
-      0024B4 2E               [12] 1197 	add	a,r6
-      0024B5 F5 82            [12] 1198 	mov	dpl,a
-      0024B7 08               [12] 1199 	inc	r0
-      0024B8 E6               [12] 1200 	mov	a,@r0
-      0024B9 3F               [12] 1201 	addc	a,r7
-      0024BA F5 83            [12] 1202 	mov	dph,a
-      0024BC D0 00            [24] 1203 	pop	ar0
-      0024BE E0               [24] 1204 	movx	a,@dptr
-      0024BF FF               [12] 1205 	mov	r7,a
-      0024C0 BF AA 02         [24] 1206 	cjne	r7,#0xaa,00192$
-      0024C3 80 1C            [24] 1207 	sjmp	00110$
-      0024C5                       1208 00192$:
-                                   1209 ;	walk.c:102: (void)puts("Memory error");
-      0024C5 90 40 20         [24] 1210 	mov	dptr,#___str_1
-      0024C8 75 F0 80         [24] 1211 	mov	b,#0x80
-      0024CB C0 05            [24] 1212 	push	ar5
-      0024CD C0 03            [24] 1213 	push	ar3
-      0024CF C0 01            [24] 1214 	push	ar1
-      0024D1 C0 00            [24] 1215 	push	ar0
-      0024D3 12 2C 3D         [24] 1216 	lcall	_puts
-      0024D6 D0 00            [24] 1217 	pop	ar0
-      0024D8 D0 01            [24] 1218 	pop	ar1
-      0024DA D0 03            [24] 1219 	pop	ar3
-      0024DC D0 05            [24] 1220 	pop	ar5
-                                   1221 ;	walk.c:103: reset();
-      0024DE 12 20 88         [24] 1222 	lcall	_reset
-      0024E1                       1223 00110$:
-                                   1224 ;	walk.c:97: for (j = 0, f = 0; j < NMAX; j++) {
-      0024E1 C0 00            [24] 1225 	push	ar0
-      0024E3 E5 10            [12] 1226 	mov	a,_bp
-      0024E5 24 14            [12] 1227 	add	a,#0x14
-      0024E7 F8               [12] 1228 	mov	r0,a
-      0024E8 06               [12] 1229 	inc	@r0
-      0024E9 B6 00 02         [24] 1230 	cjne	@r0,#0x00,00193$
-      0024EC 08               [12] 1231 	inc	r0
-      0024ED 06               [12] 1232 	inc	@r0
-      0024EE                       1233 00193$:
-      0024EE D0 00            [24] 1234 	pop	ar0
-      0024F0 02 23 B5         [24] 1235 	ljmp	00130$
-      0024F3                       1236 00111$:
-                                   1237 ;	walk.c:107: if (f) {
-      0024F3 C0 00            [24] 1238 	push	ar0
-      0024F5 E5 10            [12] 1239 	mov	a,_bp
-      0024F7 24 16            [12] 1240 	add	a,#0x16
-      0024F9 F8               [12] 1241 	mov	r0,a
-      0024FA E6               [12] 1242 	mov	a,@r0
-      0024FB 08               [12] 1243 	inc	r0
-      0024FC 46               [12] 1244 	orl	a,@r0
-      0024FD D0 00            [24] 1245 	pop	ar0
-      0024FF 70 03            [24] 1246 	jnz	00194$
-      002501 02 27 00         [24] 1247 	ljmp	00125$
-      002504                       1248 00194$:
-                                   1249 ;	walk.c:108: while (1) {
-      002504                       1250 00122$:
-                                   1251 ;	walk.c:109: j = rand() % NMAX;
-      002504 C0 05            [24] 1252 	push	ar5
-      002506 C0 05            [24] 1253 	push	ar5
-      002508 C0 03            [24] 1254 	push	ar3
-      00250A C0 01            [24] 1255 	push	ar1
-      00250C C0 00            [24] 1256 	push	ar0
-      00250E 12 2A 14         [24] 1257 	lcall	_rand
-      002511 AE 82            [24] 1258 	mov	r6,dpl
-      002513 AF 83            [24] 1259 	mov	r7,dph
-      002515 74 08            [12] 1260 	mov	a,#0x08
-      002517 C0 E0            [24] 1261 	push	acc
-      002519 E4               [12] 1262 	clr	a
-      00251A C0 E0            [24] 1263 	push	acc
-      00251C 8E 82            [24] 1264 	mov	dpl,r6
-      00251E 8F 83            [24] 1265 	mov	dph,r7
-      002520 12 2D 18         [24] 1266 	lcall	__modsint
-      002523 C0 00            [24] 1267 	push	ar0
-      002525 C8               [12] 1268 	xch	a,r0
-      002526 E5 10            [12] 1269 	mov	a,_bp
-      002528 24 14            [12] 1270 	add	a,#0x14
-      00252A C8               [12] 1271 	xch	a,r0
-      00252B A6 82            [24] 1272 	mov	@r0,dpl
-      00252D 08               [12] 1273 	inc	r0
-      00252E A6 83            [24] 1274 	mov	@r0,dph
-      002530 D0 00            [24] 1275 	pop	ar0
-      002532 15 81            [12] 1276 	dec	sp
-      002534 15 81            [12] 1277 	dec	sp
-      002536 D0 00            [24] 1278 	pop	ar0
-      002538 D0 01            [24] 1279 	pop	ar1
-      00253A D0 03            [24] 1280 	pop	ar3
-      00253C D0 05            [24] 1281 	pop	ar5
-                                   1282 ;	walk.c:110: if (!update(&t, &cur, j)) continue;
-      00253E C0 00            [24] 1283 	push	ar0
-      002540 E5 10            [12] 1284 	mov	a,_bp
-      002542 24 0B            [12] 1285 	add	a,#0x0b
-      002544 F8               [12] 1286 	mov	r0,a
-      002545 C0 01            [24] 1287 	push	ar1
-      002547 E5 10            [12] 1288 	mov	a,_bp
-      002549 24 08            [12] 1289 	add	a,#0x08
-      00254B F9               [12] 1290 	mov	r1,a
-      00254C E6               [12] 1291 	mov	a,@r0
-      00254D F7               [12] 1292 	mov	@r1,a
-      00254E 09               [12] 1293 	inc	r1
-      00254F 77 00            [12] 1294 	mov	@r1,#0x00
-      002551 09               [12] 1295 	inc	r1
-      002552 77 40            [12] 1296 	mov	@r1,#0x40
-      002554 D0 01            [24] 1297 	pop	ar1
-      002556 D0 00            [24] 1298 	pop	ar0
-      002558 8B 04            [24] 1299 	mov	ar4,r3
-      00255A 7E 00            [12] 1300 	mov	r6,#0x00
-      00255C 7F 40            [12] 1301 	mov	r7,#0x40
-      00255E C0 05            [24] 1302 	push	ar5
-      002560 C0 03            [24] 1303 	push	ar3
-      002562 C0 01            [24] 1304 	push	ar1
-      002564 C0 00            [24] 1305 	push	ar0
-      002566 85 00 F0         [24] 1306 	mov	b,ar0
-      002569 E5 10            [12] 1307 	mov	a,_bp
-      00256B 24 14            [12] 1308 	add	a,#0x14
-      00256D F8               [12] 1309 	mov	r0,a
-      00256E E6               [12] 1310 	mov	a,@r0
-      00256F C0 E0            [24] 1311 	push	acc
-      002571 08               [12] 1312 	inc	r0
-      002572 E6               [12] 1313 	mov	a,@r0
-      002573 C0 E0            [24] 1314 	push	acc
-      002575 A8 F0            [24] 1315 	mov	r0,b
-      002577 85 00 F0         [24] 1316 	mov	b,ar0
-      00257A E5 10            [12] 1317 	mov	a,_bp
-      00257C 24 08            [12] 1318 	add	a,#0x08
-      00257E F8               [12] 1319 	mov	r0,a
-      00257F E6               [12] 1320 	mov	a,@r0
-      002580 C0 E0            [24] 1321 	push	acc
-      002582 08               [12] 1322 	inc	r0
-      002583 E6               [12] 1323 	mov	a,@r0
-      002584 C0 E0            [24] 1324 	push	acc
-      002586 08               [12] 1325 	inc	r0
-      002587 E6               [12] 1326 	mov	a,@r0
-      002588 C0 E0            [24] 1327 	push	acc
-      00258A 8C 82            [24] 1328 	mov	dpl,r4
-      00258C 8E 83            [24] 1329 	mov	dph,r6
-      00258E 8F F0            [24] 1330 	mov	b,r7
-      002590 12 20 8B         [24] 1331 	lcall	_update
-      002593 AE 82            [24] 1332 	mov	r6,dpl
-      002595 AF 83            [24] 1333 	mov	r7,dph
-      002597 E5 81            [12] 1334 	mov	a,sp
-      002599 24 FB            [12] 1335 	add	a,#0xfb
-      00259B F5 81            [12] 1336 	mov	sp,a
-      00259D D0 00            [24] 1337 	pop	ar0
-      00259F D0 01            [24] 1338 	pop	ar1
-      0025A1 D0 03            [24] 1339 	pop	ar3
-      0025A3 D0 05            [24] 1340 	pop	ar5
-      0025A5 D0 05            [24] 1341 	pop	ar5
-      0025A7 EE               [12] 1342 	mov	a,r6
-      0025A8 4F               [12] 1343 	orl	a,r7
-      0025A9 70 03            [24] 1344 	jnz	00195$
-      0025AB 02 25 04         [24] 1345 	ljmp	00122$
-      0025AE                       1346 00195$:
-                                   1347 ;	walk.c:112: if (g[t.r][t.c] == 0xaa) continue;
-      0025AE C0 00            [24] 1348 	push	ar0
-      0025B0 A8 03            [24] 1349 	mov	r0,ar3
-      0025B2 86 06            [24] 1350 	mov	ar6,@r0
-      0025B4 08               [12] 1351 	inc	r0
-      0025B5 86 07            [24] 1352 	mov	ar7,@r0
-      0025B7 D0 00            [24] 1353 	pop	ar0
-      0025B9 C0 05            [24] 1354 	push	ar5
-      0025BB C0 03            [24] 1355 	push	ar3
-      0025BD C0 01            [24] 1356 	push	ar1
-      0025BF C0 00            [24] 1357 	push	ar0
-      0025C1 C0 06            [24] 1358 	push	ar6
-      0025C3 C0 07            [24] 1359 	push	ar7
-      0025C5 90 00 C0         [24] 1360 	mov	dptr,#0x00c0
-      0025C8 12 2B 0C         [24] 1361 	lcall	__mulint
-      0025CB AE 82            [24] 1362 	mov	r6,dpl
-      0025CD AF 83            [24] 1363 	mov	r7,dph
-      0025CF 15 81            [12] 1364 	dec	sp
-      0025D1 15 81            [12] 1365 	dec	sp
-      0025D3 D0 00            [24] 1366 	pop	ar0
-      0025D5 D0 01            [24] 1367 	pop	ar1
-      0025D7 D0 03            [24] 1368 	pop	ar3
-      0025D9 D0 05            [24] 1369 	pop	ar5
-      0025DB EE               [12] 1370 	mov	a,r6
-      0025DC 24 00            [12] 1371 	add	a,#_g
-      0025DE FA               [12] 1372 	mov	r2,a
-      0025DF EF               [12] 1373 	mov	a,r7
-      0025E0 34 41            [12] 1374 	addc	a,#(_g >> 8)
-      0025E2 FC               [12] 1375 	mov	r4,a
-      0025E3 C0 00            [24] 1376 	push	ar0
-      0025E5 E5 10            [12] 1377 	mov	a,_bp
-      0025E7 24 05            [12] 1378 	add	a,#0x05
-      0025E9 F8               [12] 1379 	mov	r0,a
-      0025EA C0 01            [24] 1380 	push	ar1
-      0025EC E5 10            [12] 1381 	mov	a,_bp
-      0025EE 24 08            [12] 1382 	add	a,#0x08
-      0025F0 F9               [12] 1383 	mov	r1,a
-      0025F1 86 00            [24] 1384 	mov	ar0,@r0
-      0025F3 E6               [12] 1385 	mov	a,@r0
-      0025F4 F7               [12] 1386 	mov	@r1,a
-      0025F5 08               [12] 1387 	inc	r0
-      0025F6 E6               [12] 1388 	mov	a,@r0
-      0025F7 09               [12] 1389 	inc	r1
-      0025F8 F7               [12] 1390 	mov	@r1,a
-      0025F9 18               [12] 1391 	dec	r0
-      0025FA D0 01            [24] 1392 	pop	ar1
-      0025FC E5 10            [12] 1393 	mov	a,_bp
-      0025FE 24 08            [12] 1394 	add	a,#0x08
-      002600 F8               [12] 1395 	mov	r0,a
-      002601 E6               [12] 1396 	mov	a,@r0
-      002602 2A               [12] 1397 	add	a,r2
-      002603 F5 82            [12] 1398 	mov	dpl,a
-      002605 08               [12] 1399 	inc	r0
-      002606 E6               [12] 1400 	mov	a,@r0
-      002607 3C               [12] 1401 	addc	a,r4
-      002608 F5 83            [12] 1402 	mov	dph,a
-      00260A D0 00            [24] 1403 	pop	ar0
-      00260C E0               [24] 1404 	movx	a,@dptr
-      00260D FC               [12] 1405 	mov	r4,a
-      00260E BC AA 03         [24] 1406 	cjne	r4,#0xaa,00196$
-      002611 02 25 04         [24] 1407 	ljmp	00122$
-      002614                       1408 00196$:
-                                   1409 ;	walk.c:113: else if (g[t.r][t.c] != 0x55) {
-      002614 EE               [12] 1410 	mov	a,r6
-      002615 24 00            [12] 1411 	add	a,#_g
-      002617 FE               [12] 1412 	mov	r6,a
-      002618 EF               [12] 1413 	mov	a,r7
-      002619 34 41            [12] 1414 	addc	a,#(_g >> 8)
-      00261B FF               [12] 1415 	mov	r7,a
-      00261C C0 00            [24] 1416 	push	ar0
-      00261E E5 10            [12] 1417 	mov	a,_bp
-      002620 24 08            [12] 1418 	add	a,#0x08
-      002622 F8               [12] 1419 	mov	r0,a
-      002623 E6               [12] 1420 	mov	a,@r0
-      002624 2E               [12] 1421 	add	a,r6
-      002625 F5 82            [12] 1422 	mov	dpl,a
-      002627 08               [12] 1423 	inc	r0
-      002628 E6               [12] 1424 	mov	a,@r0
-      002629 3F               [12] 1425 	addc	a,r7
-      00262A F5 83            [12] 1426 	mov	dph,a
-      00262C D0 00            [24] 1427 	pop	ar0
-      00262E E0               [24] 1428 	movx	a,@dptr
-      00262F FF               [12] 1429 	mov	r7,a
-      002630 BF 55 02         [24] 1430 	cjne	r7,#0x55,00197$
-      002633 80 1C            [24] 1431 	sjmp	00118$
-      002635                       1432 00197$:
-                                   1433 ;	walk.c:114: (void)puts("Memory error");
-      002635 90 40 20         [24] 1434 	mov	dptr,#___str_1
-      002638 75 F0 80         [24] 1435 	mov	b,#0x80
-      00263B C0 05            [24] 1436 	push	ar5
-      00263D C0 03            [24] 1437 	push	ar3
-      00263F C0 01            [24] 1438 	push	ar1
-      002641 C0 00            [24] 1439 	push	ar0
-      002643 12 2C 3D         [24] 1440 	lcall	_puts
-      002646 D0 00            [24] 1441 	pop	ar0
-      002648 D0 01            [24] 1442 	pop	ar1
-      00264A D0 03            [24] 1443 	pop	ar3
-      00264C D0 05            [24] 1444 	pop	ar5
-                                   1445 ;	walk.c:115: reset();
-      00264E 12 20 88         [24] 1446 	lcall	_reset
-      002651                       1447 00118$:
-                                   1448 ;	walk.c:118: if (!stpush(&cur)) {
-      002651 C0 00            [24] 1449 	push	ar0
-      002653 A8 10            [24] 1450 	mov	r0,_bp
-      002655 08               [12] 1451 	inc	r0
-      002656 86 04            [24] 1452 	mov	ar4,@r0
-      002658 7E 00            [12] 1453 	mov	r6,#0x00
-      00265A 7F 40            [12] 1454 	mov	r7,#0x40
-      00265C D0 00            [24] 1455 	pop	ar0
-      00265E 8C 82            [24] 1456 	mov	dpl,r4
-      002660 8E 83            [24] 1457 	mov	dph,r6
-      002662 8F F0            [24] 1458 	mov	b,r7
-      002664 C0 05            [24] 1459 	push	ar5
-      002666 C0 03            [24] 1460 	push	ar3
-      002668 C0 01            [24] 1461 	push	ar1
-      00266A C0 00            [24] 1462 	push	ar0
-      00266C 12 29 51         [24] 1463 	lcall	_stpush
-      00266F E5 82            [12] 1464 	mov	a,dpl
-      002671 85 83 F0         [24] 1465 	mov	b,dph
-      002674 D0 00            [24] 1466 	pop	ar0
-      002676 D0 01            [24] 1467 	pop	ar1
-      002678 D0 03            [24] 1468 	pop	ar3
-      00267A D0 05            [24] 1469 	pop	ar5
-      00267C 45 F0            [12] 1470 	orl	a,b
-      00267E 70 1C            [24] 1471 	jnz	00120$
-                                   1472 ;	walk.c:119: (void)puts("Memory error");
-      002680 90 40 20         [24] 1473 	mov	dptr,#___str_1
-      002683 75 F0 80         [24] 1474 	mov	b,#0x80
-      002686 C0 05            [24] 1475 	push	ar5
-      002688 C0 03            [24] 1476 	push	ar3
-      00268A C0 01            [24] 1477 	push	ar1
-      00268C C0 00            [24] 1478 	push	ar0
-      00268E 12 2C 3D         [24] 1479 	lcall	_puts
-      002691 D0 00            [24] 1480 	pop	ar0
-      002693 D0 01            [24] 1481 	pop	ar1
-      002695 D0 03            [24] 1482 	pop	ar3
-      002697 D0 05            [24] 1483 	pop	ar5
-                                   1484 ;	walk.c:120: reset();
-      002699 12 20 88         [24] 1485 	lcall	_reset
-      00269C                       1486 00120$:
-                                   1487 ;	walk.c:122: cur = t;
-      00269C C0 05            [24] 1488 	push	ar5
-      00269E C0 00            [24] 1489 	push	ar0
-      0026A0 A8 10            [24] 1490 	mov	r0,_bp
-      0026A2 08               [12] 1491 	inc	r0
-      0026A3 08               [12] 1492 	inc	r0
-      0026A4 C0 01            [24] 1493 	push	ar1
-      0026A6 E5 10            [12] 1494 	mov	a,_bp
-      0026A8 24 08            [12] 1495 	add	a,#0x08
-      0026AA F9               [12] 1496 	mov	r1,a
-      0026AB E6               [12] 1497 	mov	a,@r0
-      0026AC F7               [12] 1498 	mov	@r1,a
-      0026AD 09               [12] 1499 	inc	r1
-      0026AE 77 00            [12] 1500 	mov	@r1,#0x00
-      0026B0 09               [12] 1501 	inc	r1
-      0026B1 77 40            [12] 1502 	mov	@r1,#0x40
-      0026B3 D0 01            [24] 1503 	pop	ar1
-      0026B5 E5 10            [12] 1504 	mov	a,_bp
-      0026B7 24 03            [12] 1505 	add	a,#0x03
-      0026B9 F8               [12] 1506 	mov	r0,a
-      0026BA 86 02            [24] 1507 	mov	ar2,@r0
-      0026BC 7D 00            [12] 1508 	mov	r5,#0x00
-      0026BE 7F 40            [12] 1509 	mov	r7,#0x40
-      0026C0 D0 00            [24] 1510 	pop	ar0
-      0026C2 C0 05            [24] 1511 	push	ar5
-      0026C4 C0 03            [24] 1512 	push	ar3
-      0026C6 C0 01            [24] 1513 	push	ar1
-      0026C8 C0 00            [24] 1514 	push	ar0
-      0026CA 74 04            [12] 1515 	mov	a,#0x04
-      0026CC C0 E0            [24] 1516 	push	acc
-      0026CE E4               [12] 1517 	clr	a
-      0026CF C0 E0            [24] 1518 	push	acc
-      0026D1 85 00 F0         [24] 1519 	mov	b,ar0
-      0026D4 E5 10            [12] 1520 	mov	a,_bp
-      0026D6 24 08            [12] 1521 	add	a,#0x08
-      0026D8 F8               [12] 1522 	mov	r0,a
-      0026D9 E6               [12] 1523 	mov	a,@r0
-      0026DA C0 E0            [24] 1524 	push	acc
-      0026DC 08               [12] 1525 	inc	r0
-      0026DD E6               [12] 1526 	mov	a,@r0
-      0026DE C0 E0            [24] 1527 	push	acc
-      0026E0 08               [12] 1528 	inc	r0
-      0026E1 E6               [12] 1529 	mov	a,@r0
-      0026E2 C0 E0            [24] 1530 	push	acc
-      0026E4 8A 82            [24] 1531 	mov	dpl,r2
-      0026E6 8D 83            [24] 1532 	mov	dph,r5
-      0026E8 8F F0            [24] 1533 	mov	b,r7
-      0026EA 12 2B AA         [24] 1534 	lcall	___memcpy
-      0026ED E5 81            [12] 1535 	mov	a,sp
-      0026EF 24 FB            [12] 1536 	add	a,#0xfb
-      0026F1 F5 81            [12] 1537 	mov	sp,a
-      0026F3 D0 00            [24] 1538 	pop	ar0
-      0026F5 D0 01            [24] 1539 	pop	ar1
-      0026F7 D0 03            [24] 1540 	pop	ar3
-      0026F9 D0 05            [24] 1541 	pop	ar5
-                                   1542 ;	walk.c:123: goto process;
-      0026FB D0 05            [24] 1543 	pop	ar5
-      0026FD 02 23 07         [24] 1544 	ljmp	00101$
-      002700                       1545 00125$:
-                                   1546 ;	walk.c:127: printf("\033[%d;%dH.", cur.r + 1, cur.c + 1);
-      002700 C0 00            [24] 1547 	push	ar0
-      002702 E5 10            [12] 1548 	mov	a,_bp
-      002704 24 04            [12] 1549 	add	a,#0x04
-      002706 F8               [12] 1550 	mov	r0,a
-      002707 86 00            [24] 1551 	mov	ar0,@r0
-      002709 86 06            [24] 1552 	mov	ar6,@r0
-      00270B 08               [12] 1553 	inc	r0
-      00270C 86 07            [24] 1554 	mov	ar7,@r0
-      00270E 18               [12] 1555 	dec	r0
-      00270F D0 00            [24] 1556 	pop	ar0
-      002711 0E               [12] 1557 	inc	r6
-      002712 BE 00 01         [24] 1558 	cjne	r6,#0x00,00199$
-      002715 0F               [12] 1559 	inc	r7
-      002716                       1560 00199$:
-      002716 87 02            [24] 1561 	mov	ar2,@r1
-      002718 09               [12] 1562 	inc	r1
-      002719 87 04            [24] 1563 	mov	ar4,@r1
-      00271B 19               [12] 1564 	dec	r1
-      00271C 0A               [12] 1565 	inc	r2
-      00271D BA 00 01         [24] 1566 	cjne	r2,#0x00,00200$
-      002720 0C               [12] 1567 	inc	r4
-      002721                       1568 00200$:
-      002721 C0 05            [24] 1569 	push	ar5
-      002723 C0 03            [24] 1570 	push	ar3
-      002725 C0 01            [24] 1571 	push	ar1
-      002727 C0 00            [24] 1572 	push	ar0
-      002729 C0 06            [24] 1573 	push	ar6
-      00272B C0 07            [24] 1574 	push	ar7
-      00272D C0 02            [24] 1575 	push	ar2
-      00272F C0 04            [24] 1576 	push	ar4
-      002731 74 2D            [12] 1577 	mov	a,#___str_2
-      002733 C0 E0            [24] 1578 	push	acc
-      002735 74 40            [12] 1579 	mov	a,#(___str_2 >> 8)
-      002737 C0 E0            [24] 1580 	push	acc
-      002739 74 80            [12] 1581 	mov	a,#0x80
-      00273B C0 E0            [24] 1582 	push	acc
-      00273D 12 2C C3         [24] 1583 	lcall	_printf
-      002740 E5 81            [12] 1584 	mov	a,sp
-      002742 24 F9            [12] 1585 	add	a,#0xf9
-      002744 F5 81            [12] 1586 	mov	sp,a
-      002746 D0 00            [24] 1587 	pop	ar0
-      002748 D0 01            [24] 1588 	pop	ar1
-      00274A D0 03            [24] 1589 	pop	ar3
-      00274C D0 05            [24] 1590 	pop	ar5
-                                   1591 ;	walk.c:129: if (!stpop(&cur)) goto term;
-      00274E C0 00            [24] 1592 	push	ar0
-      002750 E5 10            [12] 1593 	mov	a,_bp
-      002752 24 06            [12] 1594 	add	a,#0x06
-      002754 F8               [12] 1595 	mov	r0,a
-      002755 86 04            [24] 1596 	mov	ar4,@r0
-      002757 7E 00            [12] 1597 	mov	r6,#0x00
-      002759 7F 40            [12] 1598 	mov	r7,#0x40
-      00275B D0 00            [24] 1599 	pop	ar0
-      00275D 8C 82            [24] 1600 	mov	dpl,r4
-      00275F 8E 83            [24] 1601 	mov	dph,r6
-      002761 8F F0            [24] 1602 	mov	b,r7
-      002763 C0 05            [24] 1603 	push	ar5
-      002765 C0 03            [24] 1604 	push	ar3
-      002767 C0 01            [24] 1605 	push	ar1
-      002769 C0 00            [24] 1606 	push	ar0
-      00276B 12 29 B2         [24] 1607 	lcall	_stpop
-      00276E E5 82            [12] 1608 	mov	a,dpl
-      002770 85 83 F0         [24] 1609 	mov	b,dph
-      002773 D0 00            [24] 1610 	pop	ar0
-      002775 D0 01            [24] 1611 	pop	ar1
-      002777 D0 03            [24] 1612 	pop	ar3
-      002779 D0 05            [24] 1613 	pop	ar5
-      00277B 45 F0            [12] 1614 	orl	a,b
-      00277D 60 03            [24] 1615 	jz	00201$
-      00277F 02 23 9F         [24] 1616 	ljmp	00137$
-      002782                       1617 00201$:
-                                   1618 ;	walk.c:133: return;
-                                   1619 ;	walk.c:134: }
-      002782 85 10 81         [24] 1620 	mov	sp,_bp
-      002785 D0 10            [24] 1621 	pop	_bp
-      002787 22               [24] 1622 	ret
-                                   1623 ;------------------------------------------------------------
-                                   1624 ;Allocation info for local variables in function 'main'
-                                   1625 ;------------------------------------------------------------
-                                   1626 ;initial                   Allocated to stack - _bp +3
-                                   1627 ;i                         Allocated to stack - _bp +7
-                                   1628 ;j                         Allocated to registers r4 r5 
-                                   1629 ;sloc0                     Allocated to stack - _bp +1
-                                   1630 ;R                         Allocated with name '_main_R_65536_65'
-                                   1631 ;------------------------------------------------------------
-                                   1632 ;	walk.c:136: int main(void) {
-                                   1633 ;	-----------------------------------------
-                                   1634 ;	 function main
-                                   1635 ;	-----------------------------------------
-      002788                       1636 _main:
-      002788 C0 10            [24] 1637 	push	_bp
-      00278A E5 81            [12] 1638 	mov	a,sp
-      00278C F5 10            [12] 1639 	mov	_bp,a
-      00278E 24 08            [12] 1640 	add	a,#0x08
-      002790 F5 81            [12] 1641 	mov	sp,a
-                                   1642 ;	walk.c:141: i0 = 1;
-      002792 78 11            [12] 1643 	mov	r0,#_i0
-      002794 76 01            [12] 1644 	mov	@r0,#0x01
-                                   1645 ;	walk.c:143: IT0 = 1;
-                                   1646 ;	assignBit
-      002796 D2 88            [12] 1647 	setb	_IT0
-                                   1648 ;	walk.c:144: EX0 = 1;
-                                   1649 ;	assignBit
-      002798 D2 A8            [12] 1650 	setb	_EX0
-                                   1651 ;	walk.c:145: EA = 1;
-                                   1652 ;	assignBit
-      00279A D2 AF            [12] 1653 	setb	_EA
-                                   1654 ;	walk.c:147: srand(*R);
-      00279C 90 F5 02         [24] 1655 	mov	dptr,#_main_R_65536_65
-      00279F E0               [24] 1656 	movx	a,@dptr
-      0027A0 FE               [12] 1657 	mov	r6,a
-      0027A1 A3               [24] 1658 	inc	dptr
-      0027A2 E0               [24] 1659 	movx	a,@dptr
-      0027A3 FF               [12] 1660 	mov	r7,a
-      0027A4 8E 82            [24] 1661 	mov	dpl,r6
-      0027A6 8F 83            [24] 1662 	mov	dph,r7
-      0027A8 E0               [24] 1663 	movx	a,@dptr
-      0027A9 FE               [12] 1664 	mov	r6,a
-      0027AA A3               [24] 1665 	inc	dptr
-      0027AB E0               [24] 1666 	movx	a,@dptr
-      0027AC FF               [12] 1667 	mov	r7,a
-      0027AD 8E 82            [24] 1668 	mov	dpl,r6
-      0027AF 8F 83            [24] 1669 	mov	dph,r7
-      0027B1 12 2A D8         [24] 1670 	lcall	_srand
-                                   1671 ;	walk.c:148: stinit();
-      0027B4 12 29 48         [24] 1672 	lcall	_stinit
-                                   1673 ;	walk.c:150: while (i0) {
-      0027B7 E5 10            [12] 1674 	mov	a,_bp
-      0027B9 24 03            [12] 1675 	add	a,#0x03
-      0027BB FF               [12] 1676 	mov	r7,a
-      0027BC FE               [12] 1677 	mov	r6,a
-      0027BD                       1678 00107$:
-      0027BD 78 11            [12] 1679 	mov	r0,#_i0
-      0027BF E6               [12] 1680 	mov	a,@r0
-      0027C0 70 03            [24] 1681 	jnz	00168$
-      0027C2 02 29 3A         [24] 1682 	ljmp	00109$
-      0027C5                       1683 00168$:
-                                   1684 ;	walk.c:151: for (i = 0; i < ROWS; i++)
-      0027C5 E5 10            [12] 1685 	mov	a,_bp
-      0027C7 24 07            [12] 1686 	add	a,#0x07
-      0027C9 F8               [12] 1687 	mov	r0,a
-      0027CA E4               [12] 1688 	clr	a
-      0027CB F6               [12] 1689 	mov	@r0,a
-      0027CC 08               [12] 1690 	inc	r0
-      0027CD F6               [12] 1691 	mov	@r0,a
-      0027CE 7A 00            [12] 1692 	mov	r2,#0x00
-      0027D0 7B 00            [12] 1693 	mov	r3,#0x00
-                                   1694 ;	walk.c:152: for (j = 0; j < COLS; j++)
-      0027D2                       1695 00121$:
-      0027D2 A8 10            [24] 1696 	mov	r0,_bp
-      0027D4 08               [12] 1697 	inc	r0
-      0027D5 EA               [12] 1698 	mov	a,r2
-      0027D6 24 00            [12] 1699 	add	a,#_g
-      0027D8 F6               [12] 1700 	mov	@r0,a
-      0027D9 EB               [12] 1701 	mov	a,r3
-      0027DA 34 41            [12] 1702 	addc	a,#(_g >> 8)
-      0027DC 08               [12] 1703 	inc	r0
-      0027DD F6               [12] 1704 	mov	@r0,a
-      0027DE 7C 00            [12] 1705 	mov	r4,#0x00
-      0027E0 7D 00            [12] 1706 	mov	r5,#0x00
-      0027E2                       1707 00110$:
-                                   1708 ;	walk.c:153: g[i][j] = 0x55;
-      0027E2 A8 10            [24] 1709 	mov	r0,_bp
-      0027E4 08               [12] 1710 	inc	r0
-      0027E5 EC               [12] 1711 	mov	a,r4
-      0027E6 26               [12] 1712 	add	a,@r0
-      0027E7 F5 82            [12] 1713 	mov	dpl,a
-      0027E9 ED               [12] 1714 	mov	a,r5
-      0027EA 08               [12] 1715 	inc	r0
-      0027EB 36               [12] 1716 	addc	a,@r0
-      0027EC F5 83            [12] 1717 	mov	dph,a
-      0027EE 74 55            [12] 1718 	mov	a,#0x55
-      0027F0 F0               [24] 1719 	movx	@dptr,a
-                                   1720 ;	walk.c:152: for (j = 0; j < COLS; j++)
-      0027F1 0C               [12] 1721 	inc	r4
-      0027F2 BC 00 01         [24] 1722 	cjne	r4,#0x00,00169$
-      0027F5 0D               [12] 1723 	inc	r5
-      0027F6                       1724 00169$:
-      0027F6 C3               [12] 1725 	clr	c
-      0027F7 EC               [12] 1726 	mov	a,r4
-      0027F8 94 C0            [12] 1727 	subb	a,#0xc0
-      0027FA ED               [12] 1728 	mov	a,r5
-      0027FB 64 80            [12] 1729 	xrl	a,#0x80
-      0027FD 94 80            [12] 1730 	subb	a,#0x80
-      0027FF 40 E1            [24] 1731 	jc	00110$
-                                   1732 ;	walk.c:151: for (i = 0; i < ROWS; i++)
-      002801 74 C0            [12] 1733 	mov	a,#0xc0
-      002803 2A               [12] 1734 	add	a,r2
-      002804 FA               [12] 1735 	mov	r2,a
-      002805 E4               [12] 1736 	clr	a
-      002806 3B               [12] 1737 	addc	a,r3
-      002807 FB               [12] 1738 	mov	r3,a
-      002808 E5 10            [12] 1739 	mov	a,_bp
-      00280A 24 07            [12] 1740 	add	a,#0x07
-      00280C F8               [12] 1741 	mov	r0,a
-      00280D 06               [12] 1742 	inc	@r0
-      00280E B6 00 02         [24] 1743 	cjne	@r0,#0x00,00171$
-      002811 08               [12] 1744 	inc	r0
-      002812 06               [12] 1745 	inc	@r0
-      002813                       1746 00171$:
-      002813 E5 10            [12] 1747 	mov	a,_bp
-      002815 24 07            [12] 1748 	add	a,#0x07
-      002817 F8               [12] 1749 	mov	r0,a
-      002818 C3               [12] 1750 	clr	c
-      002819 E6               [12] 1751 	mov	a,@r0
-      00281A 94 30            [12] 1752 	subb	a,#0x30
-      00281C 08               [12] 1753 	inc	r0
-      00281D E6               [12] 1754 	mov	a,@r0
-      00281E 64 80            [12] 1755 	xrl	a,#0x80
-      002820 94 80            [12] 1756 	subb	a,#0x80
-      002822 40 AE            [24] 1757 	jc	00121$
-                                   1758 ;	walk.c:155: puts("\033[2J");
-      002824 90 40 37         [24] 1759 	mov	dptr,#___str_3
-      002827 75 F0 80         [24] 1760 	mov	b,#0x80
-      00282A C0 07            [24] 1761 	push	ar7
-      00282C C0 06            [24] 1762 	push	ar6
-      00282E 12 2C 3D         [24] 1763 	lcall	_puts
-                                   1764 ;	walk.c:156: initial.r = rand() % ROWS;
-      002831 E5 10            [12] 1765 	mov	a,_bp
-      002833 24 03            [12] 1766 	add	a,#0x03
-      002835 F9               [12] 1767 	mov	r1,a
-      002836 C0 01            [24] 1768 	push	ar1
-      002838 12 2A 14         [24] 1769 	lcall	_rand
-      00283B AC 82            [24] 1770 	mov	r4,dpl
-      00283D AD 83            [24] 1771 	mov	r5,dph
-      00283F 74 30            [12] 1772 	mov	a,#0x30
-      002841 C0 E0            [24] 1773 	push	acc
-      002843 E4               [12] 1774 	clr	a
-      002844 C0 E0            [24] 1775 	push	acc
-      002846 8C 82            [24] 1776 	mov	dpl,r4
-      002848 8D 83            [24] 1777 	mov	dph,r5
-      00284A 12 2D 18         [24] 1778 	lcall	__modsint
-      00284D AC 82            [24] 1779 	mov	r4,dpl
-      00284F AD 83            [24] 1780 	mov	r5,dph
-      002851 15 81            [12] 1781 	dec	sp
-      002853 15 81            [12] 1782 	dec	sp
-      002855 D0 01            [24] 1783 	pop	ar1
-      002857 D0 06            [24] 1784 	pop	ar6
-      002859 D0 07            [24] 1785 	pop	ar7
-      00285B A7 04            [24] 1786 	mov	@r1,ar4
-      00285D 09               [12] 1787 	inc	r1
-      00285E A7 05            [24] 1788 	mov	@r1,ar5
-      002860 19               [12] 1789 	dec	r1
-                                   1790 ;	walk.c:157: initial.c = rand() % COLS;
-      002861 74 02            [12] 1791 	mov	a,#0x02
-      002863 2F               [12] 1792 	add	a,r7
-      002864 F9               [12] 1793 	mov	r1,a
-      002865 C0 07            [24] 1794 	push	ar7
-      002867 C0 06            [24] 1795 	push	ar6
-      002869 C0 01            [24] 1796 	push	ar1
-      00286B 12 2A 14         [24] 1797 	lcall	_rand
-      00286E AC 82            [24] 1798 	mov	r4,dpl
-      002870 AD 83            [24] 1799 	mov	r5,dph
-      002872 74 C0            [12] 1800 	mov	a,#0xc0
-      002874 C0 E0            [24] 1801 	push	acc
-      002876 E4               [12] 1802 	clr	a
-      002877 C0 E0            [24] 1803 	push	acc
-      002879 8C 82            [24] 1804 	mov	dpl,r4
-      00287B 8D 83            [24] 1805 	mov	dph,r5
-      00287D 12 2D 18         [24] 1806 	lcall	__modsint
-      002880 AC 82            [24] 1807 	mov	r4,dpl
-      002882 AD 83            [24] 1808 	mov	r5,dph
-      002884 15 81            [12] 1809 	dec	sp
-      002886 15 81            [12] 1810 	dec	sp
-      002888 D0 01            [24] 1811 	pop	ar1
-      00288A D0 06            [24] 1812 	pop	ar6
-      00288C A7 04            [24] 1813 	mov	@r1,ar4
-      00288E 09               [12] 1814 	inc	r1
-      00288F A7 05            [24] 1815 	mov	@r1,ar5
-      002891 19               [12] 1816 	dec	r1
-                                   1817 ;	walk.c:158: walk(&initial);
-      002892 8E 03            [24] 1818 	mov	ar3,r6
-      002894 7C 00            [12] 1819 	mov	r4,#0x00
-      002896 7D 40            [12] 1820 	mov	r5,#0x40
-      002898 8B 82            [24] 1821 	mov	dpl,r3
-      00289A 8C 83            [24] 1822 	mov	dph,r4
-      00289C 8D F0            [24] 1823 	mov	b,r5
-      00289E C0 06            [24] 1824 	push	ar6
-      0028A0 12 22 77         [24] 1825 	lcall	_walk
-      0028A3 D0 06            [24] 1826 	pop	ar6
-      0028A5 D0 07            [24] 1827 	pop	ar7
-                                   1828 ;	walk.c:160: for (i = 0; i < ROWS; i++)
-      0028A7 E5 10            [12] 1829 	mov	a,_bp
-      0028A9 24 07            [12] 1830 	add	a,#0x07
-      0028AB F8               [12] 1831 	mov	r0,a
-      0028AC E4               [12] 1832 	clr	a
-      0028AD F6               [12] 1833 	mov	@r0,a
-      0028AE 08               [12] 1834 	inc	r0
-      0028AF F6               [12] 1835 	mov	@r0,a
-      0028B0 7A 00            [12] 1836 	mov	r2,#0x00
-      0028B2 7B 00            [12] 1837 	mov	r3,#0x00
-                                   1838 ;	walk.c:161: for (j = 0; j < COLS; j++)
-      0028B4                       1839 00126$:
-      0028B4 A8 10            [24] 1840 	mov	r0,_bp
-      0028B6 08               [12] 1841 	inc	r0
-      0028B7 EA               [12] 1842 	mov	a,r2
-      0028B8 24 00            [12] 1843 	add	a,#_g
-      0028BA F6               [12] 1844 	mov	@r0,a
-      0028BB EB               [12] 1845 	mov	a,r3
-      0028BC 34 41            [12] 1846 	addc	a,#(_g >> 8)
-      0028BE 08               [12] 1847 	inc	r0
-      0028BF F6               [12] 1848 	mov	@r0,a
-      0028C0 7C 00            [12] 1849 	mov	r4,#0x00
-      0028C2 7D 00            [12] 1850 	mov	r5,#0x00
-      0028C4                       1851 00114$:
-                                   1852 ;	walk.c:162: if (g[i][j] != 0xaa) {
-      0028C4 C0 06            [24] 1853 	push	ar6
-      0028C6 A8 10            [24] 1854 	mov	r0,_bp
-      0028C8 08               [12] 1855 	inc	r0
-      0028C9 EC               [12] 1856 	mov	a,r4
-      0028CA 26               [12] 1857 	add	a,@r0
-      0028CB F5 82            [12] 1858 	mov	dpl,a
-      0028CD ED               [12] 1859 	mov	a,r5
-      0028CE 08               [12] 1860 	inc	r0
-      0028CF 36               [12] 1861 	addc	a,@r0
-      0028D0 F5 83            [12] 1862 	mov	dph,a
-      0028D2 E0               [24] 1863 	movx	a,@dptr
-      0028D3 FE               [12] 1864 	mov	r6,a
-      0028D4 BE AA 04         [24] 1865 	cjne	r6,#0xaa,00173$
-      0028D7 D0 06            [24] 1866 	pop	ar6
-      0028D9 80 26            [24] 1867 	sjmp	00115$
-      0028DB                       1868 00173$:
-      0028DB D0 06            [24] 1869 	pop	ar6
-                                   1870 ;	walk.c:163: (void)puts("Memory error");
-      0028DD 90 40 20         [24] 1871 	mov	dptr,#___str_1
-      0028E0 75 F0 80         [24] 1872 	mov	b,#0x80
-      0028E3 C0 07            [24] 1873 	push	ar7
-      0028E5 C0 06            [24] 1874 	push	ar6
-      0028E7 C0 05            [24] 1875 	push	ar5
-      0028E9 C0 04            [24] 1876 	push	ar4
-      0028EB C0 03            [24] 1877 	push	ar3
-      0028ED C0 02            [24] 1878 	push	ar2
-      0028EF 12 2C 3D         [24] 1879 	lcall	_puts
-      0028F2 D0 02            [24] 1880 	pop	ar2
-      0028F4 D0 03            [24] 1881 	pop	ar3
-      0028F6 D0 04            [24] 1882 	pop	ar4
-      0028F8 D0 05            [24] 1883 	pop	ar5
-      0028FA D0 06            [24] 1884 	pop	ar6
-      0028FC D0 07            [24] 1885 	pop	ar7
-                                   1886 ;	walk.c:164: reset();
-      0028FE 12 20 88         [24] 1887 	lcall	_reset
-      002901                       1888 00115$:
-                                   1889 ;	walk.c:161: for (j = 0; j < COLS; j++)
-      002901 0C               [12] 1890 	inc	r4
-      002902 BC 00 01         [24] 1891 	cjne	r4,#0x00,00174$
-      002905 0D               [12] 1892 	inc	r5
-      002906                       1893 00174$:
-      002906 C3               [12] 1894 	clr	c
-      002907 EC               [12] 1895 	mov	a,r4
-      002908 94 C0            [12] 1896 	subb	a,#0xc0
-      00290A ED               [12] 1897 	mov	a,r5
-      00290B 64 80            [12] 1898 	xrl	a,#0x80
-      00290D 94 80            [12] 1899 	subb	a,#0x80
-      00290F 40 B3            [24] 1900 	jc	00114$
-                                   1901 ;	walk.c:160: for (i = 0; i < ROWS; i++)
-      002911 74 C0            [12] 1902 	mov	a,#0xc0
-      002913 2A               [12] 1903 	add	a,r2
-      002914 FA               [12] 1904 	mov	r2,a
-      002915 E4               [12] 1905 	clr	a
-      002916 3B               [12] 1906 	addc	a,r3
-      002917 FB               [12] 1907 	mov	r3,a
-      002918 E5 10            [12] 1908 	mov	a,_bp
-      00291A 24 07            [12] 1909 	add	a,#0x07
-      00291C F8               [12] 1910 	mov	r0,a
-      00291D 06               [12] 1911 	inc	@r0
-      00291E B6 00 02         [24] 1912 	cjne	@r0,#0x00,00176$
-      002921 08               [12] 1913 	inc	r0
-      002922 06               [12] 1914 	inc	@r0
-      002923                       1915 00176$:
-      002923 E5 10            [12] 1916 	mov	a,_bp
-      002925 24 07            [12] 1917 	add	a,#0x07
-      002927 F8               [12] 1918 	mov	r0,a
-      002928 C3               [12] 1919 	clr	c
-      002929 E6               [12] 1920 	mov	a,@r0
-      00292A 94 30            [12] 1921 	subb	a,#0x30
-      00292C 08               [12] 1922 	inc	r0
-      00292D E6               [12] 1923 	mov	a,@r0
-      00292E 64 80            [12] 1924 	xrl	a,#0x80
-      002930 94 80            [12] 1925 	subb	a,#0x80
-      002932 50 03            [24] 1926 	jnc	00177$
-      002934 02 28 B4         [24] 1927 	ljmp	00126$
-      002937                       1928 00177$:
-      002937 02 27 BD         [24] 1929 	ljmp	00107$
-      00293A                       1930 00109$:
-                                   1931 ;	walk.c:168: EA = 0;
-                                   1932 ;	assignBit
-      00293A C2 AF            [12] 1933 	clr	_EA
-                                   1934 ;	walk.c:172: __endasm;
-      00293C 02 00 00         [24] 1935 	ljmp	0
-                                   1936 ;	walk.c:174: return 0;
-      00293F 90 00 00         [24] 1937 	mov	dptr,#0x0000
-                                   1938 ;	walk.c:175: }
-      002942 85 10 81         [24] 1939 	mov	sp,_bp
-      002945 D0 10            [24] 1940 	pop	_bp
-      002947 22               [24] 1941 	ret
-                                   1942 ;------------------------------------------------------------
-                                   1943 ;Allocation info for local variables in function 'stinit'
-                                   1944 ;------------------------------------------------------------
-                                   1945 ;	walk.c:177: static void stinit(void) {
-                                   1946 ;	-----------------------------------------
-                                   1947 ;	 function stinit
-                                   1948 ;	-----------------------------------------
-      002948                       1949 _stinit:
-                                   1950 ;	walk.c:178: sp = -1;
-      002948 90 F5 00         [24] 1951 	mov	dptr,#_sp
-      00294B 74 FF            [12] 1952 	mov	a,#0xff
-      00294D F0               [24] 1953 	movx	@dptr,a
-      00294E A3               [24] 1954 	inc	dptr
-      00294F F0               [24] 1955 	movx	@dptr,a
-                                   1956 ;	walk.c:179: return;
-                                   1957 ;	walk.c:180: }
-      002950 22               [24] 1958 	ret
-                                   1959 ;------------------------------------------------------------
-                                   1960 ;Allocation info for local variables in function 'stpush'
-                                   1961 ;------------------------------------------------------------
-                                   1962 ;t                         Allocated to registers r5 r6 r7 
-                                   1963 ;------------------------------------------------------------
-                                   1964 ;	walk.c:182: static int stpush(struct node *t) {
-                                   1965 ;	-----------------------------------------
-                                   1966 ;	 function stpush
-                                   1967 ;	-----------------------------------------
-      002951                       1968 _stpush:
-      002951 AD 82            [24] 1969 	mov	r5,dpl
-      002953 AE 83            [24] 1970 	mov	r6,dph
-      002955 AF F0            [24] 1971 	mov	r7,b
-                                   1972 ;	walk.c:183: if (sp == (SMAX - 1)) return 0;
-      002957 90 F5 00         [24] 1973 	mov	dptr,#_sp
-      00295A E0               [24] 1974 	movx	a,@dptr
-      00295B FB               [12] 1975 	mov	r3,a
-      00295C A3               [24] 1976 	inc	dptr
-      00295D E0               [24] 1977 	movx	a,@dptr
-      00295E FC               [12] 1978 	mov	r4,a
-      00295F BB FF 07         [24] 1979 	cjne	r3,#0xff,00102$
-      002962 BC 23 04         [24] 1980 	cjne	r4,#0x23,00102$
-      002965 90 00 00         [24] 1981 	mov	dptr,#0x0000
-      002968 22               [24] 1982 	ret
-      002969                       1983 00102$:
-                                   1984 ;	walk.c:184: sp++;
-      002969 90 F5 00         [24] 1985 	mov	dptr,#_sp
-      00296C 74 01            [12] 1986 	mov	a,#0x01
-      00296E 2B               [12] 1987 	add	a,r3
-      00296F F0               [24] 1988 	movx	@dptr,a
-      002970 E4               [12] 1989 	clr	a
-      002971 3C               [12] 1990 	addc	a,r4
-      002972 A3               [24] 1991 	inc	dptr
-      002973 F0               [24] 1992 	movx	@dptr,a
-                                   1993 ;	walk.c:185: stack[sp] = *t;
-      002974 90 F5 00         [24] 1994 	mov	dptr,#_sp
-      002977 E0               [24] 1995 	movx	a,@dptr
-      002978 FB               [12] 1996 	mov	r3,a
-      002979 A3               [24] 1997 	inc	dptr
-      00297A E0               [24] 1998 	movx	a,@dptr
-      00297B FC               [12] 1999 	mov	r4,a
-      00297C EB               [12] 2000 	mov	a,r3
-      00297D 2B               [12] 2001 	add	a,r3
-      00297E FB               [12] 2002 	mov	r3,a
-      00297F EC               [12] 2003 	mov	a,r4
-      002980 33               [12] 2004 	rlc	a
-      002981 FC               [12] 2005 	mov	r4,a
-      002982 EB               [12] 2006 	mov	a,r3
-      002983 2B               [12] 2007 	add	a,r3
-      002984 FB               [12] 2008 	mov	r3,a
-      002985 EC               [12] 2009 	mov	a,r4
-      002986 33               [12] 2010 	rlc	a
-      002987 FC               [12] 2011 	mov	r4,a
-      002988 EB               [12] 2012 	mov	a,r3
-      002989 24 00            [12] 2013 	add	a,#_stack
-      00298B FB               [12] 2014 	mov	r3,a
-      00298C EC               [12] 2015 	mov	a,r4
-      00298D 34 65            [12] 2016 	addc	a,#(_stack >> 8)
-      00298F FC               [12] 2017 	mov	r4,a
-      002990 7A 00            [12] 2018 	mov	r2,#0x00
-      002992 74 04            [12] 2019 	mov	a,#0x04
-      002994 C0 E0            [24] 2020 	push	acc
-      002996 E4               [12] 2021 	clr	a
-      002997 C0 E0            [24] 2022 	push	acc
-      002999 C0 05            [24] 2023 	push	ar5
-      00299B C0 06            [24] 2024 	push	ar6
-      00299D C0 07            [24] 2025 	push	ar7
-      00299F 8B 82            [24] 2026 	mov	dpl,r3
-      0029A1 8C 83            [24] 2027 	mov	dph,r4
-      0029A3 8A F0            [24] 2028 	mov	b,r2
-      0029A5 12 2B AA         [24] 2029 	lcall	___memcpy
-      0029A8 E5 81            [12] 2030 	mov	a,sp
-      0029AA 24 FB            [12] 2031 	add	a,#0xfb
-      0029AC F5 81            [12] 2032 	mov	sp,a
-                                   2033 ;	walk.c:186: return 1;
-      0029AE 90 00 01         [24] 2034 	mov	dptr,#0x0001
-                                   2035 ;	walk.c:187: }
-      0029B1 22               [24] 2036 	ret
-                                   2037 ;------------------------------------------------------------
-                                   2038 ;Allocation info for local variables in function 'stpop'
-                                   2039 ;------------------------------------------------------------
-                                   2040 ;t                         Allocated to registers r5 r6 r7 
-                                   2041 ;------------------------------------------------------------
-                                   2042 ;	walk.c:189: static int stpop(struct node *t) {
-                                   2043 ;	-----------------------------------------
-                                   2044 ;	 function stpop
-                                   2045 ;	-----------------------------------------
-      0029B2                       2046 _stpop:
-      0029B2 AD 82            [24] 2047 	mov	r5,dpl
-      0029B4 AE 83            [24] 2048 	mov	r6,dph
-      0029B6 AF F0            [24] 2049 	mov	r7,b
-                                   2050 ;	walk.c:190: if (sp == -1) return 0;
-      0029B8 90 F5 00         [24] 2051 	mov	dptr,#_sp
-      0029BB E0               [24] 2052 	movx	a,@dptr
-      0029BC FB               [12] 2053 	mov	r3,a
-      0029BD A3               [24] 2054 	inc	dptr
-      0029BE E0               [24] 2055 	movx	a,@dptr
-      0029BF FC               [12] 2056 	mov	r4,a
-      0029C0 BB FF 07         [24] 2057 	cjne	r3,#0xff,00102$
-      0029C3 BC FF 04         [24] 2058 	cjne	r4,#0xff,00102$
-      0029C6 90 00 00         [24] 2059 	mov	dptr,#0x0000
-      0029C9 22               [24] 2060 	ret
-      0029CA                       2061 00102$:
-                                   2062 ;	walk.c:191: *t = stack[sp];
-      0029CA EB               [12] 2063 	mov	a,r3
-      0029CB 2B               [12] 2064 	add	a,r3
-      0029CC FB               [12] 2065 	mov	r3,a
-      0029CD EC               [12] 2066 	mov	a,r4
-      0029CE 33               [12] 2067 	rlc	a
-      0029CF FC               [12] 2068 	mov	r4,a
-      0029D0 EB               [12] 2069 	mov	a,r3
-      0029D1 2B               [12] 2070 	add	a,r3
-      0029D2 FB               [12] 2071 	mov	r3,a
-      0029D3 EC               [12] 2072 	mov	a,r4
-      0029D4 33               [12] 2073 	rlc	a
-      0029D5 FC               [12] 2074 	mov	r4,a
-      0029D6 EB               [12] 2075 	mov	a,r3
-      0029D7 24 00            [12] 2076 	add	a,#_stack
-      0029D9 FB               [12] 2077 	mov	r3,a
-      0029DA EC               [12] 2078 	mov	a,r4
-      0029DB 34 65            [12] 2079 	addc	a,#(_stack >> 8)
-      0029DD FC               [12] 2080 	mov	r4,a
-      0029DE 7A 00            [12] 2081 	mov	r2,#0x00
-      0029E0 74 04            [12] 2082 	mov	a,#0x04
-      0029E2 C0 E0            [24] 2083 	push	acc
-      0029E4 E4               [12] 2084 	clr	a
-      0029E5 C0 E0            [24] 2085 	push	acc
-      0029E7 C0 03            [24] 2086 	push	ar3
-      0029E9 C0 04            [24] 2087 	push	ar4
-      0029EB C0 02            [24] 2088 	push	ar2
-      0029ED 8D 82            [24] 2089 	mov	dpl,r5
-      0029EF 8E 83            [24] 2090 	mov	dph,r6
-      0029F1 8F F0            [24] 2091 	mov	b,r7
-      0029F3 12 2B AA         [24] 2092 	lcall	___memcpy
-      0029F6 E5 81            [12] 2093 	mov	a,sp
-      0029F8 24 FB            [12] 2094 	add	a,#0xfb
-      0029FA F5 81            [12] 2095 	mov	sp,a
-                                   2096 ;	walk.c:192: sp--;
-      0029FC 90 F5 00         [24] 2097 	mov	dptr,#_sp
-      0029FF E0               [24] 2098 	movx	a,@dptr
-      002A00 24 FF            [12] 2099 	add	a,#0xff
-      002A02 FE               [12] 2100 	mov	r6,a
-      002A03 A3               [24] 2101 	inc	dptr
-      002A04 E0               [24] 2102 	movx	a,@dptr
-      002A05 34 FF            [12] 2103 	addc	a,#0xff
-      002A07 FF               [12] 2104 	mov	r7,a
-      002A08 90 F5 00         [24] 2105 	mov	dptr,#_sp
-      002A0B EE               [12] 2106 	mov	a,r6
-      002A0C F0               [24] 2107 	movx	@dptr,a
-      002A0D EF               [12] 2108 	mov	a,r7
-      002A0E A3               [24] 2109 	inc	dptr
-      002A0F F0               [24] 2110 	movx	@dptr,a
-                                   2111 ;	walk.c:193: return 1;
-      002A10 90 00 01         [24] 2112 	mov	dptr,#0x0001
-                                   2113 ;	walk.c:194: }
-      002A13 22               [24] 2114 	ret
-                                   2115 	.area CSEG    (CODE)
-                                   2116 	.area CONST   (CODE)
-      003FF6                       2117 _neigh:
-      003FF6 FF FF                 2118 	.byte #0xff, #0xff	; -1
-      003FF8 FF FF                 2119 	.byte #0xff, #0xff	; -1
-      003FFA FF FF                 2120 	.byte #0xff, #0xff	; -1
-      003FFC 00 00                 2121 	.byte #0x00, #0x00	;  0
-      003FFE FF FF                 2122 	.byte #0xff, #0xff	; -1
-      004000 01 00                 2123 	.byte #0x01, #0x00	;  1
-      004002 00 00                 2124 	.byte #0x00, #0x00	;  0
-      004004 FF FF                 2125 	.byte #0xff, #0xff	; -1
-      004006 00 00                 2126 	.byte #0x00, #0x00	;  0
-      004008 01 00                 2127 	.byte #0x01, #0x00	;  1
-      00400A 01 00                 2128 	.byte #0x01, #0x00	;  1
-      00400C FF FF                 2129 	.byte #0xff, #0xff	; -1
-      00400E 01 00                 2130 	.byte #0x01, #0x00	;  1
-      004010 00 00                 2131 	.byte #0x00, #0x00	;  0
-      004012 01 00                 2132 	.byte #0x01, #0x00	;  1
-      004014 01 00                 2133 	.byte #0x01, #0x00	;  1
-                                   2134 	.area CONST   (CODE)
-      004016                       2135 ___str_0:
-      004016 1B                    2136 	.db 0x1b
-      004017 5B 25 64 3B 25 64 48  2137 	.ascii "[%d;%dHo"
-             6F
-      00401F 00                    2138 	.db 0x00
-                                   2139 	.area CSEG    (CODE)
-                                   2140 	.area CONST   (CODE)
-      004020                       2141 ___str_1:
-      004020 4D 65 6D 6F 72 79 20  2142 	.ascii "Memory error"
+      002404 74 3F            [12] 1088 	mov	a,#(___str_1 >> 8)
+      002406 C0 E0            [24] 1089 	push	acc
+      002408 74 80            [12] 1090 	mov	a,#0x80
+      00240A C0 E0            [24] 1091 	push	acc
+      00240C 12 2B B7         [24] 1092 	lcall	_printf
+      00240F E5 81            [12] 1093 	mov	a,sp
+      002411 24 F9            [12] 1094 	add	a,#0xf9
+      002413 F5 81            [12] 1095 	mov	sp,a
+      002415 D0 00            [24] 1096 	pop	ar0
+      002417 D0 01            [24] 1097 	pop	ar1
+      002419 D0 06            [24] 1098 	pop	ar6
+                                   1099 ;	walk.c:127: return;
+                                   1100 ;	walk.c:102: for (j = 0, f = 0; j < NMAX; j++) {
+      00241B                       1101 00125$:
+      00241B 7B 00            [12] 1102 	mov	r3,#0x00
+      00241D 7A 00            [12] 1103 	mov	r2,#0x00
+      00241F C0 00            [24] 1104 	push	ar0
+      002421 E5 10            [12] 1105 	mov	a,_bp
+      002423 24 13            [12] 1106 	add	a,#0x13
+      002425 F8               [12] 1107 	mov	r0,a
+      002426 E4               [12] 1108 	clr	a
+      002427 F6               [12] 1109 	mov	@r0,a
+      002428 08               [12] 1110 	inc	r0
+      002429 F6               [12] 1111 	mov	@r0,a
+      00242A D0 00            [24] 1112 	pop	ar0
+      00242C                       1113 00120$:
+      00242C C0 00            [24] 1114 	push	ar0
+      00242E E5 10            [12] 1115 	mov	a,_bp
+      002430 24 13            [12] 1116 	add	a,#0x13
+      002432 F8               [12] 1117 	mov	r0,a
+      002433 C3               [12] 1118 	clr	c
+      002434 E6               [12] 1119 	mov	a,@r0
+      002435 94 08            [12] 1120 	subb	a,#0x08
+      002437 08               [12] 1121 	inc	r0
+      002438 E6               [12] 1122 	mov	a,@r0
+      002439 64 80            [12] 1123 	xrl	a,#0x80
+      00243B 94 80            [12] 1124 	subb	a,#0x80
+      00243D D0 00            [24] 1125 	pop	ar0
+      00243F 40 03            [24] 1126 	jc	00161$
+      002441 02 24 CE         [24] 1127 	ljmp	00106$
+      002444                       1128 00161$:
+                                   1129 ;	walk.c:103: if (!update(&t, &cur, j)) continue;
+      002444 C0 00            [24] 1130 	push	ar0
+      002446 C0 00            [24] 1131 	push	ar0
+      002448 E5 10            [12] 1132 	mov	a,_bp
+      00244A 24 07            [12] 1133 	add	a,#0x07
+      00244C F8               [12] 1134 	mov	r0,a
+      00244D C0 01            [24] 1135 	push	ar1
+      00244F E5 10            [12] 1136 	mov	a,_bp
+      002451 24 08            [12] 1137 	add	a,#0x08
+      002453 F9               [12] 1138 	mov	r1,a
+      002454 E6               [12] 1139 	mov	a,@r0
+      002455 F7               [12] 1140 	mov	@r1,a
+      002456 09               [12] 1141 	inc	r1
+      002457 77 00            [12] 1142 	mov	@r1,#0x00
+      002459 09               [12] 1143 	inc	r1
+      00245A 77 40            [12] 1144 	mov	@r1,#0x40
+      00245C D0 01            [24] 1145 	pop	ar1
+      00245E D0 00            [24] 1146 	pop	ar0
+      002460 8E 04            [24] 1147 	mov	ar4,r6
+      002462 7D 00            [12] 1148 	mov	r5,#0x00
+      002464 7F 40            [12] 1149 	mov	r7,#0x40
+      002466 C0 06            [24] 1150 	push	ar6
+      002468 C0 03            [24] 1151 	push	ar3
+      00246A C0 02            [24] 1152 	push	ar2
+      00246C C0 01            [24] 1153 	push	ar1
+      00246E C0 00            [24] 1154 	push	ar0
+      002470 85 00 F0         [24] 1155 	mov	b,ar0
+      002473 E5 10            [12] 1156 	mov	a,_bp
+      002475 24 13            [12] 1157 	add	a,#0x13
+      002477 F8               [12] 1158 	mov	r0,a
+      002478 E6               [12] 1159 	mov	a,@r0
+      002479 C0 E0            [24] 1160 	push	acc
+      00247B 08               [12] 1161 	inc	r0
+      00247C E6               [12] 1162 	mov	a,@r0
+      00247D C0 E0            [24] 1163 	push	acc
+      00247F A8 F0            [24] 1164 	mov	r0,b
+      002481 85 00 F0         [24] 1165 	mov	b,ar0
+      002484 E5 10            [12] 1166 	mov	a,_bp
+      002486 24 08            [12] 1167 	add	a,#0x08
+      002488 F8               [12] 1168 	mov	r0,a
+      002489 E6               [12] 1169 	mov	a,@r0
+      00248A C0 E0            [24] 1170 	push	acc
+      00248C 08               [12] 1171 	inc	r0
+      00248D E6               [12] 1172 	mov	a,@r0
+      00248E C0 E0            [24] 1173 	push	acc
+      002490 08               [12] 1174 	inc	r0
+      002491 E6               [12] 1175 	mov	a,@r0
+      002492 C0 E0            [24] 1176 	push	acc
+      002494 8C 82            [24] 1177 	mov	dpl,r4
+      002496 8D 83            [24] 1178 	mov	dph,r5
+      002498 8F F0            [24] 1179 	mov	b,r7
+      00249A 12 20 8B         [24] 1180 	lcall	_update
+      00249D AD 82            [24] 1181 	mov	r5,dpl
+      00249F AF 83            [24] 1182 	mov	r7,dph
+      0024A1 E5 81            [12] 1183 	mov	a,sp
+      0024A3 24 FB            [12] 1184 	add	a,#0xfb
+      0024A5 F5 81            [12] 1185 	mov	sp,a
+      0024A7 D0 00            [24] 1186 	pop	ar0
+      0024A9 D0 01            [24] 1187 	pop	ar1
+      0024AB D0 02            [24] 1188 	pop	ar2
+      0024AD D0 03            [24] 1189 	pop	ar3
+      0024AF D0 06            [24] 1190 	pop	ar6
+      0024B1 D0 00            [24] 1191 	pop	ar0
+      0024B3 ED               [12] 1192 	mov	a,r5
+      0024B4 4F               [12] 1193 	orl	a,r7
+      0024B5 60 05            [24] 1194 	jz	00105$
+                                   1195 ;	walk.c:104: f++;
+      0024B7 0B               [12] 1196 	inc	r3
+      0024B8 BB 00 01         [24] 1197 	cjne	r3,#0x00,00163$
+      0024BB 0A               [12] 1198 	inc	r2
+      0024BC                       1199 00163$:
+      0024BC                       1200 00105$:
+                                   1201 ;	walk.c:102: for (j = 0, f = 0; j < NMAX; j++) {
+      0024BC C0 00            [24] 1202 	push	ar0
+      0024BE E5 10            [12] 1203 	mov	a,_bp
+      0024C0 24 13            [12] 1204 	add	a,#0x13
+      0024C2 F8               [12] 1205 	mov	r0,a
+      0024C3 06               [12] 1206 	inc	@r0
+      0024C4 B6 00 02         [24] 1207 	cjne	@r0,#0x00,00164$
+      0024C7 08               [12] 1208 	inc	r0
+      0024C8 06               [12] 1209 	inc	@r0
+      0024C9                       1210 00164$:
+      0024C9 D0 00            [24] 1211 	pop	ar0
+      0024CB 02 24 2C         [24] 1212 	ljmp	00120$
+      0024CE                       1213 00106$:
+                                   1214 ;	walk.c:107: if (f) {
+      0024CE EB               [12] 1215 	mov	a,r3
+      0024CF 4A               [12] 1216 	orl	a,r2
+      0024D0 70 03            [24] 1217 	jnz	00165$
+      0024D2 02 26 07         [24] 1218 	ljmp	00115$
+      0024D5                       1219 00165$:
+                                   1220 ;	walk.c:108: while (1) {
+      0024D5                       1221 00112$:
+                                   1222 ;	walk.c:109: j = rand() % NMAX;
+      0024D5 C0 00            [24] 1223 	push	ar0
+      0024D7 C0 06            [24] 1224 	push	ar6
+      0024D9 C0 01            [24] 1225 	push	ar1
+      0024DB C0 00            [24] 1226 	push	ar0
+      0024DD 12 29 08         [24] 1227 	lcall	_rand
+      0024E0 AD 82            [24] 1228 	mov	r5,dpl
+      0024E2 AF 83            [24] 1229 	mov	r7,dph
+      0024E4 74 08            [12] 1230 	mov	a,#0x08
+      0024E6 C0 E0            [24] 1231 	push	acc
+      0024E8 E4               [12] 1232 	clr	a
+      0024E9 C0 E0            [24] 1233 	push	acc
+      0024EB 8D 82            [24] 1234 	mov	dpl,r5
+      0024ED 8F 83            [24] 1235 	mov	dph,r7
+      0024EF 12 2C 0C         [24] 1236 	lcall	__modsint
+      0024F2 AB 82            [24] 1237 	mov	r3,dpl
+      0024F4 AA 83            [24] 1238 	mov	r2,dph
+      0024F6 15 81            [12] 1239 	dec	sp
+      0024F8 15 81            [12] 1240 	dec	sp
+      0024FA D0 00            [24] 1241 	pop	ar0
+      0024FC D0 01            [24] 1242 	pop	ar1
+      0024FE D0 06            [24] 1243 	pop	ar6
+                                   1244 ;	walk.c:110: if (!update(&t, &cur, j)) continue;
+      002500 C0 00            [24] 1245 	push	ar0
+      002502 E5 10            [12] 1246 	mov	a,_bp
+      002504 24 06            [12] 1247 	add	a,#0x06
+      002506 F8               [12] 1248 	mov	r0,a
+      002507 C0 01            [24] 1249 	push	ar1
+      002509 E5 10            [12] 1250 	mov	a,_bp
+      00250B 24 08            [12] 1251 	add	a,#0x08
+      00250D F9               [12] 1252 	mov	r1,a
+      00250E E6               [12] 1253 	mov	a,@r0
+      00250F F7               [12] 1254 	mov	@r1,a
+      002510 09               [12] 1255 	inc	r1
+      002511 77 00            [12] 1256 	mov	@r1,#0x00
+      002513 09               [12] 1257 	inc	r1
+      002514 77 40            [12] 1258 	mov	@r1,#0x40
+      002516 D0 01            [24] 1259 	pop	ar1
+      002518 E5 10            [12] 1260 	mov	a,_bp
+      00251A 24 05            [12] 1261 	add	a,#0x05
+      00251C F8               [12] 1262 	mov	r0,a
+      00251D 86 04            [24] 1263 	mov	ar4,@r0
+      00251F 7D 00            [12] 1264 	mov	r5,#0x00
+      002521 7F 40            [12] 1265 	mov	r7,#0x40
+      002523 D0 00            [24] 1266 	pop	ar0
+      002525 C0 06            [24] 1267 	push	ar6
+      002527 C0 01            [24] 1268 	push	ar1
+      002529 C0 00            [24] 1269 	push	ar0
+      00252B C0 03            [24] 1270 	push	ar3
+      00252D C0 02            [24] 1271 	push	ar2
+      00252F 85 00 F0         [24] 1272 	mov	b,ar0
+      002532 E5 10            [12] 1273 	mov	a,_bp
+      002534 24 08            [12] 1274 	add	a,#0x08
+      002536 F8               [12] 1275 	mov	r0,a
+      002537 E6               [12] 1276 	mov	a,@r0
+      002538 C0 E0            [24] 1277 	push	acc
+      00253A 08               [12] 1278 	inc	r0
+      00253B E6               [12] 1279 	mov	a,@r0
+      00253C C0 E0            [24] 1280 	push	acc
+      00253E 08               [12] 1281 	inc	r0
+      00253F E6               [12] 1282 	mov	a,@r0
+      002540 C0 E0            [24] 1283 	push	acc
+      002542 8C 82            [24] 1284 	mov	dpl,r4
+      002544 8D 83            [24] 1285 	mov	dph,r5
+      002546 8F F0            [24] 1286 	mov	b,r7
+      002548 12 20 8B         [24] 1287 	lcall	_update
+      00254B AD 82            [24] 1288 	mov	r5,dpl
+      00254D AF 83            [24] 1289 	mov	r7,dph
+      00254F E5 81            [12] 1290 	mov	a,sp
+      002551 24 FB            [12] 1291 	add	a,#0xfb
+      002553 F5 81            [12] 1292 	mov	sp,a
+      002555 D0 00            [24] 1293 	pop	ar0
+      002557 D0 01            [24] 1294 	pop	ar1
+      002559 D0 06            [24] 1295 	pop	ar6
+      00255B D0 00            [24] 1296 	pop	ar0
+      00255D ED               [12] 1297 	mov	a,r5
+      00255E 4F               [12] 1298 	orl	a,r7
+      00255F 70 03            [24] 1299 	jnz	00166$
+      002561 02 24 D5         [24] 1300 	ljmp	00112$
+      002564                       1301 00166$:
+                                   1302 ;	walk.c:112: if (!stpush(&cur)) {
+      002564 C0 00            [24] 1303 	push	ar0
+      002566 E5 10            [12] 1304 	mov	a,_bp
+      002568 24 04            [12] 1305 	add	a,#0x04
+      00256A F8               [12] 1306 	mov	r0,a
+      00256B 86 02            [24] 1307 	mov	ar2,@r0
+      00256D 7D 00            [12] 1308 	mov	r5,#0x00
+      00256F 7F 40            [12] 1309 	mov	r7,#0x40
+      002571 D0 00            [24] 1310 	pop	ar0
+      002573 8A 82            [24] 1311 	mov	dpl,r2
+      002575 8D 83            [24] 1312 	mov	dph,r5
+      002577 8F F0            [24] 1313 	mov	b,r7
+      002579 C0 06            [24] 1314 	push	ar6
+      00257B C0 01            [24] 1315 	push	ar1
+      00257D C0 00            [24] 1316 	push	ar0
+      00257F 12 28 45         [24] 1317 	lcall	_stpush
+      002582 E5 82            [12] 1318 	mov	a,dpl
+      002584 85 83 F0         [24] 1319 	mov	b,dph
+      002587 D0 00            [24] 1320 	pop	ar0
+      002589 D0 01            [24] 1321 	pop	ar1
+      00258B D0 06            [24] 1322 	pop	ar6
+      00258D 45 F0            [12] 1323 	orl	a,b
+      00258F 70 18            [24] 1324 	jnz	00110$
+                                   1325 ;	walk.c:113: (void)puts("Memory error");
+      002591 90 3F 0A         [24] 1326 	mov	dptr,#___str_0
+      002594 75 F0 80         [24] 1327 	mov	b,#0x80
+      002597 C0 06            [24] 1328 	push	ar6
+      002599 C0 01            [24] 1329 	push	ar1
+      00259B C0 00            [24] 1330 	push	ar0
+      00259D 12 2B 31         [24] 1331 	lcall	_puts
+      0025A0 D0 00            [24] 1332 	pop	ar0
+      0025A2 D0 01            [24] 1333 	pop	ar1
+      0025A4 D0 06            [24] 1334 	pop	ar6
+                                   1335 ;	walk.c:114: reset();
+      0025A6 12 20 88         [24] 1336 	lcall	_reset
+      0025A9                       1337 00110$:
+                                   1338 ;	walk.c:116: cur = t;
+      0025A9 C0 00            [24] 1339 	push	ar0
+      0025AB C0 00            [24] 1340 	push	ar0
+      0025AD A8 10            [24] 1341 	mov	r0,_bp
+      0025AF 08               [12] 1342 	inc	r0
+      0025B0 C0 01            [24] 1343 	push	ar1
+      0025B2 E5 10            [12] 1344 	mov	a,_bp
+      0025B4 24 08            [12] 1345 	add	a,#0x08
+      0025B6 F9               [12] 1346 	mov	r1,a
+      0025B7 E6               [12] 1347 	mov	a,@r0
+      0025B8 F7               [12] 1348 	mov	@r1,a
+      0025B9 09               [12] 1349 	inc	r1
+      0025BA 77 00            [12] 1350 	mov	@r1,#0x00
+      0025BC 09               [12] 1351 	inc	r1
+      0025BD 77 40            [12] 1352 	mov	@r1,#0x40
+      0025BF D0 01            [24] 1353 	pop	ar1
+      0025C1 A8 10            [24] 1354 	mov	r0,_bp
+      0025C3 08               [12] 1355 	inc	r0
+      0025C4 08               [12] 1356 	inc	r0
+      0025C5 86 02            [24] 1357 	mov	ar2,@r0
+      0025C7 7B 00            [12] 1358 	mov	r3,#0x00
+      0025C9 7F 40            [12] 1359 	mov	r7,#0x40
+      0025CB D0 00            [24] 1360 	pop	ar0
+      0025CD C0 06            [24] 1361 	push	ar6
+      0025CF C0 01            [24] 1362 	push	ar1
+      0025D1 C0 00            [24] 1363 	push	ar0
+      0025D3 74 04            [12] 1364 	mov	a,#0x04
+      0025D5 C0 E0            [24] 1365 	push	acc
+      0025D7 E4               [12] 1366 	clr	a
+      0025D8 C0 E0            [24] 1367 	push	acc
+      0025DA 85 00 F0         [24] 1368 	mov	b,ar0
+      0025DD E5 10            [12] 1369 	mov	a,_bp
+      0025DF 24 08            [12] 1370 	add	a,#0x08
+      0025E1 F8               [12] 1371 	mov	r0,a
+      0025E2 E6               [12] 1372 	mov	a,@r0
+      0025E3 C0 E0            [24] 1373 	push	acc
+      0025E5 08               [12] 1374 	inc	r0
+      0025E6 E6               [12] 1375 	mov	a,@r0
+      0025E7 C0 E0            [24] 1376 	push	acc
+      0025E9 08               [12] 1377 	inc	r0
+      0025EA E6               [12] 1378 	mov	a,@r0
+      0025EB C0 E0            [24] 1379 	push	acc
+      0025ED 8A 82            [24] 1380 	mov	dpl,r2
+      0025EF 8B 83            [24] 1381 	mov	dph,r3
+      0025F1 8F F0            [24] 1382 	mov	b,r7
+      0025F3 12 2A 9E         [24] 1383 	lcall	___memcpy
+      0025F6 E5 81            [12] 1384 	mov	a,sp
+      0025F8 24 FB            [12] 1385 	add	a,#0xfb
+      0025FA F5 81            [12] 1386 	mov	sp,a
+      0025FC D0 00            [24] 1387 	pop	ar0
+      0025FE D0 01            [24] 1388 	pop	ar1
+      002600 D0 06            [24] 1389 	pop	ar6
+                                   1390 ;	walk.c:117: goto process;
+      002602 D0 00            [24] 1391 	pop	ar0
+      002604 02 23 9D         [24] 1392 	ljmp	00101$
+      002607                       1393 00115$:
+                                   1394 ;	walk.c:121: printf("\033[%d;%dH.", cur.r + 1, cur.c + 1);
+      002607 86 05            [24] 1395 	mov	ar5,@r0
+      002609 08               [12] 1396 	inc	r0
+      00260A 86 07            [24] 1397 	mov	ar7,@r0
+      00260C 18               [12] 1398 	dec	r0
+      00260D 0D               [12] 1399 	inc	r5
+      00260E BD 00 01         [24] 1400 	cjne	r5,#0x00,00168$
+      002611 0F               [12] 1401 	inc	r7
+      002612                       1402 00168$:
+      002612 87 03            [24] 1403 	mov	ar3,@r1
+      002614 09               [12] 1404 	inc	r1
+      002615 87 04            [24] 1405 	mov	ar4,@r1
+      002617 19               [12] 1406 	dec	r1
+      002618 0B               [12] 1407 	inc	r3
+      002619 BB 00 01         [24] 1408 	cjne	r3,#0x00,00169$
+      00261C 0C               [12] 1409 	inc	r4
+      00261D                       1410 00169$:
+      00261D C0 06            [24] 1411 	push	ar6
+      00261F C0 01            [24] 1412 	push	ar1
+      002621 C0 00            [24] 1413 	push	ar0
+      002623 C0 05            [24] 1414 	push	ar5
+      002625 C0 07            [24] 1415 	push	ar7
+      002627 C0 03            [24] 1416 	push	ar3
+      002629 C0 04            [24] 1417 	push	ar4
+      00262B 74 21            [12] 1418 	mov	a,#___str_2
+      00262D C0 E0            [24] 1419 	push	acc
+      00262F 74 3F            [12] 1420 	mov	a,#(___str_2 >> 8)
+      002631 C0 E0            [24] 1421 	push	acc
+      002633 74 80            [12] 1422 	mov	a,#0x80
+      002635 C0 E0            [24] 1423 	push	acc
+      002637 12 2B B7         [24] 1424 	lcall	_printf
+      00263A E5 81            [12] 1425 	mov	a,sp
+      00263C 24 F9            [12] 1426 	add	a,#0xf9
+      00263E F5 81            [12] 1427 	mov	sp,a
+      002640 D0 00            [24] 1428 	pop	ar0
+      002642 D0 01            [24] 1429 	pop	ar1
+      002644 D0 06            [24] 1430 	pop	ar6
+                                   1431 ;	walk.c:123: if (!stpop(&cur)) goto term;
+      002646 C0 00            [24] 1432 	push	ar0
+      002648 E5 10            [12] 1433 	mov	a,_bp
+      00264A 24 03            [12] 1434 	add	a,#0x03
+      00264C F8               [12] 1435 	mov	r0,a
+      00264D 86 04            [24] 1436 	mov	ar4,@r0
+      00264F 7D 00            [12] 1437 	mov	r5,#0x00
+      002651 7F 40            [12] 1438 	mov	r7,#0x40
+      002653 D0 00            [24] 1439 	pop	ar0
+      002655 8C 82            [24] 1440 	mov	dpl,r4
+      002657 8D 83            [24] 1441 	mov	dph,r5
+      002659 8F F0            [24] 1442 	mov	b,r7
+      00265B C0 06            [24] 1443 	push	ar6
+      00265D C0 01            [24] 1444 	push	ar1
+      00265F C0 00            [24] 1445 	push	ar0
+      002661 12 28 A6         [24] 1446 	lcall	_stpop
+      002664 E5 82            [12] 1447 	mov	a,dpl
+      002666 85 83 F0         [24] 1448 	mov	b,dph
+      002669 D0 00            [24] 1449 	pop	ar0
+      00266B D0 01            [24] 1450 	pop	ar1
+      00266D D0 06            [24] 1451 	pop	ar6
+      00266F 45 F0            [12] 1452 	orl	a,b
+      002671 60 03            [24] 1453 	jz	00170$
+      002673 02 24 1B         [24] 1454 	ljmp	00125$
+      002676                       1455 00170$:
+                                   1456 ;	walk.c:127: return;
+                                   1457 ;	walk.c:128: }
+      002676 85 10 81         [24] 1458 	mov	sp,_bp
+      002679 D0 10            [24] 1459 	pop	_bp
+      00267B 22               [24] 1460 	ret
+                                   1461 ;------------------------------------------------------------
+                                   1462 ;Allocation info for local variables in function 'main'
+                                   1463 ;------------------------------------------------------------
+                                   1464 ;initial                   Allocated to stack - _bp +3
+                                   1465 ;i                         Allocated to stack - _bp +7
+                                   1466 ;j                         Allocated to registers r4 r5 
+                                   1467 ;sloc0                     Allocated to stack - _bp +1
+                                   1468 ;R                         Allocated with name '_main_R_65536_64'
+                                   1469 ;------------------------------------------------------------
+                                   1470 ;	walk.c:130: int main(void) {
+                                   1471 ;	-----------------------------------------
+                                   1472 ;	 function main
+                                   1473 ;	-----------------------------------------
+      00267C                       1474 _main:
+      00267C C0 10            [24] 1475 	push	_bp
+      00267E E5 81            [12] 1476 	mov	a,sp
+      002680 F5 10            [12] 1477 	mov	_bp,a
+      002682 24 08            [12] 1478 	add	a,#0x08
+      002684 F5 81            [12] 1479 	mov	sp,a
+                                   1480 ;	walk.c:135: i0 = 1;
+      002686 78 11            [12] 1481 	mov	r0,#_i0
+      002688 76 01            [12] 1482 	mov	@r0,#0x01
+                                   1483 ;	walk.c:137: IT0 = 1;
+                                   1484 ;	assignBit
+      00268A D2 88            [12] 1485 	setb	_IT0
+                                   1486 ;	walk.c:138: EX0 = 1;
+                                   1487 ;	assignBit
+      00268C D2 A8            [12] 1488 	setb	_EX0
+                                   1489 ;	walk.c:139: EA = 1;
+                                   1490 ;	assignBit
+      00268E D2 AF            [12] 1491 	setb	_EA
+                                   1492 ;	walk.c:141: srand(*R);
+      002690 90 F4 02         [24] 1493 	mov	dptr,#_main_R_65536_64
+      002693 E0               [24] 1494 	movx	a,@dptr
+      002694 FE               [12] 1495 	mov	r6,a
+      002695 A3               [24] 1496 	inc	dptr
+      002696 E0               [24] 1497 	movx	a,@dptr
+      002697 FF               [12] 1498 	mov	r7,a
+      002698 8E 82            [24] 1499 	mov	dpl,r6
+      00269A 8F 83            [24] 1500 	mov	dph,r7
+      00269C E0               [24] 1501 	movx	a,@dptr
+      00269D FE               [12] 1502 	mov	r6,a
+      00269E A3               [24] 1503 	inc	dptr
+      00269F E0               [24] 1504 	movx	a,@dptr
+      0026A0 FF               [12] 1505 	mov	r7,a
+      0026A1 8E 82            [24] 1506 	mov	dpl,r6
+      0026A3 8F 83            [24] 1507 	mov	dph,r7
+      0026A5 12 29 CC         [24] 1508 	lcall	_srand
+                                   1509 ;	walk.c:142: stinit();
+      0026A8 12 28 3C         [24] 1510 	lcall	_stinit
+                                   1511 ;	walk.c:144: while (i0) {
+      0026AB E5 10            [12] 1512 	mov	a,_bp
+      0026AD 24 03            [12] 1513 	add	a,#0x03
+      0026AF FF               [12] 1514 	mov	r7,a
+      0026B0 FE               [12] 1515 	mov	r6,a
+      0026B1                       1516 00107$:
+      0026B1 78 11            [12] 1517 	mov	r0,#_i0
+      0026B3 E6               [12] 1518 	mov	a,@r0
+      0026B4 70 03            [24] 1519 	jnz	00168$
+      0026B6 02 28 2E         [24] 1520 	ljmp	00109$
+      0026B9                       1521 00168$:
+                                   1522 ;	walk.c:145: for (i = 0; i < ROWS; i++)
+      0026B9 E5 10            [12] 1523 	mov	a,_bp
+      0026BB 24 07            [12] 1524 	add	a,#0x07
+      0026BD F8               [12] 1525 	mov	r0,a
+      0026BE E4               [12] 1526 	clr	a
+      0026BF F6               [12] 1527 	mov	@r0,a
+      0026C0 08               [12] 1528 	inc	r0
+      0026C1 F6               [12] 1529 	mov	@r0,a
+      0026C2 7A 00            [12] 1530 	mov	r2,#0x00
+      0026C4 7B 00            [12] 1531 	mov	r3,#0x00
+                                   1532 ;	walk.c:146: for (j = 0; j < COLS; j++)
+      0026C6                       1533 00121$:
+      0026C6 A8 10            [24] 1534 	mov	r0,_bp
+      0026C8 08               [12] 1535 	inc	r0
+      0026C9 EA               [12] 1536 	mov	a,r2
+      0026CA 24 00            [12] 1537 	add	a,#_g
+      0026CC F6               [12] 1538 	mov	@r0,a
+      0026CD EB               [12] 1539 	mov	a,r3
+      0026CE 34 40            [12] 1540 	addc	a,#(_g >> 8)
+      0026D0 08               [12] 1541 	inc	r0
+      0026D1 F6               [12] 1542 	mov	@r0,a
+      0026D2 7C 00            [12] 1543 	mov	r4,#0x00
+      0026D4 7D 00            [12] 1544 	mov	r5,#0x00
+      0026D6                       1545 00110$:
+                                   1546 ;	walk.c:147: g[i][j] = 0x55;
+      0026D6 A8 10            [24] 1547 	mov	r0,_bp
+      0026D8 08               [12] 1548 	inc	r0
+      0026D9 EC               [12] 1549 	mov	a,r4
+      0026DA 26               [12] 1550 	add	a,@r0
+      0026DB F5 82            [12] 1551 	mov	dpl,a
+      0026DD ED               [12] 1552 	mov	a,r5
+      0026DE 08               [12] 1553 	inc	r0
+      0026DF 36               [12] 1554 	addc	a,@r0
+      0026E0 F5 83            [12] 1555 	mov	dph,a
+      0026E2 74 55            [12] 1556 	mov	a,#0x55
+      0026E4 F0               [24] 1557 	movx	@dptr,a
+                                   1558 ;	walk.c:146: for (j = 0; j < COLS; j++)
+      0026E5 0C               [12] 1559 	inc	r4
+      0026E6 BC 00 01         [24] 1560 	cjne	r4,#0x00,00169$
+      0026E9 0D               [12] 1561 	inc	r5
+      0026EA                       1562 00169$:
+      0026EA C3               [12] 1563 	clr	c
+      0026EB EC               [12] 1564 	mov	a,r4
+      0026EC 94 C0            [12] 1565 	subb	a,#0xc0
+      0026EE ED               [12] 1566 	mov	a,r5
+      0026EF 64 80            [12] 1567 	xrl	a,#0x80
+      0026F1 94 80            [12] 1568 	subb	a,#0x80
+      0026F3 40 E1            [24] 1569 	jc	00110$
+                                   1570 ;	walk.c:145: for (i = 0; i < ROWS; i++)
+      0026F5 74 C0            [12] 1571 	mov	a,#0xc0
+      0026F7 2A               [12] 1572 	add	a,r2
+      0026F8 FA               [12] 1573 	mov	r2,a
+      0026F9 E4               [12] 1574 	clr	a
+      0026FA 3B               [12] 1575 	addc	a,r3
+      0026FB FB               [12] 1576 	mov	r3,a
+      0026FC E5 10            [12] 1577 	mov	a,_bp
+      0026FE 24 07            [12] 1578 	add	a,#0x07
+      002700 F8               [12] 1579 	mov	r0,a
+      002701 06               [12] 1580 	inc	@r0
+      002702 B6 00 02         [24] 1581 	cjne	@r0,#0x00,00171$
+      002705 08               [12] 1582 	inc	r0
+      002706 06               [12] 1583 	inc	@r0
+      002707                       1584 00171$:
+      002707 E5 10            [12] 1585 	mov	a,_bp
+      002709 24 07            [12] 1586 	add	a,#0x07
+      00270B F8               [12] 1587 	mov	r0,a
+      00270C C3               [12] 1588 	clr	c
+      00270D E6               [12] 1589 	mov	a,@r0
+      00270E 94 30            [12] 1590 	subb	a,#0x30
+      002710 08               [12] 1591 	inc	r0
+      002711 E6               [12] 1592 	mov	a,@r0
+      002712 64 80            [12] 1593 	xrl	a,#0x80
+      002714 94 80            [12] 1594 	subb	a,#0x80
+      002716 40 AE            [24] 1595 	jc	00121$
+                                   1596 ;	walk.c:149: puts("\033[2J");
+      002718 90 3F 2B         [24] 1597 	mov	dptr,#___str_3
+      00271B 75 F0 80         [24] 1598 	mov	b,#0x80
+      00271E C0 07            [24] 1599 	push	ar7
+      002720 C0 06            [24] 1600 	push	ar6
+      002722 12 2B 31         [24] 1601 	lcall	_puts
+                                   1602 ;	walk.c:150: initial.r = rand() % ROWS;
+      002725 E5 10            [12] 1603 	mov	a,_bp
+      002727 24 03            [12] 1604 	add	a,#0x03
+      002729 F9               [12] 1605 	mov	r1,a
+      00272A C0 01            [24] 1606 	push	ar1
+      00272C 12 29 08         [24] 1607 	lcall	_rand
+      00272F AC 82            [24] 1608 	mov	r4,dpl
+      002731 AD 83            [24] 1609 	mov	r5,dph
+      002733 74 30            [12] 1610 	mov	a,#0x30
+      002735 C0 E0            [24] 1611 	push	acc
+      002737 E4               [12] 1612 	clr	a
+      002738 C0 E0            [24] 1613 	push	acc
+      00273A 8C 82            [24] 1614 	mov	dpl,r4
+      00273C 8D 83            [24] 1615 	mov	dph,r5
+      00273E 12 2C 0C         [24] 1616 	lcall	__modsint
+      002741 AC 82            [24] 1617 	mov	r4,dpl
+      002743 AD 83            [24] 1618 	mov	r5,dph
+      002745 15 81            [12] 1619 	dec	sp
+      002747 15 81            [12] 1620 	dec	sp
+      002749 D0 01            [24] 1621 	pop	ar1
+      00274B D0 06            [24] 1622 	pop	ar6
+      00274D D0 07            [24] 1623 	pop	ar7
+      00274F A7 04            [24] 1624 	mov	@r1,ar4
+      002751 09               [12] 1625 	inc	r1
+      002752 A7 05            [24] 1626 	mov	@r1,ar5
+      002754 19               [12] 1627 	dec	r1
+                                   1628 ;	walk.c:151: initial.c = rand() % COLS;
+      002755 74 02            [12] 1629 	mov	a,#0x02
+      002757 2F               [12] 1630 	add	a,r7
+      002758 F9               [12] 1631 	mov	r1,a
+      002759 C0 07            [24] 1632 	push	ar7
+      00275B C0 06            [24] 1633 	push	ar6
+      00275D C0 01            [24] 1634 	push	ar1
+      00275F 12 29 08         [24] 1635 	lcall	_rand
+      002762 AC 82            [24] 1636 	mov	r4,dpl
+      002764 AD 83            [24] 1637 	mov	r5,dph
+      002766 74 C0            [12] 1638 	mov	a,#0xc0
+      002768 C0 E0            [24] 1639 	push	acc
+      00276A E4               [12] 1640 	clr	a
+      00276B C0 E0            [24] 1641 	push	acc
+      00276D 8C 82            [24] 1642 	mov	dpl,r4
+      00276F 8D 83            [24] 1643 	mov	dph,r5
+      002771 12 2C 0C         [24] 1644 	lcall	__modsint
+      002774 AC 82            [24] 1645 	mov	r4,dpl
+      002776 AD 83            [24] 1646 	mov	r5,dph
+      002778 15 81            [12] 1647 	dec	sp
+      00277A 15 81            [12] 1648 	dec	sp
+      00277C D0 01            [24] 1649 	pop	ar1
+      00277E D0 06            [24] 1650 	pop	ar6
+      002780 A7 04            [24] 1651 	mov	@r1,ar4
+      002782 09               [12] 1652 	inc	r1
+      002783 A7 05            [24] 1653 	mov	@r1,ar5
+      002785 19               [12] 1654 	dec	r1
+                                   1655 ;	walk.c:152: walk(&initial);
+      002786 8E 03            [24] 1656 	mov	ar3,r6
+      002788 7C 00            [12] 1657 	mov	r4,#0x00
+      00278A 7D 40            [12] 1658 	mov	r5,#0x40
+      00278C 8B 82            [24] 1659 	mov	dpl,r3
+      00278E 8C 83            [24] 1660 	mov	dph,r4
+      002790 8D F0            [24] 1661 	mov	b,r5
+      002792 C0 06            [24] 1662 	push	ar6
+      002794 12 23 2C         [24] 1663 	lcall	_walk
+      002797 D0 06            [24] 1664 	pop	ar6
+      002799 D0 07            [24] 1665 	pop	ar7
+                                   1666 ;	walk.c:154: for (i = 0; i < ROWS; i++)
+      00279B E5 10            [12] 1667 	mov	a,_bp
+      00279D 24 07            [12] 1668 	add	a,#0x07
+      00279F F8               [12] 1669 	mov	r0,a
+      0027A0 E4               [12] 1670 	clr	a
+      0027A1 F6               [12] 1671 	mov	@r0,a
+      0027A2 08               [12] 1672 	inc	r0
+      0027A3 F6               [12] 1673 	mov	@r0,a
+      0027A4 7A 00            [12] 1674 	mov	r2,#0x00
+      0027A6 7B 00            [12] 1675 	mov	r3,#0x00
+                                   1676 ;	walk.c:155: for (j = 0; j < COLS; j++)
+      0027A8                       1677 00126$:
+      0027A8 A8 10            [24] 1678 	mov	r0,_bp
+      0027AA 08               [12] 1679 	inc	r0
+      0027AB EA               [12] 1680 	mov	a,r2
+      0027AC 24 00            [12] 1681 	add	a,#_g
+      0027AE F6               [12] 1682 	mov	@r0,a
+      0027AF EB               [12] 1683 	mov	a,r3
+      0027B0 34 40            [12] 1684 	addc	a,#(_g >> 8)
+      0027B2 08               [12] 1685 	inc	r0
+      0027B3 F6               [12] 1686 	mov	@r0,a
+      0027B4 7C 00            [12] 1687 	mov	r4,#0x00
+      0027B6 7D 00            [12] 1688 	mov	r5,#0x00
+      0027B8                       1689 00114$:
+                                   1690 ;	walk.c:156: if (g[i][j] != 0xaa) {
+      0027B8 C0 06            [24] 1691 	push	ar6
+      0027BA A8 10            [24] 1692 	mov	r0,_bp
+      0027BC 08               [12] 1693 	inc	r0
+      0027BD EC               [12] 1694 	mov	a,r4
+      0027BE 26               [12] 1695 	add	a,@r0
+      0027BF F5 82            [12] 1696 	mov	dpl,a
+      0027C1 ED               [12] 1697 	mov	a,r5
+      0027C2 08               [12] 1698 	inc	r0
+      0027C3 36               [12] 1699 	addc	a,@r0
+      0027C4 F5 83            [12] 1700 	mov	dph,a
+      0027C6 E0               [24] 1701 	movx	a,@dptr
+      0027C7 FE               [12] 1702 	mov	r6,a
+      0027C8 BE AA 04         [24] 1703 	cjne	r6,#0xaa,00173$
+      0027CB D0 06            [24] 1704 	pop	ar6
+      0027CD 80 26            [24] 1705 	sjmp	00115$
+      0027CF                       1706 00173$:
+      0027CF D0 06            [24] 1707 	pop	ar6
+                                   1708 ;	walk.c:157: (void)puts("Memory error");
+      0027D1 90 3F 0A         [24] 1709 	mov	dptr,#___str_0
+      0027D4 75 F0 80         [24] 1710 	mov	b,#0x80
+      0027D7 C0 07            [24] 1711 	push	ar7
+      0027D9 C0 06            [24] 1712 	push	ar6
+      0027DB C0 05            [24] 1713 	push	ar5
+      0027DD C0 04            [24] 1714 	push	ar4
+      0027DF C0 03            [24] 1715 	push	ar3
+      0027E1 C0 02            [24] 1716 	push	ar2
+      0027E3 12 2B 31         [24] 1717 	lcall	_puts
+      0027E6 D0 02            [24] 1718 	pop	ar2
+      0027E8 D0 03            [24] 1719 	pop	ar3
+      0027EA D0 04            [24] 1720 	pop	ar4
+      0027EC D0 05            [24] 1721 	pop	ar5
+      0027EE D0 06            [24] 1722 	pop	ar6
+      0027F0 D0 07            [24] 1723 	pop	ar7
+                                   1724 ;	walk.c:158: reset();
+      0027F2 12 20 88         [24] 1725 	lcall	_reset
+      0027F5                       1726 00115$:
+                                   1727 ;	walk.c:155: for (j = 0; j < COLS; j++)
+      0027F5 0C               [12] 1728 	inc	r4
+      0027F6 BC 00 01         [24] 1729 	cjne	r4,#0x00,00174$
+      0027F9 0D               [12] 1730 	inc	r5
+      0027FA                       1731 00174$:
+      0027FA C3               [12] 1732 	clr	c
+      0027FB EC               [12] 1733 	mov	a,r4
+      0027FC 94 C0            [12] 1734 	subb	a,#0xc0
+      0027FE ED               [12] 1735 	mov	a,r5
+      0027FF 64 80            [12] 1736 	xrl	a,#0x80
+      002801 94 80            [12] 1737 	subb	a,#0x80
+      002803 40 B3            [24] 1738 	jc	00114$
+                                   1739 ;	walk.c:154: for (i = 0; i < ROWS; i++)
+      002805 74 C0            [12] 1740 	mov	a,#0xc0
+      002807 2A               [12] 1741 	add	a,r2
+      002808 FA               [12] 1742 	mov	r2,a
+      002809 E4               [12] 1743 	clr	a
+      00280A 3B               [12] 1744 	addc	a,r3
+      00280B FB               [12] 1745 	mov	r3,a
+      00280C E5 10            [12] 1746 	mov	a,_bp
+      00280E 24 07            [12] 1747 	add	a,#0x07
+      002810 F8               [12] 1748 	mov	r0,a
+      002811 06               [12] 1749 	inc	@r0
+      002812 B6 00 02         [24] 1750 	cjne	@r0,#0x00,00176$
+      002815 08               [12] 1751 	inc	r0
+      002816 06               [12] 1752 	inc	@r0
+      002817                       1753 00176$:
+      002817 E5 10            [12] 1754 	mov	a,_bp
+      002819 24 07            [12] 1755 	add	a,#0x07
+      00281B F8               [12] 1756 	mov	r0,a
+      00281C C3               [12] 1757 	clr	c
+      00281D E6               [12] 1758 	mov	a,@r0
+      00281E 94 30            [12] 1759 	subb	a,#0x30
+      002820 08               [12] 1760 	inc	r0
+      002821 E6               [12] 1761 	mov	a,@r0
+      002822 64 80            [12] 1762 	xrl	a,#0x80
+      002824 94 80            [12] 1763 	subb	a,#0x80
+      002826 50 03            [24] 1764 	jnc	00177$
+      002828 02 27 A8         [24] 1765 	ljmp	00126$
+      00282B                       1766 00177$:
+      00282B 02 26 B1         [24] 1767 	ljmp	00107$
+      00282E                       1768 00109$:
+                                   1769 ;	walk.c:162: EA = 0;
+                                   1770 ;	assignBit
+      00282E C2 AF            [12] 1771 	clr	_EA
+                                   1772 ;	walk.c:166: __endasm;
+      002830 02 00 00         [24] 1773 	ljmp	0
+                                   1774 ;	walk.c:168: return 0;
+      002833 90 00 00         [24] 1775 	mov	dptr,#0x0000
+                                   1776 ;	walk.c:169: }
+      002836 85 10 81         [24] 1777 	mov	sp,_bp
+      002839 D0 10            [24] 1778 	pop	_bp
+      00283B 22               [24] 1779 	ret
+                                   1780 ;------------------------------------------------------------
+                                   1781 ;Allocation info for local variables in function 'stinit'
+                                   1782 ;------------------------------------------------------------
+                                   1783 ;	walk.c:171: static void stinit(void) {
+                                   1784 ;	-----------------------------------------
+                                   1785 ;	 function stinit
+                                   1786 ;	-----------------------------------------
+      00283C                       1787 _stinit:
+                                   1788 ;	walk.c:172: sp = -1;
+      00283C 90 F4 00         [24] 1789 	mov	dptr,#_sp
+      00283F 74 FF            [12] 1790 	mov	a,#0xff
+      002841 F0               [24] 1791 	movx	@dptr,a
+      002842 A3               [24] 1792 	inc	dptr
+      002843 F0               [24] 1793 	movx	@dptr,a
+                                   1794 ;	walk.c:173: return;
+                                   1795 ;	walk.c:174: }
+      002844 22               [24] 1796 	ret
+                                   1797 ;------------------------------------------------------------
+                                   1798 ;Allocation info for local variables in function 'stpush'
+                                   1799 ;------------------------------------------------------------
+                                   1800 ;t                         Allocated to registers r5 r6 r7 
+                                   1801 ;------------------------------------------------------------
+                                   1802 ;	walk.c:176: static int stpush(struct node *t) {
+                                   1803 ;	-----------------------------------------
+                                   1804 ;	 function stpush
+                                   1805 ;	-----------------------------------------
+      002845                       1806 _stpush:
+      002845 AD 82            [24] 1807 	mov	r5,dpl
+      002847 AE 83            [24] 1808 	mov	r6,dph
+      002849 AF F0            [24] 1809 	mov	r7,b
+                                   1810 ;	walk.c:177: if (sp == (SMAX - 1)) return 0;
+      00284B 90 F4 00         [24] 1811 	mov	dptr,#_sp
+      00284E E0               [24] 1812 	movx	a,@dptr
+      00284F FB               [12] 1813 	mov	r3,a
+      002850 A3               [24] 1814 	inc	dptr
+      002851 E0               [24] 1815 	movx	a,@dptr
+      002852 FC               [12] 1816 	mov	r4,a
+      002853 BB FF 07         [24] 1817 	cjne	r3,#0xff,00102$
+      002856 BC 23 04         [24] 1818 	cjne	r4,#0x23,00102$
+      002859 90 00 00         [24] 1819 	mov	dptr,#0x0000
+      00285C 22               [24] 1820 	ret
+      00285D                       1821 00102$:
+                                   1822 ;	walk.c:178: sp++;
+      00285D 90 F4 00         [24] 1823 	mov	dptr,#_sp
+      002860 74 01            [12] 1824 	mov	a,#0x01
+      002862 2B               [12] 1825 	add	a,r3
+      002863 F0               [24] 1826 	movx	@dptr,a
+      002864 E4               [12] 1827 	clr	a
+      002865 3C               [12] 1828 	addc	a,r4
+      002866 A3               [24] 1829 	inc	dptr
+      002867 F0               [24] 1830 	movx	@dptr,a
+                                   1831 ;	walk.c:179: stack[sp] = *t;
+      002868 90 F4 00         [24] 1832 	mov	dptr,#_sp
+      00286B E0               [24] 1833 	movx	a,@dptr
+      00286C FB               [12] 1834 	mov	r3,a
+      00286D A3               [24] 1835 	inc	dptr
+      00286E E0               [24] 1836 	movx	a,@dptr
+      00286F FC               [12] 1837 	mov	r4,a
+      002870 EB               [12] 1838 	mov	a,r3
+      002871 2B               [12] 1839 	add	a,r3
+      002872 FB               [12] 1840 	mov	r3,a
+      002873 EC               [12] 1841 	mov	a,r4
+      002874 33               [12] 1842 	rlc	a
+      002875 FC               [12] 1843 	mov	r4,a
+      002876 EB               [12] 1844 	mov	a,r3
+      002877 2B               [12] 1845 	add	a,r3
+      002878 FB               [12] 1846 	mov	r3,a
+      002879 EC               [12] 1847 	mov	a,r4
+      00287A 33               [12] 1848 	rlc	a
+      00287B FC               [12] 1849 	mov	r4,a
+      00287C EB               [12] 1850 	mov	a,r3
+      00287D 24 00            [12] 1851 	add	a,#_stack
+      00287F FB               [12] 1852 	mov	r3,a
+      002880 EC               [12] 1853 	mov	a,r4
+      002881 34 64            [12] 1854 	addc	a,#(_stack >> 8)
+      002883 FC               [12] 1855 	mov	r4,a
+      002884 7A 00            [12] 1856 	mov	r2,#0x00
+      002886 74 04            [12] 1857 	mov	a,#0x04
+      002888 C0 E0            [24] 1858 	push	acc
+      00288A E4               [12] 1859 	clr	a
+      00288B C0 E0            [24] 1860 	push	acc
+      00288D C0 05            [24] 1861 	push	ar5
+      00288F C0 06            [24] 1862 	push	ar6
+      002891 C0 07            [24] 1863 	push	ar7
+      002893 8B 82            [24] 1864 	mov	dpl,r3
+      002895 8C 83            [24] 1865 	mov	dph,r4
+      002897 8A F0            [24] 1866 	mov	b,r2
+      002899 12 2A 9E         [24] 1867 	lcall	___memcpy
+      00289C E5 81            [12] 1868 	mov	a,sp
+      00289E 24 FB            [12] 1869 	add	a,#0xfb
+      0028A0 F5 81            [12] 1870 	mov	sp,a
+                                   1871 ;	walk.c:180: return 1;
+      0028A2 90 00 01         [24] 1872 	mov	dptr,#0x0001
+                                   1873 ;	walk.c:181: }
+      0028A5 22               [24] 1874 	ret
+                                   1875 ;------------------------------------------------------------
+                                   1876 ;Allocation info for local variables in function 'stpop'
+                                   1877 ;------------------------------------------------------------
+                                   1878 ;t                         Allocated to registers r5 r6 r7 
+                                   1879 ;------------------------------------------------------------
+                                   1880 ;	walk.c:183: static int stpop(struct node *t) {
+                                   1881 ;	-----------------------------------------
+                                   1882 ;	 function stpop
+                                   1883 ;	-----------------------------------------
+      0028A6                       1884 _stpop:
+      0028A6 AD 82            [24] 1885 	mov	r5,dpl
+      0028A8 AE 83            [24] 1886 	mov	r6,dph
+      0028AA AF F0            [24] 1887 	mov	r7,b
+                                   1888 ;	walk.c:184: if (sp == -1) return 0;
+      0028AC 90 F4 00         [24] 1889 	mov	dptr,#_sp
+      0028AF E0               [24] 1890 	movx	a,@dptr
+      0028B0 FB               [12] 1891 	mov	r3,a
+      0028B1 A3               [24] 1892 	inc	dptr
+      0028B2 E0               [24] 1893 	movx	a,@dptr
+      0028B3 FC               [12] 1894 	mov	r4,a
+      0028B4 BB FF 07         [24] 1895 	cjne	r3,#0xff,00102$
+      0028B7 BC FF 04         [24] 1896 	cjne	r4,#0xff,00102$
+      0028BA 90 00 00         [24] 1897 	mov	dptr,#0x0000
+      0028BD 22               [24] 1898 	ret
+      0028BE                       1899 00102$:
+                                   1900 ;	walk.c:185: *t = stack[sp];
+      0028BE EB               [12] 1901 	mov	a,r3
+      0028BF 2B               [12] 1902 	add	a,r3
+      0028C0 FB               [12] 1903 	mov	r3,a
+      0028C1 EC               [12] 1904 	mov	a,r4
+      0028C2 33               [12] 1905 	rlc	a
+      0028C3 FC               [12] 1906 	mov	r4,a
+      0028C4 EB               [12] 1907 	mov	a,r3
+      0028C5 2B               [12] 1908 	add	a,r3
+      0028C6 FB               [12] 1909 	mov	r3,a
+      0028C7 EC               [12] 1910 	mov	a,r4
+      0028C8 33               [12] 1911 	rlc	a
+      0028C9 FC               [12] 1912 	mov	r4,a
+      0028CA EB               [12] 1913 	mov	a,r3
+      0028CB 24 00            [12] 1914 	add	a,#_stack
+      0028CD FB               [12] 1915 	mov	r3,a
+      0028CE EC               [12] 1916 	mov	a,r4
+      0028CF 34 64            [12] 1917 	addc	a,#(_stack >> 8)
+      0028D1 FC               [12] 1918 	mov	r4,a
+      0028D2 7A 00            [12] 1919 	mov	r2,#0x00
+      0028D4 74 04            [12] 1920 	mov	a,#0x04
+      0028D6 C0 E0            [24] 1921 	push	acc
+      0028D8 E4               [12] 1922 	clr	a
+      0028D9 C0 E0            [24] 1923 	push	acc
+      0028DB C0 03            [24] 1924 	push	ar3
+      0028DD C0 04            [24] 1925 	push	ar4
+      0028DF C0 02            [24] 1926 	push	ar2
+      0028E1 8D 82            [24] 1927 	mov	dpl,r5
+      0028E3 8E 83            [24] 1928 	mov	dph,r6
+      0028E5 8F F0            [24] 1929 	mov	b,r7
+      0028E7 12 2A 9E         [24] 1930 	lcall	___memcpy
+      0028EA E5 81            [12] 1931 	mov	a,sp
+      0028EC 24 FB            [12] 1932 	add	a,#0xfb
+      0028EE F5 81            [12] 1933 	mov	sp,a
+                                   1934 ;	walk.c:186: sp--;
+      0028F0 90 F4 00         [24] 1935 	mov	dptr,#_sp
+      0028F3 E0               [24] 1936 	movx	a,@dptr
+      0028F4 24 FF            [12] 1937 	add	a,#0xff
+      0028F6 FE               [12] 1938 	mov	r6,a
+      0028F7 A3               [24] 1939 	inc	dptr
+      0028F8 E0               [24] 1940 	movx	a,@dptr
+      0028F9 34 FF            [12] 1941 	addc	a,#0xff
+      0028FB FF               [12] 1942 	mov	r7,a
+      0028FC 90 F4 00         [24] 1943 	mov	dptr,#_sp
+      0028FF EE               [12] 1944 	mov	a,r6
+      002900 F0               [24] 1945 	movx	@dptr,a
+      002901 EF               [12] 1946 	mov	a,r7
+      002902 A3               [24] 1947 	inc	dptr
+      002903 F0               [24] 1948 	movx	@dptr,a
+                                   1949 ;	walk.c:187: return 1;
+      002904 90 00 01         [24] 1950 	mov	dptr,#0x0001
+                                   1951 ;	walk.c:188: }
+      002907 22               [24] 1952 	ret
+                                   1953 	.area CSEG    (CODE)
+                                   1954 	.area CONST   (CODE)
+      003EEA                       1955 _neigh:
+      003EEA FF FF                 1956 	.byte #0xff, #0xff	; -1
+      003EEC FF FF                 1957 	.byte #0xff, #0xff	; -1
+      003EEE FF FF                 1958 	.byte #0xff, #0xff	; -1
+      003EF0 00 00                 1959 	.byte #0x00, #0x00	;  0
+      003EF2 FF FF                 1960 	.byte #0xff, #0xff	; -1
+      003EF4 01 00                 1961 	.byte #0x01, #0x00	;  1
+      003EF6 00 00                 1962 	.byte #0x00, #0x00	;  0
+      003EF8 FF FF                 1963 	.byte #0xff, #0xff	; -1
+      003EFA 00 00                 1964 	.byte #0x00, #0x00	;  0
+      003EFC 01 00                 1965 	.byte #0x01, #0x00	;  1
+      003EFE 01 00                 1966 	.byte #0x01, #0x00	;  1
+      003F00 FF FF                 1967 	.byte #0xff, #0xff	; -1
+      003F02 01 00                 1968 	.byte #0x01, #0x00	;  1
+      003F04 00 00                 1969 	.byte #0x00, #0x00	;  0
+      003F06 01 00                 1970 	.byte #0x01, #0x00	;  1
+      003F08 01 00                 1971 	.byte #0x01, #0x00	;  1
+                                   1972 	.area CONST   (CODE)
+      003F0A                       1973 ___str_0:
+      003F0A 4D 65 6D 6F 72 79 20  1974 	.ascii "Memory error"
              65 72 72 6F 72
-      00402C 00                    2143 	.db 0x00
-                                   2144 	.area CSEG    (CODE)
-                                   2145 	.area CONST   (CODE)
-      00402D                       2146 ___str_2:
-      00402D 1B                    2147 	.db 0x1b
-      00402E 5B 25 64 3B 25 64 48  2148 	.ascii "[%d;%dH."
+      003F16 00                    1975 	.db 0x00
+                                   1976 	.area CSEG    (CODE)
+                                   1977 	.area CONST   (CODE)
+      003F17                       1978 ___str_1:
+      003F17 1B                    1979 	.db 0x1b
+      003F18 5B 25 64 3B 25 64 48  1980 	.ascii "[%d;%dHo"
+             6F
+      003F20 00                    1981 	.db 0x00
+                                   1982 	.area CSEG    (CODE)
+                                   1983 	.area CONST   (CODE)
+      003F21                       1984 ___str_2:
+      003F21 1B                    1985 	.db 0x1b
+      003F22 5B 25 64 3B 25 64 48  1986 	.ascii "[%d;%dH."
              2E
-      004036 00                    2149 	.db 0x00
-                                   2150 	.area CSEG    (CODE)
-                                   2151 	.area CONST   (CODE)
-      004037                       2152 ___str_3:
-      004037 1B                    2153 	.db 0x1b
-      004038 5B 32 4A              2154 	.ascii "[2J"
-      00403B 00                    2155 	.db 0x00
-                                   2156 	.area CSEG    (CODE)
-                                   2157 	.area XINIT   (CODE)
-                                   2158 	.area CABS    (ABS,CODE)
+      003F2A 00                    1987 	.db 0x00
+                                   1988 	.area CSEG    (CODE)
+                                   1989 	.area CONST   (CODE)
+      003F2B                       1990 ___str_3:
+      003F2B 1B                    1991 	.db 0x1b
+      003F2C 5B 32 4A              1992 	.ascii "[2J"
+      003F2F 00                    1993 	.db 0x00
+                                   1994 	.area CSEG    (CODE)
+                                   1995 	.area XINIT   (CODE)
+                                   1996 	.area CABS    (ABS,CODE)

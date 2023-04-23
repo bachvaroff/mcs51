@@ -333,7 +333,7 @@ Symbol Table
     _WR                                                         =  0000B6 G
     ___memcpy                                                      ****** GX
  19 ___str_0                                                       000020 R
- 19 ___str_1                                                       00002A R
+ 19 ___str_1                                                       00002D R
  19 ___str_2                                                       000037 R
  19 ___str_3                                                       000041 R
     __gptrget                                                      ****** GX
@@ -352,8 +352,8 @@ Symbol Table
  18 _getchar                                                       000005 GR
   8 _i0                                                            000000 R
  18 _int0                                                          00000E GR
- 18 _main                                                          00071A GR
-  C _main_R_65536_65                                               00B402 R
+ 18 _main                                                          00060E GR
+  C _main_R_65536_64                                               00B402 R
  19 _neigh                                                         000000 R
     _printf                                                        ****** GX
  18 _putchar                                                       000000 GR
@@ -368,11 +368,11 @@ Symbol Table
   C _sp                                                            00B400 R
     _srand                                                         ****** GX
   C _stack                                                         002400 R
- 18 _stinit                                                        0008DA R
- 18 _stpop                                                         000944 R
- 18 _stpush                                                        0008E3 R
+ 18 _stinit                                                        0007CE R
+ 18 _stpop                                                         000838 R
+ 18 _stpush                                                        0007D7 R
  18 _update                                                        00001D R
- 18 _walk                                                          000209 R
+ 18 _walk                                                          0002BE R
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
     a.1                                                         =  0000E1 L
@@ -603,7 +603,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size      9   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    9A6   flags   20
+  18 CSEG                                       size    89A   flags   20
   19 CONST                                      size     46   flags   20
   1A XINIT                                      size      0   flags   20
   1B CABS                                       size      0   flags   28
