@@ -144,15 +144,19 @@ int main(void) {
 	srand(*R);
 	stinit();
 	
+	puts("\033[2J\033[?25l");
+		
 	while (i0) {
 		for (i = 0; i < ROWS; i++)
 			for (j = 0; j < COLS; j++)
 				g[i][j] = 0x55;
 		
-		puts("\033[2J");
 		initial.r = rand() % ROWS;
 		initial.c = rand() % COLS;
+		
+		puts("\033[2J\033[?25l");
 		printf("\033[1;1H% 8u% 8d% 8d", N, initial.r, initial.c);
+		
 		walk(&initial);
 		
 		for (i = 0; i < ROWS; i++)
@@ -166,6 +170,8 @@ int main(void) {
 	}
 	
 	EA = 0;
+	
+	puts("\033[2J\033[?25h");
 	
 	__asm
 		ljmp 0
