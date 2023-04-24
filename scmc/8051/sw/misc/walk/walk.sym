@@ -332,13 +332,13 @@ Symbol Table
     _TXD                                                        =  0000B1 G
     _WR                                                         =  0000B6 G
     ___memcpy                                                      ****** GX
- 19 ___str_0                                                       000020 R
- 19 ___str_1                                                       00002D R
- 19 ___str_2                                                       000037 R
- 19 ___str_3                                                       00004A R
- 19 ___str_4                                                       000054 R
- 19 ___str_5                                                       00005F R
- 19 ___str_6                                                       000072 R
+ 19 ___str_0                                                       000000 R
+ 19 ___str_1                                                       00000D R
+ 19 ___str_2                                                       000017 R
+ 19 ___str_3                                                       00002A R
+ 19 ___str_4                                                       000034 R
+ 19 ___str_5                                                       00003F R
+ 19 ___str_6                                                       000052 R
     __gptrget                                                      ****** GX
     __gptrput                                                      ****** GX
   F __interrupt_vect                                               000000 R
@@ -355,9 +355,9 @@ Symbol Table
  18 _getchar                                                       000005 GR
   8 _i0                                                            000000 R
  18 _int0                                                          00000E GR
- 18 _main                                                          000698 GR
+ 18 _main                                                          000621 GR
   C _main_R_65536_64                                               00B402 R
- 19 _neigh                                                         000000 R
+  8 _neigh                                                         000001 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
@@ -371,11 +371,11 @@ Symbol Table
   C _sp                                                            00B400 R
     _srand                                                         ****** GX
   C _stack                                                         002400 R
- 18 _stinit                                                        0008BB R
- 18 _stpop                                                         000925 R
- 18 _stpush                                                        0008C4 R
+ 18 _stinit                                                        000844 R
+ 18 _stpop                                                         0008AE R
+ 18 _stpush                                                        00084D R
  18 _update                                                        00001D R
- 18 _walk                                                          0002BE R
+ 18 _walk                                                          00028F R
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
     a.1                                                         =  0000E1 L
@@ -590,7 +590,7 @@ Area Table
    5 REG_BANK_1                                 size      8   flags    4
    6 DSEG                                       size      0   flags    0
    7 SSEG                                       size      1   flags    0
-   8 ISEG                                       size      1   flags    0
+   8 ISEG                                       size     21   flags    0
    9 IABS                                       size      0   flags    8
    A BSEG                                       size      0   flags   80
    B PSEG                                       size      0   flags   50
@@ -604,10 +604,10 @@ Area Table
   13 GSINIT3                                    size      0   flags   20
   14 GSINIT4                                    size      0   flags   20
   15 GSINIT5                                    size      0   flags   20
-  16 GSINIT                                     size      9   flags   20
+  16 GSINIT                                     size     79   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    987   flags   20
-  19 CONST                                      size     7D   flags   20
+  18 CSEG                                       size    910   flags   20
+  19 CONST                                      size     5D   flags   20
   1A XINIT                                      size      0   flags   20
   1B CABS                                       size      0   flags   28
 

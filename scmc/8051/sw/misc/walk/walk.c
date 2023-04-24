@@ -56,7 +56,7 @@ static const struct node neigh[NMAX] = {
 
 #define NMAX 8
 
-static const struct node neigh[NMAX] = {
+__idata static const struct node neigh[NMAX] = {
 	{ -1, -1 },	{ -1, 0 },	{ -1, +1 },
 	{  0, -1 },			{  0, +1 },
 	{ +1, -1 },	{ +1, 0 },	{ +1, +1 }
@@ -70,7 +70,7 @@ static void stinit(void);
 static int stpush(struct node *t);
 static int stpop(struct node *t);
 
-static int update(struct node *t, struct node *cur, int j) {
+static int update(struct node *t, struct node *cur, char j) {
 	t->r = cur->r + neigh[j].r;
 	t->c = cur->c + neigh[j].c;
 	
@@ -90,7 +90,7 @@ static int update(struct node *t, struct node *cur, int j) {
 
 static void walk(struct node *nstart) {
 	struct node cur, t;
-	int j, f;
+	char j, f;
 	
 	cur = *nstart;
 
