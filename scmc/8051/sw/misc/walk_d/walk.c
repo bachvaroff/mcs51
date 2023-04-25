@@ -34,6 +34,13 @@ static void reset(void) __naked {
 	__endasm;
 }
 
+static void bang(void) {
+	(void)puts("Memory error");
+	reset();
+	
+	return;
+}
+
 struct node {
 	int r, c;
 };
@@ -43,17 +50,16 @@ struct node {
 
 static char g[ROWS][COLS];
 
-/*
+#if 0
 #define NMAX 4
 
-static const struct node neigh[NMAX] = {
+__idata static const struct node neigh[NMAX] = {
 	{ -1, 0 },
 	{ 0, -1 },
 	{ 0, +1 },
 	{ +1, 0 }
 };
-*/
-
+#else
 #define NMAX 8
 
 __idata static const struct node neigh[NMAX] = {
@@ -61,6 +67,7 @@ __idata static const struct node neigh[NMAX] = {
 	{  0, -1 },			{  0, +1 },
 	{ +1, -1 },	{ +1, 0 },	{ +1, +1 }
 };
+#endif
 
 #define SMAX (ROWS * COLS)
 
@@ -80,10 +87,7 @@ static int update(struct node *t, struct node *cur, char j) {
 	else if (t->c >= COLS) t->c -= COLS;
 	
 	if (g[t->r][t->c] == 0xaa) return 0;
-	else if (g[t->r][t->c] != 0x55) {
-		(void)puts("Memory error");
-		reset();
-	}
+	else if (g[t->r][t->c] != 0x55) bang();
 	
 	return 1;
 }
@@ -111,10 +115,7 @@ next:
 			j = rand() % NMAX;
 			if (!update(&t, &cur, j)) continue;
 						
-			if (!stpush(&cur)) {
-				(void)puts("Memory error");
-				reset();
-			}
+			if (!stpush(&cur)) bang();
 			cur = t;
 			goto process;
 		}
@@ -161,10 +162,7 @@ int main(void) {
 		
 		for (i = 0; i < ROWS; i++)
 			for (j = 0; j < COLS; j++)
-				if (g[i][j] != 0xaa) {
-					(void)puts("Memory error");
-					reset();
-				}
+				if (g[i][j] != 0xaa) bang();
 		
 		N++;
 	}
