@@ -63,9 +63,13 @@ __idata static const struct node neigh[NMAX] = {
 #define NMAX 8
 
 __idata static const struct node neigh[NMAX] = {
+/*
 	{ -1, -1 },	{ -1, 0 },	{ -1, +1 },
 	{  0, -1 },			{  0, +1 },
 	{ +1, -1 },	{ +1, 0 },	{ +1, +1 }
+*/
+	{ -2, +3 }, { -2, -2 }, { +3, -2 }, { +3, +3 },
+	{ -1, 0 }, {  0, -1 }, { +1, 0 }, {  0, +1 }
 };
 #endif
 
