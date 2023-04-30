@@ -50,28 +50,32 @@ struct node {
 
 static char g[ROWS][COLS];
 
-#if 0
-#define NMAX 4
+#define REG 4
+#define NMAX (4 * REG)
 
-__idata static const struct node neigh[NMAX] = {
-	{ -1, 0 },
-	{ 0, -1 },
-	{ 0, +1 },
-	{ +1, 0 }
-};
-#else
-#define NMAX 8
-
-__idata static const struct node neigh[NMAX] = {
+static struct node neigh_tmpl[NMAX] = {
 /*
 	{ -1, -1 },	{ -1, 0 },	{ -1, +1 },
 	{  0, -1 },			{  0, +1 },
 	{ +1, -1 },	{ +1, 0 },	{ +1, +1 }
 */
-	{ -2, +3 }, { -2, -2 }, { +3, -2 }, { +3, +3 },
+	{ -1, +1 }, { -1, -1 }, { +1, -1 }, { +1, +1 },
+	{ -1, 0 }, {  0, -1 }, { +1, 0 }, {  0, +1 },
+	{ -1, +1 }, { -1, -1 }, { +1, -1 }, { +1, +1 },
 	{ -1, 0 }, {  0, -1 }, { +1, 0 }, {  0, +1 }
 };
-#endif
+
+static struct node neigh[NMAX] = {
+/*
+	{ -1, -1 },	{ -1, 0 },	{ -1, +1 },
+	{  0, -1 },			{  0, +1 },
+	{ +1, -1 },	{ +1, 0 },	{ +1, +1 }
+*/
+	{ -1, +1 }, { -1, -1 }, { +1, -1 }, { +1, +1 },
+	{ -1, 0 }, {  0, -1 }, { +1, 0 }, {  0, +1 },
+	{ -1, +1 }, { -1, -1 }, { +1, -1 }, { +1, +1 },
+	{ -1, 0 }, {  0, -1 }, { +1, 0 }, {  0, +1 }
+};
 
 #define QMAX (ROWS * COLS)
 
@@ -155,6 +159,18 @@ int main(void) {
 		
 		puts("\033[2J\033[?25l");
 		printf("\033[1;1H% 8u% 8d% 8d", N, initial.r, initial.c);
+		
+		for (i = 0; i < REG; i++) {
+			neigh[i].r = neigh_tmpl[i].r * (1 + rand() % 4);
+			neigh[i].c = neigh_tmpl[i].c * (1 + rand() % 4);
+			printf("% 8d% 8d", neigh[i].r, neigh[i].c);
+		}
+		
+		for (i = REG; i < (2 * REG); i++) {
+			neigh[i].r = neigh_tmpl[i].r * (1 + rand() % 4);
+			neigh[i].c = neigh_tmpl[i].c * (1 + rand() % 4);
+			printf("% 8d% 8d", neigh[i].r, neigh[i].c);
+		}
 		
 		walk(&initial);
 		
