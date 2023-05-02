@@ -1,4 +1,4 @@
-A fully functional MCS51 system based on AT89S52, featuring:
+A fully functional MCS51 system based on AT89S52 / DS80C320, featuring:
  * 16.5888MHz external oscillator (UART friendly)
  * reset controller / watchdog
  * fully buffered external bus
