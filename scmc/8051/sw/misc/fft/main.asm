@@ -335,11 +335,11 @@ _print:
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
 _samples::
-	.ds 256
+	.ds 128
 _fft::
-	.ds 256
+	.ds 128
 _ifft::
-	.ds 256
+	.ds 128
 _main_R_65536_74:
 	.ds 2
 ;--------------------------------------------------------
@@ -654,9 +654,9 @@ _main:
 	add	a,#0xfb
 	mov	sp,a
 ;	main.c:59: memcpy(fft, samples, sizeof (samples));
-	clr	a
+	mov	a,#0x80
 	push	acc
-	inc	a
+	clr	a
 	push	acc
 	mov	a,#_samples
 	push	acc
@@ -685,9 +685,9 @@ _main:
 	add	a,#0xfc
 	mov	sp,a
 ;	main.c:67: memcpy(ifft, fft, sizeof (fft));
-	clr	a
+	mov	a,#0x80
 	push	acc
-	inc	a
+	clr	a
 	push	acc
 	mov	a,#_fft
 	push	acc

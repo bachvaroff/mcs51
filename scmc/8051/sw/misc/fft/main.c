@@ -33,9 +33,9 @@ void int0(void) __interrupt IE0_VECTOR __using 1 {
 }
 
 #define N 6
-int16_t samples[(1 << N) << 1];
-int16_t fft[(1 << N) << 1];
-int16_t ifft[(1 << N) << 1];
+int16_t samples[(1 << N)];
+int16_t fft[(1 << N)];
+int16_t ifft[(1 << N)];
 
 int main(void) {
 	static volatile __xdata int *R = (__xdata int *)0xfffe;

@@ -344,13 +344,13 @@ Symbol Table
  10 __sdcc_program_startup                                         000006 GR
   8 __start__stack                                                 000000 GR
     _bp                                                            ****** GX
-  D _fft                                                           000100 GR
+  D _fft                                                           000080 GR
     _fix_fftr                                                      ****** GX
  19 _getchar                                                       000005 GR
-  D _ifft                                                          000200 GR
+  D _ifft                                                          000100 GR
  19 _int0                                                          00000E GR
  19 _main                                                          00002B GR
-  D _main_R_65536_74                                               000300 R
+  D _main_R_65536_74                                               000180 R
   9 _print                                                         000000 R
     _printf                                                        ****** GX
  19 _putchar                                                       000000 GR
@@ -589,7 +589,7 @@ Area Table
    A IABS                                       size      0   flags    8
    B BSEG                                       size      0   flags   80
    C PSEG                                       size      0   flags   50
-   D XSEG                                       size    302   flags   40
+   D XSEG                                       size    182   flags   40
    E XABS                                       size      0   flags   48
    F XISEG                                      size      0   flags   40
   10 HOME                                       size      9   flags   20
@@ -601,7 +601,7 @@ Area Table
   16 GSINIT5                                    size      0   flags   20
   17 GSINIT                                     size      9   flags   20
   18 GSFINAL                                    size      3   flags   20
-  19 CSEG                                       size    27F   flags   20
+  19 CSEG                                       size    281   flags   20
   1A CONST                                      size     25   flags   20
   1B XINIT                                      size      0   flags   20
   1C CABS                                       size      0   flags   28
