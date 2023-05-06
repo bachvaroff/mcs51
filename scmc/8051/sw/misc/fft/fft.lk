@@ -1,0 +1,20 @@
+-muwx
+-i fft.ihx
+-M
+-Y
+-b HOME = 0x2000
+-b XSEG = 0x4c00
+-b PSEG = 0x4c00
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k /usr/bin/../share/sdcc/lib/large-stack-auto
+-k /usr/share/sdcc/lib/large-stack-auto
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+fix_fft.rel
+main.rel
+
+-e

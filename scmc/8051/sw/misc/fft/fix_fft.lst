@@ -1,0 +1,3104 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.0.0 #11528 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module fix_fft
+                                      6 	.optsdcc -mmcs51 --model-large
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _fix_fft
+                                     12 	.globl _Sinewave
+                                     13 	.globl _fix_fftr
+                                     14 ;--------------------------------------------------------
+                                     15 ; special function registers
+                                     16 ;--------------------------------------------------------
+                                     17 	.area RSEG    (ABS,DATA)
+      000000                         18 	.org 0x0000
+                                     19 ;--------------------------------------------------------
+                                     20 ; special function bits
+                                     21 ;--------------------------------------------------------
+                                     22 	.area RSEG    (ABS,DATA)
+      000000                         23 	.org 0x0000
+                                     24 ;--------------------------------------------------------
+                                     25 ; overlayable register banks
+                                     26 ;--------------------------------------------------------
+                                     27 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                         28 	.ds 8
+                                     29 ;--------------------------------------------------------
+                                     30 ; internal ram data
+                                     31 ;--------------------------------------------------------
+                                     32 	.area DSEG    (DATA)
+                                     33 ;--------------------------------------------------------
+                                     34 ; overlayable items in internal ram 
+                                     35 ;--------------------------------------------------------
+                                     36 ;--------------------------------------------------------
+                                     37 ; indirectly addressable internal ram data
+                                     38 ;--------------------------------------------------------
+                                     39 	.area ISEG    (DATA)
+                                     40 ;--------------------------------------------------------
+                                     41 ; absolute internal ram data
+                                     42 ;--------------------------------------------------------
+                                     43 	.area IABS    (ABS,DATA)
+                                     44 	.area IABS    (ABS,DATA)
+                                     45 ;--------------------------------------------------------
+                                     46 ; bit data
+                                     47 ;--------------------------------------------------------
+                                     48 	.area BSEG    (BIT)
+                                     49 ;--------------------------------------------------------
+                                     50 ; paged external ram data
+                                     51 ;--------------------------------------------------------
+                                     52 	.area PSEG    (PAG,XDATA)
+                                     53 ;--------------------------------------------------------
+                                     54 ; external ram data
+                                     55 ;--------------------------------------------------------
+                                     56 	.area XSEG    (XDATA)
+                                     57 ;--------------------------------------------------------
+                                     58 ; absolute external ram data
+                                     59 ;--------------------------------------------------------
+                                     60 	.area XABS    (ABS,XDATA)
+                                     61 ;--------------------------------------------------------
+                                     62 ; external initialized ram data
+                                     63 ;--------------------------------------------------------
+                                     64 	.area XISEG   (XDATA)
+      000000                         65 _Sinewave::
+      000000                         66 	.ds 1536
+                                     67 	.area HOME    (CODE)
+                                     68 	.area GSINIT0 (CODE)
+                                     69 	.area GSINIT1 (CODE)
+                                     70 	.area GSINIT2 (CODE)
+                                     71 	.area GSINIT3 (CODE)
+                                     72 	.area GSINIT4 (CODE)
+                                     73 	.area GSINIT5 (CODE)
+                                     74 	.area GSINIT  (CODE)
+                                     75 	.area GSFINAL (CODE)
+                                     76 	.area CSEG    (CODE)
+                                     77 ;--------------------------------------------------------
+                                     78 ; global & static initialisations
+                                     79 ;--------------------------------------------------------
+                                     80 	.area HOME    (CODE)
+                                     81 	.area GSINIT  (CODE)
+                                     82 	.area GSFINAL (CODE)
+                                     83 	.area GSINIT  (CODE)
+                                     84 ;--------------------------------------------------------
+                                     85 ; Home
+                                     86 ;--------------------------------------------------------
+                                     87 	.area HOME    (CODE)
+                                     88 	.area HOME    (CODE)
+                                     89 ;--------------------------------------------------------
+                                     90 ; code
+                                     91 ;--------------------------------------------------------
+                                     92 	.area CSEG    (CODE)
+                                     93 ;------------------------------------------------------------
+                                     94 ;Allocation info for local variables in function 'fix_fft'
+                                     95 ;------------------------------------------------------------
+                                     96 ;fi                        Allocated to stack - _bp -5
+                                     97 ;m                         Allocated to stack - _bp -7
+                                     98 ;inverse                   Allocated to stack - _bp -9
+                                     99 ;fr                        Allocated to stack - _bp +1
+                                    100 ;mr                        Allocated to stack - _bp +24
+                                    101 ;nn                        Allocated to registers r2 r4 
+                                    102 ;i                         Allocated to stack - _bp +26
+                                    103 ;j                         Allocated to registers r5 r4 
+                                    104 ;l                         Allocated to stack - _bp +28
+                                    105 ;k                         Allocated to stack - _bp +30
+                                    106 ;istep                     Allocated to stack - _bp +32
+                                    107 ;n                         Allocated to stack - _bp +34
+                                    108 ;scale                     Allocated to stack - _bp +36
+                                    109 ;shift                     Allocated to stack - _bp +38
+                                    110 ;qr                        Allocated to stack - _bp +40
+                                    111 ;qi                        Allocated to stack - _bp +42
+                                    112 ;tr                        Allocated to stack - _bp +44
+                                    113 ;ti                        Allocated to stack - _bp +46
+                                    114 ;wr                        Allocated to stack - _bp +48
+                                    115 ;wi                        Allocated to stack - _bp +50
+                                    116 ;__4587520013              Allocated to registers 
+                                    117 ;__4587520009              Allocated to registers 
+                                    118 ;__4587520005              Allocated to registers 
+                                    119 ;__4587520001              Allocated to registers 
+                                    120 ;__4587520002              Allocated to registers 
+                                    121 ;__4587520003              Allocated to stack - _bp +52
+                                    122 ;a                         Allocated to stack - _bp +54
+                                    123 ;b                         Allocated to registers r2 r3 
+                                    124 ;c                         Allocated to registers r4 r5 r6 r7 
+                                    125 ;__4587520006              Allocated to registers 
+                                    126 ;__4587520007              Allocated to stack - _bp +52
+                                    127 ;a                         Allocated to registers r2 r3 
+                                    128 ;b                         Allocated to registers r2 r3 
+                                    129 ;c                         Allocated to registers r4 r5 r6 r7 
+                                    130 ;__4587520010              Allocated to registers 
+                                    131 ;__4587520011              Allocated to registers 
+                                    132 ;a                         Allocated to stack - _bp +52
+                                    133 ;b                         Allocated to registers r2 r3 
+                                    134 ;c                         Allocated to registers r4 r5 r6 r7 
+                                    135 ;__4587520014              Allocated to registers 
+                                    136 ;__4587520015              Allocated to registers 
+                                    137 ;a                         Allocated to registers r2 r3 
+                                    138 ;b                         Allocated to registers r2 r3 
+                                    139 ;c                         Allocated to registers r4 r5 r6 r7 
+                                    140 ;sloc0                     Allocated to stack - _bp +4
+                                    141 ;sloc1                     Allocated to stack - _bp +6
+                                    142 ;sloc2                     Allocated to stack - _bp +9
+                                    143 ;sloc3                     Allocated to stack - _bp +11
+                                    144 ;sloc4                     Allocated to stack - _bp +13
+                                    145 ;sloc5                     Allocated to stack - _bp +16
+                                    146 ;sloc6                     Allocated to stack - _bp +20
+                                    147 ;------------------------------------------------------------
+                                    148 ;	fix_fft.c:169: int16_t fix_fft(int16_t *fr, int16_t *fi, int16_t m, int16_t inverse) {
+                                    149 ;	-----------------------------------------
+                                    150 ;	 function fix_fft
+                                    151 ;	-----------------------------------------
+      000000                        152 _fix_fft:
+                           000007   153 	ar7 = 0x07
+                           000006   154 	ar6 = 0x06
+                           000005   155 	ar5 = 0x05
+                           000004   156 	ar4 = 0x04
+                           000003   157 	ar3 = 0x03
+                           000002   158 	ar2 = 0x02
+                           000001   159 	ar1 = 0x01
+                           000000   160 	ar0 = 0x00
+      000000 C0*00            [24]  161 	push	_bp
+      000002 85 81*00         [24]  162 	mov	_bp,sp
+      000005 C0 82            [24]  163 	push	dpl
+      000007 C0 83            [24]  164 	push	dph
+      000009 C0 F0            [24]  165 	push	b
+      00000B E5 81            [12]  166 	mov	a,sp
+      00000D 24 34            [12]  167 	add	a,#0x34
+      00000F F5 81            [12]  168 	mov	sp,a
+                                    169 ;	fix_fft.c:173: n = 1 << m;
+      000011 E5*00            [12]  170 	mov	a,_bp
+      000013 24 F9            [12]  171 	add	a,#0xf9
+      000015 F8               [12]  172 	mov	r0,a
+      000016 86 04            [24]  173 	mov	ar4,@r0
+      000018 8C F0            [24]  174 	mov	b,r4
+      00001A 05 F0            [12]  175 	inc	b
+      00001C 7C 01            [12]  176 	mov	r4,#0x01
+      00001E 7B 00            [12]  177 	mov	r3,#0x00
+      000020 80 06            [24]  178 	sjmp	00265$
+      000022                        179 00264$:
+      000022 EC               [12]  180 	mov	a,r4
+      000023 2C               [12]  181 	add	a,r4
+      000024 FC               [12]  182 	mov	r4,a
+      000025 EB               [12]  183 	mov	a,r3
+      000026 33               [12]  184 	rlc	a
+      000027 FB               [12]  185 	mov	r3,a
+      000028                        186 00265$:
+      000028 D5 F0 F7         [24]  187 	djnz	b,00264$
+      00002B E5*00            [12]  188 	mov	a,_bp
+      00002D 24 22            [12]  189 	add	a,#0x22
+      00002F F8               [12]  190 	mov	r0,a
+      000030 A6 04            [24]  191 	mov	@r0,ar4
+      000032 08               [12]  192 	inc	r0
+      000033 A6 03            [24]  193 	mov	@r0,ar3
+                                    194 ;	fix_fft.c:176: if (n > N_WAVE) return -1;
+      000035 E5*00            [12]  195 	mov	a,_bp
+      000037 24 22            [12]  196 	add	a,#0x22
+      000039 F8               [12]  197 	mov	r0,a
+      00003A 86 02            [24]  198 	mov	ar2,@r0
+      00003C 08               [12]  199 	inc	r0
+      00003D 86 04            [24]  200 	mov	ar4,@r0
+      00003F C3               [12]  201 	clr	c
+      000040 E4               [12]  202 	clr	a
+      000041 9A               [12]  203 	subb	a,r2
+      000042 74 84            [12]  204 	mov	a,#(0x04 ^ 0x80)
+      000044 8C F0            [24]  205 	mov	b,r4
+      000046 63 F0 80         [24]  206 	xrl	b,#0x80
+      000049 95 F0            [12]  207 	subb	a,b
+      00004B 50 06            [24]  208 	jnc	00102$
+      00004D 90 FF FF         [24]  209 	mov	dptr,#0xffff
+      000050 02r09rAD         [24]  210 	ljmp	00149$
+      000053                        211 00102$:
+                                    212 ;	fix_fft.c:178: mr = 0;
+      000053 E5*00            [12]  213 	mov	a,_bp
+      000055 24 18            [12]  214 	add	a,#0x18
+      000057 F8               [12]  215 	mov	r0,a
+      000058 E4               [12]  216 	clr	a
+      000059 F6               [12]  217 	mov	@r0,a
+      00005A 08               [12]  218 	inc	r0
+      00005B F6               [12]  219 	mov	@r0,a
+                                    220 ;	fix_fft.c:179: nn = n - 1;
+      00005C 1A               [12]  221 	dec	r2
+      00005D BA FF 01         [24]  222 	cjne	r2,#0xff,00267$
+      000060 1C               [12]  223 	dec	r4
+      000061                        224 00267$:
+                                    225 ;	fix_fft.c:183: for (m = 1; m <= nn; m++) {
+      000061 7D 01            [12]  226 	mov	r5,#0x01
+      000063 7E 00            [12]  227 	mov	r6,#0x00
+      000065                        228 00139$:
+      000065 C3               [12]  229 	clr	c
+      000066 EA               [12]  230 	mov	a,r2
+      000067 9D               [12]  231 	subb	a,r5
+      000068 EC               [12]  232 	mov	a,r4
+      000069 64 80            [12]  233 	xrl	a,#0x80
+      00006B 8E F0            [24]  234 	mov	b,r6
+      00006D 63 F0 80         [24]  235 	xrl	b,#0x80
+      000070 95 F0            [12]  236 	subb	a,b
+      000072 50 03            [24]  237 	jnc	00268$
+      000074 02r02rA7         [24]  238 	ljmp	00109$
+      000077                        239 00268$:
+                                    240 ;	fix_fft.c:184: l = n;
+      000077 E5*00            [12]  241 	mov	a,_bp
+      000079 24 22            [12]  242 	add	a,#0x22
+      00007B F8               [12]  243 	mov	r0,a
+      00007C E5*00            [12]  244 	mov	a,_bp
+      00007E 24 04            [12]  245 	add	a,#0x04
+      000080 F9               [12]  246 	mov	r1,a
+      000081 E6               [12]  247 	mov	a,@r0
+      000082 F7               [12]  248 	mov	@r1,a
+      000083 08               [12]  249 	inc	r0
+      000084 09               [12]  250 	inc	r1
+      000085 E6               [12]  251 	mov	a,@r0
+      000086 F7               [12]  252 	mov	@r1,a
+                                    253 ;	fix_fft.c:186: do l >>= 1;
+      000087                        254 00103$:
+      000087 C0 05            [24]  255 	push	ar5
+      000089 C0 06            [24]  256 	push	ar6
+      00008B E5*00            [12]  257 	mov	a,_bp
+      00008D 24 04            [12]  258 	add	a,#0x04
+      00008F F8               [12]  259 	mov	r0,a
+      000090 08               [12]  260 	inc	r0
+      000091 E6               [12]  261 	mov	a,@r0
+      000092 18               [12]  262 	dec	r0
+      000093 A2 E7            [12]  263 	mov	c,acc.7
+      000095 13               [12]  264 	rrc	a
+      000096 C6               [12]  265 	xch	a,@r0
+      000097 13               [12]  266 	rrc	a
+      000098 C6               [12]  267 	xch	a,@r0
+      000099 08               [12]  268 	inc	r0
+      00009A F6               [12]  269 	mov	@r0,a
+                                    270 ;	fix_fft.c:187: while ((mr + l) > nn);
+      00009B E5*00            [12]  271 	mov	a,_bp
+      00009D 24 18            [12]  272 	add	a,#0x18
+      00009F F8               [12]  273 	mov	r0,a
+      0000A0 E5*00            [12]  274 	mov	a,_bp
+      0000A2 24 04            [12]  275 	add	a,#0x04
+      0000A4 F9               [12]  276 	mov	r1,a
+      0000A5 E7               [12]  277 	mov	a,@r1
+      0000A6 26               [12]  278 	add	a,@r0
+      0000A7 FD               [12]  279 	mov	r5,a
+      0000A8 09               [12]  280 	inc	r1
+      0000A9 E7               [12]  281 	mov	a,@r1
+      0000AA 08               [12]  282 	inc	r0
+      0000AB 36               [12]  283 	addc	a,@r0
+      0000AC FE               [12]  284 	mov	r6,a
+      0000AD C3               [12]  285 	clr	c
+      0000AE EA               [12]  286 	mov	a,r2
+      0000AF 9D               [12]  287 	subb	a,r5
+      0000B0 EC               [12]  288 	mov	a,r4
+      0000B1 64 80            [12]  289 	xrl	a,#0x80
+      0000B3 8E F0            [24]  290 	mov	b,r6
+      0000B5 63 F0 80         [24]  291 	xrl	b,#0x80
+      0000B8 95 F0            [12]  292 	subb	a,b
+      0000BA D0 06            [24]  293 	pop	ar6
+      0000BC D0 05            [24]  294 	pop	ar5
+      0000BE 40 C7            [24]  295 	jc	00103$
+                                    296 ;	fix_fft.c:189: mr = (mr & (l - 1)) + l;
+      0000C0 C0 02            [24]  297 	push	ar2
+      0000C2 C0 04            [24]  298 	push	ar4
+      0000C4 E5*00            [12]  299 	mov	a,_bp
+      0000C6 24 04            [12]  300 	add	a,#0x04
+      0000C8 F8               [12]  301 	mov	r0,a
+      0000C9 86 02            [24]  302 	mov	ar2,@r0
+      0000CB 08               [12]  303 	inc	r0
+      0000CC 86 04            [24]  304 	mov	ar4,@r0
+      0000CE 1A               [12]  305 	dec	r2
+      0000CF BA FF 01         [24]  306 	cjne	r2,#0xff,00270$
+      0000D2 1C               [12]  307 	dec	r4
+      0000D3                        308 00270$:
+      0000D3 E5*00            [12]  309 	mov	a,_bp
+      0000D5 24 18            [12]  310 	add	a,#0x18
+      0000D7 F8               [12]  311 	mov	r0,a
+      0000D8 86 03            [24]  312 	mov	ar3,@r0
+      0000DA 08               [12]  313 	inc	r0
+      0000DB 86 07            [24]  314 	mov	ar7,@r0
+      0000DD EB               [12]  315 	mov	a,r3
+      0000DE 52 02            [12]  316 	anl	ar2,a
+      0000E0 EF               [12]  317 	mov	a,r7
+      0000E1 52 04            [12]  318 	anl	ar4,a
+      0000E3 E5*00            [12]  319 	mov	a,_bp
+      0000E5 24 04            [12]  320 	add	a,#0x04
+      0000E7 F8               [12]  321 	mov	r0,a
+      0000E8 E6               [12]  322 	mov	a,@r0
+      0000E9 2A               [12]  323 	add	a,r2
+      0000EA FA               [12]  324 	mov	r2,a
+      0000EB 08               [12]  325 	inc	r0
+      0000EC E6               [12]  326 	mov	a,@r0
+      0000ED 3C               [12]  327 	addc	a,r4
+      0000EE FC               [12]  328 	mov	r4,a
+      0000EF E5*00            [12]  329 	mov	a,_bp
+      0000F1 24 18            [12]  330 	add	a,#0x18
+      0000F3 F8               [12]  331 	mov	r0,a
+      0000F4 A6 02            [24]  332 	mov	@r0,ar2
+      0000F6 08               [12]  333 	inc	r0
+      0000F7 A6 04            [24]  334 	mov	@r0,ar4
+                                    335 ;	fix_fft.c:190: if (mr <= m) continue;
+      0000F9 E5*00            [12]  336 	mov	a,_bp
+      0000FB 24 18            [12]  337 	add	a,#0x18
+      0000FD F8               [12]  338 	mov	r0,a
+      0000FE C3               [12]  339 	clr	c
+      0000FF ED               [12]  340 	mov	a,r5
+      000100 96               [12]  341 	subb	a,@r0
+      000101 EE               [12]  342 	mov	a,r6
+      000102 64 80            [12]  343 	xrl	a,#0x80
+      000104 08               [12]  344 	inc	r0
+      000105 86 F0            [24]  345 	mov	b,@r0
+      000107 63 F0 80         [24]  346 	xrl	b,#0x80
+      00010A 95 F0            [12]  347 	subb	a,b
+      00010C D0 04            [24]  348 	pop	ar4
+      00010E D0 02            [24]  349 	pop	ar2
+      000110 40 03            [24]  350 	jc	00271$
+      000112 02r02r9F         [24]  351 	ljmp	00108$
+      000115                        352 00271$:
+                                    353 ;	fix_fft.c:192: tr = fr[m];
+      000115 C0 02            [24]  354 	push	ar2
+      000117 C0 04            [24]  355 	push	ar4
+      000119 E5*00            [12]  356 	mov	a,_bp
+      00011B 24 04            [12]  357 	add	a,#0x04
+      00011D F8               [12]  358 	mov	r0,a
+      00011E ED               [12]  359 	mov	a,r5
+      00011F 2D               [12]  360 	add	a,r5
+      000120 F6               [12]  361 	mov	@r0,a
+      000121 EE               [12]  362 	mov	a,r6
+      000122 33               [12]  363 	rlc	a
+      000123 08               [12]  364 	inc	r0
+      000124 F6               [12]  365 	mov	@r0,a
+      000125 A8*00            [24]  366 	mov	r0,_bp
+      000127 08               [12]  367 	inc	r0
+      000128 E5*00            [12]  368 	mov	a,_bp
+      00012A 24 04            [12]  369 	add	a,#0x04
+      00012C F9               [12]  370 	mov	r1,a
+      00012D E7               [12]  371 	mov	a,@r1
+      00012E 26               [12]  372 	add	a,@r0
+      00012F C0 E0            [24]  373 	push	acc
+      000131 09               [12]  374 	inc	r1
+      000132 E7               [12]  375 	mov	a,@r1
+      000133 08               [12]  376 	inc	r0
+      000134 36               [12]  377 	addc	a,@r0
+      000135 C0 E0            [24]  378 	push	acc
+      000137 08               [12]  379 	inc	r0
+      000138 E6               [12]  380 	mov	a,@r0
+      000139 C0 E0            [24]  381 	push	acc
+      00013B E5*00            [12]  382 	mov	a,_bp
+      00013D 24 08            [12]  383 	add	a,#0x08
+      00013F F8               [12]  384 	mov	r0,a
+      000140 D0 E0            [24]  385 	pop	acc
+      000142 F6               [12]  386 	mov	@r0,a
+      000143 18               [12]  387 	dec	r0
+      000144 D0 E0            [24]  388 	pop	acc
+      000146 F6               [12]  389 	mov	@r0,a
+      000147 18               [12]  390 	dec	r0
+      000148 D0 E0            [24]  391 	pop	acc
+      00014A F6               [12]  392 	mov	@r0,a
+      00014B E5*00            [12]  393 	mov	a,_bp
+      00014D 24 06            [12]  394 	add	a,#0x06
+      00014F F8               [12]  395 	mov	r0,a
+      000150 86 82            [24]  396 	mov	dpl,@r0
+      000152 08               [12]  397 	inc	r0
+      000153 86 83            [24]  398 	mov	dph,@r0
+      000155 08               [12]  399 	inc	r0
+      000156 86 F0            [24]  400 	mov	b,@r0
+      000158 E5*00            [12]  401 	mov	a,_bp
+      00015A 24 09            [12]  402 	add	a,#0x09
+      00015C F9               [12]  403 	mov	r1,a
+      00015D 12r00r00         [24]  404 	lcall	__gptrget
+      000160 F7               [12]  405 	mov	@r1,a
+      000161 A3               [24]  406 	inc	dptr
+      000162 12r00r00         [24]  407 	lcall	__gptrget
+      000165 09               [12]  408 	inc	r1
+      000166 F7               [12]  409 	mov	@r1,a
+                                    410 ;	fix_fft.c:193: fr[m] = fr[mr];
+      000167 E5*00            [12]  411 	mov	a,_bp
+      000169 24 18            [12]  412 	add	a,#0x18
+      00016B F8               [12]  413 	mov	r0,a
+      00016C E5*00            [12]  414 	mov	a,_bp
+      00016E 24 0B            [12]  415 	add	a,#0x0b
+      000170 F9               [12]  416 	mov	r1,a
+      000171 E6               [12]  417 	mov	a,@r0
+      000172 26               [12]  418 	add	a,@r0
+      000173 F7               [12]  419 	mov	@r1,a
+      000174 08               [12]  420 	inc	r0
+      000175 E6               [12]  421 	mov	a,@r0
+      000176 33               [12]  422 	rlc	a
+      000177 09               [12]  423 	inc	r1
+      000178 F7               [12]  424 	mov	@r1,a
+      000179 A8*00            [24]  425 	mov	r0,_bp
+      00017B 08               [12]  426 	inc	r0
+      00017C E5*00            [12]  427 	mov	a,_bp
+      00017E 24 0B            [12]  428 	add	a,#0x0b
+      000180 F9               [12]  429 	mov	r1,a
+      000181 E7               [12]  430 	mov	a,@r1
+      000182 26               [12]  431 	add	a,@r0
+      000183 C0 E0            [24]  432 	push	acc
+      000185 09               [12]  433 	inc	r1
+      000186 E7               [12]  434 	mov	a,@r1
+      000187 08               [12]  435 	inc	r0
+      000188 36               [12]  436 	addc	a,@r0
+      000189 C0 E0            [24]  437 	push	acc
+      00018B 08               [12]  438 	inc	r0
+      00018C E6               [12]  439 	mov	a,@r0
+      00018D C0 E0            [24]  440 	push	acc
+      00018F E5*00            [12]  441 	mov	a,_bp
+      000191 24 0F            [12]  442 	add	a,#0x0f
+      000193 F8               [12]  443 	mov	r0,a
+      000194 D0 E0            [24]  444 	pop	acc
+      000196 F6               [12]  445 	mov	@r0,a
+      000197 18               [12]  446 	dec	r0
+      000198 D0 E0            [24]  447 	pop	acc
+      00019A F6               [12]  448 	mov	@r0,a
+      00019B 18               [12]  449 	dec	r0
+      00019C D0 E0            [24]  450 	pop	acc
+      00019E F6               [12]  451 	mov	@r0,a
+      00019F E5*00            [12]  452 	mov	a,_bp
+      0001A1 24 0D            [12]  453 	add	a,#0x0d
+      0001A3 F8               [12]  454 	mov	r0,a
+      0001A4 86 82            [24]  455 	mov	dpl,@r0
+      0001A6 08               [12]  456 	inc	r0
+      0001A7 86 83            [24]  457 	mov	dph,@r0
+      0001A9 08               [12]  458 	inc	r0
+      0001AA 86 F0            [24]  459 	mov	b,@r0
+      0001AC 12r00r00         [24]  460 	lcall	__gptrget
+      0001AF FA               [12]  461 	mov	r2,a
+      0001B0 A3               [24]  462 	inc	dptr
+      0001B1 12r00r00         [24]  463 	lcall	__gptrget
+      0001B4 FF               [12]  464 	mov	r7,a
+      0001B5 E5*00            [12]  465 	mov	a,_bp
+      0001B7 24 06            [12]  466 	add	a,#0x06
+      0001B9 F8               [12]  467 	mov	r0,a
+      0001BA 86 82            [24]  468 	mov	dpl,@r0
+      0001BC 08               [12]  469 	inc	r0
+      0001BD 86 83            [24]  470 	mov	dph,@r0
+      0001BF 08               [12]  471 	inc	r0
+      0001C0 86 F0            [24]  472 	mov	b,@r0
+      0001C2 EA               [12]  473 	mov	a,r2
+      0001C3 12r00r00         [24]  474 	lcall	__gptrput
+      0001C6 A3               [24]  475 	inc	dptr
+      0001C7 EF               [12]  476 	mov	a,r7
+      0001C8 12r00r00         [24]  477 	lcall	__gptrput
+                                    478 ;	fix_fft.c:194: fr[mr] = tr;
+      0001CB E5*00            [12]  479 	mov	a,_bp
+      0001CD 24 0D            [12]  480 	add	a,#0x0d
+      0001CF F8               [12]  481 	mov	r0,a
+      0001D0 86 82            [24]  482 	mov	dpl,@r0
+      0001D2 08               [12]  483 	inc	r0
+      0001D3 86 83            [24]  484 	mov	dph,@r0
+      0001D5 08               [12]  485 	inc	r0
+      0001D6 86 F0            [24]  486 	mov	b,@r0
+      0001D8 E5*00            [12]  487 	mov	a,_bp
+      0001DA 24 09            [12]  488 	add	a,#0x09
+      0001DC F9               [12]  489 	mov	r1,a
+      0001DD E7               [12]  490 	mov	a,@r1
+      0001DE 12r00r00         [24]  491 	lcall	__gptrput
+      0001E1 A3               [24]  492 	inc	dptr
+      0001E2 09               [12]  493 	inc	r1
+      0001E3 E7               [12]  494 	mov	a,@r1
+      0001E4 12r00r00         [24]  495 	lcall	__gptrput
+                                    496 ;	fix_fft.c:195: ti = fi[m];
+      0001E7 E5*00            [12]  497 	mov	a,_bp
+      0001E9 24 FB            [12]  498 	add	a,#0xfb
+      0001EB F8               [12]  499 	mov	r0,a
+      0001EC E5*00            [12]  500 	mov	a,_bp
+      0001EE 24 04            [12]  501 	add	a,#0x04
+      0001F0 F9               [12]  502 	mov	r1,a
+      0001F1 E7               [12]  503 	mov	a,@r1
+      0001F2 26               [12]  504 	add	a,@r0
+      0001F3 C0 E0            [24]  505 	push	acc
+      0001F5 09               [12]  506 	inc	r1
+      0001F6 E7               [12]  507 	mov	a,@r1
+      0001F7 08               [12]  508 	inc	r0
+      0001F8 36               [12]  509 	addc	a,@r0
+      0001F9 C0 E0            [24]  510 	push	acc
+      0001FB 08               [12]  511 	inc	r0
+      0001FC E6               [12]  512 	mov	a,@r0
+      0001FD C0 E0            [24]  513 	push	acc
+      0001FF E5*00            [12]  514 	mov	a,_bp
+      000201 24 0F            [12]  515 	add	a,#0x0f
+      000203 F8               [12]  516 	mov	r0,a
+      000204 D0 E0            [24]  517 	pop	acc
+      000206 F6               [12]  518 	mov	@r0,a
+      000207 18               [12]  519 	dec	r0
+      000208 D0 E0            [24]  520 	pop	acc
+      00020A F6               [12]  521 	mov	@r0,a
+      00020B 18               [12]  522 	dec	r0
+      00020C D0 E0            [24]  523 	pop	acc
+      00020E F6               [12]  524 	mov	@r0,a
+      00020F E5*00            [12]  525 	mov	a,_bp
+      000211 24 0D            [12]  526 	add	a,#0x0d
+      000213 F8               [12]  527 	mov	r0,a
+      000214 86 82            [24]  528 	mov	dpl,@r0
+      000216 08               [12]  529 	inc	r0
+      000217 86 83            [24]  530 	mov	dph,@r0
+      000219 08               [12]  531 	inc	r0
+      00021A 86 F0            [24]  532 	mov	b,@r0
+      00021C E5*00            [12]  533 	mov	a,_bp
+      00021E 24 09            [12]  534 	add	a,#0x09
+      000220 F9               [12]  535 	mov	r1,a
+      000221 12r00r00         [24]  536 	lcall	__gptrget
+      000224 F7               [12]  537 	mov	@r1,a
+      000225 A3               [24]  538 	inc	dptr
+      000226 12r00r00         [24]  539 	lcall	__gptrget
+      000229 09               [12]  540 	inc	r1
+      00022A F7               [12]  541 	mov	@r1,a
+                                    542 ;	fix_fft.c:196: fi[m] = fi[mr];
+      00022B E5*00            [12]  543 	mov	a,_bp
+      00022D 24 FB            [12]  544 	add	a,#0xfb
+      00022F F8               [12]  545 	mov	r0,a
+      000230 E5*00            [12]  546 	mov	a,_bp
+      000232 24 0B            [12]  547 	add	a,#0x0b
+      000234 F9               [12]  548 	mov	r1,a
+      000235 E7               [12]  549 	mov	a,@r1
+      000236 26               [12]  550 	add	a,@r0
+      000237 C0 E0            [24]  551 	push	acc
+      000239 09               [12]  552 	inc	r1
+      00023A E7               [12]  553 	mov	a,@r1
+      00023B 08               [12]  554 	inc	r0
+      00023C 36               [12]  555 	addc	a,@r0
+      00023D C0 E0            [24]  556 	push	acc
+      00023F 08               [12]  557 	inc	r0
+      000240 E6               [12]  558 	mov	a,@r0
+      000241 C0 E0            [24]  559 	push	acc
+      000243 E5*00            [12]  560 	mov	a,_bp
+      000245 24 08            [12]  561 	add	a,#0x08
+      000247 F8               [12]  562 	mov	r0,a
+      000248 D0 E0            [24]  563 	pop	acc
+      00024A F6               [12]  564 	mov	@r0,a
+      00024B 18               [12]  565 	dec	r0
+      00024C D0 E0            [24]  566 	pop	acc
+      00024E F6               [12]  567 	mov	@r0,a
+      00024F 18               [12]  568 	dec	r0
+      000250 D0 E0            [24]  569 	pop	acc
+      000252 F6               [12]  570 	mov	@r0,a
+      000253 E5*00            [12]  571 	mov	a,_bp
+      000255 24 06            [12]  572 	add	a,#0x06
+      000257 F8               [12]  573 	mov	r0,a
+      000258 86 82            [24]  574 	mov	dpl,@r0
+      00025A 08               [12]  575 	inc	r0
+      00025B 86 83            [24]  576 	mov	dph,@r0
+      00025D 08               [12]  577 	inc	r0
+      00025E 86 F0            [24]  578 	mov	b,@r0
+      000260 12r00r00         [24]  579 	lcall	__gptrget
+      000263 FA               [12]  580 	mov	r2,a
+      000264 A3               [24]  581 	inc	dptr
+      000265 12r00r00         [24]  582 	lcall	__gptrget
+      000268 FF               [12]  583 	mov	r7,a
+      000269 E5*00            [12]  584 	mov	a,_bp
+      00026B 24 0D            [12]  585 	add	a,#0x0d
+      00026D F8               [12]  586 	mov	r0,a
+      00026E 86 82            [24]  587 	mov	dpl,@r0
+      000270 08               [12]  588 	inc	r0
+      000271 86 83            [24]  589 	mov	dph,@r0
+      000273 08               [12]  590 	inc	r0
+      000274 86 F0            [24]  591 	mov	b,@r0
+      000276 EA               [12]  592 	mov	a,r2
+      000277 12r00r00         [24]  593 	lcall	__gptrput
+      00027A A3               [24]  594 	inc	dptr
+      00027B EF               [12]  595 	mov	a,r7
+      00027C 12r00r00         [24]  596 	lcall	__gptrput
+                                    597 ;	fix_fft.c:197: fi[mr] = ti;
+      00027F E5*00            [12]  598 	mov	a,_bp
+      000281 24 06            [12]  599 	add	a,#0x06
+      000283 F8               [12]  600 	mov	r0,a
+      000284 86 82            [24]  601 	mov	dpl,@r0
+      000286 08               [12]  602 	inc	r0
+      000287 86 83            [24]  603 	mov	dph,@r0
+      000289 08               [12]  604 	inc	r0
+      00028A 86 F0            [24]  605 	mov	b,@r0
+      00028C E5*00            [12]  606 	mov	a,_bp
+      00028E 24 09            [12]  607 	add	a,#0x09
+      000290 F9               [12]  608 	mov	r1,a
+      000291 E7               [12]  609 	mov	a,@r1
+      000292 12r00r00         [24]  610 	lcall	__gptrput
+      000295 A3               [24]  611 	inc	dptr
+      000296 09               [12]  612 	inc	r1
+      000297 E7               [12]  613 	mov	a,@r1
+      000298 12r00r00         [24]  614 	lcall	__gptrput
+                                    615 ;	fix_fft.c:274: return scale;
+      00029B D0 04            [24]  616 	pop	ar4
+      00029D D0 02            [24]  617 	pop	ar2
+                                    618 ;	fix_fft.c:197: fi[mr] = ti;
+      00029F                        619 00108$:
+                                    620 ;	fix_fft.c:183: for (m = 1; m <= nn; m++) {
+      00029F 0D               [12]  621 	inc	r5
+      0002A0 BD 00 01         [24]  622 	cjne	r5,#0x00,00272$
+      0002A3 0E               [12]  623 	inc	r6
+      0002A4                        624 00272$:
+      0002A4 02r00r65         [24]  625 	ljmp	00139$
+      0002A7                        626 00109$:
+                                    627 ;	fix_fft.c:200: l = 1;
+      0002A7 E5*00            [12]  628 	mov	a,_bp
+      0002A9 24 1C            [12]  629 	add	a,#0x1c
+      0002AB F8               [12]  630 	mov	r0,a
+      0002AC 76 01            [12]  631 	mov	@r0,#0x01
+      0002AE 08               [12]  632 	inc	r0
+      0002AF 76 00            [12]  633 	mov	@r0,#0x00
+                                    634 ;	fix_fft.c:202: while (l < n) {
+      0002B1 E5*00            [12]  635 	mov	a,_bp
+      0002B3 24 24            [12]  636 	add	a,#0x24
+      0002B5 F8               [12]  637 	mov	r0,a
+      0002B6 E4               [12]  638 	clr	a
+      0002B7 F6               [12]  639 	mov	@r0,a
+      0002B8 08               [12]  640 	inc	r0
+      0002B9 F6               [12]  641 	mov	@r0,a
+      0002BA E5*00            [12]  642 	mov	a,_bp
+      0002BC 24 1E            [12]  643 	add	a,#0x1e
+      0002BE F8               [12]  644 	mov	r0,a
+      0002BF 76 09            [12]  645 	mov	@r0,#0x09
+      0002C1 08               [12]  646 	inc	r0
+      0002C2 76 00            [12]  647 	mov	@r0,#0x00
+      0002C4                        648 00131$:
+      0002C4 E5*00            [12]  649 	mov	a,_bp
+      0002C6 24 1C            [12]  650 	add	a,#0x1c
+      0002C8 F8               [12]  651 	mov	r0,a
+      0002C9 E5*00            [12]  652 	mov	a,_bp
+      0002CB 24 22            [12]  653 	add	a,#0x22
+      0002CD F9               [12]  654 	mov	r1,a
+      0002CE C3               [12]  655 	clr	c
+      0002CF E6               [12]  656 	mov	a,@r0
+      0002D0 97               [12]  657 	subb	a,@r1
+      0002D1 08               [12]  658 	inc	r0
+      0002D2 E6               [12]  659 	mov	a,@r0
+      0002D3 64 80            [12]  660 	xrl	a,#0x80
+      0002D5 09               [12]  661 	inc	r1
+      0002D6 87 F0            [24]  662 	mov	b,@r1
+      0002D8 63 F0 80         [24]  663 	xrl	b,#0x80
+      0002DB 95 F0            [12]  664 	subb	a,b
+      0002DD 40 03            [24]  665 	jc	00273$
+      0002DF 02r09rA3         [24]  666 	ljmp	00133$
+      0002E2                        667 00273$:
+                                    668 ;	fix_fft.c:203: if (inverse) {
+      0002E2 E5*00            [12]  669 	mov	a,_bp
+      0002E4 24 F7            [12]  670 	add	a,#0xf7
+      0002E6 F8               [12]  671 	mov	r0,a
+      0002E7 E6               [12]  672 	mov	a,@r0
+      0002E8 08               [12]  673 	inc	r0
+      0002E9 46               [12]  674 	orl	a,@r0
+      0002EA 70 03            [24]  675 	jnz	00274$
+      0002EC 02r03rF9         [24]  676 	ljmp	00121$
+      0002EF                        677 00274$:
+                                    678 ;	fix_fft.c:205: shift = 0;
+      0002EF E5*00            [12]  679 	mov	a,_bp
+      0002F1 24 26            [12]  680 	add	a,#0x26
+      0002F3 F8               [12]  681 	mov	r0,a
+      0002F4 E4               [12]  682 	clr	a
+      0002F5 F6               [12]  683 	mov	@r0,a
+      0002F6 08               [12]  684 	inc	r0
+      0002F7 F6               [12]  685 	mov	@r0,a
+                                    686 ;	fix_fft.c:207: for (i = 0; i < n; i++) {
+      0002F8 7A 00            [12]  687 	mov	r2,#0x00
+      0002FA 7B 00            [12]  688 	mov	r3,#0x00
+      0002FC                        689 00141$:
+      0002FC E5*00            [12]  690 	mov	a,_bp
+      0002FE 24 22            [12]  691 	add	a,#0x22
+      000300 F8               [12]  692 	mov	r0,a
+      000301 C3               [12]  693 	clr	c
+      000302 EA               [12]  694 	mov	a,r2
+      000303 96               [12]  695 	subb	a,@r0
+      000304 EB               [12]  696 	mov	a,r3
+      000305 64 80            [12]  697 	xrl	a,#0x80
+      000307 08               [12]  698 	inc	r0
+      000308 86 F0            [24]  699 	mov	b,@r0
+      00030A 63 F0 80         [24]  700 	xrl	b,#0x80
+      00030D 95 F0            [12]  701 	subb	a,b
+      00030F 40 03            [24]  702 	jc	00275$
+      000311 02r03rE2         [24]  703 	ljmp	00117$
+      000314                        704 00275$:
+                                    705 ;	fix_fft.c:208: j = fr[i];
+      000314 EA               [12]  706 	mov	a,r2
+      000315 2A               [12]  707 	add	a,r2
+      000316 FC               [12]  708 	mov	r4,a
+      000317 EB               [12]  709 	mov	a,r3
+      000318 33               [12]  710 	rlc	a
+      000319 FD               [12]  711 	mov	r5,a
+      00031A A8*00            [24]  712 	mov	r0,_bp
+      00031C 08               [12]  713 	inc	r0
+      00031D EC               [12]  714 	mov	a,r4
+      00031E 26               [12]  715 	add	a,@r0
+      00031F FC               [12]  716 	mov	r4,a
+      000320 ED               [12]  717 	mov	a,r5
+      000321 08               [12]  718 	inc	r0
+      000322 36               [12]  719 	addc	a,@r0
+      000323 FD               [12]  720 	mov	r5,a
+      000324 08               [12]  721 	inc	r0
+      000325 86 07            [24]  722 	mov	ar7,@r0
+      000327 8C 82            [24]  723 	mov	dpl,r4
+      000329 8D 83            [24]  724 	mov	dph,r5
+      00032B 8F F0            [24]  725 	mov	b,r7
+      00032D E5*00            [12]  726 	mov	a,_bp
+      00032F 24 0D            [12]  727 	add	a,#0x0d
+      000331 F8               [12]  728 	mov	r0,a
+      000332 12r00r00         [24]  729 	lcall	__gptrget
+      000335 F6               [12]  730 	mov	@r0,a
+      000336 A3               [24]  731 	inc	dptr
+      000337 12r00r00         [24]  732 	lcall	__gptrget
+      00033A 08               [12]  733 	inc	r0
+      00033B F6               [12]  734 	mov	@r0,a
+                                    735 ;	fix_fft.c:209: if (j < 0) j = -j;
+      00033C E5*00            [12]  736 	mov	a,_bp
+      00033E 24 0D            [12]  737 	add	a,#0x0d
+      000340 F8               [12]  738 	mov	r0,a
+      000341 86 06            [24]  739 	mov	ar6,@r0
+      000343 08               [12]  740 	inc	r0
+      000344 E6               [12]  741 	mov	a,@r0
+      000345 30 E7 0D         [24]  742 	jnb	acc.7,00111$
+      000348 E5*00            [12]  743 	mov	a,_bp
+      00034A 24 0D            [12]  744 	add	a,#0x0d
+      00034C F8               [12]  745 	mov	r0,a
+      00034D C3               [12]  746 	clr	c
+      00034E E4               [12]  747 	clr	a
+      00034F 96               [12]  748 	subb	a,@r0
+      000350 F6               [12]  749 	mov	@r0,a
+      000351 08               [12]  750 	inc	r0
+      000352 E4               [12]  751 	clr	a
+      000353 96               [12]  752 	subb	a,@r0
+      000354 F6               [12]  753 	mov	@r0,a
+      000355                        754 00111$:
+                                    755 ;	fix_fft.c:211: m = fi[i];
+      000355 EA               [12]  756 	mov	a,r2
+      000356 2A               [12]  757 	add	a,r2
+      000357 FE               [12]  758 	mov	r6,a
+      000358 EB               [12]  759 	mov	a,r3
+      000359 33               [12]  760 	rlc	a
+      00035A FF               [12]  761 	mov	r7,a
+      00035B E5*00            [12]  762 	mov	a,_bp
+      00035D 24 FB            [12]  763 	add	a,#0xfb
+      00035F F8               [12]  764 	mov	r0,a
+      000360 EE               [12]  765 	mov	a,r6
+      000361 26               [12]  766 	add	a,@r0
+      000362 FE               [12]  767 	mov	r6,a
+      000363 EF               [12]  768 	mov	a,r7
+      000364 08               [12]  769 	inc	r0
+      000365 36               [12]  770 	addc	a,@r0
+      000366 FD               [12]  771 	mov	r5,a
+      000367 08               [12]  772 	inc	r0
+      000368 86 07            [24]  773 	mov	ar7,@r0
+      00036A 8E 82            [24]  774 	mov	dpl,r6
+      00036C 8D 83            [24]  775 	mov	dph,r5
+      00036E 8F F0            [24]  776 	mov	b,r7
+      000370 12r00r00         [24]  777 	lcall	__gptrget
+      000373 FC               [12]  778 	mov	r4,a
+      000374 A3               [24]  779 	inc	dptr
+      000375 12r00r00         [24]  780 	lcall	__gptrget
+      000378 FD               [12]  781 	mov	r5,a
+      000379 E5*00            [12]  782 	mov	a,_bp
+      00037B 24 F9            [12]  783 	add	a,#0xf9
+      00037D F8               [12]  784 	mov	r0,a
+      00037E A6 04            [24]  785 	mov	@r0,ar4
+      000380 08               [12]  786 	inc	r0
+      000381 A6 05            [24]  787 	mov	@r0,ar5
+                                    788 ;	fix_fft.c:212: if (m < 0) m = -m;
+      000383 8C 06            [24]  789 	mov	ar6,r4
+      000385 8D 07            [24]  790 	mov	ar7,r5
+      000387 EF               [12]  791 	mov	a,r7
+      000388 30 E7 11         [24]  792 	jnb	acc.7,00113$
+      00038B C3               [12]  793 	clr	c
+      00038C E4               [12]  794 	clr	a
+      00038D 9C               [12]  795 	subb	a,r4
+      00038E FE               [12]  796 	mov	r6,a
+      00038F E4               [12]  797 	clr	a
+      000390 9D               [12]  798 	subb	a,r5
+      000391 FF               [12]  799 	mov	r7,a
+      000392 E5*00            [12]  800 	mov	a,_bp
+      000394 24 F9            [12]  801 	add	a,#0xf9
+      000396 F8               [12]  802 	mov	r0,a
+      000397 A6 06            [24]  803 	mov	@r0,ar6
+      000399 08               [12]  804 	inc	r0
+      00039A A6 07            [24]  805 	mov	@r0,ar7
+      00039C                        806 00113$:
+                                    807 ;	fix_fft.c:214: if ((j > 16383) || (m > 16383)) {
+      00039C E5*00            [12]  808 	mov	a,_bp
+      00039E 24 0D            [12]  809 	add	a,#0x0d
+      0003A0 F8               [12]  810 	mov	r0,a
+      0003A1 86 06            [24]  811 	mov	ar6,@r0
+      0003A3 08               [12]  812 	inc	r0
+      0003A4 86 07            [24]  813 	mov	ar7,@r0
+      0003A6 C3               [12]  814 	clr	c
+      0003A7 74 FF            [12]  815 	mov	a,#0xff
+      0003A9 9E               [12]  816 	subb	a,r6
+      0003AA 74 BF            [12]  817 	mov	a,#(0x3f ^ 0x80)
+      0003AC 8F F0            [24]  818 	mov	b,r7
+      0003AE 63 F0 80         [24]  819 	xrl	b,#0x80
+      0003B1 95 F0            [12]  820 	subb	a,b
+      0003B3 40 19            [24]  821 	jc	00114$
+      0003B5 E5*00            [12]  822 	mov	a,_bp
+      0003B7 24 F9            [12]  823 	add	a,#0xf9
+      0003B9 F8               [12]  824 	mov	r0,a
+      0003BA 86 06            [24]  825 	mov	ar6,@r0
+      0003BC 08               [12]  826 	inc	r0
+      0003BD 86 07            [24]  827 	mov	ar7,@r0
+      0003BF C3               [12]  828 	clr	c
+      0003C0 74 FF            [12]  829 	mov	a,#0xff
+      0003C2 9E               [12]  830 	subb	a,r6
+      0003C3 74 BF            [12]  831 	mov	a,#(0x3f ^ 0x80)
+      0003C5 8F F0            [24]  832 	mov	b,r7
+      0003C7 63 F0 80         [24]  833 	xrl	b,#0x80
+      0003CA 95 F0            [12]  834 	subb	a,b
+      0003CC 50 0C            [24]  835 	jnc	00142$
+      0003CE                        836 00114$:
+                                    837 ;	fix_fft.c:215: shift = 1;
+      0003CE E5*00            [12]  838 	mov	a,_bp
+      0003D0 24 26            [12]  839 	add	a,#0x26
+      0003D2 F8               [12]  840 	mov	r0,a
+      0003D3 76 01            [12]  841 	mov	@r0,#0x01
+      0003D5 08               [12]  842 	inc	r0
+      0003D6 76 00            [12]  843 	mov	@r0,#0x00
+                                    844 ;	fix_fft.c:216: break;
+      0003D8 80 08            [24]  845 	sjmp	00117$
+      0003DA                        846 00142$:
+                                    847 ;	fix_fft.c:207: for (i = 0; i < n; i++) {
+      0003DA 0A               [12]  848 	inc	r2
+      0003DB BA 00 01         [24]  849 	cjne	r2,#0x00,00280$
+      0003DE 0B               [12]  850 	inc	r3
+      0003DF                        851 00280$:
+      0003DF 02r02rFC         [24]  852 	ljmp	00141$
+      0003E2                        853 00117$:
+                                    854 ;	fix_fft.c:220: if (shift) scale++;
+      0003E2 E5*00            [12]  855 	mov	a,_bp
+      0003E4 24 26            [12]  856 	add	a,#0x26
+      0003E6 F8               [12]  857 	mov	r0,a
+      0003E7 E6               [12]  858 	mov	a,@r0
+      0003E8 08               [12]  859 	inc	r0
+      0003E9 46               [12]  860 	orl	a,@r0
+      0003EA 60 17            [24]  861 	jz	00122$
+      0003EC E5*00            [12]  862 	mov	a,_bp
+      0003EE 24 24            [12]  863 	add	a,#0x24
+      0003F0 F8               [12]  864 	mov	r0,a
+      0003F1 06               [12]  865 	inc	@r0
+      0003F2 B6 00 02         [24]  866 	cjne	@r0,#0x00,00282$
+      0003F5 08               [12]  867 	inc	r0
+      0003F6 06               [12]  868 	inc	@r0
+      0003F7                        869 00282$:
+      0003F7 80 0A            [24]  870 	sjmp	00122$
+      0003F9                        871 00121$:
+                                    872 ;	fix_fft.c:228: shift = 1;
+      0003F9 E5*00            [12]  873 	mov	a,_bp
+      0003FB 24 26            [12]  874 	add	a,#0x26
+      0003FD F8               [12]  875 	mov	r0,a
+      0003FE 76 01            [12]  876 	mov	@r0,#0x01
+      000400 08               [12]  877 	inc	r0
+      000401 76 00            [12]  878 	mov	@r0,#0x00
+      000403                        879 00122$:
+                                    880 ;	fix_fft.c:236: istep = l << 1;
+      000403 E5*00            [12]  881 	mov	a,_bp
+      000405 24 1C            [12]  882 	add	a,#0x1c
+      000407 F8               [12]  883 	mov	r0,a
+      000408 E5*00            [12]  884 	mov	a,_bp
+      00040A 24 20            [12]  885 	add	a,#0x20
+      00040C F9               [12]  886 	mov	r1,a
+      00040D E6               [12]  887 	mov	a,@r0
+      00040E 26               [12]  888 	add	a,@r0
+      00040F F7               [12]  889 	mov	@r1,a
+      000410 08               [12]  890 	inc	r0
+      000411 E6               [12]  891 	mov	a,@r0
+      000412 33               [12]  892 	rlc	a
+      000413 09               [12]  893 	inc	r1
+      000414 F7               [12]  894 	mov	@r1,a
+                                    895 ;	fix_fft.c:237: for (m = 0; m < l; m++) {
+      000415 7A 00            [12]  896 	mov	r2,#0x00
+      000417 7B 00            [12]  897 	mov	r3,#0x00
+      000419                        898 00147$:
+      000419 E5*00            [12]  899 	mov	a,_bp
+      00041B 24 1C            [12]  900 	add	a,#0x1c
+      00041D F8               [12]  901 	mov	r0,a
+      00041E C3               [12]  902 	clr	c
+      00041F EA               [12]  903 	mov	a,r2
+      000420 96               [12]  904 	subb	a,@r0
+      000421 EB               [12]  905 	mov	a,r3
+      000422 64 80            [12]  906 	xrl	a,#0x80
+      000424 08               [12]  907 	inc	r0
+      000425 86 F0            [24]  908 	mov	b,@r0
+      000427 63 F0 80         [24]  909 	xrl	b,#0x80
+      00042A 95 F0            [12]  910 	subb	a,b
+      00042C 40 03            [24]  911 	jc	00283$
+      00042E 02r09r85         [24]  912 	ljmp	00130$
+      000431                        913 00283$:
+                                    914 ;	fix_fft.c:238: j = m << k;
+      000431 E5*00            [12]  915 	mov	a,_bp
+      000433 24 1E            [12]  916 	add	a,#0x1e
+      000435 F8               [12]  917 	mov	r0,a
+      000436 86 F0            [24]  918 	mov	b,@r0
+      000438 05 F0            [12]  919 	inc	b
+      00043A AE 02            [24]  920 	mov	r6,ar2
+      00043C AF 03            [24]  921 	mov	r7,ar3
+      00043E 80 06            [24]  922 	sjmp	00285$
+      000440                        923 00284$:
+      000440 EE               [12]  924 	mov	a,r6
+      000441 2E               [12]  925 	add	a,r6
+      000442 FE               [12]  926 	mov	r6,a
+      000443 EF               [12]  927 	mov	a,r7
+      000444 33               [12]  928 	rlc	a
+      000445 FF               [12]  929 	mov	r7,a
+      000446                        930 00285$:
+      000446 D5 F0 F7         [24]  931 	djnz	b,00284$
+      000449 8E 05            [24]  932 	mov	ar5,r6
+      00044B 8F 04            [24]  933 	mov	ar4,r7
+                                    934 ;	fix_fft.c:241: wr =  Sinewave[j + N_WAVE / 4];
+      00044D 8D 06            [24]  935 	mov	ar6,r5
+      00044F 8C 07            [24]  936 	mov	ar7,r4
+      000451 74 01            [12]  937 	mov	a,#0x01
+      000453 2F               [12]  938 	add	a,r7
+      000454 FF               [12]  939 	mov	r7,a
+      000455 EE               [12]  940 	mov	a,r6
+      000456 2E               [12]  941 	add	a,r6
+      000457 FE               [12]  942 	mov	r6,a
+      000458 EF               [12]  943 	mov	a,r7
+      000459 33               [12]  944 	rlc	a
+      00045A FF               [12]  945 	mov	r7,a
+      00045B EE               [12]  946 	mov	a,r6
+      00045C 24r00            [12]  947 	add	a,#_Sinewave
+      00045E F5 82            [12]  948 	mov	dpl,a
+      000460 EF               [12]  949 	mov	a,r7
+      000461 34s00            [12]  950 	addc	a,#(_Sinewave >> 8)
+      000463 F5 83            [12]  951 	mov	dph,a
+      000465 E5*00            [12]  952 	mov	a,_bp
+      000467 24 30            [12]  953 	add	a,#0x30
+      000469 F8               [12]  954 	mov	r0,a
+      00046A E0               [24]  955 	movx	a,@dptr
+      00046B F6               [12]  956 	mov	@r0,a
+      00046C A3               [24]  957 	inc	dptr
+      00046D E0               [24]  958 	movx	a,@dptr
+      00046E 08               [12]  959 	inc	r0
+      00046F F6               [12]  960 	mov	@r0,a
+                                    961 ;	fix_fft.c:242: wi = -Sinewave[j];
+      000470 ED               [12]  962 	mov	a,r5
+      000471 2D               [12]  963 	add	a,r5
+      000472 FE               [12]  964 	mov	r6,a
+      000473 EC               [12]  965 	mov	a,r4
+      000474 33               [12]  966 	rlc	a
+      000475 FF               [12]  967 	mov	r7,a
+      000476 EE               [12]  968 	mov	a,r6
+      000477 24r00            [12]  969 	add	a,#_Sinewave
+      000479 F5 82            [12]  970 	mov	dpl,a
+      00047B EF               [12]  971 	mov	a,r7
+      00047C 34s00            [12]  972 	addc	a,#(_Sinewave >> 8)
+      00047E F5 83            [12]  973 	mov	dph,a
+      000480 E0               [24]  974 	movx	a,@dptr
+      000481 FE               [12]  975 	mov	r6,a
+      000482 A3               [24]  976 	inc	dptr
+      000483 E0               [24]  977 	movx	a,@dptr
+      000484 FF               [12]  978 	mov	r7,a
+      000485 C3               [12]  979 	clr	c
+      000486 E4               [12]  980 	clr	a
+      000487 9E               [12]  981 	subb	a,r6
+      000488 FE               [12]  982 	mov	r6,a
+      000489 E4               [12]  983 	clr	a
+      00048A 9F               [12]  984 	subb	a,r7
+      00048B FF               [12]  985 	mov	r7,a
+      00048C E5*00            [12]  986 	mov	a,_bp
+      00048E 24 32            [12]  987 	add	a,#0x32
+      000490 F8               [12]  988 	mov	r0,a
+      000491 A6 06            [24]  989 	mov	@r0,ar6
+      000493 08               [12]  990 	inc	r0
+      000494 A6 07            [24]  991 	mov	@r0,ar7
+                                    992 ;	fix_fft.c:243: if (inverse) wi = -wi;
+      000496 E5*00            [12]  993 	mov	a,_bp
+      000498 24 F7            [12]  994 	add	a,#0xf7
+      00049A F8               [12]  995 	mov	r0,a
+      00049B E6               [12]  996 	mov	a,@r0
+      00049C 08               [12]  997 	inc	r0
+      00049D 46               [12]  998 	orl	a,@r0
+      00049E 60 0D            [24]  999 	jz	00124$
+      0004A0 E5*00            [12] 1000 	mov	a,_bp
+      0004A2 24 32            [12] 1001 	add	a,#0x32
+      0004A4 F8               [12] 1002 	mov	r0,a
+      0004A5 C3               [12] 1003 	clr	c
+      0004A6 E4               [12] 1004 	clr	a
+      0004A7 96               [12] 1005 	subb	a,@r0
+      0004A8 F6               [12] 1006 	mov	@r0,a
+      0004A9 08               [12] 1007 	inc	r0
+      0004AA E4               [12] 1008 	clr	a
+      0004AB 96               [12] 1009 	subb	a,@r0
+      0004AC F6               [12] 1010 	mov	@r0,a
+      0004AD                       1011 00124$:
+                                   1012 ;	fix_fft.c:245: if (shift) {
+      0004AD E5*00            [12] 1013 	mov	a,_bp
+      0004AF 24 26            [12] 1014 	add	a,#0x26
+      0004B1 F8               [12] 1015 	mov	r0,a
+      0004B2 E6               [12] 1016 	mov	a,@r0
+      0004B3 08               [12] 1017 	inc	r0
+      0004B4 46               [12] 1018 	orl	a,@r0
+      0004B5 60 20            [24] 1019 	jz	00126$
+                                   1020 ;	fix_fft.c:246: wr >>= 1;
+      0004B7 E5*00            [12] 1021 	mov	a,_bp
+      0004B9 24 30            [12] 1022 	add	a,#0x30
+      0004BB F8               [12] 1023 	mov	r0,a
+      0004BC 08               [12] 1024 	inc	r0
+      0004BD E6               [12] 1025 	mov	a,@r0
+      0004BE 18               [12] 1026 	dec	r0
+      0004BF A2 E7            [12] 1027 	mov	c,acc.7
+      0004C1 13               [12] 1028 	rrc	a
+      0004C2 C6               [12] 1029 	xch	a,@r0
+      0004C3 13               [12] 1030 	rrc	a
+      0004C4 C6               [12] 1031 	xch	a,@r0
+      0004C5 08               [12] 1032 	inc	r0
+      0004C6 F6               [12] 1033 	mov	@r0,a
+                                   1034 ;	fix_fft.c:247: wi >>= 1;
+      0004C7 E5*00            [12] 1035 	mov	a,_bp
+      0004C9 24 32            [12] 1036 	add	a,#0x32
+      0004CB F8               [12] 1037 	mov	r0,a
+      0004CC 08               [12] 1038 	inc	r0
+      0004CD E6               [12] 1039 	mov	a,@r0
+      0004CE 18               [12] 1040 	dec	r0
+      0004CF A2 E7            [12] 1041 	mov	c,acc.7
+      0004D1 13               [12] 1042 	rrc	a
+      0004D2 C6               [12] 1043 	xch	a,@r0
+      0004D3 13               [12] 1044 	rrc	a
+      0004D4 C6               [12] 1045 	xch	a,@r0
+      0004D5 08               [12] 1046 	inc	r0
+      0004D6 F6               [12] 1047 	mov	@r0,a
+      0004D7                       1048 00126$:
+                                   1049 ;	fix_fft.c:250: for (i = m; i < n; i += istep) {
+      0004D7 E5*00            [12] 1050 	mov	a,_bp
+      0004D9 24 1A            [12] 1051 	add	a,#0x1a
+      0004DB F8               [12] 1052 	mov	r0,a
+      0004DC A6 02            [24] 1053 	mov	@r0,ar2
+      0004DE 08               [12] 1054 	inc	r0
+      0004DF A6 03            [24] 1055 	mov	@r0,ar3
+      0004E1                       1056 00144$:
+      0004E1 E5*00            [12] 1057 	mov	a,_bp
+      0004E3 24 1A            [12] 1058 	add	a,#0x1a
+      0004E5 F8               [12] 1059 	mov	r0,a
+      0004E6 E5*00            [12] 1060 	mov	a,_bp
+      0004E8 24 22            [12] 1061 	add	a,#0x22
+      0004EA F9               [12] 1062 	mov	r1,a
+      0004EB C3               [12] 1063 	clr	c
+      0004EC E6               [12] 1064 	mov	a,@r0
+      0004ED 97               [12] 1065 	subb	a,@r1
+      0004EE 08               [12] 1066 	inc	r0
+      0004EF E6               [12] 1067 	mov	a,@r0
+      0004F0 64 80            [12] 1068 	xrl	a,#0x80
+      0004F2 09               [12] 1069 	inc	r1
+      0004F3 87 F0            [24] 1070 	mov	b,@r1
+      0004F5 63 F0 80         [24] 1071 	xrl	b,#0x80
+      0004F8 95 F0            [12] 1072 	subb	a,b
+      0004FA 40 03            [24] 1073 	jc	00288$
+      0004FC 02r09r7D         [24] 1074 	ljmp	00148$
+      0004FF                       1075 00288$:
+                                   1076 ;	fix_fft.c:251: j = i + l;
+      0004FF C0 02            [24] 1077 	push	ar2
+      000501 C0 03            [24] 1078 	push	ar3
+      000503 E5*00            [12] 1079 	mov	a,_bp
+      000505 24 1A            [12] 1080 	add	a,#0x1a
+      000507 F8               [12] 1081 	mov	r0,a
+      000508 E5*00            [12] 1082 	mov	a,_bp
+      00050A 24 1C            [12] 1083 	add	a,#0x1c
+      00050C F9               [12] 1084 	mov	r1,a
+      00050D E7               [12] 1085 	mov	a,@r1
+      00050E 26               [12] 1086 	add	a,@r0
+      00050F C0 E0            [24] 1087 	push	acc
+      000511 09               [12] 1088 	inc	r1
+      000512 E7               [12] 1089 	mov	a,@r1
+      000513 08               [12] 1090 	inc	r0
+      000514 36               [12] 1091 	addc	a,@r0
+      000515 C0 E0            [24] 1092 	push	acc
+      000517 E5*00            [12] 1093 	mov	a,_bp
+      000519 24 0E            [12] 1094 	add	a,#0x0e
+      00051B F8               [12] 1095 	mov	r0,a
+      00051C D0 E0            [24] 1096 	pop	acc
+      00051E F6               [12] 1097 	mov	@r0,a
+      00051F 18               [12] 1098 	dec	r0
+      000520 D0 E0            [24] 1099 	pop	acc
+      000522 F6               [12] 1100 	mov	@r0,a
+                                   1101 ;	fix_fft.c:253: tr = FIX_MPY(wr, fr[j]) - FIX_MPY(wi, fi[j]);
+      000523 E5*00            [12] 1102 	mov	a,_bp
+      000525 24 0D            [12] 1103 	add	a,#0x0d
+      000527 F8               [12] 1104 	mov	r0,a
+      000528 E5*00            [12] 1105 	mov	a,_bp
+      00052A 24 09            [12] 1106 	add	a,#0x09
+      00052C F9               [12] 1107 	mov	r1,a
+      00052D E6               [12] 1108 	mov	a,@r0
+      00052E 26               [12] 1109 	add	a,@r0
+      00052F F7               [12] 1110 	mov	@r1,a
+      000530 08               [12] 1111 	inc	r0
+      000531 E6               [12] 1112 	mov	a,@r0
+      000532 33               [12] 1113 	rlc	a
+      000533 09               [12] 1114 	inc	r1
+      000534 F7               [12] 1115 	mov	@r1,a
+      000535 A8*00            [24] 1116 	mov	r0,_bp
+      000537 08               [12] 1117 	inc	r0
+      000538 E5*00            [12] 1118 	mov	a,_bp
+      00053A 24 09            [12] 1119 	add	a,#0x09
+      00053C F9               [12] 1120 	mov	r1,a
+      00053D E7               [12] 1121 	mov	a,@r1
+      00053E 26               [12] 1122 	add	a,@r0
+      00053F FC               [12] 1123 	mov	r4,a
+      000540 09               [12] 1124 	inc	r1
+      000541 E7               [12] 1125 	mov	a,@r1
+      000542 08               [12] 1126 	inc	r0
+      000543 36               [12] 1127 	addc	a,@r0
+      000544 FD               [12] 1128 	mov	r5,a
+      000545 08               [12] 1129 	inc	r0
+      000546 86 07            [24] 1130 	mov	ar7,@r0
+      000548 8C 82            [24] 1131 	mov	dpl,r4
+      00054A 8D 83            [24] 1132 	mov	dph,r5
+      00054C 8F F0            [24] 1133 	mov	b,r7
+      00054E E5*00            [12] 1134 	mov	a,_bp
+      000550 24 34            [12] 1135 	add	a,#0x34
+      000552 F8               [12] 1136 	mov	r0,a
+      000553 12r00r00         [24] 1137 	lcall	__gptrget
+      000556 F6               [12] 1138 	mov	@r0,a
+      000557 A3               [24] 1139 	inc	dptr
+      000558 12r00r00         [24] 1140 	lcall	__gptrget
+      00055B 08               [12] 1141 	inc	r0
+      00055C F6               [12] 1142 	mov	@r0,a
+      00055D E5*00            [12] 1143 	mov	a,_bp
+      00055F 24 34            [12] 1144 	add	a,#0x34
+      000561 F8               [12] 1145 	mov	r0,a
+      000562 86 07            [24] 1146 	mov	ar7,@r0
+      000564 08               [12] 1147 	inc	r0
+      000565 86 06            [24] 1148 	mov	ar6,@r0
+                                   1149 ;	fix_fft.c:155: int32_t c = ((int32_t)a * (int32_t)b) >> 14;
+      000567 E5*00            [12] 1150 	mov	a,_bp
+      000569 24 30            [12] 1151 	add	a,#0x30
+      00056B F8               [12] 1152 	mov	r0,a
+      00056C E5*00            [12] 1153 	mov	a,_bp
+      00056E 24 10            [12] 1154 	add	a,#0x10
+      000570 F9               [12] 1155 	mov	r1,a
+      000571 E6               [12] 1156 	mov	a,@r0
+      000572 F7               [12] 1157 	mov	@r1,a
+      000573 08               [12] 1158 	inc	r0
+      000574 09               [12] 1159 	inc	r1
+      000575 E6               [12] 1160 	mov	a,@r0
+      000576 F7               [12] 1161 	mov	@r1,a
+      000577 E6               [12] 1162 	mov	a,@r0
+      000578 33               [12] 1163 	rlc	a
+      000579 95 E0            [12] 1164 	subb	a,acc
+      00057B 09               [12] 1165 	inc	r1
+      00057C F7               [12] 1166 	mov	@r1,a
+      00057D 09               [12] 1167 	inc	r1
+      00057E F7               [12] 1168 	mov	@r1,a
+      00057F 8F 02            [24] 1169 	mov	ar2,r7
+      000581 EE               [12] 1170 	mov	a,r6
+      000582 FB               [12] 1171 	mov	r3,a
+      000583 33               [12] 1172 	rlc	a
+      000584 95 E0            [12] 1173 	subb	a,acc
+      000586 FE               [12] 1174 	mov	r6,a
+      000587 FF               [12] 1175 	mov	r7,a
+      000588 C0 03            [24] 1176 	push	ar3
+      00058A C0 02            [24] 1177 	push	ar2
+      00058C C0 02            [24] 1178 	push	ar2
+      00058E C0 03            [24] 1179 	push	ar3
+      000590 C0 06            [24] 1180 	push	ar6
+      000592 C0 07            [24] 1181 	push	ar7
+      000594 E5*00            [12] 1182 	mov	a,_bp
+      000596 24 10            [12] 1183 	add	a,#0x10
+      000598 F8               [12] 1184 	mov	r0,a
+      000599 86 82            [24] 1185 	mov	dpl,@r0
+      00059B 08               [12] 1186 	inc	r0
+      00059C 86 83            [24] 1187 	mov	dph,@r0
+      00059E 08               [12] 1188 	inc	r0
+      00059F 86 F0            [24] 1189 	mov	b,@r0
+      0005A1 08               [12] 1190 	inc	r0
+      0005A2 E6               [12] 1191 	mov	a,@r0
+      0005A3 12r00r00         [24] 1192 	lcall	__mullong
+      0005A6 AD 83            [24] 1193 	mov	r5,dph
+      0005A8 AE F0            [24] 1194 	mov	r6,b
+      0005AA FF               [12] 1195 	mov	r7,a
+      0005AB E5 81            [12] 1196 	mov	a,sp
+      0005AD 24 FC            [12] 1197 	add	a,#0xfc
+      0005AF F5 81            [12] 1198 	mov	sp,a
+      0005B1 D0 02            [24] 1199 	pop	ar2
+      0005B3 D0 03            [24] 1200 	pop	ar3
+      0005B5 8D 04            [24] 1201 	mov	ar4,r5
+      0005B7 EE               [12] 1202 	mov	a,r6
+      0005B8 A2 E7            [12] 1203 	mov	c,acc.7
+      0005BA CC               [12] 1204 	xch	a,r4
+      0005BB 33               [12] 1205 	rlc	a
+      0005BC CC               [12] 1206 	xch	a,r4
+      0005BD 33               [12] 1207 	rlc	a
+      0005BE A2 E7            [12] 1208 	mov	c,acc.7
+      0005C0 CC               [12] 1209 	xch	a,r4
+      0005C1 33               [12] 1210 	rlc	a
+      0005C2 CC               [12] 1211 	xch	a,r4
+      0005C3 33               [12] 1212 	rlc	a
+      0005C4 CC               [12] 1213 	xch	a,r4
+      0005C5 54 03            [12] 1214 	anl	a,#0x03
+      0005C7 FD               [12] 1215 	mov	r5,a
+      0005C8 EF               [12] 1216 	mov	a,r7
+      0005C9 2F               [12] 1217 	add	a,r7
+      0005CA 25 E0            [12] 1218 	add	a,acc
+      0005CC 4D               [12] 1219 	orl	a,r5
+      0005CD FD               [12] 1220 	mov	r5,a
+      0005CE EF               [12] 1221 	mov	a,r7
+      0005CF 23               [12] 1222 	rl	a
+      0005D0 23               [12] 1223 	rl	a
+      0005D1 54 03            [12] 1224 	anl	a,#0x03
+      0005D3 30 E1 02         [24] 1225 	jnb	acc.1,00289$
+      0005D6 44 FC            [12] 1226 	orl	a,#0xfc
+      0005D8                       1227 00289$:
+      0005D8 FE               [12] 1228 	mov	r6,a
+      0005D9 33               [12] 1229 	rlc	a
+      0005DA 95 E0            [12] 1230 	subb	a,acc
+      0005DC FF               [12] 1231 	mov	r7,a
+                                   1232 ;	fix_fft.c:157: b = c & 0x01;
+      0005DD 8C 02            [24] 1233 	mov	ar2,r4
+      0005DF 8D 03            [24] 1234 	mov	ar3,r5
+      0005E1 53 02 01         [24] 1235 	anl	ar2,#0x01
+      0005E4 7B 00            [12] 1236 	mov	r3,#0x00
+                                   1237 ;	fix_fft.c:159: a = (c >> 1) + b;
+      0005E6 EF               [12] 1238 	mov	a,r7
+      0005E7 A2 E7            [12] 1239 	mov	c,acc.7
+      0005E9 13               [12] 1240 	rrc	a
+      0005EA EE               [12] 1241 	mov	a,r6
+      0005EB 13               [12] 1242 	rrc	a
+      0005EC ED               [12] 1243 	mov	a,r5
+      0005ED 13               [12] 1244 	rrc	a
+      0005EE FD               [12] 1245 	mov	r5,a
+      0005EF EC               [12] 1246 	mov	a,r4
+      0005F0 13               [12] 1247 	rrc	a
+      0005F1 FC               [12] 1248 	mov	r4,a
+      0005F2 E5*00            [12] 1249 	mov	a,_bp
+      0005F4 24 36            [12] 1250 	add	a,#0x36
+      0005F6 F8               [12] 1251 	mov	r0,a
+      0005F7 EA               [12] 1252 	mov	a,r2
+      0005F8 2C               [12] 1253 	add	a,r4
+      0005F9 F6               [12] 1254 	mov	@r0,a
+      0005FA EB               [12] 1255 	mov	a,r3
+      0005FB 3D               [12] 1256 	addc	a,r5
+      0005FC 08               [12] 1257 	inc	r0
+      0005FD F6               [12] 1258 	mov	@r0,a
+                                   1259 ;	fix_fft.c:253: tr = FIX_MPY(wr, fr[j]) - FIX_MPY(wi, fi[j]);
+      0005FE E5*00            [12] 1260 	mov	a,_bp
+      000600 24 FB            [12] 1261 	add	a,#0xfb
+      000602 F8               [12] 1262 	mov	r0,a
+      000603 E5*00            [12] 1263 	mov	a,_bp
+      000605 24 09            [12] 1264 	add	a,#0x09
+      000607 F9               [12] 1265 	mov	r1,a
+      000608 E7               [12] 1266 	mov	a,@r1
+      000609 26               [12] 1267 	add	a,@r0
+      00060A FD               [12] 1268 	mov	r5,a
+      00060B 09               [12] 1269 	inc	r1
+      00060C E7               [12] 1270 	mov	a,@r1
+      00060D 08               [12] 1271 	inc	r0
+      00060E 36               [12] 1272 	addc	a,@r0
+      00060F FE               [12] 1273 	mov	r6,a
+      000610 08               [12] 1274 	inc	r0
+      000611 86 07            [24] 1275 	mov	ar7,@r0
+      000613 8D 82            [24] 1276 	mov	dpl,r5
+      000615 8E 83            [24] 1277 	mov	dph,r6
+      000617 8F F0            [24] 1278 	mov	b,r7
+      000619 E5*00            [12] 1279 	mov	a,_bp
+      00061B 24 34            [12] 1280 	add	a,#0x34
+      00061D F8               [12] 1281 	mov	r0,a
+      00061E 12r00r00         [24] 1282 	lcall	__gptrget
+      000621 F6               [12] 1283 	mov	@r0,a
+      000622 A3               [24] 1284 	inc	dptr
+      000623 12r00r00         [24] 1285 	lcall	__gptrget
+      000626 08               [12] 1286 	inc	r0
+      000627 F6               [12] 1287 	mov	@r0,a
+      000628 E5*00            [12] 1288 	mov	a,_bp
+      00062A 24 34            [12] 1289 	add	a,#0x34
+      00062C F8               [12] 1290 	mov	r0,a
+      00062D 86 04            [24] 1291 	mov	ar4,@r0
+      00062F 08               [12] 1292 	inc	r0
+      000630 86 07            [24] 1293 	mov	ar7,@r0
+                                   1294 ;	fix_fft.c:155: int32_t c = ((int32_t)a * (int32_t)b) >> 14;
+      000632 E5*00            [12] 1295 	mov	a,_bp
+      000634 24 32            [12] 1296 	add	a,#0x32
+      000636 F8               [12] 1297 	mov	r0,a
+      000637 E5*00            [12] 1298 	mov	a,_bp
+      000639 24 14            [12] 1299 	add	a,#0x14
+      00063B F9               [12] 1300 	mov	r1,a
+      00063C E6               [12] 1301 	mov	a,@r0
+      00063D F7               [12] 1302 	mov	@r1,a
+      00063E 08               [12] 1303 	inc	r0
+      00063F 09               [12] 1304 	inc	r1
+      000640 E6               [12] 1305 	mov	a,@r0
+      000641 F7               [12] 1306 	mov	@r1,a
+      000642 E6               [12] 1307 	mov	a,@r0
+      000643 33               [12] 1308 	rlc	a
+      000644 95 E0            [12] 1309 	subb	a,acc
+      000646 09               [12] 1310 	inc	r1
+      000647 F7               [12] 1311 	mov	@r1,a
+      000648 09               [12] 1312 	inc	r1
+      000649 F7               [12] 1313 	mov	@r1,a
+      00064A EF               [12] 1314 	mov	a,r7
+      00064B FD               [12] 1315 	mov	r5,a
+      00064C 33               [12] 1316 	rlc	a
+      00064D 95 E0            [12] 1317 	subb	a,acc
+      00064F FE               [12] 1318 	mov	r6,a
+      000650 FF               [12] 1319 	mov	r7,a
+      000651 C0 03            [24] 1320 	push	ar3
+      000653 C0 02            [24] 1321 	push	ar2
+      000655 C0 04            [24] 1322 	push	ar4
+      000657 C0 05            [24] 1323 	push	ar5
+      000659 C0 06            [24] 1324 	push	ar6
+      00065B C0 07            [24] 1325 	push	ar7
+      00065D E5*00            [12] 1326 	mov	a,_bp
+      00065F 24 14            [12] 1327 	add	a,#0x14
+      000661 F8               [12] 1328 	mov	r0,a
+      000662 86 82            [24] 1329 	mov	dpl,@r0
+      000664 08               [12] 1330 	inc	r0
+      000665 86 83            [24] 1331 	mov	dph,@r0
+      000667 08               [12] 1332 	inc	r0
+      000668 86 F0            [24] 1333 	mov	b,@r0
+      00066A 08               [12] 1334 	inc	r0
+      00066B E6               [12] 1335 	mov	a,@r0
+      00066C 12r00r00         [24] 1336 	lcall	__mullong
+      00066F AD 83            [24] 1337 	mov	r5,dph
+      000671 AE F0            [24] 1338 	mov	r6,b
+      000673 FF               [12] 1339 	mov	r7,a
+      000674 E5 81            [12] 1340 	mov	a,sp
+      000676 24 FC            [12] 1341 	add	a,#0xfc
+      000678 F5 81            [12] 1342 	mov	sp,a
+      00067A D0 02            [24] 1343 	pop	ar2
+      00067C D0 03            [24] 1344 	pop	ar3
+      00067E 8D 04            [24] 1345 	mov	ar4,r5
+      000680 EE               [12] 1346 	mov	a,r6
+      000681 A2 E7            [12] 1347 	mov	c,acc.7
+      000683 CC               [12] 1348 	xch	a,r4
+      000684 33               [12] 1349 	rlc	a
+      000685 CC               [12] 1350 	xch	a,r4
+      000686 33               [12] 1351 	rlc	a
+      000687 A2 E7            [12] 1352 	mov	c,acc.7
+      000689 CC               [12] 1353 	xch	a,r4
+      00068A 33               [12] 1354 	rlc	a
+      00068B CC               [12] 1355 	xch	a,r4
+      00068C 33               [12] 1356 	rlc	a
+      00068D CC               [12] 1357 	xch	a,r4
+      00068E 54 03            [12] 1358 	anl	a,#0x03
+      000690 FD               [12] 1359 	mov	r5,a
+      000691 EF               [12] 1360 	mov	a,r7
+      000692 2F               [12] 1361 	add	a,r7
+      000693 25 E0            [12] 1362 	add	a,acc
+      000695 4D               [12] 1363 	orl	a,r5
+      000696 FD               [12] 1364 	mov	r5,a
+      000697 EF               [12] 1365 	mov	a,r7
+      000698 23               [12] 1366 	rl	a
+      000699 23               [12] 1367 	rl	a
+      00069A 54 03            [12] 1368 	anl	a,#0x03
+      00069C 30 E1 02         [24] 1369 	jnb	acc.1,00290$
+      00069F 44 FC            [12] 1370 	orl	a,#0xfc
+      0006A1                       1371 00290$:
+      0006A1 FE               [12] 1372 	mov	r6,a
+      0006A2 33               [12] 1373 	rlc	a
+      0006A3 95 E0            [12] 1374 	subb	a,acc
+      0006A5 FF               [12] 1375 	mov	r7,a
+                                   1376 ;	fix_fft.c:157: b = c & 0x01;
+      0006A6 8C 02            [24] 1377 	mov	ar2,r4
+      0006A8 8D 03            [24] 1378 	mov	ar3,r5
+      0006AA 53 02 01         [24] 1379 	anl	ar2,#0x01
+      0006AD 7B 00            [12] 1380 	mov	r3,#0x00
+                                   1381 ;	fix_fft.c:159: a = (c >> 1) + b;
+      0006AF EF               [12] 1382 	mov	a,r7
+      0006B0 A2 E7            [12] 1383 	mov	c,acc.7
+      0006B2 13               [12] 1384 	rrc	a
+      0006B3 EE               [12] 1385 	mov	a,r6
+      0006B4 13               [12] 1386 	rrc	a
+      0006B5 ED               [12] 1387 	mov	a,r5
+      0006B6 13               [12] 1388 	rrc	a
+      0006B7 FD               [12] 1389 	mov	r5,a
+      0006B8 EC               [12] 1390 	mov	a,r4
+      0006B9 13               [12] 1391 	rrc	a
+      0006BA 2A               [12] 1392 	add	a,r2
+      0006BB FA               [12] 1393 	mov	r2,a
+      0006BC EB               [12] 1394 	mov	a,r3
+      0006BD 3D               [12] 1395 	addc	a,r5
+      0006BE FB               [12] 1396 	mov	r3,a
+                                   1397 ;	fix_fft.c:253: tr = FIX_MPY(wr, fr[j]) - FIX_MPY(wi, fi[j]);
+      0006BF E5*00            [12] 1398 	mov	a,_bp
+      0006C1 24 36            [12] 1399 	add	a,#0x36
+      0006C3 F8               [12] 1400 	mov	r0,a
+      0006C4 E6               [12] 1401 	mov	a,@r0
+      0006C5 C3               [12] 1402 	clr	c
+      0006C6 9A               [12] 1403 	subb	a,r2
+      0006C7 FA               [12] 1404 	mov	r2,a
+      0006C8 08               [12] 1405 	inc	r0
+      0006C9 E6               [12] 1406 	mov	a,@r0
+      0006CA 9B               [12] 1407 	subb	a,r3
+      0006CB FB               [12] 1408 	mov	r3,a
+      0006CC E5*00            [12] 1409 	mov	a,_bp
+      0006CE 24 2C            [12] 1410 	add	a,#0x2c
+      0006D0 F8               [12] 1411 	mov	r0,a
+      0006D1 A6 02            [24] 1412 	mov	@r0,ar2
+      0006D3 08               [12] 1413 	inc	r0
+      0006D4 A6 03            [24] 1414 	mov	@r0,ar3
+                                   1415 ;	fix_fft.c:155: int32_t c = ((int32_t)a * (int32_t)b) >> 14;
+      0006D6 E5*00            [12] 1416 	mov	a,_bp
+      0006D8 24 34            [12] 1417 	add	a,#0x34
+      0006DA F8               [12] 1418 	mov	r0,a
+      0006DB 86 04            [24] 1419 	mov	ar4,@r0
+      0006DD 08               [12] 1420 	inc	r0
+      0006DE E6               [12] 1421 	mov	a,@r0
+      0006DF FD               [12] 1422 	mov	r5,a
+      0006E0 33               [12] 1423 	rlc	a
+      0006E1 95 E0            [12] 1424 	subb	a,acc
+      0006E3 FE               [12] 1425 	mov	r6,a
+      0006E4 FF               [12] 1426 	mov	r7,a
+      0006E5 C0 03            [24] 1427 	push	ar3
+      0006E7 C0 02            [24] 1428 	push	ar2
+      0006E9 C0 04            [24] 1429 	push	ar4
+      0006EB C0 05            [24] 1430 	push	ar5
+      0006ED C0 06            [24] 1431 	push	ar6
+      0006EF C0 07            [24] 1432 	push	ar7
+      0006F1 E5*00            [12] 1433 	mov	a,_bp
+      0006F3 24 10            [12] 1434 	add	a,#0x10
+      0006F5 F8               [12] 1435 	mov	r0,a
+      0006F6 86 82            [24] 1436 	mov	dpl,@r0
+      0006F8 08               [12] 1437 	inc	r0
+      0006F9 86 83            [24] 1438 	mov	dph,@r0
+      0006FB 08               [12] 1439 	inc	r0
+      0006FC 86 F0            [24] 1440 	mov	b,@r0
+      0006FE 08               [12] 1441 	inc	r0
+      0006FF E6               [12] 1442 	mov	a,@r0
+      000700 12r00r00         [24] 1443 	lcall	__mullong
+      000703 AD 83            [24] 1444 	mov	r5,dph
+      000705 AE F0            [24] 1445 	mov	r6,b
+      000707 FF               [12] 1446 	mov	r7,a
+      000708 E5 81            [12] 1447 	mov	a,sp
+      00070A 24 FC            [12] 1448 	add	a,#0xfc
+      00070C F5 81            [12] 1449 	mov	sp,a
+      00070E D0 02            [24] 1450 	pop	ar2
+      000710 D0 03            [24] 1451 	pop	ar3
+      000712 8D 04            [24] 1452 	mov	ar4,r5
+      000714 EE               [12] 1453 	mov	a,r6
+      000715 A2 E7            [12] 1454 	mov	c,acc.7
+      000717 CC               [12] 1455 	xch	a,r4
+      000718 33               [12] 1456 	rlc	a
+      000719 CC               [12] 1457 	xch	a,r4
+      00071A 33               [12] 1458 	rlc	a
+      00071B A2 E7            [12] 1459 	mov	c,acc.7
+      00071D CC               [12] 1460 	xch	a,r4
+      00071E 33               [12] 1461 	rlc	a
+      00071F CC               [12] 1462 	xch	a,r4
+      000720 33               [12] 1463 	rlc	a
+      000721 CC               [12] 1464 	xch	a,r4
+      000722 54 03            [12] 1465 	anl	a,#0x03
+      000724 FD               [12] 1466 	mov	r5,a
+      000725 EF               [12] 1467 	mov	a,r7
+      000726 2F               [12] 1468 	add	a,r7
+      000727 25 E0            [12] 1469 	add	a,acc
+      000729 4D               [12] 1470 	orl	a,r5
+      00072A FD               [12] 1471 	mov	r5,a
+      00072B EF               [12] 1472 	mov	a,r7
+      00072C 23               [12] 1473 	rl	a
+      00072D 23               [12] 1474 	rl	a
+      00072E 54 03            [12] 1475 	anl	a,#0x03
+      000730 30 E1 02         [24] 1476 	jnb	acc.1,00291$
+      000733 44 FC            [12] 1477 	orl	a,#0xfc
+      000735                       1478 00291$:
+      000735 FE               [12] 1479 	mov	r6,a
+      000736 33               [12] 1480 	rlc	a
+      000737 95 E0            [12] 1481 	subb	a,acc
+      000739 FF               [12] 1482 	mov	r7,a
+                                   1483 ;	fix_fft.c:157: b = c & 0x01;
+      00073A 8C 02            [24] 1484 	mov	ar2,r4
+      00073C 8D 03            [24] 1485 	mov	ar3,r5
+      00073E 53 02 01         [24] 1486 	anl	ar2,#0x01
+      000741 7B 00            [12] 1487 	mov	r3,#0x00
+                                   1488 ;	fix_fft.c:159: a = (c >> 1) + b;
+      000743 EF               [12] 1489 	mov	a,r7
+      000744 A2 E7            [12] 1490 	mov	c,acc.7
+      000746 13               [12] 1491 	rrc	a
+      000747 EE               [12] 1492 	mov	a,r6
+      000748 13               [12] 1493 	rrc	a
+      000749 ED               [12] 1494 	mov	a,r5
+      00074A 13               [12] 1495 	rrc	a
+      00074B FD               [12] 1496 	mov	r5,a
+      00074C EC               [12] 1497 	mov	a,r4
+      00074D 13               [12] 1498 	rrc	a
+      00074E FC               [12] 1499 	mov	r4,a
+      00074F E5*00            [12] 1500 	mov	a,_bp
+      000751 24 34            [12] 1501 	add	a,#0x34
+      000753 F8               [12] 1502 	mov	r0,a
+      000754 EA               [12] 1503 	mov	a,r2
+      000755 2C               [12] 1504 	add	a,r4
+      000756 F6               [12] 1505 	mov	@r0,a
+      000757 EB               [12] 1506 	mov	a,r3
+      000758 3D               [12] 1507 	addc	a,r5
+      000759 08               [12] 1508 	inc	r0
+      00075A F6               [12] 1509 	mov	@r0,a
+                                   1510 ;	fix_fft.c:155: int32_t c = ((int32_t)a * (int32_t)b) >> 14;
+      00075B E5*00            [12] 1511 	mov	a,_bp
+      00075D 24 34            [12] 1512 	add	a,#0x34
+      00075F F8               [12] 1513 	mov	r0,a
+      000760 86 04            [24] 1514 	mov	ar4,@r0
+      000762 08               [12] 1515 	inc	r0
+      000763 E6               [12] 1516 	mov	a,@r0
+      000764 FD               [12] 1517 	mov	r5,a
+      000765 33               [12] 1518 	rlc	a
+      000766 95 E0            [12] 1519 	subb	a,acc
+      000768 FE               [12] 1520 	mov	r6,a
+      000769 FF               [12] 1521 	mov	r7,a
+      00076A C0 03            [24] 1522 	push	ar3
+      00076C C0 02            [24] 1523 	push	ar2
+      00076E C0 04            [24] 1524 	push	ar4
+      000770 C0 05            [24] 1525 	push	ar5
+      000772 C0 06            [24] 1526 	push	ar6
+      000774 C0 07            [24] 1527 	push	ar7
+      000776 E5*00            [12] 1528 	mov	a,_bp
+      000778 24 14            [12] 1529 	add	a,#0x14
+      00077A F8               [12] 1530 	mov	r0,a
+      00077B 86 82            [24] 1531 	mov	dpl,@r0
+      00077D 08               [12] 1532 	inc	r0
+      00077E 86 83            [24] 1533 	mov	dph,@r0
+      000780 08               [12] 1534 	inc	r0
+      000781 86 F0            [24] 1535 	mov	b,@r0
+      000783 08               [12] 1536 	inc	r0
+      000784 E6               [12] 1537 	mov	a,@r0
+      000785 12r00r00         [24] 1538 	lcall	__mullong
+      000788 AD 83            [24] 1539 	mov	r5,dph
+      00078A AE F0            [24] 1540 	mov	r6,b
+      00078C FF               [12] 1541 	mov	r7,a
+      00078D E5 81            [12] 1542 	mov	a,sp
+      00078F 24 FC            [12] 1543 	add	a,#0xfc
+      000791 F5 81            [12] 1544 	mov	sp,a
+      000793 D0 02            [24] 1545 	pop	ar2
+      000795 D0 03            [24] 1546 	pop	ar3
+      000797 8D 04            [24] 1547 	mov	ar4,r5
+      000799 EE               [12] 1548 	mov	a,r6
+      00079A A2 E7            [12] 1549 	mov	c,acc.7
+      00079C CC               [12] 1550 	xch	a,r4
+      00079D 33               [12] 1551 	rlc	a
+      00079E CC               [12] 1552 	xch	a,r4
+      00079F 33               [12] 1553 	rlc	a
+      0007A0 A2 E7            [12] 1554 	mov	c,acc.7
+      0007A2 CC               [12] 1555 	xch	a,r4
+      0007A3 33               [12] 1556 	rlc	a
+      0007A4 CC               [12] 1557 	xch	a,r4
+      0007A5 33               [12] 1558 	rlc	a
+      0007A6 CC               [12] 1559 	xch	a,r4
+      0007A7 54 03            [12] 1560 	anl	a,#0x03
+      0007A9 FD               [12] 1561 	mov	r5,a
+      0007AA EF               [12] 1562 	mov	a,r7
+      0007AB 2F               [12] 1563 	add	a,r7
+      0007AC 25 E0            [12] 1564 	add	a,acc
+      0007AE 4D               [12] 1565 	orl	a,r5
+      0007AF FD               [12] 1566 	mov	r5,a
+      0007B0 EF               [12] 1567 	mov	a,r7
+      0007B1 23               [12] 1568 	rl	a
+      0007B2 23               [12] 1569 	rl	a
+      0007B3 54 03            [12] 1570 	anl	a,#0x03
+      0007B5 30 E1 02         [24] 1571 	jnb	acc.1,00292$
+      0007B8 44 FC            [12] 1572 	orl	a,#0xfc
+      0007BA                       1573 00292$:
+      0007BA FE               [12] 1574 	mov	r6,a
+      0007BB 33               [12] 1575 	rlc	a
+      0007BC 95 E0            [12] 1576 	subb	a,acc
+      0007BE FF               [12] 1577 	mov	r7,a
+                                   1578 ;	fix_fft.c:157: b = c & 0x01;
+      0007BF 8C 02            [24] 1579 	mov	ar2,r4
+      0007C1 8D 03            [24] 1580 	mov	ar3,r5
+      0007C3 53 02 01         [24] 1581 	anl	ar2,#0x01
+      0007C6 7B 00            [12] 1582 	mov	r3,#0x00
+                                   1583 ;	fix_fft.c:159: a = (c >> 1) + b;
+      0007C8 EF               [12] 1584 	mov	a,r7
+      0007C9 A2 E7            [12] 1585 	mov	c,acc.7
+      0007CB 13               [12] 1586 	rrc	a
+      0007CC EE               [12] 1587 	mov	a,r6
+      0007CD 13               [12] 1588 	rrc	a
+      0007CE ED               [12] 1589 	mov	a,r5
+      0007CF 13               [12] 1590 	rrc	a
+      0007D0 FD               [12] 1591 	mov	r5,a
+      0007D1 EC               [12] 1592 	mov	a,r4
+      0007D2 13               [12] 1593 	rrc	a
+      0007D3 2A               [12] 1594 	add	a,r2
+      0007D4 FA               [12] 1595 	mov	r2,a
+      0007D5 EB               [12] 1596 	mov	a,r3
+      0007D6 3D               [12] 1597 	addc	a,r5
+      0007D7 FB               [12] 1598 	mov	r3,a
+                                   1599 ;	fix_fft.c:254: ti = FIX_MPY(wr, fi[j]) + FIX_MPY(wi, fr[j]);
+      0007D8 E5*00            [12] 1600 	mov	a,_bp
+      0007DA 24 34            [12] 1601 	add	a,#0x34
+      0007DC F8               [12] 1602 	mov	r0,a
+      0007DD EA               [12] 1603 	mov	a,r2
+      0007DE 26               [12] 1604 	add	a,@r0
+      0007DF FA               [12] 1605 	mov	r2,a
+      0007E0 EB               [12] 1606 	mov	a,r3
+      0007E1 08               [12] 1607 	inc	r0
+      0007E2 36               [12] 1608 	addc	a,@r0
+      0007E3 FB               [12] 1609 	mov	r3,a
+      0007E4 E5*00            [12] 1610 	mov	a,_bp
+      0007E6 24 2E            [12] 1611 	add	a,#0x2e
+      0007E8 F8               [12] 1612 	mov	r0,a
+      0007E9 A6 02            [24] 1613 	mov	@r0,ar2
+      0007EB 08               [12] 1614 	inc	r0
+      0007EC A6 03            [24] 1615 	mov	@r0,ar3
+                                   1616 ;	fix_fft.c:255: qr = fr[i];
+      0007EE E5*00            [12] 1617 	mov	a,_bp
+      0007F0 24 1A            [12] 1618 	add	a,#0x1a
+      0007F2 F8               [12] 1619 	mov	r0,a
+      0007F3 E6               [12] 1620 	mov	a,@r0
+      0007F4 26               [12] 1621 	add	a,@r0
+      0007F5 FE               [12] 1622 	mov	r6,a
+      0007F6 08               [12] 1623 	inc	r0
+      0007F7 E6               [12] 1624 	mov	a,@r0
+      0007F8 33               [12] 1625 	rlc	a
+      0007F9 FF               [12] 1626 	mov	r7,a
+      0007FA A8*00            [24] 1627 	mov	r0,_bp
+      0007FC 08               [12] 1628 	inc	r0
+      0007FD EE               [12] 1629 	mov	a,r6
+      0007FE 26               [12] 1630 	add	a,@r0
+      0007FF FB               [12] 1631 	mov	r3,a
+      000800 EF               [12] 1632 	mov	a,r7
+      000801 08               [12] 1633 	inc	r0
+      000802 36               [12] 1634 	addc	a,@r0
+      000803 FC               [12] 1635 	mov	r4,a
+      000804 08               [12] 1636 	inc	r0
+      000805 86 05            [24] 1637 	mov	ar5,@r0
+      000807 8B 82            [24] 1638 	mov	dpl,r3
+      000809 8C 83            [24] 1639 	mov	dph,r4
+      00080B 8D F0            [24] 1640 	mov	b,r5
+      00080D E5*00            [12] 1641 	mov	a,_bp
+      00080F 24 28            [12] 1642 	add	a,#0x28
+      000811 F8               [12] 1643 	mov	r0,a
+      000812 12r00r00         [24] 1644 	lcall	__gptrget
+      000815 F6               [12] 1645 	mov	@r0,a
+      000816 A3               [24] 1646 	inc	dptr
+      000817 12r00r00         [24] 1647 	lcall	__gptrget
+      00081A 08               [12] 1648 	inc	r0
+      00081B F6               [12] 1649 	mov	@r0,a
+                                   1650 ;	fix_fft.c:256: qi = fi[i];
+      00081C E5*00            [12] 1651 	mov	a,_bp
+      00081E 24 FB            [12] 1652 	add	a,#0xfb
+      000820 F8               [12] 1653 	mov	r0,a
+      000821 EE               [12] 1654 	mov	a,r6
+      000822 26               [12] 1655 	add	a,@r0
+      000823 FE               [12] 1656 	mov	r6,a
+      000824 EF               [12] 1657 	mov	a,r7
+      000825 08               [12] 1658 	inc	r0
+      000826 36               [12] 1659 	addc	a,@r0
+      000827 FF               [12] 1660 	mov	r7,a
+      000828 08               [12] 1661 	inc	r0
+      000829 86 05            [24] 1662 	mov	ar5,@r0
+      00082B 8E 82            [24] 1663 	mov	dpl,r6
+      00082D 8F 83            [24] 1664 	mov	dph,r7
+      00082F 8D F0            [24] 1665 	mov	b,r5
+      000831 E5*00            [12] 1666 	mov	a,_bp
+      000833 24 2A            [12] 1667 	add	a,#0x2a
+      000835 F8               [12] 1668 	mov	r0,a
+      000836 12r00r00         [24] 1669 	lcall	__gptrget
+      000839 F6               [12] 1670 	mov	@r0,a
+      00083A A3               [24] 1671 	inc	dptr
+      00083B 12r00r00         [24] 1672 	lcall	__gptrget
+      00083E 08               [12] 1673 	inc	r0
+      00083F F6               [12] 1674 	mov	@r0,a
+                                   1675 ;	fix_fft.c:258: if (shift) {
+      000840 D0 03            [24] 1676 	pop	ar3
+      000842 D0 02            [24] 1677 	pop	ar2
+      000844 E5*00            [12] 1678 	mov	a,_bp
+      000846 24 26            [12] 1679 	add	a,#0x26
+      000848 F8               [12] 1680 	mov	r0,a
+      000849 E6               [12] 1681 	mov	a,@r0
+      00084A 08               [12] 1682 	inc	r0
+      00084B 46               [12] 1683 	orl	a,@r0
+      00084C 60 20            [24] 1684 	jz	00128$
+                                   1685 ;	fix_fft.c:259: qr >>= 1;
+      00084E E5*00            [12] 1686 	mov	a,_bp
+      000850 24 28            [12] 1687 	add	a,#0x28
+      000852 F8               [12] 1688 	mov	r0,a
+      000853 08               [12] 1689 	inc	r0
+      000854 E6               [12] 1690 	mov	a,@r0
+      000855 18               [12] 1691 	dec	r0
+      000856 A2 E7            [12] 1692 	mov	c,acc.7
+      000858 13               [12] 1693 	rrc	a
+      000859 C6               [12] 1694 	xch	a,@r0
+      00085A 13               [12] 1695 	rrc	a
+      00085B C6               [12] 1696 	xch	a,@r0
+      00085C 08               [12] 1697 	inc	r0
+      00085D F6               [12] 1698 	mov	@r0,a
+                                   1699 ;	fix_fft.c:260: qi >>= 1;
+      00085E E5*00            [12] 1700 	mov	a,_bp
+      000860 24 2A            [12] 1701 	add	a,#0x2a
+      000862 F8               [12] 1702 	mov	r0,a
+      000863 08               [12] 1703 	inc	r0
+      000864 E6               [12] 1704 	mov	a,@r0
+      000865 18               [12] 1705 	dec	r0
+      000866 A2 E7            [12] 1706 	mov	c,acc.7
+      000868 13               [12] 1707 	rrc	a
+      000869 C6               [12] 1708 	xch	a,@r0
+      00086A 13               [12] 1709 	rrc	a
+      00086B C6               [12] 1710 	xch	a,@r0
+      00086C 08               [12] 1711 	inc	r0
+      00086D F6               [12] 1712 	mov	@r0,a
+      00086E                       1713 00128$:
+                                   1714 ;	fix_fft.c:263: fr[j] = qr - tr;
+      00086E C0 02            [24] 1715 	push	ar2
+      000870 C0 03            [24] 1716 	push	ar3
+      000872 E5*00            [12] 1717 	mov	a,_bp
+      000874 24 0D            [12] 1718 	add	a,#0x0d
+      000876 F8               [12] 1719 	mov	r0,a
+      000877 E6               [12] 1720 	mov	a,@r0
+      000878 26               [12] 1721 	add	a,@r0
+      000879 FE               [12] 1722 	mov	r6,a
+      00087A 08               [12] 1723 	inc	r0
+      00087B E6               [12] 1724 	mov	a,@r0
+      00087C 33               [12] 1725 	rlc	a
+      00087D FF               [12] 1726 	mov	r7,a
+      00087E A8*00            [24] 1727 	mov	r0,_bp
+      000880 08               [12] 1728 	inc	r0
+      000881 E5*00            [12] 1729 	mov	a,_bp
+      000883 24 14            [12] 1730 	add	a,#0x14
+      000885 F9               [12] 1731 	mov	r1,a
+      000886 EE               [12] 1732 	mov	a,r6
+      000887 26               [12] 1733 	add	a,@r0
+      000888 F7               [12] 1734 	mov	@r1,a
+      000889 EF               [12] 1735 	mov	a,r7
+      00088A 08               [12] 1736 	inc	r0
+      00088B 36               [12] 1737 	addc	a,@r0
+      00088C 09               [12] 1738 	inc	r1
+      00088D F7               [12] 1739 	mov	@r1,a
+      00088E 08               [12] 1740 	inc	r0
+      00088F 09               [12] 1741 	inc	r1
+      000890 E6               [12] 1742 	mov	a,@r0
+      000891 F7               [12] 1743 	mov	@r1,a
+      000892 E5*00            [12] 1744 	mov	a,_bp
+      000894 24 28            [12] 1745 	add	a,#0x28
+      000896 F8               [12] 1746 	mov	r0,a
+      000897 E5*00            [12] 1747 	mov	a,_bp
+      000899 24 2C            [12] 1748 	add	a,#0x2c
+      00089B F9               [12] 1749 	mov	r1,a
+      00089C E6               [12] 1750 	mov	a,@r0
+      00089D C3               [12] 1751 	clr	c
+      00089E 97               [12] 1752 	subb	a,@r1
+      00089F FA               [12] 1753 	mov	r2,a
+      0008A0 08               [12] 1754 	inc	r0
+      0008A1 E6               [12] 1755 	mov	a,@r0
+      0008A2 09               [12] 1756 	inc	r1
+      0008A3 97               [12] 1757 	subb	a,@r1
+      0008A4 FD               [12] 1758 	mov	r5,a
+      0008A5 E5*00            [12] 1759 	mov	a,_bp
+      0008A7 24 14            [12] 1760 	add	a,#0x14
+      0008A9 F8               [12] 1761 	mov	r0,a
+      0008AA 86 82            [24] 1762 	mov	dpl,@r0
+      0008AC 08               [12] 1763 	inc	r0
+      0008AD 86 83            [24] 1764 	mov	dph,@r0
+      0008AF 08               [12] 1765 	inc	r0
+      0008B0 86 F0            [24] 1766 	mov	b,@r0
+      0008B2 EA               [12] 1767 	mov	a,r2
+      0008B3 12r00r00         [24] 1768 	lcall	__gptrput
+      0008B6 A3               [24] 1769 	inc	dptr
+      0008B7 ED               [12] 1770 	mov	a,r5
+      0008B8 12r00r00         [24] 1771 	lcall	__gptrput
+                                   1772 ;	fix_fft.c:264: fi[j] = qi - ti;
+      0008BB E5*00            [12] 1773 	mov	a,_bp
+      0008BD 24 FB            [12] 1774 	add	a,#0xfb
+      0008BF F8               [12] 1775 	mov	r0,a
+      0008C0 EE               [12] 1776 	mov	a,r6
+      0008C1 26               [12] 1777 	add	a,@r0
+      0008C2 FE               [12] 1778 	mov	r6,a
+      0008C3 EF               [12] 1779 	mov	a,r7
+      0008C4 08               [12] 1780 	inc	r0
+      0008C5 36               [12] 1781 	addc	a,@r0
+      0008C6 FF               [12] 1782 	mov	r7,a
+      0008C7 08               [12] 1783 	inc	r0
+      0008C8 86 05            [24] 1784 	mov	ar5,@r0
+      0008CA E5*00            [12] 1785 	mov	a,_bp
+      0008CC 24 2A            [12] 1786 	add	a,#0x2a
+      0008CE F8               [12] 1787 	mov	r0,a
+      0008CF E5*00            [12] 1788 	mov	a,_bp
+      0008D1 24 2E            [12] 1789 	add	a,#0x2e
+      0008D3 F9               [12] 1790 	mov	r1,a
+      0008D4 E6               [12] 1791 	mov	a,@r0
+      0008D5 C3               [12] 1792 	clr	c
+      0008D6 97               [12] 1793 	subb	a,@r1
+      0008D7 FB               [12] 1794 	mov	r3,a
+      0008D8 08               [12] 1795 	inc	r0
+      0008D9 E6               [12] 1796 	mov	a,@r0
+      0008DA 09               [12] 1797 	inc	r1
+      0008DB 97               [12] 1798 	subb	a,@r1
+      0008DC FC               [12] 1799 	mov	r4,a
+      0008DD 8E 82            [24] 1800 	mov	dpl,r6
+      0008DF 8F 83            [24] 1801 	mov	dph,r7
+      0008E1 8D F0            [24] 1802 	mov	b,r5
+      0008E3 EB               [12] 1803 	mov	a,r3
+      0008E4 12r00r00         [24] 1804 	lcall	__gptrput
+      0008E7 A3               [24] 1805 	inc	dptr
+      0008E8 EC               [12] 1806 	mov	a,r4
+      0008E9 12r00r00         [24] 1807 	lcall	__gptrput
+                                   1808 ;	fix_fft.c:265: fr[i] = qr + tr;
+      0008EC E5*00            [12] 1809 	mov	a,_bp
+      0008EE 24 1A            [12] 1810 	add	a,#0x1a
+      0008F0 F8               [12] 1811 	mov	r0,a
+      0008F1 E6               [12] 1812 	mov	a,@r0
+      0008F2 26               [12] 1813 	add	a,@r0
+      0008F3 FE               [12] 1814 	mov	r6,a
+      0008F4 08               [12] 1815 	inc	r0
+      0008F5 E6               [12] 1816 	mov	a,@r0
+      0008F6 33               [12] 1817 	rlc	a
+      0008F7 FF               [12] 1818 	mov	r7,a
+      0008F8 A8*00            [24] 1819 	mov	r0,_bp
+      0008FA 08               [12] 1820 	inc	r0
+      0008FB E5*00            [12] 1821 	mov	a,_bp
+      0008FD 24 14            [12] 1822 	add	a,#0x14
+      0008FF F9               [12] 1823 	mov	r1,a
+      000900 EE               [12] 1824 	mov	a,r6
+      000901 26               [12] 1825 	add	a,@r0
+      000902 F7               [12] 1826 	mov	@r1,a
+      000903 EF               [12] 1827 	mov	a,r7
+      000904 08               [12] 1828 	inc	r0
+      000905 36               [12] 1829 	addc	a,@r0
+      000906 09               [12] 1830 	inc	r1
+      000907 F7               [12] 1831 	mov	@r1,a
+      000908 08               [12] 1832 	inc	r0
+      000909 09               [12] 1833 	inc	r1
+      00090A E6               [12] 1834 	mov	a,@r0
+      00090B F7               [12] 1835 	mov	@r1,a
+      00090C E5*00            [12] 1836 	mov	a,_bp
+      00090E 24 28            [12] 1837 	add	a,#0x28
+      000910 F8               [12] 1838 	mov	r0,a
+      000911 E5*00            [12] 1839 	mov	a,_bp
+      000913 24 2C            [12] 1840 	add	a,#0x2c
+      000915 F9               [12] 1841 	mov	r1,a
+      000916 E7               [12] 1842 	mov	a,@r1
+      000917 26               [12] 1843 	add	a,@r0
+      000918 FA               [12] 1844 	mov	r2,a
+      000919 09               [12] 1845 	inc	r1
+      00091A E7               [12] 1846 	mov	a,@r1
+      00091B 08               [12] 1847 	inc	r0
+      00091C 36               [12] 1848 	addc	a,@r0
+      00091D FD               [12] 1849 	mov	r5,a
+      00091E E5*00            [12] 1850 	mov	a,_bp
+      000920 24 14            [12] 1851 	add	a,#0x14
+      000922 F8               [12] 1852 	mov	r0,a
+      000923 86 82            [24] 1853 	mov	dpl,@r0
+      000925 08               [12] 1854 	inc	r0
+      000926 86 83            [24] 1855 	mov	dph,@r0
+      000928 08               [12] 1856 	inc	r0
+      000929 86 F0            [24] 1857 	mov	b,@r0
+      00092B EA               [12] 1858 	mov	a,r2
+      00092C 12r00r00         [24] 1859 	lcall	__gptrput
+      00092F A3               [24] 1860 	inc	dptr
+      000930 ED               [12] 1861 	mov	a,r5
+      000931 12r00r00         [24] 1862 	lcall	__gptrput
+                                   1863 ;	fix_fft.c:266: fi[i] = qi + ti;
+      000934 E5*00            [12] 1864 	mov	a,_bp
+      000936 24 FB            [12] 1865 	add	a,#0xfb
+      000938 F8               [12] 1866 	mov	r0,a
+      000939 EE               [12] 1867 	mov	a,r6
+      00093A 26               [12] 1868 	add	a,@r0
+      00093B FE               [12] 1869 	mov	r6,a
+      00093C EF               [12] 1870 	mov	a,r7
+      00093D 08               [12] 1871 	inc	r0
+      00093E 36               [12] 1872 	addc	a,@r0
+      00093F FF               [12] 1873 	mov	r7,a
+      000940 08               [12] 1874 	inc	r0
+      000941 86 05            [24] 1875 	mov	ar5,@r0
+      000943 E5*00            [12] 1876 	mov	a,_bp
+      000945 24 2A            [12] 1877 	add	a,#0x2a
+      000947 F8               [12] 1878 	mov	r0,a
+      000948 E5*00            [12] 1879 	mov	a,_bp
+      00094A 24 2E            [12] 1880 	add	a,#0x2e
+      00094C F9               [12] 1881 	mov	r1,a
+      00094D E7               [12] 1882 	mov	a,@r1
+      00094E 26               [12] 1883 	add	a,@r0
+      00094F FB               [12] 1884 	mov	r3,a
+      000950 09               [12] 1885 	inc	r1
+      000951 E7               [12] 1886 	mov	a,@r1
+      000952 08               [12] 1887 	inc	r0
+      000953 36               [12] 1888 	addc	a,@r0
+      000954 FC               [12] 1889 	mov	r4,a
+      000955 8E 82            [24] 1890 	mov	dpl,r6
+      000957 8F 83            [24] 1891 	mov	dph,r7
+      000959 8D F0            [24] 1892 	mov	b,r5
+      00095B EB               [12] 1893 	mov	a,r3
+      00095C 12r00r00         [24] 1894 	lcall	__gptrput
+      00095F A3               [24] 1895 	inc	dptr
+      000960 EC               [12] 1896 	mov	a,r4
+      000961 12r00r00         [24] 1897 	lcall	__gptrput
+                                   1898 ;	fix_fft.c:250: for (i = m; i < n; i += istep) {
+      000964 E5*00            [12] 1899 	mov	a,_bp
+      000966 24 1A            [12] 1900 	add	a,#0x1a
+      000968 F8               [12] 1901 	mov	r0,a
+      000969 E5*00            [12] 1902 	mov	a,_bp
+      00096B 24 20            [12] 1903 	add	a,#0x20
+      00096D F9               [12] 1904 	mov	r1,a
+      00096E E7               [12] 1905 	mov	a,@r1
+      00096F 26               [12] 1906 	add	a,@r0
+      000970 F6               [12] 1907 	mov	@r0,a
+      000971 09               [12] 1908 	inc	r1
+      000972 E7               [12] 1909 	mov	a,@r1
+      000973 08               [12] 1910 	inc	r0
+      000974 36               [12] 1911 	addc	a,@r0
+      000975 F6               [12] 1912 	mov	@r0,a
+      000976 D0 03            [24] 1913 	pop	ar3
+      000978 D0 02            [24] 1914 	pop	ar2
+      00097A 02r04rE1         [24] 1915 	ljmp	00144$
+      00097D                       1916 00148$:
+                                   1917 ;	fix_fft.c:237: for (m = 0; m < l; m++) {
+      00097D 0A               [12] 1918 	inc	r2
+      00097E BA 00 01         [24] 1919 	cjne	r2,#0x00,00294$
+      000981 0B               [12] 1920 	inc	r3
+      000982                       1921 00294$:
+      000982 02r04r19         [24] 1922 	ljmp	00147$
+      000985                       1923 00130$:
+                                   1924 ;	fix_fft.c:270: k--;
+      000985 E5*00            [12] 1925 	mov	a,_bp
+      000987 24 1E            [12] 1926 	add	a,#0x1e
+      000989 F8               [12] 1927 	mov	r0,a
+      00098A 16               [12] 1928 	dec	@r0
+      00098B B6 FF 02         [24] 1929 	cjne	@r0,#0xff,00295$
+      00098E 08               [12] 1930 	inc	r0
+      00098F 16               [12] 1931 	dec	@r0
+      000990                       1932 00295$:
+                                   1933 ;	fix_fft.c:271: l = istep;
+      000990 E5*00            [12] 1934 	mov	a,_bp
+      000992 24 20            [12] 1935 	add	a,#0x20
+      000994 F8               [12] 1936 	mov	r0,a
+      000995 E5*00            [12] 1937 	mov	a,_bp
+      000997 24 1C            [12] 1938 	add	a,#0x1c
+      000999 F9               [12] 1939 	mov	r1,a
+      00099A E6               [12] 1940 	mov	a,@r0
+      00099B F7               [12] 1941 	mov	@r1,a
+      00099C 08               [12] 1942 	inc	r0
+      00099D 09               [12] 1943 	inc	r1
+      00099E E6               [12] 1944 	mov	a,@r0
+      00099F F7               [12] 1945 	mov	@r1,a
+      0009A0 02r02rC4         [24] 1946 	ljmp	00131$
+      0009A3                       1947 00133$:
+                                   1948 ;	fix_fft.c:274: return scale;
+      0009A3 E5*00            [12] 1949 	mov	a,_bp
+      0009A5 24 24            [12] 1950 	add	a,#0x24
+      0009A7 F8               [12] 1951 	mov	r0,a
+      0009A8 86 82            [24] 1952 	mov	dpl,@r0
+      0009AA 08               [12] 1953 	inc	r0
+      0009AB 86 83            [24] 1954 	mov	dph,@r0
+      0009AD                       1955 00149$:
+                                   1956 ;	fix_fft.c:275: }
+      0009AD 85*00 81         [24] 1957 	mov	sp,_bp
+      0009B0 D0*00            [24] 1958 	pop	_bp
+      0009B2 22               [24] 1959 	ret
+                                   1960 ;------------------------------------------------------------
+                                   1961 ;Allocation info for local variables in function 'fix_fftr'
+                                   1962 ;------------------------------------------------------------
+                                   1963 ;m                         Allocated to stack - _bp -4
+                                   1964 ;inverse                   Allocated to stack - _bp -6
+                                   1965 ;f                         Allocated to stack - _bp +1
+                                   1966 ;i                         Allocated to stack - _bp +12
+                                   1967 ;N                         Allocated to stack - _bp +14
+                                   1968 ;scale                     Allocated to registers r2 r4 
+                                   1969 ;tt                        Allocated to stack - _bp +7
+                                   1970 ;fr                        Allocated to registers 
+                                   1971 ;fi                        Allocated to stack - _bp +9
+                                   1972 ;sloc0                     Allocated to stack - _bp +4
+                                   1973 ;------------------------------------------------------------
+                                   1974 ;	fix_fft.c:291: int16_t fix_fftr(int16_t *f, int16_t m, int16_t inverse) {
+                                   1975 ;	-----------------------------------------
+                                   1976 ;	 function fix_fftr
+                                   1977 ;	-----------------------------------------
+      0009B3                       1978 _fix_fftr:
+      0009B3 C0*00            [24] 1979 	push	_bp
+      0009B5 85 81*00         [24] 1980 	mov	_bp,sp
+      0009B8 C0 82            [24] 1981 	push	dpl
+      0009BA C0 83            [24] 1982 	push	dph
+      0009BC C0 F0            [24] 1983 	push	b
+      0009BE E5 81            [12] 1984 	mov	a,sp
+      0009C0 24 0C            [12] 1985 	add	a,#0x0c
+      0009C2 F5 81            [12] 1986 	mov	sp,a
+                                   1987 ;	fix_fft.c:292: int16_t i, N = 1 << (m - 1), scale = 0;
+      0009C4 E5*00            [12] 1988 	mov	a,_bp
+      0009C6 24 FC            [12] 1989 	add	a,#0xfc
+      0009C8 F8               [12] 1990 	mov	r0,a
+      0009C9 86 04            [24] 1991 	mov	ar4,@r0
+      0009CB 1C               [12] 1992 	dec	r4
+      0009CC 8C F0            [24] 1993 	mov	b,r4
+      0009CE 05 F0            [12] 1994 	inc	b
+      0009D0 7C 01            [12] 1995 	mov	r4,#0x01
+      0009D2 7B 00            [12] 1996 	mov	r3,#0x00
+      0009D4 80 06            [24] 1997 	sjmp	00128$
+      0009D6                       1998 00127$:
+      0009D6 EC               [12] 1999 	mov	a,r4
+      0009D7 2C               [12] 2000 	add	a,r4
+      0009D8 FC               [12] 2001 	mov	r4,a
+      0009D9 EB               [12] 2002 	mov	a,r3
+      0009DA 33               [12] 2003 	rlc	a
+      0009DB FB               [12] 2004 	mov	r3,a
+      0009DC                       2005 00128$:
+      0009DC D5 F0 F7         [24] 2006 	djnz	b,00127$
+      0009DF E5*00            [12] 2007 	mov	a,_bp
+      0009E1 24 0E            [12] 2008 	add	a,#0x0e
+      0009E3 F8               [12] 2009 	mov	r0,a
+      0009E4 A6 04            [24] 2010 	mov	@r0,ar4
+      0009E6 08               [12] 2011 	inc	r0
+      0009E7 A6 03            [24] 2012 	mov	@r0,ar3
+                                   2013 ;	fix_fft.c:293: int16_t tt, *fr = f, *fi = f + N;
+      0009E9 E4               [12] 2014 	clr	a
+      0009EA FA               [12] 2015 	mov	r2,a
+      0009EB FC               [12] 2016 	mov	r4,a
+      0009EC E5*00            [12] 2017 	mov	a,_bp
+      0009EE 24 0E            [12] 2018 	add	a,#0x0e
+      0009F0 F8               [12] 2019 	mov	r0,a
+      0009F1 E6               [12] 2020 	mov	a,@r0
+      0009F2 26               [12] 2021 	add	a,@r0
+      0009F3 FB               [12] 2022 	mov	r3,a
+      0009F4 08               [12] 2023 	inc	r0
+      0009F5 E6               [12] 2024 	mov	a,@r0
+      0009F6 33               [12] 2025 	rlc	a
+      0009F7 FF               [12] 2026 	mov	r7,a
+      0009F8 A8*00            [24] 2027 	mov	r0,_bp
+      0009FA 08               [12] 2028 	inc	r0
+      0009FB EB               [12] 2029 	mov	a,r3
+      0009FC 26               [12] 2030 	add	a,@r0
+      0009FD FB               [12] 2031 	mov	r3,a
+      0009FE EF               [12] 2032 	mov	a,r7
+      0009FF 08               [12] 2033 	inc	r0
+      000A00 36               [12] 2034 	addc	a,@r0
+      000A01 FF               [12] 2035 	mov	r7,a
+      000A02 08               [12] 2036 	inc	r0
+      000A03 86 06            [24] 2037 	mov	ar6,@r0
+      000A05 E5*00            [12] 2038 	mov	a,_bp
+      000A07 24 09            [12] 2039 	add	a,#0x09
+      000A09 F8               [12] 2040 	mov	r0,a
+      000A0A A6 03            [24] 2041 	mov	@r0,ar3
+      000A0C 08               [12] 2042 	inc	r0
+      000A0D A6 07            [24] 2043 	mov	@r0,ar7
+      000A0F 08               [12] 2044 	inc	r0
+      000A10 A6 06            [24] 2045 	mov	@r0,ar6
+                                   2046 ;	fix_fft.c:295: if (inverse)
+      000A12 E5*00            [12] 2047 	mov	a,_bp
+      000A14 24 FA            [12] 2048 	add	a,#0xfa
+      000A16 F8               [12] 2049 	mov	r0,a
+      000A17 E6               [12] 2050 	mov	a,@r0
+      000A18 08               [12] 2051 	inc	r0
+      000A19 46               [12] 2052 	orl	a,@r0
+      000A1A 60 4B            [24] 2053 	jz	00102$
+                                   2054 ;	fix_fft.c:296: scale = fix_fft(fi, fr, m - 1, inverse);
+      000A1C E5*00            [12] 2055 	mov	a,_bp
+      000A1E 24 FC            [12] 2056 	add	a,#0xfc
+      000A20 F8               [12] 2057 	mov	r0,a
+      000A21 86 03            [24] 2058 	mov	ar3,@r0
+      000A23 08               [12] 2059 	inc	r0
+      000A24 86 07            [24] 2060 	mov	ar7,@r0
+      000A26 1B               [12] 2061 	dec	r3
+      000A27 BB FF 01         [24] 2062 	cjne	r3,#0xff,00130$
+      000A2A 1F               [12] 2063 	dec	r7
+      000A2B                       2064 00130$:
+      000A2B E5*00            [12] 2065 	mov	a,_bp
+      000A2D 24 FA            [12] 2066 	add	a,#0xfa
+      000A2F F8               [12] 2067 	mov	r0,a
+      000A30 E6               [12] 2068 	mov	a,@r0
+      000A31 C0 E0            [24] 2069 	push	acc
+      000A33 08               [12] 2070 	inc	r0
+      000A34 E6               [12] 2071 	mov	a,@r0
+      000A35 C0 E0            [24] 2072 	push	acc
+      000A37 C0 03            [24] 2073 	push	ar3
+      000A39 C0 07            [24] 2074 	push	ar7
+      000A3B A8*00            [24] 2075 	mov	r0,_bp
+      000A3D 08               [12] 2076 	inc	r0
+      000A3E E6               [12] 2077 	mov	a,@r0
+      000A3F C0 E0            [24] 2078 	push	acc
+      000A41 08               [12] 2079 	inc	r0
+      000A42 E6               [12] 2080 	mov	a,@r0
+      000A43 C0 E0            [24] 2081 	push	acc
+      000A45 08               [12] 2082 	inc	r0
+      000A46 E6               [12] 2083 	mov	a,@r0
+      000A47 C0 E0            [24] 2084 	push	acc
+      000A49 E5*00            [12] 2085 	mov	a,_bp
+      000A4B 24 09            [12] 2086 	add	a,#0x09
+      000A4D F8               [12] 2087 	mov	r0,a
+      000A4E 86 82            [24] 2088 	mov	dpl,@r0
+      000A50 08               [12] 2089 	inc	r0
+      000A51 86 83            [24] 2090 	mov	dph,@r0
+      000A53 08               [12] 2091 	inc	r0
+      000A54 86 F0            [24] 2092 	mov	b,@r0
+      000A56 12r00r00         [24] 2093 	lcall	_fix_fft
+      000A59 AE 82            [24] 2094 	mov	r6,dpl
+      000A5B AF 83            [24] 2095 	mov	r7,dph
+      000A5D E5 81            [12] 2096 	mov	a,sp
+      000A5F 24 F9            [12] 2097 	add	a,#0xf9
+      000A61 F5 81            [12] 2098 	mov	sp,a
+      000A63 8E 02            [24] 2099 	mov	ar2,r6
+      000A65 8F 04            [24] 2100 	mov	ar4,r7
+      000A67                       2101 00102$:
+                                   2102 ;	fix_fft.c:298: for (i = 1; i < N; i += 2) {
+      000A67 E5*00            [12] 2103 	mov	a,_bp
+      000A69 24 0C            [12] 2104 	add	a,#0x0c
+      000A6B F8               [12] 2105 	mov	r0,a
+      000A6C 76 01            [12] 2106 	mov	@r0,#0x01
+      000A6E 08               [12] 2107 	inc	r0
+      000A6F 76 00            [12] 2108 	mov	@r0,#0x00
+      000A71                       2109 00107$:
+      000A71 E5*00            [12] 2110 	mov	a,_bp
+      000A73 24 0C            [12] 2111 	add	a,#0x0c
+      000A75 F8               [12] 2112 	mov	r0,a
+      000A76 E5*00            [12] 2113 	mov	a,_bp
+      000A78 24 0E            [12] 2114 	add	a,#0x0e
+      000A7A F9               [12] 2115 	mov	r1,a
+      000A7B C3               [12] 2116 	clr	c
+      000A7C E6               [12] 2117 	mov	a,@r0
+      000A7D 97               [12] 2118 	subb	a,@r1
+      000A7E 08               [12] 2119 	inc	r0
+      000A7F E6               [12] 2120 	mov	a,@r0
+      000A80 64 80            [12] 2121 	xrl	a,#0x80
+      000A82 09               [12] 2122 	inc	r1
+      000A83 87 F0            [24] 2123 	mov	b,@r1
+      000A85 63 F0 80         [24] 2124 	xrl	b,#0x80
+      000A88 95 F0            [12] 2125 	subb	a,b
+      000A8A 40 03            [24] 2126 	jc	00131$
+      000A8C 02r0Br55         [24] 2127 	ljmp	00103$
+      000A8F                       2128 00131$:
+                                   2129 ;	fix_fft.c:299: tt = f[N + i - 1];
+      000A8F C0 02            [24] 2130 	push	ar2
+      000A91 C0 04            [24] 2131 	push	ar4
+      000A93 E5*00            [12] 2132 	mov	a,_bp
+      000A95 24 0E            [12] 2133 	add	a,#0x0e
+      000A97 F8               [12] 2134 	mov	r0,a
+      000A98 E5*00            [12] 2135 	mov	a,_bp
+      000A9A 24 0C            [12] 2136 	add	a,#0x0c
+      000A9C F9               [12] 2137 	mov	r1,a
+      000A9D E7               [12] 2138 	mov	a,@r1
+      000A9E 26               [12] 2139 	add	a,@r0
+      000A9F FB               [12] 2140 	mov	r3,a
+      000AA0 09               [12] 2141 	inc	r1
+      000AA1 E7               [12] 2142 	mov	a,@r1
+      000AA2 08               [12] 2143 	inc	r0
+      000AA3 36               [12] 2144 	addc	a,@r0
+      000AA4 FD               [12] 2145 	mov	r5,a
+      000AA5 1B               [12] 2146 	dec	r3
+      000AA6 BB FF 01         [24] 2147 	cjne	r3,#0xff,00132$
+      000AA9 1D               [12] 2148 	dec	r5
+      000AAA                       2149 00132$:
+      000AAA EB               [12] 2150 	mov	a,r3
+      000AAB 2B               [12] 2151 	add	a,r3
+      000AAC FB               [12] 2152 	mov	r3,a
+      000AAD ED               [12] 2153 	mov	a,r5
+      000AAE 33               [12] 2154 	rlc	a
+      000AAF FD               [12] 2155 	mov	r5,a
+      000AB0 A8*00            [24] 2156 	mov	r0,_bp
+      000AB2 08               [12] 2157 	inc	r0
+      000AB3 EB               [12] 2158 	mov	a,r3
+      000AB4 26               [12] 2159 	add	a,@r0
+      000AB5 FB               [12] 2160 	mov	r3,a
+      000AB6 ED               [12] 2161 	mov	a,r5
+      000AB7 08               [12] 2162 	inc	r0
+      000AB8 36               [12] 2163 	addc	a,@r0
+      000AB9 FC               [12] 2164 	mov	r4,a
+      000ABA 08               [12] 2165 	inc	r0
+      000ABB 86 05            [24] 2166 	mov	ar5,@r0
+      000ABD 8B 82            [24] 2167 	mov	dpl,r3
+      000ABF 8C 83            [24] 2168 	mov	dph,r4
+      000AC1 8D F0            [24] 2169 	mov	b,r5
+      000AC3 E5*00            [12] 2170 	mov	a,_bp
+      000AC5 24 07            [12] 2171 	add	a,#0x07
+      000AC7 F8               [12] 2172 	mov	r0,a
+      000AC8 12r00r00         [24] 2173 	lcall	__gptrget
+      000ACB F6               [12] 2174 	mov	@r0,a
+      000ACC A3               [24] 2175 	inc	dptr
+      000ACD 12r00r00         [24] 2176 	lcall	__gptrget
+      000AD0 08               [12] 2177 	inc	r0
+      000AD1 F6               [12] 2178 	mov	@r0,a
+                                   2179 ;	fix_fft.c:300: f[N + i - 1] = f[i];
+      000AD2 E5*00            [12] 2180 	mov	a,_bp
+      000AD4 24 0C            [12] 2181 	add	a,#0x0c
+      000AD6 F8               [12] 2182 	mov	r0,a
+      000AD7 E6               [12] 2183 	mov	a,@r0
+      000AD8 26               [12] 2184 	add	a,@r0
+      000AD9 FA               [12] 2185 	mov	r2,a
+      000ADA 08               [12] 2186 	inc	r0
+      000ADB E6               [12] 2187 	mov	a,@r0
+      000ADC 33               [12] 2188 	rlc	a
+      000ADD FF               [12] 2189 	mov	r7,a
+      000ADE A8*00            [24] 2190 	mov	r0,_bp
+      000AE0 08               [12] 2191 	inc	r0
+      000AE1 E5*00            [12] 2192 	mov	a,_bp
+      000AE3 24 04            [12] 2193 	add	a,#0x04
+      000AE5 F9               [12] 2194 	mov	r1,a
+      000AE6 EA               [12] 2195 	mov	a,r2
+      000AE7 26               [12] 2196 	add	a,@r0
+      000AE8 F7               [12] 2197 	mov	@r1,a
+      000AE9 EF               [12] 2198 	mov	a,r7
+      000AEA 08               [12] 2199 	inc	r0
+      000AEB 36               [12] 2200 	addc	a,@r0
+      000AEC 09               [12] 2201 	inc	r1
+      000AED F7               [12] 2202 	mov	@r1,a
+      000AEE 08               [12] 2203 	inc	r0
+      000AEF 09               [12] 2204 	inc	r1
+      000AF0 E6               [12] 2205 	mov	a,@r0
+      000AF1 F7               [12] 2206 	mov	@r1,a
+      000AF2 E5*00            [12] 2207 	mov	a,_bp
+      000AF4 24 04            [12] 2208 	add	a,#0x04
+      000AF6 F8               [12] 2209 	mov	r0,a
+      000AF7 86 82            [24] 2210 	mov	dpl,@r0
+      000AF9 08               [12] 2211 	inc	r0
+      000AFA 86 83            [24] 2212 	mov	dph,@r0
+      000AFC 08               [12] 2213 	inc	r0
+      000AFD 86 F0            [24] 2214 	mov	b,@r0
+      000AFF 12r00r00         [24] 2215 	lcall	__gptrget
+      000B02 FE               [12] 2216 	mov	r6,a
+      000B03 A3               [24] 2217 	inc	dptr
+      000B04 12r00r00         [24] 2218 	lcall	__gptrget
+      000B07 FF               [12] 2219 	mov	r7,a
+      000B08 8B 82            [24] 2220 	mov	dpl,r3
+      000B0A 8C 83            [24] 2221 	mov	dph,r4
+      000B0C 8D F0            [24] 2222 	mov	b,r5
+      000B0E EE               [12] 2223 	mov	a,r6
+      000B0F 12r00r00         [24] 2224 	lcall	__gptrput
+      000B12 A3               [24] 2225 	inc	dptr
+      000B13 EF               [12] 2226 	mov	a,r7
+      000B14 12r00r00         [24] 2227 	lcall	__gptrput
+                                   2228 ;	fix_fft.c:301: f[i] = tt;
+      000B17 E5*00            [12] 2229 	mov	a,_bp
+      000B19 24 04            [12] 2230 	add	a,#0x04
+      000B1B F8               [12] 2231 	mov	r0,a
+      000B1C 86 82            [24] 2232 	mov	dpl,@r0
+      000B1E 08               [12] 2233 	inc	r0
+      000B1F 86 83            [24] 2234 	mov	dph,@r0
+      000B21 08               [12] 2235 	inc	r0
+      000B22 86 F0            [24] 2236 	mov	b,@r0
+      000B24 E5*00            [12] 2237 	mov	a,_bp
+      000B26 24 07            [12] 2238 	add	a,#0x07
+      000B28 F9               [12] 2239 	mov	r1,a
+      000B29 E7               [12] 2240 	mov	a,@r1
+      000B2A 12r00r00         [24] 2241 	lcall	__gptrput
+      000B2D A3               [24] 2242 	inc	dptr
+      000B2E 09               [12] 2243 	inc	r1
+      000B2F E7               [12] 2244 	mov	a,@r1
+      000B30 12r00r00         [24] 2245 	lcall	__gptrput
+                                   2246 ;	fix_fft.c:298: for (i = 1; i < N; i += 2) {
+      000B33 E5*00            [12] 2247 	mov	a,_bp
+      000B35 24 0C            [12] 2248 	add	a,#0x0c
+      000B37 F8               [12] 2249 	mov	r0,a
+      000B38 86 06            [24] 2250 	mov	ar6,@r0
+      000B3A 08               [12] 2251 	inc	r0
+      000B3B 86 07            [24] 2252 	mov	ar7,@r0
+      000B3D 74 02            [12] 2253 	mov	a,#0x02
+      000B3F 2E               [12] 2254 	add	a,r6
+      000B40 FE               [12] 2255 	mov	r6,a
+      000B41 E4               [12] 2256 	clr	a
+      000B42 3F               [12] 2257 	addc	a,r7
+      000B43 FF               [12] 2258 	mov	r7,a
+      000B44 E5*00            [12] 2259 	mov	a,_bp
+      000B46 24 0C            [12] 2260 	add	a,#0x0c
+      000B48 F8               [12] 2261 	mov	r0,a
+      000B49 A6 06            [24] 2262 	mov	@r0,ar6
+      000B4B 08               [12] 2263 	inc	r0
+      000B4C A6 07            [24] 2264 	mov	@r0,ar7
+      000B4E D0 04            [24] 2265 	pop	ar4
+      000B50 D0 02            [24] 2266 	pop	ar2
+      000B52 02r0Ar71         [24] 2267 	ljmp	00107$
+      000B55                       2268 00103$:
+                                   2269 ;	fix_fft.c:304: if (!inverse)
+      000B55 E5*00            [12] 2270 	mov	a,_bp
+      000B57 24 FA            [12] 2271 	add	a,#0xfa
+      000B59 F8               [12] 2272 	mov	r0,a
+      000B5A E6               [12] 2273 	mov	a,@r0
+      000B5B 08               [12] 2274 	inc	r0
+      000B5C 46               [12] 2275 	orl	a,@r0
+      000B5D 70 4B            [24] 2276 	jnz	00105$
+                                   2277 ;	fix_fft.c:305: scale = fix_fft(fi, fr, m - 1, inverse);
+      000B5F E5*00            [12] 2278 	mov	a,_bp
+      000B61 24 FC            [12] 2279 	add	a,#0xfc
+      000B63 F8               [12] 2280 	mov	r0,a
+      000B64 86 06            [24] 2281 	mov	ar6,@r0
+      000B66 08               [12] 2282 	inc	r0
+      000B67 86 07            [24] 2283 	mov	ar7,@r0
+      000B69 1E               [12] 2284 	dec	r6
+      000B6A BE FF 01         [24] 2285 	cjne	r6,#0xff,00134$
+      000B6D 1F               [12] 2286 	dec	r7
+      000B6E                       2287 00134$:
+      000B6E E5*00            [12] 2288 	mov	a,_bp
+      000B70 24 FA            [12] 2289 	add	a,#0xfa
+      000B72 F8               [12] 2290 	mov	r0,a
+      000B73 E6               [12] 2291 	mov	a,@r0
+      000B74 C0 E0            [24] 2292 	push	acc
+      000B76 08               [12] 2293 	inc	r0
+      000B77 E6               [12] 2294 	mov	a,@r0
+      000B78 C0 E0            [24] 2295 	push	acc
+      000B7A C0 06            [24] 2296 	push	ar6
+      000B7C C0 07            [24] 2297 	push	ar7
+      000B7E A8*00            [24] 2298 	mov	r0,_bp
+      000B80 08               [12] 2299 	inc	r0
+      000B81 E6               [12] 2300 	mov	a,@r0
+      000B82 C0 E0            [24] 2301 	push	acc
+      000B84 08               [12] 2302 	inc	r0
+      000B85 E6               [12] 2303 	mov	a,@r0
+      000B86 C0 E0            [24] 2304 	push	acc
+      000B88 08               [12] 2305 	inc	r0
+      000B89 E6               [12] 2306 	mov	a,@r0
+      000B8A C0 E0            [24] 2307 	push	acc
+      000B8C E5*00            [12] 2308 	mov	a,_bp
+      000B8E 24 09            [12] 2309 	add	a,#0x09
+      000B90 F8               [12] 2310 	mov	r0,a
+      000B91 86 82            [24] 2311 	mov	dpl,@r0
+      000B93 08               [12] 2312 	inc	r0
+      000B94 86 83            [24] 2313 	mov	dph,@r0
+      000B96 08               [12] 2314 	inc	r0
+      000B97 86 F0            [24] 2315 	mov	b,@r0
+      000B99 12r00r00         [24] 2316 	lcall	_fix_fft
+      000B9C AE 82            [24] 2317 	mov	r6,dpl
+      000B9E AF 83            [24] 2318 	mov	r7,dph
+      000BA0 E5 81            [12] 2319 	mov	a,sp
+      000BA2 24 F9            [12] 2320 	add	a,#0xf9
+      000BA4 F5 81            [12] 2321 	mov	sp,a
+      000BA6 8E 02            [24] 2322 	mov	ar2,r6
+      000BA8 8F 04            [24] 2323 	mov	ar4,r7
+      000BAA                       2324 00105$:
+                                   2325 ;	fix_fft.c:307: return scale;
+      000BAA 8A 82            [24] 2326 	mov	dpl,r2
+      000BAC 8C 83            [24] 2327 	mov	dph,r4
+                                   2328 ;	fix_fft.c:308: }
+      000BAE 85*00 81         [24] 2329 	mov	sp,_bp
+      000BB1 D0*00            [24] 2330 	pop	_bp
+      000BB3 22               [24] 2331 	ret
+                                   2332 	.area CSEG    (CODE)
+                                   2333 	.area CONST   (CODE)
+                                   2334 	.area XINIT   (CODE)
+      000000                       2335 __xinit__Sinewave:
+      000000 00 00                 2336 	.byte #0x00, #0x00	;  0
+      000002 C9 00                 2337 	.byte #0xc9, #0x00	;  201
+      000004 92 01                 2338 	.byte #0x92, #0x01	;  402
+      000006 5B 02                 2339 	.byte #0x5b, #0x02	;  603
+      000008 24 03                 2340 	.byte #0x24, #0x03	;  804
+      00000A ED 03                 2341 	.byte #0xed, #0x03	;  1005
+      00000C B6 04                 2342 	.byte #0xb6, #0x04	;  1206
+      00000E 7E 05                 2343 	.byte #0x7e, #0x05	;  1406
+      000010 47 06                 2344 	.byte #0x47, #0x06	;  1607
+      000012 10 07                 2345 	.byte #0x10, #0x07	;  1808
+      000014 D9 07                 2346 	.byte #0xd9, #0x07	;  2009
+      000016 A1 08                 2347 	.byte #0xa1, #0x08	;  2209
+      000018 6A 09                 2348 	.byte #0x6a, #0x09	;  2410
+      00001A 32 0A                 2349 	.byte #0x32, #0x0a	;  2610
+      00001C FB 0A                 2350 	.byte #0xfb, #0x0a	;  2811
+      00001E C3 0B                 2351 	.byte #0xc3, #0x0b	;  3011
+      000020 8B 0C                 2352 	.byte #0x8b, #0x0c	;  3211
+      000022 53 0D                 2353 	.byte #0x53, #0x0d	;  3411
+      000024 1B 0E                 2354 	.byte #0x1b, #0x0e	;  3611
+      000026 E3 0E                 2355 	.byte #0xe3, #0x0e	;  3811
+      000028 AB 0F                 2356 	.byte #0xab, #0x0f	;  4011
+      00002A 72 10                 2357 	.byte #0x72, #0x10	;  4210
+      00002C 39 11                 2358 	.byte #0x39, #0x11	;  4409
+      00002E 00 12                 2359 	.byte #0x00, #0x12	;  4608
+      000030 C7 12                 2360 	.byte #0xc7, #0x12	;  4807
+      000032 8E 13                 2361 	.byte #0x8e, #0x13	;  5006
+      000034 55 14                 2362 	.byte #0x55, #0x14	;  5205
+      000036 1B 15                 2363 	.byte #0x1b, #0x15	;  5403
+      000038 E1 15                 2364 	.byte #0xe1, #0x15	;  5601
+      00003A A7 16                 2365 	.byte #0xa7, #0x16	;  5799
+      00003C 6D 17                 2366 	.byte #0x6d, #0x17	;  5997
+      00003E 33 18                 2367 	.byte #0x33, #0x18	;  6195
+      000040 F8 18                 2368 	.byte #0xf8, #0x18	;  6392
+      000042 BD 19                 2369 	.byte #0xbd, #0x19	;  6589
+      000044 82 1A                 2370 	.byte #0x82, #0x1a	;  6786
+      000046 46 1B                 2371 	.byte #0x46, #0x1b	;  6982
+      000048 0B 1C                 2372 	.byte #0x0b, #0x1c	;  7179
+      00004A CF 1C                 2373 	.byte #0xcf, #0x1c	;  7375
+      00004C 93 1D                 2374 	.byte #0x93, #0x1d	;  7571
+      00004E 56 1E                 2375 	.byte #0x56, #0x1e	;  7766
+      000050 19 1F                 2376 	.byte #0x19, #0x1f	;  7961
+      000052 DC 1F                 2377 	.byte #0xdc, #0x1f	;  8156
+      000054 9F 20                 2378 	.byte #0x9f, #0x20	;  8351
+      000056 61 21                 2379 	.byte #0x61, #0x21	;  8545
+      000058 23 22                 2380 	.byte #0x23, #0x22	;  8739
+      00005A E4 22                 2381 	.byte #0xe4, #0x22	;  8932
+      00005C A6 23                 2382 	.byte #0xa6, #0x23	;  9126
+      00005E 67 24                 2383 	.byte #0x67, #0x24	;  9319
+      000060 27 25                 2384 	.byte #0x27, #0x25	;  9511
+      000062 E7 25                 2385 	.byte #0xe7, #0x25	;  9703
+      000064 A7 26                 2386 	.byte #0xa7, #0x26	;  9895
+      000066 67 27                 2387 	.byte #0x67, #0x27	;  10087
+      000068 26 28                 2388 	.byte #0x26, #0x28	;  10278
+      00006A E5 28                 2389 	.byte #0xe5, #0x28	;  10469
+      00006C A3 29                 2390 	.byte #0xa3, #0x29	;  10659
+      00006E 61 2A                 2391 	.byte #0x61, #0x2a	;  10849
+      000070 1E 2B                 2392 	.byte #0x1e, #0x2b	;  11038
+      000072 DB 2B                 2393 	.byte #0xdb, #0x2b	;  11227
+      000074 98 2C                 2394 	.byte #0x98, #0x2c	;  11416
+      000076 54 2D                 2395 	.byte #0x54, #0x2d	;  11604
+      000078 10 2E                 2396 	.byte #0x10, #0x2e	;  11792
+      00007A CC 2E                 2397 	.byte #0xcc, #0x2e	;  11980
+      00007C 86 2F                 2398 	.byte #0x86, #0x2f	;  12166
+      00007E 41 30                 2399 	.byte #0x41, #0x30	;  12353
+      000080 FB 30                 2400 	.byte #0xfb, #0x30	;  12539
+      000082 B4 31                 2401 	.byte #0xb4, #0x31	;  12724
+      000084 6D 32                 2402 	.byte #0x6d, #0x32	;  12909
+      000086 26 33                 2403 	.byte #0x26, #0x33	;  13094
+      000088 DE 33                 2404 	.byte #0xde, #0x33	;  13278
+      00008A 96 34                 2405 	.byte #0x96, #0x34	;  13462
+      00008C 4D 35                 2406 	.byte #0x4d, #0x35	;  13645
+      00008E 03 36                 2407 	.byte #0x03, #0x36	;  13827
+      000090 B9 36                 2408 	.byte #0xb9, #0x36	;  14009
+      000092 6F 37                 2409 	.byte #0x6f, #0x37	;  14191
+      000094 24 38                 2410 	.byte #0x24, #0x38	;  14372
+      000096 D8 38                 2411 	.byte #0xd8, #0x38	;  14552
+      000098 8C 39                 2412 	.byte #0x8c, #0x39	;  14732
+      00009A 3F 3A                 2413 	.byte #0x3f, #0x3a	;  14911
+      00009C F2 3A                 2414 	.byte #0xf2, #0x3a	;  15090
+      00009E A4 3B                 2415 	.byte #0xa4, #0x3b	;  15268
+      0000A0 56 3C                 2416 	.byte #0x56, #0x3c	;  15446
+      0000A2 07 3D                 2417 	.byte #0x07, #0x3d	;  15623
+      0000A4 B7 3D                 2418 	.byte #0xb7, #0x3d	;  15799
+      0000A6 67 3E                 2419 	.byte #0x67, #0x3e	;  15975
+      0000A8 16 3F                 2420 	.byte #0x16, #0x3f	;  16150
+      0000AA C5 3F                 2421 	.byte #0xc5, #0x3f	;  16325
+      0000AC 73 40                 2422 	.byte #0x73, #0x40	;  16499
+      0000AE 20 41                 2423 	.byte #0x20, #0x41	;  16672
+      0000B0 CD 41                 2424 	.byte #0xcd, #0x41	;  16845
+      0000B2 79 42                 2425 	.byte #0x79, #0x42	;  17017
+      0000B4 25 43                 2426 	.byte #0x25, #0x43	;  17189
+      0000B6 D0 43                 2427 	.byte #0xd0, #0x43	;  17360
+      0000B8 7A 44                 2428 	.byte #0x7a, #0x44	;  17530
+      0000BA 23 45                 2429 	.byte #0x23, #0x45	;  17699
+      0000BC CC 45                 2430 	.byte #0xcc, #0x45	;  17868
+      0000BE 74 46                 2431 	.byte #0x74, #0x46	;  18036
+      0000C0 1C 47                 2432 	.byte #0x1c, #0x47	;  18204
+      0000C2 C3 47                 2433 	.byte #0xc3, #0x47	;  18371
+      0000C4 69 48                 2434 	.byte #0x69, #0x48	;  18537
+      0000C6 0E 49                 2435 	.byte #0x0e, #0x49	;  18702
+      0000C8 B3 49                 2436 	.byte #0xb3, #0x49	;  18867
+      0000CA 57 4A                 2437 	.byte #0x57, #0x4a	;  19031
+      0000CC FA 4A                 2438 	.byte #0xfa, #0x4a	;  19194
+      0000CE 9D 4B                 2439 	.byte #0x9d, #0x4b	;  19357
+      0000D0 3F 4C                 2440 	.byte #0x3f, #0x4c	;  19519
+      0000D2 E0 4C                 2441 	.byte #0xe0, #0x4c	;  19680
+      0000D4 80 4D                 2442 	.byte #0x80, #0x4d	;  19840
+      0000D6 20 4E                 2443 	.byte #0x20, #0x4e	;  20000
+      0000D8 BF 4E                 2444 	.byte #0xbf, #0x4e	;  20159
+      0000DA 5D 4F                 2445 	.byte #0x5d, #0x4f	;  20317
+      0000DC FA 4F                 2446 	.byte #0xfa, #0x4f	;  20474
+      0000DE 97 50                 2447 	.byte #0x97, #0x50	;  20631
+      0000E0 33 51                 2448 	.byte #0x33, #0x51	;  20787
+      0000E2 CE 51                 2449 	.byte #0xce, #0x51	;  20942
+      0000E4 68 52                 2450 	.byte #0x68, #0x52	;  21096
+      0000E6 01 53                 2451 	.byte #0x01, #0x53	;  21249
+      0000E8 9A 53                 2452 	.byte #0x9a, #0x53	;  21402
+      0000EA 32 54                 2453 	.byte #0x32, #0x54	;  21554
+      0000EC C9 54                 2454 	.byte #0xc9, #0x54	;  21705
+      0000EE 5F 55                 2455 	.byte #0x5f, #0x55	;  21855
+      0000F0 F4 55                 2456 	.byte #0xf4, #0x55	;  22004
+      0000F2 89 56                 2457 	.byte #0x89, #0x56	;  22153
+      0000F4 1D 57                 2458 	.byte #0x1d, #0x57	;  22301
+      0000F6 B0 57                 2459 	.byte #0xb0, #0x57	;  22448
+      0000F8 42 58                 2460 	.byte #0x42, #0x58	;  22594
+      0000FA D3 58                 2461 	.byte #0xd3, #0x58	;  22739
+      0000FC 63 59                 2462 	.byte #0x63, #0x59	;  22883
+      0000FE F3 59                 2463 	.byte #0xf3, #0x59	;  23027
+      000100 81 5A                 2464 	.byte #0x81, #0x5a	;  23169
+      000102 0F 5B                 2465 	.byte #0x0f, #0x5b	;  23311
+      000104 9C 5B                 2466 	.byte #0x9c, #0x5b	;  23452
+      000106 28 5C                 2467 	.byte #0x28, #0x5c	;  23592
+      000108 B3 5C                 2468 	.byte #0xb3, #0x5c	;  23731
+      00010A 3D 5D                 2469 	.byte #0x3d, #0x5d	;  23869
+      00010C C6 5D                 2470 	.byte #0xc6, #0x5d	;  24006
+      00010E 4F 5E                 2471 	.byte #0x4f, #0x5e	;  24143
+      000110 D6 5E                 2472 	.byte #0xd6, #0x5e	;  24278
+      000112 5D 5F                 2473 	.byte #0x5d, #0x5f	;  24413
+      000114 E2 5F                 2474 	.byte #0xe2, #0x5f	;  24546
+      000116 67 60                 2475 	.byte #0x67, #0x60	;  24679
+      000118 EB 60                 2476 	.byte #0xeb, #0x60	;  24811
+      00011A 6E 61                 2477 	.byte #0x6e, #0x61	;  24942
+      00011C F0 61                 2478 	.byte #0xf0, #0x61	;  25072
+      00011E 71 62                 2479 	.byte #0x71, #0x62	;  25201
+      000120 F1 62                 2480 	.byte #0xf1, #0x62	;  25329
+      000122 70 63                 2481 	.byte #0x70, #0x63	;  25456
+      000124 EE 63                 2482 	.byte #0xee, #0x63	;  25582
+      000126 6B 64                 2483 	.byte #0x6b, #0x64	;  25707
+      000128 E7 64                 2484 	.byte #0xe7, #0x64	;  25831
+      00012A 62 65                 2485 	.byte #0x62, #0x65	;  25954
+      00012C DD 65                 2486 	.byte #0xdd, #0x65	;  26077
+      00012E 56 66                 2487 	.byte #0x56, #0x66	;  26198
+      000130 CE 66                 2488 	.byte #0xce, #0x66	;  26318
+      000132 45 67                 2489 	.byte #0x45, #0x67	;  26437
+      000134 BC 67                 2490 	.byte #0xbc, #0x67	;  26556
+      000136 31 68                 2491 	.byte #0x31, #0x68	;  26673
+      000138 A5 68                 2492 	.byte #0xa5, #0x68	;  26789
+      00013A 19 69                 2493 	.byte #0x19, #0x69	;  26905
+      00013C 8B 69                 2494 	.byte #0x8b, #0x69	;  27019
+      00013E FC 69                 2495 	.byte #0xfc, #0x69	;  27132
+      000140 6C 6A                 2496 	.byte #0x6c, #0x6a	;  27244
+      000142 DB 6A                 2497 	.byte #0xdb, #0x6a	;  27355
+      000144 4A 6B                 2498 	.byte #0x4a, #0x6b	;  27466
+      000146 B7 6B                 2499 	.byte #0xb7, #0x6b	;  27575
+      000148 23 6C                 2500 	.byte #0x23, #0x6c	;  27683
+      00014A 8E 6C                 2501 	.byte #0x8e, #0x6c	;  27790
+      00014C F8 6C                 2502 	.byte #0xf8, #0x6c	;  27896
+      00014E 61 6D                 2503 	.byte #0x61, #0x6d	;  28001
+      000150 C9 6D                 2504 	.byte #0xc9, #0x6d	;  28105
+      000152 30 6E                 2505 	.byte #0x30, #0x6e	;  28208
+      000154 95 6E                 2506 	.byte #0x95, #0x6e	;  28309
+      000156 FA 6E                 2507 	.byte #0xfa, #0x6e	;  28410
+      000158 5E 6F                 2508 	.byte #0x5e, #0x6f	;  28510
+      00015A C0 6F                 2509 	.byte #0xc0, #0x6f	;  28608
+      00015C 22 70                 2510 	.byte #0x22, #0x70	;  28706
+      00015E 82 70                 2511 	.byte #0x82, #0x70	;  28802
+      000160 E1 70                 2512 	.byte #0xe1, #0x70	;  28897
+      000162 40 71                 2513 	.byte #0x40, #0x71	;  28992
+      000164 9D 71                 2514 	.byte #0x9d, #0x71	;  29085
+      000166 F9 71                 2515 	.byte #0xf9, #0x71	;  29177
+      000168 54 72                 2516 	.byte #0x54, #0x72	;  29268
+      00016A AE 72                 2517 	.byte #0xae, #0x72	;  29358
+      00016C 06 73                 2518 	.byte #0x06, #0x73	;  29446
+      00016E 5E 73                 2519 	.byte #0x5e, #0x73	;  29534
+      000170 B5 73                 2520 	.byte #0xb5, #0x73	;  29621
+      000172 0A 74                 2521 	.byte #0x0a, #0x74	;  29706
+      000174 5E 74                 2522 	.byte #0x5e, #0x74	;  29790
+      000176 B1 74                 2523 	.byte #0xb1, #0x74	;  29873
+      000178 03 75                 2524 	.byte #0x03, #0x75	;  29955
+      00017A 54 75                 2525 	.byte #0x54, #0x75	;  30036
+      00017C A4 75                 2526 	.byte #0xa4, #0x75	;  30116
+      00017E F3 75                 2527 	.byte #0xf3, #0x75	;  30195
+      000180 40 76                 2528 	.byte #0x40, #0x76	;  30272
+      000182 8D 76                 2529 	.byte #0x8d, #0x76	;  30349
+      000184 D8 76                 2530 	.byte #0xd8, #0x76	;  30424
+      000186 22 77                 2531 	.byte #0x22, #0x77	;  30498
+      000188 6B 77                 2532 	.byte #0x6b, #0x77	;  30571
+      00018A B3 77                 2533 	.byte #0xb3, #0x77	;  30643
+      00018C F9 77                 2534 	.byte #0xf9, #0x77	;  30713
+      00018E 3F 78                 2535 	.byte #0x3f, #0x78	;  30783
+      000190 83 78                 2536 	.byte #0x83, #0x78	;  30851
+      000192 C6 78                 2537 	.byte #0xc6, #0x78	;  30918
+      000194 08 79                 2538 	.byte #0x08, #0x79	;  30984
+      000196 49 79                 2539 	.byte #0x49, #0x79	;  31049
+      000198 89 79                 2540 	.byte #0x89, #0x79	;  31113
+      00019A C7 79                 2541 	.byte #0xc7, #0x79	;  31175
+      00019C 04 7A                 2542 	.byte #0x04, #0x7a	;  31236
+      00019E 41 7A                 2543 	.byte #0x41, #0x7a	;  31297
+      0001A0 7C 7A                 2544 	.byte #0x7c, #0x7a	;  31356
+      0001A2 B5 7A                 2545 	.byte #0xb5, #0x7a	;  31413
+      0001A4 EE 7A                 2546 	.byte #0xee, #0x7a	;  31470
+      0001A6 25 7B                 2547 	.byte #0x25, #0x7b	;  31525
+      0001A8 5C 7B                 2548 	.byte #0x5c, #0x7b	;  31580
+      0001AA 91 7B                 2549 	.byte #0x91, #0x7b	;  31633
+      0001AC C4 7B                 2550 	.byte #0xc4, #0x7b	;  31684
+      0001AE F7 7B                 2551 	.byte #0xf7, #0x7b	;  31735
+      0001B0 29 7C                 2552 	.byte #0x29, #0x7c	;  31785
+      0001B2 59 7C                 2553 	.byte #0x59, #0x7c	;  31833
+      0001B4 88 7C                 2554 	.byte #0x88, #0x7c	;  31880
+      0001B6 B6 7C                 2555 	.byte #0xb6, #0x7c	;  31926
+      0001B8 E2 7C                 2556 	.byte #0xe2, #0x7c	;  31970
+      0001BA 0E 7D                 2557 	.byte #0x0e, #0x7d	;  32014
+      0001BC 38 7D                 2558 	.byte #0x38, #0x7d	;  32056
+      0001BE 61 7D                 2559 	.byte #0x61, #0x7d	;  32097
+      0001C0 89 7D                 2560 	.byte #0x89, #0x7d	;  32137
+      0001C2 B0 7D                 2561 	.byte #0xb0, #0x7d	;  32176
+      0001C4 D5 7D                 2562 	.byte #0xd5, #0x7d	;  32213
+      0001C6 F9 7D                 2563 	.byte #0xf9, #0x7d	;  32249
+      0001C8 1C 7E                 2564 	.byte #0x1c, #0x7e	;  32284
+      0001CA 3E 7E                 2565 	.byte #0x3e, #0x7e	;  32318
+      0001CC 5E 7E                 2566 	.byte #0x5e, #0x7e	;  32350
+      0001CE 7E 7E                 2567 	.byte #0x7e, #0x7e	;  32382
+      0001D0 9C 7E                 2568 	.byte #0x9c, #0x7e	;  32412
+      0001D2 B9 7E                 2569 	.byte #0xb9, #0x7e	;  32441
+      0001D4 D4 7E                 2570 	.byte #0xd4, #0x7e	;  32468
+      0001D6 EF 7E                 2571 	.byte #0xef, #0x7e	;  32495
+      0001D8 08 7F                 2572 	.byte #0x08, #0x7f	;  32520
+      0001DA 20 7F                 2573 	.byte #0x20, #0x7f	;  32544
+      0001DC 37 7F                 2574 	.byte #0x37, #0x7f	;  32567
+      0001DE 4C 7F                 2575 	.byte #0x4c, #0x7f	;  32588
+      0001E0 61 7F                 2576 	.byte #0x61, #0x7f	;  32609
+      0001E2 74 7F                 2577 	.byte #0x74, #0x7f	;  32628
+      0001E4 86 7F                 2578 	.byte #0x86, #0x7f	;  32646
+      0001E6 96 7F                 2579 	.byte #0x96, #0x7f	;  32662
+      0001E8 A6 7F                 2580 	.byte #0xa6, #0x7f	;  32678
+      0001EA B4 7F                 2581 	.byte #0xb4, #0x7f	;  32692
+      0001EC C1 7F                 2582 	.byte #0xc1, #0x7f	;  32705
+      0001EE CD 7F                 2583 	.byte #0xcd, #0x7f	;  32717
+      0001F0 D7 7F                 2584 	.byte #0xd7, #0x7f	;  32727
+      0001F2 E0 7F                 2585 	.byte #0xe0, #0x7f	;  32736
+      0001F4 E8 7F                 2586 	.byte #0xe8, #0x7f	;  32744
+      0001F6 EF 7F                 2587 	.byte #0xef, #0x7f	;  32751
+      0001F8 F5 7F                 2588 	.byte #0xf5, #0x7f	;  32757
+      0001FA F9 7F                 2589 	.byte #0xf9, #0x7f	;  32761
+      0001FC FC 7F                 2590 	.byte #0xfc, #0x7f	;  32764
+      0001FE FE 7F                 2591 	.byte #0xfe, #0x7f	;  32766
+      000200 FF 7F                 2592 	.byte #0xff, #0x7f	;  32767
+      000202 FE 7F                 2593 	.byte #0xfe, #0x7f	;  32766
+      000204 FC 7F                 2594 	.byte #0xfc, #0x7f	;  32764
+      000206 F9 7F                 2595 	.byte #0xf9, #0x7f	;  32761
+      000208 F5 7F                 2596 	.byte #0xf5, #0x7f	;  32757
+      00020A EF 7F                 2597 	.byte #0xef, #0x7f	;  32751
+      00020C E8 7F                 2598 	.byte #0xe8, #0x7f	;  32744
+      00020E E0 7F                 2599 	.byte #0xe0, #0x7f	;  32736
+      000210 D7 7F                 2600 	.byte #0xd7, #0x7f	;  32727
+      000212 CD 7F                 2601 	.byte #0xcd, #0x7f	;  32717
+      000214 C1 7F                 2602 	.byte #0xc1, #0x7f	;  32705
+      000216 B4 7F                 2603 	.byte #0xb4, #0x7f	;  32692
+      000218 A6 7F                 2604 	.byte #0xa6, #0x7f	;  32678
+      00021A 96 7F                 2605 	.byte #0x96, #0x7f	;  32662
+      00021C 86 7F                 2606 	.byte #0x86, #0x7f	;  32646
+      00021E 74 7F                 2607 	.byte #0x74, #0x7f	;  32628
+      000220 61 7F                 2608 	.byte #0x61, #0x7f	;  32609
+      000222 4C 7F                 2609 	.byte #0x4c, #0x7f	;  32588
+      000224 37 7F                 2610 	.byte #0x37, #0x7f	;  32567
+      000226 20 7F                 2611 	.byte #0x20, #0x7f	;  32544
+      000228 08 7F                 2612 	.byte #0x08, #0x7f	;  32520
+      00022A EF 7E                 2613 	.byte #0xef, #0x7e	;  32495
+      00022C D4 7E                 2614 	.byte #0xd4, #0x7e	;  32468
+      00022E B9 7E                 2615 	.byte #0xb9, #0x7e	;  32441
+      000230 9C 7E                 2616 	.byte #0x9c, #0x7e	;  32412
+      000232 7E 7E                 2617 	.byte #0x7e, #0x7e	;  32382
+      000234 5E 7E                 2618 	.byte #0x5e, #0x7e	;  32350
+      000236 3E 7E                 2619 	.byte #0x3e, #0x7e	;  32318
+      000238 1C 7E                 2620 	.byte #0x1c, #0x7e	;  32284
+      00023A F9 7D                 2621 	.byte #0xf9, #0x7d	;  32249
+      00023C D5 7D                 2622 	.byte #0xd5, #0x7d	;  32213
+      00023E B0 7D                 2623 	.byte #0xb0, #0x7d	;  32176
+      000240 89 7D                 2624 	.byte #0x89, #0x7d	;  32137
+      000242 61 7D                 2625 	.byte #0x61, #0x7d	;  32097
+      000244 38 7D                 2626 	.byte #0x38, #0x7d	;  32056
+      000246 0E 7D                 2627 	.byte #0x0e, #0x7d	;  32014
+      000248 E2 7C                 2628 	.byte #0xe2, #0x7c	;  31970
+      00024A B6 7C                 2629 	.byte #0xb6, #0x7c	;  31926
+      00024C 88 7C                 2630 	.byte #0x88, #0x7c	;  31880
+      00024E 59 7C                 2631 	.byte #0x59, #0x7c	;  31833
+      000250 29 7C                 2632 	.byte #0x29, #0x7c	;  31785
+      000252 F7 7B                 2633 	.byte #0xf7, #0x7b	;  31735
+      000254 C4 7B                 2634 	.byte #0xc4, #0x7b	;  31684
+      000256 91 7B                 2635 	.byte #0x91, #0x7b	;  31633
+      000258 5C 7B                 2636 	.byte #0x5c, #0x7b	;  31580
+      00025A 25 7B                 2637 	.byte #0x25, #0x7b	;  31525
+      00025C EE 7A                 2638 	.byte #0xee, #0x7a	;  31470
+      00025E B5 7A                 2639 	.byte #0xb5, #0x7a	;  31413
+      000260 7C 7A                 2640 	.byte #0x7c, #0x7a	;  31356
+      000262 41 7A                 2641 	.byte #0x41, #0x7a	;  31297
+      000264 04 7A                 2642 	.byte #0x04, #0x7a	;  31236
+      000266 C7 79                 2643 	.byte #0xc7, #0x79	;  31175
+      000268 89 79                 2644 	.byte #0x89, #0x79	;  31113
+      00026A 49 79                 2645 	.byte #0x49, #0x79	;  31049
+      00026C 08 79                 2646 	.byte #0x08, #0x79	;  30984
+      00026E C6 78                 2647 	.byte #0xc6, #0x78	;  30918
+      000270 83 78                 2648 	.byte #0x83, #0x78	;  30851
+      000272 3F 78                 2649 	.byte #0x3f, #0x78	;  30783
+      000274 F9 77                 2650 	.byte #0xf9, #0x77	;  30713
+      000276 B3 77                 2651 	.byte #0xb3, #0x77	;  30643
+      000278 6B 77                 2652 	.byte #0x6b, #0x77	;  30571
+      00027A 22 77                 2653 	.byte #0x22, #0x77	;  30498
+      00027C D8 76                 2654 	.byte #0xd8, #0x76	;  30424
+      00027E 8D 76                 2655 	.byte #0x8d, #0x76	;  30349
+      000280 40 76                 2656 	.byte #0x40, #0x76	;  30272
+      000282 F3 75                 2657 	.byte #0xf3, #0x75	;  30195
+      000284 A4 75                 2658 	.byte #0xa4, #0x75	;  30116
+      000286 54 75                 2659 	.byte #0x54, #0x75	;  30036
+      000288 03 75                 2660 	.byte #0x03, #0x75	;  29955
+      00028A B1 74                 2661 	.byte #0xb1, #0x74	;  29873
+      00028C 5E 74                 2662 	.byte #0x5e, #0x74	;  29790
+      00028E 0A 74                 2663 	.byte #0x0a, #0x74	;  29706
+      000290 B5 73                 2664 	.byte #0xb5, #0x73	;  29621
+      000292 5E 73                 2665 	.byte #0x5e, #0x73	;  29534
+      000294 06 73                 2666 	.byte #0x06, #0x73	;  29446
+      000296 AE 72                 2667 	.byte #0xae, #0x72	;  29358
+      000298 54 72                 2668 	.byte #0x54, #0x72	;  29268
+      00029A F9 71                 2669 	.byte #0xf9, #0x71	;  29177
+      00029C 9D 71                 2670 	.byte #0x9d, #0x71	;  29085
+      00029E 40 71                 2671 	.byte #0x40, #0x71	;  28992
+      0002A0 E1 70                 2672 	.byte #0xe1, #0x70	;  28897
+      0002A2 82 70                 2673 	.byte #0x82, #0x70	;  28802
+      0002A4 22 70                 2674 	.byte #0x22, #0x70	;  28706
+      0002A6 C0 6F                 2675 	.byte #0xc0, #0x6f	;  28608
+      0002A8 5E 6F                 2676 	.byte #0x5e, #0x6f	;  28510
+      0002AA FA 6E                 2677 	.byte #0xfa, #0x6e	;  28410
+      0002AC 95 6E                 2678 	.byte #0x95, #0x6e	;  28309
+      0002AE 30 6E                 2679 	.byte #0x30, #0x6e	;  28208
+      0002B0 C9 6D                 2680 	.byte #0xc9, #0x6d	;  28105
+      0002B2 61 6D                 2681 	.byte #0x61, #0x6d	;  28001
+      0002B4 F8 6C                 2682 	.byte #0xf8, #0x6c	;  27896
+      0002B6 8E 6C                 2683 	.byte #0x8e, #0x6c	;  27790
+      0002B8 23 6C                 2684 	.byte #0x23, #0x6c	;  27683
+      0002BA B7 6B                 2685 	.byte #0xb7, #0x6b	;  27575
+      0002BC 4A 6B                 2686 	.byte #0x4a, #0x6b	;  27466
+      0002BE DB 6A                 2687 	.byte #0xdb, #0x6a	;  27355
+      0002C0 6C 6A                 2688 	.byte #0x6c, #0x6a	;  27244
+      0002C2 FC 69                 2689 	.byte #0xfc, #0x69	;  27132
+      0002C4 8B 69                 2690 	.byte #0x8b, #0x69	;  27019
+      0002C6 19 69                 2691 	.byte #0x19, #0x69	;  26905
+      0002C8 A5 68                 2692 	.byte #0xa5, #0x68	;  26789
+      0002CA 31 68                 2693 	.byte #0x31, #0x68	;  26673
+      0002CC BC 67                 2694 	.byte #0xbc, #0x67	;  26556
+      0002CE 45 67                 2695 	.byte #0x45, #0x67	;  26437
+      0002D0 CE 66                 2696 	.byte #0xce, #0x66	;  26318
+      0002D2 56 66                 2697 	.byte #0x56, #0x66	;  26198
+      0002D4 DD 65                 2698 	.byte #0xdd, #0x65	;  26077
+      0002D6 62 65                 2699 	.byte #0x62, #0x65	;  25954
+      0002D8 E7 64                 2700 	.byte #0xe7, #0x64	;  25831
+      0002DA 6B 64                 2701 	.byte #0x6b, #0x64	;  25707
+      0002DC EE 63                 2702 	.byte #0xee, #0x63	;  25582
+      0002DE 70 63                 2703 	.byte #0x70, #0x63	;  25456
+      0002E0 F1 62                 2704 	.byte #0xf1, #0x62	;  25329
+      0002E2 71 62                 2705 	.byte #0x71, #0x62	;  25201
+      0002E4 F0 61                 2706 	.byte #0xf0, #0x61	;  25072
+      0002E6 6E 61                 2707 	.byte #0x6e, #0x61	;  24942
+      0002E8 EB 60                 2708 	.byte #0xeb, #0x60	;  24811
+      0002EA 67 60                 2709 	.byte #0x67, #0x60	;  24679
+      0002EC E2 5F                 2710 	.byte #0xe2, #0x5f	;  24546
+      0002EE 5D 5F                 2711 	.byte #0x5d, #0x5f	;  24413
+      0002F0 D6 5E                 2712 	.byte #0xd6, #0x5e	;  24278
+      0002F2 4F 5E                 2713 	.byte #0x4f, #0x5e	;  24143
+      0002F4 C6 5D                 2714 	.byte #0xc6, #0x5d	;  24006
+      0002F6 3D 5D                 2715 	.byte #0x3d, #0x5d	;  23869
+      0002F8 B3 5C                 2716 	.byte #0xb3, #0x5c	;  23731
+      0002FA 28 5C                 2717 	.byte #0x28, #0x5c	;  23592
+      0002FC 9C 5B                 2718 	.byte #0x9c, #0x5b	;  23452
+      0002FE 0F 5B                 2719 	.byte #0x0f, #0x5b	;  23311
+      000300 81 5A                 2720 	.byte #0x81, #0x5a	;  23169
+      000302 F3 59                 2721 	.byte #0xf3, #0x59	;  23027
+      000304 63 59                 2722 	.byte #0x63, #0x59	;  22883
+      000306 D3 58                 2723 	.byte #0xd3, #0x58	;  22739
+      000308 42 58                 2724 	.byte #0x42, #0x58	;  22594
+      00030A B0 57                 2725 	.byte #0xb0, #0x57	;  22448
+      00030C 1D 57                 2726 	.byte #0x1d, #0x57	;  22301
+      00030E 89 56                 2727 	.byte #0x89, #0x56	;  22153
+      000310 F4 55                 2728 	.byte #0xf4, #0x55	;  22004
+      000312 5F 55                 2729 	.byte #0x5f, #0x55	;  21855
+      000314 C9 54                 2730 	.byte #0xc9, #0x54	;  21705
+      000316 32 54                 2731 	.byte #0x32, #0x54	;  21554
+      000318 9A 53                 2732 	.byte #0x9a, #0x53	;  21402
+      00031A 01 53                 2733 	.byte #0x01, #0x53	;  21249
+      00031C 68 52                 2734 	.byte #0x68, #0x52	;  21096
+      00031E CE 51                 2735 	.byte #0xce, #0x51	;  20942
+      000320 33 51                 2736 	.byte #0x33, #0x51	;  20787
+      000322 97 50                 2737 	.byte #0x97, #0x50	;  20631
+      000324 FA 4F                 2738 	.byte #0xfa, #0x4f	;  20474
+      000326 5D 4F                 2739 	.byte #0x5d, #0x4f	;  20317
+      000328 BF 4E                 2740 	.byte #0xbf, #0x4e	;  20159
+      00032A 20 4E                 2741 	.byte #0x20, #0x4e	;  20000
+      00032C 80 4D                 2742 	.byte #0x80, #0x4d	;  19840
+      00032E E0 4C                 2743 	.byte #0xe0, #0x4c	;  19680
+      000330 3F 4C                 2744 	.byte #0x3f, #0x4c	;  19519
+      000332 9D 4B                 2745 	.byte #0x9d, #0x4b	;  19357
+      000334 FA 4A                 2746 	.byte #0xfa, #0x4a	;  19194
+      000336 57 4A                 2747 	.byte #0x57, #0x4a	;  19031
+      000338 B3 49                 2748 	.byte #0xb3, #0x49	;  18867
+      00033A 0E 49                 2749 	.byte #0x0e, #0x49	;  18702
+      00033C 69 48                 2750 	.byte #0x69, #0x48	;  18537
+      00033E C3 47                 2751 	.byte #0xc3, #0x47	;  18371
+      000340 1C 47                 2752 	.byte #0x1c, #0x47	;  18204
+      000342 74 46                 2753 	.byte #0x74, #0x46	;  18036
+      000344 CC 45                 2754 	.byte #0xcc, #0x45	;  17868
+      000346 23 45                 2755 	.byte #0x23, #0x45	;  17699
+      000348 7A 44                 2756 	.byte #0x7a, #0x44	;  17530
+      00034A D0 43                 2757 	.byte #0xd0, #0x43	;  17360
+      00034C 25 43                 2758 	.byte #0x25, #0x43	;  17189
+      00034E 79 42                 2759 	.byte #0x79, #0x42	;  17017
+      000350 CD 41                 2760 	.byte #0xcd, #0x41	;  16845
+      000352 20 41                 2761 	.byte #0x20, #0x41	;  16672
+      000354 73 40                 2762 	.byte #0x73, #0x40	;  16499
+      000356 C5 3F                 2763 	.byte #0xc5, #0x3f	;  16325
+      000358 16 3F                 2764 	.byte #0x16, #0x3f	;  16150
+      00035A 67 3E                 2765 	.byte #0x67, #0x3e	;  15975
+      00035C B7 3D                 2766 	.byte #0xb7, #0x3d	;  15799
+      00035E 07 3D                 2767 	.byte #0x07, #0x3d	;  15623
+      000360 56 3C                 2768 	.byte #0x56, #0x3c	;  15446
+      000362 A4 3B                 2769 	.byte #0xa4, #0x3b	;  15268
+      000364 F2 3A                 2770 	.byte #0xf2, #0x3a	;  15090
+      000366 3F 3A                 2771 	.byte #0x3f, #0x3a	;  14911
+      000368 8C 39                 2772 	.byte #0x8c, #0x39	;  14732
+      00036A D8 38                 2773 	.byte #0xd8, #0x38	;  14552
+      00036C 24 38                 2774 	.byte #0x24, #0x38	;  14372
+      00036E 6F 37                 2775 	.byte #0x6f, #0x37	;  14191
+      000370 B9 36                 2776 	.byte #0xb9, #0x36	;  14009
+      000372 03 36                 2777 	.byte #0x03, #0x36	;  13827
+      000374 4D 35                 2778 	.byte #0x4d, #0x35	;  13645
+      000376 96 34                 2779 	.byte #0x96, #0x34	;  13462
+      000378 DE 33                 2780 	.byte #0xde, #0x33	;  13278
+      00037A 26 33                 2781 	.byte #0x26, #0x33	;  13094
+      00037C 6D 32                 2782 	.byte #0x6d, #0x32	;  12909
+      00037E B4 31                 2783 	.byte #0xb4, #0x31	;  12724
+      000380 FB 30                 2784 	.byte #0xfb, #0x30	;  12539
+      000382 41 30                 2785 	.byte #0x41, #0x30	;  12353
+      000384 86 2F                 2786 	.byte #0x86, #0x2f	;  12166
+      000386 CC 2E                 2787 	.byte #0xcc, #0x2e	;  11980
+      000388 10 2E                 2788 	.byte #0x10, #0x2e	;  11792
+      00038A 54 2D                 2789 	.byte #0x54, #0x2d	;  11604
+      00038C 98 2C                 2790 	.byte #0x98, #0x2c	;  11416
+      00038E DB 2B                 2791 	.byte #0xdb, #0x2b	;  11227
+      000390 1E 2B                 2792 	.byte #0x1e, #0x2b	;  11038
+      000392 61 2A                 2793 	.byte #0x61, #0x2a	;  10849
+      000394 A3 29                 2794 	.byte #0xa3, #0x29	;  10659
+      000396 E5 28                 2795 	.byte #0xe5, #0x28	;  10469
+      000398 26 28                 2796 	.byte #0x26, #0x28	;  10278
+      00039A 67 27                 2797 	.byte #0x67, #0x27	;  10087
+      00039C A7 26                 2798 	.byte #0xa7, #0x26	;  9895
+      00039E E7 25                 2799 	.byte #0xe7, #0x25	;  9703
+      0003A0 27 25                 2800 	.byte #0x27, #0x25	;  9511
+      0003A2 67 24                 2801 	.byte #0x67, #0x24	;  9319
+      0003A4 A6 23                 2802 	.byte #0xa6, #0x23	;  9126
+      0003A6 E4 22                 2803 	.byte #0xe4, #0x22	;  8932
+      0003A8 23 22                 2804 	.byte #0x23, #0x22	;  8739
+      0003AA 61 21                 2805 	.byte #0x61, #0x21	;  8545
+      0003AC 9F 20                 2806 	.byte #0x9f, #0x20	;  8351
+      0003AE DC 1F                 2807 	.byte #0xdc, #0x1f	;  8156
+      0003B0 19 1F                 2808 	.byte #0x19, #0x1f	;  7961
+      0003B2 56 1E                 2809 	.byte #0x56, #0x1e	;  7766
+      0003B4 93 1D                 2810 	.byte #0x93, #0x1d	;  7571
+      0003B6 CF 1C                 2811 	.byte #0xcf, #0x1c	;  7375
+      0003B8 0B 1C                 2812 	.byte #0x0b, #0x1c	;  7179
+      0003BA 46 1B                 2813 	.byte #0x46, #0x1b	;  6982
+      0003BC 82 1A                 2814 	.byte #0x82, #0x1a	;  6786
+      0003BE BD 19                 2815 	.byte #0xbd, #0x19	;  6589
+      0003C0 F8 18                 2816 	.byte #0xf8, #0x18	;  6392
+      0003C2 33 18                 2817 	.byte #0x33, #0x18	;  6195
+      0003C4 6D 17                 2818 	.byte #0x6d, #0x17	;  5997
+      0003C6 A7 16                 2819 	.byte #0xa7, #0x16	;  5799
+      0003C8 E1 15                 2820 	.byte #0xe1, #0x15	;  5601
+      0003CA 1B 15                 2821 	.byte #0x1b, #0x15	;  5403
+      0003CC 55 14                 2822 	.byte #0x55, #0x14	;  5205
+      0003CE 8E 13                 2823 	.byte #0x8e, #0x13	;  5006
+      0003D0 C7 12                 2824 	.byte #0xc7, #0x12	;  4807
+      0003D2 00 12                 2825 	.byte #0x00, #0x12	;  4608
+      0003D4 39 11                 2826 	.byte #0x39, #0x11	;  4409
+      0003D6 72 10                 2827 	.byte #0x72, #0x10	;  4210
+      0003D8 AB 0F                 2828 	.byte #0xab, #0x0f	;  4011
+      0003DA E3 0E                 2829 	.byte #0xe3, #0x0e	;  3811
+      0003DC 1B 0E                 2830 	.byte #0x1b, #0x0e	;  3611
+      0003DE 53 0D                 2831 	.byte #0x53, #0x0d	;  3411
+      0003E0 8B 0C                 2832 	.byte #0x8b, #0x0c	;  3211
+      0003E2 C3 0B                 2833 	.byte #0xc3, #0x0b	;  3011
+      0003E4 FB 0A                 2834 	.byte #0xfb, #0x0a	;  2811
+      0003E6 32 0A                 2835 	.byte #0x32, #0x0a	;  2610
+      0003E8 6A 09                 2836 	.byte #0x6a, #0x09	;  2410
+      0003EA A1 08                 2837 	.byte #0xa1, #0x08	;  2209
+      0003EC D9 07                 2838 	.byte #0xd9, #0x07	;  2009
+      0003EE 10 07                 2839 	.byte #0x10, #0x07	;  1808
+      0003F0 47 06                 2840 	.byte #0x47, #0x06	;  1607
+      0003F2 7E 05                 2841 	.byte #0x7e, #0x05	;  1406
+      0003F4 B6 04                 2842 	.byte #0xb6, #0x04	;  1206
+      0003F6 ED 03                 2843 	.byte #0xed, #0x03	;  1005
+      0003F8 24 03                 2844 	.byte #0x24, #0x03	;  804
+      0003FA 5B 02                 2845 	.byte #0x5b, #0x02	;  603
+      0003FC 92 01                 2846 	.byte #0x92, #0x01	;  402
+      0003FE C9 00                 2847 	.byte #0xc9, #0x00	;  201
+      000400 00 00                 2848 	.byte #0x00, #0x00	;  0
+      000402 37 FF                 2849 	.byte #0x37, #0xff	; -201
+      000404 6E FE                 2850 	.byte #0x6e, #0xfe	; -402
+      000406 A5 FD                 2851 	.byte #0xa5, #0xfd	; -603
+      000408 DC FC                 2852 	.byte #0xdc, #0xfc	; -804
+      00040A 13 FC                 2853 	.byte #0x13, #0xfc	; -1005
+      00040C 4A FB                 2854 	.byte #0x4a, #0xfb	; -1206
+      00040E 82 FA                 2855 	.byte #0x82, #0xfa	; -1406
+      000410 B9 F9                 2856 	.byte #0xb9, #0xf9	; -1607
+      000412 F0 F8                 2857 	.byte #0xf0, #0xf8	; -1808
+      000414 27 F8                 2858 	.byte #0x27, #0xf8	; -2009
+      000416 5F F7                 2859 	.byte #0x5f, #0xf7	; -2209
+      000418 96 F6                 2860 	.byte #0x96, #0xf6	; -2410
+      00041A CE F5                 2861 	.byte #0xce, #0xf5	; -2610
+      00041C 05 F5                 2862 	.byte #0x05, #0xf5	; -2811
+      00041E 3D F4                 2863 	.byte #0x3d, #0xf4	; -3011
+      000420 75 F3                 2864 	.byte #0x75, #0xf3	; -3211
+      000422 AD F2                 2865 	.byte #0xad, #0xf2	; -3411
+      000424 E5 F1                 2866 	.byte #0xe5, #0xf1	; -3611
+      000426 1D F1                 2867 	.byte #0x1d, #0xf1	; -3811
+      000428 55 F0                 2868 	.byte #0x55, #0xf0	; -4011
+      00042A 8E EF                 2869 	.byte #0x8e, #0xef	; -4210
+      00042C C7 EE                 2870 	.byte #0xc7, #0xee	; -4409
+      00042E 00 EE                 2871 	.byte #0x00, #0xee	; -4608
+      000430 39 ED                 2872 	.byte #0x39, #0xed	; -4807
+      000432 72 EC                 2873 	.byte #0x72, #0xec	; -5006
+      000434 AB EB                 2874 	.byte #0xab, #0xeb	; -5205
+      000436 E5 EA                 2875 	.byte #0xe5, #0xea	; -5403
+      000438 1F EA                 2876 	.byte #0x1f, #0xea	; -5601
+      00043A 59 E9                 2877 	.byte #0x59, #0xe9	; -5799
+      00043C 93 E8                 2878 	.byte #0x93, #0xe8	; -5997
+      00043E CD E7                 2879 	.byte #0xcd, #0xe7	; -6195
+      000440 08 E7                 2880 	.byte #0x08, #0xe7	; -6392
+      000442 43 E6                 2881 	.byte #0x43, #0xe6	; -6589
+      000444 7E E5                 2882 	.byte #0x7e, #0xe5	; -6786
+      000446 BA E4                 2883 	.byte #0xba, #0xe4	; -6982
+      000448 F5 E3                 2884 	.byte #0xf5, #0xe3	; -7179
+      00044A 31 E3                 2885 	.byte #0x31, #0xe3	; -7375
+      00044C 6D E2                 2886 	.byte #0x6d, #0xe2	; -7571
+      00044E AA E1                 2887 	.byte #0xaa, #0xe1	; -7766
+      000450 E7 E0                 2888 	.byte #0xe7, #0xe0	; -7961
+      000452 24 E0                 2889 	.byte #0x24, #0xe0	; -8156
+      000454 61 DF                 2890 	.byte #0x61, #0xdf	; -8351
+      000456 9F DE                 2891 	.byte #0x9f, #0xde	; -8545
+      000458 DD DD                 2892 	.byte #0xdd, #0xdd	; -8739
+      00045A 1C DD                 2893 	.byte #0x1c, #0xdd	; -8932
+      00045C 5A DC                 2894 	.byte #0x5a, #0xdc	; -9126
+      00045E 99 DB                 2895 	.byte #0x99, #0xdb	; -9319
+      000460 D9 DA                 2896 	.byte #0xd9, #0xda	; -9511
+      000462 19 DA                 2897 	.byte #0x19, #0xda	; -9703
+      000464 59 D9                 2898 	.byte #0x59, #0xd9	; -9895
+      000466 99 D8                 2899 	.byte #0x99, #0xd8	; -10087
+      000468 DA D7                 2900 	.byte #0xda, #0xd7	; -10278
+      00046A 1B D7                 2901 	.byte #0x1b, #0xd7	; -10469
+      00046C 5D D6                 2902 	.byte #0x5d, #0xd6	; -10659
+      00046E 9F D5                 2903 	.byte #0x9f, #0xd5	; -10849
+      000470 E2 D4                 2904 	.byte #0xe2, #0xd4	; -11038
+      000472 25 D4                 2905 	.byte #0x25, #0xd4	; -11227
+      000474 68 D3                 2906 	.byte #0x68, #0xd3	; -11416
+      000476 AC D2                 2907 	.byte #0xac, #0xd2	; -11604
+      000478 F0 D1                 2908 	.byte #0xf0, #0xd1	; -11792
+      00047A 34 D1                 2909 	.byte #0x34, #0xd1	; -11980
+      00047C 7A D0                 2910 	.byte #0x7a, #0xd0	; -12166
+      00047E BF CF                 2911 	.byte #0xbf, #0xcf	; -12353
+      000480 05 CF                 2912 	.byte #0x05, #0xcf	; -12539
+      000482 4C CE                 2913 	.byte #0x4c, #0xce	; -12724
+      000484 93 CD                 2914 	.byte #0x93, #0xcd	; -12909
+      000486 DA CC                 2915 	.byte #0xda, #0xcc	; -13094
+      000488 22 CC                 2916 	.byte #0x22, #0xcc	; -13278
+      00048A 6A CB                 2917 	.byte #0x6a, #0xcb	; -13462
+      00048C B3 CA                 2918 	.byte #0xb3, #0xca	; -13645
+      00048E FD C9                 2919 	.byte #0xfd, #0xc9	; -13827
+      000490 47 C9                 2920 	.byte #0x47, #0xc9	; -14009
+      000492 91 C8                 2921 	.byte #0x91, #0xc8	; -14191
+      000494 DC C7                 2922 	.byte #0xdc, #0xc7	; -14372
+      000496 28 C7                 2923 	.byte #0x28, #0xc7	; -14552
+      000498 74 C6                 2924 	.byte #0x74, #0xc6	; -14732
+      00049A C1 C5                 2925 	.byte #0xc1, #0xc5	; -14911
+      00049C 0E C5                 2926 	.byte #0x0e, #0xc5	; -15090
+      00049E 5C C4                 2927 	.byte #0x5c, #0xc4	; -15268
+      0004A0 AA C3                 2928 	.byte #0xaa, #0xc3	; -15446
+      0004A2 F9 C2                 2929 	.byte #0xf9, #0xc2	; -15623
+      0004A4 49 C2                 2930 	.byte #0x49, #0xc2	; -15799
+      0004A6 99 C1                 2931 	.byte #0x99, #0xc1	; -15975
+      0004A8 EA C0                 2932 	.byte #0xea, #0xc0	; -16150
+      0004AA 3B C0                 2933 	.byte #0x3b, #0xc0	; -16325
+      0004AC 8D BF                 2934 	.byte #0x8d, #0xbf	; -16499
+      0004AE E0 BE                 2935 	.byte #0xe0, #0xbe	; -16672
+      0004B0 33 BE                 2936 	.byte #0x33, #0xbe	; -16845
+      0004B2 87 BD                 2937 	.byte #0x87, #0xbd	; -17017
+      0004B4 DB BC                 2938 	.byte #0xdb, #0xbc	; -17189
+      0004B6 30 BC                 2939 	.byte #0x30, #0xbc	; -17360
+      0004B8 86 BB                 2940 	.byte #0x86, #0xbb	; -17530
+      0004BA DD BA                 2941 	.byte #0xdd, #0xba	; -17699
+      0004BC 34 BA                 2942 	.byte #0x34, #0xba	; -17868
+      0004BE 8C B9                 2943 	.byte #0x8c, #0xb9	; -18036
+      0004C0 E4 B8                 2944 	.byte #0xe4, #0xb8	; -18204
+      0004C2 3D B8                 2945 	.byte #0x3d, #0xb8	; -18371
+      0004C4 97 B7                 2946 	.byte #0x97, #0xb7	; -18537
+      0004C6 F2 B6                 2947 	.byte #0xf2, #0xb6	; -18702
+      0004C8 4D B6                 2948 	.byte #0x4d, #0xb6	; -18867
+      0004CA A9 B5                 2949 	.byte #0xa9, #0xb5	; -19031
+      0004CC 06 B5                 2950 	.byte #0x06, #0xb5	; -19194
+      0004CE 63 B4                 2951 	.byte #0x63, #0xb4	; -19357
+      0004D0 C1 B3                 2952 	.byte #0xc1, #0xb3	; -19519
+      0004D2 20 B3                 2953 	.byte #0x20, #0xb3	; -19680
+      0004D4 80 B2                 2954 	.byte #0x80, #0xb2	; -19840
+      0004D6 E0 B1                 2955 	.byte #0xe0, #0xb1	; -20000
+      0004D8 41 B1                 2956 	.byte #0x41, #0xb1	; -20159
+      0004DA A3 B0                 2957 	.byte #0xa3, #0xb0	; -20317
+      0004DC 06 B0                 2958 	.byte #0x06, #0xb0	; -20474
+      0004DE 69 AF                 2959 	.byte #0x69, #0xaf	; -20631
+      0004E0 CD AE                 2960 	.byte #0xcd, #0xae	; -20787
+      0004E2 32 AE                 2961 	.byte #0x32, #0xae	; -20942
+      0004E4 98 AD                 2962 	.byte #0x98, #0xad	; -21096
+      0004E6 FF AC                 2963 	.byte #0xff, #0xac	; -21249
+      0004E8 66 AC                 2964 	.byte #0x66, #0xac	; -21402
+      0004EA CE AB                 2965 	.byte #0xce, #0xab	; -21554
+      0004EC 37 AB                 2966 	.byte #0x37, #0xab	; -21705
+      0004EE A1 AA                 2967 	.byte #0xa1, #0xaa	; -21855
+      0004F0 0C AA                 2968 	.byte #0x0c, #0xaa	; -22004
+      0004F2 77 A9                 2969 	.byte #0x77, #0xa9	; -22153
+      0004F4 E3 A8                 2970 	.byte #0xe3, #0xa8	; -22301
+      0004F6 50 A8                 2971 	.byte #0x50, #0xa8	; -22448
+      0004F8 BE A7                 2972 	.byte #0xbe, #0xa7	; -22594
+      0004FA 2D A7                 2973 	.byte #0x2d, #0xa7	; -22739
+      0004FC 9D A6                 2974 	.byte #0x9d, #0xa6	; -22883
+      0004FE 0D A6                 2975 	.byte #0x0d, #0xa6	; -23027
+      000500 7F A5                 2976 	.byte #0x7f, #0xa5	; -23169
+      000502 F1 A4                 2977 	.byte #0xf1, #0xa4	; -23311
+      000504 64 A4                 2978 	.byte #0x64, #0xa4	; -23452
+      000506 D8 A3                 2979 	.byte #0xd8, #0xa3	; -23592
+      000508 4D A3                 2980 	.byte #0x4d, #0xa3	; -23731
+      00050A C3 A2                 2981 	.byte #0xc3, #0xa2	; -23869
+      00050C 3A A2                 2982 	.byte #0x3a, #0xa2	; -24006
+      00050E B1 A1                 2983 	.byte #0xb1, #0xa1	; -24143
+      000510 2A A1                 2984 	.byte #0x2a, #0xa1	; -24278
+      000512 A3 A0                 2985 	.byte #0xa3, #0xa0	; -24413
+      000514 1E A0                 2986 	.byte #0x1e, #0xa0	; -24546
+      000516 99 9F                 2987 	.byte #0x99, #0x9f	; -24679
+      000518 15 9F                 2988 	.byte #0x15, #0x9f	; -24811
+      00051A 92 9E                 2989 	.byte #0x92, #0x9e	; -24942
+      00051C 10 9E                 2990 	.byte #0x10, #0x9e	; -25072
+      00051E 8F 9D                 2991 	.byte #0x8f, #0x9d	; -25201
+      000520 0F 9D                 2992 	.byte #0x0f, #0x9d	; -25329
+      000522 90 9C                 2993 	.byte #0x90, #0x9c	; -25456
+      000524 12 9C                 2994 	.byte #0x12, #0x9c	; -25582
+      000526 95 9B                 2995 	.byte #0x95, #0x9b	; -25707
+      000528 19 9B                 2996 	.byte #0x19, #0x9b	; -25831
+      00052A 9E 9A                 2997 	.byte #0x9e, #0x9a	; -25954
+      00052C 23 9A                 2998 	.byte #0x23, #0x9a	; -26077
+      00052E AA 99                 2999 	.byte #0xaa, #0x99	; -26198
+      000530 32 99                 3000 	.byte #0x32, #0x99	; -26318
+      000532 BB 98                 3001 	.byte #0xbb, #0x98	; -26437
+      000534 44 98                 3002 	.byte #0x44, #0x98	; -26556
+      000536 CF 97                 3003 	.byte #0xcf, #0x97	; -26673
+      000538 5B 97                 3004 	.byte #0x5b, #0x97	; -26789
+      00053A E7 96                 3005 	.byte #0xe7, #0x96	; -26905
+      00053C 75 96                 3006 	.byte #0x75, #0x96	; -27019
+      00053E 04 96                 3007 	.byte #0x04, #0x96	; -27132
+      000540 94 95                 3008 	.byte #0x94, #0x95	; -27244
+      000542 25 95                 3009 	.byte #0x25, #0x95	; -27355
+      000544 B6 94                 3010 	.byte #0xb6, #0x94	; -27466
+      000546 49 94                 3011 	.byte #0x49, #0x94	; -27575
+      000548 DD 93                 3012 	.byte #0xdd, #0x93	; -27683
+      00054A 72 93                 3013 	.byte #0x72, #0x93	; -27790
+      00054C 08 93                 3014 	.byte #0x08, #0x93	; -27896
+      00054E 9F 92                 3015 	.byte #0x9f, #0x92	; -28001
+      000550 37 92                 3016 	.byte #0x37, #0x92	; -28105
+      000552 D0 91                 3017 	.byte #0xd0, #0x91	; -28208
+      000554 6B 91                 3018 	.byte #0x6b, #0x91	; -28309
+      000556 06 91                 3019 	.byte #0x06, #0x91	; -28410
+      000558 A2 90                 3020 	.byte #0xa2, #0x90	; -28510
+      00055A 40 90                 3021 	.byte #0x40, #0x90	; -28608
+      00055C DE 8F                 3022 	.byte #0xde, #0x8f	; -28706
+      00055E 7E 8F                 3023 	.byte #0x7e, #0x8f	; -28802
+      000560 1F 8F                 3024 	.byte #0x1f, #0x8f	; -28897
+      000562 C0 8E                 3025 	.byte #0xc0, #0x8e	; -28992
+      000564 63 8E                 3026 	.byte #0x63, #0x8e	; -29085
+      000566 07 8E                 3027 	.byte #0x07, #0x8e	; -29177
+      000568 AC 8D                 3028 	.byte #0xac, #0x8d	; -29268
+      00056A 52 8D                 3029 	.byte #0x52, #0x8d	; -29358
+      00056C FA 8C                 3030 	.byte #0xfa, #0x8c	; -29446
+      00056E A2 8C                 3031 	.byte #0xa2, #0x8c	; -29534
+      000570 4B 8C                 3032 	.byte #0x4b, #0x8c	; -29621
+      000572 F6 8B                 3033 	.byte #0xf6, #0x8b	; -29706
+      000574 A2 8B                 3034 	.byte #0xa2, #0x8b	; -29790
+      000576 4F 8B                 3035 	.byte #0x4f, #0x8b	; -29873
+      000578 FD 8A                 3036 	.byte #0xfd, #0x8a	; -29955
+      00057A AC 8A                 3037 	.byte #0xac, #0x8a	; -30036
+      00057C 5C 8A                 3038 	.byte #0x5c, #0x8a	; -30116
+      00057E 0D 8A                 3039 	.byte #0x0d, #0x8a	; -30195
+      000580 C0 89                 3040 	.byte #0xc0, #0x89	; -30272
+      000582 73 89                 3041 	.byte #0x73, #0x89	; -30349
+      000584 28 89                 3042 	.byte #0x28, #0x89	; -30424
+      000586 DE 88                 3043 	.byte #0xde, #0x88	; -30498
+      000588 95 88                 3044 	.byte #0x95, #0x88	; -30571
+      00058A 4D 88                 3045 	.byte #0x4d, #0x88	; -30643
+      00058C 07 88                 3046 	.byte #0x07, #0x88	; -30713
+      00058E C1 87                 3047 	.byte #0xc1, #0x87	; -30783
+      000590 7D 87                 3048 	.byte #0x7d, #0x87	; -30851
+      000592 3A 87                 3049 	.byte #0x3a, #0x87	; -30918
+      000594 F8 86                 3050 	.byte #0xf8, #0x86	; -30984
+      000596 B7 86                 3051 	.byte #0xb7, #0x86	; -31049
+      000598 77 86                 3052 	.byte #0x77, #0x86	; -31113
+      00059A 39 86                 3053 	.byte #0x39, #0x86	; -31175
+      00059C FC 85                 3054 	.byte #0xfc, #0x85	; -31236
+      00059E BF 85                 3055 	.byte #0xbf, #0x85	; -31297
+      0005A0 84 85                 3056 	.byte #0x84, #0x85	; -31356
+      0005A2 4B 85                 3057 	.byte #0x4b, #0x85	; -31413
+      0005A4 12 85                 3058 	.byte #0x12, #0x85	; -31470
+      0005A6 DB 84                 3059 	.byte #0xdb, #0x84	; -31525
+      0005A8 A4 84                 3060 	.byte #0xa4, #0x84	; -31580
+      0005AA 6F 84                 3061 	.byte #0x6f, #0x84	; -31633
+      0005AC 3C 84                 3062 	.byte #0x3c, #0x84	; -31684
+      0005AE 09 84                 3063 	.byte #0x09, #0x84	; -31735
+      0005B0 D7 83                 3064 	.byte #0xd7, #0x83	; -31785
+      0005B2 A7 83                 3065 	.byte #0xa7, #0x83	; -31833
+      0005B4 78 83                 3066 	.byte #0x78, #0x83	; -31880
+      0005B6 4A 83                 3067 	.byte #0x4a, #0x83	; -31926
+      0005B8 1E 83                 3068 	.byte #0x1e, #0x83	; -31970
+      0005BA F2 82                 3069 	.byte #0xf2, #0x82	; -32014
+      0005BC C8 82                 3070 	.byte #0xc8, #0x82	; -32056
+      0005BE 9F 82                 3071 	.byte #0x9f, #0x82	; -32097
+      0005C0 77 82                 3072 	.byte #0x77, #0x82	; -32137
+      0005C2 50 82                 3073 	.byte #0x50, #0x82	; -32176
+      0005C4 2B 82                 3074 	.byte #0x2b, #0x82	; -32213
+      0005C6 07 82                 3075 	.byte #0x07, #0x82	; -32249
+      0005C8 E4 81                 3076 	.byte #0xe4, #0x81	; -32284
+      0005CA C2 81                 3077 	.byte #0xc2, #0x81	; -32318
+      0005CC A2 81                 3078 	.byte #0xa2, #0x81	; -32350
+      0005CE 82 81                 3079 	.byte #0x82, #0x81	; -32382
+      0005D0 64 81                 3080 	.byte #0x64, #0x81	; -32412
+      0005D2 47 81                 3081 	.byte #0x47, #0x81	; -32441
+      0005D4 2C 81                 3082 	.byte #0x2c, #0x81	; -32468
+      0005D6 11 81                 3083 	.byte #0x11, #0x81	; -32495
+      0005D8 F8 80                 3084 	.byte #0xf8, #0x80	; -32520
+      0005DA E0 80                 3085 	.byte #0xe0, #0x80	; -32544
+      0005DC C9 80                 3086 	.byte #0xc9, #0x80	; -32567
+      0005DE B4 80                 3087 	.byte #0xb4, #0x80	; -32588
+      0005E0 9F 80                 3088 	.byte #0x9f, #0x80	; -32609
+      0005E2 8C 80                 3089 	.byte #0x8c, #0x80	; -32628
+      0005E4 7A 80                 3090 	.byte #0x7a, #0x80	; -32646
+      0005E6 6A 80                 3091 	.byte #0x6a, #0x80	; -32662
+      0005E8 5A 80                 3092 	.byte #0x5a, #0x80	; -32678
+      0005EA 4C 80                 3093 	.byte #0x4c, #0x80	; -32692
+      0005EC 3F 80                 3094 	.byte #0x3f, #0x80	; -32705
+      0005EE 33 80                 3095 	.byte #0x33, #0x80	; -32717
+      0005F0 29 80                 3096 	.byte #0x29, #0x80	; -32727
+      0005F2 20 80                 3097 	.byte #0x20, #0x80	; -32736
+      0005F4 18 80                 3098 	.byte #0x18, #0x80	; -32744
+      0005F6 11 80                 3099 	.byte #0x11, #0x80	; -32751
+      0005F8 0B 80                 3100 	.byte #0x0b, #0x80	; -32757
+      0005FA 07 80                 3101 	.byte #0x07, #0x80	; -32761
+      0005FC 04 80                 3102 	.byte #0x04, #0x80	; -32764
+      0005FE 02 80                 3103 	.byte #0x02, #0x80	; -32766
+                                   3104 	.area CABS    (ABS,CODE)
