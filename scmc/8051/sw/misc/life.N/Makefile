@@ -12,6 +12,7 @@ life.ihx: life.rel
 	sdcc $(ASLINKFLAGS) $^
 
 life: life.ihx
+	cat "$@.mem"
 	packihx "$<" > "$@.hex"
 
 clean:
