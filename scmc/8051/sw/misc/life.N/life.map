@@ -54,7 +54,7 @@ C:   0000002A  l_ISEG
 C:   0000004B  s_SSEG                          
 C:   00000059  l_GSINIT                        
 C:   00000071  l_DSEG                          
-C:   0000007E  l_CONST                         
+C:   00000082  l_CONST                         
 C:   000000B5  l_SSEG                          
 C:   00000100  l_IRAM                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
@@ -66,7 +66,7 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000E7E  l_CSEG                          
+C:   00000EBE  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002019  s_GSINIT0                       
 C:   0000201C  s_GSINIT1                       
@@ -77,12 +77,12 @@ C:   00002072  s_GSINIT
 C:   00002072  s_GSINIT5                       
 C:   000020CB  s_GSFINAL                       
 C:   000020CE  s_CSEG                          
-C:   00002F4C  s_CONST                         
-C:   00002FCA  s_XINIT                         
-C:   00006000  s_PSEG                          
-C:   00006000  s_XSEG                          
-C:   00006C02  l_XSEG                          
-C:   0000CC02  s_XISEG                         
+C:   00002F8C  s_CONST                         
+C:   0000300E  s_XINIT                         
+C:   00003800  s_PSEG                          
+C:   00003800  s_XSEG                          
+C:   00009002  l_XSEG                          
+C:   0000C802  s_XISEG                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -303,7 +303,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                00006000    00006C02 =       27650. bytes (REL,CON,XDATA)
+XSEG                                00003800    00009002 =       36866. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -312,7 +312,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XISEG                               0000CC02    00000004 =           4. bytes (REL,CON,XDATA)
+XISEG                               0000C802    00000004 =           4. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -393,7 +393,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                000020CE    00000E7E =        3710. bytes (REL,CON,CODE)
+CSEG                                000020CE    00000EBE =        3774. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -403,24 +403,24 @@ C:   000020DC  _int0                              life
 C:   000020E8  _int1                              life
 C:   000020F4  _show                              life
 C:   000022E7  _main                              life
-C:   00002B85  _rand                              rand
-C:   00002C49  _srand                             rand
-C:   00002C62  __mulint                           _mulint
-C:   00002D00  ___memcpy                          __memcpy
-C:   00002D93  _memset                            _memset
-C:   00002DFD  _toupper                           toupper
-C:   00002E24  __gptrget                          _gptrget
-C:   00002E40  __modsint                          _modsint
-C:   00002EAE  __moduint                          _moduint
-C:   00002F2D  __sdcc_external_startup            _startup
-C:   00002F31  __gptrput                          _gptrput
+C:   00002BC5  _rand                              rand
+C:   00002C89  _srand                             rand
+C:   00002CA2  __mulint                           _mulint
+C:   00002D40  ___memcpy                          __memcpy
+C:   00002DD3  _memset                            _memset
+C:   00002E3D  _toupper                           toupper
+C:   00002E64  __gptrget                          _gptrget
+C:   00002E80  __modsint                          _modsint
+C:   00002EEE  __moduint                          _moduint
+C:   00002F6D  __sdcc_external_startup            _startup
+C:   00002F71  __gptrput                          _gptrput
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00002F4C    0000007E =         126. bytes (REL,CON,CODE)
+CONST                               00002F8C    00000082 =         130. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -429,7 +429,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00002FCA    00000004 =           4. bytes (REL,CON,CODE)
+XINIT                               0000300E    00000004 =           4. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -480,8 +480,8 @@ Libraries Linked                          [ object file ]
 User Base Address Definitions
 
 HOME = 0x2000
-XSEG = 0x6000
-PSEG = 0x6000
+XSEG = 0x3800
+PSEG = 0x3800
 ISEG = 0x0000
 BSEG = 0x0000
 

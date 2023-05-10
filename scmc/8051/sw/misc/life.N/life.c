@@ -65,7 +65,7 @@ void int1(void) __interrupt IE1_VECTOR __using 1 {
 #define H 192
 #define W 48
 
-static char pu[H * W], u[H * W], nu[H * W]; /* evolve(), show(), loadu() */
+static char iu[H * W], pu[H * W], u[H * W], nu[H * W]; /* evolve(), show(), loadu() */
 
 __idata static int x, y; /* evolve(), show(), loadu() */
 __idata static int j, c; /* loadu() */
@@ -119,7 +119,7 @@ inline void clearu(void) {
 	return;
 }
 
-inline void loadu(void) {
+inline void loadiu(void) {
 	j = 0;
 	
 	printstr("LOAD 0 1 ~ # <");
@@ -129,11 +129,11 @@ inline void loadu(void) {
 			while (1) {
 				c = getchar();
 				if (c == (int)'0') {
-					u[y + x] = 0;
+					iu[y + x] = 0;
 					j++;
 					break;
 				} else if (c == (int)'1') {
-					u[y + x] = 1;
+					iu[y + x] = 1;
 					j++;
 					break;
 				} else if (c == (int)'~') goto br_inner;
@@ -157,14 +157,14 @@ out:
 	return;
 }
 
-inline void loadr(void) {
+inline void loadriu(void) {
 	j = 0;
 	
 	printstr("RANDOM");
 	
 	for (y = 0; y < (H * W); y += W)
 		for (x = 0; x < W; x++)
-			u[y + x] = rand() & 1;
+			iu[y + x] = rand() & 1;
 	
 	printstr("\r\n");
 	
@@ -229,25 +229,26 @@ void main(void) {
 	EX1 = 1;
 	EA = 1;
 	
-	for (i0 = 0; !i0; ) {		
-		printstr("\033[2J\033[?25l\033[mLIFE INIT T L R\r\n");
+	for (i0 = 0; !i0; ) {	
+		printstr("\033[2J\033[?25l\033[mLIFE INIT T L R P\r\n");
 		while (1) {
 			c = toupper(getchar());
 			if (i0 || (c == (int)'T')) goto terminate;
-			else if ((c == (int)'L') || (c == (int)'R')) break;
+			else if ((c == (int)'L') || (c == (int)'R') || (c == (int)'P')) break;
 		}
 		
 reload:
 		clearu();
-		if (c == (int)'L') loadu();
-		else loadr();
+		if (c == (int)'L') loadiu();
+		else if (c == (int)'R') loadriu();
+		memcpy(u, iu, sizeof (iu));
 		show(0);
 		
-		printstr("READY T L R S\r\n");
+		printstr("READY T L R P S\r\n");
 		while (1) {
 			c = toupper(getchar());
 			if (i0 || (c == (int)'T')) goto terminate;
-			else if ((c == (int)'L') || (c == (int)'R')) goto reload;
+			else if ((c == (int)'L') || (c == (int)'R') || (c == (int)'P')) goto reload;
 			else if (c == (int)'S') break;
 		}
 		
