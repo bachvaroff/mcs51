@@ -1037,7 +1037,7 @@
       002315 76 00            [12] 1037 	mov	@r0,#0x00
       002317                       1038 00242$:
                                    1039 ;	life.c:233: printstr("\033[2J\033[?25l\033[mLIFE INIT T L R\r\n");
-      002317 7D 6D            [12] 1040 	mov	r5,#___str_5
+      002317 7D 75            [12] 1040 	mov	r5,#___str_5
       002319 7E 2F            [12] 1041 	mov	r6,#(___str_5 >> 8)
       00231B 7F 80            [12] 1042 	mov	r7,#0x80
                                    1043 ;	life.c:50: return;
@@ -1129,7 +1129,7 @@
       0023AC F6               [12] 1129 	mov	@r0,a
       0023AD 08               [12] 1130 	inc	r0
       0023AE F6               [12] 1131 	mov	@r0,a
-                                   1132 ;	life.c:125: printstr("LOAD <");
+                                   1132 ;	life.c:125: printstr("LOAD 0 1 ~ # <");
       0023AF 7D 5B            [12] 1133 	mov	r5,#___str_2
       0023B1 7E 2F            [12] 1134 	mov	r6,#(___str_2 >> 8)
       0023B3 7F 80            [12] 1135 	mov	r7,#0x80
@@ -1147,7 +1147,7 @@
       0023C5 8B 83            [24] 1147 	mov	dph,r3
       0023C7 12 20 CE         [24] 1148 	lcall	_putchar
       0023CA 0D               [12] 1149 	inc	r5
-                                   1150 ;	life.c:125: printstr("LOAD <");
+                                   1150 ;	life.c:125: printstr("LOAD 0 1 ~ # <");
       0023CB BD 00 E7         [24] 1151 	cjne	r5,#0x00,00201$
       0023CE 0E               [12] 1152 	inc	r6
       0023CF 80 E4            [24] 1153 	sjmp	00201$
@@ -1381,7 +1381,7 @@
       002509 8E 83            [24] 1381 	mov	dph,r6
       00250B 12 20 CE         [24] 1382 	lcall	_putchar
                                    1383 ;	life.c:155: printstr(">\r\n");
-      00250E 7D 62            [12] 1384 	mov	r5,#___str_3
+      00250E 7D 6A            [12] 1384 	mov	r5,#___str_3
       002510 7E 2F            [12] 1385 	mov	r6,#(___str_3 >> 8)
       002512 7F 80            [12] 1386 	mov	r7,#0x80
                                    1387 ;	life.c:50: return;
@@ -1412,7 +1412,7 @@
       002537 08               [12] 1412 	inc	r0
       002538 F6               [12] 1413 	mov	@r0,a
                                    1414 ;	life.c:163: printstr("RANDOM");
-      002539 7D 66            [12] 1415 	mov	r5,#___str_4
+      002539 7D 6E            [12] 1415 	mov	r5,#___str_4
       00253B 7E 2F            [12] 1416 	mov	r6,#(___str_4 >> 8)
       00253D 7F 80            [12] 1417 	mov	r7,#0x80
                                    1418 ;	life.c:50: return;
@@ -1535,7 +1535,7 @@
       0025DE 75 82 00         [24] 1535 	mov	dpl,#0x00
       0025E1 12 20 F4         [24] 1536 	lcall	_show
                                    1537 ;	life.c:246: printstr("READY T L R S\r\n");
-      0025E4 7D 8C            [12] 1538 	mov	r5,#___str_6
+      0025E4 7D 94            [12] 1538 	mov	r5,#___str_6
       0025E6 7E 2F            [12] 1539 	mov	r6,#(___str_6 >> 8)
       0025E8 7F 80            [12] 1540 	mov	r7,#0x80
                                    1541 ;	life.c:50: return;
@@ -2362,7 +2362,7 @@
       002AB5                       2362 00555$:
       002AB5                       2363 00131$:
                                    2364 ;	life.c:260: printstr("DONE ");
-      002AB5 7D 9C            [12] 2365 	mov	r5,#___str_7
+      002AB5 7D A4            [12] 2365 	mov	r5,#___str_7
       002AB7 7E 2F            [12] 2366 	mov	r6,#(___str_7 >> 8)
       002AB9 7F 80            [12] 2367 	mov	r7,#0x80
                                    2368 ;	life.c:50: return;
@@ -2388,7 +2388,7 @@
       002AD7 78 3D            [12] 2388 	mov	r0,#_fixed
       002AD9 E6               [12] 2389 	mov	a,@r0
       002ADA 60 22            [24] 2390 	jz	00129$
-      002ADC 7D A2            [12] 2391 	mov	r5,#___str_8
+      002ADC 7D AA            [12] 2391 	mov	r5,#___str_8
       002ADE 7E 2F            [12] 2392 	mov	r6,#(___str_8 >> 8)
       002AE0 7F 80            [12] 2393 	mov	r7,#0x80
                                    2394 ;	life.c:50: return;
@@ -2411,7 +2411,7 @@
       002AFC 80 E4            [24] 2411 	sjmp	00230$
       002AFE                       2412 00129$:
                                    2413 ;	life.c:262: else printstr("CYCLE2\r\n");
-      002AFE 7D AA            [12] 2414 	mov	r5,#___str_9
+      002AFE 7D B2            [12] 2414 	mov	r5,#___str_9
       002B00 7E 2F            [12] 2415 	mov	r6,#(___str_9 >> 8)
       002B02 7F 80            [12] 2416 	mov	r7,#0x80
                                    2417 ;	life.c:50: return;
@@ -2442,7 +2442,7 @@
       002B25 E6               [12] 2442 	mov	a,@r0
       002B26 60 25            [24] 2443 	jz	00243$
                                    2444 ;	life.c:269: printstr("BREAK\r\n");
-      002B28 7D B3            [12] 2445 	mov	r5,#___str_10
+      002B28 7D BB            [12] 2445 	mov	r5,#___str_10
       002B2A 7E 2F            [12] 2446 	mov	r6,#(___str_10 >> 8)
       002B2C 7F 80            [12] 2447 	mov	r7,#0x80
                                    2448 ;	life.c:50: return;
@@ -2479,7 +2479,7 @@
                                    2479 ;	assignBit
       002B55 C2 AF            [12] 2480 	clr	_EA
                                    2481 ;	life.c:276: printstr("TERM\r\n");
-      002B57 7D BB            [12] 2482 	mov	r5,#___str_11
+      002B57 7D C3            [12] 2482 	mov	r5,#___str_11
       002B59 7E 2F            [12] 2483 	mov	r6,#(___str_11 >> 8)
       002B5B 7F 80            [12] 2484 	mov	r7,#0x80
                                    2485 ;	life.c:50: return;
@@ -2527,75 +2527,76 @@
                                    2527 	.area CSEG    (CODE)
                                    2528 	.area CONST   (CODE)
       002F5B                       2529 ___str_2:
-      002F5B 4C 4F 41 44 20 3C     2530 	.ascii "LOAD <"
-      002F61 00                    2531 	.db 0x00
+      002F5B 4C 4F 41 44 20 30 20  2530 	.ascii "LOAD 0 1 ~ # <"
+             31 20 7E 20 23 20 3C
+      002F69 00                    2531 	.db 0x00
                                    2532 	.area CSEG    (CODE)
                                    2533 	.area CONST   (CODE)
-      002F62                       2534 ___str_3:
-      002F62 3E                    2535 	.ascii ">"
-      002F63 0D                    2536 	.db 0x0d
-      002F64 0A                    2537 	.db 0x0a
-      002F65 00                    2538 	.db 0x00
+      002F6A                       2534 ___str_3:
+      002F6A 3E                    2535 	.ascii ">"
+      002F6B 0D                    2536 	.db 0x0d
+      002F6C 0A                    2537 	.db 0x0a
+      002F6D 00                    2538 	.db 0x00
                                    2539 	.area CSEG    (CODE)
                                    2540 	.area CONST   (CODE)
-      002F66                       2541 ___str_4:
-      002F66 52 41 4E 44 4F 4D     2542 	.ascii "RANDOM"
-      002F6C 00                    2543 	.db 0x00
+      002F6E                       2541 ___str_4:
+      002F6E 52 41 4E 44 4F 4D     2542 	.ascii "RANDOM"
+      002F74 00                    2543 	.db 0x00
                                    2544 	.area CSEG    (CODE)
                                    2545 	.area CONST   (CODE)
-      002F6D                       2546 ___str_5:
-      002F6D 1B                    2547 	.db 0x1b
-      002F6E 5B 32 4A              2548 	.ascii "[2J"
-      002F71 1B                    2549 	.db 0x1b
-      002F72 5B 3F 32 35 6C        2550 	.ascii "[?25l"
-      002F77 1B                    2551 	.db 0x1b
-      002F78 5B 6D 4C 49 46 45 20  2552 	.ascii "[mLIFE INIT T L R"
+      002F75                       2546 ___str_5:
+      002F75 1B                    2547 	.db 0x1b
+      002F76 5B 32 4A              2548 	.ascii "[2J"
+      002F79 1B                    2549 	.db 0x1b
+      002F7A 5B 3F 32 35 6C        2550 	.ascii "[?25l"
+      002F7F 1B                    2551 	.db 0x1b
+      002F80 5B 6D 4C 49 46 45 20  2552 	.ascii "[mLIFE INIT T L R"
              49 4E 49 54 20 54 20
              4C 20 52
-      002F89 0D                    2553 	.db 0x0d
-      002F8A 0A                    2554 	.db 0x0a
-      002F8B 00                    2555 	.db 0x00
+      002F91 0D                    2553 	.db 0x0d
+      002F92 0A                    2554 	.db 0x0a
+      002F93 00                    2555 	.db 0x00
                                    2556 	.area CSEG    (CODE)
                                    2557 	.area CONST   (CODE)
-      002F8C                       2558 ___str_6:
-      002F8C 52 45 41 44 59 20 54  2559 	.ascii "READY T L R S"
+      002F94                       2558 ___str_6:
+      002F94 52 45 41 44 59 20 54  2559 	.ascii "READY T L R S"
              20 4C 20 52 20 53
-      002F99 0D                    2560 	.db 0x0d
-      002F9A 0A                    2561 	.db 0x0a
-      002F9B 00                    2562 	.db 0x00
+      002FA1 0D                    2560 	.db 0x0d
+      002FA2 0A                    2561 	.db 0x0a
+      002FA3 00                    2562 	.db 0x00
                                    2563 	.area CSEG    (CODE)
                                    2564 	.area CONST   (CODE)
-      002F9C                       2565 ___str_7:
-      002F9C 44 4F 4E 45 20        2566 	.ascii "DONE "
-      002FA1 00                    2567 	.db 0x00
+      002FA4                       2565 ___str_7:
+      002FA4 44 4F 4E 45 20        2566 	.ascii "DONE "
+      002FA9 00                    2567 	.db 0x00
                                    2568 	.area CSEG    (CODE)
                                    2569 	.area CONST   (CODE)
-      002FA2                       2570 ___str_8:
-      002FA2 46 49 58 45 44        2571 	.ascii "FIXED"
-      002FA7 0D                    2572 	.db 0x0d
-      002FA8 0A                    2573 	.db 0x0a
-      002FA9 00                    2574 	.db 0x00
+      002FAA                       2570 ___str_8:
+      002FAA 46 49 58 45 44        2571 	.ascii "FIXED"
+      002FAF 0D                    2572 	.db 0x0d
+      002FB0 0A                    2573 	.db 0x0a
+      002FB1 00                    2574 	.db 0x00
                                    2575 	.area CSEG    (CODE)
                                    2576 	.area CONST   (CODE)
-      002FAA                       2577 ___str_9:
-      002FAA 43 59 43 4C 45 32     2578 	.ascii "CYCLE2"
-      002FB0 0D                    2579 	.db 0x0d
-      002FB1 0A                    2580 	.db 0x0a
-      002FB2 00                    2581 	.db 0x00
+      002FB2                       2577 ___str_9:
+      002FB2 43 59 43 4C 45 32     2578 	.ascii "CYCLE2"
+      002FB8 0D                    2579 	.db 0x0d
+      002FB9 0A                    2580 	.db 0x0a
+      002FBA 00                    2581 	.db 0x00
                                    2582 	.area CSEG    (CODE)
                                    2583 	.area CONST   (CODE)
-      002FB3                       2584 ___str_10:
-      002FB3 42 52 45 41 4B        2585 	.ascii "BREAK"
-      002FB8 0D                    2586 	.db 0x0d
-      002FB9 0A                    2587 	.db 0x0a
-      002FBA 00                    2588 	.db 0x00
+      002FBB                       2584 ___str_10:
+      002FBB 42 52 45 41 4B        2585 	.ascii "BREAK"
+      002FC0 0D                    2586 	.db 0x0d
+      002FC1 0A                    2587 	.db 0x0a
+      002FC2 00                    2588 	.db 0x00
                                    2589 	.area CSEG    (CODE)
                                    2590 	.area CONST   (CODE)
-      002FBB                       2591 ___str_11:
-      002FBB 54 45 52 4D           2592 	.ascii "TERM"
-      002FBF 0D                    2593 	.db 0x0d
-      002FC0 0A                    2594 	.db 0x0a
-      002FC1 00                    2595 	.db 0x00
+      002FC3                       2591 ___str_11:
+      002FC3 54 45 52 4D           2592 	.ascii "TERM"
+      002FC7 0D                    2593 	.db 0x0d
+      002FC8 0A                    2594 	.db 0x0a
+      002FC9 00                    2595 	.db 0x00
                                    2596 	.area CSEG    (CODE)
                                    2597 	.area XINIT   (CODE)
                                    2598 	.area CABS    (ABS,CODE)

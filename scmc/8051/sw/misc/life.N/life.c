@@ -122,7 +122,7 @@ inline void clearu(void) {
 inline void loadu(void) {
 	j = 0;
 	
-	printstr("LOAD <");
+	printstr("LOAD 0 1 ~ # <");
 	
 	for (y = 0; y < (H * W); y += W) {
 		for (x = 0; x < W; x++) {

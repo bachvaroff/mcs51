@@ -1129,7 +1129,7 @@ _main:
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-;	life.c:125: printstr("LOAD <");
+;	life.c:125: printstr("LOAD 0 1 ~ # <");
 	mov	r5,#___str_2
 	mov	r6,#(___str_2 >> 8)
 	mov	r7,#0x80
@@ -1147,7 +1147,7 @@ _main:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	life.c:125: printstr("LOAD <");
+;	life.c:125: printstr("LOAD 0 1 ~ # <");
 	cjne	r5,#0x00,00201$
 	inc	r6
 	sjmp	00201$
@@ -2527,7 +2527,7 @@ ___str_1:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_2:
-	.ascii "LOAD <"
+	.ascii "LOAD 0 1 ~ # <"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
