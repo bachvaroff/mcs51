@@ -5,14 +5,14 @@
 #define GPO_BASE_L	0x00u
 #define GPO_OE		4
 
-typedef __pdata uint8_t *ppdu8_t;
+typedef __pdata uint8_t *ppd_uint8_t;
 
-__idata volatile ppdu8_t gpo;
+__idata volatile ppd_uint8_t gpo;
 
 void init_gpo(void) {
 	P1_7 = 1;
 	P2 = GPO_BASE_H;
-	gpo = (ppdu8_t)GPO_BASE_L;
+	gpo = (ppd_uint8_t)GPO_BASE_L;
 	
 	return;
 }

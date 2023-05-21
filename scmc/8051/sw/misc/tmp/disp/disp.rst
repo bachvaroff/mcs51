@@ -396,7 +396,7 @@
       00206D D2 97            [12]  396 	setb	_P1_7
                                     397 ;	disp.c:14: P2 = GPO_BASE_H;
       00206F 75 A0 FF         [24]  398 	mov	_P2,#0xff
-                                    399 ;	disp.c:15: gpo = (ppdu8_t)GPO_BASE_L;
+                                    399 ;	disp.c:15: gpo = (ppd_uint8_t)GPO_BASE_L;
       002072 78 10            [12]  400 	mov	r0,#_gpo
       002074 76 00            [12]  401 	mov	@r0,#0x00
                                     402 ;	disp.c:17: return;

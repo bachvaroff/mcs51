@@ -396,7 +396,7 @@ _init_gpo:
 	setb	_P1_7
 ;	disp.c:14: P2 = GPO_BASE_H;
 	mov	_P2,#0xff
-;	disp.c:15: gpo = (ppdu8_t)GPO_BASE_L;
+;	disp.c:15: gpo = (ppd_uint8_t)GPO_BASE_L;
 	mov	r0,#_gpo
 	mov	@r0,#0x00
 ;	disp.c:17: return;
