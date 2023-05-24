@@ -12,16 +12,17 @@ always @(E or D)
 
 endmodule
 
-module _latchdash(E, D, Qdash);
+module _nlatch(E, D, nQ);
 input wire E;
 input wire D;
-output wire Qdash;
+output wire nQ;
 
 reg rQ;
 
-assign Qdash = ~rQ;
+assign nQ = ~rQ;
 
 always @(E or D)
 	if (E) rQ <= D;
 
 endmodule
+
