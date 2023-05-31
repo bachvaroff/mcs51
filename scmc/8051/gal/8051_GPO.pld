@@ -65,9 +65,7 @@ TABLE ADDRESS => DECODE {
 	'b'00101 => 'b'0000010;
 	'b'00110 => 'b'0000001; /* OE ctrl */
 	'b'00111 => 'b'0000001; /* OE ctrl */
-	
 	'b'01xxx => 'b'0000000;
-	
 	'b'1xxxx => 'b'0000001; /* set L*OE to 1 on reset */
 }
 
