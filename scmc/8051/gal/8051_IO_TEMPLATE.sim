@@ -1,0 +1,47 @@
+%SIGNAL
+PIN   4 =  A10I 
+PIN   5 =  A11I 
+PIN   6 =  A12I 
+PIN   2 =  A8I 
+PIN   3 =  A9I 
+PIN   7 =  CSIO77I 
+PIN  15 =  CSIOO 
+PIN  10 =  DEI 
+PIN  14 =  DEO 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+BOARD_ID =>
+    A11I
+  # A10I
+  # A9I
+  # A8I
+
+CSIO =>
+    A11I
+  # A10I
+  # A9I
+  # A8I
+  # CSIO77I
+  # !A12I
+
+!CSIOO =>
+    !A10I & !A11I & A12I & !A8I & !A9I & !CSIO77I
+
+!DEO =>
+    !A10I & !A11I & A12I & !A8I & !A9I & !CSIO77I & !DEI
+
+UPPER_HALF_IO77 =>
+    CSIO77I
+  # !A12I
+
+CSIOO.oe  =>
+    1 
+
+DEO.oe  =>
+    1 
+
+%END

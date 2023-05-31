@@ -1,0 +1,26 @@
+# Berkeley PLA format generated using
+#
+# CUPL(WM)        5.0a Serial# 60008009
+# Device          g22v10  Library DLIB-h-40-1
+# Created         Wed May 31 10:58:42 2023
+# Name            8051_IO_TEMPLATE
+# Partno          U0 G22V10
+# Revision        1.0
+# Date            14 Mar 2023
+# Designer        Atanas Bachvaroff
+# Company         DXC
+# Assembly        0001
+# Location        Sofia,BG,EU
+#
+# Inputs  1 A10I A11I A12I 
+#         A8I A9I CSIO77I CSIOO 
+#         DEI DEO 
+# Outputs !CSIOO !DEO CSIOO.oe DEO.oe 
+.i 10
+.o 4
+.p 4
+-001000--- 1~~~
+-001000-0- ~1~~
+1--------- ~~1~
+1--------- ~~~1
+.end
