@@ -31,7 +31,7 @@ PIN 1 = A7I;
 /*
 	OUTPUTS --
 */
-PIN 15 = DEO
+PIN 15 = DEO;
 PIN 16 = B0OE;
 PIN 17 = B1OE;
 PIN 18 = B2OE;

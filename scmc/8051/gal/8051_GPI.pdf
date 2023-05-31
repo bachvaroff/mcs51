@@ -1,0 +1,219 @@
+{COMPONENT \\MIDIAN\NASKO\VAR\GIT\GITHUB\V\SCMC\8051\GAL\8051_GPI.SYM
+
+ {ENVIRONMENT
+  {PDIFvrev 3.00}
+  {Program "CUPL(WM) Version 5.0a"}
+  {DBtype "Schematic"}
+  {DBvrev 1.01}
+  {DBtime "Wed May 31 10:54:18 2023 "}
+  {DBunit "MIL"}
+  {DBgrid 10}
+  {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
+          "PINNAM" 6 "PINCON" 4 "REFDES" 2 "ATTR" 6 "SDOT" 1 
+          "DEVICE" 5 "OUTLIN" 5 "ATTR2" 6 "NOTES" 6 "NETNAM" 4 
+          "CMPNAM" 5 "BORDER" 5}
+ }
+
+ {USER
+  {VIEW
+   {Mode SYMB}
+   {Nlst OPEN}
+   {Vw 0 0 2}
+   {Lv 12 2 2 2 0 0 2 2 2 2 0 0 2 1 2 0 0 0 0}
+   {Gs 10 10}
+  }
+ }
+
+ {DISPLAY
+  [Ly "PINNUM"]
+  [Ls "SOLID"][Wd 0]
+  [Ts 15][Tj "LC"][Tr 0][Tm "N"]
+ }
+
+ {SYMBOL
+  {PIN_DEF
+   [Ly "PINCON"]
+   {P A7I {Pt "INPUT"}{Lq 0}{Ploc 100 280}}
+   {P A8I {Pt "INPUT"}{Lq 0}{Ploc 100 240}}
+   {P A9I {Pt "INPUT"}{Lq 0}{Ploc 100 220}}
+   {P A10I {Pt "INPUT"}{Lq 0}{Ploc 100 200}}
+   {P A11I {Pt "INPUT"}{Lq 0}{Ploc 100 180}}
+   {P A12I {Pt "INPUT"}{Lq 0}{Ploc 100 160}}
+   {P CSIO77I {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
+   {P RSTI {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
+   {P RDI {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
+   {P DEI {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
+   {P A0I {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
+   {P A1I {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
+   {P A2I {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
+   {P DEO {Pt "I/O"}{Lq 0}{Ploc 320 20}}
+   {P B0OE {Pt "I/O"}{Lq 0}{Ploc 320 40}}
+   {P B1OE {Pt "I/O"}{Lq 0}{Ploc 320 60}}
+   {P B2OE {Pt "I/O"}{Lq 0}{Ploc 320 80}}
+   {P B3OE {Pt "I/O"}{Lq 0}{Ploc 320 100}}
+   {P B4OE {Pt "I/O"}{Lq 0}{Ploc 320 120}}
+   {P B5OE {Pt "I/O"}{Lq 0}{Ploc 320 140}}
+   {P T1PRE {Pt "I/O"}{Lq 0}{Ploc 320 160}}
+   {P T1CLR {Pt "I/O"}{Lq 0}{Ploc 320 180}}
+  }
+
+  {PKG
+   [Ly "REFDES"]
+   [Ts 25][Tj "CB"][Tr 0][Tm "N"]
+   {Rdl 210 310}
+
+   [Ly "PINNUM"]
+   [Ts 15][Tj "RC"]
+   {Pnl 120 290}
+   [Ts 15][Tj "RC"]
+   {Pnl 120 250}
+   {Pnl 120 230}
+   {Pnl 120 210}
+   {Pnl 120 190}
+   {Pnl 120 170}
+   {Pnl 120 150}
+   {Pnl 120 130}
+   {Pnl 120 110}
+   {Pnl 120 90}
+   {Pnl 120 70}
+   {Pnl 120 50}
+   {Pnl 120 30}
+   [Ts 15][Tj "LC"]
+   {Pnl 300 30}
+   {Pnl 300 50}
+   {Pnl 300 70}
+   {Pnl 300 90}
+   {Pnl 300 110}
+   {Pnl 300 130}
+   {Pnl 300 150}
+   {Pnl 300 170}
+   {Pnl 300 190}
+
+   {Sd A 1 2 3 4 5 6 7 8 9 10 11 13 14 15 16 17 18 19 20 21 22 23}
+  }
+
+  {PIC
+   [Ly "GATE"]
+   [Ts 15][Tj "LC"][Tr 0][Tm "N"]
+   {R 130 300 290 0}
+   {L 130 280 100 280}
+   {L 130 290 140 280 130 270}
+   {L 130 240 100 240}
+   {L 130 220 100 220}
+   {L 130 200 100 200}
+   {L 130 180 100 180}
+   {L 130 160 100 160}
+   {L 130 140 100 140}
+   {L 130 120 100 120}
+   {L 130 100 100 100}
+   {L 130 80 100 80}
+   {L 130 60 100 60}
+   {L 130 40 100 40}
+   {L 130 20 100 20}
+   {L 290 20 320 20}
+   {L 290 40 320 40}
+   {L 290 60 320 60}
+   {L 290 80 320 80}
+   {L 290 100 320 100}
+   {L 290 120 320 120}
+   {L 290 140 320 140}
+   {L 290 160 320 160}
+   {L 290 180 320 180}
+   [Ly "PINNAM"]
+   [Tj "LC"]
+   {T "A7I" 140 280}
+   {T "A8I" 140 240}
+   {T "A9I" 140 220}
+   {T "A10I" 140 200}
+   {T "A11I" 140 180}
+   {T "A12I" 140 160}
+   {T "CSIO77I" 140 140}
+   {T "RSTI" 140 120}
+   {T "RDI" 140 100}
+   {T "DEI" 140 80}
+   {T "A0I" 140 60}
+   {T "A1I" 140 40}
+   {T "A2I" 140 20}
+   [Tj "RC"]
+   {T "DEO" 280 20}
+   {T "B0OE" 280 40}
+   {T "B1OE" 280 60}
+   {T "B2OE" 280 80}
+   {T "B3OE" 280 100}
+   {T "B4OE" 280 120}
+   {T "B5OE" 280 140}
+   {T "T1PRE" 280 160}
+   {T "T1CLR" 280 180}
+   [Ly "DEVICE"]
+   [Tj "CT"]
+   {T "G22V10" 210 -10}
+  }
+
+  {ATR
+   {IN
+    {Org 100 20}
+    {Ty 255}
+   }
+   {EX
+    [Ly "ATTR2"]
+    [Ts 12][Tj "CT"][Tr 0][Tm "N"]
+    {At PLD \\MIDIAN\NASKO\VAR\GIT\GITHUB\V\SCMC\8051\GAL\8051_GPI 210 300}
+   }
+  }
+ }
+
+ {DETAIL
+  {ANNOTATE
+  }
+
+  {NET_DEF
+   {N A7I
+   }
+   {N A8I
+   }
+   {N A9I
+   }
+   {N A10I
+   }
+   {N A11I
+   }
+   {N A12I
+   }
+   {N CSIO77I
+   }
+   {N RSTI
+   }
+   {N RDI
+   }
+   {N DEI
+   }
+   {N A0I
+   }
+   {N A1I
+   }
+   {N A2I
+   }
+   {N DEO
+   }
+   {N B0OE
+   }
+   {N B1OE
+   }
+   {N B2OE
+   }
+   {N B3OE
+   }
+   {N B4OE
+   }
+   {N B5OE
+   }
+   {N T1PRE
+   }
+   {N T1CLR
+   }
+  }
+
+  {SUBCOMP
+  }
+ }
+}

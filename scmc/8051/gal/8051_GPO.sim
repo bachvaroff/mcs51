@@ -1,0 +1,128 @@
+%SIGNAL
+PIN  11 =  A0I 
+PIN   4 =  A10I 
+PIN   5 =  A11I 
+PIN   6 =  A12I 
+PIN  13 =  A1I 
+PIN  14 =  A2I 
+PIN   1 =  A7I 
+PIN   2 =  A8I 
+PIN   3 =  A9I 
+PIN   7 =  CSIO77I 
+PIN  10 =  DEI 
+PIN  15 =  DEO 
+PIN  16 =  L0LE 
+PIN  17 =  L1LE 
+PIN  18 =  L2LE 
+PIN  19 =  L3LE 
+PIN  20 =  L4LE 
+PIN  21 =  L5LE 
+PIN  22 =  OECTRL_LE 
+PIN   9 =  RSTI 
+PIN   8 =  WRI 
+%END
+
+%FIELD
+FIELD ADDRESS = RSTI,DEO,A0I,A1I,A2I
+FIELD DECODE = L0LE,L1LE,L2LE,L3LE,L4LE,L5LE,OECTRL_LE
+%END
+
+%EQUATION
+BOARD_ID =>
+    A11I
+  # A10I
+  # A9I
+  # A8I
+  # A7I
+
+CSIO =>
+    A11I
+  # A10I
+  # A9I
+  # A8I
+  # A7I
+  # CSIO77I
+  # !A12I
+
+!DEO =>
+    !A10I & !A11I & A12I & !A7I & !A8I & !A9I & !CSIO77I & !DEI & !RSTI & !WRI
+
+!L0LE =>
+    A0I
+  # A1I
+  # A2I
+  # DEO
+  # RSTI
+
+!L1LE =>
+    A0I
+  # A1I
+  # !A2I
+  # DEO
+  # RSTI
+
+!L2LE =>
+    A0I
+  # !A1I
+  # A2I
+  # DEO
+  # RSTI
+
+!L3LE =>
+    A0I
+  # !A1I
+  # !A2I
+  # DEO
+  # RSTI
+
+!L4LE =>
+    !A0I
+  # A1I
+  # A2I
+  # DEO
+  # RSTI
+
+!L5LE =>
+    !A0I
+  # A1I
+  # !A2I
+  # DEO
+  # RSTI
+
+!OECTRL_LE =>
+    !A0I & !RSTI
+  # !A1I & !RSTI
+  # DEO & !RSTI
+
+UPPER_HALF_IO77 =>
+    CSIO77I
+  # !A12I
+
+A2I.oe  =>
+    0 
+
+DEO.oe  =>
+    1 
+
+L0LE.oe  =>
+    1 
+
+L1LE.oe  =>
+    1 
+
+L2LE.oe  =>
+    1 
+
+L3LE.oe  =>
+    1 
+
+L4LE.oe  =>
+    1 
+
+L5LE.oe  =>
+    1 
+
+OECTRL_LE.oe  =>
+    1 
+
+%END

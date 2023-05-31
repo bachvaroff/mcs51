@@ -1,0 +1,213 @@
+{COMPONENT \\MIDIAN\NASKO\VAR\GIT\GITHUB\V\SCMC\8051\GAL\8051_GPO.SYM
+
+ {ENVIRONMENT
+  {PDIFvrev 3.00}
+  {Program "CUPL(WM) Version 5.0a"}
+  {DBtype "Schematic"}
+  {DBvrev 1.01}
+  {DBtime "Wed May 31 10:52:28 2023 "}
+  {DBunit "MIL"}
+  {DBgrid 10}
+  {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
+          "PINNAM" 6 "PINCON" 4 "REFDES" 2 "ATTR" 6 "SDOT" 1 
+          "DEVICE" 5 "OUTLIN" 5 "ATTR2" 6 "NOTES" 6 "NETNAM" 4 
+          "CMPNAM" 5 "BORDER" 5}
+ }
+
+ {USER
+  {VIEW
+   {Mode SYMB}
+   {Nlst OPEN}
+   {Vw 0 0 2}
+   {Lv 12 2 2 2 0 0 2 2 2 2 0 0 2 1 2 0 0 0 0}
+   {Gs 10 10}
+  }
+ }
+
+ {DISPLAY
+  [Ly "PINNUM"]
+  [Ls "SOLID"][Wd 0]
+  [Ts 15][Tj "LC"][Tr 0][Tm "N"]
+ }
+
+ {SYMBOL
+  {PIN_DEF
+   [Ly "PINCON"]
+   {P A7I {Pt "INPUT"}{Lq 0}{Ploc 100 280}}
+   {P A8I {Pt "INPUT"}{Lq 0}{Ploc 100 240}}
+   {P A9I {Pt "INPUT"}{Lq 0}{Ploc 100 220}}
+   {P A10I {Pt "INPUT"}{Lq 0}{Ploc 100 200}}
+   {P A11I {Pt "INPUT"}{Lq 0}{Ploc 100 180}}
+   {P A12I {Pt "INPUT"}{Lq 0}{Ploc 100 160}}
+   {P CSIO77I {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
+   {P WRI {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
+   {P RSTI {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
+   {P DEI {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
+   {P A0I {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
+   {P A1I {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
+   {P A2I {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
+   {P DEO {Pt "I/O"}{Lq 0}{Ploc 350 20}}
+   {P L0LE {Pt "I/O"}{Lq 0}{Ploc 350 40}}
+   {P L1LE {Pt "I/O"}{Lq 0}{Ploc 350 60}}
+   {P L2LE {Pt "I/O"}{Lq 0}{Ploc 350 80}}
+   {P L3LE {Pt "I/O"}{Lq 0}{Ploc 350 100}}
+   {P L4LE {Pt "I/O"}{Lq 0}{Ploc 350 120}}
+   {P L5LE {Pt "I/O"}{Lq 0}{Ploc 350 140}}
+   {P OECTRL_L {Pt "I/O"}{Lq 0}{Ploc 350 160}}
+  }
+
+  {PKG
+   [Ly "REFDES"]
+   [Ts 25][Tj "CB"][Tr 0][Tm "N"]
+   {Rdl 225 310}
+
+   [Ly "PINNUM"]
+   [Ts 15][Tj "RC"]
+   {Pnl 120 290}
+   [Ts 15][Tj "RC"]
+   {Pnl 120 250}
+   {Pnl 120 230}
+   {Pnl 120 210}
+   {Pnl 120 190}
+   {Pnl 120 170}
+   {Pnl 120 150}
+   {Pnl 120 130}
+   {Pnl 120 110}
+   {Pnl 120 90}
+   {Pnl 120 70}
+   {Pnl 120 50}
+   {Pnl 120 30}
+   [Ts 15][Tj "LC"]
+   {Pnl 330 30}
+   {Pnl 330 50}
+   {Pnl 330 70}
+   {Pnl 330 90}
+   {Pnl 330 110}
+   {Pnl 330 130}
+   {Pnl 330 150}
+   {Pnl 330 170}
+
+   {Sd A 1 2 3 4 5 6 7 8 9 10 11 13 14 15 16 17 18 19 20 21 22}
+  }
+
+  {PIC
+   [Ly "GATE"]
+   [Ts 15][Tj "LC"][Tr 0][Tm "N"]
+   {R 130 300 320 0}
+   {L 130 280 100 280}
+   {L 130 290 140 280 130 270}
+   {L 130 240 100 240}
+   {L 130 220 100 220}
+   {L 130 200 100 200}
+   {L 130 180 100 180}
+   {L 130 160 100 160}
+   {L 130 140 100 140}
+   {L 130 120 100 120}
+   {L 130 100 100 100}
+   {L 130 80 100 80}
+   {L 130 60 100 60}
+   {L 130 40 100 40}
+   {L 130 20 100 20}
+   {L 320 20 350 20}
+   {L 320 40 350 40}
+   {L 320 60 350 60}
+   {L 320 80 350 80}
+   {L 320 100 350 100}
+   {L 320 120 350 120}
+   {L 320 140 350 140}
+   {L 320 160 350 160}
+   [Ly "PINNAM"]
+   [Tj "LC"]
+   {T "A7I" 140 280}
+   {T "A8I" 140 240}
+   {T "A9I" 140 220}
+   {T "A10I" 140 200}
+   {T "A11I" 140 180}
+   {T "A12I" 140 160}
+   {T "CSIO77I" 140 140}
+   {T "WRI" 140 120}
+   {T "RSTI" 140 100}
+   {T "DEI" 140 80}
+   {T "A0I" 140 60}
+   {T "A1I" 140 40}
+   {T "A2I" 140 20}
+   [Tj "RC"]
+   {T "DEO" 310 20}
+   {T "L0LE" 310 40}
+   {T "L1LE" 310 60}
+   {T "L2LE" 310 80}
+   {T "L3LE" 310 100}
+   {T "L4LE" 310 120}
+   {T "L5LE" 310 140}
+   {T "OECTRL_L" 310 160}
+   [Ly "DEVICE"]
+   [Tj "CT"]
+   {T "G22V10" 225 -10}
+  }
+
+  {ATR
+   {IN
+    {Org 100 20}
+    {Ty 255}
+   }
+   {EX
+    [Ly "ATTR2"]
+    [Ts 12][Tj "CT"][Tr 0][Tm "N"]
+    {At PLD \\MIDIAN\NASKO\VAR\GIT\GITHUB\V\SCMC\8051\GAL\8051_GPO 225 300}
+   }
+  }
+ }
+
+ {DETAIL
+  {ANNOTATE
+  }
+
+  {NET_DEF
+   {N A7I
+   }
+   {N A8I
+   }
+   {N A9I
+   }
+   {N A10I
+   }
+   {N A11I
+   }
+   {N A12I
+   }
+   {N CSIO77I
+   }
+   {N WRI
+   }
+   {N RSTI
+   }
+   {N DEI
+   }
+   {N A0I
+   }
+   {N A1I
+   }
+   {N A2I
+   }
+   {N DEO
+   }
+   {N L0LE
+   }
+   {N L1LE
+   }
+   {N L2LE
+   }
+   {N L3LE
+   }
+   {N L4LE
+   }
+   {N L5LE
+   }
+   {N OECTRL_L
+   }
+  }
+
+  {SUBCOMP
+  }
+ }
+}
