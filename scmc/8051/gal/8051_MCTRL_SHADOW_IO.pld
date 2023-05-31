@@ -9,7 +9,7 @@ Location Sofia,BG,EU;
 Date 13 Mar 2023;
 
 /*
-	inputs
+	INPUTS --
 */
 PIN 11 = A12I;
 PIN 10 = DEI;
@@ -18,14 +18,20 @@ PIN 6 = CSIO16I;
 PIN 5 = CSIO00I;
 PIN 4 = CSRAMI;
 PIN 3 = CSROMI;
+/*
+	-- INPUTS
+*/
 
 /*
-	outputs
+	OUTPUTS --
 */
 PIN 14 = DEO;
 PIN 15 = CSRAMO;
 PIN 16 = CSROMO;
 PIN 17 = A16O;
+/*
+	-- OUTPUTS
+*/
 
 LOWER_HALF_IO77 = CSIO77I # A12I;
 CSRAM = CSRAMI & CSIO00I & CSIO16I & LOWER_HALF_IO77;

@@ -9,21 +9,27 @@ Location Sofia,BG,EU;
 Date 24 Dec 2022;
 
 /*
-	inputs
+	INPUTS --
 */
 PIN 10 = DEI;
 PIN 6 = CSIO16I;
 PIN 5 = CSIO00I;
 PIN 4 = CSRAMI;
 PIN 3 = CSROMI;
+/*
+	-- INPUTS
+*/
 
 /*
-	outputs
+	OUTPUTS --
 */
 PIN 14 = DEO;
 PIN 15 = CSRAMO;
 PIN 16 = CSROMO;
 PIN 17 = A16O;
+/*
+	-- OUTPUTS
+*/
 
 CSRAM = CSRAMI & CSIO00I & CSIO16I;
 CSROM = CSROMI;

@@ -9,7 +9,7 @@ Location Sofia,BG,EU;
 Date 22 Dec 2022;
 
 /*
-	inputs
+	INPUTS --
 */
 PIN 1 = !PSEN_MCU;
 PIN 2 = !WR_MCU;
@@ -27,19 +27,24 @@ PIN 11 = P10_MCU;
 PIN 13 = A15_MCU;
 PIN 14 = A14_MCU;
 PIN 15 = A13_MCU;
+/*
+	-- INPUTS
+*/
 
 /*
-	outputs
+	OUTPUTS --
 */
 PIN 23 = !DE_GAL;
 PIN 22 = !RD_GAL;
 PIN 21 = !WR_GAL;
-
 PIN 20 = !CSIO77_GAL;
 PIN 19 = !CSIO16_GAL;
 PIN 18 = !CSIO00_GAL;
 PIN 17 = !CSRAM_GAL;
 PIN 16 = !CSROM_GAL;
+/*
+	-- OUTPUTS
+*/
 
 FIELD ADDRESS = [
 	RD_MCU, WR_MCU, PSEN_MCU,
