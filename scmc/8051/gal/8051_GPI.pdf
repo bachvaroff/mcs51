@@ -5,7 +5,7 @@
   {Program "CUPL(WM) Version 5.0a"}
   {DBtype "Schematic"}
   {DBvrev 1.01}
-  {DBtime "Wed May 31 10:54:18 2023 "}
+  {DBtime "Wed May 31 17:22:00 2023 "}
   {DBunit "MIL"}
   {DBgrid 10}
   {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
@@ -33,19 +33,19 @@
  {SYMBOL
   {PIN_DEF
    [Ly "PINCON"]
-   {P A7I {Pt "INPUT"}{Lq 0}{Ploc 100 280}}
-   {P A8I {Pt "INPUT"}{Lq 0}{Ploc 100 240}}
-   {P A9I {Pt "INPUT"}{Lq 0}{Ploc 100 220}}
-   {P A10I {Pt "INPUT"}{Lq 0}{Ploc 100 200}}
-   {P A11I {Pt "INPUT"}{Lq 0}{Ploc 100 180}}
-   {P A12I {Pt "INPUT"}{Lq 0}{Ploc 100 160}}
+   {P A8I {Pt "INPUT"}{Lq 0}{Ploc 100 280}}
+   {P A9I {Pt "INPUT"}{Lq 0}{Ploc 100 240}}
+   {P A10I {Pt "INPUT"}{Lq 0}{Ploc 100 220}}
+   {P A11I {Pt "INPUT"}{Lq 0}{Ploc 100 200}}
+   {P A12I {Pt "INPUT"}{Lq 0}{Ploc 100 180}}
+   {P A7I {Pt "INPUT"}{Lq 0}{Ploc 100 160}}
    {P CSIO77I {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
    {P RSTI {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
    {P RDI {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
    {P DEI {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
-   {P A0I {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
+   {P A2I {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
    {P A1I {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
-   {P A2I {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
+   {P A0I {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
    {P DEO {Pt "I/O"}{Lq 0}{Ploc 320 20}}
    {P B0OE {Pt "I/O"}{Lq 0}{Ploc 320 40}}
    {P B1OE {Pt "I/O"}{Lq 0}{Ploc 320 60}}
@@ -121,19 +121,19 @@
    {L 290 180 320 180}
    [Ly "PINNAM"]
    [Tj "LC"]
-   {T "A7I" 140 280}
-   {T "A8I" 140 240}
-   {T "A9I" 140 220}
-   {T "A10I" 140 200}
-   {T "A11I" 140 180}
-   {T "A12I" 140 160}
+   {T "A8I" 140 280}
+   {T "A9I" 140 240}
+   {T "A10I" 140 220}
+   {T "A11I" 140 200}
+   {T "A12I" 140 180}
+   {T "A7I" 140 160}
    {T "CSIO77I" 140 140}
    {T "RSTI" 140 120}
    {T "RDI" 140 100}
    {T "DEI" 140 80}
-   {T "A0I" 140 60}
+   {T "A2I" 140 60}
    {T "A1I" 140 40}
-   {T "A2I" 140 20}
+   {T "A0I" 140 20}
    [Tj "RC"]
    {T "DEO" 280 20}
    {T "B0OE" 280 40}
@@ -167,8 +167,6 @@
   }
 
   {NET_DEF
-   {N A7I
-   }
    {N A8I
    }
    {N A9I
@@ -179,6 +177,8 @@
    }
    {N A12I
    }
+   {N A7I
+   }
    {N CSIO77I
    }
    {N RSTI
@@ -187,11 +187,11 @@
    }
    {N DEI
    }
-   {N A0I
+   {N A2I
    }
    {N A1I
    }
-   {N A2I
+   {N A0I
    }
    {N DEO
    }

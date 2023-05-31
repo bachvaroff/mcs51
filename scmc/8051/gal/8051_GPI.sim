@@ -1,13 +1,13 @@
 %SIGNAL
-PIN  11 =  A0I 
-PIN   4 =  A10I 
-PIN   5 =  A11I 
-PIN   6 =  A12I 
+PIN  14 =  A0I 
+PIN   3 =  A10I 
+PIN   4 =  A11I 
+PIN   5 =  A12I 
 PIN  13 =  A1I 
-PIN  14 =  A2I 
-PIN   1 =  A7I 
-PIN   2 =  A8I 
-PIN   3 =  A9I 
+PIN  11 =  A2I 
+PIN   6 =  A7I 
+PIN   1 =  A8I 
+PIN   2 =  A9I 
 PIN  16 =  B0OE 
 PIN  17 =  B1OE 
 PIN  18 =  B2OE 
@@ -77,7 +77,7 @@ UPPER_HALF_IO77 =>
     CSIO77I
   # !A12I
 
-A2I.oe  =>
+A0I.oe  =>
     0 
 
 B0OE.oe  =>

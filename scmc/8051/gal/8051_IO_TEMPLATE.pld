@@ -21,14 +21,14 @@ PIN 9 = ...
 PIN 8 = ...
 */
 PIN 7 = CSIO77I;
-PIN 6 = A12I;
-PIN 5 = A11I;
-PIN 4 = A10I;
-PIN 3 = A9I;
-PIN 2 = A8I;
 /*
-PIN 1 = ...
+PIN 6 = ...
 */
+PIN 5 = A12I;
+PIN 4 = A11I;
+PIN 3 = A10I;
+PIN 2 = A9I;
+PIN 1 = A8I;
 /*
 	-- INPUTS
 */

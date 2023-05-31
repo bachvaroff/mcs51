@@ -1,9 +1,9 @@
 %SIGNAL
-PIN   4 =  A10I 
-PIN   5 =  A11I 
-PIN   6 =  A12I 
-PIN   2 =  A8I 
-PIN   3 =  A9I 
+PIN   3 =  A10I 
+PIN   4 =  A11I 
+PIN   5 =  A12I 
+PIN   1 =  A8I 
+PIN   2 =  A9I 
 PIN   7 =  CSIO77I 
 PIN  15 =  CSIOO 
 PIN  10 =  DEI 

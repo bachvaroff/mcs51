@@ -2,7 +2,7 @@
 #
 # CUPL(WM)        5.0a Serial# 60008009
 # Device          g22v10  Library DLIB-h-40-1
-# Created         Wed May 31 10:52:28 2023
+# Created         Wed May 31 17:22:32 2023
 # Name            8051_GPO
 # Partno          U0 G22V10
 # Revision        1.0
@@ -20,7 +20,7 @@
 #         OECTRL_LE RSTI WRI 
 # Outputs !DEO !L0LE !L1LE !L2LE 
 #         !L3LE !L4LE !L5LE !OECTRL_LE 
-#         A2I.oe DEO.oe L0LE.oe L1LE.oe 
+#         A0I.oe DEO.oe L0LE.oe L1LE.oe 
 #         L2LE.oe L3LE.oe L4LE.oe L5LE.oe 
 #         OECTRL_LE.oe 
 .i 23

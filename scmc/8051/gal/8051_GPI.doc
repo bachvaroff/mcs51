@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Wed May 31 10:54:18 2023
+Created         Wed May 31 17:22:00 2023
 Name            8051_GPI
 Partno          U0 G22V10
 Revision        1.0
@@ -73,7 +73,7 @@ UPPER_HALF_IO77 =>
     CSIO77I
   # !A12I
 
-A2I.oe  =>
+A0I.oe  =>
     0 
 
 B0OE.oe  =>
@@ -112,15 +112,15 @@ Pin Variable                                    Pterms   Max     Min
 Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
 --- --------            ---     ---     ----    ------  ------  -----   
 
-    A0I                         11       V        -       -       -     
-    A10I                        4        V        -       -       -     
-    A11I                        5        V        -       -       -     
-    A12I                        6        V        -       -       -     
+    A0I                         14       V        -       -       -     
+    A10I                        3        V        -       -       -     
+    A11I                        4        V        -       -       -     
+    A12I                        5        V        -       -       -     
     A1I                         13       V        -       -       -     
-    A2I                         14       V        -       -       -     
-    A7I                         1        V        -       -       -     
-    A8I                         2        V        -       -       -     
-    A9I                         3        V        -       -       -     
+    A2I                         11       V        -       -       -     
+    A7I                         6        V        -       -       -     
+    A8I                         1        V        -       -       -     
+    A9I                         2        V        -       -       -     
     ADDRESS                     0        F        -       -       -     
     B0OE                        16       V        1       12      2     
     B1OE                        17       V        1       14      2     
@@ -139,7 +139,7 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
     T1CLR                       23       V        2       8       2     
     T1PRE                       22       V        1       10      2     
     UPPER_HALF_IO77             0        I        2       -       -     
-    A2I                 oe      14       D        1       1       0     
+    A0I                 oe      14       D        1       1       0     
     B0OE                oe      16       D        1       1       0     
     B1OE                oe      17       D        1       1       0     
     B2OE                oe      18       D        1       1       0     
@@ -170,7 +170,7 @@ AR
 Pin #23  05808 Mode  x- 
  00044 -------------------------------------------- 
  00088 ----------------------------x--------------- 
- 00132 -----------------------------------x---xx-x- 
+ 00132 -----------------------------------x--x--xx- 
  00176 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00220 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00264 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -205,7 +205,7 @@ Pin #21  05812 Mode  x-
  01452 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #20  05814 Mode  x- 
  01496 -------------------------------------------- 
- 01540 -----------------------------x-----x---xx--x 
+ 01540 -----------------------------x-----x--x--x-x 
  01584 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01628 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01672 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -221,7 +221,7 @@ Pin #20  05814 Mode  x-
  02112 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #19  05816 Mode  x- 
  02156 -------------------------------------------- 
- 02200 -----------------------------x-----x--x--xx- 
+ 02200 -----------------------------x-----x---xx-x- 
  02244 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  02288 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  02332 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -257,7 +257,7 @@ Pin #18  05818 Mode  x-
  03608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #17  05820 Mode  x- 
  03652 -------------------------------------------- 
- 03696 -----------------------------x-----x--x--x-x 
+ 03696 -----------------------------x-----x---xx--x 
  03740 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03784 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03828 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -287,7 +287,7 @@ Pin #16  05822 Mode  x-
  04840 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #15  05824 Mode  x- 
  04884 -------------------------------------------- 
- 04928 x----x---x---x---x--x----x---x---x---x------ 
+ 04928 -x---x---x---x--x---x----x---x---x---x------ 
  04972 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05060 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -318,17 +318,17 @@ LEGEND    X : fuse not blown
 
                                ______________
                               |   8051_GPI   |
-                      A7I x---|1           24|---x Vcc                      
-                      A8I x---|2           23|---x T1CLR                    
-                      A9I x---|3           22|---x T1PRE                    
-                     A10I x---|4           21|---x B5OE                     
-                     A11I x---|5           20|---x B4OE                     
-                     A12I x---|6           19|---x B3OE                     
+                      A8I x---|1           24|---x Vcc                      
+                      A9I x---|2           23|---x T1CLR                    
+                     A10I x---|3           22|---x T1PRE                    
+                     A11I x---|4           21|---x B5OE                     
+                     A12I x---|5           20|---x B4OE                     
+                      A7I x---|6           19|---x B3OE                     
                   CSIO77I x---|7           18|---x B2OE                     
                      RSTI x---|8           17|---x B1OE                     
                       RDI x---|9           16|---x B0OE                     
                       DEI x---|10          15|---x DEO                      
-                      A0I x---|11          14|---x A2I                      
+                      A2I x---|11          14|---x A0I                      
                       GND x---|12          13|---x A1I                      
                               |______________|
 

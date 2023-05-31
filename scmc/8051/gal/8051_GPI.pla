@@ -2,7 +2,7 @@
 #
 # CUPL(WM)        5.0a Serial# 60008009
 # Device          g22v10  Library DLIB-h-40-1
-# Created         Wed May 31 10:54:18 2023
+# Created         Wed May 31 17:22:00 2023
 # Name            8051_GPI
 # Partno          U0 G22V10
 # Revision        1.0
@@ -20,7 +20,7 @@
 #         RDI RSTI T1CLR T1PRE 
 # Outputs !B0OE !B1OE !B2OE !B3OE 
 #         !B4OE !B5OE !DEO !T1CLR 
-#         !T1PRE A2I.oe B0OE.oe B1OE.oe 
+#         !T1PRE A0I.oe B0OE.oe B1OE.oe 
 #         B2OE.oe B3OE.oe B4OE.oe B5OE.oe 
 #         DEO.oe T1CLR.oe T1PRE.oe 
 .i 24

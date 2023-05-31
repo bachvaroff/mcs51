@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Wed May 31 10:58:42 2023
+Created         Wed May 31 17:22:47 2023
 Name            8051_IO_TEMPLATE
 Partno          U0 G22V10
 Revision        1.0
@@ -58,11 +58,11 @@ Pin Variable                                    Pterms   Max     Min
 Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
 --- --------            ---     ---     ----    ------  ------  -----   
 
-    A10I                        4        V        -       -       -     
-    A11I                        5        V        -       -       -     
-    A12I                        6        V        -       -       -     
-    A8I                         2        V        -       -       -     
-    A9I                         3        V        -       -       -     
+    A10I                        3        V        -       -       -     
+    A11I                        4        V        -       -       -     
+    A12I                        5        V        -       -       -     
+    A8I                         1        V        -       -       -     
+    A9I                         2        V        -       -       -     
     BOARD_ID                    0        I        4       -       -     
     CSIO                        0        I        6       -       -     
     CSIO77I                     7        V        -       -       -     
@@ -210,7 +210,7 @@ Pin #16  05822 Mode  xx
  04840 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #15  05824 Mode  x- 
  04884 -------------------------------------------- 
- 04928 -----x---x---x---x--x----x------------------ 
+ 04928 -x---x---x---x--x--------x------------------ 
  04972 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05060 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -222,7 +222,7 @@ Pin #15  05824 Mode  x-
  05324 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #14  05826 Mode  x- 
  05368 -------------------------------------------- 
- 05412 -----x---x---x---x--x----x-----------x------ 
+ 05412 -x---x---x---x--x--------x-----------x------ 
  05456 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05500 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05544 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -241,12 +241,12 @@ LEGEND    X : fuse not blown
 
                                ______________
                               |8051_IO_TEMPLA|
-                          x---|1           24|---x Vcc                      
-                      A8I x---|2           23|---x                          
-                      A9I x---|3           22|---x                          
-                     A10I x---|4           21|---x                          
-                     A11I x---|5           20|---x                          
-                     A12I x---|6           19|---x                          
+                      A8I x---|1           24|---x Vcc                      
+                      A9I x---|2           23|---x                          
+                     A10I x---|3           22|---x                          
+                     A11I x---|4           21|---x                          
+                     A12I x---|5           20|---x                          
+                          x---|6           19|---x                          
                   CSIO77I x---|7           18|---x                          
                           x---|8           17|---x                          
                           x---|9           16|---x                          
