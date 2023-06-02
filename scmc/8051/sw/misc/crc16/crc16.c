@@ -1,5 +1,6 @@
 #include <mcs51/at89x52.h>
 #include <stdio.h>
+#include <stdint.h>
 
 #define pm2_entry_cout 0x0030
 #define pm2_entry_cin 0x0032
@@ -20,6 +21,8 @@ int getchar(void) __naked {
 		ret
 	__endasm;
 }
+
+typedef __xdata uint8_t *ppd_uint8_t;
 
 #define ACC_INITIAL 0xffffu
 #define POLY 0x1021u
@@ -48,9 +51,9 @@ void int0(void) __interrupt IE0_VECTOR __using 1 {
 #define TLEN 0xffffu
 
 void main(void) {
-	unsigned char *base, *t;
-	unsigned int len, off, crc;
-	unsigned char bitp;
+	volatile ppd_uint8_t base, t;
+	uint16_t len, off, crc;
+	uint8_t bitp;
 	
 	intr = 0;
 	
@@ -59,7 +62,7 @@ void main(void) {
 	EA = 1;
 	
 	while (!intr) {
-		base = (unsigned char *)0x0u;
+		base = (ppd_uint8_t)0x0u;
 		len = TLEN;
 		printf("COMPLETE base=0x%04x ", (unsigned int)base);
 		printf("len=0x%04x ", len);
