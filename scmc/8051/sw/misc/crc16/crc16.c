@@ -41,10 +41,10 @@ typedef __xdata uint8_t *ppd_uint8_t;
 	(R) ^= ACC_FINAL; \
 } while (0)
 
-int intr;
+__idata uint8_t intr;
 
 void int0(void) __interrupt IE0_VECTOR __using 1 {
-	intr = 1;
+	intr = 1u;
 }
 
 #define PLEN 0x2000u
@@ -55,7 +55,7 @@ void main(void) {
 	uint16_t len, off, crc;
 	uint8_t bitp;
 	
-	intr = 0;
+	intr = 0u;
 	
 	IT0 = 1;
 	EX0 = 1;	

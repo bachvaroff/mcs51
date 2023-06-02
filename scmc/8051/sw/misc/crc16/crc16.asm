@@ -309,6 +309,8 @@ __start__stack:
 ; indirectly addressable internal ram data
 ;--------------------------------------------------------
 	.area ISEG    (DATA)
+_intr::
+	.ds 1
 ;--------------------------------------------------------
 ; absolute internal ram data
 ;--------------------------------------------------------
@@ -326,8 +328,6 @@ __start__stack:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
-_intr::
-	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
@@ -428,24 +428,18 @@ _int0:
 	ar2 = 0x0a
 	ar1 = 0x09
 	ar0 = 0x08
-	push	acc
-	push	dpl
-	push	dph
-;	crc16.c:47: intr = 1;
-	mov	dptr,#_intr
-	mov	a,#0x01
-	movx	@dptr,a
-	clr	a
-	inc	dptr
-	movx	@dptr,a
+	push	psw
+	mov	psw,#0x08
+;	crc16.c:47: intr = 1u;
+	mov	r0,#_intr
+	mov	@r0,#0x01
 ;	crc16.c:48: }
-	pop	dph
-	pop	dpl
-	pop	acc
+	pop	psw
 	reti
-;	eliminated unneeded mov psw,# (no regs used in bank)
-;	eliminated unneeded push/pop psw
+;	eliminated unneeded push/pop dpl
+;	eliminated unneeded push/pop dph
 ;	eliminated unneeded push/pop b
+;	eliminated unneeded push/pop acc
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
@@ -474,12 +468,9 @@ _main:
 	mov	_bp,a
 	add	a,#0x06
 	mov	sp,a
-;	crc16.c:58: intr = 0;
-	mov	dptr,#_intr
-	clr	a
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
+;	crc16.c:58: intr = 0u;
+	mov	r0,#_intr
+	mov	@r0,#0x00
 ;	crc16.c:60: IT0 = 1;
 ;	assignBit
 	setb	_IT0
@@ -491,12 +482,8 @@ _main:
 	setb	_EA
 ;	crc16.c:64: while (!intr) {
 00131$:
-	mov	dptr,#_intr
-	movx	a,@dptr
-	mov	b,a
-	inc	dptr
-	movx	a,@dptr
-	orl	a,b
+	mov	r0,#_intr
+	mov	a,@r0
 	jz	00227$
 	ljmp	0
 00227$:
@@ -799,12 +786,8 @@ _main:
 	add	a,#0xfb
 	mov	sp,a
 ;	crc16.c:85: if (intr) {
-	mov	dptr,#_intr
-	movx	a,@dptr
-	mov	b,a
-	inc	dptr
-	movx	a,@dptr
-	orl	a,b
+	mov	r0,#_intr
+	mov	a,@r0
 	jz	00124$
 ;	crc16.c:86: EA = 0;
 ;	assignBit
