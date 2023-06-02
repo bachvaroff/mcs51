@@ -3,7 +3,7 @@
 
 #define GPO_BASE_H	0xffu
 #define GPO_BASE_L	0x00u
-#define GPO_OE		4
+#define GPO_OE		6
 
 typedef __pdata uint8_t *ppd_uint8_t;
 
@@ -23,6 +23,8 @@ void clear_gpo(void) {
 	gpo[1] = 0u;
 	gpo[2] = 0u;
 	gpo[3] = 0u;
+	gpo[4] = 0u;
+	gpo[5] = 0u;
 	
 	return;
 }
@@ -50,8 +52,8 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	register uint8_t t;
 	
 	t = column & 7u;
-	gpo[0] = ddata[t];
-	gpo[1] = 1u << t;
+	gpo[4] = ddata[t];
+	gpo[5] = 1u << t;
 	column++;
 	
 	TH0 = 0x4C;
@@ -66,7 +68,7 @@ void main(void) {
 	init_gpo();
 	clear_gpo();
 		
-	gpo[GPO_OE] = 0xfcu;
+	gpo[GPO_OE] = 0xcfu;
 	column = 0u;
 	
 	for (j = 0u; j < 8u; j++)

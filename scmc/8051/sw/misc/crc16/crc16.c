@@ -22,7 +22,7 @@ int getchar(void) __naked {
 	__endasm;
 }
 
-typedef __xdata uint8_t *ppd_uint8_t;
+typedef __xdata uint8_t *pxd_uint8_t;
 
 #define ACC_INITIAL 0xffffu
 #define POLY 0x1021u
@@ -51,7 +51,7 @@ void int0(void) __interrupt IE0_VECTOR __using 1 {
 #define TLEN 0xffffu
 
 void main(void) {
-	volatile ppd_uint8_t base, t;
+	volatile pxd_uint8_t base, t;
 	uint16_t len, off, crc;
 	uint8_t bitp;
 	
@@ -62,7 +62,7 @@ void main(void) {
 	EA = 1;
 	
 	while (!intr) {
-		base = (ppd_uint8_t)0x0u;
+		base = (pxd_uint8_t)0x0u;
 		len = TLEN;
 		printf("COMPLETE base=0x%04x ", (unsigned int)base);
 		printf("len=0x%04x ", len);

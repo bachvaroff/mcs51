@@ -487,7 +487,7 @@ _main:
 	jz	00227$
 	ljmp	0
 00227$:
-;	crc16.c:65: base = (ppd_uint8_t)0x0u;
+;	crc16.c:65: base = (pxd_uint8_t)0x0u;
 	mov	r0,_bp
 	inc	r0
 	clr	a
