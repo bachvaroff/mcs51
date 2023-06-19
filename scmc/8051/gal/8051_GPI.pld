@@ -47,10 +47,10 @@ PIN 23 = T1CLR;
 UPPER_HALF_IO77 = CSIO77I # !A12I;
 BOARD_ID = A11I # A10I # A9I # A8I # !A7I; /* 0xF080-0xF0FF */
 CSIO = BOARD_ID # UPPER_HALF_IO77;
-DEO = RSTI # DEI # CSIO # RDI;
+DEO = RSTI # DEI # CSIO;
 
 FIELD ADDRESS = [
-	RSTI, DEO, A0I, A1I, A2I
+	RSTI, DEO, RDI, A0I, A1I, A2I
 ];
 
 FIELD DECODE = [
@@ -58,15 +58,16 @@ FIELD DECODE = [
 ];
 
 TABLE ADDRESS => DECODE {
-	'b'00000 => 'b'01111111;
-	'b'00001 => 'b'10111111;
-	'b'00010 => 'b'11011111;
-	'b'00011 => 'b'11101111;
-	'b'00100 => 'b'11110111;
-	'b'00101 => 'b'11111011;
-	'b'00110 => 'b'11111101; /* clear and disable int */
-	'b'00111 => 'b'11111110; /* enable int */
-	'b'01xxx => 'b'11111111;
-	'b'1xxxx => 'b'11111101; /* clear and disable int on reset */
+	'b'000000 => 'b'01111111;
+	'b'000001 => 'b'10111111;
+	'b'000010 => 'b'11011111;
+	'b'000011 => 'b'11101111;
+	'b'000100 => 'b'11110111;
+	'b'000101 => 'b'11111011;
+	'b'000110 => 'b'11111101; /* clear and disable int */
+	'b'000111 => 'b'11111110; /* enable int */
+	'b'001xxx => 'b'11111111;
+	'b'01xxxx => 'b'11111111;
+	'b'1xxxxx => 'b'11111101; /* clear and disable int on reset */
 }
 

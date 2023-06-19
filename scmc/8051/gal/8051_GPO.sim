@@ -23,7 +23,7 @@ PIN   8 =  WRI
 %END
 
 %FIELD
-FIELD ADDRESS = RSTI,DEO,A0I,A1I,A2I
+FIELD ADDRESS = RSTI,DEO,WRI,A0I,A1I,A2I
 FIELD DECODE = L0LE,L1LE,L2LE,L3LE,L4LE,L5LE,OECTRL_LE
 %END
 
@@ -45,7 +45,7 @@ CSIO =>
   # !A12I
 
 !DEO =>
-    !A10I & !A11I & A12I & !A7I & !A8I & !A9I & !CSIO77I & !DEI & !RSTI & !WRI
+    !A10I & !A11I & A12I & !A7I & !A8I & !A9I & !CSIO77I & !DEI & !RSTI
 
 !L0LE =>
     A0I
@@ -53,6 +53,7 @@ CSIO =>
   # A2I
   # DEO
   # RSTI
+  # WRI
 
 !L1LE =>
     A0I
@@ -60,6 +61,7 @@ CSIO =>
   # !A2I
   # DEO
   # RSTI
+  # WRI
 
 !L2LE =>
     A0I
@@ -67,6 +69,7 @@ CSIO =>
   # A2I
   # DEO
   # RSTI
+  # WRI
 
 !L3LE =>
     A0I
@@ -74,6 +77,7 @@ CSIO =>
   # !A2I
   # DEO
   # RSTI
+  # WRI
 
 !L4LE =>
     !A0I
@@ -81,6 +85,7 @@ CSIO =>
   # A2I
   # DEO
   # RSTI
+  # WRI
 
 !L5LE =>
     !A0I
@@ -88,11 +93,13 @@ CSIO =>
   # !A2I
   # DEO
   # RSTI
+  # WRI
 
 !OECTRL_LE =>
     !A0I & !RSTI
   # !A1I & !RSTI
   # DEO & !RSTI
+  # !RSTI & WRI
 
 UPPER_HALF_IO77 =>
     CSIO77I

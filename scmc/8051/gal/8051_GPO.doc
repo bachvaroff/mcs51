@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Wed May 31 17:22:32 2023
+Created         Mon Jun 19 11:15:23 2023
 Name            8051_GPO
 Partno          U0 G22V10
 Revision        1.0
@@ -20,7 +20,7 @@ Location        Sofia,BG,EU
 ===============================================================================
 
 ADDRESS =>
-    RSTI , DEO , A0I , A1I , A2I
+    RSTI , DEO , WRI , A0I , A1I , A2I
 
 BOARD_ID =>
     A11I
@@ -42,7 +42,7 @@ DECODE =>
     L0LE , L1LE , L2LE , L3LE , L4LE , L5LE , OECTRL_LE
 
 !DEO =>
-    !A10I & !A11I & A12I & !A7I & !A8I & !A9I & !CSIO77I & !DEI & !RSTI & !WRI
+    !A10I & !A11I & A12I & !A7I & !A8I & !A9I & !CSIO77I & !DEI & !RSTI
 
 !L0LE =>
     A0I
@@ -50,6 +50,7 @@ DECODE =>
   # A2I
   # DEO
   # RSTI
+  # WRI
 
 !L1LE =>
     A0I
@@ -57,6 +58,7 @@ DECODE =>
   # !A2I
   # DEO
   # RSTI
+  # WRI
 
 !L2LE =>
     A0I
@@ -64,6 +66,7 @@ DECODE =>
   # A2I
   # DEO
   # RSTI
+  # WRI
 
 !L3LE =>
     A0I
@@ -71,6 +74,7 @@ DECODE =>
   # !A2I
   # DEO
   # RSTI
+  # WRI
 
 !L4LE =>
     !A0I
@@ -78,6 +82,7 @@ DECODE =>
   # A2I
   # DEO
   # RSTI
+  # WRI
 
 !L5LE =>
     !A0I
@@ -85,11 +90,13 @@ DECODE =>
   # !A2I
   # DEO
   # RSTI
+  # WRI
 
 !OECTRL_LE =>
     !A0I & !RSTI
   # !A1I & !RSTI
   # DEO & !RSTI
+  # !RSTI & WRI
 
 UPPER_HALF_IO77 =>
     CSIO77I
@@ -147,13 +154,13 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
     DECODE                      0        F        -       -       -     
     DEI                         10       V        -       -       -     
     DEO                         15       V        1       10      2     
-    L0LE                        16       V        5       12      2     
-    L1LE                        17       V        5       14      2     
-    L2LE                        18       V        5       16      2     
-    L3LE                        19       V        5       16      2     
-    L4LE                        20       V        5       14      2     
-    L5LE                        21       V        5       12      2     
-    OECTRL_LE                   22       V        3       10      2     
+    L0LE                        16       V        6       12      2     
+    L1LE                        17       V        6       14      2     
+    L2LE                        18       V        6       16      2     
+    L3LE                        19       V        6       16      2     
+    L4LE                        20       V        6       14      2     
+    L5LE                        21       V        6       12      2     
+    OECTRL_LE                   22       V        4       10      2     
     RSTI                        9        V        -       -       -     
     UPPER_HALF_IO77             0        I        2       -       -     
     WRI                         8        V        -       -       -     
@@ -199,7 +206,7 @@ Pin #22  05810 Mode  x-
  00484 ---------------------------------x-----x---- 
  00528 ---------------------------------x---------x 
  00572 ---------------------------------xx--------- 
- 00616 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00616 ----------------------------x----x---------- 
  00660 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00748 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -213,7 +220,7 @@ Pin #21  05812 Mode  x-
  01056 -----------------------------------------x-- 
  01100 ----------------------------------x--------- 
  01144 --------------------------------x----------- 
- 01188 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01188 ----------------------------x--------------- 
  01232 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01276 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01320 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -227,7 +234,7 @@ Pin #20  05814 Mode  x-
  01628 ----------------------------------------x--- 
  01672 ----------------------------------x--------- 
  01716 --------------------------------x----------- 
- 01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01760 ----------------------------x--------------- 
  01804 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01848 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01892 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -243,7 +250,7 @@ Pin #19  05816 Mode  x-
  02288 -----------------------------------------x-- 
  02332 ----------------------------------x--------- 
  02376 --------------------------------x----------- 
- 02420 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02420 ----------------------------x--------------- 
  02464 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  02508 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  02552 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -261,7 +268,7 @@ Pin #18  05818 Mode  x-
  03036 ----------------------------------------x--- 
  03080 ----------------------------------x--------- 
  03124 --------------------------------x----------- 
- 03168 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03168 ----------------------------x--------------- 
  03212 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03256 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03300 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -279,7 +286,7 @@ Pin #17  05820 Mode  x-
  03784 -----------------------------------------x-- 
  03828 ----------------------------------x--------- 
  03872 --------------------------------x----------- 
- 03916 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 03916 ----------------------------x--------------- 
  03960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04004 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04048 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -295,7 +302,7 @@ Pin #16  05822 Mode  x-
  04444 ----------------------------------------x--- 
  04488 ----------------------------------x--------- 
  04532 --------------------------------x----------- 
- 04576 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 04576 ----------------------------x--------------- 
  04620 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04664 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04708 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -304,7 +311,7 @@ Pin #16  05822 Mode  x-
  04840 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #15  05824 Mode  x- 
  04884 -------------------------------------------- 
- 04928 -x---x---x---x--x----x---x---x---x---x------ 
+ 04928 -x---x---x---x--x----x---x-------x---x------ 
  04972 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05060 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 

@@ -24,28 +24,28 @@ PIN  22 =  T1PRE
 %END
 
 %FIELD
-FIELD ADDRESS = RSTI,DEO,A0I,A1I,A2I
+FIELD ADDRESS = RSTI,DEO,RDI,A0I,A1I,A2I
 FIELD DECODE = B0OE,B1OE,B2OE,B3OE,B4OE,B5OE,T1CLR,T1PRE
 %END
 
 %EQUATION
 !B0OE =>
-    !A0I & !A1I & !A2I & !DEO & !RSTI
+    !A0I & !A1I & !A2I & !DEO & !RDI & !RSTI
 
 !B1OE =>
-    !A0I & !A1I & A2I & !DEO & !RSTI
+    !A0I & !A1I & A2I & !DEO & !RDI & !RSTI
 
 !B2OE =>
-    !A0I & A1I & !A2I & !DEO & !RSTI
+    !A0I & A1I & !A2I & !DEO & !RDI & !RSTI
 
 !B3OE =>
-    !A0I & A1I & A2I & !DEO & !RSTI
+    !A0I & A1I & A2I & !DEO & !RDI & !RSTI
 
 !B4OE =>
-    A0I & !A1I & !A2I & !DEO & !RSTI
+    A0I & !A1I & !A2I & !DEO & !RDI & !RSTI
 
 !B5OE =>
-    A0I & !A1I & A2I & !DEO & !RSTI
+    A0I & !A1I & A2I & !DEO & !RDI & !RSTI
 
 BOARD_ID =>
     A11I
@@ -64,14 +64,14 @@ CSIO =>
   # !A12I
 
 !DEO =>
-    !A10I & !A11I & A12I & A7I & !A8I & !A9I & !CSIO77I & !DEI & !RDI & !RSTI
+    !A10I & !A11I & A12I & A7I & !A8I & !A9I & !CSIO77I & !DEI & !RSTI
 
 !T1CLR =>
     RSTI
-  # A0I & A1I & !A2I & !DEO
+  # A0I & A1I & !A2I & !DEO & !RDI
 
 !T1PRE =>
-    A0I & A1I & A2I & !DEO & !RSTI
+    A0I & A1I & A2I & !DEO & !RDI & !RSTI
 
 UPPER_HALF_IO77 =>
     CSIO77I
