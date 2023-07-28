@@ -10,20 +10,19 @@ PIN   1 =  A8I
 PIN   2 =  A9I 
 PIN   7 =  CSIO77I 
 PIN  10 =  DEI 
-PIN  15 =  DEO 
 PIN  16 =  L0LE 
 PIN  17 =  L1LE 
 PIN  18 =  L2LE 
 PIN  19 =  L3LE 
 PIN  20 =  L4LE 
 PIN  21 =  L5LE 
-PIN  22 =  OECTRL_LE 
+PIN  15 =  OECTRL_LE 
 PIN   9 =  RSTI 
 PIN   8 =  WRI 
 %END
 
 %FIELD
-FIELD ADDRESS = RSTI,DEO,WRI,A0I,A1I,A2I
+FIELD ADDRESS = RSTI,DE,A0I,A1I,A2I
 FIELD DECODE = L0LE,L1LE,L2LE,L3LE,L4LE,L5LE,OECTRL_LE
 %END
 
@@ -44,61 +43,110 @@ CSIO =>
   # CSIO77I
   # !A12I
 
-!DEO =>
-    !A10I & !A11I & A12I & !A7I & !A8I & !A9I & !CSIO77I & !DEI & !RSTI
+DE =>
+    A11I
+  # A10I
+  # A9I
+  # A8I
+  # A7I
+  # CSIO77I
+  # !A12I
+  # WRI
 
 !L0LE =>
     A0I
+  # A10I
+  # A11I
+  # !A12I
   # A1I
   # A2I
-  # DEO
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
   # RSTI
   # WRI
 
 !L1LE =>
     A0I
+  # A10I
+  # A11I
+  # !A12I
   # A1I
   # !A2I
-  # DEO
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
   # RSTI
   # WRI
 
 !L2LE =>
     A0I
+  # A10I
+  # A11I
+  # !A12I
   # !A1I
   # A2I
-  # DEO
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
   # RSTI
   # WRI
 
 !L3LE =>
     A0I
+  # A10I
+  # A11I
+  # !A12I
   # !A1I
   # !A2I
-  # DEO
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
   # RSTI
   # WRI
 
 !L4LE =>
     !A0I
+  # A10I
+  # A11I
+  # !A12I
   # A1I
   # A2I
-  # DEO
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
   # RSTI
   # WRI
 
 !L5LE =>
     !A0I
+  # A10I
+  # A11I
+  # !A12I
   # A1I
   # !A2I
-  # DEO
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
   # RSTI
   # WRI
 
 !OECTRL_LE =>
     !A0I & !RSTI
+  # A10I & !RSTI
+  # A11I & !RSTI
+  # !A12I & !RSTI
   # !A1I & !RSTI
-  # DEO & !RSTI
+  # A7I & !RSTI
+  # A8I & !RSTI
+  # A9I & !RSTI
+  # CSIO77I & !RSTI
   # !RSTI & WRI
 
 UPPER_HALF_IO77 =>
@@ -107,9 +155,6 @@ UPPER_HALF_IO77 =>
 
 A0I.oe  =>
     0 
-
-DEO.oe  =>
-    1 
 
 L0LE.oe  =>
     1 

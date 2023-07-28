@@ -31,14 +31,13 @@ PIN 1 = A8I;
 /*
 	OUTPUTS --
 */
-PIN 15 = DEO;
+PIN 15 = OECTRL_LE;
 PIN 16 = L0LE;
 PIN 17 = L1LE;
 PIN 18 = L2LE;
 PIN 19 = L3LE;
 PIN 20 = L4LE;
 PIN 21 = L5LE;
-PIN 22 = OECTRL_LE;
 /*
 	-- OUTPUTS
 */
@@ -46,10 +45,10 @@ PIN 22 = OECTRL_LE;
 UPPER_HALF_IO77 = CSIO77I # !A12I;
 BOARD_ID = A11I # A10I # A9I # A8I # A7I; /* 0xF000-0xF07F */
 CSIO = BOARD_ID # UPPER_HALF_IO77;
-DEO = RSTI # DEI # CSIO;
+DE = CSIO # WRI;
 
 FIELD ADDRESS = [
-	RSTI, DEO, WRI, A0I, A1I, A2I
+	RSTI, DE, A0I, A1I, A2I
 ];
 
 FIELD DECODE = [
@@ -57,16 +56,14 @@ FIELD DECODE = [
 ];
 
 TABLE ADDRESS => DECODE {
-	'b'000000 => 'b'1000000;
-	'b'000001 => 'b'0100000;
-	'b'000010 => 'b'0010000;
-	'b'000011 => 'b'0001000;
-	'b'000100 => 'b'0000100;
-	'b'000101 => 'b'0000010;
-	'b'000110 => 'b'0000001; /* OE ctrl */
-	'b'000111 => 'b'0000001; /* OE ctrl */
-	'b'001xxx => 'b'0000000;
-	'b'01xxxx => 'b'0000000;
-	'b'1xxxxx => 'b'0000001; /* set L*OE to 1 on reset */
+	'b'00000 => 'b'1000000; /* 0xF000 */
+	'b'00001 => 'b'0100000; /* 0xF001 */
+	'b'00010 => 'b'0010000; /* 0xF002 */
+	'b'00011 => 'b'0001000; /* 0xF003 */
+	'b'00100 => 'b'0000100; /* 0xF004 */
+	'b'00101 => 'b'0000010; /* 0xF005 */
+	'b'0011x => 'b'0000001; /* 0xF006, 0xF007 OE ctrl */
+	'b'01xxx => 'b'0000000;
+	'b'1xxxx => 'b'0000001; /* set L*OE to 1 on reset */
 }
 
