@@ -5,7 +5,7 @@
   {Program "CUPL(WM) Version 5.0a"}
   {DBtype "Schematic"}
   {DBvrev 1.01}
-  {DBtime "Fri Jul 28 05:08:26 2023 "}
+  {DBtime "Fri Jul 28 11:35:24 2023 "}
   {DBunit "MIL"}
   {DBgrid 10}
   {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
@@ -33,16 +33,15 @@
  {SYMBOL
   {PIN_DEF
    [Ly "PINCON"]
-   {P A8I {Pt "INPUT"}{Lq 0}{Ploc 100 280}}
-   {P A9I {Pt "INPUT"}{Lq 0}{Ploc 100 240}}
-   {P A10I {Pt "INPUT"}{Lq 0}{Ploc 100 220}}
-   {P A11I {Pt "INPUT"}{Lq 0}{Ploc 100 200}}
-   {P A12I {Pt "INPUT"}{Lq 0}{Ploc 100 180}}
-   {P A7I {Pt "INPUT"}{Lq 0}{Ploc 100 160}}
-   {P CSIO77I {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
-   {P WRI {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
-   {P RSTI {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
-   {P DEI {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
+   {P A8I {Pt "INPUT"}{Lq 0}{Ploc 100 260}}
+   {P A9I {Pt "INPUT"}{Lq 0}{Ploc 100 220}}
+   {P A10I {Pt "INPUT"}{Lq 0}{Ploc 100 200}}
+   {P A11I {Pt "INPUT"}{Lq 0}{Ploc 100 180}}
+   {P A12I {Pt "INPUT"}{Lq 0}{Ploc 100 160}}
+   {P A7I {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
+   {P CSIO77I {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
+   {P WRI {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
+   {P RSTI {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
    {P A2I {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
    {P A1I {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
    {P A0I {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
@@ -58,13 +57,12 @@
   {PKG
    [Ly "REFDES"]
    [Ts 25][Tj "CB"][Tr 0][Tm "N"]
-   {Rdl 225 310}
+   {Rdl 225 290}
 
    [Ly "PINNUM"]
    [Ts 15][Tj "RC"]
-   {Pnl 120 290}
+   {Pnl 120 270}
    [Ts 15][Tj "RC"]
-   {Pnl 120 250}
    {Pnl 120 230}
    {Pnl 120 210}
    {Pnl 120 190}
@@ -85,16 +83,15 @@
    {Pnl 330 130}
    {Pnl 330 150}
 
-   {Sd A 1 2 3 4 5 6 7 8 9 10 11 13 14 15 16 17 18 19 20 21}
+   {Sd A 1 2 3 4 5 6 7 8 9 11 13 14 15 16 17 18 19 20 21}
   }
 
   {PIC
    [Ly "GATE"]
    [Ts 15][Tj "LC"][Tr 0][Tm "N"]
-   {R 130 300 320 0}
-   {L 130 280 100 280}
-   {L 130 290 140 280 130 270}
-   {L 130 240 100 240}
+   {R 130 280 320 0}
+   {L 130 260 100 260}
+   {L 130 270 140 260 130 250}
    {L 130 220 100 220}
    {L 130 200 100 200}
    {L 130 180 100 180}
@@ -115,16 +112,15 @@
    {L 320 140 350 140}
    [Ly "PINNAM"]
    [Tj "LC"]
-   {T "A8I" 140 280}
-   {T "A9I" 140 240}
-   {T "A10I" 140 220}
-   {T "A11I" 140 200}
-   {T "A12I" 140 180}
-   {T "A7I" 140 160}
-   {T "CSIO77I" 140 140}
-   {T "WRI" 140 120}
-   {T "RSTI" 140 100}
-   {T "DEI" 140 80}
+   {T "A8I" 140 260}
+   {T "A9I" 140 220}
+   {T "A10I" 140 200}
+   {T "A11I" 140 180}
+   {T "A12I" 140 160}
+   {T "A7I" 140 140}
+   {T "CSIO77I" 140 120}
+   {T "WRI" 140 100}
+   {T "RSTI" 140 80}
    {T "A2I" 140 60}
    {T "A1I" 140 40}
    {T "A0I" 140 20}
@@ -149,7 +145,7 @@
    {EX
     [Ly "ATTR2"]
     [Ts 12][Tj "CT"][Tr 0][Tm "N"]
-    {At PLD \\MIDIAN\NASKO\VAR\GIT\GITHUB\V\SCMC\8051\GAL\8051_GPO 225 300}
+    {At PLD \\MIDIAN\NASKO\VAR\GIT\GITHUB\V\SCMC\8051\GAL\8051_GPO 225 280}
    }
   }
  }
@@ -176,8 +172,6 @@
    {N WRI
    }
    {N RSTI
-   }
-   {N DEI
    }
    {N A2I
    }

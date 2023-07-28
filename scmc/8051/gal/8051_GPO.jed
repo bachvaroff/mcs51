@@ -1,7 +1,7 @@
 
 CUPL(WM)        5.0a  Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Fri Jul 28 05:08:26 2023
+Created         Fri Jul 28 11:35:24 2023
 Name            8051_GPO
 Partno          U0 G22V10
 Revision        1.0
@@ -146,4 +146,4 @@ Location        Sofia,BG,EU
 *L05856 01110011001000110010010101100011
 *L05888 0001
 *CE831
-*4D2A
+*4D25

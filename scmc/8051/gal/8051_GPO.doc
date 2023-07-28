@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Fri Jul 28 05:08:26 2023
+Created         Fri Jul 28 11:35:24 2023
 Name            8051_GPO
 Partno          U0 G22V10
 Revision        1.0
@@ -199,7 +199,6 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
     CSIO77I                     7        V        -       -       -     
     DE                          0        I        8       -       -     
     DECODE                      0        F        -       -       -     
-    DEI                         10       V        -       -       -     
     L0LE                        16       V        12      12      2     
     L1LE                        17       V        12      14      2     
     L2LE                        18       V        12      16      2     
@@ -396,7 +395,7 @@ LEGEND    X : fuse not blown
                   CSIO77I x---|7           18|---x L2LE                     
                       WRI x---|8           17|---x L1LE                     
                      RSTI x---|9           16|---x L0LE                     
-                      DEI x---|10          15|---x OECTRL_LE                
+                          x---|10          15|---x OECTRL_LE                
                       A2I x---|11          14|---x A0I                      
                       GND x---|12          13|---x A1I                      
                               |______________|

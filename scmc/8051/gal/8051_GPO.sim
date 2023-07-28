@@ -9,7 +9,6 @@ PIN   6 =  A7I
 PIN   1 =  A8I 
 PIN   2 =  A9I 
 PIN   7 =  CSIO77I 
-PIN  10 =  DEI 
 PIN  16 =  L0LE 
 PIN  17 =  L1LE 
 PIN  18 =  L2LE 
