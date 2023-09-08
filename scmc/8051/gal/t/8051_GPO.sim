@@ -1,15 +1,14 @@
 %SIGNAL
-PIN  14 =  A0I 
+PIN   6 =  A0I 
 PIN   3 =  A10I 
 PIN   4 =  A11I 
 PIN   5 =  A12I 
 PIN  13 =  A1I 
 PIN  11 =  A2I 
-PIN   6 =  A7I 
 PIN   1 =  A8I 
 PIN   2 =  A9I 
+PIN  22 =  BUS_LE 
 PIN   7 =  CSIO77I 
-PIN  10 =  DEI 
 PIN  16 =  L0LE 
 PIN  17 =  L1LE 
 PIN  18 =  L2LE 
@@ -23,7 +22,7 @@ PIN   8 =  WRI
 
 %FIELD
 FIELD ADDRESS = RSTI,DE,A0I,A1I,A2I
-FIELD DECODE = L0LE,L1LE,L2LE,L3LE,L4LE,L5LE,OECTRL_LE
+FIELD DECODE = L0LE,L1LE,L2LE,L3LE,L4LE,L5LE,OECTRL_LE,BUS_LE
 %END
 
 %EQUATION
@@ -31,15 +30,23 @@ BOARD_ID =>
     A11I
   # A10I
   # A9I
-  # A8I
-  # A7I
+
+!BUS_LE =>
+    !A0I
+  # A10I
+  # A11I
+  # !A12I
+  # !A1I
+  # !A2I
+  # A9I
+  # CSIO77I
+  # RSTI
+  # WRI
 
 CSIO =>
     A11I
   # A10I
   # A9I
-  # A8I
-  # A7I
   # CSIO77I
   # !A12I
 
@@ -47,8 +54,6 @@ DE =>
     A11I
   # A10I
   # A9I
-  # A8I
-  # A7I
   # CSIO77I
   # !A12I
   # WRI
@@ -60,8 +65,6 @@ DE =>
   # !A12I
   # A1I
   # A2I
-  # A7I
-  # A8I
   # A9I
   # CSIO77I
   # RSTI
@@ -74,8 +77,6 @@ DE =>
   # !A12I
   # A1I
   # !A2I
-  # A7I
-  # A8I
   # A9I
   # CSIO77I
   # RSTI
@@ -88,8 +89,6 @@ DE =>
   # !A12I
   # !A1I
   # A2I
-  # A7I
-  # A8I
   # A9I
   # CSIO77I
   # RSTI
@@ -102,8 +101,6 @@ DE =>
   # !A12I
   # !A1I
   # !A2I
-  # A7I
-  # A8I
   # A9I
   # CSIO77I
   # RSTI
@@ -116,8 +113,6 @@ DE =>
   # !A12I
   # A1I
   # A2I
-  # A7I
-  # A8I
   # A9I
   # CSIO77I
   # RSTI
@@ -130,8 +125,6 @@ DE =>
   # !A12I
   # A1I
   # !A2I
-  # A7I
-  # A8I
   # A9I
   # CSIO77I
   # RSTI
@@ -143,8 +136,7 @@ DE =>
   # A11I & !RSTI
   # !A12I & !RSTI
   # !A1I & !RSTI
-  # A7I & !RSTI
-  # A8I & !RSTI
+  # A2I & !RSTI
   # A9I & !RSTI
   # CSIO77I & !RSTI
   # !RSTI & WRI
@@ -153,8 +145,8 @@ UPPER_HALF_IO77 =>
     CSIO77I
   # !A12I
 
-A0I.oe  =>
-    0 
+BUS_LE.oe  =>
+    1 
 
 L0LE.oe  =>
     1 

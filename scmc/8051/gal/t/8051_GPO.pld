@@ -11,14 +11,12 @@ Date 30 May 2023;
 /*
 	INPUTS --
 */
-PIN 14 = A0I;
 PIN 13 = A1I;
 PIN 11 = A2I;
-PIN 10 = DEI;
 PIN 9 = RSTI;
 PIN 8 = WRI;
 PIN 7 = CSIO77I;
-PIN 6 = A7I;
+PIN 6 = A0I;
 PIN 5 = A12I;
 PIN 4 = A11I;
 PIN 3 = A10I;
@@ -38,12 +36,13 @@ PIN 18 = L2LE;
 PIN 19 = L3LE;
 PIN 20 = L4LE;
 PIN 21 = L5LE;
+PIN 22 = BUS_LE;
 /*
 	-- OUTPUTS
 */
 
 UPPER_HALF_IO77 = CSIO77I # !A12I;
-BOARD_ID = A11I # A10I # A9I # A8I # A7I; /* 0xF000-0xF07F */
+BOARD_ID = A11I # A10I # A9I; /* 0xF000-0xF1FF 111.1.000.xxxxxx.LLL */
 CSIO = BOARD_ID # UPPER_HALF_IO77;
 DE = CSIO # WRI;
 
@@ -52,18 +51,19 @@ FIELD ADDRESS = [
 ];
 
 FIELD DECODE = [
-	L0LE, L1LE, L2LE, L3LE, L4LE, L5LE, OECTRL_LE
+	L0LE, L1LE, L2LE, L3LE, L4LE, L5LE, OECTRL_LE, BUS_LE
 ];
 
 TABLE ADDRESS => DECODE {
-	'b'00000 => 'b'1000000; /* 0xF000 */
-	'b'00001 => 'b'0100000; /* 0xF001 */
-	'b'00010 => 'b'0010000; /* 0xF002 */
-	'b'00011 => 'b'0001000; /* 0xF003 */
-	'b'00100 => 'b'0000100; /* 0xF004 */
-	'b'00101 => 'b'0000010; /* 0xF005 */
-	'b'0011x => 'b'0000001; /* 0xF006, 0xF007 OE ctrl */
-	'b'01xxx => 'b'0000000;
-	'b'1xxxx => 'b'0000001; /* set L*OE to 1 on reset */
+	'b'00000 => 'b'10000000; /* 0xF000 L0 */
+	'b'00001 => 'b'01000000; /* 0xF001 L1 */
+	'b'00010 => 'b'00100000; /* 0xF002 L2 */
+	'b'00011 => 'b'00010000; /* 0xF003 L3 */
+	'b'00100 => 'b'00001000; /* 0xF004 L4 */
+	'b'00101 => 'b'00000100; /* 0xF005 L5 */
+	'b'00110 => 'b'00000010; /* 0xF006 OECTRL LE */
+	'b'00111 => 'b'00000001; /* 0xF007 BUS LE */
+	'b'01xxx => 'b'00000000;
+	'b'1xxxx => 'b'00000010; /* set L*OE to 1 on reset */
 }
 
