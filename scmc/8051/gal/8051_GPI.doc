@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Mon Jun 19 11:18:14 2023
+Created         Mon Sep 11 08:19:17 2023
 Name            8051_GPI
 Partno          U0 G22V10
 Revision        1.0
@@ -20,22 +20,22 @@ Location        Sofia,BG,EU
 ===============================================================================
 
 ADDRESS =>
-    RSTI , DEO , RDI , A0I , A1I , A2I
+    RSTI , DEO , RDI , A2I , A1I , A0I
 
 !B0OE =>
     !A0I & !A1I & !A2I & !DEO & !RDI & !RSTI
 
 !B1OE =>
-    !A0I & !A1I & A2I & !DEO & !RDI & !RSTI
+    A0I & !A1I & !A2I & !DEO & !RDI & !RSTI
 
 !B2OE =>
     !A0I & A1I & !A2I & !DEO & !RDI & !RSTI
 
 !B3OE =>
-    !A0I & A1I & A2I & !DEO & !RDI & !RSTI
+    A0I & A1I & !A2I & !DEO & !RDI & !RSTI
 
 !B4OE =>
-    A0I & !A1I & !A2I & !DEO & !RDI & !RSTI
+    !A0I & !A1I & A2I & !DEO & !RDI & !RSTI
 
 !B5OE =>
     A0I & !A1I & A2I & !DEO & !RDI & !RSTI
@@ -64,7 +64,7 @@ DECODE =>
 
 !T1CLR =>
     RSTI
-  # A0I & A1I & !A2I & !DEO & !RDI
+  # !A0I & A1I & A2I & !DEO & !RDI
 
 !T1PRE =>
     A0I & A1I & A2I & !DEO & !RDI & !RSTI
@@ -170,7 +170,7 @@ AR
 Pin #23  05808 Mode  x- 
  00044 -------------------------------------------- 
  00088 ----------------------------x--------------- 
- 00132 ---------------------------------x-x--x--xx- 
+ 00132 ---------------------------------x-x---xx-x- 
  00176 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00220 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00264 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -205,7 +205,7 @@ Pin #21  05812 Mode  x-
  01452 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #20  05814 Mode  x- 
  01496 -------------------------------------------- 
- 01540 -----------------------------x---x-x--x--x-x 
+ 01540 -----------------------------x---x-x---xx--x 
  01584 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01628 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01672 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -221,7 +221,7 @@ Pin #20  05814 Mode  x-
  02112 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #19  05816 Mode  x- 
  02156 -------------------------------------------- 
- 02200 -----------------------------x---x-x---xx-x- 
+ 02200 -----------------------------x---x-x--x--xx- 
  02244 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  02288 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  02332 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -257,7 +257,7 @@ Pin #18  05818 Mode  x-
  03608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #17  05820 Mode  x- 
  03652 -------------------------------------------- 
- 03696 -----------------------------x---x-x---xx--x 
+ 03696 -----------------------------x---x-x--x--x-x 
  03740 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03784 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  03828 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 

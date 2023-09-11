@@ -24,7 +24,7 @@ PIN  22 =  T1PRE
 %END
 
 %FIELD
-FIELD ADDRESS = RSTI,DEO,RDI,A0I,A1I,A2I
+FIELD ADDRESS = RSTI,DEO,RDI,A2I,A1I,A0I
 FIELD DECODE = B0OE,B1OE,B2OE,B3OE,B4OE,B5OE,T1CLR,T1PRE
 %END
 
@@ -33,16 +33,16 @@ FIELD DECODE = B0OE,B1OE,B2OE,B3OE,B4OE,B5OE,T1CLR,T1PRE
     !A0I & !A1I & !A2I & !DEO & !RDI & !RSTI
 
 !B1OE =>
-    !A0I & !A1I & A2I & !DEO & !RDI & !RSTI
+    A0I & !A1I & !A2I & !DEO & !RDI & !RSTI
 
 !B2OE =>
     !A0I & A1I & !A2I & !DEO & !RDI & !RSTI
 
 !B3OE =>
-    !A0I & A1I & A2I & !DEO & !RDI & !RSTI
+    A0I & A1I & !A2I & !DEO & !RDI & !RSTI
 
 !B4OE =>
-    A0I & !A1I & !A2I & !DEO & !RDI & !RSTI
+    !A0I & !A1I & A2I & !DEO & !RDI & !RSTI
 
 !B5OE =>
     A0I & !A1I & A2I & !DEO & !RDI & !RSTI
@@ -68,7 +68,7 @@ CSIO =>
 
 !T1CLR =>
     RSTI
-  # A0I & A1I & !A2I & !DEO & !RDI
+  # !A0I & A1I & A2I & !DEO & !RDI
 
 !T1PRE =>
     A0I & A1I & A2I & !DEO & !RDI & !RSTI
