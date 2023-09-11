@@ -1,0 +1,196 @@
+%SIGNAL
+PIN  14 =  A0I 
+PIN   3 =  A10I 
+PIN   4 =  A11I 
+PIN   5 =  A12I 
+PIN  13 =  A1I 
+PIN  11 =  A2I 
+PIN   6 =  A7I 
+PIN   1 =  A8I 
+PIN   2 =  A9I 
+PIN   7 =  CSIO77I 
+PIN  10 =  DEI 
+PIN  16 =  L0LE 
+PIN  17 =  L1LE 
+PIN  18 =  L2LE 
+PIN  19 =  L3LE 
+PIN  20 =  L4LE 
+PIN  21 =  L5LE 
+PIN  15 =  OECTRL_LE 
+PIN   9 =  RSTI 
+PIN  22 =  TRIGLE 
+PIN   8 =  WRI 
+%END
+
+%FIELD
+FIELD ADDRESS = RSTI,DE,A2I,A1I,A0I
+FIELD DECODE = L0LE,L1LE,L2LE,L3LE,L4LE,L5LE,OECTRL_LE,TRIGLE
+%END
+
+%EQUATION
+BOARD_ID =>
+    A11I
+  # A10I
+  # A9I
+  # A8I
+  # A7I
+
+CSIO =>
+    A11I
+  # A10I
+  # A9I
+  # A8I
+  # A7I
+  # CSIO77I
+  # !A12I
+
+DE =>
+    A11I
+  # A10I
+  # A9I
+  # A8I
+  # A7I
+  # CSIO77I
+  # !A12I
+  # WRI
+
+!L0LE =>
+    A0I
+  # A10I
+  # A11I
+  # !A12I
+  # A1I
+  # A2I
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
+  # RSTI
+  # WRI
+
+!L1LE =>
+    !A0I
+  # A10I
+  # A11I
+  # !A12I
+  # A1I
+  # A2I
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
+  # RSTI
+  # WRI
+
+!L2LE =>
+    A0I
+  # A10I
+  # A11I
+  # !A12I
+  # !A1I
+  # A2I
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
+  # RSTI
+  # WRI
+
+!L3LE =>
+    !A0I
+  # A10I
+  # A11I
+  # !A12I
+  # !A1I
+  # A2I
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
+  # RSTI
+  # WRI
+
+!L4LE =>
+    A0I
+  # A10I
+  # A11I
+  # !A12I
+  # A1I
+  # !A2I
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
+  # RSTI
+  # WRI
+
+!L5LE =>
+    !A0I
+  # A10I
+  # A11I
+  # !A12I
+  # A1I
+  # !A2I
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
+  # RSTI
+  # WRI
+
+!OECTRL_LE =>
+    A10I & !RSTI
+  # A11I & !RSTI
+  # !A12I & !RSTI
+  # !A1I & !RSTI
+  # !A2I & !RSTI
+  # A7I & !RSTI
+  # A8I & !RSTI
+  # A9I & !RSTI
+  # CSIO77I & !RSTI
+  # !RSTI & WRI
+
+!TRIGLE =>
+    A10I
+  # A11I
+  # !A12I
+  # A7I
+  # A8I
+  # A9I
+  # CSIO77I
+  # RSTI
+  # WRI
+  # A1I & A2I
+
+UPPER_HALF_IO77 =>
+    CSIO77I
+  # !A12I
+
+A0I.oe  =>
+    0 
+
+L0LE.oe  =>
+    1 
+
+L1LE.oe  =>
+    1 
+
+L2LE.oe  =>
+    1 
+
+L3LE.oe  =>
+    1 
+
+L4LE.oe  =>
+    1 
+
+L5LE.oe  =>
+    1 
+
+OECTRL_LE.oe  =>
+    1 
+
+TRIGLE.oe  =>
+    1 
+
+%END
