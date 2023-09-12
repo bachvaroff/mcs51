@@ -66,8 +66,8 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   000000E6  l_CSEG                          
 C:   00000100  l_IRAM                          
+C:   0000014C  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002011  s_GSINIT0                       
 C:   00002014  s_GSINIT1                       
@@ -78,8 +78,8 @@ C:   0000206A  s_GSINIT
 C:   0000206A  s_GSINIT5                       
 C:   0000208A  s_GSFINAL                       
 C:   0000208D  s_CSEG                          
-C:   00002173  s_CONST                         
-C:   00002173  s_XINIT                         
+C:   000021D9  s_CONST                         
+C:   000021D9  s_XINIT                         
 C:   00003000  s_PSEG                          
 C:   00003000  s_XISEG                         
 C:   00003000  s_XSEG                          
@@ -366,18 +366,18 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                0000208D    000000E6 =         230. bytes (REL,CON,CODE)
+CSEG                                0000208D    0000014C =         332. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   0000208D  _init_gpo                          disp
-C:   00002097  _clear_gpo                         disp
-C:   000020CE  _init_intr                         disp
-C:   000020D5  _init_timer0                       disp
-C:   000020E1  _init_disp                         disp
-C:   000020FD  _timer0_intr                       disp
-C:   00002139  _main                              disp
-C:   0000216F  __sdcc_external_startup            _startup
+C:   000020CD  _clear_gpo                         disp
+C:   00002104  _init_intr                         disp
+C:   0000210B  _init_timer0                       disp
+C:   00002117  _init_disp                         disp
+C:   00002143  _timer0_intr                       disp
+C:   0000217F  _main                              disp
+C:   000021D5  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 
