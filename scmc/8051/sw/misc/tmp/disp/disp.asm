@@ -671,23 +671,23 @@ _timer0_intr:
 	mov	r0,#_column
 	mov	ar7,@r0
 	anl	ar7,#0x07
-;	disp.c:107: gpo[4] = dcol[t];
+;	disp.c:107: gpo[4] = ddata[t];
 	mov	r0,#_gpo
 	mov	a,#0x04
 	add	a,@r0
 	mov	r1,a
 	mov	a,r7
-	add	a,#_dcol
+	add	a,#_ddata
 	mov	r0,a
 	mov	a,@r0
 	movx	@r1,a
-;	disp.c:108: gpo[5] = ddata[t];
+;	disp.c:108: gpo[5] = dcol[t];
 	mov	r0,#_gpo
 	mov	a,#0x05
 	add	a,@r0
 	mov	r1,a
 	mov	a,r7
-	add	a,#_ddata
+	add	a,#_dcol
 	mov	r0,a
 	mov	a,@r0
 	movx	@r1,a
@@ -715,6 +715,7 @@ _timer0_intr:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
+;i                         Allocated to registers r5 
 ;j                         Allocated to registers r7 
 ;cycle                     Allocated to registers 
 ;------------------------------------------------------------
@@ -737,10 +738,19 @@ _main:
 	lcall	_clear_gpo
 ;	disp.c:125: init_disp();
 	lcall	_init_disp
-;	disp.c:127: for (j = 1u; j < 8u; j++)
-	mov	r7,#0x01
-00113$:
-;	disp.c:128: ddata[j] = ddata[j - 1u] + 1u;
+;	disp.c:127: for (j = 0u; j < 8u; j++)
+	mov	r7,#0x00
+00119$:
+;	disp.c:128: if (!j) ddata[j] = 0u;
+	mov	a,r7
+	jnz	00102$
+	mov	a,r7
+	add	a,#_ddata
+	mov	r0,a
+	mov	@r0,#0x00
+	sjmp	00120$
+00102$:
+;	disp.c:129: else ddata[j] = ddata[j - 1u] + 1u;
 	mov	a,r7
 	add	a,#_ddata
 	mov	r1,a
@@ -751,23 +761,24 @@ _main:
 	mov	a,@r0
 	inc	a
 	mov	@r1,a
-;	disp.c:127: for (j = 1u; j < 8u; j++)
+00120$:
+;	disp.c:127: for (j = 0u; j < 8u; j++)
 	inc	r7
-	cjne	r7,#0x08,00156$
-00156$:
-	jc	00113$
-;	disp.c:130: init_timer0();
+	cjne	r7,#0x08,00175$
+00175$:
+	jc	00119$
+;	disp.c:131: init_timer0();
 	lcall	_init_timer0
-;	disp.c:131: init_intr();
+;	disp.c:132: init_intr();
 	lcall	_init_intr
-;	disp.c:133: EN_TR0;
+;	disp.c:134: EN_TR0;
 ;	assignBit
 	setb	_TR0
-;	disp.c:135: for (cycle = 0u; ; cycle++) {
+;	disp.c:136: for (cycle = 0u; ; cycle++) {
 	mov	r6,#0x00
 	mov	r7,#0x00
-00117$:
-;	disp.c:136: printf("%0.4x\r\n", cycle);
+00123$:
+;	disp.c:137: printf("%0.4x\r\n", cycle);
 	push	ar7
 	push	ar6
 	push	ar6
@@ -784,10 +795,13 @@ _main:
 	mov	sp,a
 	pop	ar6
 	pop	ar7
-;	disp.c:138: do {
+;	disp.c:138: i = 0u;
 	mov	r5,#0x00
-00105$:
-;	disp.c:172: __endasm;
+;	disp.c:141: do {
+00130$:
+	mov	r4,#0x00
+00108$:
+;	disp.c:151: __endasm;
 	nop
 	nop
 	nop
@@ -796,41 +810,24 @@ _main:
 	nop
 	nop
 	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-;	disp.c:173: j++;
-	inc	r5
-;	disp.c:174: } while (j);
+;	disp.c:152: j++;
+	inc	r4
+;	disp.c:153: } while (j);
+	mov	a,r4
+	jnz	00108$
+;	disp.c:154: i++;
 	mov	a,r5
-;	disp.c:176: for (j = 0u; j < 8u; j++) {
-	jnz	00105$
+	inc	a
+;	disp.c:155: } while (i);
+	mov	r4,a
 	mov	r5,a
-00115$:
-;	disp.c:177: if (!j) ddata[j]++;
+;	disp.c:157: for (j = 0u; j < 8u; j++)
+	jnz	00130$
+	mov	r5,a
+00121$:
+;	disp.c:158: if (!j) ddata[j]++;
 	mov	a,r5
-	jnz	00109$
+	jnz	00115$
 	mov	a,r5
 	add	a,#_ddata
 	mov	r1,a
@@ -838,9 +835,9 @@ _main:
 	mov	r4,a
 	inc	a
 	mov	@r1,a
-	sjmp	00116$
-00109$:
-;	disp.c:178: else ddata[j] = ddata[j - 1u] + 1u;
+	sjmp	00122$
+00115$:
+;	disp.c:159: else ddata[j] = ddata[j - 1u] + 1u;
 	mov	a,r5
 	add	a,#_ddata
 	mov	r1,a
@@ -852,19 +849,19 @@ _main:
 	mov	r4,a
 	inc	a
 	mov	@r1,a
-00116$:
-;	disp.c:176: for (j = 0u; j < 8u; j++) {
+00122$:
+;	disp.c:157: for (j = 0u; j < 8u; j++)
 	inc	r5
-	cjne	r5,#0x08,00160$
-00160$:
-	jc	00115$
-;	disp.c:135: for (cycle = 0u; ; cycle++) {
+	cjne	r5,#0x08,00180$
+00180$:
+	jc	00121$
+;	disp.c:136: for (cycle = 0u; ; cycle++) {
 	inc	r6
-;	disp.c:182: return;
-	cjne	r6,#0x00,00117$
+;	disp.c:162: return;
+	cjne	r6,#0x00,00123$
 	inc	r7
-;	disp.c:183: }
-	sjmp	00117$
+;	disp.c:163: }
+	sjmp	00123$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area CONST   (CODE)

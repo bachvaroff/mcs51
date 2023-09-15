@@ -104,8 +104,8 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	DIS_TR0;
 	
 	t = column & 7u;
-	gpo[4] = dcol[t];
-	gpo[5] = ddata[t];
+	gpo[4] = ddata[t];
+	gpo[5] = dcol[t];
 	column++;
 	
 	TH0 = 0xf8;
@@ -117,15 +117,16 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 }
 
 void main(void) {
-	register uint8_t j;
+	register uint8_t i, j;
 	register uint16_t cycle;
 	
 	init_gpo();
 	clear_gpo();
 	init_disp();
 	
-	for (j = 1u; j < 8u; j++)
-		ddata[j] = ddata[j - 1u] + 1u;
+	for (j = 0u; j < 8u; j++)
+		if (!j) ddata[j] = 0u;
+		else ddata[j] = ddata[j - 1u] + 1u;
 	
 	init_timer0();
 	init_intr();
@@ -134,49 +135,28 @@ void main(void) {
 	
 	for (cycle = 0u; ; cycle++) {
 		printf("%0.4x\r\n", cycle);
-		j = 0u;
+		i = 0u;
 		do {
-			__asm
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-			__endasm;
-			j++;
-		} while (j);
+			j = 0u;
+			do {
+				__asm
+					nop
+					nop
+					nop
+					nop
+					nop
+					nop
+					nop
+					nop
+				__endasm;
+				j++;
+			} while (j);
+			i++;
+		} while (i);
 		
-		for (j = 0u; j < 8u; j++) {
+		for (j = 0u; j < 8u; j++)
 			if (!j) ddata[j]++;
 			else ddata[j] = ddata[j - 1u] + 1u;
-		}
 	}
 	
 	return;
