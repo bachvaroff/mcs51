@@ -15,6 +15,7 @@
 	.globl _init_intr
 	.globl _clear_gpo
 	.globl _init_gpo
+	.globl _printf
 	.globl _CY
 	.globl _AC
 	.globl _F0
@@ -142,6 +143,8 @@
 	.globl _ddata
 	.globl _dcol
 	.globl _gpo
+	.globl _putchar
+	.globl _getchar
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -365,7 +368,7 @@ __interrupt_vect:
 	.globl __mcs51_genXINIT
 	.globl __mcs51_genXRAMCLEAR
 	.globl __mcs51_genRAMCLEAR
-;	disp.c:17: __idata const uint8_t dcol[8] = {
+;	disp.c:38: __idata const uint8_t dcol[8] = {
 	mov	r0,#_dcol
 	mov	@r0,#0x01
 	mov	r0,#(_dcol + 0x0001)
@@ -397,9 +400,41 @@ __sdcc_program_startup:
 ;--------------------------------------------------------
 	.area CSEG    (CODE)
 ;------------------------------------------------------------
+;Allocation info for local variables in function 'putchar'
+;------------------------------------------------------------
+;c                         Allocated to registers 
+;------------------------------------------------------------
+;	disp.c:8: int putchar(int c) __naked {
+;	-----------------------------------------
+;	 function putchar
+;	-----------------------------------------
+_putchar:
+;	naked function: no prologue.
+;	disp.c:13: __endasm;
+	mov	a, dpl
+	ljmp	0x0030
+;	disp.c:14: }
+;	naked function: no epilogue.
+;------------------------------------------------------------
+;Allocation info for local variables in function 'getchar'
+;------------------------------------------------------------
+;	disp.c:16: int getchar(void) __naked {
+;	-----------------------------------------
+;	 function getchar
+;	-----------------------------------------
+_getchar:
+;	naked function: no prologue.
+;	disp.c:22: __endasm;
+	lcall	0x0032
+	mov	dpl, a
+	mov	dph, #0
+	ret
+;	disp.c:23: }
+;	naked function: no epilogue.
+;------------------------------------------------------------
 ;Allocation info for local variables in function 'init_gpo'
 ;------------------------------------------------------------
-;	disp.c:33: void init_gpo(void) {
+;	disp.c:54: void init_gpo(void) {
 ;	-----------------------------------------
 ;	 function init_gpo
 ;	-----------------------------------------
@@ -412,15 +447,15 @@ _init_gpo:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	disp.c:34: P1_7 = 1;
+;	disp.c:55: P1_7 = 0;
 ;	assignBit
-	setb	_P1_7
-;	disp.c:35: P2 = GPO_BASE_H;
-	mov	_P2,#0xff
-;	disp.c:36: gpo = (ppd_uint8_t)GPO_BASE_L;
+	clr	_P1_7
+;	disp.c:56: P2 = GPO_BASE_H;
+	mov	_P2,#0xf0
+;	disp.c:57: gpo = (ppd_uint8_t)GPO_BASE_L;
 	mov	r0,#_gpo
 	mov	@r0,#0x00
-;	disp.c:37: CLEAR_GPO;
+;	disp.c:58: CLEAR_GPO;
 	mov	r0,#_gpo
 	mov	a,#0x06
 	add	a,@r0
@@ -462,18 +497,18 @@ _init_gpo:
 	mov	r0,a
 	clr	a
 	movx	@r0,a
-;	disp.c:39: return;
-;	disp.c:40: }
+;	disp.c:60: return;
+;	disp.c:61: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'clear_gpo'
 ;------------------------------------------------------------
-;	disp.c:42: void clear_gpo(void) {
+;	disp.c:63: void clear_gpo(void) {
 ;	-----------------------------------------
 ;	 function clear_gpo
 ;	-----------------------------------------
 _clear_gpo:
-;	disp.c:43: CLEAR_GPO;
+;	disp.c:64: CLEAR_GPO;
 	mov	r0,#_gpo
 	mov	a,#0x06
 	add	a,@r0
@@ -515,105 +550,105 @@ _clear_gpo:
 	mov	r0,a
 	clr	a
 	movx	@r0,a
-;	disp.c:45: return;
-;	disp.c:46: }
+;	disp.c:66: return;
+;	disp.c:67: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'init_intr'
 ;------------------------------------------------------------
-;	disp.c:48: void init_intr(void) {
+;	disp.c:69: void init_intr(void) {
 ;	-----------------------------------------
 ;	 function init_intr
 ;	-----------------------------------------
 _init_intr:
-;	disp.c:49: DIS_TR0;
+;	disp.c:70: DIS_TR0;
 ;	assignBit
 	clr	_TR0
-;	disp.c:50: ET0 = 1;
+;	disp.c:71: ET0 = 1;
 ;	assignBit
 	setb	_ET0
-;	disp.c:51: EA  = 1;
+;	disp.c:72: EA  = 1;
 ;	assignBit
 	setb	_EA
-;	disp.c:53: return;
-;	disp.c:54: }
+;	disp.c:74: return;
+;	disp.c:75: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'init_timer0'
 ;------------------------------------------------------------
-;	disp.c:56: void init_timer0(void) {
+;	disp.c:77: void init_timer0(void) {
 ;	-----------------------------------------
 ;	 function init_timer0
 ;	-----------------------------------------
 _init_timer0:
-;	disp.c:57: DIS_TR0;
+;	disp.c:78: DIS_TR0;
 ;	assignBit
 	clr	_TR0
-;	disp.c:58: TMOD = 0x01;
+;	disp.c:79: TMOD = 0x01;
 	mov	_TMOD,#0x01
-;	disp.c:59: TH0 = 0xa6;
-	mov	_TH0,#0xa6
-;	disp.c:60: TL0 = 0x09;
-	mov	_TL0,#0x09
-;	disp.c:62: return;
-;	disp.c:63: }
+;	disp.c:80: TH0 = 0xf8;
+	mov	_TH0,#0xf8
+;	disp.c:81: TL0 = 0x00;
+	mov	_TL0,#0x00
+;	disp.c:83: return;
+;	disp.c:84: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'init_disp'
 ;------------------------------------------------------------
 ;j                         Allocated to registers r7 
 ;------------------------------------------------------------
-;	disp.c:65: void init_disp(void) {
+;	disp.c:86: void init_disp(void) {
 ;	-----------------------------------------
 ;	 function init_disp
 ;	-----------------------------------------
 _init_disp:
-;	disp.c:68: gpo[4] = 0u;
+;	disp.c:89: gpo[4] = 0u;
 	mov	r0,#_gpo
 	mov	a,#0x04
 	add	a,@r0
 	mov	r0,a
 	clr	a
 	movx	@r0,a
-;	disp.c:69: gpo[5] = 0u;
+;	disp.c:90: gpo[5] = 0u;
 	mov	r0,#_gpo
 	mov	a,#0x05
 	add	a,@r0
 	mov	r0,a
 	clr	a
 	movx	@r0,a
-;	disp.c:70: gpo[GPO_OE] = 0xcfu;
+;	disp.c:91: gpo[GPO_OE] = 0xcfu;
 	mov	r0,#_gpo
 	mov	a,#0x06
 	add	a,@r0
 	mov	r0,a
 	mov	a,#0xcf
 	movx	@r0,a
-;	disp.c:72: column = 0u;
+;	disp.c:93: column = 0u;
 	mov	r0,#_column
 	mov	@r0,#0x00
-;	disp.c:74: for (j = 0u; j < 8u; j++)
+;	disp.c:95: for (j = 0u; j < 8u; j++)
 	mov	r7,#0x00
 00102$:
-;	disp.c:75: ddata[j] = 0u;
+;	disp.c:96: ddata[j] = 0u;
 	mov	a,r7
 	add	a,#_ddata
 	mov	r0,a
 	mov	@r0,#0x00
-;	disp.c:74: for (j = 0u; j < 8u; j++)
+;	disp.c:95: for (j = 0u; j < 8u; j++)
 	inc	r7
 	cjne	r7,#0x08,00115$
 00115$:
 	jc	00102$
-;	disp.c:77: return;
-;	disp.c:78: }
+;	disp.c:98: return;
+;	disp.c:99: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timer0_intr'
 ;------------------------------------------------------------
 ;t                         Allocated to registers r7 
 ;------------------------------------------------------------
-;	disp.c:80: void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
+;	disp.c:101: void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 ;	-----------------------------------------
 ;	 function timer0_intr
 ;	-----------------------------------------
@@ -629,26 +664,16 @@ _timer0_intr:
 	push	acc
 	push	psw
 	mov	psw,#0x08
-;	disp.c:83: DIS_TR0;
+;	disp.c:104: DIS_TR0;
 ;	assignBit
 	clr	_TR0
-;	disp.c:85: t = column & 7u;
+;	disp.c:106: t = column & 7u;
 	mov	r0,#_column
 	mov	ar7,@r0
 	anl	ar7,#0x07
-;	disp.c:86: gpo[4] = ddata[t];
+;	disp.c:107: gpo[4] = dcol[t];
 	mov	r0,#_gpo
 	mov	a,#0x04
-	add	a,@r0
-	mov	r1,a
-	mov	a,r7
-	add	a,#_ddata
-	mov	r0,a
-	mov	a,@r0
-	movx	@r1,a
-;	disp.c:87: gpo[5] = dcol[t];
-	mov	r0,#_gpo
-	mov	a,#0x05
 	add	a,@r0
 	mov	r1,a
 	mov	a,r7
@@ -656,21 +681,31 @@ _timer0_intr:
 	mov	r0,a
 	mov	a,@r0
 	movx	@r1,a
-;	disp.c:88: column++;
+;	disp.c:108: gpo[5] = ddata[t];
+	mov	r0,#_gpo
+	mov	a,#0x05
+	add	a,@r0
+	mov	r1,a
+	mov	a,r7
+	add	a,#_ddata
+	mov	r0,a
+	mov	a,@r0
+	movx	@r1,a
+;	disp.c:109: column++;
 	mov	r0,#_column
 	mov	a,@r0
 	mov	r0,#_column
 	inc	a
 	mov	@r0,a
-;	disp.c:90: TH0 = 0xa6;
-	mov	_TH0,#0xa6
-;	disp.c:91: TL0 = 0x09;
-	mov	_TL0,#0x09
-;	disp.c:93: EN_TR0;
+;	disp.c:111: TH0 = 0xf8;
+	mov	_TH0,#0xf8
+;	disp.c:112: TL0 = 0x00;
+	mov	_TL0,#0x00
+;	disp.c:114: EN_TR0;
 ;	assignBit
 	setb	_TR0
-;	disp.c:95: return;
-;	disp.c:96: }
+;	disp.c:116: return;
+;	disp.c:117: }
 	pop	psw
 	pop	acc
 	reti
@@ -681,8 +716,9 @@ _timer0_intr:
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;j                         Allocated to registers r7 
+;cycle                     Allocated to registers 
 ;------------------------------------------------------------
-;	disp.c:98: void main(void) {
+;	disp.c:119: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -695,16 +731,16 @@ _main:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	disp.c:101: init_gpo();
+;	disp.c:123: init_gpo();
 	lcall	_init_gpo
-;	disp.c:102: clear_gpo();
+;	disp.c:124: clear_gpo();
 	lcall	_clear_gpo
-;	disp.c:103: init_disp();
+;	disp.c:125: init_disp();
 	lcall	_init_disp
-;	disp.c:105: for (j = 1u; j < 8u; j++)
+;	disp.c:127: for (j = 1u; j < 8u; j++)
 	mov	r7,#0x01
-00115$:
-;	disp.c:106: ddata[j] = ddata[j - 1u] + 1u;
+00113$:
+;	disp.c:128: ddata[j] = ddata[j - 1u] + 1u;
 	mov	a,r7
 	add	a,#_ddata
 	mov	r1,a
@@ -715,73 +751,128 @@ _main:
 	mov	a,@r0
 	inc	a
 	mov	@r1,a
-;	disp.c:105: for (j = 1u; j < 8u; j++)
+;	disp.c:127: for (j = 1u; j < 8u; j++)
 	inc	r7
 	cjne	r7,#0x08,00156$
 00156$:
-	jc	00115$
-;	disp.c:108: init_timer0();
+	jc	00113$
+;	disp.c:130: init_timer0();
 	lcall	_init_timer0
-;	disp.c:109: init_intr();
+;	disp.c:131: init_intr();
 	lcall	_init_intr
-;	disp.c:111: EN_TR0;
+;	disp.c:133: EN_TR0;
 ;	assignBit
 	setb	_TR0
-;	disp.c:115: do {
-00123$:
+;	disp.c:135: for (cycle = 0u; ; cycle++) {
+	mov	r6,#0x00
 	mov	r7,#0x00
-00105$:
-;	disp.c:125: __endasm;
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-;	disp.c:126: j++;
-	inc	r7
-;	disp.c:127: } while (j);
-	mov	a,r7
-;	disp.c:129: for (j = 0u; j < 8u; j++) {
-	jnz	00105$
-	mov	r7,a
 00117$:
-;	disp.c:130: if (!j) ddata[j]++;
-	mov	a,r7
+;	disp.c:136: printf("%0.4x\r\n", cycle);
+	push	ar7
+	push	ar6
+	push	ar6
+	push	ar7
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+	pop	ar6
+	pop	ar7
+;	disp.c:138: do {
+	mov	r5,#0x00
+00105$:
+;	disp.c:172: __endasm;
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+;	disp.c:173: j++;
+	inc	r5
+;	disp.c:174: } while (j);
+	mov	a,r5
+;	disp.c:176: for (j = 0u; j < 8u; j++) {
+	jnz	00105$
+	mov	r5,a
+00115$:
+;	disp.c:177: if (!j) ddata[j]++;
+	mov	a,r5
 	jnz	00109$
-	mov	a,r7
+	mov	a,r5
 	add	a,#_ddata
 	mov	r1,a
 	mov	a,@r1
-	mov	r6,a
+	mov	r4,a
 	inc	a
 	mov	@r1,a
-	sjmp	00118$
+	sjmp	00116$
 00109$:
-;	disp.c:131: else ddata[j] = ddata[j - 1u] + 1u;
-	mov	a,r7
+;	disp.c:178: else ddata[j] = ddata[j - 1u] + 1u;
+	mov	a,r5
 	add	a,#_ddata
 	mov	r1,a
-	mov	a,r7
+	mov	a,r5
 	dec	a
 	add	a,#_ddata
 	mov	r0,a
 	mov	a,@r0
-	mov	r6,a
+	mov	r4,a
 	inc	a
 	mov	@r1,a
-00118$:
-;	disp.c:129: for (j = 0u; j < 8u; j++) {
-	inc	r7
-	cjne	r7,#0x08,00160$
+00116$:
+;	disp.c:176: for (j = 0u; j < 8u; j++) {
+	inc	r5
+	cjne	r5,#0x08,00160$
 00160$:
-	jc	00117$
-;	disp.c:135: return;
-;	disp.c:136: }
-	sjmp	00123$
+	jc	00115$
+;	disp.c:135: for (cycle = 0u; ; cycle++) {
+	inc	r6
+;	disp.c:182: return;
+	cjne	r6,#0x00,00117$
+	inc	r7
+;	disp.c:183: }
+	sjmp	00117$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
+	.area CONST   (CODE)
+___str_0:
+	.ascii "%0.4x"
+	.db 0x0d
+	.db 0x0a
+	.db 0x00
+	.area CSEG    (CODE)
 	.area XINIT   (CODE)
 	.area CABS    (ABS,CODE)

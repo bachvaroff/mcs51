@@ -1,7 +1,28 @@
 #include <mcs51/at89x52.h>
+#include <stdio.h>
 #include <stdint.h>
 
-#define GPO_BASE_H	0xffu
+#define pm2_entry_cout 0x0030
+#define pm2_entry_cin 0x0032
+
+int putchar(int c) __naked {
+	(void)c;
+	__asm
+		mov a, dpl
+		ljmp pm2_entry_cout
+	__endasm;
+}
+
+int getchar(void) __naked {
+	__asm
+		lcall pm2_entry_cin
+		mov dpl, a
+		mov dph, #0
+		ret
+	__endasm;
+}
+
+#define GPO_BASE_H	0xf0u
 #define GPO_BASE_L	0x00u
 #define GPO_OE		6
 
@@ -31,7 +52,7 @@ __idata volatile uint8_t column;
 } while (0)
 
 void init_gpo(void) {
-	P1_7 = 1;
+	P1_7 = 0;
 	P2 = GPO_BASE_H;
 	gpo = (ppd_uint8_t)GPO_BASE_L;
 	CLEAR_GPO;
@@ -56,8 +77,8 @@ void init_intr(void) {
 void init_timer0(void) {
 	DIS_TR0;
 	TMOD = 0x01;
-	TH0 = 0xa6;
-	TL0 = 0x09;
+	TH0 = 0xf8;
+	TL0 = 0x00;
 	
 	return;
 }
@@ -83,12 +104,12 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	DIS_TR0;
 	
 	t = column & 7u;
-	gpo[4] = ddata[t];
-	gpo[5] = dcol[t];
+	gpo[4] = dcol[t];
+	gpo[5] = ddata[t];
 	column++;
 	
-	TH0 = 0xa6;
-	TL0 = 0x09;
+	TH0 = 0xf8;
+	TL0 = 0x00;
 	
 	EN_TR0;
 	
@@ -97,6 +118,7 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 
 void main(void) {
 	register uint8_t j;
+	register uint16_t cycle;
 	
 	init_gpo();
 	clear_gpo();
@@ -110,10 +132,35 @@ void main(void) {
 	
 	EN_TR0;
 	
-	while (1) {
+	for (cycle = 0u; ; cycle++) {
+		printf("%0.4x\r\n", cycle);
 		j = 0u;
 		do {
 			__asm
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
 				nop
 				nop
 				nop
