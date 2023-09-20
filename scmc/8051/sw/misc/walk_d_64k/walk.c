@@ -1,6 +1,7 @@
 #include <mcs51/at89x52.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #define pm2_entry_cout 0x0030
 #define pm2_entry_cin 0x0032
@@ -22,10 +23,10 @@ int getchar(void) __naked {
 	__endasm;
 }
 
-__idata static char i0;
+__idata static uint8_t i0;
 
 void int0(void) __interrupt IE0_VECTOR __using 1 {
-	i0 = 0;
+	i0 = 0u;
 }
 
 static void reset(void) __naked {
@@ -41,12 +42,14 @@ static void bang(void) {
 	return;
 }
 
+static volatile __xdata int *R = (__xdata int *)0xfffeu;
+
 struct node {
 	int r, c;
 };
 
 #define ROWS 48
-#define COLS 202
+#define COLS 201
 
 static char g[ROWS][COLS];
 
@@ -84,6 +87,24 @@ static int sp;
 static void stinit(void);
 static int stpush(struct node *t);
 static int stpop(struct node *t);
+
+#define OE76_0 0x3fu
+#define OE76_MASK7 0x80u
+#define OE76_MASK6 0x40u
+#define OE76_NC 0x00u
+
+__idata static uint8_t OE76;
+
+static void flashOE(uint8_t mask) {
+	volatile __xdata uint8_t *OEreg = (__xdata uint8_t *)0xf006u;
+	
+	P1_7 = 0;
+	*OEreg = OE76;
+	P1_7 = 1;
+	OE76 ^= mask;
+	
+	return;
+}
 
 static int update(struct node *t, struct node *cur, char j) {
 	t->r = cur->r + neigh[j].r;
@@ -125,6 +146,7 @@ next:
 						
 			if (!stpush(&cur)) bang();
 			cur = t;
+			flashOE(OE76_MASK7);
 			goto process;
 		}
 	}
@@ -132,6 +154,7 @@ next:
 	printf("\033[%d;%dH.", cur.r + 4, cur.c + 1);
 	
 	if (!stpop(&cur)) goto term;
+	flashOE(OE76_MASK6);
 	goto next;
 	
 term:
@@ -139,13 +162,13 @@ term:
 }
 
 int main(void) {
-	static volatile __xdata int *R = (__xdata int *)0xfffe;
 	struct node initial;
 	unsigned int N = 0u;
 	int i, j;
 	
-	i0 = 1;
+	i0 = 1u;
 	
+	P1_7 = 1;
 	IT0 = 1;
 	EX0 = 1;
 	EA = 1;
@@ -171,6 +194,9 @@ int main(void) {
 			neigh[i].c = neigh_tmpl[i].c * (1 + rand() % 4);
 			printf("% 8d% 8d", neigh[i].r, neigh[i].c);
 		}
+		
+		OE76 = OE76_0;
+		flashOE(OE76_NC);
 		
 		walk(&initial);
 		

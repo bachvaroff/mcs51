@@ -1,17 +1,17 @@
 SDCCCFLAGS=--model-large --stack-auto -I.
-ASLINKFLAGS=--model-large --stack-auto --code-loc 0x2000 --xram-loc 0x4240
+ASLINKFLAGS=--model-large --stack-auto --code-loc 0x2000 --xram-loc 0x8000
 
 %.rel: %.c
 	sdcc $(SDCCCFLAGS) -c $<
 
 .PRECIOUS: %.ihx
 
-all: walk
+all: gen
 
-walk.ihx: walk.rel
+gen.ihx: gen.rel
 	sdcc $(ASLINKFLAGS) $^
 
-walk: walk.ihx
+gen: gen.ihx
 	cat "$@.mem"
 	packihx "$<" > "$@.hex"
 

@@ -1,10 +1,10 @@
 -muwx
--i walk.ihx
+-i gen.ihx
 -M
 -Y
 -b HOME = 0x2000
--b XSEG = 0x4240
--b PSEG = 0x4240
+-b XSEG = 0x8000
+-b PSEG = 0x8000
 -b ISEG = 0x0000
 -b BSEG = 0x0000
 -k /usr/bin/../share/sdcc/lib/large-stack-auto
@@ -14,6 +14,6 @@
 -l libint
 -l liblong
 -l libfloat
-walk.rel
+gen.rel
 
 -e
