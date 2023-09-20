@@ -130,6 +130,7 @@ static void walk(struct node *nstart) {
 process:
 	g[cur.r][cur.c] = 0xaa;
 	printf("\033[%d;%dHo", cur.r + 4, cur.c + 1);
+	flashOE(OE76_MASK7);
 	
 next:
 	printf("\033[2;1H% 8d% 8d% 8d", sp, cur.r, cur.c);
@@ -143,21 +144,20 @@ next:
 		while (1) {
 			j = rand() % NMAX;
 			if (!update(&t, &cur, j)) continue;
-						
 			if (!stpush(&cur)) bang();
 			cur = t;
-			flashOE(OE76_MASK7);
 			goto process;
 		}
 	}
 	
 	printf("\033[%d;%dH.", cur.r + 4, cur.c + 1);
+	flashOE(OE76_MASK7);
 	
-	if (!stpop(&cur)) goto term;
-	flashOE(OE76_MASK6);
-	goto next;
+	if (stpop(&cur)) {
+		flashOE(OE76_MASK6);
+		goto next;
+	}
 	
-term:
 	return;
 }
 
@@ -188,7 +188,6 @@ int main(void) {
 		
 		puts("\033[2J\033[?25l");
 		printf("\033[1;1H% 8u% 8d% 8d", N, initial.r, initial.c);
-		
 		for (i = 0; i < (2 * REG); i++) {
 			neigh[i].r = neigh_tmpl[i].r * (1 + rand() % 4);
 			neigh[i].c = neigh_tmpl[i].c * (1 + rand() % 4);

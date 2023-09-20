@@ -25,5 +25,5 @@ Other memory:
    Name             Start    End      Size     Max     
    ---------------- -------- -------- -------- --------
    PAGED EXT. RAM                         0      256   
-   EXTERNAL RAM     0x4240   0xff37   48376    65536   
-   ROM/EPROM/FLASH  0x2000   0x423a    8763    65536   
+   EXTERNAL RAM     0x4280   0xff77   48376    65536   
+   ROM/EPROM/FLASH  0x2000   0x4240    8769    65536   
