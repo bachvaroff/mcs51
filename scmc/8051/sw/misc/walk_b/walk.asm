@@ -317,9 +317,9 @@ _i0:
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
 _g:
-	.ds 9216
+	.ds 9504
 _queue:
-	.ds 36864
+	.ds 38016
 _hp:
 	.ds 2
 _tp:
@@ -749,7 +749,7 @@ _update:
 	inc	dptr
 	lcall	__gptrget
 	mov	r7,a
-	mov	a,#0xc0
+	mov	a,#0xc6
 	add	a,r6
 	mov	r6,a
 	clr	a
@@ -786,7 +786,7 @@ _update:
 	mov	r7,a
 	clr	c
 	mov	a,r6
-	subb	a,#0xc0
+	subb	a,#0xc6
 	mov	a,r7
 	xrl	a,#0x80
 	subb	a,#0x80
@@ -805,7 +805,7 @@ _update:
 	lcall	__gptrget
 	mov	r7,a
 	mov	a,r6
-	add	a,#0x40
+	add	a,#0x3a
 	mov	r6,a
 	mov	a,r7
 	addc	a,#0xff
@@ -839,7 +839,7 @@ _update:
 	mov	r7,a
 	push	ar6
 	push	ar7
-	mov	dptr,#0x00c0
+	mov	dptr,#0x00c6
 	lcall	__mulint
 	mov	r6,dpl
 	mov	r7,dph
@@ -891,7 +891,7 @@ _update:
 	mov	r7,a
 	push	ar6
 	push	ar7
-	mov	dptr,#0x00c0
+	mov	dptr,#0x00c6
 	lcall	__mulint
 	mov	r6,dpl
 	mov	r7,dph
@@ -995,7 +995,7 @@ _walk:
 	push	ar5
 	push	ar3
 	push	ar4
-	mov	dptr,#0x00c0
+	mov	dptr,#0x00c6
 	lcall	__mulint
 	mov	r3,dpl
 	mov	r4,dph
@@ -1352,7 +1352,7 @@ _walk:
 	push	ar0
 	push	ar3
 	push	ar7
-	mov	dptr,#0x00c0
+	mov	dptr,#0x00c6
 	lcall	__mulint
 	mov	r3,dpl
 	mov	r7,dph
@@ -1580,7 +1580,7 @@ _main:
 00194$:
 	clr	c
 	mov	a,r2
-	subb	a,#0xc0
+	subb	a,#0xc6
 	mov	a,r6
 	xrl	a,#0x80
 	subb	a,#0x80
@@ -1588,7 +1588,7 @@ _main:
 ;	walk.c:153: for (i = 0; i < ROWS; i++)
 	mov	r0,_bp
 	inc	r0
-	mov	a,#0xc0
+	mov	a,#0xc6
 	add	a,@r0
 	mov	@r0,a
 	clr	a
@@ -1642,7 +1642,7 @@ _main:
 	lcall	_rand
 	mov	r5,dpl
 	mov	r6,dph
-	mov	a,#0xc0
+	mov	a,#0xc6
 	push	acc
 	clr	a
 	push	acc
@@ -2262,13 +2262,13 @@ _main:
 00207$:
 	clr	c
 	mov	a,r2
-	subb	a,#0xc0
+	subb	a,#0xc6
 	mov	a,r6
 	xrl	a,#0x80
 	subb	a,#0x80
 	jc	00120$
 ;	walk.c:177: for (i = 0; i < ROWS; i++)
-	mov	a,#0xc0
+	mov	a,#0xc6
 	add	a,r3
 	mov	r3,a
 	clr	a
@@ -2383,9 +2383,9 @@ _qadd:
 	push	ar5
 	push	ar4
 	push	ar3
-	clr	a
+	mov	a,#0x20
 	push	acc
-	mov	a,#0x24
+	mov	a,#0x25
 	push	acc
 	mov	r0,_bp
 	inc	r0
@@ -2485,9 +2485,9 @@ _qadd:
 	cjne	r5,#0x00,00111$
 	inc	r6
 00111$:
-	clr	a
+	mov	a,#0x20
 	push	acc
-	mov	a,#0x24
+	mov	a,#0x25
 	push	acc
 	mov	dpl,r5
 	mov	dph,r6
@@ -2587,9 +2587,9 @@ _qget:
 	cjne	r6,#0x00,00111$
 	inc	r7
 00111$:
-	clr	a
+	mov	a,#0x20
 	push	acc
-	mov	a,#0x24
+	mov	a,#0x25
 	push	acc
 	mov	dpl,r6
 	mov	dph,r7

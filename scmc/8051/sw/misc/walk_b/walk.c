@@ -46,7 +46,7 @@ struct node {
 };
 
 #define ROWS 48
-#define COLS 192
+#define COLS 198
 
 static char g[ROWS][COLS];
 
