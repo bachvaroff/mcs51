@@ -53,20 +53,8 @@ struct node {
 
 static char g[ROWS][COLS];
 
-#define REG 4
-#define NMAX (4 * REG)
-
-static struct node neigh_tmpl[NMAX] = {
-/*
-	{ -1, -1 },	{ -1, 0 },	{ -1, +1 },
-	{  0, -1 },			{  0, +1 },
-	{ +1, -1 },	{ +1, 0 },	{ +1, +1 }
-*/
-	{ -1, +1 }, { -1, -1 }, { +1, -1 }, { +1, +1 },
-	{ -1, 0 }, {  0, -1 }, { +1, 0 }, {  0, +1 },
-	{ -1, +1 }, { -1, -1 }, { +1, -1 }, { +1, +1 },
-	{ -1, 0 }, {  0, -1 }, { +1, 0 }, {  0, +1 }
-};
+#define REG 8
+#define NMAX (2 * REG)
 
 static struct node neigh[NMAX] = {
 /*
@@ -151,12 +139,9 @@ next:
 	}
 	
 	printf("\033[%d;%dH.", cur.r + 4, cur.c + 1);
-	flashOE(OE76_MASK7);
+	flashOE(OE76_MASK6);
 	
-	if (stpop(&cur)) {
-		flashOE(OE76_MASK6);
-		goto next;
-	}
+	if (stpop(&cur)) goto next;
 	
 	return;
 }
@@ -188,9 +173,9 @@ int main(void) {
 		
 		puts("\033[2J\033[?25l");
 		printf("\033[1;1H% 8u% 8d% 8d", N, initial.r, initial.c);
-		for (i = 0; i < (2 * REG); i++) {
-			neigh[i].r = neigh_tmpl[i].r * (1 + rand() % 4);
-			neigh[i].c = neigh_tmpl[i].c * (1 + rand() % 4);
+		for (i = 0; i < REG; i++) {
+			neigh[i].r = neigh[REG + i].r * (1 + rand() % 4);
+			neigh[i].c = neigh[REG + i].c * (1 + rand() % 4);
 			printf("% 8d% 8d", neigh[i].r, neigh[i].c);
 		}
 		
