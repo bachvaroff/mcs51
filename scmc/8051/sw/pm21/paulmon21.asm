@@ -43,31 +43,41 @@
 ;							  ;
 ;---------------------------------------------------------;
 
-; PAULMON2 should be assembled using the modified AS31 assembler,
-; originally written by Ken Stauffer, many small changes by Paul
-; Stoffregen. This free assembler is available on the web at
-; http://www.pjrc.com/tech/8051/index.html
-; As well, these web pages have a fill-out form which makes it
-; very easy to custom configure PAULMON2. Using this form will
-; edit the code for you, run the AS31 assmebler, and send you the
-; object code to program into your chip.
-
+;---------------------------------------------------------;
 ; These two parameters control where PAULMON2 will be assembled,
 ; and where it will attempt to LJMP at the interrupt vector locations.
-
 .equ	base, 0x0000		; location for PAULMON2
 .equ	vector, 0x2000		; location to LJMP interrupt vectors
+;---------------------------------------------------------;
 
+;---------------------------------------------------------;
 ; These three parameters tell PAULMON2 where the user's memory is
 ; installed. "bmem" and "emem" define the space that will be searched
 ; for program headers, user installed commands, start-up programs, etc.
 ; "bmem" and "emem" should be use so they exclude memory areas where
 ; perphreal devices may be mapped, as reading memory from an io chip
 ; may reconfigure it unexpectedly.
-
 .equ	pgm, 0x2000		; default location for the user program
-.equ	bmem, 0x1000		; where is the beginning of memory
-.equ	emem, 0xDFFF		; end of the memory
+.equ	bmem, 0x1000		; where is the beginning of memory to search
+.equ	emem, 0xDFFF		; end of the memory to search
+;---------------------------------------------------------;
+
+;---------------------------------------------------------;
+.equ	psw_init, 0		; value for psw (which reg bank to use)
+.equ	p2_init, 0xff		; boot time default page is at 0xff00
+.equ	sp_init, 0x17		; location of the stack
+.equ	sp_reset, 0x07		; stack on reset
+.equ	mctrl_reset, 11111111b	; memory controller (P1) on reset
+.equ	mctrl_shadow, 11111110b	; memory controller (P1) in shadow mode
+.equ	dnld_parm, 0x08		; block of 16 bytes for download
+; |00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|
+;			 \__ sp_reset
+; |10|11|12|13|14|15|16|17|
+;			 \__ sp_init
+;
+; |r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  dnld  .  .  |
+; |  .  .  .  dnld  .  .  |
+;---------------------------------------------------------;
 
 ;---------------------------------------------------------;
 ; bc = 65536 - (OSC / 32) / baud
@@ -84,7 +94,6 @@
 ; 0xffdc @ 9600bps @ 11.059MHz
 ;.equ	bc_h, 0xff
 ;.equ	bc_l, 0xdc
-;---------------------------------------------------------;
 ; 0xfff7 @ 57600bps @ 16.5888MHz
 .equ	bc_h, 0xff
 .equ	bc_l, 0xf7
@@ -99,12 +108,8 @@
 ;.equ	bc_l, 0xca
 ;---------------------------------------------------------;
 
-; Several people didn't like the key definations in PAULMON1.
-; Actually, I didn't like 'em either, but I never took the time
-; to change it.	 Eventually I got used to them, but now it's
-; really easy to change which keys do what in PAULMON2.	 You
-; can guess what to do below, but don't use lowercase.
-
+;---------------------------------------------------------;
+; Key command definitions
 .equ	help_key, '?'		; help screen
 .equ	dir_key, 'M'		; directory
 .equ	run_key, 'R'		; run program
@@ -118,25 +123,9 @@
 .equ	clrm_key, 'C'		; clear memory
 .equ	crc16_key, 'W'		; calculate crc16
 .equ	baud_key, 'B'		; reset baudrate
-.equ	eio77_key, '<'
-.equ	dio77_key, '>'
-
-.equ	psw_init, 0		; value for psw (which reg bank to use)
-.equ	p2_init, 0xff		; boot time default page is at 0xff00
-.equ	dnld_parm, 0x08		; block of 16 bytes for download
-; |00|01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|
-;			 \__ sp_reset
-; |10|11|12|13|14|15|16|17|
-;			 \__ sp_init
-;
-; |r0|r1|r2|r3|r4|r5|r6|r7|  .  .  .  dnld  .  .  |
-; |  .  .  .  dnld  .  .  |
-.equ	sp_init, 0x17		; location of the stack
-.equ	sp_reset, 0x07
-
-; |P1.7|P1.6|P1.5|P1.4|P1.3|P1.2|P1.1|P1.0|
-.equ	mctrl_reset,	11111111b
-.equ	mctrl_shadow,	11111110b
+.equ	eio77_key, '<'		; enable IO space 0xe000-0xffff
+.equ	dio77_key, '>'		; disable IO space 0xe000-0xffff
+;---------------------------------------------------------;
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -1831,6 +1820,24 @@ find4:
 ; initialize the hardware on reset
 ; copy flash to memory
 
+;-------- cp_shadow --------
+		cp_shadow:
+			mov	dptr, #0x0000
+		cp_shadow_byte:
+			clr	a
+			movc	a, @a+dptr
+			movx	@dptr, a
+			inc	dptr
+			mov	a, dph
+			cjne	a, #0x20, cp_shadow_byte
+			mov	p1, #mctrl_shadow
+			nop
+			nop
+			ret
+		cp_shadow_end:
+		.equ	cp_shadow_len, (cp_shadow_end - cp_shadow)
+;-------- cp_shadow --------
+
 reset:
 	clr	a
 	mov	ie, a
@@ -1839,32 +1846,28 @@ reset:
 	mov	sp, #sp_init
 	mov	p2, #p2_init
 	
-; force P1 to output
-; internal PFETs P1.7-0 active + external pullup
-	mov	p1, #mctrl_reset
-	mov	r7, a
-	mov	r7, a
-	mov	r7, a
-	mov	r7, a
-	
-begin_cp_shadow:
-	mov	dptr, #0x0000
-cp_byte:
+	mov	r0, #cp_shadow_len
+	mov	r4, #(cp_shadow & 0xff)	; lsrc
+	mov	r5, #(cp_shadow >> 8)	; hsrc
+	mov	r6, #(pgm & 0xff)	; ldst
+	mov	r7, #(pgm >> 8)		; hdst
+cp_loop:
+	mov	dpl, r4
+	mov	dph, r5
 	clr	a
 	movc	a, @a+dptr
+	inc	dptr
+	mov	r4, dpl
+	mov	r5, dph
+	mov	dpl, r6
+	mov	dph, r7
 	movx	@dptr, a
 	inc	dptr
-	mov	a, dph
-	cjne	a, #0x20, cp_byte
-end_cp_shadow:
+	mov	r6, dpl
+	mov	r7, dph
+	djnz	r0, cp_loop
 	
-; force P1 to output
-; internal PFETs P1.7-1 active + external pullup, internal NFET P1.0 active
-	mov	p1, #mctrl_shadow
-	mov	r7, a
-	mov	r7, a
-	mov	r7, a
-	mov	r7, a
+	lcall	pgm		; cp_shadow
 	
 ; initialize the serial port
 	mov	a, #bc_l
@@ -1879,17 +1882,10 @@ end_cp_shadow:
 	mov	b, #253
 	lcall	stcode
 	
-; now print out the nice welcome message
-welcome:
-	mov	r0, #24
-welcm2:
 	lcall	crlf
-	djnz	r0, welcm2
-	mov	r0, #15
-	mov	a, #' '
-welcm4:
-	lcall	cout
-	djnz	r0, welcm4
+	lcall	crlf
+	lcall	crlf
+	lcall	crlf
 	mov	dptr, #logon1
 	lcall	pcstr
 	mov	dptr, #logon2
