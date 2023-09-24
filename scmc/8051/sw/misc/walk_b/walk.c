@@ -1,6 +1,7 @@
 #include <mcs51/at89x52.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #define pm2_entry_cout 0x0030
 #define pm2_entry_cin 0x0032
@@ -22,10 +23,10 @@ int getchar(void) __naked {
 	__endasm;
 }
 
-__idata static char i0;
+__idata static uint8_t i0;
 
 void int0(void) __interrupt IE0_VECTOR __using 1 {
-	i0 = 0;
+	i0 = 0u;
 }
 
 static void reset(void) __naked {
@@ -46,24 +47,12 @@ struct node {
 };
 
 #define ROWS 48
-#define COLS 198
+#define COLS 201
 
-static char g[ROWS][COLS];
+static uint8_t g[ROWS][COLS];
 
-#define REG 4
-#define NMAX (4 * REG)
-
-static struct node neigh_tmpl[NMAX] = {
-/*
-	{ -1, -1 },	{ -1, 0 },	{ -1, +1 },
-	{  0, -1 },			{  0, +1 },
-	{ +1, -1 },	{ +1, 0 },	{ +1, +1 }
-*/
-	{ -1, +1 }, { -1, -1 }, { +1, -1 }, { +1, +1 },
-	{ -1, 0 }, {  0, -1 }, { +1, 0 }, {  0, +1 },
-	{ -1, +1 }, { -1, -1 }, { +1, -1 }, { +1, +1 },
-	{ -1, 0 }, {  0, -1 }, { +1, 0 }, {  0, +1 }
-};
+#define REG 8u
+#define NMAX (2u * REG)
 
 static struct node neigh[NMAX] = {
 /*
@@ -82,10 +71,28 @@ static struct node neigh[NMAX] = {
 static struct node queue[QMAX];
 static int hp, tp;
 static void qinit(void);
-static int qadd(struct node *t);
-static int qget(struct node *t);
+static uint8_t qadd(struct node *t);
+static uint8_t qget(struct node *t);
 
-static int update(struct node *t, struct node *cur, char j) {
+#define OE76_0 0x3fu
+#define OE76_MASK7 0x80u
+#define OE76_MASK6 0x40u
+#define OE76_NC 0x00u
+
+__idata static uint8_t OE76;
+
+static void flashOE(uint8_t mask) {
+	volatile __xdata uint8_t *OEreg = (__xdata uint8_t *)0xf006u;
+	
+	P1_7 = 0;
+	*OEreg = OE76;
+	P1_7 = 1;
+	OE76 ^= mask;
+	
+	return;
+}
+
+static uint8_t update(struct node *t, struct node *cur, uint8_t j) {
 	t->r = cur->r + neigh[j].r;
 	t->c = cur->c + neigh[j].c;
 	
@@ -94,36 +101,47 @@ static int update(struct node *t, struct node *cur, char j) {
 	if (t->c < 0) t->c += COLS;
 	else if (t->c >= COLS) t->c -= COLS;
 	
-	if (g[t->r][t->c] == 0xaa) return 0;
-	else if (g[t->r][t->c] != 0x55) bang();
+	if (g[t->r][t->c] == 0xaau) return 0u;
+	else if (g[t->r][t->c] != 0x55u) bang();
 		
-	return 1;
+	return 1u;
 }
 
 static void walk(struct node *nstart) {
 	struct node cur, t;
-	char j;
-	int r;
+	uint8_t scramble[NMAX], ti, tj, tx;
+	uint8_t j;
 	
 	if (!qadd(nstart)) bang();
-	g[nstart->r][nstart->c] = 0xaa;
+	g[nstart->r][nstart->c] = 0xaau;
 	
 process:
 	if (!qget(&cur)) goto term;
-	r = rand() & 0x001f;
-	if (r < 16) {
-		if (!qadd(&cur)) bang();
-		goto process;
-	}
-	
-	printf("\033[%d;%dH.", cur.r + 4, cur.c + 1);
+		
 	printf("\033[2;1H% 8d% 8d% 8d% 8d", hp, tp, cur.r, cur.c);
 	
-	for (j = 0; j < NMAX; j++)
-		if (update(&t, &cur, j)) {
+	printf("\033[%d;%dH.", cur.r + 4, cur.c + 1);
+	flashOE(OE76_MASK6);
+	
+	for (j = 0u; j < NMAX; j++)
+		scramble[j] = j;
+	for (j = 0u; j < NMAX; j++) {
+		do ti = (uint8_t)(rand() % NMAX);
+		while (ti == j);
+		do tj = (uint8_t)(rand() % NMAX);
+		while (ti == tj);
+		tx = scramble[ti];
+		scramble[ti] = scramble[tj];
+		scramble[tj] = tx;
+	}
+	
+	for (j = 0u; j < NMAX; j++)
+		if (update(&t, &cur, scramble[j])) {
 			if (!qadd(&t)) bang();
-			g[t.r][t.c] = 0xaa;
+			g[t.r][t.c] = 0xaau;
+			
 			printf("\033[%d;%dHo", t.r + 4, t.c + 1);
+			flashOE(OE76_MASK7);
 		}
 	
 	goto process;
@@ -133,13 +151,14 @@ term:
 }
 
 int main(void) {
-	static volatile __xdata int *R = (__xdata int *)0xfffe;
+	volatile __xdata int *R = (__xdata int *)0xfffeu;
 	struct node initial;
 	unsigned int N = 0u;
 	int i, j;
 	
-	i0 = 1;
+	i0 = 1u;
 	
+	P1_7 = 1;
 	IT0 = 1;
 	EX0 = 1;
 	EA = 1;
@@ -152,7 +171,7 @@ int main(void) {
 	while (i0) {
 		for (i = 0; i < ROWS; i++)
 			for (j = 0; j < COLS; j++)
-				g[i][j] = 0x55;
+				g[i][j] = 0x55u;
 		
 		initial.r = rand() % ROWS;
 		initial.c = rand() % COLS;
@@ -161,22 +180,19 @@ int main(void) {
 		printf("\033[1;1H% 8u% 8d% 8d", N, initial.r, initial.c);
 		
 		for (i = 0; i < REG; i++) {
-			neigh[i].r = neigh_tmpl[i].r * (1 + rand() % 4);
-			neigh[i].c = neigh_tmpl[i].c * (1 + rand() % 4);
+			neigh[i].r = neigh[REG + i].r * (1 + rand() % 32);
+			neigh[i].c = neigh[REG + i].c * (1 + rand() % 32);
 			printf("% 8d% 8d", neigh[i].r, neigh[i].c);
 		}
 		
-		for (i = REG; i < (2 * REG); i++) {
-			neigh[i].r = neigh_tmpl[i].r * (1 + rand() % 4);
-			neigh[i].c = neigh_tmpl[i].c * (1 + rand() % 4);
-			printf("% 8d% 8d", neigh[i].r, neigh[i].c);
-		}
+		OE76 = OE76_0;
+		flashOE(OE76_NC);
 		
 		walk(&initial);
 		
 		for (i = 0; i < ROWS; i++)
 			for (j = 0; j < COLS; j++)
-				if (g[i][j] != 0xaa) bang();
+				if (g[i][j] != 0xaau) bang();
 		
 		N++;
 	}
@@ -197,17 +213,17 @@ static void qinit(void) {
 	return;
 }
 
-static int qadd(struct node *t) {
-	if (((hp + 1) % QMAX) == tp) return 0;
+static uint8_t qadd(struct node *t) {
+	if (((hp + 1) % QMAX) == tp) return 0u;
 	queue[hp] = *t;
 	hp = (hp + 1) % QMAX;
-	return 1;
+	return 1u;
 }
 
-static int qget(struct node *t) {
-	if (hp == tp) return 0;
+static uint8_t qget(struct node *t) {
+	if (hp == tp) return 0u;
 	*t = queue[tp];
 	tp = (tp + 1) % QMAX;
-	return 1;
+	return 1u;
 }
 

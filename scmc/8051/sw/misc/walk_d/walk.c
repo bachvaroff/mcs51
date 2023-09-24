@@ -42,8 +42,6 @@ static void bang(void) {
 	return;
 }
 
-static volatile __xdata int *R = (__xdata int *)0xfffeu;
-
 struct node {
 	int r, c;
 };
@@ -51,10 +49,10 @@ struct node {
 #define ROWS 48
 #define COLS 201
 
-static char g[ROWS][COLS];
+static uint8_t g[ROWS][COLS];
 
-#define REG 8
-#define NMAX (2 * REG)
+#define REG 8u
+#define NMAX (2u * REG)
 
 static struct node neigh[NMAX] = {
 /*
@@ -73,8 +71,8 @@ static struct node neigh[NMAX] = {
 static struct node stack[SMAX];
 static int sp;
 static void stinit(void);
-static int stpush(struct node *t);
-static int stpop(struct node *t);
+static uint8_t stpush(struct node *t);
+static uint8_t stpop(struct node *t);
 
 #define OE76_0 0x3fu
 #define OE76_MASK7 0x80u
@@ -94,7 +92,7 @@ static void flashOE(uint8_t mask) {
 	return;
 }
 
-static int update(struct node *t, struct node *cur, char j) {
+static uint8_t update(struct node *t, struct node *cur, uint8_t j) {
 	t->r = cur->r + neigh[j].r;
 	t->c = cur->c + neigh[j].c;
 	
@@ -103,34 +101,35 @@ static int update(struct node *t, struct node *cur, char j) {
 	if (t->c < 0) t->c += COLS;
 	else if (t->c >= COLS) t->c -= COLS;
 	
-	if (g[t->r][t->c] == 0xaa) return 0;
-	else if (g[t->r][t->c] != 0x55) bang();
+	if (g[t->r][t->c] == 0xaau) return 0u;
+	else if (g[t->r][t->c] != 0x55u) bang();
 	
-	return 1;
+	return 1u;
 }
 
 static void walk(struct node *nstart) {
 	struct node cur, t;
-	char j, f;
+	uint8_t j, f;
 	
 	cur = *nstart;
 
 process:
-	g[cur.r][cur.c] = 0xaa;
+	g[cur.r][cur.c] = 0xaau;
+	
 	printf("\033[%d;%dHo", cur.r + 4, cur.c + 1);
 	flashOE(OE76_MASK7);
 	
 next:
 	printf("\033[2;1H% 8d% 8d% 8d", sp, cur.r, cur.c);
 	
-	for (j = 0, f = 0; j < NMAX; j++) {
+	for (j = 0u, f = 0u; j < NMAX; j++) {
 		if (!update(&t, &cur, j)) continue;
 		f++;
 	}
 	
 	if (f) {
 		while (1) {
-			j = rand() % NMAX;
+			j = (uint8_t)(rand() % NMAX);
 			if (!update(&t, &cur, j)) continue;
 			if (!stpush(&cur)) bang();
 			cur = t;
@@ -147,6 +146,7 @@ next:
 }
 
 int main(void) {
+	volatile __xdata int *R = (__xdata int *)0xfffeu;
 	struct node initial;
 	unsigned int N = 0u;
 	int i, j;
@@ -166,16 +166,17 @@ int main(void) {
 	while (i0) {
 		for (i = 0; i < ROWS; i++)
 			for (j = 0; j < COLS; j++)
-				g[i][j] = 0x55;
+				g[i][j] = 0x55u;
 		
 		initial.r = rand() % ROWS;
 		initial.c = rand() % COLS;
 		
 		puts("\033[2J\033[?25l");
 		printf("\033[1;1H% 8u% 8d% 8d", N, initial.r, initial.c);
+		
 		for (i = 0; i < REG; i++) {
-			neigh[i].r = neigh[REG + i].r * (1 + rand() % 4);
-			neigh[i].c = neigh[REG + i].c * (1 + rand() % 4);
+			neigh[i].r = neigh[REG + i].r * (1 + rand() % 8);
+			neigh[i].c = neigh[REG + i].c * (1 + rand() % 8);
 			printf("% 8d% 8d", neigh[i].r, neigh[i].c);
 		}
 		
@@ -186,7 +187,7 @@ int main(void) {
 		
 		for (i = 0; i < ROWS; i++)
 			for (j = 0; j < COLS; j++)
-				if (g[i][j] != 0xaa) bang();
+				if (g[i][j] != 0xaau) bang();
 		
 		N++;
 	}
@@ -207,17 +208,17 @@ static void stinit(void) {
 	return;
 }
 
-static int stpush(struct node *t) {
-	if (sp == (SMAX - 1)) return 0;
+static uint8_t stpush(struct node *t) {
+	if (sp == (SMAX - 1)) return 0u;
 	sp++;
 	stack[sp] = *t;
-	return 1;
+	return 1u;
 }
 
-static int stpop(struct node *t) {
-	if (sp == -1) return 0;
+static uint8_t stpop(struct node *t) {
+	if (sp == -1) return 0u;
 	*t = stack[sp];
 	sp--;
-	return 1;
+	return 1u;
 }
 
