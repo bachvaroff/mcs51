@@ -1817,26 +1817,74 @@ find4:
 
 ;---------------------------------------------------------;
 
+; r2:r3 lssrc:hssrc
+; r4:r5 lesrc:hesrc
+; r6:r7 ldst:hdst
+
+cpycx:
+	mov	dpl, r2
+	mov	dph, r3
+	clr	a
+	movc	a, @a+dptr
+	inc	dptr
+	mov	r2, dpl
+	mov	r3, dph
+	mov	dpl, r6
+	mov	dph, r7
+	movx	@dptr, a
+	inc	dptr
+	mov	r6, dpl
+	mov	r7, dph
+	mov	a, r2
+	mov	b, r4
+	cjne	a, b, cpycx
+	mov	a, r3
+	mov	b, r5
+	cjne	a, b, cpycx
+	ret
+
+;---------------------------------------------------------;
+
+; r2:r3 lssrc:hssrc
+; r4:r5 lesrc:hesrc
+; r6:r7 ldst:hdst
+
+cpyxx:
+	mov	dpl, r2
+	mov	dph, r3
+	movx	a, @dptr
+	inc	dptr
+	mov	r2, dpl
+	mov	r3, dph
+	mov	dpl, r6
+	mov	dph, r7
+	movx	@dptr, a
+	inc	dptr
+	mov	r6, dpl
+	mov	r7, dph
+	mov	a, r2
+	mov	b, r4
+	cjne	a, b, cpyxx
+	mov	a, r3
+	mov	b, r5
+	cjne	a, b, cpyxx
+	ret
+
+;---------------------------------------------------------;
+
+;---------------------------------------------------------;
+
+	;-------- switch_shadow helper subroutine --------
+	switch_shadow:
+		mov	p1, #mctrl_shadow
+		nop
+		nop
+		ret
+	switch_shadow_end:
+	;-------- switch_shadow helper subroutine --------
+
 ; initialize the hardware on reset
 ; copy flash to memory
-
-;-------- cp_shadow --------
-		cp_shadow:
-			mov	dptr, #0x0000
-		cp_shadow_byte:
-			clr	a
-			movc	a, @a+dptr
-			movx	@dptr, a
-			inc	dptr
-			mov	a, dph
-			cjne	a, #0x20, cp_shadow_byte
-			mov	p1, #mctrl_shadow
-			nop
-			nop
-			ret
-		cp_shadow_end:
-		.equ	cp_shadow_len, (cp_shadow_end - cp_shadow)
-;-------- cp_shadow --------
 
 reset:
 	clr	a
@@ -1846,28 +1894,22 @@ reset:
 	mov	sp, #sp_init
 	mov	p2, #p2_init
 	
-	mov	r0, #cp_shadow_len
-	mov	r4, #(cp_shadow & 0xff)	; lsrc
-	mov	r5, #(cp_shadow >> 8)	; hsrc
+	mov	r2, #0x00	; lssrc
+	mov	r3, #0x00	; hssrc	
+	mov	r4, #0x00	; lesrc
+	mov	r5, #0x20	; hesrc	
+	mov	r6, #0x00	; ldst
+	mov	r7, #0x00	; hdst
+	lcall	cpycx
+	
+	mov	r2, #(switch_shadow & 0xff)	; lssrc
+	mov	r3, #(switch_shadow >> 8)	; hssrc	
+	mov	r4, #(switch_shadow_end & 0xff)	; lesrc
+	mov	r5, #(switch_shadow_end >> 8)	; hesrc	
 	mov	r6, #(pgm & 0xff)	; ldst
 	mov	r7, #(pgm >> 8)		; hdst
-cp_loop:
-	mov	dpl, r4
-	mov	dph, r5
-	clr	a
-	movc	a, @a+dptr
-	inc	dptr
-	mov	r4, dpl
-	mov	r5, dph
-	mov	dpl, r6
-	mov	dph, r7
-	movx	@dptr, a
-	inc	dptr
-	mov	r6, dpl
-	mov	r7, dph
-	djnz	r0, cp_loop
-	
-	lcall	pgm		; cp_shadow
+	lcall	cpycx
+	lcall	pgm		; switch_shadow
 	
 ; initialize the serial port
 	mov	a, #bc_l
