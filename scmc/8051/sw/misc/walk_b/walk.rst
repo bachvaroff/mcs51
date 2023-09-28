@@ -318,14 +318,14 @@
                                     318 ; external ram data
                                     319 ;--------------------------------------------------------
                                     320 	.area XSEG    (XDATA)
-      0042C0                        321 _g:
-      0042C0                        322 	.ds 9648
-      006870                        323 _queue:
-      006870                        324 	.ds 38592
-      00FF30                        325 _hp:
-      00FF30                        326 	.ds 2
-      00FF32                        327 _tp:
-      00FF32                        328 	.ds 2
+      004300                        321 _g:
+      004300                        322 	.ds 9648
+      0068B0                        323 _queue:
+      0068B0                        324 	.ds 38592
+      00FF70                        325 _hp:
+      00FF70                        326 	.ds 2
+      00FF72                        327 _tp:
+      00FF72                        328 	.ds 2
                                     329 ;--------------------------------------------------------
                                     330 ; absolute external ram data
                                     331 ;--------------------------------------------------------
@@ -334,8 +334,8 @@
                                     334 ; external initialized ram data
                                     335 ;--------------------------------------------------------
                                     336 	.area XISEG   (XDATA)
-      00FF34                        337 _neigh:
-      00FF34                        338 	.ds 64
+      00FF74                        337 _neigh:
+      00FF74                        338 	.ds 64
                                     339 	.area HOME    (CODE)
                                     340 	.area GSINIT0 (CODE)
                                     341 	.area GSINIT1 (CODE)
@@ -574,7 +574,7 @@
       0020F7 24 06            [12]  574 	add	a,#0x06
       0020F9 F8               [12]  575 	mov	r0,a
       0020FA E6               [12]  576 	mov	a,@r0
-      0020FB 24 34            [12]  577 	add	a,#_neigh
+      0020FB 24 74            [12]  577 	add	a,#_neigh
       0020FD F5 82            [12]  578 	mov	dpl,a
       0020FF 08               [12]  579 	inc	r0
       002100 E6               [12]  580 	mov	a,@r0
@@ -643,7 +643,7 @@
       002157 24 06            [12]  643 	add	a,#0x06
       002159 F8               [12]  644 	mov	r0,a
       00215A E6               [12]  645 	mov	a,@r0
-      00215B 24 34            [12]  646 	add	a,#_neigh
+      00215B 24 74            [12]  646 	add	a,#_neigh
       00215D FC               [12]  647 	mov	r4,a
       00215E 08               [12]  648 	inc	r0
       00215F E6               [12]  649 	mov	a,@r0
@@ -862,10 +862,10 @@
       0022A9 15 81            [12]  862 	dec	sp
       0022AB 15 81            [12]  863 	dec	sp
       0022AD EE               [12]  864 	mov	a,r6
-      0022AE 24 C0            [12]  865 	add	a,#_g
+      0022AE 24 00            [12]  865 	add	a,#_g
       0022B0 FE               [12]  866 	mov	r6,a
       0022B1 EF               [12]  867 	mov	a,r7
-      0022B2 34 42            [12]  868 	addc	a,#(_g >> 8)
+      0022B2 34 43            [12]  868 	addc	a,#(_g >> 8)
       0022B4 FF               [12]  869 	mov	r7,a
       0022B5 E5 10            [12]  870 	mov	a,_bp
       0022B7 24 08            [12]  871 	add	a,#0x08
@@ -914,10 +914,10 @@
       0022FF 15 81            [12]  914 	dec	sp
       002301 15 81            [12]  915 	dec	sp
       002303 EE               [12]  916 	mov	a,r6
-      002304 24 C0            [12]  917 	add	a,#_g
+      002304 24 00            [12]  917 	add	a,#_g
       002306 FE               [12]  918 	mov	r6,a
       002307 EF               [12]  919 	mov	a,r7
-      002308 34 42            [12]  920 	addc	a,#(_g >> 8)
+      002308 34 43            [12]  920 	addc	a,#(_g >> 8)
       00230A FF               [12]  921 	mov	r7,a
       00230B E5 10            [12]  922 	mov	a,_bp
       00230D 24 08            [12]  923 	add	a,#0x08
@@ -1023,10 +1023,10 @@
       002397 D0 06            [24] 1023 	pop	ar6
       002399 D0 07            [24] 1024 	pop	ar7
       00239B EB               [12] 1025 	mov	a,r3
-      00239C 24 C0            [12] 1026 	add	a,#_g
+      00239C 24 00            [12] 1026 	add	a,#_g
       00239E FB               [12] 1027 	mov	r3,a
       00239F EC               [12] 1028 	mov	a,r4
-      0023A0 34 42            [12] 1029 	addc	a,#(_g >> 8)
+      0023A0 34 43            [12] 1029 	addc	a,#(_g >> 8)
       0023A2 FC               [12] 1030 	mov	r4,a
       0023A3 74 02            [12] 1031 	mov	a,#0x02
       0023A5 2D               [12] 1032 	add	a,r5
@@ -1124,13 +1124,13 @@
       002437 C0 E0            [24] 1124 	push	acc
       002439 C0 03            [24] 1125 	push	ar3
       00243B C0 06            [24] 1126 	push	ar6
-      00243D 90 FF 32         [24] 1127 	mov	dptr,#_tp
+      00243D 90 FF 72         [24] 1127 	mov	dptr,#_tp
       002440 E0               [24] 1128 	movx	a,@dptr
       002441 C0 E0            [24] 1129 	push	acc
       002443 A3               [24] 1130 	inc	dptr
       002444 E0               [24] 1131 	movx	a,@dptr
       002445 C0 E0            [24] 1132 	push	acc
-      002447 90 FF 30         [24] 1133 	mov	dptr,#_hp
+      002447 90 FF 70         [24] 1133 	mov	dptr,#_hp
       00244A E0               [24] 1134 	movx	a,@dptr
       00244B C0 E0            [24] 1135 	push	acc
       00244D A3               [24] 1136 	inc	dptr
@@ -1424,10 +1424,10 @@
       002631 D0 05            [24] 1424 	pop	ar5
       002633 D0 07            [24] 1425 	pop	ar7
       002635 EC               [12] 1426 	mov	a,r4
-      002636 24 C0            [12] 1427 	add	a,#_g
+      002636 24 00            [12] 1427 	add	a,#_g
       002638 FC               [12] 1428 	mov	r4,a
       002639 EE               [12] 1429 	mov	a,r6
-      00263A 34 42            [12] 1430 	addc	a,#(_g >> 8)
+      00263A 34 43            [12] 1430 	addc	a,#(_g >> 8)
       00263C FE               [12] 1431 	mov	r6,a
       00263D 86 02            [24] 1432 	mov	ar2,@r0
       00263F 08               [12] 1433 	inc	r0
@@ -1599,11 +1599,11 @@
       002713 24 03            [12] 1599 	add	a,#0x03
       002715 F9               [12] 1600 	mov	r1,a
       002716 E6               [12] 1601 	mov	a,@r0
-      002717 24 C0            [12] 1602 	add	a,#_g
+      002717 24 00            [12] 1602 	add	a,#_g
       002719 F7               [12] 1603 	mov	@r1,a
       00271A 08               [12] 1604 	inc	r0
       00271B E6               [12] 1605 	mov	a,@r0
-      00271C 34 42            [12] 1606 	addc	a,#(_g >> 8)
+      00271C 34 43            [12] 1606 	addc	a,#(_g >> 8)
       00271E 09               [12] 1607 	inc	r1
       00271F F7               [12] 1608 	mov	@r1,a
       002720 D0 01            [24] 1609 	pop	ar1
@@ -1780,7 +1780,7 @@
       00282B 24 03            [12] 1780 	add	a,#0x03
       00282D F8               [12] 1781 	mov	r0,a
       00282E EB               [12] 1782 	mov	a,r3
-      00282F 24 34            [12] 1783 	add	a,#_neigh
+      00282F 24 74            [12] 1783 	add	a,#_neigh
       002831 F6               [12] 1784 	mov	@r0,a
       002832 EC               [12] 1785 	mov	a,r4
       002833 34 FF            [12] 1786 	addc	a,#(_neigh >> 8)
@@ -1812,7 +1812,7 @@
       00285D                       1812 00187$:
       00285D FE               [12] 1813 	mov	r6,a
       00285E AD F0            [24] 1814 	mov	r5,b
-      002860 24 34            [12] 1815 	add	a,#_neigh
+      002860 24 74            [12] 1815 	add	a,#_neigh
       002862 F5 82            [12] 1816 	mov	dpl,a
       002864 ED               [12] 1817 	mov	a,r5
       002865 34 FF            [12] 1818 	addc	a,#(_neigh >> 8)
@@ -1888,7 +1888,7 @@
       0028E1 F0               [24] 1888 	movx	@dptr,a
                                    1889 ;	walk.c:184: neigh[i].c = neigh[REG + i].c * (1 + rand() % 32);
       0028E2 EB               [12] 1890 	mov	a,r3
-      0028E3 24 34            [12] 1891 	add	a,#_neigh
+      0028E3 24 74            [12] 1891 	add	a,#_neigh
       0028E5 FB               [12] 1892 	mov	r3,a
       0028E6 EC               [12] 1893 	mov	a,r4
       0028E7 34 FF            [12] 1894 	addc	a,#(_neigh >> 8)
@@ -1900,7 +1900,7 @@
       0028EF 3C               [12] 1900 	addc	a,r4
       0028F0 FF               [12] 1901 	mov	r7,a
       0028F1 EE               [12] 1902 	mov	a,r6
-      0028F2 24 34            [12] 1903 	add	a,#_neigh
+      0028F2 24 74            [12] 1903 	add	a,#_neigh
       0028F4 FE               [12] 1904 	mov	r6,a
       0028F5 ED               [12] 1905 	mov	a,r5
       0028F6 34 FF            [12] 1906 	addc	a,#(_neigh >> 8)
@@ -2064,10 +2064,10 @@
       0029FF 24 03            [12] 2064 	add	a,#0x03
       002A01 F8               [12] 2065 	mov	r0,a
       002A02 EB               [12] 2066 	mov	a,r3
-      002A03 24 C0            [12] 2067 	add	a,#_g
+      002A03 24 00            [12] 2067 	add	a,#_g
       002A05 F6               [12] 2068 	mov	@r0,a
       002A06 EC               [12] 2069 	mov	a,r4
-      002A07 34 42            [12] 2070 	addc	a,#(_g >> 8)
+      002A07 34 43            [12] 2070 	addc	a,#(_g >> 8)
       002A09 08               [12] 2071 	inc	r0
       002A0A F6               [12] 2072 	mov	@r0,a
       002A0B 7A 00            [12] 2073 	mov	r2,#0x00
@@ -2176,12 +2176,12 @@
                                    2176 ;	-----------------------------------------
       002A97                       2177 _qinit:
                                    2178 ;	walk.c:212: hp = tp = 0;
-      002A97 90 FF 32         [24] 2179 	mov	dptr,#_tp
+      002A97 90 FF 72         [24] 2179 	mov	dptr,#_tp
       002A9A E4               [12] 2180 	clr	a
       002A9B F0               [24] 2181 	movx	@dptr,a
       002A9C A3               [24] 2182 	inc	dptr
       002A9D F0               [24] 2183 	movx	@dptr,a
-      002A9E 90 FF 30         [24] 2184 	mov	dptr,#_hp
+      002A9E 90 FF 70         [24] 2184 	mov	dptr,#_hp
       002AA1 F0               [24] 2185 	movx	@dptr,a
       002AA2 A3               [24] 2186 	inc	dptr
       002AA3 F0               [24] 2187 	movx	@dptr,a
@@ -2211,7 +2211,7 @@
       002AB1 AD 83            [24] 2211 	mov	r5,dph
       002AB3 AE F0            [24] 2212 	mov	r6,b
                                    2213 ;	walk.c:217: if (((hp + 1) % QMAX) == tp) return 0u;
-      002AB5 90 FF 30         [24] 2214 	mov	dptr,#_hp
+      002AB5 90 FF 70         [24] 2214 	mov	dptr,#_hp
       002AB8 E0               [24] 2215 	movx	a,@dptr
       002AB9 FB               [12] 2216 	mov	r3,a
       002ABA A3               [24] 2217 	inc	dptr
@@ -2255,7 +2255,7 @@
       002AF7 D0 05            [24] 2255 	pop	ar5
       002AF9 D0 06            [24] 2256 	pop	ar6
       002AFB D0 07            [24] 2257 	pop	ar7
-      002AFD 90 FF 32         [24] 2258 	mov	dptr,#_tp
+      002AFD 90 FF 72         [24] 2258 	mov	dptr,#_tp
       002B00 E5 10            [12] 2259 	mov	a,_bp
       002B02 24 05            [12] 2260 	add	a,#0x05
       002B04 F8               [12] 2261 	mov	r0,a
@@ -2302,7 +2302,7 @@
       002B3A 33               [12] 2302 	rlc	a
       002B3B FC               [12] 2303 	mov	r4,a
       002B3C EB               [12] 2304 	mov	a,r3
-      002B3D 24 70            [12] 2305 	add	a,#_queue
+      002B3D 24 B0            [12] 2305 	add	a,#_queue
       002B3F FB               [12] 2306 	mov	r3,a
       002B40 EC               [12] 2307 	mov	a,r4
       002B41 34 68            [12] 2308 	addc	a,#(_queue >> 8)
@@ -2323,7 +2323,7 @@
       002B5E 24 FB            [12] 2323 	add	a,#0xfb
       002B60 F5 81            [12] 2324 	mov	sp,a
                                    2325 ;	walk.c:219: hp = (hp + 1) % QMAX;
-      002B62 90 FF 30         [24] 2326 	mov	dptr,#_hp
+      002B62 90 FF 70         [24] 2326 	mov	dptr,#_hp
       002B65 E0               [24] 2327 	movx	a,@dptr
       002B66 FD               [12] 2328 	mov	r5,a
       002B67 A3               [24] 2329 	inc	dptr
@@ -2344,7 +2344,7 @@
       002B80 AE 83            [24] 2344 	mov	r6,dph
       002B82 15 81            [12] 2345 	dec	sp
       002B84 15 81            [12] 2346 	dec	sp
-      002B86 90 FF 30         [24] 2347 	mov	dptr,#_hp
+      002B86 90 FF 70         [24] 2347 	mov	dptr,#_hp
       002B89 ED               [12] 2348 	mov	a,r5
       002B8A F0               [24] 2349 	movx	@dptr,a
       002B8B EE               [12] 2350 	mov	a,r6
@@ -2371,13 +2371,13 @@
       002B99 AE 83            [24] 2371 	mov	r6,dph
       002B9B AF F0            [24] 2372 	mov	r7,b
                                    2373 ;	walk.c:224: if (hp == tp) return 0u;
-      002B9D 90 FF 30         [24] 2374 	mov	dptr,#_hp
+      002B9D 90 FF 70         [24] 2374 	mov	dptr,#_hp
       002BA0 E0               [24] 2375 	movx	a,@dptr
       002BA1 FB               [12] 2376 	mov	r3,a
       002BA2 A3               [24] 2377 	inc	dptr
       002BA3 E0               [24] 2378 	movx	a,@dptr
       002BA4 FC               [12] 2379 	mov	r4,a
-      002BA5 90 FF 32         [24] 2380 	mov	dptr,#_tp
+      002BA5 90 FF 72         [24] 2380 	mov	dptr,#_tp
       002BA8 E0               [24] 2381 	movx	a,@dptr
       002BA9 F9               [12] 2382 	mov	r1,a
       002BAA A3               [24] 2383 	inc	dptr
@@ -2404,7 +2404,7 @@
       002BC3 33               [12] 2404 	rlc	a
       002BC4 FA               [12] 2405 	mov	r2,a
       002BC5 E9               [12] 2406 	mov	a,r1
-      002BC6 24 70            [12] 2407 	add	a,#_queue
+      002BC6 24 B0            [12] 2407 	add	a,#_queue
       002BC8 F9               [12] 2408 	mov	r1,a
       002BC9 EA               [12] 2409 	mov	a,r2
       002BCA 34 68            [12] 2410 	addc	a,#(_queue >> 8)
@@ -2425,7 +2425,7 @@
       002BE7 24 FB            [12] 2425 	add	a,#0xfb
       002BE9 F5 81            [12] 2426 	mov	sp,a
                                    2427 ;	walk.c:226: tp = (tp + 1) % QMAX;
-      002BEB 90 FF 32         [24] 2428 	mov	dptr,#_tp
+      002BEB 90 FF 72         [24] 2428 	mov	dptr,#_tp
       002BEE E0               [24] 2429 	movx	a,@dptr
       002BEF FE               [12] 2430 	mov	r6,a
       002BF0 A3               [24] 2431 	inc	dptr
@@ -2446,7 +2446,7 @@
       002C09 AF 83            [24] 2446 	mov	r7,dph
       002C0B 15 81            [12] 2447 	dec	sp
       002C0D 15 81            [12] 2448 	dec	sp
-      002C0F 90 FF 32         [24] 2449 	mov	dptr,#_tp
+      002C0F 90 FF 72         [24] 2449 	mov	dptr,#_tp
       002C12 EE               [12] 2450 	mov	a,r6
       002C13 F0               [24] 2451 	movx	@dptr,a
       002C14 EF               [12] 2452 	mov	a,r7

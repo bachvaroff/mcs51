@@ -79,10 +79,10 @@ C:   00002065  s_CSEG
 C:   00002198  l_CSEG                          
 C:   000041FD  s_CONST                         
 C:   00004272  s_XINIT                         
-C:   000042C0  s_PSEG                          
-C:   000042C0  s_XSEG                          
+C:   00004300  s_PSEG                          
+C:   00004300  s_XSEG                          
 C:   0000BC74  l_XSEG                          
-C:   0000FF34  s_XISEG                         
+C:   0000FF74  s_XISEG                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -303,7 +303,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                000042C0    0000BC74 =       48244. bytes (REL,CON,XDATA)
+XSEG                                00004300    0000BC74 =       48244. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -312,7 +312,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XISEG                               0000FF34    00000044 =          68. bytes (REL,CON,XDATA)
+XISEG                               0000FF74    00000044 =          68. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -475,8 +475,8 @@ Libraries Linked                          [ object file ]
 User Base Address Definitions
 
 HOME = 0x2000
-XSEG = 0x42c0
-PSEG = 0x42c0
+XSEG = 0x4300
+PSEG = 0x4300
 ISEG = 0x0000
 BSEG = 0x0000
 
