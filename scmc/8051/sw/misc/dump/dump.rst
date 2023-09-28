@@ -314,14 +314,14 @@
                                     314 ; external ram data
                                     315 ;--------------------------------------------------------
                                     316 	.area XSEG    (XDATA)
-      008000                        317 _intr::
-      008000                        318 	.ds 1
-      008001                        319 _base::
-      008001                        320 	.ds 3
-      008004                        321 _off::
-      008004                        322 	.ds 2
-      008006                        323 _col::
-      008006                        324 	.ds 2
+      004000                        317 _intr::
+      004000                        318 	.ds 1
+      004001                        319 _base::
+      004001                        320 	.ds 3
+      004004                        321 _off::
+      004004                        322 	.ds 2
+      004006                        323 _col::
+      004006                        324 	.ds 2
                                     325 ;--------------------------------------------------------
                                     326 ; absolute external ram data
                                     327 ;--------------------------------------------------------
@@ -426,7 +426,7 @@
       002075 C0 82            [24]  426 	push	dpl
       002077 C0 83            [24]  427 	push	dph
                                     428 ;	dump.c:53: intr = 1;
-      002079 90 80 00         [24]  429 	mov	dptr,#_intr
+      002079 90 40 00         [24]  429 	mov	dptr,#_intr
       00207C 74 01            [12]  430 	mov	a,#0x01
       00207E F0               [24]  431 	movx	@dptr,a
                                     432 ;	dump.c:54: }
@@ -461,7 +461,7 @@
                            000001   461 	ar1 = 0x01
                            000000   462 	ar0 = 0x00
                                     463 ;	dump.c:60: intr = 0;
-      002086 90 80 00         [24]  464 	mov	dptr,#_intr
+      002086 90 40 00         [24]  464 	mov	dptr,#_intr
       002089 E4               [12]  465 	clr	a
       00208A F0               [24]  466 	movx	@dptr,a
                                     467 ;	dump.c:62: IT0 = 1;
@@ -477,7 +477,7 @@
                                     477 ;	assignBit
       002091 C2 97            [12]  478 	clr	_P1_7
                                     479 ;	dump.c:68: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
-      002093 90 80 01         [24]  480 	mov	dptr,#_base
+      002093 90 40 01         [24]  480 	mov	dptr,#_base
       002096 E4               [12]  481 	clr	a
       002097 F0               [24]  482 	movx	@dptr,a
       002098 A3               [24]  483 	inc	dptr
@@ -485,20 +485,20 @@
       00209A A3               [24]  485 	inc	dptr
       00209B F0               [24]  486 	movx	@dptr,a
       00209C                        487 00119$:
-      00209C 90 80 00         [24]  488 	mov	dptr,#_intr
+      00209C 90 40 00         [24]  488 	mov	dptr,#_intr
       00209F E0               [24]  489 	movx	a,@dptr
       0020A0 60 03            [24]  490 	jz	00160$
       0020A2 02 22 8D         [24]  491 	ljmp	00106$
       0020A5                        492 00160$:
                                     493 ;	dump.c:69: for (off = 0u; off < 0x400u; off += 0x20u) {
-      0020A5 90 80 04         [24]  494 	mov	dptr,#_off
+      0020A5 90 40 04         [24]  494 	mov	dptr,#_off
       0020A8 E4               [12]  495 	clr	a
       0020A9 F0               [24]  496 	movx	@dptr,a
       0020AA A3               [24]  497 	inc	dptr
       0020AB F0               [24]  498 	movx	@dptr,a
       0020AC                        499 00116$:
                                     500 ;	dump.c:70: print16x((unsigned int)base + off);
-      0020AC 90 80 01         [24]  501 	mov	dptr,#_base
+      0020AC 90 40 01         [24]  501 	mov	dptr,#_base
       0020AF E0               [24]  502 	movx	a,@dptr
       0020B0 FD               [12]  503 	mov	r5,a
       0020B1 A3               [24]  504 	inc	dptr
@@ -506,7 +506,7 @@
       0020B3 FE               [12]  506 	mov	r6,a
       0020B4 A3               [24]  507 	inc	dptr
       0020B5 E0               [24]  508 	movx	a,@dptr
-      0020B6 90 80 04         [24]  509 	mov	dptr,#_off
+      0020B6 90 40 04         [24]  509 	mov	dptr,#_off
       0020B9 E0               [24]  510 	movx	a,@dptr
       0020BA FC               [12]  511 	mov	r4,a
       0020BB A3               [24]  512 	inc	dptr
@@ -633,20 +633,20 @@
       002176 80 E4            [24]  633 	sjmp	00112$
       002178                        634 00109$:
                                     635 ;	dump.c:72: for (col = 0u; col < 0x20u; col++) {
-      002178 90 80 06         [24]  636 	mov	dptr,#_col
+      002178 90 40 06         [24]  636 	mov	dptr,#_col
       00217B E4               [12]  637 	clr	a
       00217C F0               [24]  638 	movx	@dptr,a
       00217D A3               [24]  639 	inc	dptr
       00217E F0               [24]  640 	movx	@dptr,a
       00217F                        641 00114$:
                                     642 ;	dump.c:73: print8x(base[off + col]);
-      00217F 90 80 06         [24]  643 	mov	dptr,#_col
+      00217F 90 40 06         [24]  643 	mov	dptr,#_col
       002182 E0               [24]  644 	movx	a,@dptr
       002183 FE               [12]  645 	mov	r6,a
       002184 A3               [24]  646 	inc	dptr
       002185 E0               [24]  647 	movx	a,@dptr
       002186 FF               [12]  648 	mov	r7,a
-      002187 90 80 04         [24]  649 	mov	dptr,#_off
+      002187 90 40 04         [24]  649 	mov	dptr,#_off
       00218A E0               [24]  650 	movx	a,@dptr
       00218B FC               [12]  651 	mov	r4,a
       00218C A3               [24]  652 	inc	dptr
@@ -658,7 +658,7 @@
       002192 EF               [12]  658 	mov	a,r7
       002193 3D               [12]  659 	addc	a,r5
       002194 FF               [12]  660 	mov	r7,a
-      002195 90 80 01         [24]  661 	mov	dptr,#_base
+      002195 90 40 01         [24]  661 	mov	dptr,#_base
       002198 E0               [24]  662 	movx	a,@dptr
       002199 FB               [12]  663 	mov	r3,a
       00219A A3               [24]  664 	inc	dptr
@@ -728,7 +728,7 @@
       0021F9 8E 83            [24]  728 	mov	dph,r6
       0021FB 12 20 65         [24]  729 	lcall	_putchar
                                     730 ;	dump.c:74: if (col == 0x1fu) {
-      0021FE 90 80 06         [24]  731 	mov	dptr,#_col
+      0021FE 90 40 06         [24]  731 	mov	dptr,#_col
       002201 E0               [24]  732 	movx	a,@dptr
       002202 FE               [12]  733 	mov	r6,a
       002203 A3               [24]  734 	inc	dptr
@@ -748,7 +748,7 @@
       00221D 12 20 65         [24]  748 	lcall	_putchar
       002220                        749 00115$:
                                     750 ;	dump.c:72: for (col = 0u; col < 0x20u; col++) {
-      002220 90 80 06         [24]  751 	mov	dptr,#_col
+      002220 90 40 06         [24]  751 	mov	dptr,#_col
       002223 E0               [24]  752 	movx	a,@dptr
       002224 24 01            [12]  753 	add	a,#0x01
       002226 F0               [24]  754 	movx	@dptr,a
@@ -756,7 +756,7 @@
       002228 E0               [24]  756 	movx	a,@dptr
       002229 34 00            [12]  757 	addc	a,#0x00
       00222B F0               [24]  758 	movx	@dptr,a
-      00222C 90 80 06         [24]  759 	mov	dptr,#_col
+      00222C 90 40 06         [24]  759 	mov	dptr,#_col
       00222F E0               [24]  760 	movx	a,@dptr
       002230 FE               [12]  761 	mov	r6,a
       002231 A3               [24]  762 	inc	dptr
@@ -771,13 +771,13 @@
       00223D 02 21 7F         [24]  771 	ljmp	00114$
       002240                        772 00168$:
                                     773 ;	dump.c:69: for (off = 0u; off < 0x400u; off += 0x20u) {
-      002240 90 80 04         [24]  774 	mov	dptr,#_off
+      002240 90 40 04         [24]  774 	mov	dptr,#_off
       002243 E0               [24]  775 	movx	a,@dptr
       002244 FE               [12]  776 	mov	r6,a
       002245 A3               [24]  777 	inc	dptr
       002246 E0               [24]  778 	movx	a,@dptr
       002247 FF               [12]  779 	mov	r7,a
-      002248 90 80 04         [24]  780 	mov	dptr,#_off
+      002248 90 40 04         [24]  780 	mov	dptr,#_off
       00224B 74 20            [12]  781 	mov	a,#0x20
       00224D 2E               [12]  782 	add	a,r6
       00224E F0               [24]  783 	movx	@dptr,a
@@ -785,7 +785,7 @@
       002250 3F               [12]  785 	addc	a,r7
       002251 A3               [24]  786 	inc	dptr
       002252 F0               [24]  787 	movx	@dptr,a
-      002253 90 80 04         [24]  788 	mov	dptr,#_off
+      002253 90 40 04         [24]  788 	mov	dptr,#_off
       002256 E0               [24]  789 	movx	a,@dptr
       002257 FE               [12]  790 	mov	r6,a
       002258 A3               [24]  791 	inc	dptr
@@ -804,7 +804,7 @@
       00226C 90 00 0A         [24]  804 	mov	dptr,#0x000a
       00226F 12 20 65         [24]  805 	lcall	_putchar
                                     806 ;	dump.c:68: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
-      002272 90 80 01         [24]  807 	mov	dptr,#_base
+      002272 90 40 01         [24]  807 	mov	dptr,#_base
       002275 E0               [24]  808 	movx	a,@dptr
       002276 FD               [12]  809 	mov	r5,a
       002277 A3               [24]  810 	inc	dptr
@@ -813,7 +813,7 @@
       00227A A3               [24]  813 	inc	dptr
       00227B E0               [24]  814 	movx	a,@dptr
       00227C FF               [12]  815 	mov	r7,a
-      00227D 90 80 01         [24]  816 	mov	dptr,#_base
+      00227D 90 40 01         [24]  816 	mov	dptr,#_base
       002280 ED               [12]  817 	mov	a,r5
       002281 F0               [24]  818 	movx	@dptr,a
       002282 74 04            [12]  819 	mov	a,#0x04
