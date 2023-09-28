@@ -18,7 +18,7 @@ crc16: crc16.hex
 	cat "$@.mem"
 
 clip: crc16.hex
-	xclip < "$<"
+	xclip -selection clipboard < "$<"
 
 clean:
 	rm -f *.hex *.ihx *.lk *.mem *.lst *.map *.rel *.rst *.sym *.asm

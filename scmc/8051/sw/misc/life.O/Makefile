@@ -18,7 +18,7 @@ life: life.hex
 	cat "$@.mem"
 
 clip: life.hex
-	xclip < "$<"
+	xclip -selection clipboard < "$<"
 
 clean:
 	rm -f *.hex *.ihx *.lk *.mem *.lst *.map *.rel *.rst *.sym *.asm

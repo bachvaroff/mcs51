@@ -18,7 +18,7 @@ dump: dump.hex
 	cat "$@.mem"
 
 clip: dump.hex
-	xclip < "$<"
+	xclip -selection clipboard < "$<"
 
 clean:
 	rm -f *.hex *.ihx *.lk *.mem *.lst *.map *.rel *.rst *.sym *.asm
