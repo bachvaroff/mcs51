@@ -1,0 +1,70 @@
+Name 8051_GPO_TRIG;
+Assembly 0001;
+Revision 1.0;
+PartNo U0 G22V10;
+Device G22V10;
+Company DXC;
+Designer Atanas Bachvaroff;
+Location Sofia,BG,EU;
+Date 30 May 2023;
+
+/*
+	INPUTS --
+*/
+PIN 14 = A0I;
+PIN 13 = A1I;
+PIN 11 = A2I;
+PIN 10 = DEI;
+PIN 9 = RSTI;
+PIN 8 = WRI;
+PIN 7 = CSIO77I;
+PIN 5 = A12I;
+PIN 4 = A11I;
+PIN 3 = A10I;
+PIN 2 = A9I;
+PIN 1 = A8I;
+/*
+	-- INPUTS
+*/
+
+/*
+	OUTPUTS --
+*/
+PIN 15 = OECTRL_CLK;
+PIN 16 = L0LE;
+PIN 17 = L1LE;
+PIN 18 = L2LE;
+PIN 19 = L3LE;
+PIN 20 = L4LE;
+PIN 21 = L5LE;
+PIN 22 = TRIGLE;
+PIN 23 = OECTRL_CLR;
+/*
+	-- OUTPUTS
+*/
+
+UPPER_HALF_IO77 = CSIO77I # !A12I;
+BOARD_ID = A11I # A10I # A9I # A8I; /* 0xF000-0xF0FF */
+CSIO = BOARD_ID # UPPER_HALF_IO77;
+DE = CSIO # WRI # RSTI;
+OECTRL_CLR = !RSTI;
+
+FIELD ADDRESS = [
+	DE, A2I, A1I, A0I
+];
+
+FIELD DECODE = [
+	L0LE, L1LE, L2LE, L3LE, L4LE, L5LE, OECTRL_CLK, TRIGLE
+];
+
+TABLE ADDRESS => DECODE {
+	'b'0000 => 'b'10000001; /* 0xF000 */
+	'b'0001 => 'b'01000001; /* 0xF001 */
+	'b'0010 => 'b'00100001; /* 0xF002 */
+	'b'0011 => 'b'00010001; /* 0xF003 */
+	'b'0100 => 'b'00001001; /* 0xF004 */
+	'b'0101 => 'b'00000101; /* 0xF005 */
+	'b'011x => 'b'00000010; /* 0xF006, 0xF007 OE ctrl */
+	'b'1xxx => 'b'00000000;
+}
+
