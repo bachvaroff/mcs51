@@ -80,12 +80,12 @@ static uint8_t stpop(struct node *t);
 #define OE76_NC 0x00u
 
 __idata static uint8_t OE76;
+__xdata static volatile uint8_t __at(0xf006u) OEreg;
 
 static void flashOE(uint8_t mask) {
-	volatile __xdata uint8_t *OEreg = (__xdata uint8_t *)0xf006u;
 	
 	P1_7 = 0;
-	*OEreg = OE76;
+	OEreg = OE76;
 	P1_7 = 1;
 	OE76 ^= mask;
 	

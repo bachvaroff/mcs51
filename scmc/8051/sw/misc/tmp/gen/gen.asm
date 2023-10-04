@@ -133,6 +133,8 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
+	.globl _OEreg
+	.globl _OE7
 	.globl _putchar
 	.globl _getchar
 ;--------------------------------------------------------
@@ -291,7 +293,7 @@ __start__stack:
 ; indirectly addressable internal ram data
 ;--------------------------------------------------------
 	.area ISEG    (DATA)
-_OE7:
+_OE7::
 	.ds 1
 ;--------------------------------------------------------
 ; absolute internal ram data
@@ -310,6 +312,7 @@ _OE7:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
+_OEreg	=	0xf006
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
@@ -318,8 +321,6 @@ _OE7:
 ; external initialized ram data
 ;--------------------------------------------------------
 	.area XISEG   (XDATA)
-_OEreg:
-	.ds 2
 	.area HOME    (CODE)
 	.area GSINIT0 (CODE)
 	.area GSINIT1 (CODE)
@@ -414,16 +415,9 @@ _flashOE:
 ;	gen.c:30: P1_7 = 0;
 ;	assignBit
 	clr	_P1_7
-;	gen.c:31: *OEreg = OE7;
-	mov	dptr,#_OEreg
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	mov	dpl,r6
-	mov	dph,r7
+;	gen.c:31: OEreg = OE7;
 	mov	r0,#_OE7
+	mov	dptr,#_OEreg
 	mov	a,@r0
 	movx	@dptr,a
 ;	gen.c:32: P1_7 = 1;
@@ -494,6 +488,4 @@ ___str_1:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)
-__xinit__OEreg:
-	.byte #0x06,#0xf0
 	.area CABS    (ABS,CODE)

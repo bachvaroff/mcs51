@@ -23,12 +23,12 @@ int getchar(void) __naked {
 	__endasm;
 }
 
-static volatile __xdata uint8_t *OEreg = (__xdata uint8_t *)0xf006u;
-__idata static uint8_t OE7;
+volatile __xdata uint8_t __at(0xf006u) OEreg;
+__idata uint8_t OE7;
 
 static void flashOE(void) {
 	P1_7 = 0;
-	*OEreg = OE7;
+	OEreg = OE7;
 	P1_7 = 1;
 	OE7 ^= 0xc0u;
 	

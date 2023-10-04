@@ -76,9 +76,9 @@ C:   00002062  s_GSFINAL
 C:   00002062  s_GSINIT                        
 C:   00002062  s_GSINIT5                       
 C:   00002065  s_CSEG                          
-C:   00002198  l_CSEG                          
-C:   000041FD  s_CONST                         
-C:   00004272  s_XINIT                         
+C:   0000218A  l_CSEG                          
+C:   000041EF  s_CONST                         
+C:   00004264  s_XINIT                         
 C:   00004300  s_PSEG                          
 C:   00004300  s_XSEG                          
 C:   0000BC74  l_XSEG                          
@@ -384,34 +384,34 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002065    00002198 =        8600. bytes (REL,CON,CODE)
+CSEG                                00002065    0000218A =        8586. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00002065  _putchar                           walk
 C:   0000206A  _getchar                           walk
 C:   00002073  _int0                              walk
-C:   000026B9  _main                              walk
-C:   00002C1B  _rand                              rand
-C:   00002CDF  _srand                             rand
-C:   00002CF8  __gptrput                          _gptrput
-C:   00002D13  __mulint                           _mulint
-C:   00002DB1  ___memcpy                          __memcpy
-C:   00002E44  _puts                              puts
-C:   00002E93  _vprintf                           vprintf
-C:   00002ECA  _printf                            vprintf
-C:   00002F03  __gptrget                          _gptrget
-C:   00002F1F  __modsint                          _modsint
-C:   00002F8D  __moduint                          _moduint
-C:   0000300C  __sdcc_external_startup            _startup
-C:   0000313D  __print_format                     printf_large
-C:   000041E5  _strlen                            _strlen
+C:   000026AB  _main                              walk
+C:   00002C0D  _rand                              rand
+C:   00002CD1  _srand                             rand
+C:   00002CEA  __gptrput                          _gptrput
+C:   00002D05  __mulint                           _mulint
+C:   00002DA3  ___memcpy                          __memcpy
+C:   00002E36  _puts                              puts
+C:   00002E85  _vprintf                           vprintf
+C:   00002EBC  _printf                            vprintf
+C:   00002EF5  __gptrget                          _gptrget
+C:   00002F11  __modsint                          _modsint
+C:   00002F7F  __moduint                          _moduint
+C:   00002FFE  __sdcc_external_startup            _startup
+C:   0000312F  __print_format                     printf_large
+C:   000041D7  _strlen                            _strlen
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               000041FD    00000075 =         117. bytes (REL,CON,CODE)
+CONST                               000041EF    00000075 =         117. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -420,7 +420,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00004272    00000044 =          68. bytes (REL,CON,CODE)
+XINIT                               00004264    00000044 =          68. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

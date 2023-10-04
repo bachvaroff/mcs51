@@ -324,6 +324,7 @@ _stack:
 	.ds 38592
 _sp:
 	.ds 2
+_OEreg	=	0xf006
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
@@ -479,24 +480,19 @@ _bang:
 ;Allocation info for local variables in function 'flashOE'
 ;------------------------------------------------------------
 ;mask                      Allocated to registers r7 
-;OEreg                     Allocated to stack - _bp +1
 ;------------------------------------------------------------
-;	walk.c:84: static void flashOE(uint8_t mask) {
+;	walk.c:85: static void flashOE(uint8_t mask) {
 ;	-----------------------------------------
 ;	 function flashOE
 ;	-----------------------------------------
 _flashOE:
-	push	_bp
-	mov	_bp,sp
-	inc	sp
-	inc	sp
 	mov	r7,dpl
 ;	walk.c:87: P1_7 = 0;
 ;	assignBit
 	clr	_P1_7
-;	walk.c:88: *OEreg = OE76;
-	mov	dptr,#0xf006
+;	walk.c:88: OEreg = OE76;
 	mov	r0,#_OE76
+	mov	dptr,#_OEreg
 	mov	a,@r0
 	movx	@dptr,a
 ;	walk.c:89: P1_7 = 1;
@@ -509,8 +505,6 @@ _flashOE:
 	mov	@r0,a
 ;	walk.c:92: return;
 ;	walk.c:93: }
-	mov	sp,_bp
-	pop	_bp
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'update'
