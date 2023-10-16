@@ -10,6 +10,7 @@ PIN   3 =  CSROMI
 PIN  16 =  CSROMO 
 PIN  10 =  DEI 
 PIN  14 =  DEO 
+PIN   9 =  RSTI 
 %END
 
 %FIELD
@@ -25,23 +26,23 @@ CSRAM =>
   # A12I & CSIO00I & CSIO16I & CSRAMI
 
 !CSRAMO =>
-    !CSIO00I
-  # !CSIO16I
-  # !CSRAMI
-  # !A12I & !CSIO77I
+    !CSIO00I & !RSTI
+  # !CSIO16I & !RSTI
+  # !CSRAMI & !RSTI
+  # !A12I & !CSIO77I & !RSTI
 
 CSROM =>
     CSROMI
 
 !CSROMO =>
-    !CSROMI
+    !CSROMI & !RSTI
 
 !DEO =>
-    !CSIO00I & !DEI
-  # !CSIO16I & !DEI
-  # !CSRAMI & !DEI
-  # !CSROMI & !DEI
-  # !A12I & !CSIO77I & !DEI
+    !CSIO00I & !DEI & !RSTI
+  # !CSIO16I & !DEI & !RSTI
+  # !CSRAMI & !DEI & !RSTI
+  # !CSROMI & !DEI & !RSTI
+  # !A12I & !CSIO77I & !DEI & !RSTI
 
 LOWER_HALF_IO77 =>
     CSIO77I

@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Mon Mar 13 12:32:36 2023
+Created         Mon Oct 16 15:45:00 2023
 Name            8051_MCTRL_SHADOW_IO
 Partno          U0 G22V10
 Revision        1.0
@@ -28,23 +28,23 @@ CSRAM =>
   # A12I & CSIO00I & CSIO16I & CSRAMI
 
 !CSRAMO =>
-    !CSIO00I
-  # !CSIO16I
-  # !CSRAMI
-  # !A12I & !CSIO77I
+    !CSIO00I & !RSTI
+  # !CSIO16I & !RSTI
+  # !CSRAMI & !RSTI
+  # !A12I & !CSIO77I & !RSTI
 
 CSROM =>
     CSROMI
 
 !CSROMO =>
-    !CSROMI
+    !CSROMI & !RSTI
 
 !DEO =>
-    !CSIO00I & !DEI
-  # !CSIO16I & !DEI
-  # !CSRAMI & !DEI
-  # !CSROMI & !DEI
-  # !A12I & !CSIO77I & !DEI
+    !CSIO00I & !DEI & !RSTI
+  # !CSIO16I & !DEI & !RSTI
+  # !CSRAMI & !DEI & !RSTI
+  # !CSROMI & !DEI & !RSTI
+  # !A12I & !CSIO77I & !DEI & !RSTI
 
 LOWER_HALF_IO77 =>
     CSIO77I
@@ -85,6 +85,7 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
     DEI                         10       V        -       -       -     
     DEO                         14       V        5       8       2     
     LOWER_HALF_IO77             0        I        2       -       -     
+    RSTI                        9        V        -       -       -     
     A16O                oe      17       D        1       1       0     
     CSRAMO              oe      15       D        1       1       0     
     CSROMO              oe      16       D        1       1       0     
@@ -213,7 +214,7 @@ Pin #17  05820 Mode  --
  04268 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #16  05822 Mode  x- 
  04312 -------------------------------------------- 
- 04356 ---------x---------------------------------- 
+ 04356 ---------x-----------------------x---------- 
  04400 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04444 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  04488 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -227,10 +228,10 @@ Pin #16  05822 Mode  x-
  04840 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #15  05824 Mode  x- 
  04884 -------------------------------------------- 
- 04928 -----------------x-------------------------- 
- 04972 ---------------------x---------------------- 
- 05016 -------------x------------------------------ 
- 05060 -------------------------x---------------x-- 
+ 04928 -----------------x---------------x---------- 
+ 04972 ---------------------x-----------x---------- 
+ 05016 -------------x-------------------x---------- 
+ 05060 -------------------------x-------x-------x-- 
  05104 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05148 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05192 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -239,11 +240,11 @@ Pin #15  05824 Mode  x-
  05324 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #14  05826 Mode  x- 
  05368 -------------------------------------------- 
- 05412 -----------------x-------------------x------ 
- 05456 ---------------------x---------------x------ 
- 05500 -------------x-----------------------x------ 
- 05544 ---------x---------------------------x------ 
- 05588 -------------------------x-----------x---x-- 
+ 05412 -----------------x---------------x---x------ 
+ 05456 ---------------------x-----------x---x------ 
+ 05500 -------------x-------------------x---x------ 
+ 05544 ---------x-----------------------x---x------ 
+ 05588 -------------------------x-------x---x---x-- 
  05632 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05676 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  05720 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -266,7 +267,7 @@ LEGEND    X : fuse not blown
                   CSIO16I x---|6           19|---x                          
                   CSIO77I x---|7           18|---x                          
                           x---|8           17|---x A16O                     
-                          x---|9           16|---x CSROMO                   
+                     RSTI x---|9           16|---x CSROMO                   
                       DEI x---|10          15|---x CSRAMO                   
                      A12I x---|11          14|---x DEO                      
                       GND x---|12          13|---x                          
