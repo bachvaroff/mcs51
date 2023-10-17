@@ -115,8 +115,6 @@ inline void printgen(void) {
 
 void show(char hdr) {
 	if (hdr) {
-		OE76 = OE76_0;
-		flashOE();
 		printstr("\033[2J\033[mGEN ");
 		printgen();
 		printstr("\r\n");
@@ -196,6 +194,9 @@ inline void evolve(void) {
 	fixed = 0;
 	cycle2 = 0;
 	
+	OE76 = OE76_0;
+	flashOE();
+	
 	for (y = 0; y < H; y++) {
 		OE76 = OE76_0 | ((y & 0x0003u) << 6);
 		flashOE();
@@ -226,6 +227,9 @@ inline void evolve(void) {
 			fixed |= u[A2D(W, y, x)] ^ nu[A2D(W, y, x)];
 		}
 	}
+	
+	OE76 = OE76_0;
+	flashOE();
 	
 	cycle2 = !cycle2;
 	fixed = !fixed;
@@ -279,8 +283,6 @@ reload:
 			evolve();
 			if (fixed || cycle2) {
 				printstr("DONE ");
-				OE76 = OE76_0;
-				flashOE();
 				if (fixed) printstr("FIXED\r\n");
 				else printstr("CYCLE2\r\n");
 				(void)getchar();
@@ -290,8 +292,6 @@ reload:
 		
 		if (i1) {
 			printstr("BREAK\r\n");
-			OE76 = OE76_0;
-			flashOE();
 			(void)getchar();
 		}
 	}
