@@ -1,5 +1,6 @@
 #include <mcs51/at89x52.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -22,6 +23,8 @@ int getchar(void) __naked {
 		ret
 	__endasm;
 }
+
+__xdata static volatile int __at(0xfffeu) RND;
 
 __idata static const char digits[16] = {
 	'0', '1', '2', '3', '4', '5', '6', '7',
@@ -60,6 +63,22 @@ void int1(void) __interrupt IE1_VECTOR __using 1 {
 	i1 = 1;
 }
 
+#define OE76_0 0x3fu
+#define OE76_MASK7 0x80u
+#define OE76_MASK6 0x40u
+#define OE76_NC 0x00u
+
+__idata static uint8_t OE76;
+__xdata static volatile uint8_t __at(0xf006u) OEreg;
+
+static void flashOE(void) {
+	P1_7 = 0;
+	OEreg = OE76;
+	P1_7 = 1;
+	
+	return;
+}
+
 #define A2D(COLW, ROW, COL) ((int)(ROW) * (int)(COLW) + (int)(COL))
 
 #define H 192
@@ -69,7 +88,7 @@ static char iu[H * W], pu[H * W], u[H * W], nu[H * W]; /* evolve(), show(), load
 
 __idata static int x, y; /* evolve(), show(), loadu() */
 __idata static int j, c; /* loadu() */
-__idata static char bstep, n, fixed, cycle2; /* evolve() */
+__idata static char n, fixed, cycle2; /* evolve() */
 __idata static int x1, y1; /* evolve() */
 __idata static int generation[2]; /* cleargen(), updategen(), printgen(), show() */
 
@@ -96,6 +115,8 @@ inline void printgen(void) {
 
 void show(char hdr) {
 	if (hdr) {
+		OE76 = OE76_0;
+		flashOE();
 		printstr("\033[2J\033[mGEN ");
 		printgen();
 		printstr("\r\n");
@@ -171,16 +192,13 @@ inline void loadriu(void) {
 	return;
 }
 
-__idata static const char busy[4] = { '\\', '|', '/', '-' };
-
 inline void evolve(void) {
 	fixed = 0;
 	cycle2 = 0;
-	bstep = 0;
 	
 	for (y = 0; y < H; y++) {
-		putchar(busy[bstep]); putchar('\r');
-		bstep = (bstep + 1) & 3;
+		OE76 = OE76_0 | ((y & 0x0003u) << 6);
+		flashOE();
 		for (x = 0; x < W; x++) {
 			n = -u[A2D(W, y, x)];
 			
@@ -219,15 +237,17 @@ inline void evolve(void) {
 }
 
 void main(void) {
-        static volatile __xdata int *R = (__xdata int *)0xfffe;
-
-        srand(*R);
-
 	IT0 = 1;
 	IT1 = 1;
 	EX0 = 1;
 	EX1 = 1;
-	EA = 1;
+	EA = 1;	
+	P1_7 = 1;
+	
+        srand(RND);
+        
+	OE76 = OE76_0;
+	flashOE();
 	
 	for (i0 = 0; !i0; ) {	
 		printstr("\033[2J\033[?25l\033[mLIFE INIT T L R P\r\n");
@@ -259,6 +279,8 @@ reload:
 			evolve();
 			if (fixed || cycle2) {
 				printstr("DONE ");
+				OE76 = OE76_0;
+				flashOE();
 				if (fixed) printstr("FIXED\r\n");
 				else printstr("CYCLE2\r\n");
 				(void)getchar();
@@ -268,6 +290,8 @@ reload:
 		
 		if (i1) {
 			printstr("BREAK\r\n");
+			OE76 = OE76_0;
+			flashOE();
 			(void)getchar();
 		}
 	}

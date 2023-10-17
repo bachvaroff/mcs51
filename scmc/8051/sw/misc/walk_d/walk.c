@@ -23,6 +23,8 @@ int getchar(void) __naked {
 	__endasm;
 }
 
+__xdata static volatile int __at(0xfffeu) RND;
+
 __idata static uint8_t i0;
 
 void int0(void) __interrupt IE0_VECTOR __using 1 {
@@ -83,7 +85,6 @@ __idata static uint8_t OE76;
 __xdata static volatile uint8_t __at(0xf006u) OEreg;
 
 static void flashOE(uint8_t mask) {
-	
 	P1_7 = 0;
 	OEreg = OE76;
 	P1_7 = 1;
@@ -146,7 +147,6 @@ next:
 }
 
 int main(void) {
-	volatile __xdata int *R = (__xdata int *)0xfffeu;
 	struct node initial;
 	unsigned int N = 0u;
 	int i, j;
@@ -158,7 +158,7 @@ int main(void) {
 	EX0 = 1;
 	EA = 1;
 	
-	srand(*R);
+	srand(RND);
 	stinit();
 	
 	puts("\033[2J\033[?25l");

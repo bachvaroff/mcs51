@@ -318,6 +318,7 @@ _OE76:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
+_RND	=	0xfffe
 _g:
 	.ds 9648
 _stack:
@@ -414,7 +415,7 @@ _getchar:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'int0'
 ;------------------------------------------------------------
-;	walk.c:28: void int0(void) __interrupt IE0_VECTOR __using 1 {
+;	walk.c:30: void int0(void) __interrupt IE0_VECTOR __using 1 {
 ;	-----------------------------------------
 ;	 function int0
 ;	-----------------------------------------
@@ -429,10 +430,10 @@ _int0:
 	ar0 = 0x08
 	push	psw
 	mov	psw,#0x08
-;	walk.c:29: i0 = 0u;
+;	walk.c:31: i0 = 0u;
 	mov	r0,#_i0
 	mov	@r0,#0x00
-;	walk.c:30: }
+;	walk.c:32: }
 	pop	psw
 	reti
 ;	eliminated unneeded push/pop dpl
@@ -442,20 +443,20 @@ _int0:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'reset'
 ;------------------------------------------------------------
-;	walk.c:32: static void reset(void) __naked {
+;	walk.c:34: static void reset(void) __naked {
 ;	-----------------------------------------
 ;	 function reset
 ;	-----------------------------------------
 _reset:
 ;	naked function: no prologue.
-;	walk.c:35: __endasm;
+;	walk.c:37: __endasm;
 	orl	pcon, #2
-;	walk.c:36: }
+;	walk.c:38: }
 ;	naked function: no epilogue.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'bang'
 ;------------------------------------------------------------
-;	walk.c:38: static void bang(void) {
+;	walk.c:40: static void bang(void) {
 ;	-----------------------------------------
 ;	 function bang
 ;	-----------------------------------------
@@ -468,43 +469,43 @@ _bang:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	walk.c:39: (void)puts("Memory error");
+;	walk.c:41: (void)puts("Memory error");
 	mov	dptr,#___str_0
 	mov	b,#0x80
 	lcall	_puts
-;	walk.c:40: reset();
-;	walk.c:42: return;
-;	walk.c:43: }
+;	walk.c:42: reset();
+;	walk.c:44: return;
+;	walk.c:45: }
 	ljmp	_reset
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'flashOE'
 ;------------------------------------------------------------
 ;mask                      Allocated to registers r7 
 ;------------------------------------------------------------
-;	walk.c:85: static void flashOE(uint8_t mask) {
+;	walk.c:87: static void flashOE(uint8_t mask) {
 ;	-----------------------------------------
 ;	 function flashOE
 ;	-----------------------------------------
 _flashOE:
 	mov	r7,dpl
-;	walk.c:87: P1_7 = 0;
+;	walk.c:88: P1_7 = 0;
 ;	assignBit
 	clr	_P1_7
-;	walk.c:88: OEreg = OE76;
+;	walk.c:89: OEreg = OE76;
 	mov	r0,#_OE76
 	mov	dptr,#_OEreg
 	mov	a,@r0
 	movx	@dptr,a
-;	walk.c:89: P1_7 = 1;
+;	walk.c:90: P1_7 = 1;
 ;	assignBit
 	setb	_P1_7
-;	walk.c:90: OE76 ^= mask;
+;	walk.c:91: OE76 ^= mask;
 	mov	r0,#_OE76
 	mov	a,r7
 	xrl	a,@r0
 	mov	@r0,a
-;	walk.c:92: return;
-;	walk.c:93: }
+;	walk.c:93: return;
+;	walk.c:94: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'update'
@@ -516,7 +517,7 @@ _flashOE:
 ;sloc1                     Allocated to stack - _bp +6
 ;sloc2                     Allocated to stack - _bp +8
 ;------------------------------------------------------------
-;	walk.c:95: static uint8_t update(struct node *t, struct node *cur, uint8_t j) {
+;	walk.c:96: static uint8_t update(struct node *t, struct node *cur, uint8_t j) {
 ;	-----------------------------------------
 ;	 function update
 ;	-----------------------------------------
@@ -529,7 +530,7 @@ _update:
 	mov	a,sp
 	add	a,#0x07
 	mov	sp,a
-;	walk.c:96: t->r = cur->r + neigh[j].r;
+;	walk.c:97: t->r = cur->r + neigh[j].r;
 	mov	a,_bp
 	add	a,#0xfb
 	mov	r0,a
@@ -599,7 +600,7 @@ _update:
 	inc	dptr
 	mov	a,r6
 	lcall	__gptrput
-;	walk.c:97: t->c = cur->c + neigh[j].c;
+;	walk.c:98: t->c = cur->c + neigh[j].c;
 	mov	r0,_bp
 	inc	r0
 	mov	a,_bp
@@ -669,7 +670,7 @@ _update:
 	inc	dptr
 	mov	a,r3
 	lcall	__gptrput
-;	walk.c:99: if (t->r < 0) t->r += ROWS;
+;	walk.c:100: if (t->r < 0) t->r += ROWS;
 	mov	r0,_bp
 	inc	r0
 	mov	dpl,@r0
@@ -704,7 +705,7 @@ _update:
 	lcall	__gptrput
 	sjmp	00105$
 00104$:
-;	walk.c:100: else if (t->r >= ROWS) t->r -= ROWS;
+;	walk.c:101: else if (t->r >= ROWS) t->r -= ROWS;
 	clr	c
 	mov	a,r5
 	subb	a,#0x30
@@ -731,7 +732,7 @@ _update:
 	mov	a,r4
 	lcall	__gptrput
 00105$:
-;	walk.c:101: if (t->c < 0) t->c += COLS;
+;	walk.c:102: if (t->c < 0) t->c += COLS;
 	mov	a,_bp
 	add	a,#0x08
 	mov	r0,a
@@ -778,7 +779,7 @@ _update:
 	lcall	__gptrput
 	sjmp	00110$
 00109$:
-;	walk.c:102: else if (t->c >= COLS) t->c -= COLS;
+;	walk.c:103: else if (t->c >= COLS) t->c -= COLS;
 	mov	a,_bp
 	add	a,#0x08
 	mov	r0,a
@@ -832,7 +833,7 @@ _update:
 	mov	a,r7
 	lcall	__gptrput
 00110$:
-;	walk.c:104: if (g[t->r][t->c] == 0xaau) return 0u;
+;	walk.c:105: if (g[t->r][t->c] == 0xaau) return 0u;
 	mov	r0,_bp
 	inc	r0
 	mov	dpl,@r0
@@ -884,7 +885,7 @@ _update:
 	mov	dpl,#0x00
 	sjmp	00116$
 00114$:
-;	walk.c:105: else if (g[t->r][t->c] != 0x55u) bang();
+;	walk.c:106: else if (g[t->r][t->c] != 0x55u) bang();
 	mov	r0,_bp
 	inc	r0
 	mov	dpl,@r0
@@ -937,10 +938,10 @@ _update:
 00148$:
 	lcall	_bang
 00115$:
-;	walk.c:107: return 1u;
+;	walk.c:108: return 1u;
 	mov	dpl,#0x01
 00116$:
-;	walk.c:108: }
+;	walk.c:109: }
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -961,7 +962,7 @@ _update:
 ;sloc6                     Allocated to stack - _bp +6
 ;sloc7                     Allocated to stack - _bp +7
 ;------------------------------------------------------------
-;	walk.c:110: static void walk(struct node *nstart) {
+;	walk.c:111: static void walk(struct node *nstart) {
 ;	-----------------------------------------
 ;	 function walk
 ;	-----------------------------------------
@@ -974,7 +975,7 @@ _walk:
 	mov	r5,dpl
 	mov	r6,dph
 	mov	r7,b
-;	walk.c:114: cur = *nstart;
+;	walk.c:115: cur = *nstart;
 	mov	a,_bp
 	add	a,#0x0a
 	mov	r1,a
@@ -997,7 +998,7 @@ _walk:
 	add	a,#0xfb
 	mov	sp,a
 	pop	ar1
-;	walk.c:116: process:
+;	walk.c:117: process:
 	mov	a,_bp
 	add	a,#0x06
 	mov	r0,a
@@ -1029,7 +1030,7 @@ _walk:
 	add	a,r1
 	mov	r0,a
 00101$:
-;	walk.c:117: g[cur.r][cur.c] = 0xaau;
+;	walk.c:118: g[cur.r][cur.c] = 0xaau;
 	push	ar2
 	mov	ar2,@r1
 	inc	r1
@@ -1066,7 +1067,7 @@ _walk:
 	mov	dph,a
 	mov	a,#0xaa
 	movx	@dptr,a
-;	walk.c:119: printf("\033[%d;%dHo", cur.r + 4, cur.c + 1);
+;	walk.c:120: printf("\033[%d;%dHo", cur.r + 4, cur.c + 1);
 	mov	ar2,@r0
 	inc	r0
 	mov	ar5,@r0
@@ -1104,18 +1105,18 @@ _walk:
 	mov	a,sp
 	add	a,#0xf9
 	mov	sp,a
-;	walk.c:120: flashOE(OE76_MASK7);
+;	walk.c:121: flashOE(OE76_MASK7);
 	mov	dpl,#0x80
 	lcall	_flashOE
 	pop	ar0
 	pop	ar1
 	pop	ar2
 	pop	ar6
-;	walk.c:145: return;
+;	walk.c:146: return;
 	pop	ar2
-;	walk.c:122: next:
+;	walk.c:123: next:
 00102$:
-;	walk.c:123: printf("\033[2;1H% 8d% 8d% 8d", sp, cur.r, cur.c);
+;	walk.c:124: printf("\033[2;1H% 8d% 8d% 8d", sp, cur.r, cur.c);
 	push	ar2
 	mov	ar7,@r0
 	inc	r0
@@ -1153,7 +1154,7 @@ _walk:
 	pop	ar1
 	pop	ar2
 	pop	ar6
-;	walk.c:125: for (j = 0u, f = 0u; j < NMAX; j++) {
+;	walk.c:126: for (j = 0u, f = 0u; j < NMAX; j++) {
 	mov	r3,#0x00
 	push	ar0
 	mov	a,_bp
@@ -1161,9 +1162,9 @@ _walk:
 	mov	r0,a
 	mov	@r0,#0x00
 	pop	ar0
-;	walk.c:145: return;
+;	walk.c:146: return;
 	pop	ar2
-;	walk.c:125: for (j = 0u, f = 0u; j < NMAX; j++) {
+;	walk.c:126: for (j = 0u, f = 0u; j < NMAX; j++) {
 00119$:
 	push	ar0
 	mov	a,_bp
@@ -1173,7 +1174,7 @@ _walk:
 00159$:
 	pop	ar0
 	jnc	00106$
-;	walk.c:126: if (!update(&t, &cur, j)) continue;
+;	walk.c:127: if (!update(&t, &cur, j)) continue;
 	push	ar2
 	push	ar0
 	mov	a,_bp
@@ -1234,10 +1235,10 @@ _walk:
 	pop	ar2
 	mov	a,r7
 	jz	00105$
-;	walk.c:127: f++;
+;	walk.c:128: f++;
 	inc	r3
 00105$:
-;	walk.c:125: for (j = 0u, f = 0u; j < NMAX; j++) {
+;	walk.c:126: for (j = 0u, f = 0u; j < NMAX; j++) {
 	push	ar0
 	mov	a,_bp
 	add	a,#0x12
@@ -1246,14 +1247,14 @@ _walk:
 	pop	ar0
 	ljmp	00119$
 00106$:
-;	walk.c:130: if (f) {
+;	walk.c:131: if (f) {
 	mov	a,r3
 	jnz	00162$
 	ljmp	00115$
 00162$:
-;	walk.c:131: while (1) {
+;	walk.c:132: while (1) {
 00112$:
-;	walk.c:132: j = (uint8_t)(rand() % NMAX);
+;	walk.c:133: j = (uint8_t)(rand() % NMAX);
 	push	ar2
 	push	ar6
 	push	ar2
@@ -1267,7 +1268,7 @@ _walk:
 	pop	ar6
 	anl	ar5,#0x0f
 	mov	ar4,r5
-;	walk.c:133: if (!update(&t, &cur, j)) continue;
+;	walk.c:134: if (!update(&t, &cur, j)) continue;
 	push	ar0
 	mov	a,_bp
 	add	a,#0x05
@@ -1322,7 +1323,7 @@ _walk:
 	pop	ar2
 	mov	a,r7
 	jz	00112$
-;	walk.c:134: if (!stpush(&cur)) bang();
+;	walk.c:135: if (!stpush(&cur)) bang();
 	mov	ar4,r2
 	mov	r5,#0x00
 	mov	r7,#0x40
@@ -1350,7 +1351,7 @@ _walk:
 	pop	ar2
 	pop	ar6
 00110$:
-;	walk.c:135: cur = t;
+;	walk.c:136: cur = t;
 	push	ar2
 	push	ar0
 	mov	r0,_bp
@@ -1404,11 +1405,11 @@ _walk:
 	pop	ar1
 	pop	ar2
 	pop	ar6
-;	walk.c:136: goto process;
+;	walk.c:137: goto process;
 	pop	ar2
 	ljmp	00101$
 00115$:
-;	walk.c:140: printf("\033[%d;%dH.", cur.r + 4, cur.c + 1);
+;	walk.c:141: printf("\033[%d;%dH.", cur.r + 4, cur.c + 1);
 	mov	ar5,@r0
 	inc	r0
 	mov	ar7,@r0
@@ -1445,14 +1446,14 @@ _walk:
 	mov	a,sp
 	add	a,#0xf9
 	mov	sp,a
-;	walk.c:141: flashOE(OE76_MASK6);
+;	walk.c:142: flashOE(OE76_MASK6);
 	mov	dpl,#0x40
 	lcall	_flashOE
 	pop	ar0
 	pop	ar1
 	pop	ar2
 	pop	ar6
-;	walk.c:143: if (stpop(&cur)) goto next;
+;	walk.c:144: if (stpop(&cur)) goto next;
 	push	ar0
 	mov	a,_bp
 	add	a,#0x03
@@ -1477,24 +1478,23 @@ _walk:
 	jz	00166$
 	ljmp	00102$
 00166$:
-;	walk.c:145: return;
-;	walk.c:146: }
+;	walk.c:146: return;
+;	walk.c:147: }
 	mov	sp,_bp
 	pop	_bp
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;R                         Allocated to stack - _bp +13
-;initial                   Allocated to stack - _bp +5
-;N                         Allocated to stack - _bp +9
-;i                         Allocated to stack - _bp +11
+;initial                   Allocated to stack - _bp +7
+;N                         Allocated to stack - _bp +11
+;i                         Allocated to stack - _bp +5
 ;j                         Allocated to registers r2 r6 
 ;sloc0                     Allocated to stack - _bp +1
 ;sloc1                     Allocated to stack - _bp +3
-;sloc2                     Allocated to stack - _bp +17
+;sloc2                     Allocated to stack - _bp +15
 ;------------------------------------------------------------
-;	walk.c:148: int main(void) {
+;	walk.c:149: int main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -1502,7 +1502,7 @@ _main:
 	push	_bp
 	mov	a,sp
 	mov	_bp,a
-	add	a,#0x0e
+	add	a,#0x0c
 	mov	sp,a
 ;	walk.c:154: i0 = 1u;
 	mov	r0,#_i0
@@ -1519,8 +1519,8 @@ _main:
 ;	walk.c:159: EA = 1;
 ;	assignBit
 	setb	_EA
-;	walk.c:161: srand(*R);
-	mov	dptr,#0xfffe
+;	walk.c:161: srand(RND);
+	mov	dptr,#_RND
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -1537,11 +1537,11 @@ _main:
 	lcall	_puts
 ;	walk.c:166: while (i0) {
 	mov	a,_bp
-	add	a,#0x05
+	add	a,#0x07
 	mov	r1,a
 	mov	r7,a
 	mov	a,_bp
-	add	a,#0x09
+	add	a,#0x0b
 	mov	r0,a
 	clr	a
 	mov	@r0,a
@@ -1630,7 +1630,7 @@ _main:
 	jc	00124$
 ;	walk.c:171: initial.r = rand() % ROWS;
 	mov	a,_bp
-	add	a,#0x05
+	add	a,#0x07
 	mov	r0,a
 	push	ar7
 	push	ar1
@@ -1702,7 +1702,7 @@ _main:
 	push	ar3
 	push	ar4
 	mov	a,_bp
-	add	a,#0x09
+	add	a,#0x0b
 	mov	r0,a
 	mov	a,@r0
 	push	acc
@@ -1723,7 +1723,7 @@ _main:
 	pop	ar7
 ;	walk.c:177: for (i = 0; i < REG; i++) {
 	mov	a,_bp
-	add	a,#0x0b
+	add	a,#0x05
 	mov	r0,a
 	clr	a
 	mov	@r0,a
@@ -1733,7 +1733,7 @@ _main:
 ;	walk.c:178: neigh[i].r = neigh[REG + i].r * (1 + rand() % 8);
 	push	ar7
 	mov	a,_bp
-	add	a,#0x0b
+	add	a,#0x05
 	mov	r0,a
 	mov	a,@r0
 	add	a,acc
@@ -1759,7 +1759,7 @@ _main:
 	inc	r0
 	mov	@r0,a
 	mov	a,_bp
-	add	a,#0x0b
+	add	a,#0x05
 	mov	r0,a
 	mov	ar6,@r0
 	mov	a,#0x08
@@ -1976,7 +1976,7 @@ _main:
 	pop	ar7
 ;	walk.c:177: for (i = 0; i < REG; i++) {
 	mov	a,_bp
-	add	a,#0x0b
+	add	a,#0x05
 	mov	r0,a
 	inc	@r0
 	cjne	@r0,#0x00,00190$
@@ -1984,7 +1984,7 @@ _main:
 	inc	@r0
 00190$:
 	mov	a,_bp
-	add	a,#0x0b
+	add	a,#0x05
 	mov	r0,a
 	mov	ar5,@r0
 	inc	r0
@@ -2022,7 +2022,7 @@ _main:
 	pop	ar7
 ;	walk.c:188: for (i = 0; i < ROWS; i++)
 	mov	a,_bp
-	add	a,#0x0b
+	add	a,#0x05
 	mov	r0,a
 	clr	a
 	mov	@r0,a
@@ -2095,7 +2095,7 @@ _main:
 	addc	a,r4
 	mov	r4,a
 	mov	a,_bp
-	add	a,#0x0b
+	add	a,#0x05
 	mov	r0,a
 	inc	@r0
 	cjne	@r0,#0x00,00195$
@@ -2103,7 +2103,7 @@ _main:
 	inc	@r0
 00195$:
 	mov	a,_bp
-	add	a,#0x0b
+	add	a,#0x05
 	mov	r0,a
 	clr	c
 	mov	a,@r0
@@ -2115,7 +2115,7 @@ _main:
 	jc	00131$
 ;	walk.c:192: N++;
 	mov	a,_bp
-	add	a,#0x09
+	add	a,#0x0b
 	mov	r0,a
 	inc	@r0
 	cjne	@r0,#0x00,00197$
