@@ -5,6 +5,9 @@
 ;	Some code size improvements, contributed by Alexander B. Alexandrov
 ;	Download can now start from main menu prompt
 
+; Version 2.1ab
+;	Extensive mods by Atanas Bachvaroff <bachvaroff@gmail.com>
+
 ; It's free. PAULMON2 is in the public domain. You may copy
 ; sections of code from PAULMON2 into your own programs, even
 ; for commercial purposes. PAULMON2 should only be distributed
@@ -1875,8 +1878,10 @@ cpyxx:
 	;-------- switch_shadow helper subroutine --------
 	switch_shadow:
 		mov	p1, #mctrl_shadow
-		nop
-		nop
+		mov	r7, a
+		mov	r7, a
+		mov	r7, a
+		mov	r7, a
 		ret
 	switch_shadow_end:
 	;-------- switch_shadow helper subroutine --------
@@ -1888,9 +1893,14 @@ reset:
 	clr	a
 	mov	ie, a
 	mov	ip, a
+	mov	p1, #mctrl_reset
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	p2, #p2_init
 	mov	psw, #psw_init
 	mov	sp, #sp_init
-	mov	p2, #p2_init
 	
 	mov	r2, #0x00	; lssrc
 	mov	r3, #0x00	; hssrc	
