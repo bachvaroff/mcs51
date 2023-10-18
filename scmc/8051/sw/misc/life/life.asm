@@ -1022,7 +1022,7 @@ _main:
 	mov	@r0,ar6
 	inc	r0
 	mov	@r0,ar7
-;	life.c:260: if (i0 || (c == (int)'T')) goto terminate;
+;	life.c:260: if (i0 || (c == (int)'T')) goto term;
 	mov	r0,#_i0
 	mov	a,@r0
 	jz	00516$
@@ -1539,7 +1539,7 @@ _main:
 	mov	@r0,ar6
 	inc	r0
 	mov	@r0,ar7
-;	life.c:274: if (i0 || (c == (int)'T')) goto terminate;
+;	life.c:274: if (i0 || (c == (int)'T')) goto term;
 	mov	r0,#_i0
 	mov	a,@r0
 	jz	00553$
@@ -2452,7 +2452,7 @@ _main:
 	jnz	00584$
 	ljmp	00246$
 00584$:
-;	life.c:299: terminate:
+;	life.c:299: term:
 00142$:
 ;	life.c:300: EA = 0;
 ;	assignBit
@@ -2483,7 +2483,7 @@ _main:
 ;	life.c:302: (void)getchar();
 	lcall	_getchar
 ;	life.c:306: __endasm;
-	ljmp	0
+	orl	pcon, #2
 ;	life.c:307: }
 	mov	sp,_bp
 	pop	_bp

@@ -257,7 +257,7 @@ void main(void) {
 		printstr("\033[2J\033[?25l\033[mLIFE INIT T L R P\r\n");
 		while (1) {
 			c = toupper(getchar());
-			if (i0 || (c == (int)'T')) goto terminate;
+			if (i0 || (c == (int)'T')) goto term;
 			else if ((c == (int)'L') || (c == (int)'R') || (c == (int)'P')) break;
 		}
 		
@@ -271,7 +271,7 @@ reload:
 		printstr("READY T L R P S\r\n");
 		while (1) {
 			c = toupper(getchar());
-			if (i0 || (c == (int)'T')) goto terminate;
+			if (i0 || (c == (int)'T')) goto term;
 			else if ((c == (int)'L') || (c == (int)'R') || (c == (int)'P')) goto reload;
 			else if (c == (int)'S') break;
 		}
@@ -296,13 +296,13 @@ reload:
 		}
 	}
 	
-terminate:
+term:
 	EA = 0;
 	printstr("TERM\r\n");
 	(void)getchar();
 	
 	__asm
-		ljmp 0
+		orl pcon, #2
 	__endasm;
 }
 

@@ -1022,7 +1022,7 @@
       000269 A6 06            [24] 1022 	mov	@r0,ar6
       00026B 08               [12] 1023 	inc	r0
       00026C A6 07            [24] 1024 	mov	@r0,ar7
-                                   1025 ;	life.c:260: if (i0 || (c == (int)'T')) goto terminate;
+                                   1025 ;	life.c:260: if (i0 || (c == (int)'T')) goto term;
       00026E 78r10            [12] 1026 	mov	r0,#_i0
       000270 E6               [12] 1027 	mov	a,@r0
       000271 60 03            [24] 1028 	jz	00516$
@@ -1539,7 +1539,7 @@
       00055B A6 06            [24] 1539 	mov	@r0,ar6
       00055D 08               [12] 1540 	inc	r0
       00055E A6 07            [24] 1541 	mov	@r0,ar7
-                                   1542 ;	life.c:274: if (i0 || (c == (int)'T')) goto terminate;
+                                   1542 ;	life.c:274: if (i0 || (c == (int)'T')) goto term;
       000560 78r10            [12] 1543 	mov	r0,#_i0
       000562 E6               [12] 1544 	mov	a,@r0
       000563 60 03            [24] 1545 	jz	00553$
@@ -2452,7 +2452,7 @@
       000AA0 70 03            [24] 2452 	jnz	00584$
       000AA2 02r02r3B         [24] 2453 	ljmp	00246$
       000AA5                       2454 00584$:
-                                   2455 ;	life.c:299: terminate:
+                                   2455 ;	life.c:299: term:
       000AA5                       2456 00142$:
                                    2457 ;	life.c:300: EA = 0;
                                    2458 ;	assignBit
@@ -2483,7 +2483,7 @@
                                    2483 ;	life.c:302: (void)getchar();
       000AC9 12r00r05         [24] 2484 	lcall	_getchar
                                    2485 ;	life.c:306: __endasm;
-      000ACC 02 00 00         [24] 2486 	ljmp	0
+      000ACC 43 87 02         [24] 2486 	orl	pcon, #2
                                    2487 ;	life.c:307: }
       000ACF 85*00 81         [24] 2488 	mov	sp,_bp
       000AD2 D0*00            [24] 2489 	pop	_bp
