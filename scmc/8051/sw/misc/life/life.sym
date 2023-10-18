@@ -376,7 +376,7 @@ Symbol Table
  19 _int1                                                          00001A GR
   D _iu                                                            000000 R
   9 _j                                                             000017 R
- 19 _main                                                          000225 GR
+ 19 _main                                                          00020B GR
     _memset                                                        ****** GX
   9 _n                                                             00001B R
   D _nu                                                            006C00 R
@@ -636,7 +636,7 @@ Area Table
   16 GSINIT5                                    size      0   flags   20
   17 GSINIT                                     size     40   flags   20
   18 GSFINAL                                    size      3   flags   20
-  19 CSEG                                       size    B01   flags   20
+  19 CSEG                                       size    AD5   flags   20
   1A CONST                                      size     82   flags   20
   1B XINIT                                      size      0   flags   20
   1C CABS                                       size      0   flags   28

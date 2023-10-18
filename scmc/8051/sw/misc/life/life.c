@@ -31,14 +31,14 @@ __idata static const char digits[16] = {
 	'8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
 };
 
-inline void print8x(short a) {
+inline void print8x(unsigned char a) {
 	putchar(digits[(a >> 4) & 0xf]);
 	putchar(digits[a & 0xf]);
 	
 	return;
 }
 
-inline void print16x(int a) {
+inline void print16x(unsigned int a) {
 	putchar(digits[(a >> 12) & 0xf]);
 	putchar(digits[(a >> 8) & 0xf]);
 	putchar(digits[(a >> 4) & 0xf]);
@@ -90,11 +90,11 @@ __idata static int x, y; /* evolve(), show(), loadu() */
 __idata static int j, c; /* loadu() */
 __idata static char n, fixed, cycle2; /* evolve() */
 __idata static int x1, y1; /* evolve() */
-__idata static int generation[2]; /* cleargen(), updategen(), printgen(), show() */
+__idata static unsigned int generation[2]; /* cleargen(), updategen(), printgen(), show() */
 
 inline void cleargen(void) {
-	generation[0] = 0;
-	generation[1] = 0;
+	generation[0] = 0u;
+	generation[1] = 0u;
 	
 	return;
 }
