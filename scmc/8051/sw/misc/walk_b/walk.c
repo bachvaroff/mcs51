@@ -23,7 +23,7 @@ int getchar(void) __naked {
 	__endasm;
 }
 
-__xdata static volatile int __at(0xfffeu) RND;
+__xdata static volatile int __at(0x8000u) RND;
 
 __idata static uint8_t i0;
 

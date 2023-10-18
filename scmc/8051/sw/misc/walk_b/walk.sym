@@ -286,7 +286,7 @@ Symbol Table
     _RD                                                         =  0000B7 G
     _REN                                                        =  00009C G
     _RI                                                         =  000098 G
-    _RND                                                        =  00FFFE 
+    _RND                                                        =  008000 
     _RS0                                                        =  0000D3 G
     _RS1                                                        =  0000D4 G
     _RXD                                                        =  0000B0 G

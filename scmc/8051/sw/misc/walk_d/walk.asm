@@ -318,7 +318,7 @@ _OE76:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
-_RND	=	0xfffe
+_RND	=	0x8000
 _g:
 	.ds 9648
 _stack:

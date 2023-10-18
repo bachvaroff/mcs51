@@ -318,7 +318,7 @@
                                     318 ; external ram data
                                     319 ;--------------------------------------------------------
                                     320 	.area XSEG    (XDATA)
-                           00FFFE   321 _RND	=	0xfffe
+                           008000   321 _RND	=	0x8000
       004300                        322 _g:
       004300                        323 	.ds 9648
       0068B0                        324 _queue:
@@ -1542,7 +1542,7 @@
                                    1542 ;	assignBit
       0026BF D2 AF            [12] 1543 	setb	_EA
                                    1544 ;	walk.c:166: srand(RND);
-      0026C1 90 FF FE         [24] 1545 	mov	dptr,#_RND
+      0026C1 90 80 00         [24] 1545 	mov	dptr,#_RND
       0026C4 E0               [24] 1546 	movx	a,@dptr
       0026C5 FE               [12] 1547 	mov	r6,a
       0026C6 A3               [24] 1548 	inc	dptr
