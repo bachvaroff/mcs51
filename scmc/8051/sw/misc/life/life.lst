@@ -359,7 +359,7 @@
                                     359 ; external ram data
                                     360 ;--------------------------------------------------------
                                     361 	.area XSEG    (XDATA)
-                           00FFFE   362 _RND	=	0xfffe
+                           008000   362 _RND	=	0x8000
                            00F006   363 _OEreg	=	0xf006
       000000                        364 _iu:
       000000                        365 	.ds 9216
@@ -972,7 +972,7 @@
                                     972 ;	assignBit
       00021F D2 97            [12]  973 	setb	_P1_7
                                     974 ;	life.c:251: srand(RND);
-      000221 90 FF FE         [24]  975 	mov	dptr,#_RND
+      000221 90 80 00         [24]  975 	mov	dptr,#_RND
       000224 E0               [24]  976 	movx	a,@dptr
       000225 FE               [12]  977 	mov	r6,a
       000226 A3               [24]  978 	inc	dptr

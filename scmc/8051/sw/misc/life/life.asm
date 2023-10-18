@@ -359,7 +359,7 @@ _generation:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
-_RND	=	0xfffe
+_RND	=	0x8000
 _OEreg	=	0xf006
 _iu:
 	.ds 9216

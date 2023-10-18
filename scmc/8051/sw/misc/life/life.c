@@ -24,7 +24,7 @@ int getchar(void) __naked {
 	__endasm;
 }
 
-__xdata static volatile int __at(0xfffeu) RND;
+__xdata static volatile int __at(0x8000u) RND;
 
 __idata static const char digits[16] = {
 	'0', '1', '2', '3', '4', '5', '6', '7',
