@@ -24,6 +24,21 @@ int getchar(void) __naked {
 	__endasm;
 }
 
+int getchar_poll(void) __naked {
+	__asm
+		mov a, #0xff
+		mov b, a
+		jnb ri, nochar
+		clr ri
+		mov a, sbuf
+		mov b, #0
+nochar:
+		mov dpl, a
+		mov dph, b
+		ret
+	__endasm;
+}
+
 __xdata static volatile int __at(0x8000u) RND;
 
 __idata static const char digits[16] = {
@@ -114,8 +129,10 @@ inline void printgen(void) {
 }
 
 void show(char hdr) {
+	printstr("\033[?25l");
+	
 	if (hdr) {
-		printstr("\033[2J\033[mGEN ");
+		printstr("\033[2JGEN ");
 		printgen();
 		printstr("\r\n");
 		updategen();
@@ -127,6 +144,8 @@ void show(char hdr) {
 			else putchar('0');
 		printstr("\r\n");
 	}
+
+	printstr("\033[?25h");
 	
 	return;
 }
@@ -252,9 +271,11 @@ void main(void) {
         
 	OE76 = OE76_0;
 	flashOE();
+
+	printstr("\033[?25h\033[m");
 	
 	for (i0 = 0; !i0; ) {	
-		printstr("\033[2J\033[?25l\033[mLIFE INIT T L R P\r\n");
+		printstr("LIFE INIT T L R P\r\n");
 		while (1) {
 			c = toupper(getchar());
 			if (i0 || (c == (int)'T')) goto term;
@@ -281,12 +302,20 @@ reload:
 		for (i1 = 0; !i0 && !i1; ) {
 			show(1);
 			evolve();
+			
 			if (fixed || cycle2) {
 				printstr("DONE ");
 				if (fixed) printstr("FIXED\r\n");
 				else printstr("CYCLE2\r\n");
 				(void)getchar();
 				break;
+			}
+			
+			c = getchar_poll();
+			if (c > 0) {
+				c = toupper(c);
+				if (c == (int)'T') i0 = 1;
+				else if (c == (int)'B') i1 = 1;
 			}
 		}
 		
