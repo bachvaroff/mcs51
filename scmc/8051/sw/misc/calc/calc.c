@@ -267,7 +267,10 @@ static int push_acc(void *_ctx, delta_t *delta) __reentrant {
 }
 
 static int help(void *_ctx, delta_t *delta) __reentrant {
-	printstr("\r\n\tleft to right\r\n");
+	struct ctx *ctx = (struct ctx *)_ctx;
+	
+	printf("\r\n\tbase = %ld, acc = %ld / %0.8lx, acc_valid = %d, left to right\r\n",
+			ctx->base, ctx->acc, ctx->acc, (int)ctx->acc_valid);
 	printstr("h\tbase 10\r\n");
 	printstr("H\tbase 16\r\n");
 	printstr("p\tpeek top\r\n");

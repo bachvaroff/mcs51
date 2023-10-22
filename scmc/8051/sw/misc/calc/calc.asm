@@ -4043,7 +4043,8 @@ _push_acc:
 ;Allocation info for local variables in function 'help'
 ;------------------------------------------------------------
 ;delta                     Allocated to stack - _bp -5
-;_ctx                      Allocated to registers 
+;_ctx                      Allocated to registers r5 r6 r7 
+;ctx                       Allocated to stack - _bp +7
 ;__1310720059              Allocated to registers 
 ;s                         Allocated to registers r5 r6 r7 
 ;__1310720061              Allocated to registers 
@@ -4080,8 +4081,8 @@ _push_acc:
 ;s                         Allocated to registers r5 r6 r7 
 ;__1310720093              Allocated to registers 
 ;s                         Allocated to registers r5 r6 r7 
-;__1310720095              Allocated to registers 
-;s                         Allocated to registers r5 r6 r7 
+;sloc0                     Allocated to stack - _bp +1
+;sloc1                     Allocated to stack - _bp +3
 ;------------------------------------------------------------
 ;	calc.c:269: static int help(void *_ctx, delta_t *delta) __reentrant {
 ;	-----------------------------------------
@@ -4089,13 +4090,152 @@ _push_acc:
 ;	-----------------------------------------
 _help:
 	push	_bp
-	mov	_bp,sp
-;	calc.c:270: printstr("\r\n\tleft to right\r\n");
-	mov	r5,#___str_4
-	mov	r6,#(___str_4 >> 8)
+	mov	a,sp
+	mov	_bp,a
+	add	a,#0x09
+	mov	sp,a
+	mov	r5,dpl
+	mov	r6,dph
+	mov	r7,b
+;	calc.c:270: struct ctx *ctx = (struct ctx *)_ctx;
+	mov	a,_bp
+	add	a,#0x07
+	mov	r0,a
+	mov	@r0,ar5
+	inc	r0
+	mov	@r0,ar6
+	inc	r0
+	mov	@r0,ar7
+;	calc.c:273: ctx->base, ctx->acc, ctx->acc, (int)ctx->acc_valid);
+	mov	a,_bp
+	add	a,#0x07
+	mov	r0,a
+	mov	a,#0x08
+	add	a,@r0
+	mov	r2,a
+	clr	a
+	inc	r0
+	addc	a,@r0
+	mov	r3,a
+	inc	r0
+	mov	ar4,@r0
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	__gptrget
+	mov	r2,a
+	mov	r0,_bp
+	inc	r0
+	mov	@r0,ar2
+	inc	r0
+	mov	@r0,#0x00
+	mov	a,_bp
+	add	a,#0x07
+	mov	r0,a
+	mov	a,#0x04
+	add	a,@r0
+	mov	r3,a
+	clr	a
+	inc	r0
+	addc	a,@r0
+	mov	r6,a
+	inc	r0
+	mov	ar7,@r0
+	mov	dpl,r3
+	mov	dph,r6
+	mov	b,r7
+	mov	a,_bp
+	add	a,#0x03
+	mov	r0,a
+	lcall	__gptrget
+	mov	@r0,a
+	inc	dptr
+	lcall	__gptrget
+	inc	r0
+	mov	@r0,a
+	inc	dptr
+	lcall	__gptrget
+	inc	r0
+	mov	@r0,a
+	inc	dptr
+	lcall	__gptrget
+	inc	r0
+	mov	@r0,a
+	mov	a,_bp
+	add	a,#0x07
+	mov	r0,a
+	mov	dpl,@r0
+	inc	r0
+	mov	dph,@r0
+	inc	r0
+	mov	b,@r0
+	lcall	__gptrget
+	mov	r2,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r4,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r6,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r7,a
+;	calc.c:272: printf("\r\n\tbase = %ld, acc = %ld / %0.8lx, acc_valid = %d, left to right\r\n",
+	mov	r0,_bp
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	mov	a,_bp
+	add	a,#0x03
+	mov	r0,a
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	mov	a,_bp
+	add	a,#0x03
+	mov	r0,a
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	push	ar2
+	push	ar4
+	push	ar6
+	push	ar7
+	mov	a,#___str_4
+	push	acc
+	mov	a,#(___str_4 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xef
+	mov	sp,a
+;	calc.c:274: printstr("h\tbase 10\r\n");
+	mov	r5,#___str_5
+	mov	r6,#(___str_5 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00140$:
+00138$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4108,17 +4248,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:270: printstr("\r\n\tleft to right\r\n");
-	cjne	r5,#0x00,00140$
+;	calc.c:274: printstr("h\tbase 10\r\n");
+	cjne	r5,#0x00,00138$
 	inc	r6
-	sjmp	00140$
+	sjmp	00138$
 00102$:
-;	calc.c:271: printstr("h\tbase 10\r\n");
-	mov	r5,#___str_5
-	mov	r6,#(___str_5 >> 8)
+;	calc.c:275: printstr("H\tbase 16\r\n");
+	mov	r5,#___str_6
+	mov	r6,#(___str_6 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00143$:
+00141$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4131,17 +4271,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:271: printstr("h\tbase 10\r\n");
-	cjne	r5,#0x00,00143$
+;	calc.c:275: printstr("H\tbase 16\r\n");
+	cjne	r5,#0x00,00141$
 	inc	r6
-	sjmp	00143$
+	sjmp	00141$
 00104$:
-;	calc.c:272: printstr("H\tbase 16\r\n");
-	mov	r5,#___str_6
-	mov	r6,#(___str_6 >> 8)
+;	calc.c:276: printstr("p\tpeek top\r\n");
+	mov	r5,#___str_7
+	mov	r6,#(___str_7 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00146$:
+00144$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4154,17 +4294,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:272: printstr("H\tbase 16\r\n");
-	cjne	r5,#0x00,00146$
+;	calc.c:276: printstr("p\tpeek top\r\n");
+	cjne	r5,#0x00,00144$
 	inc	r6
-	sjmp	00146$
+	sjmp	00144$
 00106$:
-;	calc.c:273: printstr("p\tpeek top\r\n");
-	mov	r5,#___str_7
-	mov	r6,#(___str_7 >> 8)
+;	calc.c:277: printstr("P\tprint stack\r\n");
+	mov	r5,#___str_8
+	mov	r6,#(___str_8 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00149$:
+00147$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4177,17 +4317,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:273: printstr("p\tpeek top\r\n");
-	cjne	r5,#0x00,00149$
+;	calc.c:277: printstr("P\tprint stack\r\n");
+	cjne	r5,#0x00,00147$
 	inc	r6
-	sjmp	00149$
+	sjmp	00147$
 00108$:
-;	calc.c:274: printstr("P\tprint stack\r\n");
-	mov	r5,#___str_8
-	mov	r6,#(___str_8 >> 8)
+;	calc.c:278: printstr("v .\tpop top\r\n");
+	mov	r5,#___str_9
+	mov	r6,#(___str_9 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00152$:
+00150$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4200,17 +4340,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:274: printstr("P\tprint stack\r\n");
-	cjne	r5,#0x00,00152$
+;	calc.c:278: printstr("v .\tpop top\r\n");
+	cjne	r5,#0x00,00150$
 	inc	r6
-	sjmp	00152$
+	sjmp	00150$
 00110$:
-;	calc.c:275: printstr("v .\tpop top\r\n");
-	mov	r5,#___str_9
-	mov	r6,#(___str_9 >> 8)
+;	calc.c:279: printstr("V\tpop all\r\n");
+	mov	r5,#___str_10
+	mov	r6,#(___str_10 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00155$:
+00153$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4223,17 +4363,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:275: printstr("v .\tpop top\r\n");
-	cjne	r5,#0x00,00155$
+;	calc.c:279: printstr("V\tpop all\r\n");
+	cjne	r5,#0x00,00153$
 	inc	r6
-	sjmp	00155$
+	sjmp	00153$
 00112$:
-;	calc.c:276: printstr("V\tpop all\r\n");
-	mov	r5,#___str_10
-	mov	r6,#(___str_10 >> 8)
+;	calc.c:280: printstr("x\texchange top 2\r\n");
+	mov	r5,#___str_11
+	mov	r6,#(___str_11 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00158$:
+00156$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4246,17 +4386,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:276: printstr("V\tpop all\r\n");
-	cjne	r5,#0x00,00158$
+;	calc.c:280: printstr("x\texchange top 2\r\n");
+	cjne	r5,#0x00,00156$
 	inc	r6
-	sjmp	00158$
+	sjmp	00156$
 00114$:
-;	calc.c:277: printstr("x\texchange top 2\r\n");
-	mov	r5,#___str_11
-	mov	r6,#(___str_11 >> 8)
+;	calc.c:281: printstr("+\tadd top 2\r\n");
+	mov	r5,#___str_12
+	mov	r6,#(___str_12 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00161$:
+00159$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4269,17 +4409,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:277: printstr("x\texchange top 2\r\n");
-	cjne	r5,#0x00,00161$
+;	calc.c:281: printstr("+\tadd top 2\r\n");
+	cjne	r5,#0x00,00159$
 	inc	r6
-	sjmp	00161$
+	sjmp	00159$
 00116$:
-;	calc.c:278: printstr("+\tadd top 2\r\n");
-	mov	r5,#___str_12
-	mov	r6,#(___str_12 >> 8)
+;	calc.c:282: printstr("-\tsubtract top 2\r\n");
+	mov	r5,#___str_13
+	mov	r6,#(___str_13 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00164$:
+00162$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4292,17 +4432,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:278: printstr("+\tadd top 2\r\n");
-	cjne	r5,#0x00,00164$
+;	calc.c:282: printstr("-\tsubtract top 2\r\n");
+	cjne	r5,#0x00,00162$
 	inc	r6
-	sjmp	00164$
+	sjmp	00162$
 00118$:
-;	calc.c:279: printstr("-\tsubtract top 2\r\n");
-	mov	r5,#___str_13
-	mov	r6,#(___str_13 >> 8)
+;	calc.c:283: printstr("*\tmultiply top 2\r\n");
+	mov	r5,#___str_14
+	mov	r6,#(___str_14 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00167$:
+00165$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4315,17 +4455,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:279: printstr("-\tsubtract top 2\r\n");
-	cjne	r5,#0x00,00167$
+;	calc.c:283: printstr("*\tmultiply top 2\r\n");
+	cjne	r5,#0x00,00165$
 	inc	r6
-	sjmp	00167$
+	sjmp	00165$
 00120$:
-;	calc.c:280: printstr("*\tmultiply top 2\r\n");
-	mov	r5,#___str_14
-	mov	r6,#(___str_14 >> 8)
+;	calc.c:284: printstr("/\tdivide top 2\r\n");
+	mov	r5,#___str_15
+	mov	r6,#(___str_15 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00170$:
+00168$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4338,17 +4478,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:280: printstr("*\tmultiply top 2\r\n");
-	cjne	r5,#0x00,00170$
+;	calc.c:284: printstr("/\tdivide top 2\r\n");
+	cjne	r5,#0x00,00168$
 	inc	r6
-	sjmp	00170$
+	sjmp	00168$
 00122$:
-;	calc.c:281: printstr("/\tdivide top 2\r\n");
-	mov	r5,#___str_15
-	mov	r6,#(___str_15 >> 8)
+;	calc.c:285: printstr("%\tmodulus top 2\r\n");
+	mov	r5,#___str_16
+	mov	r6,#(___str_16 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00173$:
+00171$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4361,17 +4501,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:281: printstr("/\tdivide top 2\r\n");
-	cjne	r5,#0x00,00173$
+;	calc.c:285: printstr("%\tmodulus top 2\r\n");
+	cjne	r5,#0x00,00171$
 	inc	r6
-	sjmp	00173$
+	sjmp	00171$
 00124$:
-;	calc.c:282: printstr("%\tmodulus top 2\r\n");
-	mov	r5,#___str_16
-	mov	r6,#(___str_16 >> 8)
+;	calc.c:286: printstr("&\tand top 2\r\n");
+	mov	r5,#___str_17
+	mov	r6,#(___str_17 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00176$:
+00174$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4384,17 +4524,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:282: printstr("%\tmodulus top 2\r\n");
-	cjne	r5,#0x00,00176$
+;	calc.c:286: printstr("&\tand top 2\r\n");
+	cjne	r5,#0x00,00174$
 	inc	r6
-	sjmp	00176$
+	sjmp	00174$
 00126$:
-;	calc.c:283: printstr("&\tand top 2\r\n");
-	mov	r5,#___str_17
-	mov	r6,#(___str_17 >> 8)
+;	calc.c:287: printstr("|\tor top 2\r\n");
+	mov	r5,#___str_18
+	mov	r6,#(___str_18 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00179$:
+00177$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4407,17 +4547,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:283: printstr("&\tand top 2\r\n");
-	cjne	r5,#0x00,00179$
+;	calc.c:287: printstr("|\tor top 2\r\n");
+	cjne	r5,#0x00,00177$
 	inc	r6
-	sjmp	00179$
+	sjmp	00177$
 00128$:
-;	calc.c:284: printstr("|\tor top 2\r\n");
-	mov	r5,#___str_18
-	mov	r6,#(___str_18 >> 8)
+;	calc.c:288: printstr("^\txor top 2\r\n");
+	mov	r5,#___str_19
+	mov	r6,#(___str_19 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00182$:
+00180$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4430,17 +4570,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:284: printstr("|\tor top 2\r\n");
-	cjne	r5,#0x00,00182$
+;	calc.c:288: printstr("^\txor top 2\r\n");
+	cjne	r5,#0x00,00180$
 	inc	r6
-	sjmp	00182$
+	sjmp	00180$
 00130$:
-;	calc.c:285: printstr("^\txor top 2\r\n");
-	mov	r5,#___str_19
-	mov	r6,#(___str_19 >> 8)
+;	calc.c:289: printstr("~\tbitwise not top\r\n");
+	mov	r5,#___str_20
+	mov	r6,#(___str_20 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00185$:
+00183$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4453,17 +4593,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:285: printstr("^\txor top 2\r\n");
-	cjne	r5,#0x00,00185$
+;	calc.c:289: printstr("~\tbitwise not top\r\n");
+	cjne	r5,#0x00,00183$
 	inc	r6
-	sjmp	00185$
+	sjmp	00183$
 00132$:
-;	calc.c:286: printstr("~\tbitwise not top\r\n");
-	mov	r5,#___str_20
-	mov	r6,#(___str_20 >> 8)
+;	calc.c:290: printstr("?\thelp\r\n");
+	mov	r5,#___str_21
+	mov	r6,#(___str_21 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00188$:
+00186$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4476,17 +4616,17 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:286: printstr("~\tbitwise not top\r\n");
-	cjne	r5,#0x00,00188$
+;	calc.c:290: printstr("?\thelp\r\n");
+	cjne	r5,#0x00,00186$
 	inc	r6
-	sjmp	00188$
+	sjmp	00186$
 00134$:
-;	calc.c:287: printstr("?\thelp\r\n");
-	mov	r5,#___str_21
-	mov	r6,#(___str_21 >> 8)
+;	calc.c:291: printstr("q\tquit\r\n");
+	mov	r5,#___str_22
+	mov	r6,#(___str_22 >> 8)
 	mov	r7,#0x80
 ;	calc.c:49: return;
-00191$:
+00189$:
 ;	calc.c:47: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
@@ -4499,37 +4639,15 @@ _help:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	calc.c:287: printstr("?\thelp\r\n");
-	cjne	r5,#0x00,00191$
+;	calc.c:291: printstr("q\tquit\r\n");
+	cjne	r5,#0x00,00189$
 	inc	r6
-	sjmp	00191$
+	sjmp	00189$
 00136$:
-;	calc.c:288: printstr("q\tquit\r\n");
-	mov	r5,#___str_22
-	mov	r6,#(___str_22 >> 8)
-	mov	r7,#0x80
-;	calc.c:49: return;
-00194$:
-;	calc.c:47: for (; *s; s++) putchar(*s);
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
-	lcall	__gptrget
-	mov	r4,a
-	jz	00138$
-	mov	r3,#0x00
-	mov	dpl,r4
-	mov	dph,r3
-	lcall	_putchar
-	inc	r5
-;	calc.c:288: printstr("q\tquit\r\n");
-	cjne	r5,#0x00,00194$
-	inc	r6
-	sjmp	00194$
-00138$:
-;	calc.c:290: return 1;
+;	calc.c:293: return 1;
 	mov	dptr,#0x0001
-;	calc.c:291: }
+;	calc.c:294: }
+	mov	sp,_bp
 	pop	_bp
 	ret
 ;------------------------------------------------------------
@@ -4537,16 +4655,16 @@ _help:
 ;------------------------------------------------------------
 ;input                     Allocated to registers r6 r7 
 ;------------------------------------------------------------
-;	calc.c:321: void main(void) {
+;	calc.c:324: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	calc.c:324: stack_init(&c.s);	
+;	calc.c:327: stack_init(&c.s);	
 	mov	dptr,#(_c + 0x000b)
 	mov	b,#0x00
 	lcall	_stack_init
-;	calc.c:325: state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
+;	calc.c:328: state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
 	mov	a,#_c
 	push	acc
 	mov	a,#(_c >> 8)
@@ -4574,18 +4692,18 @@ _main:
 	mov	a,sp
 	add	a,#0xf4
 	mov	sp,a
-;	calc.c:327: while (1) {
+;	calc.c:330: while (1) {
 00140$:
-;	calc.c:328: input = getchar();
+;	calc.c:331: input = getchar();
 	lcall	_getchar
-;	calc.c:329: (void)putchar(input);
+;	calc.c:332: (void)putchar(input);
 	mov	r6,dpl
 	mov  r7,dph
 	lcall	_putchar
-;	calc.c:330: if ((char)input == 'q') {
+;	calc.c:333: if ((char)input == 'q') {
 	mov	ar5,r6
 	cjne	r5,#0x71,00137$
-;	calc.c:331: if (state_exec(&s, EVENT_TERM) <= 0) break;
+;	calc.c:334: if (state_exec(&s, EVENT_TERM) <= 0) break;
 	mov	a,#0x04
 	push	acc
 	clr	a
@@ -4607,9 +4725,9 @@ _main:
 	jc	00140$
 	ljmp	00141$
 00137$:
-;	calc.c:332: } else if ((char)input == '?') {
+;	calc.c:335: } else if ((char)input == '?') {
 	cjne	r5,#0x3f,00134$
-;	calc.c:333: if (state_exec(&s, EVENT_HELP) <= 0) break;
+;	calc.c:336: if (state_exec(&s, EVENT_HELP) <= 0) break;
 	mov	a,#0x03
 	push	acc
 	clr	a
@@ -4631,7 +4749,7 @@ _main:
 	jc	00140$
 	ljmp	00141$
 00134$:
-;	calc.c:334: } else if (isxdigit(input)) {
+;	calc.c:337: } else if (isxdigit(input)) {
 	mov	dpl,r6
 	mov	dph,r7
 	push	ar5
@@ -4641,11 +4759,11 @@ _main:
 	pop	ar5
 	orl	a,b
 	jz	00131$
-;	calc.c:335: c.digit[0] = (char)input;
+;	calc.c:338: c.digit[0] = (char)input;
 	mov	dptr,#(_c + 0x0009)
 	mov	a,r5
 	movx	@dptr,a
-;	calc.c:336: if (state_exec(&s, EVENT_DIGIT) <= 0) break;
+;	calc.c:339: if (state_exec(&s, EVENT_DIGIT) <= 0) break;
 	mov	a,#0x01
 	push	acc
 	clr	a
@@ -4669,21 +4787,21 @@ _main:
 00247$:
 	ljmp	00141$
 00131$:
-;	calc.c:338: ((char)input == 'h') || ((char)input == 'H') ||
+;	calc.c:341: ((char)input == 'h') || ((char)input == 'H') ||
 	cjne	r5,#0x68,00248$
 	sjmp	00111$
 00248$:
 	cjne	r5,#0x48,00249$
 	sjmp	00111$
 00249$:
-;	calc.c:339: ((char)input == 'p') || ((char)input == 'P') ||
+;	calc.c:342: ((char)input == 'p') || ((char)input == 'P') ||
 	cjne	r5,#0x70,00250$
 	sjmp	00111$
 00250$:
 	cjne	r5,#0x50,00251$
 	sjmp	00111$
 00251$:
-;	calc.c:340: ((char)input == '.') || ((char)input == 'v') || ((char)input == 'V') ||
+;	calc.c:343: ((char)input == '.') || ((char)input == 'v') || ((char)input == 'V') ||
 	cjne	r5,#0x2e,00252$
 	sjmp	00111$
 00252$:
@@ -4693,50 +4811,50 @@ _main:
 	cjne	r5,#0x56,00254$
 	sjmp	00111$
 00254$:
-;	calc.c:341: ((char)input == 'x') ||
+;	calc.c:344: ((char)input == 'x') ||
 	cjne	r5,#0x78,00255$
 	sjmp	00111$
 00255$:
-;	calc.c:342: ((char)input == '+') ||
+;	calc.c:345: ((char)input == '+') ||
 	cjne	r5,#0x2b,00256$
 	sjmp	00111$
 00256$:
-;	calc.c:343: ((char)input == '-') ||
+;	calc.c:346: ((char)input == '-') ||
 	cjne	r5,#0x2d,00257$
 	sjmp	00111$
 00257$:
-;	calc.c:344: ((char)input == '*') ||
+;	calc.c:347: ((char)input == '*') ||
 	cjne	r5,#0x2a,00258$
 	sjmp	00111$
 00258$:
-;	calc.c:345: ((char)input == '/') ||
+;	calc.c:348: ((char)input == '/') ||
 	cjne	r5,#0x2f,00259$
 	sjmp	00111$
 00259$:
-;	calc.c:346: ((char)input == '%') ||
+;	calc.c:349: ((char)input == '%') ||
 	cjne	r5,#0x25,00260$
 	sjmp	00111$
 00260$:
-;	calc.c:347: ((char)input == '&') ||
+;	calc.c:350: ((char)input == '&') ||
 	cjne	r5,#0x26,00261$
 	sjmp	00111$
 00261$:
-;	calc.c:348: ((char)input == '|') ||
+;	calc.c:351: ((char)input == '|') ||
 	cjne	r5,#0x7c,00262$
 	sjmp	00111$
 00262$:
-;	calc.c:349: ((char)input == '^') ||
+;	calc.c:352: ((char)input == '^') ||
 	cjne	r5,#0x5e,00263$
 	sjmp	00111$
 00263$:
-;	calc.c:350: ((char)input == '~')
+;	calc.c:353: ((char)input == '~')
 	cjne	r5,#0x7e,00112$
 00111$:
-;	calc.c:352: c.digit[0] = (char)input;
+;	calc.c:355: c.digit[0] = (char)input;
 	mov	dptr,#(_c + 0x0009)
 	mov	a,r5
 	movx	@dptr,a
-;	calc.c:353: if (state_exec(&s, EVENT_OP) <= 0) break;
+;	calc.c:356: if (state_exec(&s, EVENT_OP) <= 0) break;
 	mov	a,#0x02
 	push	acc
 	clr	a
@@ -4758,7 +4876,7 @@ _main:
 	jnc	00141$
 	ljmp	00140$
 00112$:
-;	calc.c:355: if (state_exec(&s, EVENT_DELIM) <= 0) break;
+;	calc.c:358: if (state_exec(&s, EVENT_DELIM) <= 0) break;
 	clr	a
 	push	acc
 	push	acc
@@ -4780,9 +4898,9 @@ _main:
 	ljmp	00140$
 00267$:
 00141$:
-;	calc.c:361: __endasm;
+;	calc.c:364: __endasm;
 	orl	pcon, #2
-;	calc.c:362: }
+;	calc.c:365: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -4822,7 +4940,8 @@ ___str_4:
 	.db 0x0d
 	.db 0x0a
 	.db 0x09
-	.ascii "left to right"
+	.ascii "base = %ld, acc = %ld / %0.8lx, acc_valid = %d, left to righ"
+	.ascii "t"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
