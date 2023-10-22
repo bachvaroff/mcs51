@@ -338,13 +338,13 @@ _state_exec:
 	inc	r0
 	mov	@r0,a
 ;	sm.c:25: goto error;
-	ljmp	00129$
+	ljmp	00130$
 00102$:
 ;	sm.c:28: if ((state->current == UNDEF) || (state->current == state->spurious)) {
-	cjne	r2,#0x00,00185$
-	cjne	r4,#0x80,00185$
+	cjne	r2,#0x00,00190$
+	cjne	r4,#0x80,00190$
 	sjmp	00103$
-00185$:
+00190$:
 	mov	r0,_bp
 	inc	r0
 	mov	a,_bp
@@ -388,7 +388,7 @@ _state_exec:
 	inc	r0
 	mov	@r0,ar4
 ;	sm.c:30: goto error;
-	ljmp	00129$
+	ljmp	00130$
 00104$:
 ;	sm.c:33: for (j = 0; (state->deltas[j].current != UNDEF) || (state->deltas[j].next != UNDEF); j++)
 	mov	a,_bp
@@ -456,7 +456,7 @@ _state_exec:
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-00132$:
+00133$:
 	mov	a,_bp
 	add	a,#0x0a
 	mov	r0,a
@@ -502,8 +502,8 @@ _state_exec:
 	inc	dptr
 	lcall	__gptrget
 	mov	r5,a
-	cjne	r4,#0x00,00131$
-	cjne	r5,#0x80,00131$
+	cjne	r4,#0x00,00132$
+	cjne	r5,#0x80,00132$
 	mov	a,_bp
 	add	a,#0x15
 	mov	r0,a
@@ -534,11 +534,11 @@ _state_exec:
 	inc	dptr
 	lcall	__gptrget
 	mov	r5,a
-	cjne	r4,#0x00,00190$
-	cjne	r5,#0x80,00190$
+	cjne	r4,#0x00,00195$
+	cjne	r5,#0x80,00195$
 	ljmp	00119$
-00190$:
-00131$:
+00195$:
+00132$:
 ;	sm.c:35: ((state->deltas[j].current == state->current) || (state->deltas[j].current == ANY)) &&
 	mov	a,_bp
 	add	a,#0x0a
@@ -587,17 +587,17 @@ _state_exec:
 	lcall	__gptrget
 	mov	r6,a
 	mov	a,r4
-	cjne	a,ar5,00191$
+	cjne	a,ar5,00196$
 	mov	a,r3
-	cjne	a,ar6,00191$
+	cjne	a,ar6,00196$
 	sjmp	00117$
-00191$:
-	cjne	r4,#0xff,00192$
-	cjne	r3,#0x7f,00192$
-	sjmp	00193$
-00192$:
+00196$:
+	cjne	r4,#0xff,00197$
+	cjne	r3,#0x7f,00197$
+	sjmp	00198$
+00197$:
 	ljmp	00118$
-00193$:
+00198$:
 00117$:
 ;	sm.c:36: ((state->deltas[j].event == event) || (state->deltas[j].event == ANY))
 	mov	a,_bp
@@ -644,18 +644,18 @@ _state_exec:
 	add	a,#0xfc
 	mov	r0,a
 	mov	a,@r0
-	cjne	a,ar6,00194$
+	cjne	a,ar6,00199$
 	inc	r0
 	mov	a,@r0
-	cjne	a,ar5,00194$
+	cjne	a,ar5,00199$
 	sjmp	00113$
-00194$:
-	cjne	r6,#0xff,00195$
-	cjne	r5,#0x7f,00195$
-	sjmp	00196$
-00195$:
+00199$:
+	cjne	r6,#0xff,00200$
+	cjne	r5,#0x7f,00200$
+	sjmp	00201$
+00200$:
 	ljmp	00118$
-00196$:
+00201$:
 00113$:
 ;	sm.c:38: if (state->deltas[j].predicate)
 	mov	a,_bp
@@ -745,16 +745,16 @@ _state_exec:
 	inc	r0
 	mov	a,@r0
 	push	acc
-	lcall	00198$
-	sjmp	00199$
-00198$:
+	lcall	00203$
+	sjmp	00204$
+00203$:
 	push	ar4
 	push	ar5
 	mov	dpl,r2
 	mov	dph,r6
 	mov	b,r7
 	ret
-00199$:
+00204$:
 	mov	r6,dpl
 	mov	r7,dph
 	dec	sp
@@ -767,9 +767,9 @@ _state_exec:
 	orl	a,r7
 	pop	ar7
 	pop	ar2
-	jnz	00200$
+	jnz	00205$
 	ljmp	00118$
-00200$:
+00205$:
 00109$:
 ;	sm.c:40: if (state->deltas[j].callback)
 	mov	a,_bp
@@ -845,9 +845,9 @@ _state_exec:
 	push	ar7
 	push	ar3
 	push	ar2
-	lcall	00202$
-	sjmp	00203$
-00202$:
+	lcall	00207$
+	sjmp	00208$
+00207$:
 	mov	a,_bp
 	add	a,#0x18
 	mov	r0,a
@@ -860,7 +860,7 @@ _state_exec:
 	mov	dph,r5
 	mov	b,r6
 	ret
-00203$:
+00208$:
 	mov	r5,dpl
 	mov	r6,dph
 	dec	sp
@@ -916,16 +916,16 @@ _state_exec:
 	addc	a,@r0
 	mov	@r0,a
 	inc	r2
-	cjne	r2,#0x00,00204$
+	cjne	r2,#0x00,00209$
 	inc	r7
-00204$:
+00209$:
 	mov	a,_bp
 	add	a,#0x0d
 	mov	r0,a
 	mov	@r0,ar2
 	inc	r0
 	mov	@r0,ar7
-	ljmp	00132$
+	ljmp	00133$
 00119$:
 ;	sm.c:46: if (ret == UNDEF) {
 	mov	a,_bp
@@ -948,7 +948,7 @@ _state_exec:
 	mov	a,#0x80
 	lcall	__gptrput
 ;	sm.c:48: goto error;
-	ljmp	00129$
+	ljmp	00130$
 00121$:
 ;	sm.c:51: if ((ret < 0) || (ret == state->spurious)) {
 	mov	a,_bp
@@ -974,14 +974,14 @@ _state_exec:
 	add	a,#0x1d
 	mov	r0,a
 	mov	a,@r0
-	cjne	a,ar6,00208$
+	cjne	a,ar6,00213$
 	inc	r0
 	mov	a,@r0
-	cjne	a,ar7,00208$
-	sjmp	00209$
-00208$:
+	cjne	a,ar7,00213$
+	sjmp	00214$
+00213$:
 	sjmp	00123$
-00209$:
+00214$:
 00122$:
 ;	sm.c:52: ret = state->current = state->spurious;
 	mov	a,_bp
@@ -1016,9 +1016,9 @@ _state_exec:
 	inc	r0
 	mov	@r0,ar6
 ;	sm.c:53: goto error;
-	ljmp	00129$
+	ljmp	00130$
 00123$:
-;	sm.c:56: if (ret > 0) state->current = state->deltas[j].next;
+;	sm.c:56: if ((ret > 0) && (state->deltas[j].next != ANY)) state->current = state->deltas[j].next;
 	mov	a,_bp
 	add	a,#0x1d
 	mov	r0,a
@@ -1083,10 +1083,14 @@ _state_exec:
 	mov	dph,r6
 	mov	b,r7
 	lcall	__gptrget
-	mov	r5,a
+	mov	r7,a
 	inc	dptr
 	lcall	__gptrget
 	mov	r6,a
+	cjne	r7,#0xff,00216$
+	cjne	r6,#0x7f,00216$
+	sjmp	00126$
+00216$:
 	mov	r0,_bp
 	inc	r0
 	mov	dpl,@r0
@@ -1094,7 +1098,7 @@ _state_exec:
 	mov	dph,@r0
 	inc	r0
 	mov	b,@r0
-	mov	a,r5
+	mov	a,r7
 	lcall	__gptrput
 	inc	dptr
 	mov	a,r6
@@ -1127,9 +1131,9 @@ _state_exec:
 	lcall	__gptrget
 	mov	r5,a
 	mov	a,r6
-	cjne	a,ar4,00129$
+	cjne	a,ar4,00130$
 	mov	a,r7
-	cjne	a,ar5,00129$
+	cjne	a,ar5,00130$
 ;	sm.c:59: ret = 0;
 	mov	a,_bp
 	add	a,#0x1d
@@ -1139,7 +1143,7 @@ _state_exec:
 	inc	r0
 	mov	@r0,a
 ;	sm.c:63: error:
-00129$:
+00130$:
 ;	sm.c:64: return ret;
 	mov	a,_bp
 	add	a,#0x1d

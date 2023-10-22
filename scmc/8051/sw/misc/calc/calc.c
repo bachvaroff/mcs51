@@ -57,7 +57,8 @@ inline void printstr(const char *s) {
 #define EVENT_DELIM 0
 #define EVENT_DIGIT 1
 #define EVENT_OP 2
-#define EVENT_TERM 3
+#define EVENT_HELP 3
+#define EVENT_TERM 4
 
 struct ctx {
 	long base;
@@ -265,6 +266,30 @@ static int push_acc(void *_ctx, delta_t *delta) __reentrant {
 	else return 1;
 }
 
+static int help(void *_ctx, delta_t *delta) __reentrant {
+	printstr("\r\n\tleft to right\r\n");
+	printstr("h\tbase 10\r\n");
+	printstr("H\tbase 16\r\n");
+	printstr("p\tpeek top\r\n");
+	printstr("P\tprint stack\r\n");
+	printstr("v .\tpop top\r\n");
+	printstr("V\tpop all\r\n");
+	printstr("x\texchange top 2\r\n");
+	printstr("+\tadd top 2\r\n");
+	printstr("-\tsubtract top 2\r\n");
+	printstr("*\tmultiply top 2\r\n");
+	printstr("/\tdivide top 2\r\n");
+	printstr("%\tmodulus top 2\r\n");
+	printstr("&\tand top 2\r\n");
+	printstr("|\tor top 2\r\n");
+	printstr("^\txor top 2\r\n");
+	printstr("~\tbitwise not top\r\n");
+	printstr("?\thelp\r\n");
+	printstr("q\tquit\r\n");
+	
+	return 1;
+}
+
 static delta_t deltas[] = {
 	{ STATE_START, EVENT_DELIM, STATE_START, NULL, NULL},
 	{ STATE_START, EVENT_DIGIT, STATE_NUMBER, NULL, accumulate },
@@ -277,6 +302,8 @@ static delta_t deltas[] = {
 	{ STATE_NUMBER, EVENT_DELIM, STATE_START, NULL, push_acc },
 	{ STATE_NUMBER, EVENT_DIGIT, STATE_NUMBER, NULL, accumulate },
 	{ STATE_NUMBER, EVENT_OP, STATE_OPERATOR, NULL, push_acc },
+	
+	{ ANY, EVENT_HELP, ANY, NULL, help },
 	
 	{ ANY, EVENT_TERM, STATE_FINAL, NULL, dump_pop },
 	
@@ -302,6 +329,8 @@ void main(void) {
 		(void)putchar(input);
 		if ((char)input == 'q') {
 			if (state_exec(&s, EVENT_TERM) <= 0) break;
+		} else if ((char)input == '?') {
+			if (state_exec(&s, EVENT_HELP) <= 0) break;
 		} else if (isxdigit(input)) {
 			c.digit[0] = (char)input;
 			if (state_exec(&s, EVENT_DIGIT) <= 0) break;
