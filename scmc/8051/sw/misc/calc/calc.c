@@ -58,7 +58,8 @@ inline void printstr(const char *s) {
 #define EVENT_DIGIT 1
 #define EVENT_OP 2
 #define EVENT_HELP 3
-#define EVENT_RSTA 4
+#define EVENT_RSTA_i 4
+#define EVENT_RSTA_I 4
 #define EVENT_TERM 5
 
 struct ctx {
@@ -271,7 +272,7 @@ static int push_acc(void *_ctx, delta_t *delta) __reentrant {
 static int reset_acc(void *_ctx, delta_t *delta) __reentrant {
 	struct ctx *ctx = (struct ctx *)_ctx;
 	
-	(void)delta;
+	if (delta->event == EVENT_RSTA_I) ctx->acc_valid = 0;
 	ctx->acc = 0l;
 	
 	return 1;
@@ -290,6 +291,7 @@ static int help(void *_ctx, delta_t *delta) __reentrant {
 	printstr("v .\tpop top\r\n");
 	printstr("V\tpop all\r\n");
 	printstr("i\treset acc\r\n");
+	printstr("I\treset and discard acc\r\n");
 	printstr("x\texchange top 2\r\n");
 	printstr("+\tadd top 2\r\n");
 	printstr("-\tsubtract top 2\r\n");
@@ -316,10 +318,12 @@ static delta_t deltas[] = {
 	{ STATE_OPERATOR, EVENT_DIGIT, STATE_NUMBER, NULL, accumulate },
 	
 	{ STATE_NUMBER, EVENT_DELIM, STATE_START, NULL, push_acc },
+	{ STATE_NUMBER, EVENT_RSTA_I, STATE_START, NULL, reset_acc },
 	{ STATE_NUMBER, EVENT_DIGIT, STATE_NUMBER, NULL, accumulate },
 	{ STATE_NUMBER, EVENT_OP, STATE_OPERATOR, NULL, push_acc },
 	
-	{ ANY, EVENT_RSTA, ANY, NULL, reset_acc },
+	{ ANY, EVENT_RSTA_i, ANY, NULL, reset_acc },
+	{ ANY, EVENT_RSTA_I, ANY, NULL, NULL },
 	
 	{ ANY, EVENT_HELP, ANY, NULL, help },
 	
@@ -350,7 +354,9 @@ void main(void) {
 		} else if ((char)input == '?') {
 			if (state_exec(&s, EVENT_HELP) <= 0) break;
 		} else if ((char)input == 'i') {
-			if (state_exec(&s, EVENT_RSTA) <= 0) break;
+			if (state_exec(&s, EVENT_RSTA_i) <= 0) break;
+		} else if ((char)input == 'I') {
+			if (state_exec(&s, EVENT_RSTA_I) <= 0) break;
 		} else if (isxdigit(input)) {
 			c.digit[0] = (char)input;
 			if (state_exec(&s, EVENT_DIGIT) <= 0) break;
