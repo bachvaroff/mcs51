@@ -59,8 +59,8 @@ inline void printstr(const char *s) {
 #define EVENT_OP 2
 #define EVENT_HELP 3
 #define EVENT_RSTA_i 4
-#define EVENT_RSTA_I 4
-#define EVENT_TERM 5
+#define EVENT_RSTA_I 5
+#define EVENT_TERM 6
 
 struct ctx {
 	long base;
@@ -200,7 +200,8 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 			(void)stack_push(&ctx->s, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
-			d1 /= d0;
+			if (!d0) d1 = -1l;
+			else d1 /= d0;
 			(void)stack_push(&ctx->s, d1);
 		}
 		break;
@@ -210,7 +211,8 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 			(void)stack_push(&ctx->s, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
-			d1 %= d0;
+			if (!d0) d1 = -1l;
+			else d1 %= d0;
 			(void)stack_push(&ctx->s, d1);
 		}
 		break;
@@ -282,7 +284,7 @@ static int help(void *_ctx, delta_t *delta) __reentrant {
 	struct ctx *ctx = (struct ctx *)_ctx;
 	
 	(void)delta;
-	printf("\r\n\tbase = %ld, acc = %ld / %0.8lx, acc_valid = %d, left to right\r\n",
+	printf("\r\nbase = %ld, acc = %ld / %0.8lx, acc_valid = %d\r\n\r\n",
 			ctx->base, ctx->acc, ctx->acc, (int)ctx->acc_valid);
 	printstr("h\tbase 10\r\n");
 	printstr("H\tbase 16\r\n");
