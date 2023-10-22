@@ -58,7 +58,8 @@ inline void printstr(const char *s) {
 #define EVENT_DIGIT 1
 #define EVENT_OP 2
 #define EVENT_HELP 3
-#define EVENT_TERM 4
+#define EVENT_RSTA 4
+#define EVENT_TERM 5
 
 struct ctx {
 	long base;
@@ -259,6 +260,7 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 static int push_acc(void *_ctx, delta_t *delta) __reentrant {
 	struct ctx *ctx = (struct ctx *)_ctx;
 	
+	(void)delta;
 	ctx->acc_valid = 0;
 	if (!stack_push(&ctx->s, ctx->acc)) printstr("\r\nstack overflow\r\n");
 	
@@ -266,9 +268,19 @@ static int push_acc(void *_ctx, delta_t *delta) __reentrant {
 	else return 1;
 }
 
+static int reset_acc(void *_ctx, delta_t *delta) __reentrant {
+	struct ctx *ctx = (struct ctx *)_ctx;
+	
+	(void)delta;
+	ctx->acc = 0l;
+	
+	return 1;
+}
+
 static int help(void *_ctx, delta_t *delta) __reentrant {
 	struct ctx *ctx = (struct ctx *)_ctx;
 	
+	(void)delta;
 	printf("\r\n\tbase = %ld, acc = %ld / %0.8lx, acc_valid = %d, left to right\r\n",
 			ctx->base, ctx->acc, ctx->acc, (int)ctx->acc_valid);
 	printstr("h\tbase 10\r\n");
@@ -277,6 +289,7 @@ static int help(void *_ctx, delta_t *delta) __reentrant {
 	printstr("P\tprint stack\r\n");
 	printstr("v .\tpop top\r\n");
 	printstr("V\tpop all\r\n");
+	printstr("i\treset acc\r\n");
 	printstr("x\texchange top 2\r\n");
 	printstr("+\tadd top 2\r\n");
 	printstr("-\tsubtract top 2\r\n");
@@ -306,6 +319,8 @@ static delta_t deltas[] = {
 	{ STATE_NUMBER, EVENT_DIGIT, STATE_NUMBER, NULL, accumulate },
 	{ STATE_NUMBER, EVENT_OP, STATE_OPERATOR, NULL, push_acc },
 	
+	{ ANY, EVENT_RSTA, ANY, NULL, reset_acc },
+	
 	{ ANY, EVENT_HELP, ANY, NULL, help },
 	
 	{ ANY, EVENT_TERM, STATE_FINAL, NULL, dump_pop },
@@ -334,6 +349,8 @@ void main(void) {
 			if (state_exec(&s, EVENT_TERM) <= 0) break;
 		} else if ((char)input == '?') {
 			if (state_exec(&s, EVENT_HELP) <= 0) break;
+		} else if ((char)input == 'i') {
+			if (state_exec(&s, EVENT_RSTA) <= 0) break;
 		} else if (isxdigit(input)) {
 			c.digit[0] = (char)input;
 			if (state_exec(&s, EVENT_DIGIT) <= 0) break;
