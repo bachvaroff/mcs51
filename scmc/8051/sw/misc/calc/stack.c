@@ -3,7 +3,7 @@
 
 void stack_init(stack_t *s) __reentrant {
 	s->N = SIZE;
-	s->p = -1l;
+	s->p = -1;
 	
 	return;
 }

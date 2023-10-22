@@ -125,7 +125,7 @@ _stack_init:
 	inc	dptr
 	mov	a,#0x08
 	lcall	__gptrput
-;	stack.c:6: s->p = -1l;
+;	stack.c:6: s->p = -1;
 	mov	a,#0x02
 	add	a,r5
 	mov	r5,a
