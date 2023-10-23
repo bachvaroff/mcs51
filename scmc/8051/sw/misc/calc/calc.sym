@@ -333,43 +333,42 @@ Symbol Table
     _WR                                                         =  0000B6 G
  18 ___str_0                                                       000000 R
  18 ___str_1                                                       000003 R
- 18 ___str_10                                                      0000BB R
- 18 ___str_11                                                      0000C9 R
- 18 ___str_12                                                      0000D5 R
- 18 ___str_13                                                      0000E3 R
- 18 ___str_14                                                      0000FD R
- 18 ___str_15                                                      000110 R
- 18 ___str_16                                                      00011E R
- 18 ___str_17                                                      000131 R
- 18 ___str_18                                                      000144 R
- 18 ___str_19                                                      000155 R
+ 18 ___str_10                                                      0000C5 R
+ 18 ___str_11                                                      0000D1 R
+ 18 ___str_12                                                      0000DF R
+ 18 ___str_13                                                      0000F9 R
+ 18 ___str_14                                                      00010C R
+ 18 ___str_15                                                      00011A R
+ 18 ___str_16                                                      00012D R
+ 18 ___str_17                                                      000140 R
+ 18 ___str_18                                                      000151 R
+ 18 ___str_19                                                      000163 R
  18 ___str_2                                                       000015 R
- 18 ___str_20                                                      000167 R
- 18 ___str_21                                                      000175 R
- 18 ___str_22                                                      000182 R
- 18 ___str_23                                                      000190 R
- 18 ___str_24                                                      0001A4 R
- 18 ___str_25                                                      0001AD R
- 18 ___str_26                                                      0001B6 R
- 18 ___str_27                                                      0001C2 R
- 18 ___str_28                                                      0001CB R
- 18 ___str_29                                                      0001D7 R
+ 18 ___str_20                                                      000171 R
+ 18 ___str_21                                                      00017E R
+ 18 ___str_22                                                      00018C R
+ 18 ___str_23                                                      0001A0 R
+ 18 ___str_24                                                      0001A9 R
+ 18 ___str_25                                                      0001B2 R
+ 18 ___str_26                                                      0001BE R
+ 18 ___str_27                                                      0001C7 R
+ 18 ___str_28                                                      0001D3 R
+ 18 ___str_29                                                      0001DC R
  18 ___str_3                                                       000029 R
- 18 ___str_30                                                      0001E0 R
- 18 ___str_31                                                      0001EC R
- 18 ___str_32                                                      0001F5 R
+ 18 ___str_30                                                      0001E8 R
+ 18 ___str_31                                                      0001F1 R
+ 18 ___str_32                                                      0001FD R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
- 18 ___str_33                                                      000201 R
  18 ___str_4                                                       00003E R
  18 ___str_5                                                       000051 R
- 18 ___str_6                                                       000086 R
- 18 ___str_7                                                       000092 R
- 18 ___str_8                                                       00009E R
- 18 ___str_9                                                       0000AB R
+ 18 ___str_6                                                       000085 R
+ 18 ___str_7                                                       00009B R
+ 18 ___str_8                                                       0000A8 R
+ 18 ___str_9                                                       0000B8 R
     __divslong                                                     ****** GX
     __gptrget                                                      ****** GX
     __gptrput                                                      ****** GX
@@ -399,22 +398,23 @@ Symbol Table
   D _decp                                                          000003 R
   D _decv                                                          00000F R
   D _deltas                                                        000018 R
- 17 _dump_peek                                                     00038A R
- 17 _dump_pop                                                      000198 R
+ 17 _dump_peek                                                     000375 R
+ 17 _dump_pop                                                      000193 R
  17 _getchar                                                       000005 GR
  17 _getchar_poll                                                  00000E GR
- 17 _help                                                          001671 R
+ 17 _help                                                          001663 R
   D _hexP                                                          000006 R
   D _hexV                                                          000012 R
   D _hexp                                                          000000 R
   D _hexv                                                          00000C R
     _isxdigit                                                      ****** GX
- 17 _main                                                          001A01 GR
- 17 _operator                                                      0003EF R
+ 17 _main                                                          0019A3 GR
+ 17 _operator                                                      0003CA R
     _printf                                                        ****** GX
- 17 _push_acc                                                      001500 R
+ 17 _push_acc                                                      00146D R
  17 _putchar                                                       000000 GR
- 17 _reset_acc                                                     001607 R
+ 17 _reset_acc                                                     00157B R
+ 17 _reset_base                                                    0015E5 R
   B _s                                                             000000 R
     _stack_init                                                    ****** GX
     _stack_iter_peek                                               ****** GX
@@ -646,9 +646,9 @@ Area Table
    8 IABS                                       size      0   flags    8
    9 BSEG                                       size      0   flags   80
    A PSEG                                       size      0   flags   50
-   B XSEG                                       size   201B   flags   40
+   B XSEG                                       size   2019   flags   40
    C XABS                                       size      0   flags   48
-   D XISEG                                      size     AE   flags   40
+   D XISEG                                      size     B8   flags   40
    E HOME                                       size      6   flags   20
    F GSINIT0                                    size      0   flags   20
   10 GSINIT1                                    size      0   flags   20
@@ -658,8 +658,8 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size   1C16   flags   20
-  18 CONST                                      size    20A   flags   20
-  19 XINIT                                      size     AE   flags   20
+  17 CSEG                                       size   1BFA   flags   20
+  18 CONST                                      size    206   flags   20
+  19 XINIT                                      size     B8   flags   20
   1A CABS                                       size      0   flags   28
 

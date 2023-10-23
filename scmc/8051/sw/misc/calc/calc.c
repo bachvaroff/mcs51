@@ -59,12 +59,13 @@ inline void printstr(const char *s) {
 #define EVENT_DIGIT 1
 #define EVENT_OP 2
 #define EVENT_HELP 3
-#define EVENT_RSTA_i 4
-#define EVENT_RSTA_I 5
-#define EVENT_TERM 6
+#define EVENT_BASE 4
+#define EVENT_RSTA_i 5
+#define EVENT_RSTA_I 6
+#define EVENT_TERM 7
 
 struct ctx {
-	long base;
+	int base;
 	long acc;
 	char acc_valid;
 	char digit[2];
@@ -92,7 +93,7 @@ static int accumulate(void *_ctx, delta_t *delta) __reentrant {
 	}
 	
 	d = strtol(ctx->digit, NULL, ctx->base);
-	ctx->acc = ctx->acc * ctx->base + d;
+	ctx->acc = ctx->acc * (long)ctx->base + d;
 	
 	return 1;
 }
@@ -128,12 +129,6 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 	long d0, d1;
 	
 	switch (ctx->digit[0]) {
-	case 'h':
-		ctx->base = 10l;
-		break;
-	case 'H':
-		ctx->base = 16l;
-		break;
 	case 'p':
 		printstr("\r\n");
 		if (!stack_peek(&ctx->s, &d0)) printstr("stack underflow\r\n");
@@ -287,17 +282,37 @@ static int reset_acc(void *_ctx, delta_t *delta) __reentrant {
 	return 1;
 }
 
+static int reset_base(void *_ctx, delta_t *delta) __reentrant {
+	struct ctx *ctx = (struct ctx *)_ctx;
+	
+	switch (ctx->digit[0]) {
+	case 'H':
+		ctx->base = 16;
+		break;
+	case 'h':
+		ctx->base = 10;
+		break;
+	case 'O':
+		ctx->base = 8;
+		break;
+	case 'o':
+		ctx->base = 2;
+		break;
+	}
+	
+	return 1;
+}
+
 static int help(void *_ctx, delta_t *delta) __reentrant {
 	struct ctx *ctx = (struct ctx *)_ctx;
 	
 	(void)delta;
-	printf("\r\nbase = %ld, acc = %ld / %0.8lx, acc_valid = %d\r\n\r\n",
+	printf("\r\nbase = %d, acc = %ld / %0.8lx, acc_valid = %d\r\n\r\n",
 			ctx->base, ctx->acc, ctx->acc, (int)ctx->acc_valid);
-	printstr("h\tbase 10\r\n");
-	printstr("H\tbase 16\r\n");
+	printstr("HhOo\tbase 16 10 8 2\r\n");
 	printstr("p\tpeek top\r\n");
 	printstr("P\tprint stack\r\n");
-	printstr("v .\tpop top\r\n");
+	printstr("v.\tpop top\r\n");
 	printstr("V\tpop all\r\n");
 	printstr("i\treset acc\r\n");
 	printstr("I\treset and discard acc\r\n");
@@ -333,7 +348,7 @@ static delta_t deltas[] = {
 	
 	{ ANY, EVENT_RSTA_i, ANY, NULL, reset_acc },
 	{ ANY, EVENT_RSTA_I, ANY, NULL, NULL },
-	
+	{ ANY, EVENT_BASE, ANY, NULL, reset_base },
 	{ ANY, EVENT_HELP, ANY, NULL, help },
 	
 	{ ANY, EVENT_TERM, STATE_FINAL, NULL, dump_pop },
@@ -347,7 +362,7 @@ static struct ctx c;
 void main(void) {
 	int input;
 	
-	c.base = 10l;
+	c.base = 10;
 	c.acc = 0l;
 	c.acc_valid = (char)0;
 	c.digit[0] = c.digit[1] = '\0';
@@ -356,6 +371,7 @@ void main(void) {
 	
 	while (1) {
 		input = getchar();
+		c.digit[0] = (char)input;
 		(void)putchar(input);
 		if ((char)input == 'q') {
 			if (state_exec(&s, EVENT_TERM) <= 0) break;
@@ -365,8 +381,9 @@ void main(void) {
 			if (state_exec(&s, EVENT_RSTA_i) <= 0) break;
 		} else if ((char)input == 'I') {
 			if (state_exec(&s, EVENT_RSTA_I) <= 0) break;
+		} else if (((char)input == 'h') || ((char)input == 'H') || ((char)input == 'o') || ((char)input == 'O')) {
+			if (state_exec(&s, EVENT_BASE) <= 0) break;
 		} else if (isxdigit(input)) {
-			c.digit[0] = (char)input;
 			if (state_exec(&s, EVENT_DIGIT) <= 0) break;
 		} else if (
 				((char)input == 'h') || ((char)input == 'H') ||
@@ -383,7 +400,6 @@ void main(void) {
 				((char)input == '^') ||
 				((char)input == '~')
 		) {
-			c.digit[0] = (char)input;
 			if (state_exec(&s, EVENT_OP) <= 0) break;
 		} else {
 			if (state_exec(&s, EVENT_DELIM) <= 0) break;
