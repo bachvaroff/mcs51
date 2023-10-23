@@ -351,18 +351,20 @@ Symbol Table
  18 ___str_24                                                      00014C R
  18 ___str_25                                                      00015F R
  18 ___str_26                                                      000170 R
- 18 ___str_27                                                      000182 R
- 18 ___str_28                                                      000190 R
- 18 ___str_29                                                      00019D R
+ 18 ___str_27                                                      00018A R
+ 18 ___str_28                                                      00019C R
+ 18 ___str_29                                                      0001B7 R
  18 ___str_3                                                       000019 R
- 18 ___str_30                                                      0001AB R
- 18 ___str_31                                                      0001BF R
- 18 ___str_32                                                      0001C8 R
+ 18 ___str_30                                                      0001C5 R
+ 18 ___str_31                                                      0001D2 R
+ 18 ___str_32                                                      0001E0 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+ 18 ___str_33                                                      0001F4 R
+ 18 ___str_34                                                      0001FD R
  18 ___str_4                                                       000023 R
  18 ___str_5                                                       00002C R
  18 ___str_6                                                       000030 R
@@ -370,6 +372,7 @@ Symbol Table
  18 ___str_8                                                       000038 R
  18 ___str_9                                                       00004C R
     __divslong                                                     ****** GX
+    __divulong                                                     ****** GX
     __gptrget                                                      ****** GX
     __gptrput                                                      ****** GX
   E __interrupt_vect                                               000000 R
@@ -377,6 +380,7 @@ Symbol Table
     __mcs51_genXINIT                                               ****** GX
     __mcs51_genXRAMCLEAR                                           ****** GX
     __modslong                                                     ****** GX
+    __modulong                                                     ****** GX
     __mullong                                                      ****** GX
     __sdcc_gsinit_startup                                          ****** GX
   E __sdcc_program_startup                                         000003 GR
@@ -390,17 +394,17 @@ Symbol Table
  17 _dump_pop                                                      00023C R
  17 _getchar                                                       000005 GR
  17 _getchar_poll                                                  00000E GR
- 17 _help                                                          001A59 R
+ 17 _help                                                          001B89 R
     _isxdigit                                                      ****** GX
- 17 _main                                                          001E89 GR
+ 17 _main                                                          001FFD GR
  17 _operator                                                      000624 R
  17 _printbin                                                      000045 R
     _printf                                                        ****** GX
  17 _printstr                                                      000022 R
- 17 _push_acc                                                      001863 R
+ 17 _push_acc                                                      001993 R
  17 _putchar                                                       000000 GR
- 17 _reset_acc                                                     001971 R
- 17 _reset_base                                                    0019DB R
+ 17 _reset_acc                                                     001AA1 R
+ 17 _reset_base                                                    001B0B R
   B _s                                                             000000 R
     _stack_init                                                    ****** GX
     _stack_iter_peek                                               ****** GX
@@ -414,15 +418,15 @@ Symbol Table
     a.0                                                         =  0000E0 L
     a.1                                                         =  0000E1 L
     a.2                                                         =  0000E2 L
-    a.3                                                         =  0000E3 L
-    a.4                                                         =  0000E4 L
-    a.5                                                         =  0000E5 L
-    a.6                                                         =  0000E6 L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 8.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    a.3                                                         =  0000E3 L
+    a.4                                                         =  0000E4 L
+    a.5                                                         =  0000E5 L
+    a.6                                                         =  0000E6 L
     a.7                                                         =  0000E7 L
     ac                                                          =  0000D6 L
     acc                                                         =  0000E0 L
@@ -474,15 +478,15 @@ Symbol Table
     ie.4                                                        =  0000AC L
     ie.5                                                        =  0000AD L
     ie.7                                                        =  0000AF L
-    ie0                                                         =  000089 L
-    ie1                                                         =  00008B L
-    int0                                                        =  0000B2 L
-    int1                                                        =  0000B3 L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 9.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    ie0                                                         =  000089 L
+    ie1                                                         =  00008B L
+    int0                                                        =  0000B2 L
+    int1                                                        =  0000B3 L
     ip                                                          =  0000B8 L
     ip.0                                                        =  0000B8 L
     ip.1                                                        =  0000B9 L
@@ -534,15 +538,15 @@ Symbol Table
     pcon                                                        =  000087 L
     ps                                                          =  0000BC L
     psw                                                         =  0000D0 L
-    psw.0                                                       =  0000D0 L
-    psw.1                                                       =  0000D1 L
-    psw.2                                                       =  0000D2 L
-    psw.3                                                       =  0000D3 L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 10.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    psw.0                                                       =  0000D0 L
+    psw.1                                                       =  0000D1 L
+    psw.2                                                       =  0000D2 L
+    psw.3                                                       =  0000D3 L
     psw.4                                                       =  0000D4 L
     psw.5                                                       =  0000D5 L
     psw.6                                                       =  0000D6 L
@@ -594,15 +598,15 @@ Symbol Table
     tcon.4                                                      =  00008C L
     tcon.5                                                      =  00008D L
     tcon.6                                                      =  00008E L
-    tcon.7                                                      =  00008F L
-    tf0                                                         =  00008D L
-    tf1                                                         =  00008F L
-    tf2                                                         =  0000CF L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 11.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    tcon.7                                                      =  00008F L
+    tf0                                                         =  00008D L
+    tf1                                                         =  00008F L
+    tf2                                                         =  0000CF L
     th0                                                         =  00008C L
     th1                                                         =  00008D L
     th2                                                         =  0000CD L
@@ -645,8 +649,8 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size   20E0   flags   20
-  18 CONST                                      size    1D1   flags   20
+  17 CSEG                                       size   225E   flags   20
+  18 CONST                                      size    206   flags   20
   19 XINIT                                      size     A0   flags   20
   1A CABS                                       size      0   flags   28
 

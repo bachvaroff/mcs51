@@ -209,6 +209,7 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		}
 		break;
 	case '/':
+	case '\\':
 		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
 		else if (!stack_pop(&ctx->s, &d1)) {
 			(void)stack_push(&ctx->s, d0);
@@ -218,11 +219,13 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 			(void)stack_push(&ctx->s, d0);			
 			printstr("\r\ndivision by zero\r\n");
 		} else {
-			d1 /= d0;
+			if (ctx->digit[0] == '/') d1 /= d0;
+			else d1 = (unsigned long)d1 / (unsigned long)d0;
 			(void)stack_push(&ctx->s, d1);
 		}
 		break;
 	case '%':
+	case '#':
 		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
 		else if (!stack_pop(&ctx->s, &d1)) {
 			(void)stack_push(&ctx->s, d0);
@@ -232,7 +235,8 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 			(void)stack_push(&ctx->s, d0);			
 			printstr("\r\ndivision by zero\r\n");
 		} else {
-			d1 %= d0;
+			if (ctx->digit[0] == '%') d1 %= d0;
+			else d1 = (unsigned long)d1 % (unsigned long)d0;
 			(void)stack_push(&ctx->s, d1);
 		}
 		break;
@@ -345,7 +349,9 @@ static int help(void *_ctx, delta_t *delta) __reentrant {
 	printstr("-\tsubtract top 2\r\n");
 	printstr("*\tmultiply top 2\r\n");
 	printstr("/\tdivide top 2\r\n");
+	printstr("\\\tdivide top 2 unsigned\r\n");	
 	printstr("%\tmodulus top 2\r\n");
+	printstr("#\tmodulus top 2 unsigned\r\n");
 	printstr("&\tand top 2\r\n");
 	printstr("|\tor top 2\r\n");
 	printstr("^\txor top 2\r\n");
@@ -417,8 +423,8 @@ void main(void) {
 				((char)input == '+') ||
 				((char)input == '-') ||
 				((char)input == '*') ||
-				((char)input == '/') ||
-				((char)input == '%') ||
+				((char)input == '/') || ((char)input == '\\') ||
+				((char)input == '%') || ((char)input == '#') ||
 				((char)input == '&') ||
 				((char)input == '|') ||
 				((char)input == '^') ||
