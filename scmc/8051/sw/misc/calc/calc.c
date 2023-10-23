@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <limits.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -199,9 +200,12 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		else if (!stack_pop(&ctx->s, &d1)) {
 			(void)stack_push(&ctx->s, d0);
 			printstr("\r\nstack underflow\r\n");
+		} else if (!d0) {
+			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(&ctx->s, d0);			
+			printstr("\r\ndivision by zero\r\n");
 		} else {
-			if (!d0) d1 = -1l;
-			else d1 /= d0;
+			d1 /= d0;
 			(void)stack_push(&ctx->s, d1);
 		}
 		break;
@@ -210,9 +214,12 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		else if (!stack_pop(&ctx->s, &d1)) {
 			(void)stack_push(&ctx->s, d0);
 			printstr("\r\nstack underflow\r\n");
+		} else if (!d0) {
+			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(&ctx->s, d0);			
+			printstr("\r\ndivision by zero\r\n");
 		} else {
-			if (!d0) d1 = -1l;
-			else d1 %= d0;
+			d1 %= d0;
 			(void)stack_push(&ctx->s, d1);
 		}
 		break;
@@ -335,16 +342,15 @@ static delta_t deltas[] = {
 };
 
 static state_t s;
-static struct ctx c = {
-	10l,
-	0l,
-	(char)0,
-	{ '\0', '\0' }
-};
+static struct ctx c;
 
 void main(void) {
 	int input;
 	
+	c.base = 10l;
+	c.acc = 0l;
+	c.acc_valid = (char)0;
+	c.digit[0] = c.digit[1] = '\0';
 	stack_init(&c.s);	
 	state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
 	

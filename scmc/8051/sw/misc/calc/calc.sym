@@ -333,42 +333,43 @@ Symbol Table
     _WR                                                         =  0000B6 G
  18 ___str_0                                                       000000 R
  18 ___str_1                                                       000003 R
- 18 ___str_10                                                      0000B4 R
- 18 ___str_11                                                      0000C0 R
- 18 ___str_12                                                      0000CE R
- 18 ___str_13                                                      0000E8 R
- 18 ___str_14                                                      0000FB R
- 18 ___str_15                                                      000109 R
- 18 ___str_16                                                      00011C R
- 18 ___str_17                                                      00012F R
- 18 ___str_18                                                      000140 R
- 18 ___str_19                                                      000152 R
+ 18 ___str_10                                                      0000BB R
+ 18 ___str_11                                                      0000C9 R
+ 18 ___str_12                                                      0000D5 R
+ 18 ___str_13                                                      0000E3 R
+ 18 ___str_14                                                      0000FD R
+ 18 ___str_15                                                      000110 R
+ 18 ___str_16                                                      00011E R
+ 18 ___str_17                                                      000131 R
+ 18 ___str_18                                                      000144 R
+ 18 ___str_19                                                      000155 R
  18 ___str_2                                                       000015 R
- 18 ___str_20                                                      000160 R
- 18 ___str_21                                                      00016D R
- 18 ___str_22                                                      00017B R
- 18 ___str_23                                                      00018F R
- 18 ___str_24                                                      000198 R
- 18 ___str_25                                                      0001A1 R
- 18 ___str_26                                                      0001AD R
- 18 ___str_27                                                      0001B6 R
- 18 ___str_28                                                      0001C2 R
- 18 ___str_29                                                      0001CB R
+ 18 ___str_20                                                      000167 R
+ 18 ___str_21                                                      000175 R
+ 18 ___str_22                                                      000182 R
+ 18 ___str_23                                                      000190 R
+ 18 ___str_24                                                      0001A4 R
+ 18 ___str_25                                                      0001AD R
+ 18 ___str_26                                                      0001B6 R
+ 18 ___str_27                                                      0001C2 R
+ 18 ___str_28                                                      0001CB R
+ 18 ___str_29                                                      0001D7 R
  18 ___str_3                                                       000029 R
- 18 ___str_30                                                      0001D7 R
- 18 ___str_31                                                      0001E0 R
- 18 ___str_32                                                      0001EC R
+ 18 ___str_30                                                      0001E0 R
+ 18 ___str_31                                                      0001EC R
+ 18 ___str_32                                                      0001F5 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
- 18 ___str_4                                                       00003C R
- 18 ___str_5                                                       000071 R
- 18 ___str_6                                                       00007D R
- 18 ___str_7                                                       000089 R
- 18 ___str_8                                                       000096 R
- 18 ___str_9                                                       0000A6 R
+ 18 ___str_33                                                      000201 R
+ 18 ___str_4                                                       00003E R
+ 18 ___str_5                                                       000051 R
+ 18 ___str_6                                                       000086 R
+ 18 ___str_7                                                       000092 R
+ 18 ___str_8                                                       00009E R
+ 18 ___str_9                                                       0000AB R
     __divslong                                                     ****** GX
     __gptrget                                                      ****** GX
     __gptrput                                                      ****** GX
@@ -381,7 +382,6 @@ Symbol Table
     __sdcc_gsinit_startup                                          ****** GX
   E __sdcc_program_startup                                         000003 GR
   6 __start__stack                                                 000000 GR
- 19 __xinit__c                                                     0000AE R
  19 __xinit__decP                                                  000009 R
  19 __xinit__decV                                                  000015 R
  19 __xinit__decp                                                  000003 R
@@ -393,7 +393,7 @@ Symbol Table
  19 __xinit__hexv                                                  00000C R
  17 _accumulate                                                    000022 R
     _bp                                                            ****** GX
-  D _c                                                             0000AE R
+  B _c                                                             00000C R
   D _decP                                                          000009 R
   D _decV                                                          000015 R
   D _decp                                                          000003 R
@@ -403,18 +403,18 @@ Symbol Table
  17 _dump_pop                                                      000198 R
  17 _getchar                                                       000005 GR
  17 _getchar_poll                                                  00000E GR
- 17 _help                                                          001575 R
+ 17 _help                                                          001671 R
   D _hexP                                                          000006 R
   D _hexV                                                          000012 R
   D _hexp                                                          000000 R
   D _hexv                                                          00000C R
     _isxdigit                                                      ****** GX
- 17 _main                                                          001905 GR
+ 17 _main                                                          001A01 GR
  17 _operator                                                      0003EF R
     _printf                                                        ****** GX
- 17 _push_acc                                                      001404 R
+ 17 _push_acc                                                      001500 R
  17 _putchar                                                       000000 GR
- 17 _reset_acc                                                     00150B R
+ 17 _reset_acc                                                     001607 R
   B _s                                                             000000 R
     _stack_init                                                    ****** GX
     _stack_iter_peek                                               ****** GX
@@ -646,9 +646,9 @@ Area Table
    8 IABS                                       size      0   flags    8
    9 BSEG                                       size      0   flags   80
    A PSEG                                       size      0   flags   50
-   B XSEG                                       size      C   flags   40
+   B XSEG                                       size   201B   flags   40
    C XABS                                       size      0   flags   48
-   D XISEG                                      size   20BD   flags   40
+   D XISEG                                      size     AE   flags   40
    E HOME                                       size      6   flags   20
    F GSINIT0                                    size      0   flags   20
   10 GSINIT1                                    size      0   flags   20
@@ -658,8 +658,8 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size   1AF7   flags   20
-  18 CONST                                      size    1F5   flags   20
-  19 XINIT                                      size   20BD   flags   20
+  17 CSEG                                       size   1C16   flags   20
+  18 CONST                                      size    20A   flags   20
+  19 XINIT                                      size     AE   flags   20
   1A CABS                                       size      0   flags   28
 
