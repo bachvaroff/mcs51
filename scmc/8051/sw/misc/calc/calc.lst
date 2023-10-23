@@ -6128,775 +6128,825 @@
                                    6128 ;Allocation info for local variables in function 'main'
                                    6129 ;------------------------------------------------------------
                                    6130 ;input                     Allocated to registers r6 r7 
-                                   6131 ;sloc0                     Allocated to stack - _bp +3
-                                   6132 ;------------------------------------------------------------
-                                   6133 ;	calc.c:392: void main(void) {
-                                   6134 ;	-----------------------------------------
-                                   6135 ;	 function main
-                                   6136 ;	-----------------------------------------
-      001FFD                       6137 _main:
-                                   6138 ;	calc.c:395: c.base = 10;
-      001FFD 90r00r0C         [24] 6139 	mov	dptr,#_c
-      002000 74 0A            [12] 6140 	mov	a,#0x0a
-      002002 F0               [24] 6141 	movx	@dptr,a
-      002003 E4               [12] 6142 	clr	a
-      002004 A3               [24] 6143 	inc	dptr
-      002005 F0               [24] 6144 	movx	@dptr,a
-                                   6145 ;	calc.c:396: c.acc = 0l;
-      002006 90r00r0E         [24] 6146 	mov	dptr,#(_c + 0x0002)
-      002009 F0               [24] 6147 	movx	@dptr,a
-      00200A A3               [24] 6148 	inc	dptr
-      00200B F0               [24] 6149 	movx	@dptr,a
-      00200C A3               [24] 6150 	inc	dptr
-      00200D F0               [24] 6151 	movx	@dptr,a
-      00200E A3               [24] 6152 	inc	dptr
-      00200F F0               [24] 6153 	movx	@dptr,a
-                                   6154 ;	calc.c:397: c.acc_valid = (char)0;
-      002010 90r00r12         [24] 6155 	mov	dptr,#(_c + 0x0006)
-      002013 F0               [24] 6156 	movx	@dptr,a
-                                   6157 ;	calc.c:398: c.digit[0] = c.digit[1] = '\0';
-      002014 90r00r14         [24] 6158 	mov	dptr,#(_c + 0x0008)
-      002017 F0               [24] 6159 	movx	@dptr,a
-      002018 90r00r13         [24] 6160 	mov	dptr,#(_c + 0x0007)
-      00201B F0               [24] 6161 	movx	@dptr,a
-                                   6162 ;	calc.c:399: stack_init(&c.s);	
-      00201C 90r00r15         [24] 6163 	mov	dptr,#(_c + 0x0009)
-      00201F 75 F0 00         [24] 6164 	mov	b,#0x00
-      002022 12r00r00         [24] 6165 	lcall	_stack_init
-                                   6166 ;	calc.c:400: state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
-      002025 74r0C            [12] 6167 	mov	a,#_c
-      002027 C0 E0            [24] 6168 	push	acc
-      002029 74s00            [12] 6169 	mov	a,#(_c >> 8)
-      00202B C0 E0            [24] 6170 	push	acc
-      00202D E4               [12] 6171 	clr	a
-      00202E C0 E0            [24] 6172 	push	acc
-      002030 74r00            [12] 6173 	mov	a,#_deltas
-      002032 C0 E0            [24] 6174 	push	acc
-      002034 74s00            [12] 6175 	mov	a,#(_deltas >> 8)
-      002036 C0 E0            [24] 6176 	push	acc
-      002038 E4               [12] 6177 	clr	a
-      002039 C0 E0            [24] 6178 	push	acc
-      00203B C0 E0            [24] 6179 	push	acc
-      00203D 74 80            [12] 6180 	mov	a,#0x80
-      00203F C0 E0            [24] 6181 	push	acc
-      002041 74 03            [12] 6182 	mov	a,#0x03
-      002043 C0 E0            [24] 6183 	push	acc
-      002045 E4               [12] 6184 	clr	a
-      002046 C0 E0            [24] 6185 	push	acc
-      002048 C0 E0            [24] 6186 	push	acc
-      00204A C0 E0            [24] 6187 	push	acc
-      00204C 90r00r00         [24] 6188 	mov	dptr,#_s
-      00204F 75 F0 00         [24] 6189 	mov	b,#0x00
-      002052 12r00r00         [24] 6190 	lcall	_state_init
-      002055 E5 81            [12] 6191 	mov	a,sp
-      002057 24 F4            [12] 6192 	add	a,#0xf4
-      002059 F5 81            [12] 6193 	mov	sp,a
-                                   6194 ;	calc.c:402: while (1) {
-      00205B                       6195 00160$:
-                                   6196 ;	calc.c:403: input = getchar();
-      00205B 12r00r05         [24] 6197 	lcall	_getchar
+                                   6131 ;------------------------------------------------------------
+                                   6132 ;	calc.c:392: void main(void) {
+                                   6133 ;	-----------------------------------------
+                                   6134 ;	 function main
+                                   6135 ;	-----------------------------------------
+      001FFD                       6136 _main:
+                                   6137 ;	calc.c:395: c.base = 10;
+      001FFD 90r00r0C         [24] 6138 	mov	dptr,#_c
+      002000 74 0A            [12] 6139 	mov	a,#0x0a
+      002002 F0               [24] 6140 	movx	@dptr,a
+      002003 E4               [12] 6141 	clr	a
+      002004 A3               [24] 6142 	inc	dptr
+      002005 F0               [24] 6143 	movx	@dptr,a
+                                   6144 ;	calc.c:396: c.acc = 0l;
+      002006 90r00r0E         [24] 6145 	mov	dptr,#(_c + 0x0002)
+      002009 F0               [24] 6146 	movx	@dptr,a
+      00200A A3               [24] 6147 	inc	dptr
+      00200B F0               [24] 6148 	movx	@dptr,a
+      00200C A3               [24] 6149 	inc	dptr
+      00200D F0               [24] 6150 	movx	@dptr,a
+      00200E A3               [24] 6151 	inc	dptr
+      00200F F0               [24] 6152 	movx	@dptr,a
+                                   6153 ;	calc.c:397: c.acc_valid = (char)0;
+      002010 90r00r12         [24] 6154 	mov	dptr,#(_c + 0x0006)
+      002013 F0               [24] 6155 	movx	@dptr,a
+                                   6156 ;	calc.c:398: c.digit[0] = c.digit[1] = '\0';
+      002014 90r00r14         [24] 6157 	mov	dptr,#(_c + 0x0008)
+      002017 F0               [24] 6158 	movx	@dptr,a
+      002018 90r00r13         [24] 6159 	mov	dptr,#(_c + 0x0007)
+      00201B F0               [24] 6160 	movx	@dptr,a
+                                   6161 ;	calc.c:399: stack_init(&c.s);	
+      00201C 90r00r15         [24] 6162 	mov	dptr,#(_c + 0x0009)
+      00201F 75 F0 00         [24] 6163 	mov	b,#0x00
+      002022 12r00r00         [24] 6164 	lcall	_stack_init
+                                   6165 ;	calc.c:400: state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
+      002025 74r0C            [12] 6166 	mov	a,#_c
+      002027 C0 E0            [24] 6167 	push	acc
+      002029 74s00            [12] 6168 	mov	a,#(_c >> 8)
+      00202B C0 E0            [24] 6169 	push	acc
+      00202D E4               [12] 6170 	clr	a
+      00202E C0 E0            [24] 6171 	push	acc
+      002030 74r00            [12] 6172 	mov	a,#_deltas
+      002032 C0 E0            [24] 6173 	push	acc
+      002034 74s00            [12] 6174 	mov	a,#(_deltas >> 8)
+      002036 C0 E0            [24] 6175 	push	acc
+      002038 E4               [12] 6176 	clr	a
+      002039 C0 E0            [24] 6177 	push	acc
+      00203B C0 E0            [24] 6178 	push	acc
+      00203D 74 80            [12] 6179 	mov	a,#0x80
+      00203F C0 E0            [24] 6180 	push	acc
+      002041 74 03            [12] 6181 	mov	a,#0x03
+      002043 C0 E0            [24] 6182 	push	acc
+      002045 E4               [12] 6183 	clr	a
+      002046 C0 E0            [24] 6184 	push	acc
+      002048 C0 E0            [24] 6185 	push	acc
+      00204A C0 E0            [24] 6186 	push	acc
+      00204C 90r00r00         [24] 6187 	mov	dptr,#_s
+      00204F 75 F0 00         [24] 6188 	mov	b,#0x00
+      002052 12r00r00         [24] 6189 	lcall	_state_init
+      002055 E5 81            [12] 6190 	mov	a,sp
+      002057 24 F4            [12] 6191 	add	a,#0xf4
+      002059 F5 81            [12] 6192 	mov	sp,a
+                                   6193 ;	calc.c:402: while (1) {
+      00205B                       6194 00170$:
+                                   6195 ;	calc.c:403: input = getchar();
+      00205B 12r00r05         [24] 6196 	lcall	_getchar
+                                   6197 ;	calc.c:404: (void)putchar(input);
       00205E AE 82            [24] 6198 	mov	r6,dpl
-      002060 AF 83            [24] 6199 	mov	r7,dph
-                                   6200 ;	calc.c:404: c.digit[0] = (char)input;
-      002062 8E 05            [24] 6201 	mov	ar5,r6
-      002064 90r00r13         [24] 6202 	mov	dptr,#(_c + 0x0007)
-      002067 ED               [12] 6203 	mov	a,r5
-      002068 F0               [24] 6204 	movx	@dptr,a
-                                   6205 ;	calc.c:405: (void)putchar(input);
-      002069 8E 82            [24] 6206 	mov	dpl,r6
-      00206B 8F 83            [24] 6207 	mov	dph,r7
-      00206D 12r00r00         [24] 6208 	lcall	_putchar
-                                   6209 ;	calc.c:406: if ((char)input == 'q') {
-      002070 BD 71 29         [24] 6210 	cjne	r5,#0x71,00157$
-                                   6211 ;	calc.c:407: if (state_exec(&s, EVENT_TERM) <= 0) break;
-      002073 74 07            [12] 6212 	mov	a,#0x07
-      002075 C0 E0            [24] 6213 	push	acc
-      002077 E4               [12] 6214 	clr	a
-      002078 C0 E0            [24] 6215 	push	acc
-      00207A 90r00r00         [24] 6216 	mov	dptr,#_s
-      00207D 75 F0 00         [24] 6217 	mov	b,#0x00
-      002080 12r00r00         [24] 6218 	lcall	_state_exec
-      002083 AB 82            [24] 6219 	mov	r3,dpl
-      002085 AC 83            [24] 6220 	mov	r4,dph
-      002087 15 81            [12] 6221 	dec	sp
-      002089 15 81            [12] 6222 	dec	sp
-      00208B C3               [12] 6223 	clr	c
-      00208C E4               [12] 6224 	clr	a
-      00208D 9B               [12] 6225 	subb	a,r3
-      00208E 74 80            [12] 6226 	mov	a,#(0x00 ^ 0x80)
-      002090 8C F0            [24] 6227 	mov	b,r4
-      002092 63 F0 80         [24] 6228 	xrl	b,#0x80
-      002095 95 F0            [12] 6229 	subb	a,b
-      002097 40 C2            [24] 6230 	jc	00160$
-      002099 02r22r5A         [24] 6231 	ljmp	00161$
-      00209C                       6232 00157$:
-                                   6233 ;	calc.c:408: } else if ((char)input == '?') {
-      00209C BD 3F 29         [24] 6234 	cjne	r5,#0x3f,00154$
-                                   6235 ;	calc.c:409: if (state_exec(&s, EVENT_HELP) <= 0) break;
-      00209F 74 03            [12] 6236 	mov	a,#0x03
-      0020A1 C0 E0            [24] 6237 	push	acc
-      0020A3 E4               [12] 6238 	clr	a
-      0020A4 C0 E0            [24] 6239 	push	acc
-      0020A6 90r00r00         [24] 6240 	mov	dptr,#_s
-      0020A9 75 F0 00         [24] 6241 	mov	b,#0x00
-      0020AC 12r00r00         [24] 6242 	lcall	_state_exec
-      0020AF AB 82            [24] 6243 	mov	r3,dpl
-      0020B1 AC 83            [24] 6244 	mov	r4,dph
-      0020B3 15 81            [12] 6245 	dec	sp
-      0020B5 15 81            [12] 6246 	dec	sp
-      0020B7 C3               [12] 6247 	clr	c
-      0020B8 E4               [12] 6248 	clr	a
-      0020B9 9B               [12] 6249 	subb	a,r3
-      0020BA 74 80            [12] 6250 	mov	a,#(0x00 ^ 0x80)
-      0020BC 8C F0            [24] 6251 	mov	b,r4
-      0020BE 63 F0 80         [24] 6252 	xrl	b,#0x80
-      0020C1 95 F0            [12] 6253 	subb	a,b
-      0020C3 40 96            [24] 6254 	jc	00160$
-      0020C5 02r22r5A         [24] 6255 	ljmp	00161$
-      0020C8                       6256 00154$:
-                                   6257 ;	calc.c:410: } else if ((char)input == 'i') {
-      0020C8 BD 69 2C         [24] 6258 	cjne	r5,#0x69,00151$
-                                   6259 ;	calc.c:411: if (state_exec(&s, EVENT_RSTA_i) <= 0) break;
-      0020CB 74 05            [12] 6260 	mov	a,#0x05
-      0020CD C0 E0            [24] 6261 	push	acc
-      0020CF E4               [12] 6262 	clr	a
-      0020D0 C0 E0            [24] 6263 	push	acc
-      0020D2 90r00r00         [24] 6264 	mov	dptr,#_s
-      0020D5 75 F0 00         [24] 6265 	mov	b,#0x00
-      0020D8 12r00r00         [24] 6266 	lcall	_state_exec
-      0020DB AB 82            [24] 6267 	mov	r3,dpl
-      0020DD AC 83            [24] 6268 	mov	r4,dph
-      0020DF 15 81            [12] 6269 	dec	sp
-      0020E1 15 81            [12] 6270 	dec	sp
-      0020E3 C3               [12] 6271 	clr	c
-      0020E4 E4               [12] 6272 	clr	a
-      0020E5 9B               [12] 6273 	subb	a,r3
-      0020E6 74 80            [12] 6274 	mov	a,#(0x00 ^ 0x80)
-      0020E8 8C F0            [24] 6275 	mov	b,r4
-      0020EA 63 F0 80         [24] 6276 	xrl	b,#0x80
-      0020ED 95 F0            [12] 6277 	subb	a,b
-      0020EF 50 03            [24] 6278 	jnc	00308$
-      0020F1 02r20r5B         [24] 6279 	ljmp	00160$
-      0020F4                       6280 00308$:
-      0020F4 02r22r5A         [24] 6281 	ljmp	00161$
-      0020F7                       6282 00151$:
-                                   6283 ;	calc.c:412: } else if ((char)input == 'I') {
-      0020F7 BD 49 2C         [24] 6284 	cjne	r5,#0x49,00148$
-                                   6285 ;	calc.c:413: if (state_exec(&s, EVENT_RSTA_I) <= 0) break;
-      0020FA 74 06            [12] 6286 	mov	a,#0x06
-      0020FC C0 E0            [24] 6287 	push	acc
-      0020FE E4               [12] 6288 	clr	a
-      0020FF C0 E0            [24] 6289 	push	acc
-      002101 90r00r00         [24] 6290 	mov	dptr,#_s
-      002104 75 F0 00         [24] 6291 	mov	b,#0x00
-      002107 12r00r00         [24] 6292 	lcall	_state_exec
-      00210A AB 82            [24] 6293 	mov	r3,dpl
-      00210C AC 83            [24] 6294 	mov	r4,dph
-      00210E 15 81            [12] 6295 	dec	sp
-      002110 15 81            [12] 6296 	dec	sp
-      002112 C3               [12] 6297 	clr	c
-      002113 E4               [12] 6298 	clr	a
-      002114 9B               [12] 6299 	subb	a,r3
-      002115 74 80            [12] 6300 	mov	a,#(0x00 ^ 0x80)
-      002117 8C F0            [24] 6301 	mov	b,r4
-      002119 63 F0 80         [24] 6302 	xrl	b,#0x80
-      00211C 95 F0            [12] 6303 	subb	a,b
-      00211E 50 03            [24] 6304 	jnc	00311$
-      002120 02r20r5B         [24] 6305 	ljmp	00160$
-      002123                       6306 00311$:
-      002123 02r22r5A         [24] 6307 	ljmp	00161$
-      002126                       6308 00148$:
-                                   6309 ;	calc.c:414: } else if (((char)input == 'h') || ((char)input == 'H') || ((char)input == 'o') || ((char)input == 'O')) {
-      002126 E4               [12] 6310 	clr	a
-      002127 BD 68 01         [24] 6311 	cjne	r5,#0x68,00312$
-      00212A 04               [12] 6312 	inc	a
-      00212B                       6313 00312$:
-      00212B FC               [12] 6314 	mov	r4,a
-      00212C 70 0F            [24] 6315 	jnz	00141$
-      00212E BD 48 01         [24] 6316 	cjne	r5,#0x48,00315$
-      002131 04               [12] 6317 	inc	a
-      002132                       6318 00315$:
-      002132 FB               [12] 6319 	mov	r3,a
-      002133 70 08            [24] 6320 	jnz	00141$
-      002135 BD 6F 02         [24] 6321 	cjne	r5,#0x6f,00318$
-      002138 80 03            [24] 6322 	sjmp	00141$
-      00213A                       6323 00318$:
-      00213A BD 4F 2C         [24] 6324 	cjne	r5,#0x4f,00142$
-      00213D                       6325 00141$:
-                                   6326 ;	calc.c:415: if (state_exec(&s, EVENT_BASE) <= 0) break;
-      00213D 74 04            [12] 6327 	mov	a,#0x04
-      00213F C0 E0            [24] 6328 	push	acc
-      002141 E4               [12] 6329 	clr	a
-      002142 C0 E0            [24] 6330 	push	acc
-      002144 90r00r00         [24] 6331 	mov	dptr,#_s
-      002147 75 F0 00         [24] 6332 	mov	b,#0x00
-      00214A 12r00r00         [24] 6333 	lcall	_state_exec
-      00214D AF 82            [24] 6334 	mov	r7,dpl
-      00214F AE 83            [24] 6335 	mov	r6,dph
-      002151 15 81            [12] 6336 	dec	sp
-      002153 15 81            [12] 6337 	dec	sp
-      002155 C3               [12] 6338 	clr	c
-      002156 E4               [12] 6339 	clr	a
-      002157 9F               [12] 6340 	subb	a,r7
-      002158 74 80            [12] 6341 	mov	a,#(0x00 ^ 0x80)
-      00215A 8E F0            [24] 6342 	mov	b,r6
-      00215C 63 F0 80         [24] 6343 	xrl	b,#0x80
-      00215F 95 F0            [12] 6344 	subb	a,b
-      002161 50 03            [24] 6345 	jnc	00321$
-      002163 02r20r5B         [24] 6346 	ljmp	00160$
-      002166                       6347 00321$:
-      002166 02r22r5A         [24] 6348 	ljmp	00161$
-      002169                       6349 00142$:
-                                   6350 ;	calc.c:416: } else if (isxdigit(input)) {
-      002169 8E 82            [24] 6351 	mov	dpl,r6
-      00216B 8F 83            [24] 6352 	mov	dph,r7
-      00216D C0 05            [24] 6353 	push	ar5
-      00216F C0 04            [24] 6354 	push	ar4
-      002171 C0 03            [24] 6355 	push	ar3
-      002173 12r00r00         [24] 6356 	lcall	_isxdigit
-      002176 E5 82            [12] 6357 	mov	a,dpl
-      002178 85 83 F0         [24] 6358 	mov	b,dph
-      00217B D0 03            [24] 6359 	pop	ar3
-      00217D D0 04            [24] 6360 	pop	ar4
-      00217F D0 05            [24] 6361 	pop	ar5
-      002181 45 F0            [12] 6362 	orl	a,b
-      002183 60 2C            [24] 6363 	jz	00139$
-                                   6364 ;	calc.c:417: if (state_exec(&s, EVENT_DIGIT) <= 0) break;
-      002185 74 01            [12] 6365 	mov	a,#0x01
-      002187 C0 E0            [24] 6366 	push	acc
-      002189 E4               [12] 6367 	clr	a
-      00218A C0 E0            [24] 6368 	push	acc
-      00218C 90r00r00         [24] 6369 	mov	dptr,#_s
-      00218F 75 F0 00         [24] 6370 	mov	b,#0x00
-      002192 12r00r00         [24] 6371 	lcall	_state_exec
-      002195 AE 82            [24] 6372 	mov	r6,dpl
-      002197 AF 83            [24] 6373 	mov	r7,dph
-      002199 15 81            [12] 6374 	dec	sp
-      00219B 15 81            [12] 6375 	dec	sp
-      00219D C3               [12] 6376 	clr	c
-      00219E E4               [12] 6377 	clr	a
-      00219F 9E               [12] 6378 	subb	a,r6
-      0021A0 74 80            [12] 6379 	mov	a,#(0x00 ^ 0x80)
-      0021A2 8F F0            [24] 6380 	mov	b,r7
-      0021A4 63 F0 80         [24] 6381 	xrl	b,#0x80
-      0021A7 95 F0            [12] 6382 	subb	a,b
-      0021A9 50 03            [24] 6383 	jnc	00323$
-      0021AB 02r20r5B         [24] 6384 	ljmp	00160$
-      0021AE                       6385 00323$:
-      0021AE 02r22r5A         [24] 6386 	ljmp	00161$
-      0021B1                       6387 00139$:
-                                   6388 ;	calc.c:419: ((char)input == 'h') || ((char)input == 'H') ||
-      0021B1 EC               [12] 6389 	mov	a,r4
-      0021B2 70 56            [24] 6390 	jnz	00117$
-      0021B4 EB               [12] 6391 	mov	a,r3
-      0021B5 70 53            [24] 6392 	jnz	00117$
-                                   6393 ;	calc.c:420: ((char)input == 'p') || ((char)input == 'P') ||
-      0021B7 BD 70 02         [24] 6394 	cjne	r5,#0x70,00326$
-      0021BA 80 4E            [24] 6395 	sjmp	00117$
-      0021BC                       6396 00326$:
-      0021BC BD 50 02         [24] 6397 	cjne	r5,#0x50,00327$
-      0021BF 80 49            [24] 6398 	sjmp	00117$
-      0021C1                       6399 00327$:
-                                   6400 ;	calc.c:421: ((char)input == '.') || ((char)input == 'v') || ((char)input == 'V') ||
-      0021C1 BD 2E 02         [24] 6401 	cjne	r5,#0x2e,00328$
-      0021C4 80 44            [24] 6402 	sjmp	00117$
-      0021C6                       6403 00328$:
-      0021C6 BD 76 02         [24] 6404 	cjne	r5,#0x76,00329$
-      0021C9 80 3F            [24] 6405 	sjmp	00117$
-      0021CB                       6406 00329$:
-      0021CB BD 56 02         [24] 6407 	cjne	r5,#0x56,00330$
-      0021CE 80 3A            [24] 6408 	sjmp	00117$
-      0021D0                       6409 00330$:
-                                   6410 ;	calc.c:422: ((char)input == 'x') ||
-      0021D0 BD 78 02         [24] 6411 	cjne	r5,#0x78,00331$
-      0021D3 80 35            [24] 6412 	sjmp	00117$
-      0021D5                       6413 00331$:
-                                   6414 ;	calc.c:423: ((char)input == '+') ||
-      0021D5 BD 2B 02         [24] 6415 	cjne	r5,#0x2b,00332$
-      0021D8 80 30            [24] 6416 	sjmp	00117$
-      0021DA                       6417 00332$:
-                                   6418 ;	calc.c:424: ((char)input == '-') ||
-      0021DA BD 2D 02         [24] 6419 	cjne	r5,#0x2d,00333$
-      0021DD 80 2B            [24] 6420 	sjmp	00117$
-      0021DF                       6421 00333$:
-                                   6422 ;	calc.c:425: ((char)input == '*') ||
-      0021DF BD 2A 02         [24] 6423 	cjne	r5,#0x2a,00334$
-      0021E2 80 26            [24] 6424 	sjmp	00117$
-      0021E4                       6425 00334$:
-                                   6426 ;	calc.c:426: ((char)input == '/') || ((char)input == '\\') ||
-      0021E4 BD 2F 02         [24] 6427 	cjne	r5,#0x2f,00335$
-      0021E7 80 21            [24] 6428 	sjmp	00117$
-      0021E9                       6429 00335$:
-      0021E9 BD 5C 02         [24] 6430 	cjne	r5,#0x5c,00336$
-      0021EC 80 1C            [24] 6431 	sjmp	00117$
-      0021EE                       6432 00336$:
-                                   6433 ;	calc.c:427: ((char)input == '%') || ((char)input == '#') ||
-      0021EE BD 25 02         [24] 6434 	cjne	r5,#0x25,00337$
-      0021F1 80 17            [24] 6435 	sjmp	00117$
-      0021F3                       6436 00337$:
-      0021F3 BD 23 02         [24] 6437 	cjne	r5,#0x23,00338$
-      0021F6 80 12            [24] 6438 	sjmp	00117$
-      0021F8                       6439 00338$:
-                                   6440 ;	calc.c:428: ((char)input == '&') ||
-      0021F8 BD 26 02         [24] 6441 	cjne	r5,#0x26,00339$
-      0021FB 80 0D            [24] 6442 	sjmp	00117$
-      0021FD                       6443 00339$:
-                                   6444 ;	calc.c:429: ((char)input == '|') ||
-      0021FD BD 7C 02         [24] 6445 	cjne	r5,#0x7c,00340$
-      002200 80 08            [24] 6446 	sjmp	00117$
-      002202                       6447 00340$:
-                                   6448 ;	calc.c:430: ((char)input == '^') ||
-      002202 BD 5E 02         [24] 6449 	cjne	r5,#0x5e,00341$
-      002205 80 03            [24] 6450 	sjmp	00117$
-      002207                       6451 00341$:
-                                   6452 ;	calc.c:431: ((char)input == '~')
-      002207 BD 7E 29         [24] 6453 	cjne	r5,#0x7e,00118$
-      00220A                       6454 00117$:
-                                   6455 ;	calc.c:433: if (state_exec(&s, EVENT_OP) <= 0) break;
-      00220A 74 02            [12] 6456 	mov	a,#0x02
-      00220C C0 E0            [24] 6457 	push	acc
-      00220E E4               [12] 6458 	clr	a
-      00220F C0 E0            [24] 6459 	push	acc
-      002211 90r00r00         [24] 6460 	mov	dptr,#_s
-      002214 75 F0 00         [24] 6461 	mov	b,#0x00
-      002217 12r00r00         [24] 6462 	lcall	_state_exec
-      00221A AE 82            [24] 6463 	mov	r6,dpl
-      00221C AF 83            [24] 6464 	mov	r7,dph
-      00221E 15 81            [12] 6465 	dec	sp
-      002220 15 81            [12] 6466 	dec	sp
-      002222 C3               [12] 6467 	clr	c
-      002223 E4               [12] 6468 	clr	a
-      002224 9E               [12] 6469 	subb	a,r6
-      002225 74 80            [12] 6470 	mov	a,#(0x00 ^ 0x80)
-      002227 8F F0            [24] 6471 	mov	b,r7
-      002229 63 F0 80         [24] 6472 	xrl	b,#0x80
-      00222C 95 F0            [12] 6473 	subb	a,b
-      00222E 50 2A            [24] 6474 	jnc	00161$
-      002230 02r20r5B         [24] 6475 	ljmp	00160$
-      002233                       6476 00118$:
-                                   6477 ;	calc.c:435: if (state_exec(&s, EVENT_DELIM) <= 0) break;
-      002233 E4               [12] 6478 	clr	a
-      002234 C0 E0            [24] 6479 	push	acc
-      002236 C0 E0            [24] 6480 	push	acc
-      002238 90r00r00         [24] 6481 	mov	dptr,#_s
-      00223B 75 F0 00         [24] 6482 	mov	b,#0x00
-      00223E 12r00r00         [24] 6483 	lcall	_state_exec
-      002241 AE 82            [24] 6484 	mov	r6,dpl
-      002243 AF 83            [24] 6485 	mov	r7,dph
-      002245 15 81            [12] 6486 	dec	sp
-      002247 15 81            [12] 6487 	dec	sp
-      002249 C3               [12] 6488 	clr	c
-      00224A E4               [12] 6489 	clr	a
-      00224B 9E               [12] 6490 	subb	a,r6
-      00224C 74 80            [12] 6491 	mov	a,#(0x00 ^ 0x80)
-      00224E 8F F0            [24] 6492 	mov	b,r7
-      002250 63 F0 80         [24] 6493 	xrl	b,#0x80
-      002253 95 F0            [12] 6494 	subb	a,b
-      002255 50 03            [24] 6495 	jnc	00345$
-      002257 02r20r5B         [24] 6496 	ljmp	00160$
-      00225A                       6497 00345$:
-      00225A                       6498 00161$:
-                                   6499 ;	calc.c:441: __endasm;
-      00225A 43 87 02         [24] 6500 	orl	pcon, #2
-                                   6501 ;	calc.c:442: }
-      00225D 22               [24] 6502 	ret
-                                   6503 	.area CSEG    (CODE)
-                                   6504 	.area CONST   (CODE)
-                                   6505 	.area CONST   (CODE)
-      000000                       6506 ___str_0:
-      000000 0D                    6507 	.db 0x0d
-      000001 0A                    6508 	.db 0x0a
-      000002 00                    6509 	.db 0x00
-                                   6510 	.area CSEG    (CODE)
-                                   6511 	.area CONST   (CODE)
-      000003                       6512 ___str_1:
-      000003 73 74 61 63 6B 20 75  6513 	.ascii "stack underflow"
+      002060 AF 83            [24] 6199 	mov  r7,dph
+      002062 12r00r00         [24] 6200 	lcall	_putchar
+                                   6201 ;	calc.c:405: c.digit[0] = (char)input;
+      002065 8E 05            [24] 6202 	mov	ar5,r6
+      002067 90r00r13         [24] 6203 	mov	dptr,#(_c + 0x0007)
+      00206A ED               [12] 6204 	mov	a,r5
+      00206B F0               [24] 6205 	movx	@dptr,a
+                                   6206 ;	calc.c:407: if ((char)input == 'q') {
+      00206C BD 71 29         [24] 6207 	cjne	r5,#0x71,00167$
+                                   6208 ;	calc.c:408: if (state_exec(&s, EVENT_TERM) <= 0) break;
+      00206F 74 07            [12] 6209 	mov	a,#0x07
+      002071 C0 E0            [24] 6210 	push	acc
+      002073 E4               [12] 6211 	clr	a
+      002074 C0 E0            [24] 6212 	push	acc
+      002076 90r00r00         [24] 6213 	mov	dptr,#_s
+      002079 75 F0 00         [24] 6214 	mov	b,#0x00
+      00207C 12r00r00         [24] 6215 	lcall	_state_exec
+      00207F AB 82            [24] 6216 	mov	r3,dpl
+      002081 AC 83            [24] 6217 	mov	r4,dph
+      002083 15 81            [12] 6218 	dec	sp
+      002085 15 81            [12] 6219 	dec	sp
+      002087 C3               [12] 6220 	clr	c
+      002088 E4               [12] 6221 	clr	a
+      002089 9B               [12] 6222 	subb	a,r3
+      00208A 74 80            [12] 6223 	mov	a,#(0x00 ^ 0x80)
+      00208C 8C F0            [24] 6224 	mov	b,r4
+      00208E 63 F0 80         [24] 6225 	xrl	b,#0x80
+      002091 95 F0            [12] 6226 	subb	a,b
+      002093 40 C6            [24] 6227 	jc	00170$
+      002095 02r22rBE         [24] 6228 	ljmp	00171$
+      002098                       6229 00167$:
+                                   6230 ;	calc.c:409: } else if ((char)input == '?') {
+      002098 BD 3F 29         [24] 6231 	cjne	r5,#0x3f,00164$
+                                   6232 ;	calc.c:410: if (state_exec(&s, EVENT_HELP) <= 0) break;
+      00209B 74 03            [12] 6233 	mov	a,#0x03
+      00209D C0 E0            [24] 6234 	push	acc
+      00209F E4               [12] 6235 	clr	a
+      0020A0 C0 E0            [24] 6236 	push	acc
+      0020A2 90r00r00         [24] 6237 	mov	dptr,#_s
+      0020A5 75 F0 00         [24] 6238 	mov	b,#0x00
+      0020A8 12r00r00         [24] 6239 	lcall	_state_exec
+      0020AB AB 82            [24] 6240 	mov	r3,dpl
+      0020AD AC 83            [24] 6241 	mov	r4,dph
+      0020AF 15 81            [12] 6242 	dec	sp
+      0020B1 15 81            [12] 6243 	dec	sp
+      0020B3 C3               [12] 6244 	clr	c
+      0020B4 E4               [12] 6245 	clr	a
+      0020B5 9B               [12] 6246 	subb	a,r3
+      0020B6 74 80            [12] 6247 	mov	a,#(0x00 ^ 0x80)
+      0020B8 8C F0            [24] 6248 	mov	b,r4
+      0020BA 63 F0 80         [24] 6249 	xrl	b,#0x80
+      0020BD 95 F0            [12] 6250 	subb	a,b
+      0020BF 40 9A            [24] 6251 	jc	00170$
+      0020C1 02r22rBE         [24] 6252 	ljmp	00171$
+      0020C4                       6253 00164$:
+                                   6254 ;	calc.c:411: } else if ((char)input == 'i') {
+      0020C4 BD 69 2C         [24] 6255 	cjne	r5,#0x69,00161$
+                                   6256 ;	calc.c:412: if (state_exec(&s, EVENT_RSTA_i) <= 0) break;
+      0020C7 74 05            [12] 6257 	mov	a,#0x05
+      0020C9 C0 E0            [24] 6258 	push	acc
+      0020CB E4               [12] 6259 	clr	a
+      0020CC C0 E0            [24] 6260 	push	acc
+      0020CE 90r00r00         [24] 6261 	mov	dptr,#_s
+      0020D1 75 F0 00         [24] 6262 	mov	b,#0x00
+      0020D4 12r00r00         [24] 6263 	lcall	_state_exec
+      0020D7 AB 82            [24] 6264 	mov	r3,dpl
+      0020D9 AC 83            [24] 6265 	mov	r4,dph
+      0020DB 15 81            [12] 6266 	dec	sp
+      0020DD 15 81            [12] 6267 	dec	sp
+      0020DF C3               [12] 6268 	clr	c
+      0020E0 E4               [12] 6269 	clr	a
+      0020E1 9B               [12] 6270 	subb	a,r3
+      0020E2 74 80            [12] 6271 	mov	a,#(0x00 ^ 0x80)
+      0020E4 8C F0            [24] 6272 	mov	b,r4
+      0020E6 63 F0 80         [24] 6273 	xrl	b,#0x80
+      0020E9 95 F0            [12] 6274 	subb	a,b
+      0020EB 50 03            [24] 6275 	jnc	00310$
+      0020ED 02r20r5B         [24] 6276 	ljmp	00170$
+      0020F0                       6277 00310$:
+      0020F0 02r22rBE         [24] 6278 	ljmp	00171$
+      0020F3                       6279 00161$:
+                                   6280 ;	calc.c:413: } else if ((char)input == 'I') {
+      0020F3 BD 49 2C         [24] 6281 	cjne	r5,#0x49,00158$
+                                   6282 ;	calc.c:414: if (state_exec(&s, EVENT_RSTA_I) <= 0) break;
+      0020F6 74 06            [12] 6283 	mov	a,#0x06
+      0020F8 C0 E0            [24] 6284 	push	acc
+      0020FA E4               [12] 6285 	clr	a
+      0020FB C0 E0            [24] 6286 	push	acc
+      0020FD 90r00r00         [24] 6287 	mov	dptr,#_s
+      002100 75 F0 00         [24] 6288 	mov	b,#0x00
+      002103 12r00r00         [24] 6289 	lcall	_state_exec
+      002106 AB 82            [24] 6290 	mov	r3,dpl
+      002108 AC 83            [24] 6291 	mov	r4,dph
+      00210A 15 81            [12] 6292 	dec	sp
+      00210C 15 81            [12] 6293 	dec	sp
+      00210E C3               [12] 6294 	clr	c
+      00210F E4               [12] 6295 	clr	a
+      002110 9B               [12] 6296 	subb	a,r3
+      002111 74 80            [12] 6297 	mov	a,#(0x00 ^ 0x80)
+      002113 8C F0            [24] 6298 	mov	b,r4
+      002115 63 F0 80         [24] 6299 	xrl	b,#0x80
+      002118 95 F0            [12] 6300 	subb	a,b
+      00211A 50 03            [24] 6301 	jnc	00313$
+      00211C 02r20r5B         [24] 6302 	ljmp	00170$
+      00211F                       6303 00313$:
+      00211F 02r22rBE         [24] 6304 	ljmp	00171$
+      002122                       6305 00158$:
+                                   6306 ;	calc.c:416: ((char)input == 'h') || ((char)input == 'H') ||
+      002122 BD 68 02         [24] 6307 	cjne	r5,#0x68,00314$
+      002125 80 0D            [24] 6308 	sjmp	00151$
+      002127                       6309 00314$:
+      002127 BD 48 02         [24] 6310 	cjne	r5,#0x48,00315$
+      00212A 80 08            [24] 6311 	sjmp	00151$
+      00212C                       6312 00315$:
+                                   6313 ;	calc.c:417: ((char)input == 'o') || ((char)input == 'O')
+      00212C BD 6F 02         [24] 6314 	cjne	r5,#0x6f,00316$
+      00212F 80 03            [24] 6315 	sjmp	00151$
+      002131                       6316 00316$:
+      002131 BD 4F 2C         [24] 6317 	cjne	r5,#0x4f,00152$
+      002134                       6318 00151$:
+                                   6319 ;	calc.c:419: if (state_exec(&s, EVENT_BASE) <= 0) break;
+      002134 74 04            [12] 6320 	mov	a,#0x04
+      002136 C0 E0            [24] 6321 	push	acc
+      002138 E4               [12] 6322 	clr	a
+      002139 C0 E0            [24] 6323 	push	acc
+      00213B 90r00r00         [24] 6324 	mov	dptr,#_s
+      00213E 75 F0 00         [24] 6325 	mov	b,#0x00
+      002141 12r00r00         [24] 6326 	lcall	_state_exec
+      002144 AB 82            [24] 6327 	mov	r3,dpl
+      002146 AC 83            [24] 6328 	mov	r4,dph
+      002148 15 81            [12] 6329 	dec	sp
+      00214A 15 81            [12] 6330 	dec	sp
+      00214C C3               [12] 6331 	clr	c
+      00214D E4               [12] 6332 	clr	a
+      00214E 9B               [12] 6333 	subb	a,r3
+      00214F 74 80            [12] 6334 	mov	a,#(0x00 ^ 0x80)
+      002151 8C F0            [24] 6335 	mov	b,r4
+      002153 63 F0 80         [24] 6336 	xrl	b,#0x80
+      002156 95 F0            [12] 6337 	subb	a,b
+      002158 50 03            [24] 6338 	jnc	00319$
+      00215A 02r20r5B         [24] 6339 	ljmp	00170$
+      00215D                       6340 00319$:
+      00215D 02r22rBE         [24] 6341 	ljmp	00171$
+      002160                       6342 00152$:
+                                   6343 ;	calc.c:420: } else if (isxdigit(input)) {
+      002160 8E 82            [24] 6344 	mov	dpl,r6
+      002162 8F 83            [24] 6345 	mov	dph,r7
+      002164 C0 05            [24] 6346 	push	ar5
+      002166 12r00r00         [24] 6347 	lcall	_isxdigit
+      002169 E5 82            [12] 6348 	mov	a,dpl
+      00216B 85 83 F0         [24] 6349 	mov	b,dph
+      00216E D0 05            [24] 6350 	pop	ar5
+      002170 45 F0            [12] 6351 	orl	a,b
+      002172 60 2C            [24] 6352 	jz	00149$
+                                   6353 ;	calc.c:421: if (state_exec(&s, EVENT_DIGIT) <= 0) break;
+      002174 74 01            [12] 6354 	mov	a,#0x01
+      002176 C0 E0            [24] 6355 	push	acc
+      002178 E4               [12] 6356 	clr	a
+      002179 C0 E0            [24] 6357 	push	acc
+      00217B 90r00r00         [24] 6358 	mov	dptr,#_s
+      00217E 75 F0 00         [24] 6359 	mov	b,#0x00
+      002181 12r00r00         [24] 6360 	lcall	_state_exec
+      002184 AE 82            [24] 6361 	mov	r6,dpl
+      002186 AF 83            [24] 6362 	mov	r7,dph
+      002188 15 81            [12] 6363 	dec	sp
+      00218A 15 81            [12] 6364 	dec	sp
+      00218C C3               [12] 6365 	clr	c
+      00218D E4               [12] 6366 	clr	a
+      00218E 9E               [12] 6367 	subb	a,r6
+      00218F 74 80            [12] 6368 	mov	a,#(0x00 ^ 0x80)
+      002191 8F F0            [24] 6369 	mov	b,r7
+      002193 63 F0 80         [24] 6370 	xrl	b,#0x80
+      002196 95 F0            [12] 6371 	subb	a,b
+      002198 50 03            [24] 6372 	jnc	00321$
+      00219A 02r20r5B         [24] 6373 	ljmp	00170$
+      00219D                       6374 00321$:
+      00219D 02r22rBE         [24] 6375 	ljmp	00171$
+      0021A0                       6376 00149$:
+                                   6377 ;	calc.c:423: ((char)input == 'p') || ((char)input == 'P') ||
+      0021A0 BD 70 02         [24] 6378 	cjne	r5,#0x70,00322$
+      0021A3 80 17            [24] 6379 	sjmp	00140$
+      0021A5                       6380 00322$:
+      0021A5 BD 50 02         [24] 6381 	cjne	r5,#0x50,00323$
+      0021A8 80 12            [24] 6382 	sjmp	00140$
+      0021AA                       6383 00323$:
+                                   6384 ;	calc.c:424: ((char)input == 'v') || ((char)input == 'V') ||
+      0021AA BD 76 02         [24] 6385 	cjne	r5,#0x76,00324$
+      0021AD 80 0D            [24] 6386 	sjmp	00140$
+      0021AF                       6387 00324$:
+      0021AF BD 56 02         [24] 6388 	cjne	r5,#0x56,00325$
+      0021B2 80 08            [24] 6389 	sjmp	00140$
+      0021B4                       6390 00325$:
+                                   6391 ;	calc.c:425: ((char)input == '.') ||
+      0021B4 BD 2E 02         [24] 6392 	cjne	r5,#0x2e,00326$
+      0021B7 80 03            [24] 6393 	sjmp	00140$
+      0021B9                       6394 00326$:
+                                   6395 ;	calc.c:426: ((char)input == 'x')
+      0021B9 BD 78 2C         [24] 6396 	cjne	r5,#0x78,00141$
+      0021BC                       6397 00140$:
+                                   6398 ;	calc.c:428: if (state_exec(&s, EVENT_OP) <= 0) break;
+      0021BC 74 02            [12] 6399 	mov	a,#0x02
+      0021BE C0 E0            [24] 6400 	push	acc
+      0021C0 E4               [12] 6401 	clr	a
+      0021C1 C0 E0            [24] 6402 	push	acc
+      0021C3 90r00r00         [24] 6403 	mov	dptr,#_s
+      0021C6 75 F0 00         [24] 6404 	mov	b,#0x00
+      0021C9 12r00r00         [24] 6405 	lcall	_state_exec
+      0021CC AE 82            [24] 6406 	mov	r6,dpl
+      0021CE AF 83            [24] 6407 	mov	r7,dph
+      0021D0 15 81            [12] 6408 	dec	sp
+      0021D2 15 81            [12] 6409 	dec	sp
+      0021D4 C3               [12] 6410 	clr	c
+      0021D5 E4               [12] 6411 	clr	a
+      0021D6 9E               [12] 6412 	subb	a,r6
+      0021D7 74 80            [12] 6413 	mov	a,#(0x00 ^ 0x80)
+      0021D9 8F F0            [24] 6414 	mov	b,r7
+      0021DB 63 F0 80         [24] 6415 	xrl	b,#0x80
+      0021DE 95 F0            [12] 6416 	subb	a,b
+      0021E0 50 03            [24] 6417 	jnc	00329$
+      0021E2 02r20r5B         [24] 6418 	ljmp	00170$
+      0021E5                       6419 00329$:
+      0021E5 02r22rBE         [24] 6420 	ljmp	00171$
+      0021E8                       6421 00141$:
+                                   6422 ;	calc.c:430: ((char)input == '+') || ((char)input == '-')
+      0021E8 BD 2B 02         [24] 6423 	cjne	r5,#0x2b,00330$
+      0021EB 80 03            [24] 6424 	sjmp	00136$
+      0021ED                       6425 00330$:
+      0021ED BD 2D 2C         [24] 6426 	cjne	r5,#0x2d,00137$
+      0021F0                       6427 00136$:
+                                   6428 ;	calc.c:432: if (state_exec(&s, EVENT_OP) <= 0) break;
+      0021F0 74 02            [12] 6429 	mov	a,#0x02
+      0021F2 C0 E0            [24] 6430 	push	acc
+      0021F4 E4               [12] 6431 	clr	a
+      0021F5 C0 E0            [24] 6432 	push	acc
+      0021F7 90r00r00         [24] 6433 	mov	dptr,#_s
+      0021FA 75 F0 00         [24] 6434 	mov	b,#0x00
+      0021FD 12r00r00         [24] 6435 	lcall	_state_exec
+      002200 AE 82            [24] 6436 	mov	r6,dpl
+      002202 AF 83            [24] 6437 	mov	r7,dph
+      002204 15 81            [12] 6438 	dec	sp
+      002206 15 81            [12] 6439 	dec	sp
+      002208 C3               [12] 6440 	clr	c
+      002209 E4               [12] 6441 	clr	a
+      00220A 9E               [12] 6442 	subb	a,r6
+      00220B 74 80            [12] 6443 	mov	a,#(0x00 ^ 0x80)
+      00220D 8F F0            [24] 6444 	mov	b,r7
+      00220F 63 F0 80         [24] 6445 	xrl	b,#0x80
+      002212 95 F0            [12] 6446 	subb	a,b
+      002214 50 03            [24] 6447 	jnc	00333$
+      002216 02r20r5B         [24] 6448 	ljmp	00170$
+      002219                       6449 00333$:
+      002219 02r22rBE         [24] 6450 	ljmp	00171$
+      00221C                       6451 00137$:
+                                   6452 ;	calc.c:434: ((char)input == '*') ||
+      00221C BD 2A 02         [24] 6453 	cjne	r5,#0x2a,00334$
+      00221F 80 12            [24] 6454 	sjmp	00129$
+      002221                       6455 00334$:
+                                   6456 ;	calc.c:435: ((char)input == '/') || ((char)input == '\\') ||
+      002221 BD 2F 02         [24] 6457 	cjne	r5,#0x2f,00335$
+      002224 80 0D            [24] 6458 	sjmp	00129$
+      002226                       6459 00335$:
+      002226 BD 5C 02         [24] 6460 	cjne	r5,#0x5c,00336$
+      002229 80 08            [24] 6461 	sjmp	00129$
+      00222B                       6462 00336$:
+                                   6463 ;	calc.c:436: ((char)input == '%') || ((char)input == '#')
+      00222B BD 25 02         [24] 6464 	cjne	r5,#0x25,00337$
+      00222E 80 03            [24] 6465 	sjmp	00129$
+      002230                       6466 00337$:
+      002230 BD 23 29         [24] 6467 	cjne	r5,#0x23,00130$
+      002233                       6468 00129$:
+                                   6469 ;	calc.c:438: if (state_exec(&s, EVENT_OP) <= 0) break;
+      002233 74 02            [12] 6470 	mov	a,#0x02
+      002235 C0 E0            [24] 6471 	push	acc
+      002237 E4               [12] 6472 	clr	a
+      002238 C0 E0            [24] 6473 	push	acc
+      00223A 90r00r00         [24] 6474 	mov	dptr,#_s
+      00223D 75 F0 00         [24] 6475 	mov	b,#0x00
+      002240 12r00r00         [24] 6476 	lcall	_state_exec
+      002243 AE 82            [24] 6477 	mov	r6,dpl
+      002245 AF 83            [24] 6478 	mov	r7,dph
+      002247 15 81            [12] 6479 	dec	sp
+      002249 15 81            [12] 6480 	dec	sp
+      00224B C3               [12] 6481 	clr	c
+      00224C E4               [12] 6482 	clr	a
+      00224D 9E               [12] 6483 	subb	a,r6
+      00224E 74 80            [12] 6484 	mov	a,#(0x00 ^ 0x80)
+      002250 8F F0            [24] 6485 	mov	b,r7
+      002252 63 F0 80         [24] 6486 	xrl	b,#0x80
+      002255 95 F0            [12] 6487 	subb	a,b
+      002257 50 65            [24] 6488 	jnc	00171$
+      002259 02r20r5B         [24] 6489 	ljmp	00170$
+      00225C                       6490 00130$:
+                                   6491 ;	calc.c:440: ((char)input == '&') ||
+      00225C BD 26 02         [24] 6492 	cjne	r5,#0x26,00341$
+      00225F 80 0D            [24] 6493 	sjmp	00123$
+      002261                       6494 00341$:
+                                   6495 ;	calc.c:441: ((char)input == '|') || ((char)input == '^') ||
+      002261 BD 7C 02         [24] 6496 	cjne	r5,#0x7c,00342$
+      002264 80 08            [24] 6497 	sjmp	00123$
+      002266                       6498 00342$:
+      002266 BD 5E 02         [24] 6499 	cjne	r5,#0x5e,00343$
+      002269 80 03            [24] 6500 	sjmp	00123$
+      00226B                       6501 00343$:
+                                   6502 ;	calc.c:442: ((char)input == '~')
+      00226B BD 7E 29         [24] 6503 	cjne	r5,#0x7e,00124$
+      00226E                       6504 00123$:
+                                   6505 ;	calc.c:444: if (state_exec(&s, EVENT_OP) <= 0) break;
+      00226E 74 02            [12] 6506 	mov	a,#0x02
+      002270 C0 E0            [24] 6507 	push	acc
+      002272 E4               [12] 6508 	clr	a
+      002273 C0 E0            [24] 6509 	push	acc
+      002275 90r00r00         [24] 6510 	mov	dptr,#_s
+      002278 75 F0 00         [24] 6511 	mov	b,#0x00
+      00227B 12r00r00         [24] 6512 	lcall	_state_exec
+      00227E AE 82            [24] 6513 	mov	r6,dpl
+      002280 AF 83            [24] 6514 	mov	r7,dph
+      002282 15 81            [12] 6515 	dec	sp
+      002284 15 81            [12] 6516 	dec	sp
+      002286 C3               [12] 6517 	clr	c
+      002287 E4               [12] 6518 	clr	a
+      002288 9E               [12] 6519 	subb	a,r6
+      002289 74 80            [12] 6520 	mov	a,#(0x00 ^ 0x80)
+      00228B 8F F0            [24] 6521 	mov	b,r7
+      00228D 63 F0 80         [24] 6522 	xrl	b,#0x80
+      002290 95 F0            [12] 6523 	subb	a,b
+      002292 50 2A            [24] 6524 	jnc	00171$
+      002294 02r20r5B         [24] 6525 	ljmp	00170$
+      002297                       6526 00124$:
+                                   6527 ;	calc.c:446: if (state_exec(&s, EVENT_DELIM) <= 0) break;
+      002297 E4               [12] 6528 	clr	a
+      002298 C0 E0            [24] 6529 	push	acc
+      00229A C0 E0            [24] 6530 	push	acc
+      00229C 90r00r00         [24] 6531 	mov	dptr,#_s
+      00229F 75 F0 00         [24] 6532 	mov	b,#0x00
+      0022A2 12r00r00         [24] 6533 	lcall	_state_exec
+      0022A5 AE 82            [24] 6534 	mov	r6,dpl
+      0022A7 AF 83            [24] 6535 	mov	r7,dph
+      0022A9 15 81            [12] 6536 	dec	sp
+      0022AB 15 81            [12] 6537 	dec	sp
+      0022AD C3               [12] 6538 	clr	c
+      0022AE E4               [12] 6539 	clr	a
+      0022AF 9E               [12] 6540 	subb	a,r6
+      0022B0 74 80            [12] 6541 	mov	a,#(0x00 ^ 0x80)
+      0022B2 8F F0            [24] 6542 	mov	b,r7
+      0022B4 63 F0 80         [24] 6543 	xrl	b,#0x80
+      0022B7 95 F0            [12] 6544 	subb	a,b
+      0022B9 50 03            [24] 6545 	jnc	00347$
+      0022BB 02r20r5B         [24] 6546 	ljmp	00170$
+      0022BE                       6547 00347$:
+      0022BE                       6548 00171$:
+                                   6549 ;	calc.c:452: __endasm;
+      0022BE 43 87 02         [24] 6550 	orl	pcon, #2
+                                   6551 ;	calc.c:453: }
+      0022C1 22               [24] 6552 	ret
+                                   6553 	.area CSEG    (CODE)
+                                   6554 	.area CONST   (CODE)
+                                   6555 	.area CONST   (CODE)
+      000000                       6556 ___str_0:
+      000000 0D                    6557 	.db 0x0d
+      000001 0A                    6558 	.db 0x0a
+      000002 00                    6559 	.db 0x00
+                                   6560 	.area CSEG    (CODE)
+                                   6561 	.area CONST   (CODE)
+      000003                       6562 ___str_1:
+      000003 73 74 61 63 6B 20 75  6563 	.ascii "stack underflow"
              6E 64 65 72 66 6C 6F
              77
-      000012 0D                    6514 	.db 0x0d
-      000013 0A                    6515 	.db 0x0a
-      000014 00                    6516 	.db 0x00
-                                   6517 	.area CSEG    (CODE)
-                                   6518 	.area CONST   (CODE)
-      000015                       6519 ___str_2:
-      000015 56 41 20              6520 	.ascii "VA "
-      000018 00                    6521 	.db 0x00
-                                   6522 	.area CSEG    (CODE)
-                                   6523 	.area CONST   (CODE)
-      000019                       6524 ___str_3:
-      000019 25 20 31 31 6C 64 20  6525 	.ascii "% 11ld / "
+      000012 0D                    6564 	.db 0x0d
+      000013 0A                    6565 	.db 0x0a
+      000014 00                    6566 	.db 0x00
+                                   6567 	.area CSEG    (CODE)
+                                   6568 	.area CONST   (CODE)
+      000015                       6569 ___str_2:
+      000015 56 41 20              6570 	.ascii "VA "
+      000018 00                    6571 	.db 0x00
+                                   6572 	.area CSEG    (CODE)
+                                   6573 	.area CONST   (CODE)
+      000019                       6574 ___str_3:
+      000019 25 20 31 31 6C 64 20  6575 	.ascii "% 11ld / "
              2F 20
-      000022 00                    6526 	.db 0x00
-                                   6527 	.area CSEG    (CODE)
-                                   6528 	.area CONST   (CODE)
-      000023                       6529 ___str_4:
-      000023 25 30 38 6C 78 20 2F  6530 	.ascii "%08lx / "
+      000022 00                    6576 	.db 0x00
+                                   6577 	.area CSEG    (CODE)
+                                   6578 	.area CONST   (CODE)
+      000023                       6579 ___str_4:
+      000023 25 30 38 6C 78 20 2F  6580 	.ascii "%08lx / "
              20
-      00002B 00                    6531 	.db 0x00
-                                   6532 	.area CSEG    (CODE)
-                                   6533 	.area CONST   (CODE)
-      00002C                       6534 ___str_5:
-      00002C 50 41 20              6535 	.ascii "PA "
-      00002F 00                    6536 	.db 0x00
-                                   6537 	.area CSEG    (CODE)
-                                   6538 	.area CONST   (CODE)
-      000030                       6539 ___str_6:
-      000030 50 54 20              6540 	.ascii "PT "
-      000033 00                    6541 	.db 0x00
-                                   6542 	.area CSEG    (CODE)
-                                   6543 	.area CONST   (CODE)
-      000034                       6544 ___str_7:
-      000034 56 54 20              6545 	.ascii "VT "
-      000037 00                    6546 	.db 0x00
-                                   6547 	.area CSEG    (CODE)
-                                   6548 	.area CONST   (CODE)
-      000038                       6549 ___str_8:
-      000038 0D                    6550 	.db 0x0d
-      000039 0A                    6551 	.db 0x0a
-      00003A 73 74 61 63 6B 20 75  6552 	.ascii "stack underflow"
+      00002B 00                    6581 	.db 0x00
+                                   6582 	.area CSEG    (CODE)
+                                   6583 	.area CONST   (CODE)
+      00002C                       6584 ___str_5:
+      00002C 50 41 20              6585 	.ascii "PA "
+      00002F 00                    6586 	.db 0x00
+                                   6587 	.area CSEG    (CODE)
+                                   6588 	.area CONST   (CODE)
+      000030                       6589 ___str_6:
+      000030 50 54 20              6590 	.ascii "PT "
+      000033 00                    6591 	.db 0x00
+                                   6592 	.area CSEG    (CODE)
+                                   6593 	.area CONST   (CODE)
+      000034                       6594 ___str_7:
+      000034 56 54 20              6595 	.ascii "VT "
+      000037 00                    6596 	.db 0x00
+                                   6597 	.area CSEG    (CODE)
+                                   6598 	.area CONST   (CODE)
+      000038                       6599 ___str_8:
+      000038 0D                    6600 	.db 0x0d
+      000039 0A                    6601 	.db 0x0a
+      00003A 73 74 61 63 6B 20 75  6602 	.ascii "stack underflow"
              6E 64 65 72 66 6C 6F
              77
-      000049 0D                    6553 	.db 0x0d
-      00004A 0A                    6554 	.db 0x0a
-      00004B 00                    6555 	.db 0x00
-                                   6556 	.area CSEG    (CODE)
-                                   6557 	.area CONST   (CODE)
-      00004C                       6558 ___str_9:
-      00004C 0D                    6559 	.db 0x0d
-      00004D 0A                    6560 	.db 0x0a
-      00004E 64 69 76 69 73 69 6F  6561 	.ascii "division by zero"
+      000049 0D                    6603 	.db 0x0d
+      00004A 0A                    6604 	.db 0x0a
+      00004B 00                    6605 	.db 0x00
+                                   6606 	.area CSEG    (CODE)
+                                   6607 	.area CONST   (CODE)
+      00004C                       6608 ___str_9:
+      00004C 0D                    6609 	.db 0x0d
+      00004D 0A                    6610 	.db 0x0a
+      00004E 64 69 76 69 73 69 6F  6611 	.ascii "division by zero"
              6E 20 62 79 20 7A 65
              72 6F
-      00005E 0D                    6562 	.db 0x0d
-      00005F 0A                    6563 	.db 0x0a
-      000060 00                    6564 	.db 0x00
-                                   6565 	.area CSEG    (CODE)
-                                   6566 	.area CONST   (CODE)
-      000061                       6567 ___str_10:
-      000061 0D                    6568 	.db 0x0d
-      000062 0A                    6569 	.db 0x0a
-      000063 73 74 61 63 6B 20 6F  6570 	.ascii "stack overflow"
+      00005E 0D                    6612 	.db 0x0d
+      00005F 0A                    6613 	.db 0x0a
+      000060 00                    6614 	.db 0x00
+                                   6615 	.area CSEG    (CODE)
+                                   6616 	.area CONST   (CODE)
+      000061                       6617 ___str_10:
+      000061 0D                    6618 	.db 0x0d
+      000062 0A                    6619 	.db 0x0a
+      000063 73 74 61 63 6B 20 6F  6620 	.ascii "stack overflow"
              76 65 72 66 6C 6F 77
-      000071 0D                    6571 	.db 0x0d
-      000072 0A                    6572 	.db 0x0a
-      000073 00                    6573 	.db 0x00
-                                   6574 	.area CSEG    (CODE)
-                                   6575 	.area CONST   (CODE)
-      000074                       6576 ___str_11:
-      000074 0D                    6577 	.db 0x0d
-      000075 0A                    6578 	.db 0x0a
-      000076 62 61 73 65 20 3D 20  6579 	.ascii "base = %d, "
+      000071 0D                    6621 	.db 0x0d
+      000072 0A                    6622 	.db 0x0a
+      000073 00                    6623 	.db 0x00
+                                   6624 	.area CSEG    (CODE)
+                                   6625 	.area CONST   (CODE)
+      000074                       6626 ___str_11:
+      000074 0D                    6627 	.db 0x0d
+      000075 0A                    6628 	.db 0x0a
+      000076 62 61 73 65 20 3D 20  6629 	.ascii "base = %d, "
              25 64 2C 20
-      000081 00                    6580 	.db 0x00
-                                   6581 	.area CSEG    (CODE)
-                                   6582 	.area CONST   (CODE)
-      000082                       6583 ___str_12:
-      000082 61 63 63 20 3D 20 25  6584 	.ascii "acc = %ld / "
-             6C 64 20 2F 20
-      00008E 00                    6585 	.db 0x00
-                                   6586 	.area CSEG    (CODE)
-                                   6587 	.area CONST   (CODE)
-      00008F                       6588 ___str_13:
-      00008F 2C 20 61 63 63 5F 76  6589 	.ascii ", acc_valid = %d"
-             61 6C 69 64 20 3D 20
-             25 64
-      00009F 0D                    6590 	.db 0x0d
-      0000A0 0A                    6591 	.db 0x0a
-      0000A1 0D                    6592 	.db 0x0d
-      0000A2 0A                    6593 	.db 0x0a
-      0000A3 00                    6594 	.db 0x00
-                                   6595 	.area CSEG    (CODE)
-                                   6596 	.area CONST   (CODE)
-      0000A4                       6597 ___str_14:
-      0000A4 48 68 4F 6F           6598 	.ascii "HhOo"
-      0000A8 09                    6599 	.db 0x09
-      0000A9 62 61 73 65 20 31 36  6600 	.ascii "base 16 10 8 2"
-             20 31 30 20 38 20 32
-      0000B7 0D                    6601 	.db 0x0d
-      0000B8 0A                    6602 	.db 0x0a
-      0000B9 00                    6603 	.db 0x00
-                                   6604 	.area CSEG    (CODE)
-                                   6605 	.area CONST   (CODE)
-      0000BA                       6606 ___str_15:
-      0000BA 70                    6607 	.ascii "p"
-      0000BB 09                    6608 	.db 0x09
-      0000BC 70 65 65 6B 20 74 6F  6609 	.ascii "peek top"
-             70
-      0000C4 0D                    6610 	.db 0x0d
-      0000C5 0A                    6611 	.db 0x0a
-      0000C6 00                    6612 	.db 0x00
-                                   6613 	.area CSEG    (CODE)
-                                   6614 	.area CONST   (CODE)
-      0000C7                       6615 ___str_16:
-      0000C7 50                    6616 	.ascii "P"
-      0000C8 09                    6617 	.db 0x09
-      0000C9 70 72 69 6E 74 20 73  6618 	.ascii "print stack"
-             74 61 63 6B
-      0000D4 0D                    6619 	.db 0x0d
-      0000D5 0A                    6620 	.db 0x0a
-      0000D6 00                    6621 	.db 0x00
-                                   6622 	.area CSEG    (CODE)
-                                   6623 	.area CONST   (CODE)
-      0000D7                       6624 ___str_17:
-      0000D7 76 2E                 6625 	.ascii "v."
-      0000D9 09                    6626 	.db 0x09
-      0000DA 70 6F 70 20 74 6F 70  6627 	.ascii "pop top"
-      0000E1 0D                    6628 	.db 0x0d
-      0000E2 0A                    6629 	.db 0x0a
-      0000E3 00                    6630 	.db 0x00
+      000081 00                    6630 	.db 0x00
                                    6631 	.area CSEG    (CODE)
                                    6632 	.area CONST   (CODE)
-      0000E4                       6633 ___str_18:
-      0000E4 56                    6634 	.ascii "V"
-      0000E5 09                    6635 	.db 0x09
-      0000E6 70 6F 70 20 61 6C 6C  6636 	.ascii "pop all"
-      0000ED 0D                    6637 	.db 0x0d
-      0000EE 0A                    6638 	.db 0x0a
-      0000EF 00                    6639 	.db 0x00
-                                   6640 	.area CSEG    (CODE)
-                                   6641 	.area CONST   (CODE)
-      0000F0                       6642 ___str_19:
-      0000F0 69                    6643 	.ascii "i"
-      0000F1 09                    6644 	.db 0x09
-      0000F2 72 65 73 65 74 20 61  6645 	.ascii "reset acc"
+      000082                       6633 ___str_12:
+      000082 61 63 63 20 3D 20 25  6634 	.ascii "acc = %ld / "
+             6C 64 20 2F 20
+      00008E 00                    6635 	.db 0x00
+                                   6636 	.area CSEG    (CODE)
+                                   6637 	.area CONST   (CODE)
+      00008F                       6638 ___str_13:
+      00008F 2C 20 61 63 63 5F 76  6639 	.ascii ", acc_valid = %d"
+             61 6C 69 64 20 3D 20
+             25 64
+      00009F 0D                    6640 	.db 0x0d
+      0000A0 0A                    6641 	.db 0x0a
+      0000A1 0D                    6642 	.db 0x0d
+      0000A2 0A                    6643 	.db 0x0a
+      0000A3 00                    6644 	.db 0x00
+                                   6645 	.area CSEG    (CODE)
+                                   6646 	.area CONST   (CODE)
+      0000A4                       6647 ___str_14:
+      0000A4 48 68 4F 6F           6648 	.ascii "HhOo"
+      0000A8 09                    6649 	.db 0x09
+      0000A9 62 61 73 65 20 31 36  6650 	.ascii "base 16 10 8 2"
+             20 31 30 20 38 20 32
+      0000B7 0D                    6651 	.db 0x0d
+      0000B8 0A                    6652 	.db 0x0a
+      0000B9 00                    6653 	.db 0x00
+                                   6654 	.area CSEG    (CODE)
+                                   6655 	.area CONST   (CODE)
+      0000BA                       6656 ___str_15:
+      0000BA 70                    6657 	.ascii "p"
+      0000BB 09                    6658 	.db 0x09
+      0000BC 70 65 65 6B 20 74 6F  6659 	.ascii "peek top"
+             70
+      0000C4 0D                    6660 	.db 0x0d
+      0000C5 0A                    6661 	.db 0x0a
+      0000C6 00                    6662 	.db 0x00
+                                   6663 	.area CSEG    (CODE)
+                                   6664 	.area CONST   (CODE)
+      0000C7                       6665 ___str_16:
+      0000C7 50                    6666 	.ascii "P"
+      0000C8 09                    6667 	.db 0x09
+      0000C9 70 72 69 6E 74 20 73  6668 	.ascii "print stack"
+             74 61 63 6B
+      0000D4 0D                    6669 	.db 0x0d
+      0000D5 0A                    6670 	.db 0x0a
+      0000D6 00                    6671 	.db 0x00
+                                   6672 	.area CSEG    (CODE)
+                                   6673 	.area CONST   (CODE)
+      0000D7                       6674 ___str_17:
+      0000D7 76 2E                 6675 	.ascii "v."
+      0000D9 09                    6676 	.db 0x09
+      0000DA 70 6F 70 20 74 6F 70  6677 	.ascii "pop top"
+      0000E1 0D                    6678 	.db 0x0d
+      0000E2 0A                    6679 	.db 0x0a
+      0000E3 00                    6680 	.db 0x00
+                                   6681 	.area CSEG    (CODE)
+                                   6682 	.area CONST   (CODE)
+      0000E4                       6683 ___str_18:
+      0000E4 56                    6684 	.ascii "V"
+      0000E5 09                    6685 	.db 0x09
+      0000E6 70 6F 70 20 61 6C 6C  6686 	.ascii "pop all"
+      0000ED 0D                    6687 	.db 0x0d
+      0000EE 0A                    6688 	.db 0x0a
+      0000EF 00                    6689 	.db 0x00
+                                   6690 	.area CSEG    (CODE)
+                                   6691 	.area CONST   (CODE)
+      0000F0                       6692 ___str_19:
+      0000F0 69                    6693 	.ascii "i"
+      0000F1 09                    6694 	.db 0x09
+      0000F2 72 65 73 65 74 20 61  6695 	.ascii "reset acc"
              63 63
-      0000FB 0D                    6646 	.db 0x0d
-      0000FC 0A                    6647 	.db 0x0a
-      0000FD 00                    6648 	.db 0x00
-                                   6649 	.area CSEG    (CODE)
-                                   6650 	.area CONST   (CODE)
-      0000FE                       6651 ___str_20:
-      0000FE 49                    6652 	.ascii "I"
-      0000FF 09                    6653 	.db 0x09
-      000100 72 65 73 65 74 20 61  6654 	.ascii "reset and discard acc"
+      0000FB 0D                    6696 	.db 0x0d
+      0000FC 0A                    6697 	.db 0x0a
+      0000FD 00                    6698 	.db 0x00
+                                   6699 	.area CSEG    (CODE)
+                                   6700 	.area CONST   (CODE)
+      0000FE                       6701 ___str_20:
+      0000FE 49                    6702 	.ascii "I"
+      0000FF 09                    6703 	.db 0x09
+      000100 72 65 73 65 74 20 61  6704 	.ascii "reset and discard acc"
              6E 64 20 64 69 73 63
              61 72 64 20 61 63 63
-      000115 0D                    6655 	.db 0x0d
-      000116 0A                    6656 	.db 0x0a
-      000117 00                    6657 	.db 0x00
-                                   6658 	.area CSEG    (CODE)
-                                   6659 	.area CONST   (CODE)
-      000118                       6660 ___str_21:
-      000118 78                    6661 	.ascii "x"
-      000119 09                    6662 	.db 0x09
-      00011A 65 78 63 68 61 6E 67  6663 	.ascii "exchange top 2"
+      000115 0D                    6705 	.db 0x0d
+      000116 0A                    6706 	.db 0x0a
+      000117 00                    6707 	.db 0x00
+                                   6708 	.area CSEG    (CODE)
+                                   6709 	.area CONST   (CODE)
+      000118                       6710 ___str_21:
+      000118 78                    6711 	.ascii "x"
+      000119 09                    6712 	.db 0x09
+      00011A 65 78 63 68 61 6E 67  6713 	.ascii "exchange top 2"
              65 20 74 6F 70 20 32
-      000128 0D                    6664 	.db 0x0d
-      000129 0A                    6665 	.db 0x0a
-      00012A 00                    6666 	.db 0x00
-                                   6667 	.area CSEG    (CODE)
-                                   6668 	.area CONST   (CODE)
-      00012B                       6669 ___str_22:
-      00012B 2B                    6670 	.ascii "+"
-      00012C 09                    6671 	.db 0x09
-      00012D 61 64 64 20 74 6F 70  6672 	.ascii "add top 2"
+      000128 0D                    6714 	.db 0x0d
+      000129 0A                    6715 	.db 0x0a
+      00012A 00                    6716 	.db 0x00
+                                   6717 	.area CSEG    (CODE)
+                                   6718 	.area CONST   (CODE)
+      00012B                       6719 ___str_22:
+      00012B 2B                    6720 	.ascii "+"
+      00012C 09                    6721 	.db 0x09
+      00012D 61 64 64 20 74 6F 70  6722 	.ascii "add top 2"
              20 32
-      000136 0D                    6673 	.db 0x0d
-      000137 0A                    6674 	.db 0x0a
-      000138 00                    6675 	.db 0x00
-                                   6676 	.area CSEG    (CODE)
-                                   6677 	.area CONST   (CODE)
-      000139                       6678 ___str_23:
-      000139 2D                    6679 	.ascii "-"
-      00013A 09                    6680 	.db 0x09
-      00013B 73 75 62 74 72 61 63  6681 	.ascii "subtract top 2"
+      000136 0D                    6723 	.db 0x0d
+      000137 0A                    6724 	.db 0x0a
+      000138 00                    6725 	.db 0x00
+                                   6726 	.area CSEG    (CODE)
+                                   6727 	.area CONST   (CODE)
+      000139                       6728 ___str_23:
+      000139 2D                    6729 	.ascii "-"
+      00013A 09                    6730 	.db 0x09
+      00013B 73 75 62 74 72 61 63  6731 	.ascii "subtract top 2"
              74 20 74 6F 70 20 32
-      000149 0D                    6682 	.db 0x0d
-      00014A 0A                    6683 	.db 0x0a
-      00014B 00                    6684 	.db 0x00
-                                   6685 	.area CSEG    (CODE)
-                                   6686 	.area CONST   (CODE)
-      00014C                       6687 ___str_24:
-      00014C 2A                    6688 	.ascii "*"
-      00014D 09                    6689 	.db 0x09
-      00014E 6D 75 6C 74 69 70 6C  6690 	.ascii "multiply top 2"
+      000149 0D                    6732 	.db 0x0d
+      00014A 0A                    6733 	.db 0x0a
+      00014B 00                    6734 	.db 0x00
+                                   6735 	.area CSEG    (CODE)
+                                   6736 	.area CONST   (CODE)
+      00014C                       6737 ___str_24:
+      00014C 2A                    6738 	.ascii "*"
+      00014D 09                    6739 	.db 0x09
+      00014E 6D 75 6C 74 69 70 6C  6740 	.ascii "multiply top 2"
              79 20 74 6F 70 20 32
-      00015C 0D                    6691 	.db 0x0d
-      00015D 0A                    6692 	.db 0x0a
-      00015E 00                    6693 	.db 0x00
-                                   6694 	.area CSEG    (CODE)
-                                   6695 	.area CONST   (CODE)
-      00015F                       6696 ___str_25:
-      00015F 2F                    6697 	.ascii "/"
-      000160 09                    6698 	.db 0x09
-      000161 64 69 76 69 64 65 20  6699 	.ascii "divide top 2"
+      00015C 0D                    6741 	.db 0x0d
+      00015D 0A                    6742 	.db 0x0a
+      00015E 00                    6743 	.db 0x00
+                                   6744 	.area CSEG    (CODE)
+                                   6745 	.area CONST   (CODE)
+      00015F                       6746 ___str_25:
+      00015F 2F                    6747 	.ascii "/"
+      000160 09                    6748 	.db 0x09
+      000161 64 69 76 69 64 65 20  6749 	.ascii "divide top 2"
              74 6F 70 20 32
-      00016D 0D                    6700 	.db 0x0d
-      00016E 0A                    6701 	.db 0x0a
-      00016F 00                    6702 	.db 0x00
-                                   6703 	.area CSEG    (CODE)
-                                   6704 	.area CONST   (CODE)
-      000170                       6705 ___str_26:
-      000170 5C                    6706 	.db 0x5c
-      000171 09                    6707 	.db 0x09
-      000172 64 69 76 69 64 65 20  6708 	.ascii "divide top 2 unsigned"
+      00016D 0D                    6750 	.db 0x0d
+      00016E 0A                    6751 	.db 0x0a
+      00016F 00                    6752 	.db 0x00
+                                   6753 	.area CSEG    (CODE)
+                                   6754 	.area CONST   (CODE)
+      000170                       6755 ___str_26:
+      000170 5C                    6756 	.db 0x5c
+      000171 09                    6757 	.db 0x09
+      000172 64 69 76 69 64 65 20  6758 	.ascii "divide top 2 unsigned"
              74 6F 70 20 32 20 75
              6E 73 69 67 6E 65 64
-      000187 0D                    6709 	.db 0x0d
-      000188 0A                    6710 	.db 0x0a
-      000189 00                    6711 	.db 0x00
-                                   6712 	.area CSEG    (CODE)
-                                   6713 	.area CONST   (CODE)
-      00018A                       6714 ___str_27:
-      00018A 25                    6715 	.ascii "%"
-      00018B 09                    6716 	.db 0x09
-      00018C 6D 6F 64 75 6C 75 73  6717 	.ascii "modulus top 2"
+      000187 0D                    6759 	.db 0x0d
+      000188 0A                    6760 	.db 0x0a
+      000189 00                    6761 	.db 0x00
+                                   6762 	.area CSEG    (CODE)
+                                   6763 	.area CONST   (CODE)
+      00018A                       6764 ___str_27:
+      00018A 25                    6765 	.ascii "%"
+      00018B 09                    6766 	.db 0x09
+      00018C 6D 6F 64 75 6C 75 73  6767 	.ascii "modulus top 2"
              20 74 6F 70 20 32
-      000199 0D                    6718 	.db 0x0d
-      00019A 0A                    6719 	.db 0x0a
-      00019B 00                    6720 	.db 0x00
-                                   6721 	.area CSEG    (CODE)
-                                   6722 	.area CONST   (CODE)
-      00019C                       6723 ___str_28:
-      00019C 23                    6724 	.ascii "#"
-      00019D 09                    6725 	.db 0x09
-      00019E 6D 6F 64 75 6C 75 73  6726 	.ascii "modulus top 2 unsigned"
+      000199 0D                    6768 	.db 0x0d
+      00019A 0A                    6769 	.db 0x0a
+      00019B 00                    6770 	.db 0x00
+                                   6771 	.area CSEG    (CODE)
+                                   6772 	.area CONST   (CODE)
+      00019C                       6773 ___str_28:
+      00019C 23                    6774 	.ascii "#"
+      00019D 09                    6775 	.db 0x09
+      00019E 6D 6F 64 75 6C 75 73  6776 	.ascii "modulus top 2 unsigned"
              20 74 6F 70 20 32 20
              75 6E 73 69 67 6E 65
              64
-      0001B4 0D                    6727 	.db 0x0d
-      0001B5 0A                    6728 	.db 0x0a
-      0001B6 00                    6729 	.db 0x00
-                                   6730 	.area CSEG    (CODE)
-                                   6731 	.area CONST   (CODE)
-      0001B7                       6732 ___str_29:
-      0001B7 26                    6733 	.ascii "&"
-      0001B8 09                    6734 	.db 0x09
-      0001B9 61 6E 64 20 74 6F 70  6735 	.ascii "and top 2"
+      0001B4 0D                    6777 	.db 0x0d
+      0001B5 0A                    6778 	.db 0x0a
+      0001B6 00                    6779 	.db 0x00
+                                   6780 	.area CSEG    (CODE)
+                                   6781 	.area CONST   (CODE)
+      0001B7                       6782 ___str_29:
+      0001B7 26                    6783 	.ascii "&"
+      0001B8 09                    6784 	.db 0x09
+      0001B9 61 6E 64 20 74 6F 70  6785 	.ascii "and top 2"
              20 32
-      0001C2 0D                    6736 	.db 0x0d
-      0001C3 0A                    6737 	.db 0x0a
-      0001C4 00                    6738 	.db 0x00
-                                   6739 	.area CSEG    (CODE)
-                                   6740 	.area CONST   (CODE)
-      0001C5                       6741 ___str_30:
-      0001C5 7C                    6742 	.ascii "|"
-      0001C6 09                    6743 	.db 0x09
-      0001C7 6F 72 20 74 6F 70 20  6744 	.ascii "or top 2"
+      0001C2 0D                    6786 	.db 0x0d
+      0001C3 0A                    6787 	.db 0x0a
+      0001C4 00                    6788 	.db 0x00
+                                   6789 	.area CSEG    (CODE)
+                                   6790 	.area CONST   (CODE)
+      0001C5                       6791 ___str_30:
+      0001C5 7C                    6792 	.ascii "|"
+      0001C6 09                    6793 	.db 0x09
+      0001C7 6F 72 20 74 6F 70 20  6794 	.ascii "or top 2"
              32
-      0001CF 0D                    6745 	.db 0x0d
-      0001D0 0A                    6746 	.db 0x0a
-      0001D1 00                    6747 	.db 0x00
-                                   6748 	.area CSEG    (CODE)
-                                   6749 	.area CONST   (CODE)
-      0001D2                       6750 ___str_31:
-      0001D2 5E                    6751 	.ascii "^"
-      0001D3 09                    6752 	.db 0x09
-      0001D4 78 6F 72 20 74 6F 70  6753 	.ascii "xor top 2"
+      0001CF 0D                    6795 	.db 0x0d
+      0001D0 0A                    6796 	.db 0x0a
+      0001D1 00                    6797 	.db 0x00
+                                   6798 	.area CSEG    (CODE)
+                                   6799 	.area CONST   (CODE)
+      0001D2                       6800 ___str_31:
+      0001D2 5E                    6801 	.ascii "^"
+      0001D3 09                    6802 	.db 0x09
+      0001D4 78 6F 72 20 74 6F 70  6803 	.ascii "xor top 2"
              20 32
-      0001DD 0D                    6754 	.db 0x0d
-      0001DE 0A                    6755 	.db 0x0a
-      0001DF 00                    6756 	.db 0x00
-                                   6757 	.area CSEG    (CODE)
-                                   6758 	.area CONST   (CODE)
-      0001E0                       6759 ___str_32:
-      0001E0 7E                    6760 	.ascii "~"
-      0001E1 09                    6761 	.db 0x09
-      0001E2 62 69 74 77 69 73 65  6762 	.ascii "bitwise not top"
+      0001DD 0D                    6804 	.db 0x0d
+      0001DE 0A                    6805 	.db 0x0a
+      0001DF 00                    6806 	.db 0x00
+                                   6807 	.area CSEG    (CODE)
+                                   6808 	.area CONST   (CODE)
+      0001E0                       6809 ___str_32:
+      0001E0 7E                    6810 	.ascii "~"
+      0001E1 09                    6811 	.db 0x09
+      0001E2 62 69 74 77 69 73 65  6812 	.ascii "bitwise not top"
              20 6E 6F 74 20 74 6F
              70
-      0001F1 0D                    6763 	.db 0x0d
-      0001F2 0A                    6764 	.db 0x0a
-      0001F3 00                    6765 	.db 0x00
-                                   6766 	.area CSEG    (CODE)
-                                   6767 	.area CONST   (CODE)
-      0001F4                       6768 ___str_33:
-      0001F4 3F                    6769 	.ascii "?"
-      0001F5 09                    6770 	.db 0x09
-      0001F6 68 65 6C 70           6771 	.ascii "help"
-      0001FA 0D                    6772 	.db 0x0d
-      0001FB 0A                    6773 	.db 0x0a
-      0001FC 00                    6774 	.db 0x00
-                                   6775 	.area CSEG    (CODE)
-                                   6776 	.area CONST   (CODE)
-      0001FD                       6777 ___str_34:
-      0001FD 71                    6778 	.ascii "q"
-      0001FE 09                    6779 	.db 0x09
-      0001FF 71 75 69 74           6780 	.ascii "quit"
-      000203 0D                    6781 	.db 0x0d
-      000204 0A                    6782 	.db 0x0a
-      000205 00                    6783 	.db 0x00
-                                   6784 	.area CSEG    (CODE)
-                                   6785 	.area XINIT   (CODE)
-      000000                       6786 __xinit__deltas:
-      000000 00 00                 6787 	.byte #0x00, #0x00	;  0
-      000002 00 00                 6788 	.byte #0x00, #0x00	;  0
-      000004 00 00                 6789 	.byte #0x00, #0x00	;  0
-      000006 00 00                 6790 	.byte #0x00,#0x00
-      000008 00 00                 6791 	.byte #0x00,#0x00
-      00000A 00 00                 6792 	.byte #0x00, #0x00	;  0
-      00000C 01 00                 6793 	.byte #0x01, #0x00	;  1
-      00000E 02 00                 6794 	.byte #0x02, #0x00	;  2
-      000010 00 00                 6795 	.byte #0x00,#0x00
-      000012rCBs00                 6796 	.byte _accumulate, (_accumulate >> 8)
-      000014 00 00                 6797 	.byte #0x00, #0x00	;  0
-      000016 02 00                 6798 	.byte #0x02, #0x00	;  2
-      000018 01 00                 6799 	.byte #0x01, #0x00	;  1
-      00001A 00 00                 6800 	.byte #0x00,#0x00
-      00001Cr24s06                 6801 	.byte _operator, (_operator >> 8)
-      00001E 01 00                 6802 	.byte #0x01, #0x00	;  1
-      000020 00 00                 6803 	.byte #0x00, #0x00	;  0
-      000022 00 00                 6804 	.byte #0x00, #0x00	;  0
-      000024 00 00                 6805 	.byte #0x00,#0x00
-      000026 00 00                 6806 	.byte #0x00,#0x00
-      000028 01 00                 6807 	.byte #0x01, #0x00	;  1
-      00002A 02 00                 6808 	.byte #0x02, #0x00	;  2
-      00002C 01 00                 6809 	.byte #0x01, #0x00	;  1
-      00002E 00 00                 6810 	.byte #0x00,#0x00
-      000030r24s06                 6811 	.byte _operator, (_operator >> 8)
-      000032 01 00                 6812 	.byte #0x01, #0x00	;  1
-      000034 01 00                 6813 	.byte #0x01, #0x00	;  1
-      000036 02 00                 6814 	.byte #0x02, #0x00	;  2
-      000038 00 00                 6815 	.byte #0x00,#0x00
-      00003ArCBs00                 6816 	.byte _accumulate, (_accumulate >> 8)
-      00003C 02 00                 6817 	.byte #0x02, #0x00	;  2
-      00003E 00 00                 6818 	.byte #0x00, #0x00	;  0
-      000040 00 00                 6819 	.byte #0x00, #0x00	;  0
-      000042 00 00                 6820 	.byte #0x00,#0x00
-      000044r93s19                 6821 	.byte _push_acc, (_push_acc >> 8)
-      000046 02 00                 6822 	.byte #0x02, #0x00	;  2
-      000048 06 00                 6823 	.byte #0x06, #0x00	;  6
-      00004A 00 00                 6824 	.byte #0x00, #0x00	;  0
-      00004C 00 00                 6825 	.byte #0x00,#0x00
-      00004ErA1s1A                 6826 	.byte _reset_acc, (_reset_acc >> 8)
-      000050 02 00                 6827 	.byte #0x02, #0x00	;  2
-      000052 01 00                 6828 	.byte #0x01, #0x00	;  1
-      000054 02 00                 6829 	.byte #0x02, #0x00	;  2
-      000056 00 00                 6830 	.byte #0x00,#0x00
-      000058rCBs00                 6831 	.byte _accumulate, (_accumulate >> 8)
-      00005A 02 00                 6832 	.byte #0x02, #0x00	;  2
-      00005C 02 00                 6833 	.byte #0x02, #0x00	;  2
-      00005E 01 00                 6834 	.byte #0x01, #0x00	;  1
-      000060 00 00                 6835 	.byte #0x00,#0x00
-      000062r93s19                 6836 	.byte _push_acc, (_push_acc >> 8)
-      000064 FF 7F                 6837 	.byte #0xff, #0x7f	;  32767
-      000066 05 00                 6838 	.byte #0x05, #0x00	;  5
-      000068 FF 7F                 6839 	.byte #0xff, #0x7f	;  32767
-      00006A 00 00                 6840 	.byte #0x00,#0x00
-      00006CrA1s1A                 6841 	.byte _reset_acc, (_reset_acc >> 8)
-      00006E FF 7F                 6842 	.byte #0xff, #0x7f	;  32767
-      000070 06 00                 6843 	.byte #0x06, #0x00	;  6
-      000072 FF 7F                 6844 	.byte #0xff, #0x7f	;  32767
-      000074 00 00                 6845 	.byte #0x00,#0x00
-      000076 00 00                 6846 	.byte #0x00,#0x00
-      000078 FF 7F                 6847 	.byte #0xff, #0x7f	;  32767
-      00007A 04 00                 6848 	.byte #0x04, #0x00	;  4
-      00007C FF 7F                 6849 	.byte #0xff, #0x7f	;  32767
-      00007E 00 00                 6850 	.byte #0x00,#0x00
-      000080r0Bs1B                 6851 	.byte _reset_base, (_reset_base >> 8)
-      000082 FF 7F                 6852 	.byte #0xff, #0x7f	;  32767
-      000084 03 00                 6853 	.byte #0x03, #0x00	;  3
-      000086 FF 7F                 6854 	.byte #0xff, #0x7f	;  32767
-      000088 00 00                 6855 	.byte #0x00,#0x00
-      00008Ar89s1B                 6856 	.byte _help, (_help >> 8)
-      00008C FF 7F                 6857 	.byte #0xff, #0x7f	;  32767
-      00008E 07 00                 6858 	.byte #0x07, #0x00	;  7
-      000090 03 00                 6859 	.byte #0x03, #0x00	;  3
-      000092 00 00                 6860 	.byte #0x00,#0x00
-      000094r3Cs02                 6861 	.byte _dump_pop, (_dump_pop >> 8)
-      000096 00 80                 6862 	.byte #0x00, #0x80	; -32768
-      000098 00 80                 6863 	.byte #0x00, #0x80	; -32768
-      00009A 00 80                 6864 	.byte #0x00, #0x80	; -32768
-      00009C 00 00                 6865 	.byte #0x00,#0x00
-      00009E 00 00                 6866 	.byte #0x00,#0x00
-                                   6867 	.area CABS    (ABS,CODE)
+      0001F1 0D                    6813 	.db 0x0d
+      0001F2 0A                    6814 	.db 0x0a
+      0001F3 00                    6815 	.db 0x00
+                                   6816 	.area CSEG    (CODE)
+                                   6817 	.area CONST   (CODE)
+      0001F4                       6818 ___str_33:
+      0001F4 3F                    6819 	.ascii "?"
+      0001F5 09                    6820 	.db 0x09
+      0001F6 68 65 6C 70           6821 	.ascii "help"
+      0001FA 0D                    6822 	.db 0x0d
+      0001FB 0A                    6823 	.db 0x0a
+      0001FC 00                    6824 	.db 0x00
+                                   6825 	.area CSEG    (CODE)
+                                   6826 	.area CONST   (CODE)
+      0001FD                       6827 ___str_34:
+      0001FD 71                    6828 	.ascii "q"
+      0001FE 09                    6829 	.db 0x09
+      0001FF 71 75 69 74           6830 	.ascii "quit"
+      000203 0D                    6831 	.db 0x0d
+      000204 0A                    6832 	.db 0x0a
+      000205 00                    6833 	.db 0x00
+                                   6834 	.area CSEG    (CODE)
+                                   6835 	.area XINIT   (CODE)
+      000000                       6836 __xinit__deltas:
+      000000 00 00                 6837 	.byte #0x00, #0x00	;  0
+      000002 00 00                 6838 	.byte #0x00, #0x00	;  0
+      000004 00 00                 6839 	.byte #0x00, #0x00	;  0
+      000006 00 00                 6840 	.byte #0x00,#0x00
+      000008 00 00                 6841 	.byte #0x00,#0x00
+      00000A 00 00                 6842 	.byte #0x00, #0x00	;  0
+      00000C 01 00                 6843 	.byte #0x01, #0x00	;  1
+      00000E 02 00                 6844 	.byte #0x02, #0x00	;  2
+      000010 00 00                 6845 	.byte #0x00,#0x00
+      000012rCBs00                 6846 	.byte _accumulate, (_accumulate >> 8)
+      000014 00 00                 6847 	.byte #0x00, #0x00	;  0
+      000016 02 00                 6848 	.byte #0x02, #0x00	;  2
+      000018 01 00                 6849 	.byte #0x01, #0x00	;  1
+      00001A 00 00                 6850 	.byte #0x00,#0x00
+      00001Cr24s06                 6851 	.byte _operator, (_operator >> 8)
+      00001E 01 00                 6852 	.byte #0x01, #0x00	;  1
+      000020 00 00                 6853 	.byte #0x00, #0x00	;  0
+      000022 00 00                 6854 	.byte #0x00, #0x00	;  0
+      000024 00 00                 6855 	.byte #0x00,#0x00
+      000026 00 00                 6856 	.byte #0x00,#0x00
+      000028 01 00                 6857 	.byte #0x01, #0x00	;  1
+      00002A 02 00                 6858 	.byte #0x02, #0x00	;  2
+      00002C 01 00                 6859 	.byte #0x01, #0x00	;  1
+      00002E 00 00                 6860 	.byte #0x00,#0x00
+      000030r24s06                 6861 	.byte _operator, (_operator >> 8)
+      000032 01 00                 6862 	.byte #0x01, #0x00	;  1
+      000034 01 00                 6863 	.byte #0x01, #0x00	;  1
+      000036 02 00                 6864 	.byte #0x02, #0x00	;  2
+      000038 00 00                 6865 	.byte #0x00,#0x00
+      00003ArCBs00                 6866 	.byte _accumulate, (_accumulate >> 8)
+      00003C 02 00                 6867 	.byte #0x02, #0x00	;  2
+      00003E 00 00                 6868 	.byte #0x00, #0x00	;  0
+      000040 00 00                 6869 	.byte #0x00, #0x00	;  0
+      000042 00 00                 6870 	.byte #0x00,#0x00
+      000044r93s19                 6871 	.byte _push_acc, (_push_acc >> 8)
+      000046 02 00                 6872 	.byte #0x02, #0x00	;  2
+      000048 06 00                 6873 	.byte #0x06, #0x00	;  6
+      00004A 00 00                 6874 	.byte #0x00, #0x00	;  0
+      00004C 00 00                 6875 	.byte #0x00,#0x00
+      00004ErA1s1A                 6876 	.byte _reset_acc, (_reset_acc >> 8)
+      000050 02 00                 6877 	.byte #0x02, #0x00	;  2
+      000052 01 00                 6878 	.byte #0x01, #0x00	;  1
+      000054 02 00                 6879 	.byte #0x02, #0x00	;  2
+      000056 00 00                 6880 	.byte #0x00,#0x00
+      000058rCBs00                 6881 	.byte _accumulate, (_accumulate >> 8)
+      00005A 02 00                 6882 	.byte #0x02, #0x00	;  2
+      00005C 02 00                 6883 	.byte #0x02, #0x00	;  2
+      00005E 01 00                 6884 	.byte #0x01, #0x00	;  1
+      000060 00 00                 6885 	.byte #0x00,#0x00
+      000062r93s19                 6886 	.byte _push_acc, (_push_acc >> 8)
+      000064 FF 7F                 6887 	.byte #0xff, #0x7f	;  32767
+      000066 05 00                 6888 	.byte #0x05, #0x00	;  5
+      000068 FF 7F                 6889 	.byte #0xff, #0x7f	;  32767
+      00006A 00 00                 6890 	.byte #0x00,#0x00
+      00006CrA1s1A                 6891 	.byte _reset_acc, (_reset_acc >> 8)
+      00006E FF 7F                 6892 	.byte #0xff, #0x7f	;  32767
+      000070 06 00                 6893 	.byte #0x06, #0x00	;  6
+      000072 FF 7F                 6894 	.byte #0xff, #0x7f	;  32767
+      000074 00 00                 6895 	.byte #0x00,#0x00
+      000076 00 00                 6896 	.byte #0x00,#0x00
+      000078 FF 7F                 6897 	.byte #0xff, #0x7f	;  32767
+      00007A 04 00                 6898 	.byte #0x04, #0x00	;  4
+      00007C FF 7F                 6899 	.byte #0xff, #0x7f	;  32767
+      00007E 00 00                 6900 	.byte #0x00,#0x00
+      000080r0Bs1B                 6901 	.byte _reset_base, (_reset_base >> 8)
+      000082 FF 7F                 6902 	.byte #0xff, #0x7f	;  32767
+      000084 03 00                 6903 	.byte #0x03, #0x00	;  3
+      000086 FF 7F                 6904 	.byte #0xff, #0x7f	;  32767
+      000088 00 00                 6905 	.byte #0x00,#0x00
+      00008Ar89s1B                 6906 	.byte _help, (_help >> 8)
+      00008C FF 7F                 6907 	.byte #0xff, #0x7f	;  32767
+      00008E 07 00                 6908 	.byte #0x07, #0x00	;  7
+      000090 03 00                 6909 	.byte #0x03, #0x00	;  3
+      000092 00 00                 6910 	.byte #0x00,#0x00
+      000094r3Cs02                 6911 	.byte _dump_pop, (_dump_pop >> 8)
+      000096 00 80                 6912 	.byte #0x00, #0x80	; -32768
+      000098 00 80                 6913 	.byte #0x00, #0x80	; -32768
+      00009A 00 80                 6914 	.byte #0x00, #0x80	; -32768
+      00009C 00 00                 6915 	.byte #0x00,#0x00
+      00009E 00 00                 6916 	.byte #0x00,#0x00
+                                   6917 	.area CABS    (ABS,CODE)

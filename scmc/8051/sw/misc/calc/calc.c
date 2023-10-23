@@ -401,8 +401,9 @@ void main(void) {
 	
 	while (1) {
 		input = getchar();
-		c.digit[0] = (char)input;
 		(void)putchar(input);
+		c.digit[0] = (char)input;
+		
 		if ((char)input == 'q') {
 			if (state_exec(&s, EVENT_TERM) <= 0) break;
 		} else if ((char)input == '?') {
@@ -411,23 +412,33 @@ void main(void) {
 			if (state_exec(&s, EVENT_RSTA_i) <= 0) break;
 		} else if ((char)input == 'I') {
 			if (state_exec(&s, EVENT_RSTA_I) <= 0) break;
-		} else if (((char)input == 'h') || ((char)input == 'H') || ((char)input == 'o') || ((char)input == 'O')) {
+		} else if (
+				((char)input == 'h') || ((char)input == 'H') ||
+				((char)input == 'o') || ((char)input == 'O')
+		) {
 			if (state_exec(&s, EVENT_BASE) <= 0) break;
 		} else if (isxdigit(input)) {
 			if (state_exec(&s, EVENT_DIGIT) <= 0) break;
 		} else if (
-				((char)input == 'h') || ((char)input == 'H') ||
 				((char)input == 'p') || ((char)input == 'P') ||
-				((char)input == '.') || ((char)input == 'v') || ((char)input == 'V') ||
-				((char)input == 'x') ||
-				((char)input == '+') ||
-				((char)input == '-') ||
+				((char)input == 'v') || ((char)input == 'V') ||
+				((char)input == '.') ||
+				((char)input == 'x')
+		) {
+			if (state_exec(&s, EVENT_OP) <= 0) break;
+		} else if (
+				((char)input == '+') || ((char)input == '-')
+		) {
+			if (state_exec(&s, EVENT_OP) <= 0) break;
+		} else if (
 				((char)input == '*') ||
 				((char)input == '/') || ((char)input == '\\') ||
-				((char)input == '%') || ((char)input == '#') ||
+				((char)input == '%') || ((char)input == '#')
+		) {
+			if (state_exec(&s, EVENT_OP) <= 0) break;
+		} else if (
 				((char)input == '&') ||
-				((char)input == '|') ||
-				((char)input == '^') ||
+				((char)input == '|') || ((char)input == '^') ||
 				((char)input == '~')
 		) {
 			if (state_exec(&s, EVENT_OP) <= 0) break;
