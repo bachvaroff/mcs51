@@ -44,8 +44,17 @@ nochar:
 	__endasm;
 }
 
-inline void printstr(const char *s) {
+static inline void printstr(const char *s) {
 	for (; *s; s++) putchar(*s);
+	
+	return;
+}
+
+static inline void printbin(long d) {
+	unsigned long mask;
+	
+	for (mask = 0x80000000lu; mask; mask >>= 1)
+		(void)putchar((d & mask) ? (int)'1' : (int)'0');
 	
 	return;
 }
@@ -71,15 +80,6 @@ struct ctx {
 	char digit[2];
 	stack_t s;
 };
-
-static const char *hexp = "PT %0.8lx\r\n";
-static const char *decp = "PT %ld\r\n";
-static const char *hexP = "PA %0.8lx\r\n";
-static const char *decP = "PA %ld\r\n";
-static const char *hexv = "VT %0.8lx\r\n";
-static const char *decv = "VT %ld\r\n";
-static const char *hexV = "VA %0.8lx\r\n";
-static const char *decV = "VA %ld\r\n";
 
 static int accumulate(void *_ctx, delta_t *delta) __reentrant {
 	struct ctx *ctx = (struct ctx *)_ctx;
@@ -109,7 +109,10 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 	if (!r) {
 		if (delta->event != EVENT_TERM) printstr("stack underflow\r\n");
 	} else while (r > 0) {
-		printf((ctx->base == 16l) ? hexV : decV, d);
+		printstr("VA ");
+		printf("% 11ld / %08lx / ", d, d);
+		printbin(d);
+		printstr("\r\n");
 		r = stack_pop(&ctx->s, &d);
 	}
 	
@@ -117,9 +120,12 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 }
 
 static int dump_peek(void *_ctx, long d) __reentrant {
-	struct ctx *ctx = (struct ctx *)_ctx;
+	(void)_ctx;
 	
-	printf((ctx->base == 16l) ? hexP : decP, d);
+	printstr("PA ");
+	printf("% 11ld / %08lx / ", d, d);
+	printbin(d);
+	printstr("\r\n");
 	
 	return 1;
 }
@@ -133,7 +139,10 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		printstr("\r\n");
 		if (!stack_peek(&ctx->s, &d0)) printstr("stack underflow\r\n");
 		else {
-			printf((ctx->base == 16l) ? hexp : decp, d0);
+			printstr("PT ");
+			printf("% 11ld / %08lx / ", d0, d0);
+			printbin(d0);
+			printstr("\r\n");
 		}
 		break;
 	case 'P':
@@ -144,7 +153,12 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 	case 'v':
 		printstr("\r\n");
 		if (!stack_pop(&ctx->s, &d0)) printstr("stack underflow\r\n");
-		else printf((ctx->base == 16l) ? hexv : decv, d0);
+		else {
+			printstr("VT ");
+			printf("% 11ld / %08lx / ", d0, d0);
+			printbin(d0);
+			printstr("\r\n");
+		}
 		break;
 	case 'V':
 		printstr("\r\n");
@@ -266,6 +280,7 @@ static int push_acc(void *_ctx, delta_t *delta) __reentrant {
 	struct ctx *ctx = (struct ctx *)_ctx;
 	
 	(void)delta;
+	
 	ctx->acc_valid = 0;
 	if (!stack_push(&ctx->s, ctx->acc)) printstr("\r\nstack overflow\r\n");
 	
@@ -284,6 +299,8 @@ static int reset_acc(void *_ctx, delta_t *delta) __reentrant {
 
 static int reset_base(void *_ctx, delta_t *delta) __reentrant {
 	struct ctx *ctx = (struct ctx *)_ctx;
+	
+	(void)delta;
 	
 	switch (ctx->digit[0]) {
 	case 'H':
@@ -307,8 +324,9 @@ static int help(void *_ctx, delta_t *delta) __reentrant {
 	struct ctx *ctx = (struct ctx *)_ctx;
 	
 	(void)delta;
-	printf("\r\nbase = %d, acc = %ld / %0.8lx, acc_valid = %d\r\n\r\n",
-			ctx->base, ctx->acc, ctx->acc, (int)ctx->acc_valid);
+	printf("\r\nbase = %d, acc = %ld / %08lx / ", ctx->base, ctx->acc, ctx->acc);
+	printbin(ctx->acc);
+	printf(", acc_valid = %d\r\n\r\n", (int)ctx->acc_valid);
 	printstr("HhOo\tbase 16 10 8 2\r\n");
 	printstr("p\tpeek top\r\n");
 	printstr("P\tprint stack\r\n");

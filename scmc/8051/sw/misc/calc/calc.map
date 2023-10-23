@@ -52,11 +52,11 @@ C:   00000022  l_GSINIT3
 C:   0000002A  l_GSINIT4                       
 C:   00000034  l_HOME                          
 C:   00000069  l_DSEG                          
-C:   000000B8  l_XINIT                         
-C:   000000B8  l_XISEG                         
+C:   000000A0  l_XINIT                         
+C:   000000A0  l_XISEG                         
 C:   000000DF  l_SSEG                          
 C:   00000100  l_IRAM                          
-C:   00000217  l_CONST                         
+C:   000001E8  l_CONST                         
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -77,9 +77,9 @@ C:   0000208D  s_GSFINAL
 C:   0000208D  s_GSINIT                        
 C:   0000208D  s_GSINIT5                       
 C:   00002090  s_CSEG                          
-C:   000044D4  l_CSEG                          
-C:   00006564  s_CONST                         
-C:   0000677B  s_XINIT                         
+C:   0000491E  l_CSEG                          
+C:   000069AE  s_CONST                         
+C:   00006B96  s_XINIT                         
 C:   00008000  s_PSEG                          
 C:   00008000  s_XSEG                          
 C:   0000A01B  s_XISEG                         
@@ -296,7 +296,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XISEG                               0000A01B    000000B8 =         184. bytes (REL,CON,XDATA)
+XISEG                               0000A01B    000000A0 =         160. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -369,7 +369,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002090    000044D4 =       17620. bytes (REL,CON,CODE)
+CSEG                                00002090    0000491E =       18718. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -384,31 +384,31 @@ C:   000028EC  _stack_iter_peek                   stack
 C:   000029C0  _putchar                           calc
 C:   000029C5  _getchar                           calc
 C:   000029CE  _getchar_poll                      calc
-C:   00004363  _main                              calc
-C:   000045BA  _isxdigit                          isxdigit
-C:   0000462A  _strtol                            strtol
-C:   00004868  __gptrput                          _gptrput
-C:   00004883  __mulint                           _mulint
-C:   00004921  __modslong                         _modslong
-C:   00004A18  __modulong                         _modulong
-C:   00004ADA  __divslong                         _divslong
-C:   00004BD7  __divulong                         _divulong
-C:   00004C73  _vprintf                           vprintf
-C:   00004CAA  _printf                            vprintf
-C:   00004CE3  __gptrget                          _gptrget
-C:   00004D53  _strtoul                           strtoul
-C:   000050DC  __mullong                          _mullong
-C:   000052B1  __sdcc_external_startup            _startup
-C:   000053E2  __print_format                     printf_large
-C:   0000648A  _strncmp                           _strncmp
-C:   0000654C  _strlen                            _strlen
+C:   000047AD  _main                              calc
+C:   00004A04  _isxdigit                          isxdigit
+C:   00004A74  _strtol                            strtol
+C:   00004CB2  __gptrput                          _gptrput
+C:   00004CCD  __mulint                           _mulint
+C:   00004D6B  __modslong                         _modslong
+C:   00004E62  __modulong                         _modulong
+C:   00004F24  __divslong                         _divslong
+C:   00005021  __divulong                         _divulong
+C:   000050BD  _vprintf                           vprintf
+C:   000050F4  _printf                            vprintf
+C:   0000512D  __gptrget                          _gptrget
+C:   0000519D  _strtoul                           strtoul
+C:   00005526  __mullong                          _mullong
+C:   000056FB  __sdcc_external_startup            _startup
+C:   0000582C  __print_format                     printf_large
+C:   000068D4  _strncmp                           _strncmp
+C:   00006996  _strlen                            _strlen
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00006564    00000217 =         535. bytes (REL,CON,CODE)
+CONST                               000069AE    000001E8 =         488. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -417,7 +417,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               0000677B    000000B8 =         184. bytes (REL,CON,CODE)
+XINIT                               00006B96    000000A0 =         160. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
