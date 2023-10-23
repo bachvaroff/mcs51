@@ -110,7 +110,8 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 		if (delta->event != EVENT_TERM) printstr("stack underflow\r\n");
 	} else while (r > 0) {
 		printstr("VA ");
-		printf("% 11ld / %08lx / ", d, d);
+		printf("% 11ld / ", d);
+		printf("%08lx / ", d);
 		printbin(d);
 		printstr("\r\n");
 		r = stack_pop(&ctx->s, &d);
@@ -123,7 +124,8 @@ static int dump_peek(void *_ctx, long d) __reentrant {
 	(void)_ctx;
 	
 	printstr("PA ");
-	printf("% 11ld / %08lx / ", d, d);
+	printf("% 11ld / ", d);
+	printf("%08lx / ", d);
 	printbin(d);
 	printstr("\r\n");
 	
@@ -140,7 +142,8 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		if (!stack_peek(&ctx->s, &d0)) printstr("stack underflow\r\n");
 		else {
 			printstr("PT ");
-			printf("% 11ld / %08lx / ", d0, d0);
+			printf("% 11ld / ", d0);
+			printf("%08lx / ", d0);
 			printbin(d0);
 			printstr("\r\n");
 		}
@@ -155,7 +158,8 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		if (!stack_pop(&ctx->s, &d0)) printstr("stack underflow\r\n");
 		else {
 			printstr("VT ");
-			printf("% 11ld / %08lx / ", d0, d0);
+			printf("% 11ld / ", d0);
+			printf("%08lx / ", d0);
 			printbin(d0);
 			printstr("\r\n");
 		}
@@ -324,7 +328,9 @@ static int help(void *_ctx, delta_t *delta) __reentrant {
 	struct ctx *ctx = (struct ctx *)_ctx;
 	
 	(void)delta;
-	printf("\r\nbase = %d, acc = %ld / %08lx / ", ctx->base, ctx->acc, ctx->acc);
+	printf("\r\nbase = %d, ", ctx->base);
+	printf("acc = %ld / ", ctx->acc);
+	printf("%08lx / ", ctx->acc);
 	printbin(ctx->acc);
 	printf(", acc_valid = %d\r\n\r\n", (int)ctx->acc_valid);
 	printstr("HhOo\tbase 16 10 8 2\r\n");
