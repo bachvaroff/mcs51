@@ -1,5 +1,4 @@
 #include <mcs51/at89x52.h>
-#include <stdio.h>
 #include <stdint.h>
 
 #define pm2_entry_cout 0x0030
@@ -22,8 +21,7 @@ int getchar(void) __naked {
 	__endasm;
 }
 
-#define GPO_BASE_H	0xf0u
-#define GPO_BASE_L	0x00u
+#define GPO_BASE	0xf000u
 #define GPO_OE		6
 
 #define EN_TR0 \
@@ -31,12 +29,13 @@ int getchar(void) __naked {
 #define DIS_TR0 \
 	do { TR0 = 0; } while (0)
 
-__xdata volatile uint8_t __at(0xf000u) gpo[8];
+__xdata volatile uint8_t __at(GPO_BASE) gpo[8];
 __idata const uint8_t dcol[8] = {
 	0x01u, 0x02u, 0x04u, 0x08u, 0x10u, 0x20u, 0x40u, 0x80u
 };
 __idata volatile uint8_t ddata[8];
 __idata volatile uint8_t column;
+__idata uint8_t OE;
 
 #define CLEAR_GPO do { \
 	gpo[GPO_OE] = 0xffu; \
@@ -79,33 +78,30 @@ void init_timer0(void) {
 }
 
 void init_disp(void) {
-	register uint8_t j;
-	
 	gpo[4] = 0u;
 	gpo[5] = 0u;
-	gpo[GPO_OE] = 0xcfu;
+	OE = 0x0fu; /* 00_001111 */
+	gpo[GPO_OE] = OE; /* 00_001111 */
+		
+	for (column = 0u; column < 8u; column++)
+		ddata[column] = 0u;
 	
 	column = 0u;
-	
-	for (j = 0u; j < 8u; j++)
-		ddata[j] = 0u;
 	
 	return;
 }
 
 void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	register uint8_t t;
-	
-	DIS_TR0;
-	
+		
 	t = column & 7u;
 	gpo[4] = ddata[t];
 	gpo[5] = dcol[t];
 	column++;
 	
+	DIS_TR0;
 	TH0 = 0xf8;
 	TL0 = 0x00;
-	
 	EN_TR0;
 	
 	return;
@@ -113,7 +109,6 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 
 void main(void) {
 	register uint8_t i, j;
-	register uint16_t cycle;
 	
 	init_gpo();
 	clear_gpo();
@@ -128,8 +123,8 @@ void main(void) {
 	
 	EN_TR0;
 	
-	for (cycle = 0u; ; cycle++) {
-		printf("%0.4x\r\n", cycle);
+	while (1) {
+		gpo[GPO_OE] = OE;
 		i = 0u;
 		do {
 			j = 0u;
@@ -144,14 +139,13 @@ void main(void) {
 					nop
 					nop
 				__endasm;
-				j++;
-			} while (j);
-			i++;
-		} while (i);
+			} while (++j);
+		} while (++i);
 		
 		for (j = 0u; j < 8u; j++)
 			if (!j) ddata[j]++;
 			else ddata[j] = ddata[j - 1u] + 1u;
+		OE ^= 0x80u; /* (~)0_001111 */
 	}
 	
 	return;
