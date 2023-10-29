@@ -21,8 +21,12 @@ int getchar(void) __naked {
 	__endasm;
 }
 
+#ifdef GPO_PDATA
 #define GPO_BASE_H	0xf0u
 #define GPO_BASE_L	0x00u
+#else
+#define GPO_BASE	0xf000u
+#endif
 #define GPO_OE		6
 
 #define EN_TR0 \
@@ -30,7 +34,11 @@ int getchar(void) __naked {
 #define DIS_TR0 \
 	do { TR0 = 0; } while (0)
 
+#ifdef GPO_PDATA
 __pdata volatile uint8_t __at(GPO_BASE_L) gpo[8];
+#else
+__xdata volatile uint8_t __at(GPO_BASE) gpo[8];
+#endif
 __idata const uint8_t dcol[8] = {
 	0x01u, 0x02u, 0x04u, 0x08u, 0x10u, 0x20u, 0x40u, 0x80u
 };
@@ -50,7 +58,9 @@ __idata uint8_t OE;
 
 void init_gpo(void) {
 	P1_7 = 0;
+#ifdef GPO_PDATA
 	P2 = GPO_BASE_H;
+#endif
 	CLEAR_GPO;
 	
 	return;
@@ -103,7 +113,7 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	
 	DIS_TR0;
 	TH0 = 0xf8;
-	TL0 = 0x00;	
+	TL0 = 0x00;
 	EN_TR0;
 	
 	return;

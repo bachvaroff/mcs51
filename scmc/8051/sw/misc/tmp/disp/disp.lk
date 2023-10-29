@@ -2,6 +2,7 @@
 -i disp.ihx
 -M
 -Y
+-X 0xb000
 -b HOME = 0x2000
 -b XSEG = 0x3000
 -b PSEG = 0x3000
