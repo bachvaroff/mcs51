@@ -455,7 +455,7 @@ _init_gpo:
 	mov	_P2,#0xf0
 ;	disp.c:64: CLEAR_GPO;
 	mov	r0,#(_gpo + 0x0006)
-	mov	a,#0xff
+	mov	a,#0x3f
 	movx	@r0,a
 	mov	r0,#_gpo
 	clr	a
@@ -483,7 +483,7 @@ _init_gpo:
 _clear_gpo:
 ;	disp.c:70: CLEAR_GPO;
 	mov	r0,#(_gpo + 0x0006)
-	mov	a,#0xff
+	mov	a,#0x3f
 	movx	@r0,a
 	mov	r0,#_gpo
 	clr	a

@@ -455,7 +455,7 @@
       00209D 75 A0 F0         [24]  455 	mov	_P2,#0xf0
                                     456 ;	disp.c:64: CLEAR_GPO;
       0020A0 78 06            [12]  457 	mov	r0,#(_gpo + 0x0006)
-      0020A2 74 FF            [12]  458 	mov	a,#0xff
+      0020A2 74 3F            [12]  458 	mov	a,#0x3f
       0020A4 F2               [24]  459 	movx	@r0,a
       0020A5 78 00            [12]  460 	mov	r0,#_gpo
       0020A7 E4               [12]  461 	clr	a
@@ -483,7 +483,7 @@
       0020B9                        483 _clear_gpo:
                                     484 ;	disp.c:70: CLEAR_GPO;
       0020B9 78 06            [12]  485 	mov	r0,#(_gpo + 0x0006)
-      0020BB 74 FF            [12]  486 	mov	a,#0xff
+      0020BB 74 3F            [12]  486 	mov	a,#0x3f
       0020BD F2               [24]  487 	movx	@r0,a
       0020BE 78 00            [12]  488 	mov	r0,#_gpo
       0020C0 E4               [12]  489 	clr	a

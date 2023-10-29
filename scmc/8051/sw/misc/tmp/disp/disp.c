@@ -47,7 +47,7 @@ __idata volatile uint8_t column;
 __idata uint8_t OE;
 
 #define CLEAR_GPO do { \
-	gpo[GPO_OE] = 0xffu; \
+	gpo[GPO_OE] = 0x3fu; \
 	gpo[0] = 0u; \
 	gpo[1] = 0u; \
 	gpo[2] = 0u; \
