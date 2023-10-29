@@ -683,54 +683,38 @@ _main:
 	lcall	_init_disp
 ;	disp.c:129: for (j = 0u; j < 8u; j++)
 	mov	r7,#0x00
-00121$:
-;	disp.c:130: if (!j) ddata[j] = 0u;
-	mov	a,r7
-	jnz	00102$
+00118$:
+;	disp.c:130: ddata[j] = j;
 	mov	a,r7
 	add	a,#_ddata
 	mov	r0,a
-	mov	@r0,#0x00
-	sjmp	00122$
-00102$:
-;	disp.c:131: else ddata[j] = ddata[j - 1u] + 1u;
-	mov	a,r7
-	add	a,#_ddata
-	mov	r1,a
-	mov	a,r7
-	dec	a
-	add	a,#_ddata
-	mov	r0,a
-	mov	a,@r0
-	inc	a
-	mov	@r1,a
-00122$:
+	mov	@r0,ar7
 ;	disp.c:129: for (j = 0u; j < 8u; j++)
 	inc	r7
-	cjne	r7,#0x08,00175$
-00175$:
-	jc	00121$
-;	disp.c:133: init_timer0();
+	cjne	r7,#0x08,00167$
+00167$:
+	jc	00118$
+;	disp.c:132: init_timer0();
 	lcall	_init_timer0
-;	disp.c:134: init_intr();
+;	disp.c:133: init_intr();
 	lcall	_init_intr
-;	disp.c:136: EN_TR0;
+;	disp.c:135: EN_TR0;
 ;	assignBit
 	setb	_TR0
-;	disp.c:138: while (1) {
-00119$:
-;	disp.c:139: gpo[GPO_OE] = OE;
+;	disp.c:137: while (1) {
+00116$:
+;	disp.c:138: gpo[GPO_OE] = OE;
 	mov	r0,#(_gpo + 0x0006)
 	mov	r1,#_OE
 	mov	a,@r1
 	movx	@r0,a
-;	disp.c:140: i = 0u;
+;	disp.c:139: i = 0u;
 	mov	r7,#0x00
-;	disp.c:143: do {
-00130$:
+;	disp.c:142: do {
+00126$:
 	mov	r6,#0x00
-00108$:
-;	disp.c:153: __endasm;
+00105$:
+;	disp.c:152: __endasm;
 	nop
 	nop
 	nop
@@ -739,22 +723,22 @@ _main:
 	nop
 	nop
 	nop
-;	disp.c:154: } while (++j);
+;	disp.c:153: } while (++j);
 	inc	r6
 	mov	a,r6
-	jnz	00108$
-;	disp.c:155: } while (++i);
+	jnz	00105$
+;	disp.c:154: } while (++i);
 	mov	a,r7
 	inc	a
 	mov	r6,a
 	mov	r7,a
-;	disp.c:157: for (j = 0u; j < 8u; j++)
-	jnz	00130$
+;	disp.c:156: for (j = 0u; j < 8u; j++)
+	jnz	00126$
 	mov	r7,a
-00123$:
-;	disp.c:158: if (!j) ddata[j]++;
+00120$:
+;	disp.c:157: if (!j) ddata[j]++;
 	mov	a,r7
-	jnz	00115$
+	jnz	00112$
 	mov	a,r7
 	add	a,#_ddata
 	mov	r1,a
@@ -762,9 +746,9 @@ _main:
 	mov	r6,a
 	inc	a
 	mov	@r1,a
-	sjmp	00124$
-00115$:
-;	disp.c:159: else ddata[j] = ddata[j - 1u] + 1u;
+	sjmp	00121$
+00112$:
+;	disp.c:158: else ddata[j] = ddata[j - 1u] + 1u;
 	mov	a,r7
 	add	a,#_ddata
 	mov	r1,a
@@ -776,22 +760,22 @@ _main:
 	mov	r6,a
 	inc	a
 	mov	@r1,a
-00124$:
-;	disp.c:157: for (j = 0u; j < 8u; j++)
+00121$:
+;	disp.c:156: for (j = 0u; j < 8u; j++)
 	inc	r7
-	cjne	r7,#0x08,00180$
-00180$:
-	jc	00123$
-;	disp.c:160: OE ^= 0x80u; /* (~)0_001111 */
+	cjne	r7,#0x08,00172$
+00172$:
+	jc	00120$
+;	disp.c:159: OE ^= 0x80u; /* (~)0_001111 */
 	mov	r0,#_OE
 	mov	ar6,@r0
 	mov	r7,#0x00
 	xrl	ar6,#0x80
 	mov	r0,#_OE
 	mov	@r0,ar6
-;	disp.c:163: return;
-;	disp.c:164: }
-	sjmp	00119$
+;	disp.c:162: return;
+;	disp.c:163: }
+	sjmp	00116$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area XINIT   (CODE)

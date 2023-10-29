@@ -127,8 +127,7 @@ void main(void) {
 	init_disp();
 	
 	for (j = 0u; j < 8u; j++)
-		if (!j) ddata[j] = 0u;
-		else ddata[j] = ddata[j - 1u] + 1u;
+		ddata[j] = j;
 	
 	init_timer0();
 	init_intr();
