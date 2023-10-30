@@ -698,7 +698,7 @@ _main:
 	lcall	_init_disp
 ;	disp.c:161: for (j = 0u; j < 8u; j++)
 	mov	r7,#0x00
-00120$:
+00118$:
 ;	disp.c:162: ddata[j] = bin2gray(counter - j);
 	mov	a,r7
 	add	a,#_ddata
@@ -716,9 +716,9 @@ _main:
 	mov	@r1,a
 ;	disp.c:161: for (j = 0u; j < 8u; j++)
 	inc	r7
-	cjne	r7,#0x08,00168$
-00168$:
-	jc	00120$
+	cjne	r7,#0x08,00163$
+00163$:
+	jc	00118$
 ;	disp.c:164: init_timer0();
 	lcall	_init_timer0
 ;	disp.c:165: init_intr();
@@ -728,20 +728,28 @@ _main:
 	setb	_TR0
 ;	disp.c:169: while (1) {
 	mov	r7,#0x00
-00109$:
-;	disp.c:170: gpo[GPO_OE] = OE;
+00107$:
+;	disp.c:170: OE = (counter << 6) | 0x0fu;
+	mov	ar6,r7
+	mov	a,r6
+	rr	a
+	rr	a
+	anl	a,#0xc0
+	mov	r6,a
+	orl	ar6,#0x0f
+	mov	r0,#_OE
+	mov	@r0,ar6
+;	disp.c:171: gpo[GPO_OE] = OE;
 	mov	r0,#(_gpo + 0x0006)
-	mov	r1,#_OE
-	mov	a,@r1
+	mov	a,r6
 	movx	@r0,a
-;	disp.c:132: i = 0u;
-	mov	r6,#0x00
 ;	disp.c:133: do {
-00115$:
+	mov	r6,#0x00
+00113$:
 ;	disp.c:134: j = 0u;
 	mov	r5,#0x00
 ;	disp.c:135: do {
-00112$:
+00110$:
 ;	disp.c:145: __endasm;
 	nop
 	nop
@@ -756,19 +764,22 @@ _main:
 	inc	a
 	mov	r4,a
 	mov	r5,a
-	jnz	00112$
-;	disp.c:147: } while (++i);
-	mov	a,r6
-	inc	a
-	mov	r5,a
-	mov	r6,a
-	jnz	00115$
-;	disp.c:174: counter++;
+	jnz	00110$
+;	disp.c:147: } while ((++i) ^ 0x80u);
+	inc	r6
+	mov	ar4,r6
+	mov	r5,#0x00
+	mov	a,#0x80
+	xrl	a,r4
+	jnz	00113$
+	mov	a,r5
+	jnz	00113$
+;	disp.c:175: counter++;
 	inc	r7
-;	disp.c:175: for (j = 0u; j < 8u; j++)
+;	disp.c:176: for (j = 0u; j < 8u; j++)
 	mov	r6,#0x00
-00122$:
-;	disp.c:176: ddata[j] = bin2gray(counter - j);
+00120$:
+;	disp.c:177: ddata[j] = bin2gray(counter - j);
 	mov	a,r6
 	add	a,#_ddata
 	mov	r1,a
@@ -782,25 +793,16 @@ _main:
 	mov	r4,a
 	xrl	ar5,a
 	mov	a,r5
-;	disp.c:176: ddata[j] = bin2gray(counter - j);
+;	disp.c:177: ddata[j] = bin2gray(counter - j);
 	mov	@r1,a
-;	disp.c:175: for (j = 0u; j < 8u; j++)
+;	disp.c:176: for (j = 0u; j < 8u; j++)
 	inc	r6
-	cjne	r6,#0x08,00172$
-00172$:
-	jc	00122$
-;	disp.c:178: if (!counter) OE ^= 0x80u; /* (~)0_001111 */
-	mov	a,r7
-	jnz	00109$
-	mov	r0,#_OE
-	mov	ar5,@r0
-	mov	r6,a
-	xrl	ar5,#0x80
-	mov	r0,#_OE
-	mov	@r0,ar5
-;	disp.c:181: return;
-;	disp.c:182: }
-	sjmp	00109$
+	cjne	r6,#0x08,00168$
+00168$:
+	jc	00120$
+;	disp.c:180: return;
+;	disp.c:181: }
+	sjmp	00107$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area XINIT   (CODE)

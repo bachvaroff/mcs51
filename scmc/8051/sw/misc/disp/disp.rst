@@ -698,7 +698,7 @@
       00215B 12 20 E5         [24]  698 	lcall	_init_disp
                                     699 ;	disp.c:161: for (j = 0u; j < 8u; j++)
       00215E 7F 00            [12]  700 	mov	r7,#0x00
-      002160                        701 00120$:
+      002160                        701 00118$:
                                     702 ;	disp.c:162: ddata[j] = bin2gray(counter - j);
       002160 EF               [12]  703 	mov	a,r7
       002161 24 18            [12]  704 	add	a,#_ddata
@@ -716,9 +716,9 @@
       00216D F7               [12]  716 	mov	@r1,a
                                     717 ;	disp.c:161: for (j = 0u; j < 8u; j++)
       00216E 0F               [12]  718 	inc	r7
-      00216F BF 08 00         [24]  719 	cjne	r7,#0x08,00168$
-      002172                        720 00168$:
-      002172 40 EC            [24]  721 	jc	00120$
+      00216F BF 08 00         [24]  719 	cjne	r7,#0x08,00163$
+      002172                        720 00163$:
+      002172 40 EC            [24]  721 	jc	00118$
                                     722 ;	disp.c:164: init_timer0();
       002174 12 20 D9         [24]  723 	lcall	_init_timer0
                                     724 ;	disp.c:165: init_intr();
@@ -728,80 +728,82 @@
       00217A D2 8C            [12]  728 	setb	_TR0
                                     729 ;	disp.c:169: while (1) {
       00217C 7F 00            [12]  730 	mov	r7,#0x00
-      00217E                        731 00109$:
-                                    732 ;	disp.c:170: gpo[GPO_OE] = OE;
-      00217E 78 06            [12]  733 	mov	r0,#(_gpo + 0x0006)
-      002180 79 21            [12]  734 	mov	r1,#_OE
-      002182 E7               [12]  735 	mov	a,@r1
-      002183 F2               [24]  736 	movx	@r0,a
-                                    737 ;	disp.c:132: i = 0u;
-      002184 7E 00            [12]  738 	mov	r6,#0x00
-                                    739 ;	disp.c:133: do {
-      002186                        740 00115$:
-                                    741 ;	disp.c:134: j = 0u;
-      002186 7D 00            [12]  742 	mov	r5,#0x00
-                                    743 ;	disp.c:135: do {
-      002188                        744 00112$:
-                                    745 ;	disp.c:145: __endasm;
-      002188 00               [12]  746 	nop
-      002189 00               [12]  747 	nop
-      00218A 00               [12]  748 	nop
-      00218B 00               [12]  749 	nop
-      00218C 00               [12]  750 	nop
-      00218D 00               [12]  751 	nop
-      00218E 00               [12]  752 	nop
-      00218F 00               [12]  753 	nop
-                                    754 ;	disp.c:146: } while (++j);
-      002190 ED               [12]  755 	mov	a,r5
-      002191 04               [12]  756 	inc	a
-      002192 FC               [12]  757 	mov	r4,a
-      002193 FD               [12]  758 	mov	r5,a
-      002194 70 F2            [24]  759 	jnz	00112$
-                                    760 ;	disp.c:147: } while (++i);
-      002196 EE               [12]  761 	mov	a,r6
-      002197 04               [12]  762 	inc	a
-      002198 FD               [12]  763 	mov	r5,a
-      002199 FE               [12]  764 	mov	r6,a
-      00219A 70 EA            [24]  765 	jnz	00115$
-                                    766 ;	disp.c:174: counter++;
-      00219C 0F               [12]  767 	inc	r7
-                                    768 ;	disp.c:175: for (j = 0u; j < 8u; j++)
-      00219D 7E 00            [12]  769 	mov	r6,#0x00
-      00219F                        770 00122$:
-                                    771 ;	disp.c:176: ddata[j] = bin2gray(counter - j);
-      00219F EE               [12]  772 	mov	a,r6
-      0021A0 24 18            [12]  773 	add	a,#_ddata
-      0021A2 F9               [12]  774 	mov	r1,a
-      0021A3 EF               [12]  775 	mov	a,r7
-      0021A4 C3               [12]  776 	clr	c
-      0021A5 9E               [12]  777 	subb	a,r6
-                                    778 ;	disp.c:126: return bin ^ (bin >> 1);
-      0021A6 FD               [12]  779 	mov	r5,a
-      0021A7 C3               [12]  780 	clr	c
-      0021A8 13               [12]  781 	rrc	a
-      0021A9 FC               [12]  782 	mov	r4,a
-      0021AA 62 05            [12]  783 	xrl	ar5,a
-      0021AC ED               [12]  784 	mov	a,r5
-                                    785 ;	disp.c:176: ddata[j] = bin2gray(counter - j);
-      0021AD F7               [12]  786 	mov	@r1,a
-                                    787 ;	disp.c:175: for (j = 0u; j < 8u; j++)
-      0021AE 0E               [12]  788 	inc	r6
-      0021AF BE 08 00         [24]  789 	cjne	r6,#0x08,00172$
-      0021B2                        790 00172$:
-      0021B2 40 EB            [24]  791 	jc	00122$
-                                    792 ;	disp.c:178: if (!counter) OE ^= 0x80u; /* (~)0_001111 */
-      0021B4 EF               [12]  793 	mov	a,r7
-      0021B5 70 C7            [24]  794 	jnz	00109$
-      0021B7 78 21            [12]  795 	mov	r0,#_OE
-      0021B9 86 05            [24]  796 	mov	ar5,@r0
-      0021BB FE               [12]  797 	mov	r6,a
-      0021BC 63 05 80         [24]  798 	xrl	ar5,#0x80
-      0021BF 78 21            [12]  799 	mov	r0,#_OE
-      0021C1 A6 05            [24]  800 	mov	@r0,ar5
-                                    801 ;	disp.c:181: return;
-                                    802 ;	disp.c:182: }
-      0021C3 80 B9            [24]  803 	sjmp	00109$
-                                    804 	.area CSEG    (CODE)
-                                    805 	.area CONST   (CODE)
-                                    806 	.area XINIT   (CODE)
-                                    807 	.area CABS    (ABS,CODE)
+      00217E                        731 00107$:
+                                    732 ;	disp.c:170: OE = (counter << 6) | 0x0fu;
+      00217E 8F 06            [24]  733 	mov	ar6,r7
+      002180 EE               [12]  734 	mov	a,r6
+      002181 03               [12]  735 	rr	a
+      002182 03               [12]  736 	rr	a
+      002183 54 C0            [12]  737 	anl	a,#0xc0
+      002185 FE               [12]  738 	mov	r6,a
+      002186 43 06 0F         [24]  739 	orl	ar6,#0x0f
+      002189 78 21            [12]  740 	mov	r0,#_OE
+      00218B A6 06            [24]  741 	mov	@r0,ar6
+                                    742 ;	disp.c:171: gpo[GPO_OE] = OE;
+      00218D 78 06            [12]  743 	mov	r0,#(_gpo + 0x0006)
+      00218F EE               [12]  744 	mov	a,r6
+      002190 F2               [24]  745 	movx	@r0,a
+                                    746 ;	disp.c:133: do {
+      002191 7E 00            [12]  747 	mov	r6,#0x00
+      002193                        748 00113$:
+                                    749 ;	disp.c:134: j = 0u;
+      002193 7D 00            [12]  750 	mov	r5,#0x00
+                                    751 ;	disp.c:135: do {
+      002195                        752 00110$:
+                                    753 ;	disp.c:145: __endasm;
+      002195 00               [12]  754 	nop
+      002196 00               [12]  755 	nop
+      002197 00               [12]  756 	nop
+      002198 00               [12]  757 	nop
+      002199 00               [12]  758 	nop
+      00219A 00               [12]  759 	nop
+      00219B 00               [12]  760 	nop
+      00219C 00               [12]  761 	nop
+                                    762 ;	disp.c:146: } while (++j);
+      00219D ED               [12]  763 	mov	a,r5
+      00219E 04               [12]  764 	inc	a
+      00219F FC               [12]  765 	mov	r4,a
+      0021A0 FD               [12]  766 	mov	r5,a
+      0021A1 70 F2            [24]  767 	jnz	00110$
+                                    768 ;	disp.c:147: } while ((++i) ^ 0x80u);
+      0021A3 0E               [12]  769 	inc	r6
+      0021A4 8E 04            [24]  770 	mov	ar4,r6
+      0021A6 7D 00            [12]  771 	mov	r5,#0x00
+      0021A8 74 80            [12]  772 	mov	a,#0x80
+      0021AA 6C               [12]  773 	xrl	a,r4
+      0021AB 70 E6            [24]  774 	jnz	00113$
+      0021AD ED               [12]  775 	mov	a,r5
+      0021AE 70 E3            [24]  776 	jnz	00113$
+                                    777 ;	disp.c:175: counter++;
+      0021B0 0F               [12]  778 	inc	r7
+                                    779 ;	disp.c:176: for (j = 0u; j < 8u; j++)
+      0021B1 7E 00            [12]  780 	mov	r6,#0x00
+      0021B3                        781 00120$:
+                                    782 ;	disp.c:177: ddata[j] = bin2gray(counter - j);
+      0021B3 EE               [12]  783 	mov	a,r6
+      0021B4 24 18            [12]  784 	add	a,#_ddata
+      0021B6 F9               [12]  785 	mov	r1,a
+      0021B7 EF               [12]  786 	mov	a,r7
+      0021B8 C3               [12]  787 	clr	c
+      0021B9 9E               [12]  788 	subb	a,r6
+                                    789 ;	disp.c:126: return bin ^ (bin >> 1);
+      0021BA FD               [12]  790 	mov	r5,a
+      0021BB C3               [12]  791 	clr	c
+      0021BC 13               [12]  792 	rrc	a
+      0021BD FC               [12]  793 	mov	r4,a
+      0021BE 62 05            [12]  794 	xrl	ar5,a
+      0021C0 ED               [12]  795 	mov	a,r5
+                                    796 ;	disp.c:177: ddata[j] = bin2gray(counter - j);
+      0021C1 F7               [12]  797 	mov	@r1,a
+                                    798 ;	disp.c:176: for (j = 0u; j < 8u; j++)
+      0021C2 0E               [12]  799 	inc	r6
+      0021C3 BE 08 00         [24]  800 	cjne	r6,#0x08,00168$
+      0021C6                        801 00168$:
+      0021C6 40 EB            [24]  802 	jc	00120$
+                                    803 ;	disp.c:180: return;
+                                    804 ;	disp.c:181: }
+      0021C8 80 B4            [24]  805 	sjmp	00107$
+                                    806 	.area CSEG    (CODE)
+                                    807 	.area CONST   (CODE)
+                                    808 	.area XINIT   (CODE)
+                                    809 	.area CABS    (ABS,CODE)

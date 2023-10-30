@@ -144,7 +144,7 @@ inline void delay(void) {
 				nop
 			__endasm;
 		} while (++j);
-	} while (++i);
+	} while ((++i) ^ 0x80u);
 	
 	return;
 }
@@ -167,6 +167,7 @@ void main(void) {
 	EN_TR0;
 	
 	while (1) {
+		OE = (counter << 6) | 0x0fu;
 		gpo[GPO_OE] = OE;
 		
 		delay();
@@ -174,8 +175,6 @@ void main(void) {
 		counter++;
 		for (j = 0u; j < 8u; j++)
 			ddata[j] = bin2gray(counter - j);
-		
-		if (!counter) OE ^= 0x80u; /* (~)0_001111 */
 	}
 	
 	return;
