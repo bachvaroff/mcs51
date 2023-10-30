@@ -1516,7 +1516,7 @@ _walk:
 ;sloc1                     Allocated to stack - _bp +3
 ;sloc2                     Allocated to stack - _bp +15
 ;------------------------------------------------------------
-;	walk.c:154: int main(void) {
+;	walk.c:154: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -2154,22 +2154,20 @@ _main:
 	mov	b,#0x80
 	lcall	_puts
 ;	walk.c:206: __endasm;
-	ljmp	0
-;	walk.c:208: return 0;
-	mov	dptr,#0x0000
-;	walk.c:209: }
+	orl	pcon, #2
+;	walk.c:207: }
 	mov	sp,_bp
 	pop	_bp
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'qinit'
 ;------------------------------------------------------------
-;	walk.c:211: static void qinit(void) {
+;	walk.c:209: static void qinit(void) {
 ;	-----------------------------------------
 ;	 function qinit
 ;	-----------------------------------------
 _qinit:
-;	walk.c:212: hp = tp = 0;
+;	walk.c:210: hp = tp = 0;
 	mov	dptr,#_tp
 	clr	a
 	movx	@dptr,a
@@ -2179,8 +2177,8 @@ _qinit:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	walk.c:213: return;
-;	walk.c:214: }
+;	walk.c:211: return;
+;	walk.c:212: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'qadd'
@@ -2191,7 +2189,7 @@ _qinit:
 ;sloc2                     Allocated to stack - _bp +5
 ;sloc3                     Allocated to stack - _bp +10
 ;------------------------------------------------------------
-;	walk.c:216: static uint8_t qadd(struct node *t) {
+;	walk.c:214: static uint8_t qadd(struct node *t) {
 ;	-----------------------------------------
 ;	 function qadd
 ;	-----------------------------------------
@@ -2204,7 +2202,7 @@ _qadd:
 	mov	r7,dpl
 	mov	r5,dph
 	mov	r6,b
-;	walk.c:217: if (((hp + 1) % QMAX) == tp) return 0u;
+;	walk.c:215: if (((hp + 1) % QMAX) == tp) return 0u;
 	mov	dptr,#_hp
 	movx	a,@dptr
 	mov	r3,a
@@ -2280,7 +2278,7 @@ _qadd:
 	mov	dpl,#0x00
 	sjmp	00103$
 00102$:
-;	walk.c:218: queue[hp] = *t;
+;	walk.c:216: queue[hp] = *t;
 	mov	ar2,r7
 	mov	ar7,r6
 	mov	a,r3
@@ -2316,7 +2314,7 @@ _qadd:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	walk.c:219: hp = (hp + 1) % QMAX;
+;	walk.c:217: hp = (hp + 1) % QMAX;
 	mov	dptr,#_hp
 	movx	a,@dptr
 	mov	r5,a
@@ -2344,10 +2342,10 @@ _qadd:
 	mov	a,r6
 	inc	dptr
 	movx	@dptr,a
-;	walk.c:220: return 1u;
+;	walk.c:218: return 1u;
 	mov	dpl,#0x01
 00103$:
-;	walk.c:221: }
+;	walk.c:219: }
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -2356,7 +2354,7 @@ _qadd:
 ;------------------------------------------------------------
 ;t                         Allocated to registers r5 r6 r7 
 ;------------------------------------------------------------
-;	walk.c:223: static uint8_t qget(struct node *t) {
+;	walk.c:221: static uint8_t qget(struct node *t) {
 ;	-----------------------------------------
 ;	 function qget
 ;	-----------------------------------------
@@ -2364,7 +2362,7 @@ _qget:
 	mov	r5,dpl
 	mov	r6,dph
 	mov	r7,b
-;	walk.c:224: if (hp == tp) return 0u;
+;	walk.c:222: if (hp == tp) return 0u;
 	mov	dptr,#_hp
 	movx	a,@dptr
 	mov	r3,a
@@ -2384,7 +2382,7 @@ _qget:
 	mov	dpl,#0x00
 	ret
 00102$:
-;	walk.c:225: *t = queue[tp];
+;	walk.c:223: *t = queue[tp];
 	mov	a,r1
 	add	a,r1
 	mov	r1,a
@@ -2418,7 +2416,7 @@ _qget:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	walk.c:226: tp = (tp + 1) % QMAX;
+;	walk.c:224: tp = (tp + 1) % QMAX;
 	mov	dptr,#_tp
 	movx	a,@dptr
 	mov	r6,a
@@ -2446,9 +2444,9 @@ _qget:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	walk.c:227: return 1u;
+;	walk.c:225: return 1u;
 	mov	dpl,#0x01
-;	walk.c:228: }
+;	walk.c:226: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

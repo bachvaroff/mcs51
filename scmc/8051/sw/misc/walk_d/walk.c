@@ -146,7 +146,7 @@ next:
 	return;
 }
 
-int main(void) {
+void main(void) {
 	struct node initial;
 	unsigned int N = 0u;
 	int i, j;
@@ -197,10 +197,8 @@ int main(void) {
 	puts("\033[2J\033[?25h");
 	
 	__asm
-		ljmp 0
+		orl pcon, #2
 	__endasm;
-	
-	return 0;
 }
 
 static void stinit(void) {

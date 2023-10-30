@@ -42,6 +42,8 @@ __xdata __at(GPO_BASE) volatile uint8_t gpo[8];
 __idata const uint8_t dcol[8] = {
 	0x01u, 0x02u, 0x04u, 0x08u, 0x10u, 0x20u, 0x40u, 0x80u
 };
+#define DISP_COL	4
+#define DISP_DATA	5
 __idata volatile uint8_t ddata[8];
 __idata volatile uint8_t column;
 __idata uint8_t OE;
@@ -90,8 +92,8 @@ void init_timer0(void) {
 }
 
 void init_disp(void) {
-	gpo[4] = 0u;
-	gpo[5] = 0u;
+	gpo[DISP_COL] = 0u;
+	gpo[DISP_DATA] = 0u;
 	
 	OE = 0x0fu; /* 00_001111 */
 	gpo[GPO_OE] = OE; /* 00_001111 */
@@ -108,10 +110,9 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	register uint8_t t;
 		
 	t = column & 7u;
-	gpo[4] = 0u;
-	gpo[5] = 0u;
-	gpo[4] = dcol[t];
-	gpo[5] = ddata[t];
+	gpo[DISP_COL] = gpo[DISP_DATA] = 0u;
+	gpo[DISP_COL] = dcol[t];
+	gpo[DISP_DATA] = ddata[t];
 	column++;
 	
 	DIS_TR0;
@@ -177,6 +178,8 @@ void main(void) {
 			ddata[j] = bin2gray(counter - j);
 	}
 	
-	return;
+	__asm
+		orl pcon, #2
+	__endasm;
 }
 

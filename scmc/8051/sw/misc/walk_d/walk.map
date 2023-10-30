@@ -76,9 +76,9 @@ C:   00002062  s_GSFINAL
 C:   00002062  s_GSINIT                        
 C:   00002062  s_GSINIT5                       
 C:   00002065  s_CSEG                          
-C:   000020C1  l_CSEG                          
-C:   00004126  s_CONST                         
-C:   00004197  s_XINIT                         
+C:   000020BE  l_CSEG                          
+C:   00004123  s_CONST                         
+C:   00004194  s_XINIT                         
 C:   00004200  s_PSEG                          
 C:   00004200  s_XSEG                          
 C:   0000BC72  l_XSEG                          
@@ -384,7 +384,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002065    000020C1 =        8385. bytes (REL,CON,CODE)
+CSEG                                00002065    000020BE =        8382. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -392,26 +392,26 @@ C:   00002065  _putchar                           walk
 C:   0000206A  _getchar                           walk
 C:   00002073  _int0                              walk
 C:   0000269A  _main                              walk
-C:   00002B44  _rand                              rand
-C:   00002C08  _srand                             rand
-C:   00002C21  __gptrput                          _gptrput
-C:   00002C3C  __mulint                           _mulint
-C:   00002CDA  ___memcpy                          __memcpy
-C:   00002D6D  _puts                              puts
-C:   00002DBC  _vprintf                           vprintf
-C:   00002DF3  _printf                            vprintf
-C:   00002E2C  __gptrget                          _gptrget
-C:   00002E48  __modsint                          _modsint
-C:   00002EB6  __moduint                          _moduint
-C:   00002F35  __sdcc_external_startup            _startup
-C:   00003066  __print_format                     printf_large
-C:   0000410E  _strlen                            _strlen
+C:   00002B41  _rand                              rand
+C:   00002C05  _srand                             rand
+C:   00002C1E  __gptrput                          _gptrput
+C:   00002C39  __mulint                           _mulint
+C:   00002CD7  ___memcpy                          __memcpy
+C:   00002D6A  _puts                              puts
+C:   00002DB9  _vprintf                           vprintf
+C:   00002DF0  _printf                            vprintf
+C:   00002E29  __gptrget                          _gptrget
+C:   00002E45  __modsint                          _modsint
+C:   00002EB3  __moduint                          _moduint
+C:   00002F32  __sdcc_external_startup            _startup
+C:   00003063  __print_format                     printf_large
+C:   0000410B  _strlen                            _strlen
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00004126    00000071 =         113. bytes (REL,CON,CODE)
+CONST                               00004123    00000071 =         113. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -420,7 +420,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00004197    00000044 =          68. bytes (REL,CON,CODE)
+XINIT                               00004194    00000044 =          68. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
