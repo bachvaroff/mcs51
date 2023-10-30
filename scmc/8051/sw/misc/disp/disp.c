@@ -35,9 +35,9 @@ int getchar(void) __naked {
 	do { TR0 = 0; } while (0)
 
 #ifdef GPO_PDATA
-__pdata volatile uint8_t __at(GPO_BASE_L) gpo[8];
+__pdata __at(GPO_BASE_L) volatile uint8_t gpo[8];
 #else
-__xdata volatile uint8_t __at(GPO_BASE) gpo[8];
+__xdata __at(GPO_BASE) volatile uint8_t gpo[8];
 #endif
 __idata const uint8_t dcol[8] = {
 	0x01u, 0x02u, 0x04u, 0x08u, 0x10u, 0x20u, 0x40u, 0x80u
