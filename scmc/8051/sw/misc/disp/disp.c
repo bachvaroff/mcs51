@@ -1,6 +1,8 @@
 #include <mcs51/at89x52.h>
 #include <stdint.h>
 
+#include "font8x8.h"
+
 #define pm2_entry_cout 0x0030
 #define pm2_entry_cin 0x0032
 
@@ -40,7 +42,7 @@ __pdata __at(GPO_BASE_L) volatile uint8_t gpo[8];
 __xdata __at(GPO_BASE) volatile uint8_t gpo[8];
 #endif
 __idata const uint8_t dcol[8] = {
-	0x01u, 0x02u, 0x04u, 0x08u, 0x10u, 0x20u, 0x40u, 0x80u
+	0x80u, 0x40u, 0x20u, 0x10u, 0x08u, 0x04u, 0x02u, 0x01u
 };
 #define DISP_DATA	4
 #define DISP_COL	5
@@ -85,7 +87,7 @@ void init_intr(void) {
 void init_timer0(void) {
 	DIS_TR0;
 	TMOD = 0x01;
-	TH0 = 0xfb;
+	TH0 = 0xf8;
 	TL0 = 0x00;
 	
 	return;
@@ -116,15 +118,11 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	column++;
 	
 	DIS_TR0;
-	TH0 = 0xfb;
+	TH0 = 0xf8;
 	TL0 = 0x00;
 	EN_TR0;
 	
 	return;
-}
-
-inline uint8_t bin2gray(uint8_t bin) {
-	return bin ^ (bin >> 1);
 }
 
 inline void delay(void) {
@@ -139,51 +137,48 @@ inline void delay(void) {
 				nop
 				nop
 				nop
+#if 0
 				nop
 				nop
 				nop
 				nop
+#endif
 			__endasm;
-		} while (++j);
+		} while ((++j) ^ 0x80u);
 	} while ((++i) ^ 0x80u);
 	
 	return;
 }
 
+static const uint8_t *msg = "Go fuck yourselves you sons of bitches! ";
+
 void main(void) {
-	register uint8_t counter;
-	register uint8_t j;
+	register uint8_t symbol, counter;
+	register uint8_t i, j;
 	
 	init_gpo();
 	clear_gpo();
-	init_disp();
-	
-	counter = 0u;
-	for (j = 0u; j < 8u; j++)
-#ifdef GRAY
-		ddata[j] = bin2gray(counter - j);
-#else
-		ddata[j] = counter - j;
-#endif
-	
+	init_disp();	
 	init_timer0();
 	init_intr();
-	
 	EN_TR0;
 	
-	while (1) {
-		OE = (counter << 6) | 0x0fu;
+	for (counter = 0u, i = 0u; ; counter = (counter + 1u) & 0x07u) {
+		if (!counter) {
+			symbol = msg[i];
+			if (!symbol) {
+				i = 0u;
+				symbol = msg[i];
+			}
+			i++;
+			OE = 0x8fu;
+		} else OE = 0x0fu;
 		gpo[GPO_OE] = OE;
 		
 		delay();
 		
-		counter++;
 		for (j = 0u; j < 8u; j++)
-#ifdef GRAY
-			ddata[j] = bin2gray(counter - j);
-#else
-			ddata[j] = counter - j;
-#endif
+			ddata[j] = (ddata[j] >> 1u) | ((font8x8[symbol][j] << (7u - counter)) & 0x80u);
 	}
 	
 	__asm
