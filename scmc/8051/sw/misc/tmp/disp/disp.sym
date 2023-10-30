@@ -349,7 +349,7 @@ Symbol Table
  18 _init_gpo                                                      00000E GR
  18 _init_intr                                                     000045 GR
  18 _init_timer0                                                   00004C GR
- 18 _main                                                          0000C1 GR
+ 18 _main                                                          0000C8 GR
  18 _putchar                                                       000000 GR
  18 _timer0_intr                                                   000089 GR
     a                                                           =  0000E0 L
@@ -587,7 +587,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size     20   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    12C   flags   20
+  18 CSEG                                       size    138   flags   20
   19 CONST                                      size      0   flags   20
   1A XINIT                                      size      0   flags   20
   1B CABS                                       size      0   flags   28

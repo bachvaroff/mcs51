@@ -83,7 +83,7 @@ void init_intr(void) {
 void init_timer0(void) {
 	DIS_TR0;
 	TMOD = 0x01;
-	TH0 = 0xf8;
+	TH0 = 0xfb;
 	TL0 = 0x00;
 	
 	return;
@@ -92,6 +92,7 @@ void init_timer0(void) {
 void init_disp(void) {
 	gpo[4] = 0u;
 	gpo[5] = 0u;
+	
 	OE = 0x0fu; /* 00_001111 */
 	gpo[GPO_OE] = OE; /* 00_001111 */
 		
@@ -107,27 +108,58 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	register uint8_t t;
 		
 	t = column & 7u;
-	gpo[4] = ddata[t];
-	gpo[5] = dcol[t];
+	gpo[4] = 0u;
+	gpo[5] = 0u;
+	gpo[4] = dcol[t];
+	gpo[5] = ddata[t];
 	column++;
 	
 	DIS_TR0;
-	TH0 = 0xf8;
+	TH0 = 0xfb;
 	TL0 = 0x00;
 	EN_TR0;
 	
 	return;
 }
 
-void main(void) {
+inline uint8_t bin2gray(uint8_t bin) {
+	return bin ^ (bin >> 1);
+}
+
+inline void delay(void) {
 	register uint8_t i, j;
+	
+	i = 0u;
+	do {
+		j = 0u;
+		do {
+			__asm
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+			__endasm;
+		} while (++j);
+	} while (++i);
+	
+	return;
+}
+
+void main(void) {
+	register uint8_t counter;
+	register uint8_t j;
 	
 	init_gpo();
 	clear_gpo();
 	init_disp();
 	
+	counter = 0u;
 	for (j = 0u; j < 8u; j++)
-		ddata[j] = j;
+		ddata[j] = bin2gray(counter - j);
 	
 	init_timer0();
 	init_intr();
@@ -136,27 +168,14 @@ void main(void) {
 	
 	while (1) {
 		gpo[GPO_OE] = OE;
-		i = 0u;
-		do {
-			j = 0u;
-			do {
-				__asm
-					nop
-					nop
-					nop
-					nop
-					nop
-					nop
-					nop
-					nop
-				__endasm;
-			} while (++j);
-		} while (++i);
 		
+		delay();
+		
+		counter++;
 		for (j = 0u; j < 8u; j++)
-			if (!j) ddata[j]++;
-			else ddata[j] = ddata[j - 1u] + 1u;
-		OE ^= 0x80u; /* (~)0_001111 */
+			ddata[j] = bin2gray(counter - j);
+		
+		if (!counter) OE ^= 0x80u; /* (~)0_001111 */
 	}
 	
 	return;
