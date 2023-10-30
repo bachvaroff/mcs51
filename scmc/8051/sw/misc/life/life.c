@@ -39,7 +39,7 @@ nochar:
 	__endasm;
 }
 
-__xdata static volatile int __at(0x8000u) RND;
+__xdata __at(0x8000u) static volatile int RND;
 
 __idata static const char digits[16] = {
 	'0', '1', '2', '3', '4', '5', '6', '7',
@@ -84,7 +84,7 @@ void int1(void) __interrupt IE1_VECTOR __using 1 {
 #define OE76_NC 0x00u
 
 __idata static uint8_t OE76;
-__xdata static volatile uint8_t __at(0xf006u) OEreg;
+__xdata __at(0xf006u) static volatile uint8_t OEreg;
 
 static void flashOE(void) {
 	P1_7 = 0;

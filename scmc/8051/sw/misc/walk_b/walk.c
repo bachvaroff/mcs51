@@ -23,7 +23,7 @@ int getchar(void) __naked {
 	__endasm;
 }
 
-__xdata static volatile int __at(0x8000u) RND;
+__xdata __at(0x8000u) static volatile int RND;
 
 __idata static uint8_t i0;
 
@@ -82,7 +82,7 @@ static uint8_t qget(struct node *t);
 #define OE76_NC 0x00u
 
 __idata static uint8_t OE76;
-__xdata static volatile uint8_t __at(0xf006u) OEreg;
+__xdata __at(0xf006u) static volatile uint8_t OEreg;
 
 static void flashOE(uint8_t mask) {
 	P1_7 = 0;
