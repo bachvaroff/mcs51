@@ -668,7 +668,7 @@
                                     668 ;Allocation info for local variables in function 'main'
                                     669 ;------------------------------------------------------------
                                     670 ;symbol                    Allocated to stack - _bp +2
-                                    671 ;counter                   Allocated to registers r7 
+                                    671 ;bit                       Allocated to registers r7 
                                     672 ;i                         Allocated to stack - _bp +3
                                     673 ;j                         Allocated to registers r3 
                                     674 ;i                         Allocated to registers r6 
@@ -706,14 +706,14 @@
                                     706 ;	disp.c:163: EN_TR0;
                                     707 ;	assignBit
       00216C D2 8C            [12]  708 	setb	_TR0
-                                    709 ;	disp.c:165: for (counter = 0u, i = 0u; ; counter = (counter + 1u) & 0x07u) {
+                                    709 ;	disp.c:165: for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
       00216E 7F 00            [12]  710 	mov	r7,#0x00
       002170 E5 10            [12]  711 	mov	a,_bp
       002172 24 03            [12]  712 	add	a,#0x03
       002174 F8               [12]  713 	mov	r0,a
       002175 76 00            [12]  714 	mov	@r0,#0x00
       002177                        715 00120$:
-                                    716 ;	disp.c:166: if (!counter) {
+                                    716 ;	disp.c:166: if (!bit) {
       002177 EF               [12]  717 	mov	a,r7
       002178 70 4E            [24]  718 	jnz	00107$
                                     719 ;	disp.c:167: symbol = msg[i];
@@ -828,35 +828,35 @@
       002208 FC               [12]  828 	mov	r4,a
       002209 7B 00            [12]  829 	mov	r3,#0x00
       00220B                        830 00118$:
-                                    831 ;	disp.c:180: ddata[j] = (ddata[j] >> 1u) | ((font8x8[symbol][j] << (7u - counter)) & 0x80u);
+                                    831 ;	disp.c:180: ddata[j] = ((font8x8[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
       00220B C0 07            [24]  832 	push	ar7
       00220D EB               [12]  833 	mov	a,r3
       00220E 24 19            [12]  834 	add	a,#_ddata
       002210 F9               [12]  835 	mov	r1,a
       002211 EB               [12]  836 	mov	a,r3
-      002212 24 19            [12]  837 	add	a,#_ddata
-      002214 F8               [12]  838 	mov	r0,a
-      002215 E6               [12]  839 	mov	a,@r0
-      002216 C3               [12]  840 	clr	c
-      002217 13               [12]  841 	rrc	a
-      002218 FA               [12]  842 	mov	r2,a
-      002219 EB               [12]  843 	mov	a,r3
-      00221A 2D               [12]  844 	add	a,r5
-      00221B F5 82            [12]  845 	mov	dpl,a
-      00221D E4               [12]  846 	clr	a
-      00221E 3E               [12]  847 	addc	a,r6
-      00221F F5 83            [12]  848 	mov	dph,a
-      002221 E0               [24]  849 	movx	a,@dptr
-      002222 FF               [12]  850 	mov	r7,a
-      002223 8C F0            [24]  851 	mov	b,r4
-      002225 05 F0            [12]  852 	inc	b
-      002227 EF               [12]  853 	mov	a,r7
-      002228 80 02            [24]  854 	sjmp	00171$
-      00222A                        855 00169$:
-      00222A 25 E0            [12]  856 	add	a,acc
-      00222C                        857 00171$:
-      00222C D5 F0 FB         [24]  858 	djnz	b,00169$
-      00222F 54 80            [12]  859 	anl	a,#0x80
+      002212 2D               [12]  837 	add	a,r5
+      002213 F5 82            [12]  838 	mov	dpl,a
+      002215 E4               [12]  839 	clr	a
+      002216 3E               [12]  840 	addc	a,r6
+      002217 F5 83            [12]  841 	mov	dph,a
+      002219 E0               [24]  842 	movx	a,@dptr
+      00221A FA               [12]  843 	mov	r2,a
+      00221B 8C F0            [24]  844 	mov	b,r4
+      00221D 05 F0            [12]  845 	inc	b
+      00221F EA               [12]  846 	mov	a,r2
+      002220 80 02            [24]  847 	sjmp	00171$
+      002222                        848 00169$:
+      002222 25 E0            [12]  849 	add	a,acc
+      002224                        850 00171$:
+      002224 D5 F0 FB         [24]  851 	djnz	b,00169$
+      002227 54 80            [12]  852 	anl	a,#0x80
+      002229 FA               [12]  853 	mov	r2,a
+      00222A EB               [12]  854 	mov	a,r3
+      00222B 24 19            [12]  855 	add	a,#_ddata
+      00222D F8               [12]  856 	mov	r0,a
+      00222E E6               [12]  857 	mov	a,@r0
+      00222F C3               [12]  858 	clr	c
+      002230 13               [12]  859 	rrc	a
       002231 4A               [12]  860 	orl	a,r2
       002232 F7               [12]  861 	mov	@r1,a
                                     862 ;	disp.c:179: for (j = 0u; j < 8u; j++)
@@ -865,7 +865,7 @@
       002237                        865 00172$:
       002237 D0 07            [24]  866 	pop	ar7
       002239 40 D0            [24]  867 	jc	00118$
-                                    868 ;	disp.c:165: for (counter = 0u, i = 0u; ; counter = (counter + 1u) & 0x07u) {
+                                    868 ;	disp.c:165: for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
       00223B EF               [12]  869 	mov	a,r7
       00223C 04               [12]  870 	inc	a
       00223D FE               [12]  871 	mov	r6,a

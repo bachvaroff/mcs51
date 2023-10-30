@@ -152,7 +152,7 @@ inline void delay(void) {
 static const uint8_t *msg = "Go fuck yourselves you sons of bitches! ";
 
 void main(void) {
-	register uint8_t symbol, counter;
+	register uint8_t symbol, bit;
 	register uint8_t i, j;
 	
 	init_gpo();
@@ -162,8 +162,8 @@ void main(void) {
 	init_intr();
 	EN_TR0;
 	
-	for (counter = 0u, i = 0u; ; counter = (counter + 1u) & 0x07u) {
-		if (!counter) {
+	for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
+		if (!bit) {
 			symbol = msg[i];
 			if (!symbol) {
 				i = 0u;
@@ -177,7 +177,7 @@ void main(void) {
 		delay();
 		
 		for (j = 0u; j < 8u; j++)
-			ddata[j] = (ddata[j] >> 1u) | ((font8x8[symbol][j] << (7u - counter)) & 0x80u);
+			ddata[j] = ((font8x8[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
 	}
 	
 	__asm

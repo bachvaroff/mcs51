@@ -668,7 +668,7 @@ _timer0_intr:
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;symbol                    Allocated to stack - _bp +2
-;counter                   Allocated to registers r7 
+;bit                       Allocated to registers r7 
 ;i                         Allocated to stack - _bp +3
 ;j                         Allocated to registers r3 
 ;i                         Allocated to registers r6 
@@ -706,14 +706,14 @@ _main:
 ;	disp.c:163: EN_TR0;
 ;	assignBit
 	setb	_TR0
-;	disp.c:165: for (counter = 0u, i = 0u; ; counter = (counter + 1u) & 0x07u) {
+;	disp.c:165: for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
 	mov	r7,#0x00
 	mov	a,_bp
 	add	a,#0x03
 	mov	r0,a
 	mov	@r0,#0x00
 00120$:
-;	disp.c:166: if (!counter) {
+;	disp.c:166: if (!bit) {
 	mov	a,r7
 	jnz	00107$
 ;	disp.c:167: symbol = msg[i];
@@ -828,18 +828,11 @@ _main:
 	mov	r4,a
 	mov	r3,#0x00
 00118$:
-;	disp.c:180: ddata[j] = (ddata[j] >> 1u) | ((font8x8[symbol][j] << (7u - counter)) & 0x80u);
+;	disp.c:180: ddata[j] = ((font8x8[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
 	push	ar7
 	mov	a,r3
 	add	a,#_ddata
 	mov	r1,a
-	mov	a,r3
-	add	a,#_ddata
-	mov	r0,a
-	mov	a,@r0
-	clr	c
-	rrc	a
-	mov	r2,a
 	mov	a,r3
 	add	a,r5
 	mov	dpl,a
@@ -847,16 +840,23 @@ _main:
 	addc	a,r6
 	mov	dph,a
 	movx	a,@dptr
-	mov	r7,a
+	mov	r2,a
 	mov	b,r4
 	inc	b
-	mov	a,r7
+	mov	a,r2
 	sjmp	00171$
 00169$:
 	add	a,acc
 00171$:
 	djnz	b,00169$
 	anl	a,#0x80
+	mov	r2,a
+	mov	a,r3
+	add	a,#_ddata
+	mov	r0,a
+	mov	a,@r0
+	clr	c
+	rrc	a
 	orl	a,r2
 	mov	@r1,a
 ;	disp.c:179: for (j = 0u; j < 8u; j++)
@@ -865,7 +865,7 @@ _main:
 00172$:
 	pop	ar7
 	jc	00118$
-;	disp.c:165: for (counter = 0u, i = 0u; ; counter = (counter + 1u) & 0x07u) {
+;	disp.c:165: for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
 	mov	a,r7
 	inc	a
 	mov	r6,a
