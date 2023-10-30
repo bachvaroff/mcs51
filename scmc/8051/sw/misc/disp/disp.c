@@ -111,9 +111,9 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	register uint8_t t;
 		
 	t = column & 7u;
-	gpo[DISP_COL] = gpo[DISP_DATA] = 0u;
-	gpo[DISP_COL] = dcol[t];
+	gpo[DISP_COL] = 0u;
 	gpo[DISP_DATA] = ddata[t];
+	gpo[DISP_COL] = dcol[t];
 	column++;
 	
 	DIS_TR0;

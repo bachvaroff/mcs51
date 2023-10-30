@@ -355,7 +355,7 @@ Symbol Table
  18 _init_gpo                                                      00000E GR
  18 _init_intr                                                     000045 GR
  18 _init_timer0                                                   00004C GR
- 18 _main                                                          0000C8 GR
+ 18 _main                                                          0000C5 GR
   E _msg                                                           000800 R
  18 _putchar                                                       000000 GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
@@ -594,7 +594,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size     20   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    1C1   flags   20
+  18 CSEG                                       size    1BE   flags   20
   19 CONST                                      size     29   flags   20
   1A XINIT                                      size    803   flags   20
   1B CABS                                       size      0   flags   28

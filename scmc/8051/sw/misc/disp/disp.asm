@@ -620,26 +620,24 @@ _timer0_intr:
 	mov	r0,#_column
 	mov	ar7,@r0
 	anl	ar7,#0x07
-;	disp.c:114: gpo[DISP_COL] = gpo[DISP_DATA] = 0u;
-	mov	r0,#(_gpo + 0x0004)
+;	disp.c:114: gpo[DISP_COL] = 0u;
+	mov	r0,#(_gpo + 0x0005)
 	clr	a
 	movx	@r0,a
-	mov	r0,#(_gpo + 0x0005)
-	movx	@r0,a
-;	disp.c:115: gpo[DISP_COL] = dcol[t];
-	mov	a,r7
-	add	a,#_dcol
-	mov	r1,a
-	mov	ar6,@r1
-	mov	r0,#(_gpo + 0x0005)
-	mov	a,r6
-	movx	@r0,a
-;	disp.c:116: gpo[DISP_DATA] = ddata[t];
+;	disp.c:115: gpo[DISP_DATA] = ddata[t];
 	mov	a,r7
 	add	a,#_ddata
 	mov	r1,a
-	mov	ar7,@r1
+	mov	ar6,@r1
 	mov	r0,#(_gpo + 0x0004)
+	mov	a,r6
+	movx	@r0,a
+;	disp.c:116: gpo[DISP_COL] = dcol[t];
+	mov	a,r7
+	add	a,#_dcol
+	mov	r1,a
+	mov	ar7,@r1
+	mov	r0,#(_gpo + 0x0005)
 	mov	a,r7
 	movx	@r0,a
 ;	disp.c:117: column++;
