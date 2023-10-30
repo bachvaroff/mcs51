@@ -42,8 +42,8 @@ __xdata __at(GPO_BASE) volatile uint8_t gpo[8];
 __idata const uint8_t dcol[8] = {
 	0x01u, 0x02u, 0x04u, 0x08u, 0x10u, 0x20u, 0x40u, 0x80u
 };
-#define DISP_COL	4
-#define DISP_DATA	5
+#define DISP_DATA	4
+#define DISP_COL	5
 __idata volatile uint8_t ddata[8];
 __idata volatile uint8_t column;
 __idata uint8_t OE;
@@ -160,7 +160,11 @@ void main(void) {
 	
 	counter = 0u;
 	for (j = 0u; j < 8u; j++)
+#ifdef GRAY
 		ddata[j] = bin2gray(counter - j);
+#else
+		ddata[j] = counter - j;
+#endif
 	
 	init_timer0();
 	init_intr();
@@ -175,7 +179,11 @@ void main(void) {
 		
 		counter++;
 		for (j = 0u; j < 8u; j++)
+#ifdef GRAY
 			ddata[j] = bin2gray(counter - j);
+#else
+			ddata[j] = counter - j;
+#endif
 	}
 	
 	__asm
