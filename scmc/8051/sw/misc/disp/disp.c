@@ -31,11 +31,6 @@ int getchar(void) __naked {
 #endif
 #define GPO_OE		6
 
-#define EN_TR0 \
-	do { TR0 = 1; } while (0)
-#define DIS_TR0 \
-	do { TR0 = 0; } while (0)
-
 #ifdef GPO_PDATA
 __pdata __at(GPO_BASE_L) volatile uint8_t gpo[8];
 #else
@@ -59,6 +54,12 @@ __idata uint8_t OE;
 	gpo[4] = 0u; \
 	gpo[5] = 0u; \
 } while (0)
+
+#define EN_TR0 \
+	do { TR0 = 1; } while (0)
+
+#define DIS_TR0 \
+	do { TR0 = 0; } while (0)
 
 void init_gpo(void) {
 	P1_7 = 0;
@@ -96,13 +97,11 @@ void init_timer0(void) {
 void init_disp(void) {
 	gpo[DISP_COL] = 0u;
 	gpo[DISP_DATA] = 0u;
-	
 	OE = 0x0fu; /* 00_001111 */
 	gpo[GPO_OE] = OE; /* 00_001111 */
-		
+	
 	for (column = 0u; column < 8u; column++)
 		ddata[column] = 0u;
-	
 	column = 0u;
 	
 	return;
