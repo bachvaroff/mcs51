@@ -1,5 +1,6 @@
 #include <mcs51/at89x52.h>
 #include <stdint.h>
+#include <string.h>
 #include <ctype.h>
 
 #include "font8x8.h"
@@ -140,7 +141,8 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	return;
 }
 
-static uint8_t buf[257] = "Go fuck yourselves you sons of bitches! ";
+const static uint8_t *initial = "Go fuck yourselves you sons of bitches! ";
+static uint8_t buf[257];
 
 inline void delay(void) {
 	register uint8_t i, j;
@@ -195,7 +197,7 @@ int scroll(uint8_t *msg) {
 			if ((r == (int)'P') || (r == (int)' ')) {
 				printstr("PAUSE\r\n");
 				(void)getchar();
-			} else if ((r == (int)'L') || (r == (int)'T')) break;
+			} else if ((r == (int)'L') || (r == (int)'R') || (r == (int)'T')) break;
 		}
 	}
 	
@@ -213,9 +215,13 @@ void main(void) {
 	init_intr();
 	TR0 = 1;
 	
+reset:
+	printstr("RESET\r\n");
+	(void)strncpy(buf, initial, sizeof (buf) - 1u);
+	buf[sizeof (buf) - 1u] = 0u;
+	
 	while (1) {
-		printstr("P SP L ENT S T\r\n");
-		printstr("START MSG \"");
+		printstr("P SP L ENT S R T START MSG \"");
 		printstr((char *)buf);
 		printstr("\"\r\n");
 		
@@ -223,6 +229,7 @@ void main(void) {
 		
 		while (1) {
 			if (c == (int)'T') goto term;
+			else if (c == (int)'R') goto reset;
 			else if (c == (int)'L') {
 				printstr("LOAD ");
 				for (j = 0u; j < 256u; j++) {
