@@ -55,12 +55,6 @@ __idata uint8_t OE;
 	gpo[5] = 0u; \
 } while (0)
 
-#define EN_TR0 \
-	do { TR0 = 1; } while (0)
-
-#define DIS_TR0 \
-	do { TR0 = 0; } while (0)
-
 void init_gpo(void) {
 	P1_7 = 0;
 #ifdef GPO_PDATA
@@ -78,7 +72,7 @@ void clear_gpo(void) {
 }
 
 void init_intr(void) {
-	DIS_TR0;
+	TR0 = 0;
 	ET0 = 1;
 	EA  = 1;
 	
@@ -86,7 +80,7 @@ void init_intr(void) {
 }
 
 void init_timer0(void) {
-	DIS_TR0;
+	TR0 = 0;
 	TMOD = 0x01;
 	TH0 = 0xf8;
 	TL0 = 0x00;
@@ -116,10 +110,10 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	gpo[DISP_COL] = dcol[t];
 	column++;
 	
-	DIS_TR0;
+	TR0 = 0;
 	TH0 = 0xf8;
 	TL0 = 0x00;
-	EN_TR0;
+	TR0 = 1;
 	
 	return;
 }
@@ -160,7 +154,7 @@ void main(void) {
 	init_disp();	
 	init_timer0();
 	init_intr();
-	EN_TR0;
+	TR0 = 1;
 	
 	for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
 		if (!bit) {
