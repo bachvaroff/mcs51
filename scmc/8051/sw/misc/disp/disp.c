@@ -1,5 +1,6 @@
 #include <mcs51/at89x52.h>
 #include <stdint.h>
+#include <ctype.h>
 
 #include "font8x8.h"
 
@@ -21,6 +22,27 @@ int getchar(void) __naked {
 		mov dph, #0
 		ret
 	__endasm;
+}
+
+int getchar_poll(void) __naked {
+	__asm
+		mov a, #0xff
+		mov b, a
+		jnb ri, nochar
+		clr ri
+		mov a, sbuf
+		mov b, #0
+nochar:
+		mov dpl, a
+		mov dph, b
+		ret
+	__endasm;
+}
+
+inline void printstr(const char *s) {
+	for (; *s; s++) putchar(*s);
+	
+	return;
 }
 
 #ifdef GPO_PDATA
@@ -118,6 +140,8 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	return;
 }
 
+static uint8_t buf[257] = "Go fuck yourselves you sons of bitches! ";
+
 inline void delay(void) {
 	register uint8_t i, j;
 	
@@ -143,18 +167,11 @@ inline void delay(void) {
 	return;
 }
 
-static const uint8_t *msg = "Go fuck yourselves you sons of bitches! ";
-
-void main(void) {
+int scroll(uint8_t *msg) {
 	register uint8_t symbol, bit;
-	register uint8_t i, j;
-	
-	init_gpo();
-	clear_gpo();
-	init_disp();	
-	init_timer0();
-	init_intr();
-	TR0 = 1;
+	register uint16_t i;
+	register uint8_t j;
+	int r;
 	
 	for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
 		if (!bit) {
@@ -172,7 +189,64 @@ void main(void) {
 		
 		for (j = 0u; j < 8u; j++)
 			ddata[j] = ((font8x8[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
+		
+		if ((r = getchar_poll()) >= 0) {
+			r = toupper(r);
+			if ((r == (int)'P') || (r == (int)' ')) {
+				printstr("PAUSE\r\n");
+				(void)getchar();
+			} else if ((r == (int)'L') || (r == (int)'T')) break;
+		}
 	}
+	
+	return r;
+}
+
+void main(void) {
+	register uint16_t j;
+	int c;
+	
+	init_gpo();
+	clear_gpo();
+	init_disp();	
+	init_timer0();
+	init_intr();
+	TR0 = 1;
+	
+	while (1) {
+		printstr("START MSG \"");
+		printstr((char *)buf);
+		printstr("\"\r\n");
+		
+		c = scroll(buf);
+		
+		while (1) {
+			if (c == (int)'T') goto term;
+			else if (c == (int)'L') {
+				printstr("LOAD ");
+				for (j = 0u; j < 256u; j++) {
+					c = getchar();
+					(void)putchar(c);
+					if ((c == (int)'\r') || (c == (int)'\n')) {
+						buf[j] = 0u;
+						break;
+					} else buf[j] = c & 0xffu;
+				}
+				buf[j] = 0u;
+				printstr("\r\n");
+				printstr("MSG \"");
+				printstr((char *)buf);
+				printstr("\"\r\n");
+			} else if (c == (int)'S') break;
+			
+			c = toupper(getchar());
+		}
+	}
+
+term:	
+	EA = 0;
+	printstr("TERM\r\n");
+	(void)getchar();
 	
 	__asm
 		orl pcon, #2
