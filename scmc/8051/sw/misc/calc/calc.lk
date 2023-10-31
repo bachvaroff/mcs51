@@ -2,6 +2,7 @@
 -i calc.ihx
 -M
 -Y
+-C 0x6000
 -b HOME = 0x2000
 -b XSEG = 0x8000
 -b PSEG = 0x8000
