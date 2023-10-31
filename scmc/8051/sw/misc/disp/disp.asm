@@ -1209,7 +1209,7 @@ _main:
 	inc	r6
 	sjmp	00158$
 00134$:
-;	disp.c:235: for (j = 0u; j < 256u; j++) {
+;	disp.c:235: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
 	mov	r4,#0x00
 	mov	r5,#0x00
 	mov	r0,_bp
@@ -1270,7 +1270,7 @@ _main:
 	mov	dph,r4
 	mov	a,r3
 	movx	@dptr,a
-;	disp.c:235: for (j = 0u; j < 256u; j++) {
+;	disp.c:235: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
 	mov	r0,_bp
 	inc	r0
 	inc	@r0

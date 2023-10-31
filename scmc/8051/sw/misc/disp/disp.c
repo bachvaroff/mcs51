@@ -232,7 +232,7 @@ reset:
 			else if (c == (int)'R') goto reset;
 			else if (c == (int)'L') {
 				printstr("LOAD ");
-				for (j = 0u; j < 256u; j++) {
+				for (j = 0u; j < (sizeof (buf) - 1u); j++) {
 					c = getchar();
 					(void)putchar(c);
 					if ((c == (int)'\r') || (c == (int)'\n')) {
