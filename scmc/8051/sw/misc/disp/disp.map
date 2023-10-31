@@ -51,12 +51,12 @@ C:   00000020  s__CODE
 C:   00000021  s_ISEG                          
 C:   00000022  l_GSINIT3                       
 C:   0000002A  l_GSINIT4                       
-C:   0000002E  l_CONST                         
 C:   00000033  s_SSEG                          
+C:   0000003F  l_CONST                         
 C:   00000071  l_DSEG                          
 C:   000000CD  l_SSEG                          
 C:   00000100  l_IRAM                          
-C:   000004A4  l_CSEG                          
+C:   000004C6  l_CSEG                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -78,8 +78,8 @@ C:   0000206A  s_GSINIT
 C:   0000206A  s_GSINIT5                       
 C:   0000208A  s_GSFINAL                       
 C:   0000208D  s_CSEG                          
-C:   00002531  s_CONST                         
-C:   0000255F  s_XINIT                         
+C:   00002553  s_CONST                         
+C:   00002592  s_XINIT                         
 C:   00008000  s_PSEG                          
 C:   00008000  s_XISEG                         
 C:   00008000  s_XSEG                          
@@ -389,7 +389,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                0000208D    000004A4 =        1188. bytes (REL,CON,CODE)
+CSEG                                0000208D    000004C6 =        1222. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -404,16 +404,16 @@ C:   000020F9  _init_disp                         disp
 C:   0000212A  _timer0_intr                       disp
 C:   00002166  _scroll                            disp
 C:   000022D6  _main                              disp
-C:   000024EA  _toupper                           toupper
-C:   00002511  __gptrget                          _gptrget
-C:   0000252D  __sdcc_external_startup            _startup
+C:   0000250C  _toupper                           toupper
+C:   00002533  __gptrget                          _gptrget
+C:   0000254F  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00002531    0000002E =          46. bytes (REL,CON,CODE)
+CONST                               00002553    0000003F =          63. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -422,7 +422,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               0000255F    00000901 =        2305. bytes (REL,CON,CODE)
+XINIT                               00002592    00000901 =        2305. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

@@ -214,6 +214,7 @@ void main(void) {
 	TR0 = 1;
 	
 	while (1) {
+		printstr("P SP L ENT S T\r\n");
 		printstr("START MSG \"");
 		printstr((char *)buf);
 		printstr("\"\r\n");
