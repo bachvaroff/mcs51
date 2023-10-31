@@ -114,7 +114,7 @@ void init_disp(void) {
 	gpo[DISP_COL] = 0u;
 	gpo[DISP_DATA] = 0u;
 	OE = 0x0fu; /* 00_001111 */
-	gpo[GPO_OE] = OE; /* 00_001111 */
+	gpo[GPO_OE] = OE;
 	
 	for (column = 0u; column < 8u; column++)
 		ddata[column] = 0u;

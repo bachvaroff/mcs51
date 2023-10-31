@@ -588,7 +588,7 @@ _init_disp:
 ;	disp.c:116: OE = 0x0fu; /* 00_001111 */
 	mov	r0,#_OE
 	mov	@r0,#0x0f
-;	disp.c:117: gpo[GPO_OE] = OE; /* 00_001111 */
+;	disp.c:117: gpo[GPO_OE] = OE;
 	mov	r0,#(_gpo + 0x0006)
 	mov	a,#0x0f
 	movx	@r0,a
