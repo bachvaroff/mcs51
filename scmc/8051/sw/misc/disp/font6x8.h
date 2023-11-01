@@ -1,11 +1,15 @@
 #ifndef _FONT6X8_
 #define _FONT6X8_
 
-#define FONT	font6x8
+#ifdef FONT_TABLE
+#error FONT_TABLE already defined
+#endif
+
+#define FONT_TABLE	_ft_font6x8
 #define SKIPH	2u
 #define SKIPL	0u
 
-__xdata static const uint8_t FONT[256][8] = {
+__xdata static const uint8_t FONT_TABLE[256][8] = {
 	{ 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u },
 	{ 0x1cu, 0x22u, 0x36u, 0x22u, 0x2au, 0x22u, 0x1cu, 0x00u },
 	{ 0x1cu, 0x3eu, 0x2au, 0x3eu, 0x22u, 0x3eu, 0x1cu, 0x00u },

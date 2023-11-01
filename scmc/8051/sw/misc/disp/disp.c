@@ -192,14 +192,14 @@ int scroll(uint8_t *msg) {
 		delay();
 		
 		for (j = 0u; j < 8u; j++)
-			ddata[j] = ((FONT[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
+			ddata[j] = ((FONT_TABLE[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
 		
 		if ((r = getchar_poll()) >= 0) {
 			r = toupper(r);
 			if ((r == (int)'P') || (r == (int)' ')) {
 				printstr("PAUSE\r\n");
 				(void)getchar();
-			} else if ((r == (int)'L') || (r == (int)'R') || (r == (int)'T')) break;
+			} else if ((r == (int)'T') || (r == (int)'R') || (r == (int)'L')) break;
 		}
 	}
 	
@@ -212,12 +212,13 @@ void main(void) {
 	
 	init_gpo();
 	clear_gpo();
-	init_disp();	
+	init_disp();
 	init_timer0();
 	init_intr();
 	TR0 = 1;
 	
 reset:
+	init_disp();
 	printstr("RESET\r\n");
 	(void)strncpy(buf, initial, sizeof (buf) - 1u);
 	buf[sizeof (buf) - 1u] = 0u;
@@ -233,6 +234,7 @@ reset:
 			if (c == (int)'T') goto term;
 			else if (c == (int)'R') goto reset;
 			else if (c == (int)'L') {
+				init_disp();
 				printstr("LOAD ");
 				for (j = 0u; j < (sizeof (buf) - 1u); j++) {
 					c = getchar();
@@ -255,6 +257,7 @@ reset:
 
 term:	
 	EA = 0;
+	init_disp();
 	printstr("TERM\r\n");
 	(void)getchar();
 	

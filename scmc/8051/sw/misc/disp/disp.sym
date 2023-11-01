@@ -341,6 +341,7 @@ Symbol Table
  19 ___str_6                                                       00003A R
  19 ___str_7                                                       000040 R
  19 ___str_8                                                       000047 R
+  E __ft_font6x8                                                   000000 R
     __gptrget                                                      ****** GX
   F __interrupt_vect                                               000000 R
     __mcs51_genRAMCLEAR                                            ****** GX
@@ -349,7 +350,7 @@ Symbol Table
     __sdcc_gsinit_startup                                          ****** GX
   F __sdcc_program_startup                                         00000E GR
   7 __start__stack                                                 000000 GR
- 1A __xinit__font6x8                                               000000 R
+ 1A __xinit___ft_font6x8                                           000000 R
  1A __xinit__initial                                               000800 R
     _bp                                                            ****** GX
   C _buf                                                           000000 R
@@ -357,7 +358,6 @@ Symbol Table
   8 _column                                                        000010 GR
   8 _dcol                                                          000000 GR
   8 _ddata                                                         000008 GR
-  E _font6x8                                                       000000 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
@@ -608,7 +608,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size     20   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    4C5   flags   20
+  18 CSEG                                       size    4CE   flags   20
   19 CONST                                      size     70   flags   20
   1A XINIT                                      size    803   flags   20
   1B CABS                                       size      0   flags   28

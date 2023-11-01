@@ -343,7 +343,7 @@ _buf:
 ; external initialized ram data
 ;--------------------------------------------------------
 	.area XISEG   (XDATA)
-_font6x8:
+__ft_font6x8:
 	.ds 2048
 _initial:
 	.ds 3
@@ -867,9 +867,9 @@ _scroll:
 	mov	a,@r0
 	mov	b,#0x08
 	mul	ab
-	add	a,#_font6x8
+	add	a,#__ft_font6x8
 	mov	r2,a
-	mov	a,#(_font6x8 >> 8)
+	mov	a,#(__ft_font6x8 >> 8)
 	addc	a,b
 	mov	r3,a
 	mov	a,_bp
@@ -881,7 +881,7 @@ _scroll:
 	mov	r5,a
 	mov	r4,#0x00
 00131$:
-;	disp.c:195: ddata[j] = ((FONT[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
+;	disp.c:195: ddata[j] = ((FONT_TABLE[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
 	mov	a,r4
 	add	a,#_ddata
 	mov	r1,a
@@ -965,8 +965,8 @@ _scroll:
 	lcall	_getchar
 	sjmp	00120$
 00115$:
-;	disp.c:202: } else if ((r == (int)'L') || (r == (int)'R') || (r == (int)'T')) break;
-	cjne	r3,#0x4c,00242$
+;	disp.c:202: } else if ((r == (int)'T') || (r == (int)'R') || (r == (int)'L')) break;
+	cjne	r3,#0x54,00242$
 	cjne	r4,#0x00,00242$
 	sjmp	00121$
 00242$:
@@ -974,7 +974,7 @@ _scroll:
 	cjne	r4,#0x00,00243$
 	sjmp	00121$
 00243$:
-	cjne	r3,#0x54,00244$
+	cjne	r3,#0x4c,00244$
 	cjne	r4,#0x00,00244$
 	sjmp	00121$
 00244$:
@@ -1041,7 +1041,7 @@ _main:
 	lcall	_init_gpo
 ;	disp.c:214: clear_gpo();
 	lcall	_clear_gpo
-;	disp.c:215: init_disp();	
+;	disp.c:215: init_disp();
 	lcall	_init_disp
 ;	disp.c:216: init_timer0();
 	lcall	_init_timer0
@@ -1052,7 +1052,9 @@ _main:
 	setb	_TR0
 ;	disp.c:220: reset:
 00101$:
-;	disp.c:221: printstr("RESET\r\n");
+;	disp.c:221: init_disp();
+	lcall	_init_disp
+;	disp.c:222: printstr("RESET\r\n");
 	mov	r5,#___str_1
 	mov	r6,#(___str_1 >> 8)
 	mov	r7,#0x80
@@ -1070,12 +1072,12 @@ _main:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	disp.c:221: printstr("RESET\r\n");
+;	disp.c:222: printstr("RESET\r\n");
 	cjne	r5,#0x00,00146$
 	inc	r6
 	sjmp	00146$
 00126$:
-;	disp.c:222: (void)strncpy(buf, initial, sizeof (buf) - 1u);
+;	disp.c:223: (void)strncpy(buf, initial, sizeof (buf) - 1u);
 	clr	a
 	push	acc
 	inc	a
@@ -1095,13 +1097,13 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	disp.c:223: buf[sizeof (buf) - 1u] = 0u;
+;	disp.c:224: buf[sizeof (buf) - 1u] = 0u;
 	mov	dptr,#(_buf + 0x0100)
 	clr	a
 	movx	@dptr,a
-;	disp.c:225: while (1) {
+;	disp.c:226: while (1) {
 00122$:
-;	disp.c:226: printstr("P SP L ENT S R T START MSG \"");
+;	disp.c:227: printstr("P SP L ENT S R T START MSG \"");
 	mov	r5,#___str_2
 	mov	r6,#(___str_2 >> 8)
 	mov	r7,#0x80
@@ -1119,12 +1121,12 @@ _main:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	disp.c:226: printstr("P SP L ENT S R T START MSG \"");
+;	disp.c:227: printstr("P SP L ENT S R T START MSG \"");
 	cjne	r5,#0x00,00149$
 	inc	r6
 	sjmp	00149$
 00128$:
-;	disp.c:227: printstr((char *)buf);
+;	disp.c:228: printstr((char *)buf);
 	mov	r5,#_buf
 	mov	r6,#(_buf >> 8)
 	mov	r7,#0x00
@@ -1142,12 +1144,12 @@ _main:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	disp.c:227: printstr((char *)buf);
+;	disp.c:228: printstr((char *)buf);
 	cjne	r5,#0x00,00152$
 	inc	r6
 	sjmp	00152$
 00130$:
-;	disp.c:228: printstr("\"\r\n");
+;	disp.c:229: printstr("\"\r\n");
 	mov	r5,#___str_3
 	mov	r6,#(___str_3 >> 8)
 	mov	r7,#0x80
@@ -1165,37 +1167,39 @@ _main:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	disp.c:228: printstr("\"\r\n");
+;	disp.c:229: printstr("\"\r\n");
 	cjne	r5,#0x00,00155$
 	inc	r6
 	sjmp	00155$
 00132$:
-;	disp.c:230: c = scroll(buf);
+;	disp.c:231: c = scroll(buf);
 	mov	dptr,#_buf
 	mov	b,#0x00
 	lcall	_scroll
 	mov	r6,dpl
 	mov	r7,dph
-;	disp.c:232: while (1) {
+;	disp.c:233: while (1) {
 00119$:
-;	disp.c:233: if (c == (int)'T') goto term;
+;	disp.c:234: if (c == (int)'T') goto term;
 	cjne	r6,#0x54,00337$
 	cjne	r7,#0x00,00337$
 	ljmp	00124$
 00337$:
-;	disp.c:234: else if (c == (int)'R') goto reset;
+;	disp.c:235: else if (c == (int)'R') goto reset;
 	cjne	r6,#0x52,00338$
 	cjne	r7,#0x00,00338$
 	ljmp	00101$
 00338$:
-;	disp.c:235: else if (c == (int)'L') {
+;	disp.c:236: else if (c == (int)'L') {
 	cjne	r6,#0x4c,00339$
 	cjne	r7,#0x00,00339$
 	sjmp	00340$
 00339$:
 	ljmp	00110$
 00340$:
-;	disp.c:236: printstr("LOAD ");
+;	disp.c:237: init_disp();
+	lcall	_init_disp
+;	disp.c:238: printstr("LOAD ");
 	mov	r7,#___str_4
 	mov	r6,#(___str_4 >> 8)
 	mov	r4,#0x80
@@ -1213,12 +1217,12 @@ _main:
 	mov	dph,r5
 	lcall	_putchar
 	inc	r7
-;	disp.c:236: printstr("LOAD ");
+;	disp.c:238: printstr("LOAD ");
 	cjne	r7,#0x00,00158$
 	inc	r6
 	sjmp	00158$
 00134$:
-;	disp.c:237: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
+;	disp.c:239: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
 	mov	r4,#0x00
 	mov	r5,#0x00
 	mov	r0,_bp
@@ -1228,7 +1232,7 @@ _main:
 	inc	r0
 	mov	@r0,a
 00160$:
-;	disp.c:238: c = getchar();
+;	disp.c:240: c = getchar();
 	push	ar4
 	push	ar5
 	lcall	_getchar
@@ -1236,11 +1240,11 @@ _main:
 	mov	r5,dph
 	mov	ar7,r4
 	mov	ar6,r5
-;	disp.c:239: (void)putchar(c);
+;	disp.c:241: (void)putchar(c);
 	mov	dpl,r7
 	mov	dph,r6
 	lcall	_putchar
-;	disp.c:240: if ((c == (int)'\r') || (c == (int)'\n')) {
+;	disp.c:242: if ((c == (int)'\r') || (c == (int)'\n')) {
 	cjne	r7,#0x0d,00343$
 	cjne	r6,#0x00,00343$
 	pop	ar5
@@ -1252,7 +1256,7 @@ _main:
 	cjne	r7,#0x0a,00103$
 	cjne	r6,#0x00,00103$
 00102$:
-;	disp.c:241: buf[j] = 0u;
+;	disp.c:243: buf[j] = 0u;
 	mov	a,r4
 	add	a,#_buf
 	mov	dpl,a
@@ -1261,10 +1265,10 @@ _main:
 	mov	dph,a
 	clr	a
 	movx	@dptr,a
-;	disp.c:242: break;
+;	disp.c:244: break;
 	sjmp	00106$
 00103$:
-;	disp.c:243: } else buf[j] = c & 0xffu;
+;	disp.c:245: } else buf[j] = c & 0xffu;
 	mov	r0,_bp
 	inc	r0
 	mov	a,@r0
@@ -1279,7 +1283,7 @@ _main:
 	mov	dph,r4
 	mov	a,r3
 	movx	@dptr,a
-;	disp.c:237: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
+;	disp.c:239: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
 	mov	r0,_bp
 	inc	r0
 	inc	@r0
@@ -1301,7 +1305,7 @@ _main:
 	add	a,r3
 	jnc	00160$
 00106$:
-;	disp.c:245: buf[j] = 0u;
+;	disp.c:247: buf[j] = 0u;
 	mov	a,r4
 	add	a,#_buf
 	mov	dpl,a
@@ -1310,7 +1314,7 @@ _main:
 	mov	dph,a
 	clr	a
 	movx	@dptr,a
-;	disp.c:246: printstr("\r\n");
+;	disp.c:248: printstr("\r\n");
 	mov	r7,#___str_5
 	mov	r6,#(___str_5 >> 8)
 	mov	r4,#0x80
@@ -1328,12 +1332,12 @@ _main:
 	mov	dph,r5
 	lcall	_putchar
 	inc	r7
-;	disp.c:246: printstr("\r\n");
+;	disp.c:248: printstr("\r\n");
 	cjne	r7,#0x00,00163$
 	inc	r6
 	sjmp	00163$
 00136$:
-;	disp.c:247: printstr("MSG \"");
+;	disp.c:249: printstr("MSG \"");
 	mov	r7,#___str_6
 	mov	r6,#(___str_6 >> 8)
 	mov	r4,#0x80
@@ -1351,12 +1355,12 @@ _main:
 	mov	dph,r5
 	lcall	_putchar
 	inc	r7
-;	disp.c:247: printstr("MSG \"");
+;	disp.c:249: printstr("MSG \"");
 	cjne	r7,#0x00,00166$
 	inc	r6
 	sjmp	00166$
 00138$:
-;	disp.c:248: printstr((char *)buf);
+;	disp.c:250: printstr((char *)buf);
 	mov	r7,#_buf
 	mov	r6,#(_buf >> 8)
 	mov	r4,#0x00
@@ -1374,12 +1378,12 @@ _main:
 	mov	dph,r5
 	lcall	_putchar
 	inc	r7
-;	disp.c:248: printstr((char *)buf);
+;	disp.c:250: printstr((char *)buf);
 	cjne	r7,#0x00,00169$
 	inc	r6
 	sjmp	00169$
 00140$:
-;	disp.c:249: printstr("\"\r\n");
+;	disp.c:251: printstr("\"\r\n");
 	mov	r7,#___str_3
 	mov	r6,#(___str_3 >> 8)
 	mov	r4,#0x80
@@ -1397,29 +1401,31 @@ _main:
 	mov	dph,r5
 	lcall	_putchar
 	inc	r7
-;	disp.c:249: printstr("\"\r\n");
+;	disp.c:251: printstr("\"\r\n");
 	cjne	r7,#0x00,00172$
 	inc	r6
 	sjmp	00172$
 00110$:
-;	disp.c:250: } else if (c == (int)'S') break;
+;	disp.c:252: } else if (c == (int)'S') break;
 	cjne	r6,#0x53,00356$
 	cjne	r7,#0x00,00356$
 	ljmp	00122$
 00356$:
 00117$:
-;	disp.c:252: c = toupper(getchar());
+;	disp.c:254: c = toupper(getchar());
 	lcall	_getchar
 	lcall	_toupper
 	mov	r6,dpl
 	mov	r7,dph
 	ljmp	00119$
-;	disp.c:256: term:	
+;	disp.c:258: term:	
 00124$:
-;	disp.c:257: EA = 0;
+;	disp.c:259: EA = 0;
 ;	assignBit
 	clr	_EA
-;	disp.c:258: printstr("TERM\r\n");
+;	disp.c:260: init_disp();
+	lcall	_init_disp
+;	disp.c:261: printstr("TERM\r\n");
 	mov	r5,#___str_7
 	mov	r6,#(___str_7 >> 8)
 	mov	r7,#0x80
@@ -1437,16 +1443,16 @@ _main:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	disp.c:258: printstr("TERM\r\n");
+;	disp.c:261: printstr("TERM\r\n");
 	cjne	r5,#0x00,00175$
 	inc	r6
 	sjmp	00175$
 00144$:
-;	disp.c:259: (void)getchar();
+;	disp.c:262: (void)getchar();
 	lcall	_getchar
-;	disp.c:263: __endasm;
+;	disp.c:266: __endasm;
 	orl	pcon, #2
-;	disp.c:264: }
+;	disp.c:267: }
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -1509,7 +1515,7 @@ ___str_8:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)
-__xinit__font6x8:
+__xinit___ft_font6x8:
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x00	; 0
