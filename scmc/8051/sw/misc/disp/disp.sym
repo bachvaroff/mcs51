@@ -349,7 +349,7 @@ Symbol Table
     __sdcc_gsinit_startup                                          ****** GX
   F __sdcc_program_startup                                         00000E GR
   7 __start__stack                                                 000000 GR
- 1A __xinit__font8x8                                               000000 R
+ 1A __xinit__font6x8                                               000000 R
  1A __xinit__initial                                               000800 R
     _bp                                                            ****** GX
   C _buf                                                           000000 R
@@ -357,7 +357,7 @@ Symbol Table
   8 _column                                                        000010 GR
   8 _dcol                                                          000000 GR
   8 _ddata                                                         000008 GR
-  E _font8x8                                                       000000 R
+  E _font6x8                                                       000000 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
@@ -371,7 +371,7 @@ Symbol Table
  18 _init_intr                                                     000059 GR
  18 _init_timer0                                                   000060 GR
   E _initial                                                       000800 R
- 18 _main                                                          000251 GR
+ 18 _main                                                          00025E GR
  18 _putchar                                                       000000 GR
  18 _scroll                                                        0000D9 GR
     _strncpy                                                       ****** GX
@@ -608,7 +608,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size     20   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    4B8   flags   20
+  18 CSEG                                       size    4C5   flags   20
   19 CONST                                      size     70   flags   20
   1A XINIT                                      size    803   flags   20
   1B CABS                                       size      0   flags   28

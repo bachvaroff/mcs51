@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "font8x8.h"
+#include "font6x8.h"
 
 #define pm2_entry_cout 0x0030
 #define pm2_entry_cin 0x0032
@@ -187,10 +187,12 @@ int scroll(uint8_t *msg) {
 		} else OE = 0x0fu;
 		gpo[GPO_OE] = OE;
 		
+		if ((SKIPL > bit) || (bit > (7u - SKIPH))) continue;
+		
 		delay();
 		
 		for (j = 0u; j < 8u; j++)
-			ddata[j] = ((font8x8[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
+			ddata[j] = ((FONT[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
 		
 		if ((r = getchar_poll()) >= 0) {
 			r = toupper(r);
