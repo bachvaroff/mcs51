@@ -141,7 +141,7 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	return;
 }
 
-const static uint8_t *initial = "Sieg Heil! Viktoria! ";
+const static uint8_t *initial = "Sieg Heil! Sieg Heil! Viktoria! Sieg Heil! Viktoria! ";
 static uint8_t buf[257];
 
 inline void delay(void) {

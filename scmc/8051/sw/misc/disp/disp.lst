@@ -1514,10 +1514,15 @@
                                    1511 	.area CSEG    (CODE)
                                    1512 	.area CONST   (CODE)
       000047                       1513 ___str_8:
-      000047 53 69 65 67 20 48 65  1514 	.ascii "Sieg Heil! Viktoria! "
-             69 6C 21 20 56 69 6B
-             74 6F 72 69 61 21 20
-      00005C 00                    1515 	.db 0x00
+      000047 53 69 65 67 20 48 65  1514 	.ascii "Sieg Heil! Sieg Heil! Viktoria! Sieg Heil! Viktoria! "
+             69 6C 21 20 53 69 65
+             67 20 48 65 69 6C 21
+             20 56 69 6B 74 6F 72
+             69 61 21 20 53 69 65
+             67 20 48 65 69 6C 21
+             20 56 69 6B 74 6F 72
+             69 61 21 20
+      00007C 00                    1515 	.db 0x00
                                    1516 	.area CSEG    (CODE)
                                    1517 	.area XINIT   (CODE)
       000000                       1518 __xinit___ft_font6x8:
