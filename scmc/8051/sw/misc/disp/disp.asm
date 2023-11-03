@@ -1511,7 +1511,7 @@ ___str_7:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_8:
-	.ascii "Go fuck yourselves you sons of bitches! "
+	.ascii "Sieg Heil! Viktoria! "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)
