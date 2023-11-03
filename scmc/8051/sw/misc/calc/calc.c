@@ -270,6 +270,36 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 			(void)stack_push(&ctx->s, d1);
 		}
 		break;
+	case '>':
+		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(&ctx->s, &d1)) {
+			(void)stack_push(&ctx->s, d0);
+			printstr("\r\nstack underflow\r\n");
+		} else {
+			d1 = (unsigned long)d1 >> ((unsigned long)d0 & 0x0000001flu);
+			(void)stack_push(&ctx->s, d1);
+		}
+		break;
+	case ']':
+		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(&ctx->s, &d1)) {
+			(void)stack_push(&ctx->s, d0);
+			printstr("\r\nstack underflow\r\n");
+		} else {
+			d1 >>= ((unsigned long)d0 & 0x0000001flu);
+			(void)stack_push(&ctx->s, d1);
+		}
+		break;
+	case '<':
+		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(&ctx->s, &d1)) {
+			(void)stack_push(&ctx->s, d0);
+			printstr("\r\nstack underflow\r\n");
+		} else {
+			d1 <<= ((unsigned long)d0 & 0x0000001flu);
+			(void)stack_push(&ctx->s, d1);
+		}
+		break;
 	case '~':
 		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
 		else {
@@ -355,6 +385,9 @@ static int help(void *_ctx, delta_t *delta) __reentrant {
 	printstr("&\tand top 2\r\n");
 	printstr("|\tor top 2\r\n");
 	printstr("^\txor top 2\r\n");
+	printstr(">\tshift right top 2\r\n");
+	printstr("]\tarithmetic shift right top 2\r\n");
+	printstr("<\tshift left top 2\r\n");
 	printstr("~\tbitwise not top\r\n");
 	printstr("?\thelp\r\n");
 	printstr("q\tquit\r\n");
@@ -439,7 +472,9 @@ void main(void) {
 		} else if (
 				((char)input == '&') ||
 				((char)input == '|') || ((char)input == '^') ||
-				((char)input == '~')
+				((char)input == '~') ||
+				((char)input == '>') || ((char)input == ']') ||
+				((char)input == '<')
 		) {
 			if (state_exec(&s, EVENT_OP) <= 0) break;
 		} else {
