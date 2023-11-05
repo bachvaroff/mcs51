@@ -429,12 +429,14 @@ void main(void) {
 	c.acc = 0l;
 	c.acc_valid = (char)0;
 	c.digit[0] = c.digit[1] = '\0';
+	
 	stack_init(&c.s);	
 	state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
 	
 	while (1) {
 		input = getchar();
-		(void)putchar(input);
+		if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
+		else (void)putchar(input);
 		c.digit[0] = (char)input;
 		
 		if ((char)input == 'q') {
