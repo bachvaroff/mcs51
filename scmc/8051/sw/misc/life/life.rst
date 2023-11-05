@@ -2626,9 +2626,9 @@
       002C47                       2626 00209$:
                                    2627 ;	life.c:331: (void)getchar();
       002C47 12 20 BA         [24] 2628 	lcall	_getchar
-                                   2629 ;	life.c:335: __endasm;
-      002C4A 43 87 02         [24] 2630 	orl	pcon, #2
-                                   2631 ;	life.c:336: }
+                                   2629 ;	life.c:333: PCON |= 2;
+      002C4A 43 87 02         [24] 2630 	orl	_PCON,#0x02
+                                   2631 ;	life.c:334: }
       002C4D 85 10 81         [24] 2632 	mov	sp,_bp
       002C50 D0 10            [24] 2633 	pop	_bp
       002C52 22               [24] 2634 	ret

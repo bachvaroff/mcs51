@@ -37,7 +37,7 @@ int16_t samples[(1 << N)];
 int16_t fft[(1 << N)];
 int16_t ifft[(1 << N)];
 
-int main(void) {
+void main(void) {
 	static volatile __xdata int *R = (__xdata int *)0xfffe;
 	int i, j;
 	int16_t scale;
@@ -75,10 +75,6 @@ int main(void) {
 		printf("DONE\r\n\r\n");
 	}
 	
-	__asm
-		ljmp 0
-	__endasm;
-	
-	return 0;
+	PCON |= 2;
 }
 

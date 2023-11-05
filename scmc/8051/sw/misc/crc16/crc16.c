@@ -94,13 +94,6 @@ void main(void) {
 		}
 	}
 	
-#ifndef EXTRESET
-	__asm
-		ljmp 0
-	__endasm;
-#else
-/* trigger external reset */
 	PCON |= 2;
-#endif
 }
 

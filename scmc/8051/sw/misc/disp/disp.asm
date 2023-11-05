@@ -1450,9 +1450,9 @@ _main:
 00144$:
 ;	disp.c:262: (void)getchar();
 	lcall	_getchar
-;	disp.c:266: __endasm;
-	orl	pcon, #2
-;	disp.c:267: }
+;	disp.c:264: PCON |= 2;
+	orl	_PCON,#0x02
+;	disp.c:265: }
 	mov	sp,_bp
 	pop	_bp
 	ret

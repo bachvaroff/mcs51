@@ -82,13 +82,6 @@ void main(void) {
 	
 	P1_7 = 1; /* deactivate IO address space from 0xe000 to 0xffff */
 	
-#ifndef EXTRESET
-	__asm
-		ljmp 0
-	__endasm;
-#else
-/* trigger external reset */
 	PCON |= 2;
-#endif
 }
 

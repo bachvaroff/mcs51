@@ -31,10 +31,8 @@ void int0(void) __interrupt IE0_VECTOR __using 1 {
 	i0 = 0u;
 }
 
-static void reset(void) __naked {
-	__asm
-		orl pcon, #2
-	__endasm;
+inline void reset(void) __naked {
+	PCON |= 2;
 }
 
 static void bang(void) {
@@ -201,9 +199,7 @@ void main(void) {
 	
 	puts("\033[2J\033[?25h");
 	
-	__asm
-		orl pcon, #2
-	__endasm;
+	reset();
 }
 
 static void qinit(void) {

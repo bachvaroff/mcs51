@@ -554,9 +554,9 @@ _main:
 	mov	sp,a
 ;	irq.c:54: (void)getchar();
 	lcall	_getchar
-;	irq.c:58: __endasm;
-	ljmp	0
-;	irq.c:59: }
+;	irq.c:56: PCON |= 2;
+	orl	_PCON,#0x02
+;	irq.c:57: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

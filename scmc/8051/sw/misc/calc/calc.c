@@ -44,13 +44,13 @@ nochar:
 	__endasm;
 }
 
-static inline void printstr(const char *s) {
+inline void printstr(const char *s) {
 	for (; *s; s++) putchar(*s);
 	
 	return;
 }
 
-static inline void printbin(long d) {
+inline void printbin(long d) {
 	unsigned long mask;
 	
 	for (mask = 0x80000000lu; mask; mask >>= 1)
@@ -484,8 +484,6 @@ void main(void) {
 		}
 	}
 	
-	__asm
-		orl pcon, #2
-	__endasm;
+	PCON |= 2;
 }
 

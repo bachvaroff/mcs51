@@ -28,10 +28,8 @@ void int0(void) __interrupt IE0_VECTOR __using 1 {
 	i0 = 0;
 }
 
-static void reset(void) __naked {
-	__asm
-		orl pcon, #2
-	__endasm;
+inline void reset(void) __naked {
+	PCON |= 2;
 }
 
 static void bang(void) {
@@ -132,7 +130,7 @@ term:
 	return;
 }
 
-int main(void) {
+void main(void) {
 	static volatile __xdata int *R = (__xdata int *)0xfffe;
 	struct node initial;
 	unsigned int N = 0u;
@@ -185,11 +183,7 @@ int main(void) {
 	
 	puts("\033[2J\033[?25h");
 	
-	__asm
-		ljmp 0
-	__endasm;
-	
-	return 0;
+	reset();
 }
 
 static void qinit(void) {

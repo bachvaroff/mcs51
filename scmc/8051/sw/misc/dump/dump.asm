@@ -828,9 +828,9 @@ _main:
 ;	dump.c:83: P1_7 = 1; /* deactivate IO address space from 0xe000 to 0xffff */
 ;	assignBit
 	setb	_P1_7
-;	dump.c:88: __endasm;
-	ljmp	0
-;	dump.c:93: }
+;	dump.c:85: PCON |= 2;
+	orl	_PCON,#0x02
+;	dump.c:86: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

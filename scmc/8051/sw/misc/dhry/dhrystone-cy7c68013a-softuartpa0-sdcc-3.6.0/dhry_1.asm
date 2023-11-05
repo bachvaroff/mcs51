@@ -2890,11 +2890,11 @@ _main:
 	dec	sp
 	dec	sp
 00113$:
-;	dhry_1.c:304: __endasm;
-;	genInline
-	orl	pcon, #2
+;	dhry_1.c:302: PCON |= 2;
+;	genOr
+	orl	_PCON,#0x02
 ;	Peephole 500	removed redundant label 00120$
-;	dhry_1.c:305: }
+;	dhry_1.c:303: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Proc_1'
@@ -2905,7 +2905,7 @@ _main:
 ;Ptr_Val_Par               Allocated with name '_Proc_1_Ptr_Val_Par_65536_66'
 ;Next_Record               Allocated with name '_Proc_1_Next_Record_65536_67'
 ;------------------------------------------------------------
-;	dhry_1.c:308: void Proc_1 (REG Rec_Pointer Ptr_Val_Par)
+;	dhry_1.c:306: void Proc_1 (REG Rec_Pointer Ptr_Val_Par)
 ;	-----------------------------------------
 ;	 function Proc_1
 ;	-----------------------------------------
@@ -2922,7 +2922,7 @@ _Proc_1:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	dhry_1.c:314: REG Rec_Pointer Next_Record = Ptr_Val_Par->Ptr_Comp;  
+;	dhry_1.c:312: REG Rec_Pointer Next_Record = Ptr_Val_Par->Ptr_Comp;  
 ;	genAssign
 	mov	dptr,#_Proc_1_Ptr_Val_Par_65536_66
 	movx	a,@dptr
@@ -2946,7 +2946,7 @@ _Proc_1:
 	inc	dptr
 	lcall	__gptrget
 	mov	r4,a
-;	dhry_1.c:319: structassign (*Ptr_Val_Par->Ptr_Comp, *Ptr_Glob); 
+;	dhry_1.c:317: structassign (*Ptr_Val_Par->Ptr_Comp, *Ptr_Glob); 
 ;	genAssign
 	mov	ar0,r2
 	mov	ar1,r3
@@ -2994,7 +2994,7 @@ _Proc_1:
 	pop	ar2
 	pop	ar3
 	pop	ar4
-;	dhry_1.c:320: Ptr_Val_Par->variant.var_1.Int_Comp = 5;
+;	dhry_1.c:318: Ptr_Val_Par->variant.var_1.Int_Comp = 5;
 ;	genPlus
 ;	genPlusIncr
 	mov	a,#0x04
@@ -3026,7 +3026,7 @@ _Proc_1:
 ;	Peephole 181	changed mov to clr
 	clr	a
 	lcall	__gptrput
-;	dhry_1.c:321: Next_Record->variant.var_1.Int_Comp 
+;	dhry_1.c:319: Next_Record->variant.var_1.Int_Comp 
 ;	genPlus
 ;	genPlusIncr
 	mov	a,#0x04
@@ -3043,7 +3043,7 @@ _Proc_1:
 	cjne	r5,#0x00,00110$
 	inc	r6
 00110$:
-;	dhry_1.c:322: = Ptr_Val_Par->variant.var_1.Int_Comp;
+;	dhry_1.c:320: = Ptr_Val_Par->variant.var_1.Int_Comp;
 ;	genPointerGet
 ;	genGenPointerGet
 	mov	dpl,_Proc_1_sloc2_1_0
@@ -3064,7 +3064,7 @@ _Proc_1:
 	inc	dptr
 	mov	a,r1
 	lcall	__gptrput
-;	dhry_1.c:323: Next_Record->Ptr_Comp = Ptr_Val_Par->Ptr_Comp;
+;	dhry_1.c:321: Next_Record->Ptr_Comp = Ptr_Val_Par->Ptr_Comp;
 ;	genPointerGet
 ;	genGenPointerGet
 	mov	dpl,_Proc_1_sloc0_1_0
@@ -3091,7 +3091,7 @@ _Proc_1:
 	inc	dptr
 	mov	a,r7
 	lcall	__gptrput
-;	dhry_1.c:324: Proc_3 (&Next_Record->Ptr_Comp);
+;	dhry_1.c:322: Proc_3 (&Next_Record->Ptr_Comp);
 ;	genCall
 	mov	dpl,r2
 	mov	dph,r3
@@ -3103,7 +3103,7 @@ _Proc_1:
 	pop	ar2
 	pop	ar3
 	pop	ar4
-;	dhry_1.c:327: if (Next_Record->Discr == Ident_1)
+;	dhry_1.c:325: if (Next_Record->Discr == Ident_1)
 ;	genPlus
 ;	genPlusIncr
 	mov	a,#0x03
@@ -3124,7 +3124,7 @@ _Proc_1:
 	jz	00111$
 	ljmp	00102$
 00111$:
-;	dhry_1.c:330: Next_Record->variant.var_1.Int_Comp = 6;
+;	dhry_1.c:328: Next_Record->variant.var_1.Int_Comp = 6;
 ;	genPlus
 ;	genPlusIncr
 	mov	a,#0x04
@@ -3156,7 +3156,7 @@ _Proc_1:
 ;	Peephole 181	changed mov to clr
 	clr	a
 	lcall	__gptrput
-;	dhry_1.c:331: Proc_6 (Ptr_Val_Par->variant.var_1.Enum_Comp, 
+;	dhry_1.c:329: Proc_6 (Ptr_Val_Par->variant.var_1.Enum_Comp, 
 ;	genPointerGet
 ;	genGenPointerGet
 	mov	dpl,_Proc_1_sloc1_1_0
@@ -3164,7 +3164,7 @@ _Proc_1:
 	mov	b,(_Proc_1_sloc1_1_0 + 2)
 	lcall	__gptrget
 	mov	r7,a
-;	dhry_1.c:332: &Next_Record->variant.var_1.Enum_Comp);
+;	dhry_1.c:330: &Next_Record->variant.var_1.Enum_Comp);
 ;	genAssign
 	mov	dptr,#_Proc_6_PARM_2
 	mov	a,_Proc_1_sloc2_1_0
@@ -3184,7 +3184,7 @@ _Proc_1:
 	pop	ar2
 	pop	ar3
 	pop	ar4
-;	dhry_1.c:333: Next_Record->Ptr_Comp = Ptr_Glob->Ptr_Comp;
+;	dhry_1.c:331: Next_Record->Ptr_Comp = Ptr_Glob->Ptr_Comp;
 ;	genAssign
 	mov	dptr,#_Ptr_Glob
 	movx	a,@dptr
@@ -3221,7 +3221,7 @@ _Proc_1:
 	inc	dptr
 	mov	a,r7
 	lcall	__gptrput
-;	dhry_1.c:334: Proc_7 (Next_Record->variant.var_1.Int_Comp, 10, 
+;	dhry_1.c:332: Proc_7 (Next_Record->variant.var_1.Int_Comp, 10, 
 ;	genPlus
 ;	genPlusIncr
 	mov	a,#0x04
@@ -3247,7 +3247,7 @@ _Proc_1:
 	inc	dptr
 	lcall	__gptrget
 	mov	r7,a
-;	dhry_1.c:335: &Next_Record->variant.var_1.Int_Comp);
+;	dhry_1.c:333: &Next_Record->variant.var_1.Int_Comp);
 ;	genAssign
 	mov	dptr,#_Proc_7_PARM_2
 	mov	a,#0x0a
@@ -3274,7 +3274,7 @@ _Proc_1:
 ;	Peephole 400.a	replaced lcall/ret with ljmp
 	ljmp	_Proc_7
 00102$:
-;	dhry_1.c:338: structassign (*Ptr_Val_Par, *Ptr_Val_Par->Ptr_Comp);
+;	dhry_1.c:336: structassign (*Ptr_Val_Par, *Ptr_Val_Par->Ptr_Comp);
 ;	genAssign
 	mov	r5,_Proc_1_sloc0_1_0
 	mov	r6,(_Proc_1_sloc0_1_0 + 1)
@@ -3315,7 +3315,7 @@ _Proc_1:
 	mov	dpl,r5
 	mov	dph,r6
 	mov	b,r7
-;	dhry_1.c:339: } /* Proc_1 */
+;	dhry_1.c:337: } /* Proc_1 */
 ;	Peephole 400.b	replaced lcall/ret with ljmp
 	ljmp	___memcpy
 ;
@@ -3326,7 +3326,7 @@ _Proc_1:
 ;Int_Loc                   Allocated with name '_Proc_2_Int_Loc_65536_70'
 ;Enum_Loc                  Allocated with name '_Proc_2_Enum_Loc_65536_70'
 ;------------------------------------------------------------
-;	dhry_1.c:342: void Proc_2 (One_Fifty *Int_Par_Ref)
+;	dhry_1.c:340: void Proc_2 (One_Fifty *Int_Par_Ref)
 ;	-----------------------------------------
 ;	 function Proc_2
 ;	-----------------------------------------
@@ -3343,7 +3343,7 @@ _Proc_2:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	dhry_1.c:351: Int_Loc = *Int_Par_Ref + 10;
+;	dhry_1.c:349: Int_Loc = *Int_Par_Ref + 10;
 ;	genAssign
 	mov	dptr,#_Proc_2_Int_Par_Ref_65536_69
 	movx	a,@dptr
@@ -3373,9 +3373,9 @@ _Proc_2:
 	clr	a
 	addc	a,r4
 	mov	r4,a
-;	dhry_1.c:352: do /* executed once */
+;	dhry_1.c:350: do /* executed once */
 00103$:
-;	dhry_1.c:353: if (Ch_1_Glob == 'A')
+;	dhry_1.c:351: if (Ch_1_Glob == 'A')
 ;	genAssign
 	mov	dptr,#_Ch_1_Glob
 	movx	a,@dptr
@@ -3388,14 +3388,14 @@ _Proc_2:
 ;	Peephole 200.b	removed redundant sjmp
 ;	Peephole 500	removed redundant label 00117$
 ;	Peephole 500	removed redundant label 00118$
-;	dhry_1.c:356: Int_Loc -= 1;
+;	dhry_1.c:354: Int_Loc -= 1;
 ;	genMinus
 ;	genMinusDec
 	dec	r3
 	cjne	r3,#0xff,00119$
 	dec	r4
 00119$:
-;	dhry_1.c:357: *Int_Par_Ref = Int_Loc - Int_Glob;
+;	dhry_1.c:355: *Int_Par_Ref = Int_Loc - Int_Glob;
 ;	genAssign
 	mov	dptr,#_Int_Glob
 	movx	a,@dptr
@@ -3421,14 +3421,14 @@ _Proc_2:
 	inc	dptr
 	mov	a,r2
 	lcall	__gptrput
-;	dhry_1.c:358: Enum_Loc = Ident_1;
+;	dhry_1.c:356: Enum_Loc = Ident_1;
 ;	genAssign
 	mov	dptr,#_Proc_2_Enum_Loc_65536_70
 ;	Peephole 181	changed mov to clr
 	clr	a
 	movx	@dptr,a
 00104$:
-;	dhry_1.c:360: while (Enum_Loc != Ident_1); /* true */
+;	dhry_1.c:358: while (Enum_Loc != Ident_1); /* true */
 ;	genIfx
 	mov	dptr,#_Proc_2_Enum_Loc_65536_70
 	movx	a,@dptr
@@ -3437,14 +3437,14 @@ _Proc_2:
 	jnz	00103$
 ;	Peephole 500	removed redundant label 00120$
 ;	Peephole 500	removed redundant label 00106$
-;	dhry_1.c:361: } /* Proc_2 */
+;	dhry_1.c:359: } /* Proc_2 */
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Proc_3'
 ;------------------------------------------------------------
 ;Ptr_Ref_Par               Allocated with name '_Proc_3_Ptr_Ref_Par_65536_72'
 ;------------------------------------------------------------
-;	dhry_1.c:364: void Proc_3 (Rec_Pointer *Ptr_Ref_Par)
+;	dhry_1.c:362: void Proc_3 (Rec_Pointer *Ptr_Ref_Par)
 ;	-----------------------------------------
 ;	 function Proc_3
 ;	-----------------------------------------
@@ -3461,7 +3461,7 @@ _Proc_3:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	dhry_1.c:370: if (Ptr_Glob != Null)
+;	dhry_1.c:368: if (Ptr_Glob != Null)
 ;	genAssign
 	mov	dptr,#_Ptr_Glob
 	movx	a,@dptr
@@ -3483,7 +3483,7 @@ _Proc_3:
 ;	Peephole 108.c	removed ljmp by inverse jump logic
 	jz	00102$
 ;	Peephole 500	removed redundant label 00109$
-;	dhry_1.c:372: *Ptr_Ref_Par = Ptr_Glob->Ptr_Comp;
+;	dhry_1.c:370: *Ptr_Ref_Par = Ptr_Glob->Ptr_Comp;
 ;	genAssign
 	mov	dptr,#_Proc_3_Ptr_Ref_Par_65536_72
 	movx	a,@dptr
@@ -3521,7 +3521,7 @@ _Proc_3:
 	mov	a,r7
 	lcall	__gptrput
 00102$:
-;	dhry_1.c:373: Proc_7 (10, Int_Glob, &Ptr_Glob->variant.var_1.Int_Comp);
+;	dhry_1.c:371: Proc_7 (10, Int_Glob, &Ptr_Glob->variant.var_1.Int_Comp);
 ;	genAssign
 	mov	dptr,#_Int_Glob
 	movx	a,@dptr
@@ -3568,7 +3568,7 @@ _Proc_3:
 ;	genCall
 ;	Peephole 182.b	used 16 bit load of dptr
 	mov	dptr,#0x000a
-;	dhry_1.c:374: } /* Proc_3 */
+;	dhry_1.c:372: } /* Proc_3 */
 ;	Peephole 400.b	replaced lcall/ret with ljmp
 	ljmp	_Proc_7
 ;
@@ -3577,12 +3577,12 @@ _Proc_3:
 ;------------------------------------------------------------
 ;Bool_Loc                  Allocated with name '_Proc_4_Bool_Loc_65536_75'
 ;------------------------------------------------------------
-;	dhry_1.c:377: void Proc_4 (void) /* without parameters */
+;	dhry_1.c:375: void Proc_4 (void) /* without parameters */
 ;	-----------------------------------------
 ;	 function Proc_4
 ;	-----------------------------------------
 _Proc_4:
-;	dhry_1.c:382: Bool_Loc = Ch_1_Glob == 'A';
+;	dhry_1.c:380: Bool_Loc = Ch_1_Glob == 'A';
 ;	genAssign
 	mov	dptr,#_Ch_1_Glob
 	movx	a,@dptr
@@ -3600,7 +3600,7 @@ _Proc_4:
 	mov	r7,a
 ;	genCast
 	mov	r6,#0x00
-;	dhry_1.c:383: Bool_Glob = Bool_Loc | Bool_Glob;
+;	dhry_1.c:381: Bool_Glob = Bool_Loc | Bool_Glob;
 ;	genOr
 	mov	dptr,#_Bool_Glob
 	movx	a,@dptr
@@ -3610,28 +3610,28 @@ _Proc_4:
 	movx	a,@dptr
 	orl	a,r6
 	movx	@dptr,a
-;	dhry_1.c:384: Ch_2_Glob = 'B';
+;	dhry_1.c:382: Ch_2_Glob = 'B';
 ;	genAssign
 	mov	dptr,#_Ch_2_Glob
 	mov	a,#0x42
 	movx	@dptr,a
 ;	Peephole 500	removed redundant label 00101$
-;	dhry_1.c:385: } /* Proc_4 */
+;	dhry_1.c:383: } /* Proc_4 */
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Proc_5'
 ;------------------------------------------------------------
-;	dhry_1.c:388: void Proc_5 (void) /* without parameters */
+;	dhry_1.c:386: void Proc_5 (void) /* without parameters */
 ;	-----------------------------------------
 ;	 function Proc_5
 ;	-----------------------------------------
 _Proc_5:
-;	dhry_1.c:392: Ch_1_Glob = 'A';
+;	dhry_1.c:390: Ch_1_Glob = 'A';
 ;	genAssign
 	mov	dptr,#_Ch_1_Glob
 	mov	a,#0x41
 	movx	@dptr,a
-;	dhry_1.c:393: Bool_Glob = false;
+;	dhry_1.c:391: Bool_Glob = false;
 ;	genAssign
 	mov	dptr,#_Bool_Glob
 ;	Peephole 181	changed mov to clr
@@ -3641,7 +3641,7 @@ _Proc_5:
 	inc	dptr
 	movx	@dptr,a
 ;	Peephole 500	removed redundant label 00101$
-;	dhry_1.c:394: } /* Proc_5 */
+;	dhry_1.c:392: } /* Proc_5 */
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

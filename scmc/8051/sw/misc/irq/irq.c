@@ -53,8 +53,6 @@ void main(void) {
 	printf("got interrupt %d\r\n", intr);
 	(void)getchar();
 	
-	__asm
-		ljmp 0
-	__endasm;
+	PCON |= 2;
 }
 

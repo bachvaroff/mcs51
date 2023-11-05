@@ -489,7 +489,7 @@ _int0:
 ;sloc0                     Allocated to stack - _bp +7
 ;R                         Allocated with name '_main_R_65536_74'
 ;------------------------------------------------------------
-;	main.c:40: int main(void) {
+;	main.c:40: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -868,8 +868,8 @@ _main:
 	inc	r7
 00150$:
 	ljmp	00117$
-;	main.c:82: return 0;
-;	main.c:83: }
+;	main.c:78: PCON |= 2;
+;	main.c:79: }
 	mov	sp,_bp
 	pop	_bp
 	ret

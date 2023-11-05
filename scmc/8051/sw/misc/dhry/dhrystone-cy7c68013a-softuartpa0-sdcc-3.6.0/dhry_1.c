@@ -299,9 +299,7 @@ printf ("%ld \r\n", (long int)Dhrystones_Per_Second);
     printf ("\r\n");
   }
   
-  __asm
-    orl pcon, #2
-  __endasm;
+  PCON |= 2;
 }
 
 

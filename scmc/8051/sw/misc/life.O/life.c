@@ -259,8 +259,6 @@ terminate:
 	printstr("TERM\r\n");
 	(void)getchar();
 	
-	__asm
-		ljmp 0
-	__endasm;
+	PCON |= 2;
 }
 

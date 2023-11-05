@@ -261,8 +261,6 @@ term:
 	printstr("TERM\r\n");
 	(void)getchar();
 	
-	__asm
-		orl pcon, #2
-	__endasm;
+	PCON |= 2;
 }
 

@@ -1450,9 +1450,9 @@
       0004C2                       1450 00144$:
                                    1451 ;	disp.c:262: (void)getchar();
       0004C2 12r00r05         [24] 1452 	lcall	_getchar
-                                   1453 ;	disp.c:266: __endasm;
-      0004C5 43 87 02         [24] 1454 	orl	pcon, #2
-                                   1455 ;	disp.c:267: }
+                                   1453 ;	disp.c:264: PCON |= 2;
+      0004C5 43 87 02         [24] 1454 	orl	_PCON,#0x02
+                                   1455 ;	disp.c:265: }
       0004C8 85*00 81         [24] 1456 	mov	sp,_bp
       0004CB D0*00            [24] 1457 	pop	_bp
       0004CD 22               [24] 1458 	ret

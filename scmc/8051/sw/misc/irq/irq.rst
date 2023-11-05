@@ -554,9 +554,9 @@
       00210F F5 81            [12]  554 	mov	sp,a
                                     555 ;	irq.c:54: (void)getchar();
       002111 12 20 7A         [24]  556 	lcall	_getchar
-                                    557 ;	irq.c:58: __endasm;
-      002114 02 00 00         [24]  558 	ljmp	0
-                                    559 ;	irq.c:59: }
+                                    557 ;	irq.c:56: PCON |= 2;
+      002114 43 87 02         [24]  558 	orl	_PCON,#0x02
+                                    559 ;	irq.c:57: }
       002117 22               [24]  560 	ret
                                     561 	.area CSEG    (CODE)
                                     562 	.area CONST   (CODE)

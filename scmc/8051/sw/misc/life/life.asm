@@ -2626,9 +2626,9 @@ _main:
 00209$:
 ;	life.c:331: (void)getchar();
 	lcall	_getchar
-;	life.c:335: __endasm;
-	orl	pcon, #2
-;	life.c:336: }
+;	life.c:333: PCON |= 2;
+	orl	_PCON,#0x02
+;	life.c:334: }
 	mov	sp,_bp
 	pop	_bp
 	ret
