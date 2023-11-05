@@ -6947,11 +6947,11 @@
       0024A1 F0               [24] 6947 	movx	@dptr,a
       0024A2 90r00r13         [24] 6948 	mov	dptr,#(_c + 0x0007)
       0024A5 F0               [24] 6949 	movx	@dptr,a
-                                   6950 ;	calc.c:432: stack_init(&c.s);	
+                                   6950 ;	calc.c:433: stack_init(&c.s);	
       0024A6 90r00r15         [24] 6951 	mov	dptr,#(_c + 0x0009)
       0024A9 75 F0 00         [24] 6952 	mov	b,#0x00
       0024AC 12r00r00         [24] 6953 	lcall	_stack_init
-                                   6954 ;	calc.c:433: state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
+                                   6954 ;	calc.c:434: state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
       0024AF 74r0C            [12] 6955 	mov	a,#_c
       0024B1 C0 E0            [24] 6956 	push	acc
       0024B3 74s00            [12] 6957 	mov	a,#(_c >> 8)
@@ -6979,13 +6979,13 @@
       0024DF E5 81            [12] 6979 	mov	a,sp
       0024E1 24 F4            [12] 6980 	add	a,#0xf4
       0024E3 F5 81            [12] 6981 	mov	sp,a
-                                   6982 ;	calc.c:435: while (1) {
+                                   6982 ;	calc.c:436: while (1) {
       0024E5                       6983 00177$:
-                                   6984 ;	calc.c:436: input = getchar();
+                                   6984 ;	calc.c:437: input = getchar();
       0024E5 12r00r05         [24] 6985 	lcall	_getchar
       0024E8 AE 82            [24] 6986 	mov	r6,dpl
       0024EA AF 83            [24] 6987 	mov	r7,dph
-                                   6988 ;	calc.c:437: if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
+                                   6988 ;	calc.c:438: if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
       0024EC 8E 05            [24] 6989 	mov	ar5,r6
       0024EE BD 0D 02         [24] 6990 	cjne	r5,#0x0d,00339$
       0024F1 80 03            [24] 6991 	sjmp	00101$
@@ -7024,21 +7024,21 @@
       002526                       7024 00343$:
       002526 D0 07            [24] 7025 	pop	ar7
       002528 D0 06            [24] 7026 	pop	ar6
-                                   7027 ;	calc.c:437: if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
+                                   7027 ;	calc.c:438: if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
       00252A 80 D0            [24] 7028 	sjmp	00182$
       00252C                       7029 00102$:
-                                   7030 ;	calc.c:438: else (void)putchar(input);
+                                   7030 ;	calc.c:439: else (void)putchar(input);
       00252C 8E 82            [24] 7031 	mov	dpl,r6
       00252E 8F 83            [24] 7032 	mov	dph,r7
       002530 12r00r00         [24] 7033 	lcall	_putchar
       002533                       7034 00103$:
-                                   7035 ;	calc.c:439: c.digit[0] = (char)input;
+                                   7035 ;	calc.c:440: c.digit[0] = (char)input;
       002533 90r00r13         [24] 7036 	mov	dptr,#(_c + 0x0007)
       002536 ED               [12] 7037 	mov	a,r5
       002537 F0               [24] 7038 	movx	@dptr,a
-                                   7039 ;	calc.c:441: if ((char)input == 'q') {
+                                   7039 ;	calc.c:442: if ((char)input == 'q') {
       002538 BD 71 29         [24] 7040 	cjne	r5,#0x71,00174$
-                                   7041 ;	calc.c:442: if (state_exec(&s, EVENT_TERM) <= 0) break;
+                                   7041 ;	calc.c:443: if (state_exec(&s, EVENT_TERM) <= 0) break;
       00253B 74 07            [12] 7042 	mov	a,#0x07
       00253D C0 E0            [24] 7043 	push	acc
       00253F E4               [12] 7044 	clr	a
@@ -7060,9 +7060,9 @@
       00255F 40 84            [24] 7060 	jc	00177$
       002561 02r27r9C         [24] 7061 	ljmp	00178$
       002564                       7062 00174$:
-                                   7063 ;	calc.c:443: } else if ((char)input == '?') {
+                                   7063 ;	calc.c:444: } else if ((char)input == '?') {
       002564 BD 3F 2C         [24] 7064 	cjne	r5,#0x3f,00171$
-                                   7065 ;	calc.c:444: if (state_exec(&s, EVENT_HELP) <= 0) break;
+                                   7065 ;	calc.c:445: if (state_exec(&s, EVENT_HELP) <= 0) break;
       002567 74 03            [12] 7066 	mov	a,#0x03
       002569 C0 E0            [24] 7067 	push	acc
       00256B E4               [12] 7068 	clr	a
@@ -7086,9 +7086,9 @@
       002590                       7086 00349$:
       002590 02r27r9C         [24] 7087 	ljmp	00178$
       002593                       7088 00171$:
-                                   7089 ;	calc.c:445: } else if ((char)input == 'i') {
+                                   7089 ;	calc.c:446: } else if ((char)input == 'i') {
       002593 BD 69 2C         [24] 7090 	cjne	r5,#0x69,00168$
-                                   7091 ;	calc.c:446: if (state_exec(&s, EVENT_RSTA_i) <= 0) break;
+                                   7091 ;	calc.c:447: if (state_exec(&s, EVENT_RSTA_i) <= 0) break;
       002596 74 05            [12] 7092 	mov	a,#0x05
       002598 C0 E0            [24] 7093 	push	acc
       00259A E4               [12] 7094 	clr	a
@@ -7112,9 +7112,9 @@
       0025BF                       7112 00352$:
       0025BF 02r27r9C         [24] 7113 	ljmp	00178$
       0025C2                       7114 00168$:
-                                   7115 ;	calc.c:447: } else if ((char)input == 'I') {
+                                   7115 ;	calc.c:448: } else if ((char)input == 'I') {
       0025C2 BD 49 2C         [24] 7116 	cjne	r5,#0x49,00165$
-                                   7117 ;	calc.c:448: if (state_exec(&s, EVENT_RSTA_I) <= 0) break;
+                                   7117 ;	calc.c:449: if (state_exec(&s, EVENT_RSTA_I) <= 0) break;
       0025C5 74 06            [12] 7118 	mov	a,#0x06
       0025C7 C0 E0            [24] 7119 	push	acc
       0025C9 E4               [12] 7120 	clr	a
@@ -7138,20 +7138,20 @@
       0025EE                       7138 00355$:
       0025EE 02r27r9C         [24] 7139 	ljmp	00178$
       0025F1                       7140 00165$:
-                                   7141 ;	calc.c:450: ((char)input == 'h') || ((char)input == 'H') ||
+                                   7141 ;	calc.c:451: ((char)input == 'h') || ((char)input == 'H') ||
       0025F1 BD 68 02         [24] 7142 	cjne	r5,#0x68,00356$
       0025F4 80 0D            [24] 7143 	sjmp	00158$
       0025F6                       7144 00356$:
       0025F6 BD 48 02         [24] 7145 	cjne	r5,#0x48,00357$
       0025F9 80 08            [24] 7146 	sjmp	00158$
       0025FB                       7147 00357$:
-                                   7148 ;	calc.c:451: ((char)input == 'o') || ((char)input == 'O')
+                                   7148 ;	calc.c:452: ((char)input == 'o') || ((char)input == 'O')
       0025FB BD 6F 02         [24] 7149 	cjne	r5,#0x6f,00358$
       0025FE 80 03            [24] 7150 	sjmp	00158$
       002600                       7151 00358$:
       002600 BD 4F 2C         [24] 7152 	cjne	r5,#0x4f,00159$
       002603                       7153 00158$:
-                                   7154 ;	calc.c:453: if (state_exec(&s, EVENT_BASE) <= 0) break;
+                                   7154 ;	calc.c:454: if (state_exec(&s, EVENT_BASE) <= 0) break;
       002603 74 04            [12] 7155 	mov	a,#0x04
       002605 C0 E0            [24] 7156 	push	acc
       002607 E4               [12] 7157 	clr	a
@@ -7175,7 +7175,7 @@
       00262C                       7175 00361$:
       00262C 02r27r9C         [24] 7176 	ljmp	00178$
       00262F                       7177 00159$:
-                                   7178 ;	calc.c:454: } else if (isxdigit(input)) {
+                                   7178 ;	calc.c:455: } else if (isxdigit(input)) {
       00262F 8E 82            [24] 7179 	mov	dpl,r6
       002631 8F 83            [24] 7180 	mov	dph,r7
       002633 C0 05            [24] 7181 	push	ar5
@@ -7185,7 +7185,7 @@
       00263D D0 05            [24] 7185 	pop	ar5
       00263F 45 F0            [12] 7186 	orl	a,b
       002641 60 2C            [24] 7187 	jz	00156$
-                                   7188 ;	calc.c:455: if (state_exec(&s, EVENT_DIGIT) <= 0) break;
+                                   7188 ;	calc.c:456: if (state_exec(&s, EVENT_DIGIT) <= 0) break;
       002643 74 01            [12] 7189 	mov	a,#0x01
       002645 C0 E0            [24] 7190 	push	acc
       002647 E4               [12] 7191 	clr	a
@@ -7209,28 +7209,28 @@
       00266C                       7209 00363$:
       00266C 02r27r9C         [24] 7210 	ljmp	00178$
       00266F                       7211 00156$:
-                                   7212 ;	calc.c:457: ((char)input == 'p') || ((char)input == 'P') ||
+                                   7212 ;	calc.c:458: ((char)input == 'p') || ((char)input == 'P') ||
       00266F BD 70 02         [24] 7213 	cjne	r5,#0x70,00364$
       002672 80 17            [24] 7214 	sjmp	00147$
       002674                       7215 00364$:
       002674 BD 50 02         [24] 7216 	cjne	r5,#0x50,00365$
       002677 80 12            [24] 7217 	sjmp	00147$
       002679                       7218 00365$:
-                                   7219 ;	calc.c:458: ((char)input == 'v') || ((char)input == 'V') ||
+                                   7219 ;	calc.c:459: ((char)input == 'v') || ((char)input == 'V') ||
       002679 BD 76 02         [24] 7220 	cjne	r5,#0x76,00366$
       00267C 80 0D            [24] 7221 	sjmp	00147$
       00267E                       7222 00366$:
       00267E BD 56 02         [24] 7223 	cjne	r5,#0x56,00367$
       002681 80 08            [24] 7224 	sjmp	00147$
       002683                       7225 00367$:
-                                   7226 ;	calc.c:459: ((char)input == '.') ||
+                                   7226 ;	calc.c:460: ((char)input == '.') ||
       002683 BD 2E 02         [24] 7227 	cjne	r5,#0x2e,00368$
       002686 80 03            [24] 7228 	sjmp	00147$
       002688                       7229 00368$:
-                                   7230 ;	calc.c:460: ((char)input == 'x')
+                                   7230 ;	calc.c:461: ((char)input == 'x')
       002688 BD 78 2C         [24] 7231 	cjne	r5,#0x78,00148$
       00268B                       7232 00147$:
-                                   7233 ;	calc.c:462: if (state_exec(&s, EVENT_OP) <= 0) break;
+                                   7233 ;	calc.c:463: if (state_exec(&s, EVENT_OP) <= 0) break;
       00268B 74 02            [12] 7234 	mov	a,#0x02
       00268D C0 E0            [24] 7235 	push	acc
       00268F E4               [12] 7236 	clr	a
@@ -7254,13 +7254,13 @@
       0026B4                       7254 00371$:
       0026B4 02r27r9C         [24] 7255 	ljmp	00178$
       0026B7                       7256 00148$:
-                                   7257 ;	calc.c:464: ((char)input == '+') || ((char)input == '-')
+                                   7257 ;	calc.c:465: ((char)input == '+') || ((char)input == '-')
       0026B7 BD 2B 02         [24] 7258 	cjne	r5,#0x2b,00372$
       0026BA 80 03            [24] 7259 	sjmp	00143$
       0026BC                       7260 00372$:
       0026BC BD 2D 2C         [24] 7261 	cjne	r5,#0x2d,00144$
       0026BF                       7262 00143$:
-                                   7263 ;	calc.c:466: if (state_exec(&s, EVENT_OP) <= 0) break;
+                                   7263 ;	calc.c:467: if (state_exec(&s, EVENT_OP) <= 0) break;
       0026BF 74 02            [12] 7264 	mov	a,#0x02
       0026C1 C0 E0            [24] 7265 	push	acc
       0026C3 E4               [12] 7266 	clr	a
@@ -7284,24 +7284,24 @@
       0026E8                       7284 00375$:
       0026E8 02r27r9C         [24] 7285 	ljmp	00178$
       0026EB                       7286 00144$:
-                                   7287 ;	calc.c:468: ((char)input == '*') ||
+                                   7287 ;	calc.c:469: ((char)input == '*') ||
       0026EB BD 2A 02         [24] 7288 	cjne	r5,#0x2a,00376$
       0026EE 80 12            [24] 7289 	sjmp	00136$
       0026F0                       7290 00376$:
-                                   7291 ;	calc.c:469: ((char)input == '/') || ((char)input == '\\') ||
+                                   7291 ;	calc.c:470: ((char)input == '/') || ((char)input == '\\') ||
       0026F0 BD 2F 02         [24] 7292 	cjne	r5,#0x2f,00377$
       0026F3 80 0D            [24] 7293 	sjmp	00136$
       0026F5                       7294 00377$:
       0026F5 BD 5C 02         [24] 7295 	cjne	r5,#0x5c,00378$
       0026F8 80 08            [24] 7296 	sjmp	00136$
       0026FA                       7297 00378$:
-                                   7298 ;	calc.c:470: ((char)input == '%') || ((char)input == '#')
+                                   7298 ;	calc.c:471: ((char)input == '%') || ((char)input == '#')
       0026FA BD 25 02         [24] 7299 	cjne	r5,#0x25,00379$
       0026FD 80 03            [24] 7300 	sjmp	00136$
       0026FF                       7301 00379$:
       0026FF BD 23 29         [24] 7302 	cjne	r5,#0x23,00137$
       002702                       7303 00136$:
-                                   7304 ;	calc.c:472: if (state_exec(&s, EVENT_OP) <= 0) break;
+                                   7304 ;	calc.c:473: if (state_exec(&s, EVENT_OP) <= 0) break;
       002702 74 02            [12] 7305 	mov	a,#0x02
       002704 C0 E0            [24] 7306 	push	acc
       002706 E4               [12] 7307 	clr	a
@@ -7323,32 +7323,32 @@
       002726 50 74            [24] 7323 	jnc	00178$
       002728 02r24rE5         [24] 7324 	ljmp	00177$
       00272B                       7325 00137$:
-                                   7326 ;	calc.c:474: ((char)input == '&') ||
+                                   7326 ;	calc.c:475: ((char)input == '&') ||
       00272B BD 26 02         [24] 7327 	cjne	r5,#0x26,00383$
       00272E 80 1C            [24] 7328 	sjmp	00127$
       002730                       7329 00383$:
-                                   7330 ;	calc.c:475: ((char)input == '|') || ((char)input == '^') ||
+                                   7330 ;	calc.c:476: ((char)input == '|') || ((char)input == '^') ||
       002730 BD 7C 02         [24] 7331 	cjne	r5,#0x7c,00384$
       002733 80 17            [24] 7332 	sjmp	00127$
       002735                       7333 00384$:
       002735 BD 5E 02         [24] 7334 	cjne	r5,#0x5e,00385$
       002738 80 12            [24] 7335 	sjmp	00127$
       00273A                       7336 00385$:
-                                   7337 ;	calc.c:476: ((char)input == '~') ||
+                                   7337 ;	calc.c:477: ((char)input == '~') ||
       00273A BD 7E 02         [24] 7338 	cjne	r5,#0x7e,00386$
       00273D 80 0D            [24] 7339 	sjmp	00127$
       00273F                       7340 00386$:
-                                   7341 ;	calc.c:477: ((char)input == '>') || ((char)input == ']') ||
+                                   7341 ;	calc.c:478: ((char)input == '>') || ((char)input == ']') ||
       00273F BD 3E 02         [24] 7342 	cjne	r5,#0x3e,00387$
       002742 80 08            [24] 7343 	sjmp	00127$
       002744                       7344 00387$:
       002744 BD 5D 02         [24] 7345 	cjne	r5,#0x5d,00388$
       002747 80 03            [24] 7346 	sjmp	00127$
       002749                       7347 00388$:
-                                   7348 ;	calc.c:478: ((char)input == '<')
+                                   7348 ;	calc.c:479: ((char)input == '<')
       002749 BD 3C 29         [24] 7349 	cjne	r5,#0x3c,00128$
       00274C                       7350 00127$:
-                                   7351 ;	calc.c:480: if (state_exec(&s, EVENT_OP) <= 0) break;
+                                   7351 ;	calc.c:481: if (state_exec(&s, EVENT_OP) <= 0) break;
       00274C 74 02            [12] 7352 	mov	a,#0x02
       00274E C0 E0            [24] 7353 	push	acc
       002750 E4               [12] 7354 	clr	a
@@ -7370,7 +7370,7 @@
       002770 50 2A            [24] 7370 	jnc	00178$
       002772 02r24rE5         [24] 7371 	ljmp	00177$
       002775                       7372 00128$:
-                                   7373 ;	calc.c:482: if (state_exec(&s, EVENT_DELIM) <= 0) break;
+                                   7373 ;	calc.c:483: if (state_exec(&s, EVENT_DELIM) <= 0) break;
       002775 E4               [12] 7374 	clr	a
       002776 C0 E0            [24] 7375 	push	acc
       002778 C0 E0            [24] 7376 	push	acc
@@ -7392,9 +7392,9 @@
       002799 02r24rE5         [24] 7392 	ljmp	00177$
       00279C                       7393 00392$:
       00279C                       7394 00178$:
-                                   7395 ;	calc.c:488: __endasm;
+                                   7395 ;	calc.c:489: __endasm;
       00279C 43 87 02         [24] 7396 	orl	pcon, #2
-                                   7397 ;	calc.c:489: }
+                                   7397 ;	calc.c:490: }
       00279F 15 81            [12] 7398 	dec	sp
       0027A1 D0*00            [24] 7399 	pop	_bp
       0027A3 22               [24] 7400 	ret

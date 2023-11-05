@@ -6947,11 +6947,11 @@ _main:
 	movx	@dptr,a
 	mov	dptr,#(_c + 0x0007)
 	movx	@dptr,a
-;	calc.c:432: stack_init(&c.s);	
+;	calc.c:433: stack_init(&c.s);	
 	mov	dptr,#(_c + 0x0009)
 	mov	b,#0x00
 	lcall	_stack_init
-;	calc.c:433: state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
+;	calc.c:434: state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
 	mov	a,#_c
 	push	acc
 	mov	a,#(_c >> 8)
@@ -6979,13 +6979,13 @@ _main:
 	mov	a,sp
 	add	a,#0xf4
 	mov	sp,a
-;	calc.c:435: while (1) {
+;	calc.c:436: while (1) {
 00177$:
-;	calc.c:436: input = getchar();
+;	calc.c:437: input = getchar();
 	lcall	_getchar
 	mov	r6,dpl
 	mov	r7,dph
-;	calc.c:437: if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
+;	calc.c:438: if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
 	mov	ar5,r6
 	cjne	r5,#0x0d,00339$
 	sjmp	00101$
@@ -7024,21 +7024,21 @@ _main:
 00343$:
 	pop	ar7
 	pop	ar6
-;	calc.c:437: if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
+;	calc.c:438: if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
 	sjmp	00182$
 00102$:
-;	calc.c:438: else (void)putchar(input);
+;	calc.c:439: else (void)putchar(input);
 	mov	dpl,r6
 	mov	dph,r7
 	lcall	_putchar
 00103$:
-;	calc.c:439: c.digit[0] = (char)input;
+;	calc.c:440: c.digit[0] = (char)input;
 	mov	dptr,#(_c + 0x0007)
 	mov	a,r5
 	movx	@dptr,a
-;	calc.c:441: if ((char)input == 'q') {
+;	calc.c:442: if ((char)input == 'q') {
 	cjne	r5,#0x71,00174$
-;	calc.c:442: if (state_exec(&s, EVENT_TERM) <= 0) break;
+;	calc.c:443: if (state_exec(&s, EVENT_TERM) <= 0) break;
 	mov	a,#0x07
 	push	acc
 	clr	a
@@ -7060,9 +7060,9 @@ _main:
 	jc	00177$
 	ljmp	00178$
 00174$:
-;	calc.c:443: } else if ((char)input == '?') {
+;	calc.c:444: } else if ((char)input == '?') {
 	cjne	r5,#0x3f,00171$
-;	calc.c:444: if (state_exec(&s, EVENT_HELP) <= 0) break;
+;	calc.c:445: if (state_exec(&s, EVENT_HELP) <= 0) break;
 	mov	a,#0x03
 	push	acc
 	clr	a
@@ -7086,9 +7086,9 @@ _main:
 00349$:
 	ljmp	00178$
 00171$:
-;	calc.c:445: } else if ((char)input == 'i') {
+;	calc.c:446: } else if ((char)input == 'i') {
 	cjne	r5,#0x69,00168$
-;	calc.c:446: if (state_exec(&s, EVENT_RSTA_i) <= 0) break;
+;	calc.c:447: if (state_exec(&s, EVENT_RSTA_i) <= 0) break;
 	mov	a,#0x05
 	push	acc
 	clr	a
@@ -7112,9 +7112,9 @@ _main:
 00352$:
 	ljmp	00178$
 00168$:
-;	calc.c:447: } else if ((char)input == 'I') {
+;	calc.c:448: } else if ((char)input == 'I') {
 	cjne	r5,#0x49,00165$
-;	calc.c:448: if (state_exec(&s, EVENT_RSTA_I) <= 0) break;
+;	calc.c:449: if (state_exec(&s, EVENT_RSTA_I) <= 0) break;
 	mov	a,#0x06
 	push	acc
 	clr	a
@@ -7138,20 +7138,20 @@ _main:
 00355$:
 	ljmp	00178$
 00165$:
-;	calc.c:450: ((char)input == 'h') || ((char)input == 'H') ||
+;	calc.c:451: ((char)input == 'h') || ((char)input == 'H') ||
 	cjne	r5,#0x68,00356$
 	sjmp	00158$
 00356$:
 	cjne	r5,#0x48,00357$
 	sjmp	00158$
 00357$:
-;	calc.c:451: ((char)input == 'o') || ((char)input == 'O')
+;	calc.c:452: ((char)input == 'o') || ((char)input == 'O')
 	cjne	r5,#0x6f,00358$
 	sjmp	00158$
 00358$:
 	cjne	r5,#0x4f,00159$
 00158$:
-;	calc.c:453: if (state_exec(&s, EVENT_BASE) <= 0) break;
+;	calc.c:454: if (state_exec(&s, EVENT_BASE) <= 0) break;
 	mov	a,#0x04
 	push	acc
 	clr	a
@@ -7175,7 +7175,7 @@ _main:
 00361$:
 	ljmp	00178$
 00159$:
-;	calc.c:454: } else if (isxdigit(input)) {
+;	calc.c:455: } else if (isxdigit(input)) {
 	mov	dpl,r6
 	mov	dph,r7
 	push	ar5
@@ -7185,7 +7185,7 @@ _main:
 	pop	ar5
 	orl	a,b
 	jz	00156$
-;	calc.c:455: if (state_exec(&s, EVENT_DIGIT) <= 0) break;
+;	calc.c:456: if (state_exec(&s, EVENT_DIGIT) <= 0) break;
 	mov	a,#0x01
 	push	acc
 	clr	a
@@ -7209,28 +7209,28 @@ _main:
 00363$:
 	ljmp	00178$
 00156$:
-;	calc.c:457: ((char)input == 'p') || ((char)input == 'P') ||
+;	calc.c:458: ((char)input == 'p') || ((char)input == 'P') ||
 	cjne	r5,#0x70,00364$
 	sjmp	00147$
 00364$:
 	cjne	r5,#0x50,00365$
 	sjmp	00147$
 00365$:
-;	calc.c:458: ((char)input == 'v') || ((char)input == 'V') ||
+;	calc.c:459: ((char)input == 'v') || ((char)input == 'V') ||
 	cjne	r5,#0x76,00366$
 	sjmp	00147$
 00366$:
 	cjne	r5,#0x56,00367$
 	sjmp	00147$
 00367$:
-;	calc.c:459: ((char)input == '.') ||
+;	calc.c:460: ((char)input == '.') ||
 	cjne	r5,#0x2e,00368$
 	sjmp	00147$
 00368$:
-;	calc.c:460: ((char)input == 'x')
+;	calc.c:461: ((char)input == 'x')
 	cjne	r5,#0x78,00148$
 00147$:
-;	calc.c:462: if (state_exec(&s, EVENT_OP) <= 0) break;
+;	calc.c:463: if (state_exec(&s, EVENT_OP) <= 0) break;
 	mov	a,#0x02
 	push	acc
 	clr	a
@@ -7254,13 +7254,13 @@ _main:
 00371$:
 	ljmp	00178$
 00148$:
-;	calc.c:464: ((char)input == '+') || ((char)input == '-')
+;	calc.c:465: ((char)input == '+') || ((char)input == '-')
 	cjne	r5,#0x2b,00372$
 	sjmp	00143$
 00372$:
 	cjne	r5,#0x2d,00144$
 00143$:
-;	calc.c:466: if (state_exec(&s, EVENT_OP) <= 0) break;
+;	calc.c:467: if (state_exec(&s, EVENT_OP) <= 0) break;
 	mov	a,#0x02
 	push	acc
 	clr	a
@@ -7284,24 +7284,24 @@ _main:
 00375$:
 	ljmp	00178$
 00144$:
-;	calc.c:468: ((char)input == '*') ||
+;	calc.c:469: ((char)input == '*') ||
 	cjne	r5,#0x2a,00376$
 	sjmp	00136$
 00376$:
-;	calc.c:469: ((char)input == '/') || ((char)input == '\\') ||
+;	calc.c:470: ((char)input == '/') || ((char)input == '\\') ||
 	cjne	r5,#0x2f,00377$
 	sjmp	00136$
 00377$:
 	cjne	r5,#0x5c,00378$
 	sjmp	00136$
 00378$:
-;	calc.c:470: ((char)input == '%') || ((char)input == '#')
+;	calc.c:471: ((char)input == '%') || ((char)input == '#')
 	cjne	r5,#0x25,00379$
 	sjmp	00136$
 00379$:
 	cjne	r5,#0x23,00137$
 00136$:
-;	calc.c:472: if (state_exec(&s, EVENT_OP) <= 0) break;
+;	calc.c:473: if (state_exec(&s, EVENT_OP) <= 0) break;
 	mov	a,#0x02
 	push	acc
 	clr	a
@@ -7323,32 +7323,32 @@ _main:
 	jnc	00178$
 	ljmp	00177$
 00137$:
-;	calc.c:474: ((char)input == '&') ||
+;	calc.c:475: ((char)input == '&') ||
 	cjne	r5,#0x26,00383$
 	sjmp	00127$
 00383$:
-;	calc.c:475: ((char)input == '|') || ((char)input == '^') ||
+;	calc.c:476: ((char)input == '|') || ((char)input == '^') ||
 	cjne	r5,#0x7c,00384$
 	sjmp	00127$
 00384$:
 	cjne	r5,#0x5e,00385$
 	sjmp	00127$
 00385$:
-;	calc.c:476: ((char)input == '~') ||
+;	calc.c:477: ((char)input == '~') ||
 	cjne	r5,#0x7e,00386$
 	sjmp	00127$
 00386$:
-;	calc.c:477: ((char)input == '>') || ((char)input == ']') ||
+;	calc.c:478: ((char)input == '>') || ((char)input == ']') ||
 	cjne	r5,#0x3e,00387$
 	sjmp	00127$
 00387$:
 	cjne	r5,#0x5d,00388$
 	sjmp	00127$
 00388$:
-;	calc.c:478: ((char)input == '<')
+;	calc.c:479: ((char)input == '<')
 	cjne	r5,#0x3c,00128$
 00127$:
-;	calc.c:480: if (state_exec(&s, EVENT_OP) <= 0) break;
+;	calc.c:481: if (state_exec(&s, EVENT_OP) <= 0) break;
 	mov	a,#0x02
 	push	acc
 	clr	a
@@ -7370,7 +7370,7 @@ _main:
 	jnc	00178$
 	ljmp	00177$
 00128$:
-;	calc.c:482: if (state_exec(&s, EVENT_DELIM) <= 0) break;
+;	calc.c:483: if (state_exec(&s, EVENT_DELIM) <= 0) break;
 	clr	a
 	push	acc
 	push	acc
@@ -7392,9 +7392,9 @@ _main:
 	ljmp	00177$
 00392$:
 00178$:
-;	calc.c:488: __endasm;
+;	calc.c:489: __endasm;
 	orl	pcon, #2
-;	calc.c:489: }
+;	calc.c:490: }
 	dec	sp
 	pop	_bp
 	ret
