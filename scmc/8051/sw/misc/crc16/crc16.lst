@@ -485,7 +485,7 @@
       00002E 78r00            [12]  485 	mov	r0,#_intr
       000030 E6               [12]  486 	mov	a,@r0
       000031 60 03            [24]  487 	jz	00227$
-      000033 02 00 00         [24]  488 	ljmp	0
+      000033 02r02r3B         [24]  488 	ljmp	00133$
       000036                        489 00227$:
                                     490 ;	crc16.c:65: base = (pxd_uint8_t)0x0u;
       000036 A8*00            [24]  491 	mov	r0,_bp
@@ -847,48 +847,51 @@
       000235 09               [12]  847 	inc	r1
       000236 E6               [12]  848 	mov	a,@r0
       000237 F7               [12]  849 	mov	@r1,a
-                                    850 ;	crc16.c:100: __endasm;
-      000238 02r01r13         [24]  851 	ljmp	00129$
-                                    852 ;	crc16.c:105: }
-      00023B 85*00 81         [24]  853 	mov	sp,_bp
-      00023E D0*00            [24]  854 	pop	_bp
-      000240 22               [24]  855 	ret
-                                    856 	.area CSEG    (CODE)
-                                    857 	.area CONST   (CODE)
-                                    858 	.area CONST   (CODE)
-      000000                        859 ___str_0:
-      000000 43 4F 4D 50 4C 45 54   860 	.ascii "COMPLETE base=0x%04x "
+      000238 02r01r13         [24]  850 	ljmp	00129$
+      00023B                        851 00133$:
+                                    852 ;	crc16.c:97: PCON |= 2;
+      00023B 43 87 02         [24]  853 	orl	_PCON,#0x02
+                                    854 ;	crc16.c:99: return;
+                                    855 ;	crc16.c:100: }
+      00023E 85*00 81         [24]  856 	mov	sp,_bp
+      000241 D0*00            [24]  857 	pop	_bp
+      000243 22               [24]  858 	ret
+                                    859 	.area CSEG    (CODE)
+                                    860 	.area CONST   (CODE)
+                                    861 	.area CONST   (CODE)
+      000000                        862 ___str_0:
+      000000 43 4F 4D 50 4C 45 54   863 	.ascii "COMPLETE base=0x%04x "
              45 20 62 61 73 65 3D
              30 78 25 30 34 78 20
-      000015 00                     861 	.db 0x00
-                                    862 	.area CSEG    (CODE)
-                                    863 	.area CONST   (CODE)
-      000016                        864 ___str_1:
-      000016 6C 65 6E 3D 30 78 25   865 	.ascii "len=0x%04x "
+      000015 00                     864 	.db 0x00
+                                    865 	.area CSEG    (CODE)
+                                    866 	.area CONST   (CODE)
+      000016                        867 ___str_1:
+      000016 6C 65 6E 3D 30 78 25   868 	.ascii "len=0x%04x "
              30 34 78 20
-      000021 00                     866 	.db 0x00
-                                    867 	.area CSEG    (CODE)
-                                    868 	.area CONST   (CODE)
-      000022                        869 ___str_2:
-      000022 43 52 43 31 36 3D 30   870 	.ascii "CRC16=0x%04x"
+      000021 00                     869 	.db 0x00
+                                    870 	.area CSEG    (CODE)
+                                    871 	.area CONST   (CODE)
+      000022                        872 ___str_2:
+      000022 43 52 43 31 36 3D 30   873 	.ascii "CRC16=0x%04x"
              78 25 30 34 78
-      00002E 0D                     871 	.db 0x0d
-      00002F 0A                     872 	.db 0x0a
-      000030 00                     873 	.db 0x00
-                                    874 	.area CSEG    (CODE)
-                                    875 	.area CONST   (CODE)
-      000031                        876 ___str_3:
-      000031 50 41 52 54 49 41 4C   877 	.ascii "PARTIAL base=0x%04x "
+      00002E 0D                     874 	.db 0x0d
+      00002F 0A                     875 	.db 0x0a
+      000030 00                     876 	.db 0x00
+                                    877 	.area CSEG    (CODE)
+                                    878 	.area CONST   (CODE)
+      000031                        879 ___str_3:
+      000031 50 41 52 54 49 41 4C   880 	.ascii "PARTIAL base=0x%04x "
              20 62 61 73 65 3D 30
              78 25 30 34 78 20
-      000045 00                     878 	.db 0x00
-                                    879 	.area CSEG    (CODE)
-                                    880 	.area CONST   (CODE)
-      000046                        881 ___str_4:
-      000046 69 6E 74 65 72 72 75   882 	.ascii "interrupted"
+      000045 00                     881 	.db 0x00
+                                    882 	.area CSEG    (CODE)
+                                    883 	.area CONST   (CODE)
+      000046                        884 ___str_4:
+      000046 69 6E 74 65 72 72 75   885 	.ascii "interrupted"
              70 74 65 64
-      000051 0A                     883 	.db 0x0a
-      000052 00                     884 	.db 0x00
-                                    885 	.area CSEG    (CODE)
-                                    886 	.area XINIT   (CODE)
-                                    887 	.area CABS    (ABS,CODE)
+      000051 0A                     886 	.db 0x0a
+      000052 00                     887 	.db 0x00
+                                    888 	.area CSEG    (CODE)
+                                    889 	.area XINIT   (CODE)
+                                    890 	.area CABS    (ABS,CODE)

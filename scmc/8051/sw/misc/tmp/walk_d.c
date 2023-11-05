@@ -190,6 +190,8 @@ void main(void) {
 	puts("\033[2J\033[?25h");
 	
 	reset();
+	
+	return;
 }
 
 static void stinit(void) {

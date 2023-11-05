@@ -2628,112 +2628,113 @@
       002C47 12 20 BA         [24] 2628 	lcall	_getchar
                                    2629 ;	life.c:333: PCON |= 2;
       002C4A 43 87 02         [24] 2630 	orl	_PCON,#0x02
-                                   2631 ;	life.c:334: }
-      002C4D 85 10 81         [24] 2632 	mov	sp,_bp
-      002C50 D0 10            [24] 2633 	pop	_bp
-      002C52 22               [24] 2634 	ret
-                                   2635 	.area CSEG    (CODE)
-                                   2636 	.area CONST   (CODE)
+                                   2631 ;	life.c:335: return;
+                                   2632 ;	life.c:336: }
+      002C4D 85 10 81         [24] 2633 	mov	sp,_bp
+      002C50 D0 10            [24] 2634 	pop	_bp
+      002C52 22               [24] 2635 	ret
+                                   2636 	.area CSEG    (CODE)
                                    2637 	.area CONST   (CODE)
-      00301A                       2638 ___str_0:
-      00301A 1B                    2639 	.db 0x1b
-      00301B 5B 3F 32 35 6C        2640 	.ascii "[?25l"
-      003020 00                    2641 	.db 0x00
-                                   2642 	.area CSEG    (CODE)
-                                   2643 	.area CONST   (CODE)
-      003021                       2644 ___str_1:
-      003021 1B                    2645 	.db 0x1b
-      003022 5B 32 4A 47 45 4E 20  2646 	.ascii "[2JGEN "
-      003029 00                    2647 	.db 0x00
-                                   2648 	.area CSEG    (CODE)
-                                   2649 	.area CONST   (CODE)
-      00302A                       2650 ___str_2:
-      00302A 0D                    2651 	.db 0x0d
-      00302B 0A                    2652 	.db 0x0a
-      00302C 00                    2653 	.db 0x00
-                                   2654 	.area CSEG    (CODE)
-                                   2655 	.area CONST   (CODE)
-      00302D                       2656 ___str_3:
-      00302D 1B                    2657 	.db 0x1b
-      00302E 5B 3F 32 35 68        2658 	.ascii "[?25h"
-      003033 00                    2659 	.db 0x00
-                                   2660 	.area CSEG    (CODE)
-                                   2661 	.area CONST   (CODE)
-      003034                       2662 ___str_4:
-      003034 4C 4F 41 44 20 30 20  2663 	.ascii "LOAD 0 1 ~ # <"
+                                   2638 	.area CONST   (CODE)
+      00301A                       2639 ___str_0:
+      00301A 1B                    2640 	.db 0x1b
+      00301B 5B 3F 32 35 6C        2641 	.ascii "[?25l"
+      003020 00                    2642 	.db 0x00
+                                   2643 	.area CSEG    (CODE)
+                                   2644 	.area CONST   (CODE)
+      003021                       2645 ___str_1:
+      003021 1B                    2646 	.db 0x1b
+      003022 5B 32 4A 47 45 4E 20  2647 	.ascii "[2JGEN "
+      003029 00                    2648 	.db 0x00
+                                   2649 	.area CSEG    (CODE)
+                                   2650 	.area CONST   (CODE)
+      00302A                       2651 ___str_2:
+      00302A 0D                    2652 	.db 0x0d
+      00302B 0A                    2653 	.db 0x0a
+      00302C 00                    2654 	.db 0x00
+                                   2655 	.area CSEG    (CODE)
+                                   2656 	.area CONST   (CODE)
+      00302D                       2657 ___str_3:
+      00302D 1B                    2658 	.db 0x1b
+      00302E 5B 3F 32 35 68        2659 	.ascii "[?25h"
+      003033 00                    2660 	.db 0x00
+                                   2661 	.area CSEG    (CODE)
+                                   2662 	.area CONST   (CODE)
+      003034                       2663 ___str_4:
+      003034 4C 4F 41 44 20 30 20  2664 	.ascii "LOAD 0 1 ~ # <"
              31 20 7E 20 23 20 3C
-      003042 00                    2664 	.db 0x00
-                                   2665 	.area CSEG    (CODE)
-                                   2666 	.area CONST   (CODE)
-      003043                       2667 ___str_5:
-      003043 3E                    2668 	.ascii ">"
-      003044 0D                    2669 	.db 0x0d
-      003045 0A                    2670 	.db 0x0a
-      003046 00                    2671 	.db 0x00
-                                   2672 	.area CSEG    (CODE)
-                                   2673 	.area CONST   (CODE)
-      003047                       2674 ___str_6:
-      003047 52 41 4E 44 4F 4D     2675 	.ascii "RANDOM"
-      00304D 00                    2676 	.db 0x00
-                                   2677 	.area CSEG    (CODE)
-                                   2678 	.area CONST   (CODE)
-      00304E                       2679 ___str_7:
-      00304E 1B                    2680 	.db 0x1b
-      00304F 5B 3F 32 35 68        2681 	.ascii "[?25h"
-      003054 1B                    2682 	.db 0x1b
-      003055 5B 6D                 2683 	.ascii "[m"
-      003057 00                    2684 	.db 0x00
-                                   2685 	.area CSEG    (CODE)
-                                   2686 	.area CONST   (CODE)
-      003058                       2687 ___str_8:
-      003058 4C 49 46 45 20 49 4E  2688 	.ascii "LIFE INIT T L R P"
+      003042 00                    2665 	.db 0x00
+                                   2666 	.area CSEG    (CODE)
+                                   2667 	.area CONST   (CODE)
+      003043                       2668 ___str_5:
+      003043 3E                    2669 	.ascii ">"
+      003044 0D                    2670 	.db 0x0d
+      003045 0A                    2671 	.db 0x0a
+      003046 00                    2672 	.db 0x00
+                                   2673 	.area CSEG    (CODE)
+                                   2674 	.area CONST   (CODE)
+      003047                       2675 ___str_6:
+      003047 52 41 4E 44 4F 4D     2676 	.ascii "RANDOM"
+      00304D 00                    2677 	.db 0x00
+                                   2678 	.area CSEG    (CODE)
+                                   2679 	.area CONST   (CODE)
+      00304E                       2680 ___str_7:
+      00304E 1B                    2681 	.db 0x1b
+      00304F 5B 3F 32 35 68        2682 	.ascii "[?25h"
+      003054 1B                    2683 	.db 0x1b
+      003055 5B 6D                 2684 	.ascii "[m"
+      003057 00                    2685 	.db 0x00
+                                   2686 	.area CSEG    (CODE)
+                                   2687 	.area CONST   (CODE)
+      003058                       2688 ___str_8:
+      003058 4C 49 46 45 20 49 4E  2689 	.ascii "LIFE INIT T L R P"
              49 54 20 54 20 4C 20
              52 20 50
-      003069 0D                    2689 	.db 0x0d
-      00306A 0A                    2690 	.db 0x0a
-      00306B 00                    2691 	.db 0x00
-                                   2692 	.area CSEG    (CODE)
-                                   2693 	.area CONST   (CODE)
-      00306C                       2694 ___str_9:
-      00306C 52 45 41 44 59 20 54  2695 	.ascii "READY T L R P S"
+      003069 0D                    2690 	.db 0x0d
+      00306A 0A                    2691 	.db 0x0a
+      00306B 00                    2692 	.db 0x00
+                                   2693 	.area CSEG    (CODE)
+                                   2694 	.area CONST   (CODE)
+      00306C                       2695 ___str_9:
+      00306C 52 45 41 44 59 20 54  2696 	.ascii "READY T L R P S"
              20 4C 20 52 20 50 20
              53
-      00307B 0D                    2696 	.db 0x0d
-      00307C 0A                    2697 	.db 0x0a
-      00307D 00                    2698 	.db 0x00
-                                   2699 	.area CSEG    (CODE)
-                                   2700 	.area CONST   (CODE)
-      00307E                       2701 ___str_10:
-      00307E 44 4F 4E 45 20        2702 	.ascii "DONE "
-      003083 00                    2703 	.db 0x00
-                                   2704 	.area CSEG    (CODE)
-                                   2705 	.area CONST   (CODE)
-      003084                       2706 ___str_11:
-      003084 46 49 58 45 44        2707 	.ascii "FIXED"
-      003089 0D                    2708 	.db 0x0d
-      00308A 0A                    2709 	.db 0x0a
-      00308B 00                    2710 	.db 0x00
-                                   2711 	.area CSEG    (CODE)
-                                   2712 	.area CONST   (CODE)
-      00308C                       2713 ___str_12:
-      00308C 43 59 43 4C 45 32     2714 	.ascii "CYCLE2"
-      003092 0D                    2715 	.db 0x0d
-      003093 0A                    2716 	.db 0x0a
-      003094 00                    2717 	.db 0x00
-                                   2718 	.area CSEG    (CODE)
-                                   2719 	.area CONST   (CODE)
-      003095                       2720 ___str_13:
-      003095 42 52 45 41 4B        2721 	.ascii "BREAK"
-      00309A 0D                    2722 	.db 0x0d
-      00309B 0A                    2723 	.db 0x0a
-      00309C 00                    2724 	.db 0x00
-                                   2725 	.area CSEG    (CODE)
-                                   2726 	.area CONST   (CODE)
-      00309D                       2727 ___str_14:
-      00309D 54 45 52 4D           2728 	.ascii "TERM"
-      0030A1 0D                    2729 	.db 0x0d
-      0030A2 0A                    2730 	.db 0x0a
-      0030A3 00                    2731 	.db 0x00
-                                   2732 	.area CSEG    (CODE)
-                                   2733 	.area XINIT   (CODE)
-                                   2734 	.area CABS    (ABS,CODE)
+      00307B 0D                    2697 	.db 0x0d
+      00307C 0A                    2698 	.db 0x0a
+      00307D 00                    2699 	.db 0x00
+                                   2700 	.area CSEG    (CODE)
+                                   2701 	.area CONST   (CODE)
+      00307E                       2702 ___str_10:
+      00307E 44 4F 4E 45 20        2703 	.ascii "DONE "
+      003083 00                    2704 	.db 0x00
+                                   2705 	.area CSEG    (CODE)
+                                   2706 	.area CONST   (CODE)
+      003084                       2707 ___str_11:
+      003084 46 49 58 45 44        2708 	.ascii "FIXED"
+      003089 0D                    2709 	.db 0x0d
+      00308A 0A                    2710 	.db 0x0a
+      00308B 00                    2711 	.db 0x00
+                                   2712 	.area CSEG    (CODE)
+                                   2713 	.area CONST   (CODE)
+      00308C                       2714 ___str_12:
+      00308C 43 59 43 4C 45 32     2715 	.ascii "CYCLE2"
+      003092 0D                    2716 	.db 0x0d
+      003093 0A                    2717 	.db 0x0a
+      003094 00                    2718 	.db 0x00
+                                   2719 	.area CSEG    (CODE)
+                                   2720 	.area CONST   (CODE)
+      003095                       2721 ___str_13:
+      003095 42 52 45 41 4B        2722 	.ascii "BREAK"
+      00309A 0D                    2723 	.db 0x0d
+      00309B 0A                    2724 	.db 0x0a
+      00309C 00                    2725 	.db 0x00
+                                   2726 	.area CSEG    (CODE)
+                                   2727 	.area CONST   (CODE)
+      00309D                       2728 ___str_14:
+      00309D 54 45 52 4D           2729 	.ascii "TERM"
+      0030A1 0D                    2730 	.db 0x0d
+      0030A2 0A                    2731 	.db 0x0a
+      0030A3 00                    2732 	.db 0x00
+                                   2733 	.area CSEG    (CODE)
+                                   2734 	.area XINIT   (CODE)
+                                   2735 	.area CABS    (ABS,CODE)

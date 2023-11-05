@@ -400,9 +400,10 @@ _init:
 ;	portme.c:31: IE = 0x82;
 ;	genAssign
 	mov	_IE,#0x82
-;	portme.c:32: TCON |= 0x50; // Start timers
-;	genOr
-	orl	_TCON,#0x50
+;	portme.c:32: TR0 = 1; // Start timers
+;	genAssign
+;	assignBit
+	setb	_TR0
 ;	Peephole 500	removed redundant label 00101$
 ;	portme.c:33: }
 	ret
@@ -427,13 +428,7 @@ _clockinc:
 	push	dph
 	push	psw
 	mov	psw,#0x08
-;	portme.c:37: TH0 = (65536 - 1382) / 256;
-;	genAssign
-	mov	_TH0,#0xfa
-;	portme.c:38: TL0 = (65536 - 1382) % 256;
-;	genAssign
-	mov	_TL0,#0x9a
-;	portme.c:39: clocktime++;
+;	portme.c:37: clocktime++;
 ;	genAssign
 	mov	r4,_clocktime
 	mov	r5,(_clocktime + 1)
@@ -456,13 +451,27 @@ _clockinc:
 	clr	a
 	addc	a,r7
 	mov	(_clocktime + 3),a
-;	portme.c:40: clockupdate = true;
+;	portme.c:38: clockupdate = true;
 ;	genAssign
 	mov	dptr,#_clockupdate
 	mov	a,#0x01
 	movx	@dptr,a
+;	portme.c:39: TR0 = 0;
+;	genAssign
+;	assignBit
+	clr	_TR0
+;	portme.c:40: TH0 = (65536 - 1382) / 256;
+;	genAssign
+	mov	_TH0,#0xfa
+;	portme.c:41: TL0 = (65536 - 1382) % 256;
+;	genAssign
+	mov	_TL0,#0x9a
+;	portme.c:42: TR0 = 1;
+;	genAssign
+;	assignBit
+	setb	_TR0
 ;	Peephole 500	removed redundant label 00101$
-;	portme.c:41: }
+;	portme.c:43: }
 	pop	psw
 	pop	dph
 	pop	dpl
@@ -474,7 +483,7 @@ _clockinc:
 ;------------------------------------------------------------
 ;ctmp                      Allocated with name '_clock_ctmp_65536_22'
 ;------------------------------------------------------------
-;	portme.c:43: unsigned long int clock(void)
+;	portme.c:45: unsigned long int clock(void)
 ;	-----------------------------------------
 ;	 function clock
 ;	-----------------------------------------
@@ -487,15 +496,15 @@ _clock:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	portme.c:47: do
+;	portme.c:49: do
 00101$:
-;	portme.c:49: clockupdate = false;
+;	portme.c:51: clockupdate = false;
 ;	genAssign
 	mov	dptr,#_clockupdate
 ;	Peephole 181	changed mov to clr
 	clr	a
 	movx	@dptr,a
-;	portme.c:50: ctmp = clocktime;
+;	portme.c:52: ctmp = clocktime;
 ;	genAssign
 	mov	dptr,#_clock_ctmp_65536_22
 	mov	a,_clocktime
@@ -509,7 +518,7 @@ _clock:
 	mov	a,(_clocktime + 3)
 	inc	dptr
 	movx	@dptr,a
-;	portme.c:51: } while (clockupdate);
+;	portme.c:53: } while (clockupdate);
 ;	genAssign
 	mov	dptr,#_clockupdate
 	movx	a,@dptr
@@ -518,7 +527,7 @@ _clock:
 ;	Peephole 108.b	removed ljmp by inverse jump logic
 	jnz	00101$
 ;	Peephole 500	removed redundant label 00114$
-;	portme.c:53: return(ctmp);
+;	portme.c:55: return(ctmp);
 ;	genAssign
 	mov	dptr,#_clock_ctmp_65536_22
 	movx	a,@dptr
@@ -538,7 +547,7 @@ _clock:
 	mov	b,r6
 ;	Peephole 191	removed redundant mov
 ;	Peephole 500	removed redundant label 00104$
-;	portme.c:54: }
+;	portme.c:56: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

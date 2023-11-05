@@ -485,7 +485,7 @@ _main:
 	mov	r0,#_intr
 	mov	a,@r0
 	jz	00227$
-	ljmp	0
+	ljmp	00133$
 00227$:
 ;	crc16.c:65: base = (pxd_uint8_t)0x0u;
 	mov	r0,_bp
@@ -847,9 +847,12 @@ _main:
 	inc	r1
 	mov	a,@r0
 	mov	@r1,a
-;	crc16.c:100: __endasm;
 	ljmp	00129$
-;	crc16.c:105: }
+00133$:
+;	crc16.c:97: PCON |= 2;
+	orl	_PCON,#0x02
+;	crc16.c:99: return;
+;	crc16.c:100: }
 	mov	sp,_bp
 	pop	_bp
 	ret

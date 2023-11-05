@@ -2121,34 +2121,34 @@ _main:
 	lcall	_puts
 ;	walk.c:35: PCON |= 2;
 	orl	_PCON,#0x02
-;	walk.c:197: reset();
-;	walk.c:198: }
+;	walk.c:199: return;
+;	walk.c:200: }
 	mov	sp,_bp
 	pop	_bp
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'stinit'
 ;------------------------------------------------------------
-;	walk.c:200: static void stinit(void) {
+;	walk.c:202: static void stinit(void) {
 ;	-----------------------------------------
 ;	 function stinit
 ;	-----------------------------------------
 _stinit:
-;	walk.c:201: sp = -1;
+;	walk.c:203: sp = -1;
 	mov	dptr,#_sp
 	mov	a,#0xff
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	walk.c:202: return;
-;	walk.c:203: }
+;	walk.c:204: return;
+;	walk.c:205: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'stpush'
 ;------------------------------------------------------------
 ;t                         Allocated to registers r5 r6 r7 
 ;------------------------------------------------------------
-;	walk.c:205: static uint8_t stpush(struct node *t) {
+;	walk.c:207: static uint8_t stpush(struct node *t) {
 ;	-----------------------------------------
 ;	 function stpush
 ;	-----------------------------------------
@@ -2156,7 +2156,7 @@ _stpush:
 	mov	r5,dpl
 	mov	r6,dph
 	mov	r7,b
-;	walk.c:206: if (sp == (SMAX - 1)) return 0u;
+;	walk.c:208: if (sp == (SMAX - 1)) return 0u;
 	mov	dptr,#_sp
 	movx	a,@dptr
 	mov	r3,a
@@ -2168,7 +2168,7 @@ _stpush:
 	mov	dpl,#0x00
 	ret
 00102$:
-;	walk.c:207: sp++;
+;	walk.c:209: sp++;
 	mov	dptr,#_sp
 	mov	a,#0x01
 	add	a,r3
@@ -2177,7 +2177,7 @@ _stpush:
 	addc	a,r4
 	inc	dptr
 	movx	@dptr,a
-;	walk.c:208: stack[sp] = *t;
+;	walk.c:210: stack[sp] = *t;
 	mov	dptr,#_sp
 	movx	a,@dptr
 	mov	r3,a
@@ -2217,16 +2217,16 @@ _stpush:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	walk.c:209: return 1u;
+;	walk.c:211: return 1u;
 	mov	dpl,#0x01
-;	walk.c:210: }
+;	walk.c:212: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'stpop'
 ;------------------------------------------------------------
 ;t                         Allocated to registers r5 r6 r7 
 ;------------------------------------------------------------
-;	walk.c:212: static uint8_t stpop(struct node *t) {
+;	walk.c:214: static uint8_t stpop(struct node *t) {
 ;	-----------------------------------------
 ;	 function stpop
 ;	-----------------------------------------
@@ -2234,7 +2234,7 @@ _stpop:
 	mov	r5,dpl
 	mov	r6,dph
 	mov	r7,b
-;	walk.c:213: if (sp == -1) return 0u;
+;	walk.c:215: if (sp == -1) return 0u;
 	mov	dptr,#_sp
 	movx	a,@dptr
 	mov	r3,a
@@ -2246,7 +2246,7 @@ _stpop:
 	mov	dpl,#0x00
 	ret
 00102$:
-;	walk.c:214: *t = stack[sp];
+;	walk.c:216: *t = stack[sp];
 	mov	a,r3
 	add	a,r3
 	mov	r3,a
@@ -2280,7 +2280,7 @@ _stpop:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	walk.c:215: sp--;
+;	walk.c:217: sp--;
 	mov	dptr,#_sp
 	movx	a,@dptr
 	add	a,#0xff
@@ -2295,9 +2295,9 @@ _stpop:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	walk.c:216: return 1u;
+;	walk.c:218: return 1u;
 	mov	dpl,#0x01
-;	walk.c:217: }
+;	walk.c:219: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

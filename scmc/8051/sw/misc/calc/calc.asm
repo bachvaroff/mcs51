@@ -7249,7 +7249,8 @@ _main:
 00178$:
 ;	calc.c:487: PCON |= 2;
 	orl	_PCON,#0x02
-;	calc.c:488: }
+;	calc.c:489: return;
+;	calc.c:490: }
 	dec	sp
 	pop	_bp
 	ret

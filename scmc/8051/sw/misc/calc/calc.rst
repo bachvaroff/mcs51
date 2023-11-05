@@ -7249,441 +7249,442 @@
       0050B3                       7249 00178$:
                                    7250 ;	calc.c:487: PCON |= 2;
       0050B3 43 87 02         [24] 7251 	orl	_PCON,#0x02
-                                   7252 ;	calc.c:488: }
-      0050B6 15 81            [12] 7253 	dec	sp
-      0050B8 D0 08            [24] 7254 	pop	_bp
-      0050BA 22               [24] 7255 	ret
-                                   7256 	.area CSEG    (CODE)
-                                   7257 	.area CONST   (CODE)
+                                   7252 ;	calc.c:489: return;
+                                   7253 ;	calc.c:490: }
+      0050B6 15 81            [12] 7254 	dec	sp
+      0050B8 D0 08            [24] 7255 	pop	_bp
+      0050BA 22               [24] 7256 	ret
+                                   7257 	.area CSEG    (CODE)
                                    7258 	.area CONST   (CODE)
-      007065                       7259 ___str_0:
-      007065 0D                    7260 	.db 0x0d
-      007066 0A                    7261 	.db 0x0a
-      007067 00                    7262 	.db 0x00
-                                   7263 	.area CSEG    (CODE)
-                                   7264 	.area CONST   (CODE)
-      007068                       7265 ___str_1:
-      007068 73 74 61 63 6B 20 75  7266 	.ascii "stack underflow"
+                                   7259 	.area CONST   (CODE)
+      007065                       7260 ___str_0:
+      007065 0D                    7261 	.db 0x0d
+      007066 0A                    7262 	.db 0x0a
+      007067 00                    7263 	.db 0x00
+                                   7264 	.area CSEG    (CODE)
+                                   7265 	.area CONST   (CODE)
+      007068                       7266 ___str_1:
+      007068 73 74 61 63 6B 20 75  7267 	.ascii "stack underflow"
              6E 64 65 72 66 6C 6F
              77
-      007077 0D                    7267 	.db 0x0d
-      007078 0A                    7268 	.db 0x0a
-      007079 00                    7269 	.db 0x00
-                                   7270 	.area CSEG    (CODE)
-                                   7271 	.area CONST   (CODE)
-      00707A                       7272 ___str_2:
-      00707A 56 41 20              7273 	.ascii "VA "
-      00707D 00                    7274 	.db 0x00
-                                   7275 	.area CSEG    (CODE)
-                                   7276 	.area CONST   (CODE)
-      00707E                       7277 ___str_3:
-      00707E 25 20 31 31 6C 64 20  7278 	.ascii "% 11ld / "
+      007077 0D                    7268 	.db 0x0d
+      007078 0A                    7269 	.db 0x0a
+      007079 00                    7270 	.db 0x00
+                                   7271 	.area CSEG    (CODE)
+                                   7272 	.area CONST   (CODE)
+      00707A                       7273 ___str_2:
+      00707A 56 41 20              7274 	.ascii "VA "
+      00707D 00                    7275 	.db 0x00
+                                   7276 	.area CSEG    (CODE)
+                                   7277 	.area CONST   (CODE)
+      00707E                       7278 ___str_3:
+      00707E 25 20 31 31 6C 64 20  7279 	.ascii "% 11ld / "
              2F 20
-      007087 00                    7279 	.db 0x00
-                                   7280 	.area CSEG    (CODE)
-                                   7281 	.area CONST   (CODE)
-      007088                       7282 ___str_4:
-      007088 25 30 38 6C 78 20 2F  7283 	.ascii "%08lx / "
+      007087 00                    7280 	.db 0x00
+                                   7281 	.area CSEG    (CODE)
+                                   7282 	.area CONST   (CODE)
+      007088                       7283 ___str_4:
+      007088 25 30 38 6C 78 20 2F  7284 	.ascii "%08lx / "
              20
-      007090 00                    7284 	.db 0x00
-                                   7285 	.area CSEG    (CODE)
-                                   7286 	.area CONST   (CODE)
-      007091                       7287 ___str_5:
-      007091 50 41 20              7288 	.ascii "PA "
-      007094 00                    7289 	.db 0x00
-                                   7290 	.area CSEG    (CODE)
-                                   7291 	.area CONST   (CODE)
-      007095                       7292 ___str_6:
-      007095 50 54 20              7293 	.ascii "PT "
-      007098 00                    7294 	.db 0x00
-                                   7295 	.area CSEG    (CODE)
-                                   7296 	.area CONST   (CODE)
-      007099                       7297 ___str_7:
-      007099 56 54 20              7298 	.ascii "VT "
-      00709C 00                    7299 	.db 0x00
-                                   7300 	.area CSEG    (CODE)
-                                   7301 	.area CONST   (CODE)
-      00709D                       7302 ___str_8:
-      00709D 0D                    7303 	.db 0x0d
-      00709E 0A                    7304 	.db 0x0a
-      00709F 73 74 61 63 6B 20 75  7305 	.ascii "stack underflow"
+      007090 00                    7285 	.db 0x00
+                                   7286 	.area CSEG    (CODE)
+                                   7287 	.area CONST   (CODE)
+      007091                       7288 ___str_5:
+      007091 50 41 20              7289 	.ascii "PA "
+      007094 00                    7290 	.db 0x00
+                                   7291 	.area CSEG    (CODE)
+                                   7292 	.area CONST   (CODE)
+      007095                       7293 ___str_6:
+      007095 50 54 20              7294 	.ascii "PT "
+      007098 00                    7295 	.db 0x00
+                                   7296 	.area CSEG    (CODE)
+                                   7297 	.area CONST   (CODE)
+      007099                       7298 ___str_7:
+      007099 56 54 20              7299 	.ascii "VT "
+      00709C 00                    7300 	.db 0x00
+                                   7301 	.area CSEG    (CODE)
+                                   7302 	.area CONST   (CODE)
+      00709D                       7303 ___str_8:
+      00709D 0D                    7304 	.db 0x0d
+      00709E 0A                    7305 	.db 0x0a
+      00709F 73 74 61 63 6B 20 75  7306 	.ascii "stack underflow"
              6E 64 65 72 66 6C 6F
              77
-      0070AE 0D                    7306 	.db 0x0d
-      0070AF 0A                    7307 	.db 0x0a
-      0070B0 00                    7308 	.db 0x00
-                                   7309 	.area CSEG    (CODE)
-                                   7310 	.area CONST   (CODE)
-      0070B1                       7311 ___str_9:
-      0070B1 0D                    7312 	.db 0x0d
-      0070B2 0A                    7313 	.db 0x0a
-      0070B3 64 69 76 69 73 69 6F  7314 	.ascii "division by zero"
+      0070AE 0D                    7307 	.db 0x0d
+      0070AF 0A                    7308 	.db 0x0a
+      0070B0 00                    7309 	.db 0x00
+                                   7310 	.area CSEG    (CODE)
+                                   7311 	.area CONST   (CODE)
+      0070B1                       7312 ___str_9:
+      0070B1 0D                    7313 	.db 0x0d
+      0070B2 0A                    7314 	.db 0x0a
+      0070B3 64 69 76 69 73 69 6F  7315 	.ascii "division by zero"
              6E 20 62 79 20 7A 65
              72 6F
-      0070C3 0D                    7315 	.db 0x0d
-      0070C4 0A                    7316 	.db 0x0a
-      0070C5 00                    7317 	.db 0x00
-                                   7318 	.area CSEG    (CODE)
-                                   7319 	.area CONST   (CODE)
-      0070C6                       7320 ___str_10:
-      0070C6 0D                    7321 	.db 0x0d
-      0070C7 0A                    7322 	.db 0x0a
-      0070C8 73 74 61 63 6B 20 6F  7323 	.ascii "stack overflow"
+      0070C3 0D                    7316 	.db 0x0d
+      0070C4 0A                    7317 	.db 0x0a
+      0070C5 00                    7318 	.db 0x00
+                                   7319 	.area CSEG    (CODE)
+                                   7320 	.area CONST   (CODE)
+      0070C6                       7321 ___str_10:
+      0070C6 0D                    7322 	.db 0x0d
+      0070C7 0A                    7323 	.db 0x0a
+      0070C8 73 74 61 63 6B 20 6F  7324 	.ascii "stack overflow"
              76 65 72 66 6C 6F 77
-      0070D6 0D                    7324 	.db 0x0d
-      0070D7 0A                    7325 	.db 0x0a
-      0070D8 00                    7326 	.db 0x00
-                                   7327 	.area CSEG    (CODE)
-                                   7328 	.area CONST   (CODE)
-      0070D9                       7329 ___str_11:
-      0070D9 0D                    7330 	.db 0x0d
-      0070DA 0A                    7331 	.db 0x0a
-      0070DB 62 61 73 65 20 3D 20  7332 	.ascii "base = %d, "
+      0070D6 0D                    7325 	.db 0x0d
+      0070D7 0A                    7326 	.db 0x0a
+      0070D8 00                    7327 	.db 0x00
+                                   7328 	.area CSEG    (CODE)
+                                   7329 	.area CONST   (CODE)
+      0070D9                       7330 ___str_11:
+      0070D9 0D                    7331 	.db 0x0d
+      0070DA 0A                    7332 	.db 0x0a
+      0070DB 62 61 73 65 20 3D 20  7333 	.ascii "base = %d, "
              25 64 2C 20
-      0070E6 00                    7333 	.db 0x00
-                                   7334 	.area CSEG    (CODE)
-                                   7335 	.area CONST   (CODE)
-      0070E7                       7336 ___str_12:
-      0070E7 61 63 63 20 3D 20 25  7337 	.ascii "acc = %ld / "
+      0070E6 00                    7334 	.db 0x00
+                                   7335 	.area CSEG    (CODE)
+                                   7336 	.area CONST   (CODE)
+      0070E7                       7337 ___str_12:
+      0070E7 61 63 63 20 3D 20 25  7338 	.ascii "acc = %ld / "
              6C 64 20 2F 20
-      0070F3 00                    7338 	.db 0x00
-                                   7339 	.area CSEG    (CODE)
-                                   7340 	.area CONST   (CODE)
-      0070F4                       7341 ___str_13:
-      0070F4 2C 20 61 63 63 5F 76  7342 	.ascii ", acc_valid = %d"
+      0070F3 00                    7339 	.db 0x00
+                                   7340 	.area CSEG    (CODE)
+                                   7341 	.area CONST   (CODE)
+      0070F4                       7342 ___str_13:
+      0070F4 2C 20 61 63 63 5F 76  7343 	.ascii ", acc_valid = %d"
              61 6C 69 64 20 3D 20
              25 64
-      007104 0D                    7343 	.db 0x0d
-      007105 0A                    7344 	.db 0x0a
-      007106 0D                    7345 	.db 0x0d
-      007107 0A                    7346 	.db 0x0a
-      007108 00                    7347 	.db 0x00
-                                   7348 	.area CSEG    (CODE)
-                                   7349 	.area CONST   (CODE)
-      007109                       7350 ___str_14:
-      007109 48 68 4F 6F           7351 	.ascii "HhOo"
-      00710D 09                    7352 	.db 0x09
-      00710E 62 61 73 65 20 31 36  7353 	.ascii "base 16 10 8 2"
+      007104 0D                    7344 	.db 0x0d
+      007105 0A                    7345 	.db 0x0a
+      007106 0D                    7346 	.db 0x0d
+      007107 0A                    7347 	.db 0x0a
+      007108 00                    7348 	.db 0x00
+                                   7349 	.area CSEG    (CODE)
+                                   7350 	.area CONST   (CODE)
+      007109                       7351 ___str_14:
+      007109 48 68 4F 6F           7352 	.ascii "HhOo"
+      00710D 09                    7353 	.db 0x09
+      00710E 62 61 73 65 20 31 36  7354 	.ascii "base 16 10 8 2"
              20 31 30 20 38 20 32
-      00711C 0D                    7354 	.db 0x0d
-      00711D 0A                    7355 	.db 0x0a
-      00711E 00                    7356 	.db 0x00
-                                   7357 	.area CSEG    (CODE)
-                                   7358 	.area CONST   (CODE)
-      00711F                       7359 ___str_15:
-      00711F 70                    7360 	.ascii "p"
-      007120 09                    7361 	.db 0x09
-      007121 70 65 65 6B 20 74 6F  7362 	.ascii "peek top"
+      00711C 0D                    7355 	.db 0x0d
+      00711D 0A                    7356 	.db 0x0a
+      00711E 00                    7357 	.db 0x00
+                                   7358 	.area CSEG    (CODE)
+                                   7359 	.area CONST   (CODE)
+      00711F                       7360 ___str_15:
+      00711F 70                    7361 	.ascii "p"
+      007120 09                    7362 	.db 0x09
+      007121 70 65 65 6B 20 74 6F  7363 	.ascii "peek top"
              70
-      007129 0D                    7363 	.db 0x0d
-      00712A 0A                    7364 	.db 0x0a
-      00712B 00                    7365 	.db 0x00
-                                   7366 	.area CSEG    (CODE)
-                                   7367 	.area CONST   (CODE)
-      00712C                       7368 ___str_16:
-      00712C 50                    7369 	.ascii "P"
-      00712D 09                    7370 	.db 0x09
-      00712E 70 72 69 6E 74 20 73  7371 	.ascii "print stack"
+      007129 0D                    7364 	.db 0x0d
+      00712A 0A                    7365 	.db 0x0a
+      00712B 00                    7366 	.db 0x00
+                                   7367 	.area CSEG    (CODE)
+                                   7368 	.area CONST   (CODE)
+      00712C                       7369 ___str_16:
+      00712C 50                    7370 	.ascii "P"
+      00712D 09                    7371 	.db 0x09
+      00712E 70 72 69 6E 74 20 73  7372 	.ascii "print stack"
              74 61 63 6B
-      007139 0D                    7372 	.db 0x0d
-      00713A 0A                    7373 	.db 0x0a
-      00713B 00                    7374 	.db 0x00
-                                   7375 	.area CSEG    (CODE)
-                                   7376 	.area CONST   (CODE)
-      00713C                       7377 ___str_17:
-      00713C 76 2E                 7378 	.ascii "v."
-      00713E 09                    7379 	.db 0x09
-      00713F 70 6F 70 20 74 6F 70  7380 	.ascii "pop top"
-      007146 0D                    7381 	.db 0x0d
-      007147 0A                    7382 	.db 0x0a
-      007148 00                    7383 	.db 0x00
-                                   7384 	.area CSEG    (CODE)
-                                   7385 	.area CONST   (CODE)
-      007149                       7386 ___str_18:
-      007149 56                    7387 	.ascii "V"
-      00714A 09                    7388 	.db 0x09
-      00714B 70 6F 70 20 61 6C 6C  7389 	.ascii "pop all"
-      007152 0D                    7390 	.db 0x0d
-      007153 0A                    7391 	.db 0x0a
-      007154 00                    7392 	.db 0x00
-                                   7393 	.area CSEG    (CODE)
-                                   7394 	.area CONST   (CODE)
-      007155                       7395 ___str_19:
-      007155 69                    7396 	.ascii "i"
-      007156 09                    7397 	.db 0x09
-      007157 72 65 73 65 74 20 61  7398 	.ascii "reset acc"
+      007139 0D                    7373 	.db 0x0d
+      00713A 0A                    7374 	.db 0x0a
+      00713B 00                    7375 	.db 0x00
+                                   7376 	.area CSEG    (CODE)
+                                   7377 	.area CONST   (CODE)
+      00713C                       7378 ___str_17:
+      00713C 76 2E                 7379 	.ascii "v."
+      00713E 09                    7380 	.db 0x09
+      00713F 70 6F 70 20 74 6F 70  7381 	.ascii "pop top"
+      007146 0D                    7382 	.db 0x0d
+      007147 0A                    7383 	.db 0x0a
+      007148 00                    7384 	.db 0x00
+                                   7385 	.area CSEG    (CODE)
+                                   7386 	.area CONST   (CODE)
+      007149                       7387 ___str_18:
+      007149 56                    7388 	.ascii "V"
+      00714A 09                    7389 	.db 0x09
+      00714B 70 6F 70 20 61 6C 6C  7390 	.ascii "pop all"
+      007152 0D                    7391 	.db 0x0d
+      007153 0A                    7392 	.db 0x0a
+      007154 00                    7393 	.db 0x00
+                                   7394 	.area CSEG    (CODE)
+                                   7395 	.area CONST   (CODE)
+      007155                       7396 ___str_19:
+      007155 69                    7397 	.ascii "i"
+      007156 09                    7398 	.db 0x09
+      007157 72 65 73 65 74 20 61  7399 	.ascii "reset acc"
              63 63
-      007160 0D                    7399 	.db 0x0d
-      007161 0A                    7400 	.db 0x0a
-      007162 00                    7401 	.db 0x00
-                                   7402 	.area CSEG    (CODE)
-                                   7403 	.area CONST   (CODE)
-      007163                       7404 ___str_20:
-      007163 49                    7405 	.ascii "I"
-      007164 09                    7406 	.db 0x09
-      007165 72 65 73 65 74 20 61  7407 	.ascii "reset and discard acc"
+      007160 0D                    7400 	.db 0x0d
+      007161 0A                    7401 	.db 0x0a
+      007162 00                    7402 	.db 0x00
+                                   7403 	.area CSEG    (CODE)
+                                   7404 	.area CONST   (CODE)
+      007163                       7405 ___str_20:
+      007163 49                    7406 	.ascii "I"
+      007164 09                    7407 	.db 0x09
+      007165 72 65 73 65 74 20 61  7408 	.ascii "reset and discard acc"
              6E 64 20 64 69 73 63
              61 72 64 20 61 63 63
-      00717A 0D                    7408 	.db 0x0d
-      00717B 0A                    7409 	.db 0x0a
-      00717C 00                    7410 	.db 0x00
-                                   7411 	.area CSEG    (CODE)
-                                   7412 	.area CONST   (CODE)
-      00717D                       7413 ___str_21:
-      00717D 78                    7414 	.ascii "x"
-      00717E 09                    7415 	.db 0x09
-      00717F 65 78 63 68 61 6E 67  7416 	.ascii "exchange top 2"
+      00717A 0D                    7409 	.db 0x0d
+      00717B 0A                    7410 	.db 0x0a
+      00717C 00                    7411 	.db 0x00
+                                   7412 	.area CSEG    (CODE)
+                                   7413 	.area CONST   (CODE)
+      00717D                       7414 ___str_21:
+      00717D 78                    7415 	.ascii "x"
+      00717E 09                    7416 	.db 0x09
+      00717F 65 78 63 68 61 6E 67  7417 	.ascii "exchange top 2"
              65 20 74 6F 70 20 32
-      00718D 0D                    7417 	.db 0x0d
-      00718E 0A                    7418 	.db 0x0a
-      00718F 00                    7419 	.db 0x00
-                                   7420 	.area CSEG    (CODE)
-                                   7421 	.area CONST   (CODE)
-      007190                       7422 ___str_22:
-      007190 2B                    7423 	.ascii "+"
-      007191 09                    7424 	.db 0x09
-      007192 61 64 64 20 74 6F 70  7425 	.ascii "add top 2"
+      00718D 0D                    7418 	.db 0x0d
+      00718E 0A                    7419 	.db 0x0a
+      00718F 00                    7420 	.db 0x00
+                                   7421 	.area CSEG    (CODE)
+                                   7422 	.area CONST   (CODE)
+      007190                       7423 ___str_22:
+      007190 2B                    7424 	.ascii "+"
+      007191 09                    7425 	.db 0x09
+      007192 61 64 64 20 74 6F 70  7426 	.ascii "add top 2"
              20 32
-      00719B 0D                    7426 	.db 0x0d
-      00719C 0A                    7427 	.db 0x0a
-      00719D 00                    7428 	.db 0x00
-                                   7429 	.area CSEG    (CODE)
-                                   7430 	.area CONST   (CODE)
-      00719E                       7431 ___str_23:
-      00719E 2D                    7432 	.ascii "-"
-      00719F 09                    7433 	.db 0x09
-      0071A0 73 75 62 74 72 61 63  7434 	.ascii "subtract top 2"
+      00719B 0D                    7427 	.db 0x0d
+      00719C 0A                    7428 	.db 0x0a
+      00719D 00                    7429 	.db 0x00
+                                   7430 	.area CSEG    (CODE)
+                                   7431 	.area CONST   (CODE)
+      00719E                       7432 ___str_23:
+      00719E 2D                    7433 	.ascii "-"
+      00719F 09                    7434 	.db 0x09
+      0071A0 73 75 62 74 72 61 63  7435 	.ascii "subtract top 2"
              74 20 74 6F 70 20 32
-      0071AE 0D                    7435 	.db 0x0d
-      0071AF 0A                    7436 	.db 0x0a
-      0071B0 00                    7437 	.db 0x00
-                                   7438 	.area CSEG    (CODE)
-                                   7439 	.area CONST   (CODE)
-      0071B1                       7440 ___str_24:
-      0071B1 2A                    7441 	.ascii "*"
-      0071B2 09                    7442 	.db 0x09
-      0071B3 6D 75 6C 74 69 70 6C  7443 	.ascii "multiply top 2"
+      0071AE 0D                    7436 	.db 0x0d
+      0071AF 0A                    7437 	.db 0x0a
+      0071B0 00                    7438 	.db 0x00
+                                   7439 	.area CSEG    (CODE)
+                                   7440 	.area CONST   (CODE)
+      0071B1                       7441 ___str_24:
+      0071B1 2A                    7442 	.ascii "*"
+      0071B2 09                    7443 	.db 0x09
+      0071B3 6D 75 6C 74 69 70 6C  7444 	.ascii "multiply top 2"
              79 20 74 6F 70 20 32
-      0071C1 0D                    7444 	.db 0x0d
-      0071C2 0A                    7445 	.db 0x0a
-      0071C3 00                    7446 	.db 0x00
-                                   7447 	.area CSEG    (CODE)
-                                   7448 	.area CONST   (CODE)
-      0071C4                       7449 ___str_25:
-      0071C4 2F                    7450 	.ascii "/"
-      0071C5 09                    7451 	.db 0x09
-      0071C6 64 69 76 69 64 65 20  7452 	.ascii "divide top 2"
+      0071C1 0D                    7445 	.db 0x0d
+      0071C2 0A                    7446 	.db 0x0a
+      0071C3 00                    7447 	.db 0x00
+                                   7448 	.area CSEG    (CODE)
+                                   7449 	.area CONST   (CODE)
+      0071C4                       7450 ___str_25:
+      0071C4 2F                    7451 	.ascii "/"
+      0071C5 09                    7452 	.db 0x09
+      0071C6 64 69 76 69 64 65 20  7453 	.ascii "divide top 2"
              74 6F 70 20 32
-      0071D2 0D                    7453 	.db 0x0d
-      0071D3 0A                    7454 	.db 0x0a
-      0071D4 00                    7455 	.db 0x00
-                                   7456 	.area CSEG    (CODE)
-                                   7457 	.area CONST   (CODE)
-      0071D5                       7458 ___str_26:
-      0071D5 5C                    7459 	.db 0x5c
-      0071D6 09                    7460 	.db 0x09
-      0071D7 64 69 76 69 64 65 20  7461 	.ascii "divide top 2 unsigned"
+      0071D2 0D                    7454 	.db 0x0d
+      0071D3 0A                    7455 	.db 0x0a
+      0071D4 00                    7456 	.db 0x00
+                                   7457 	.area CSEG    (CODE)
+                                   7458 	.area CONST   (CODE)
+      0071D5                       7459 ___str_26:
+      0071D5 5C                    7460 	.db 0x5c
+      0071D6 09                    7461 	.db 0x09
+      0071D7 64 69 76 69 64 65 20  7462 	.ascii "divide top 2 unsigned"
              74 6F 70 20 32 20 75
              6E 73 69 67 6E 65 64
-      0071EC 0D                    7462 	.db 0x0d
-      0071ED 0A                    7463 	.db 0x0a
-      0071EE 00                    7464 	.db 0x00
-                                   7465 	.area CSEG    (CODE)
-                                   7466 	.area CONST   (CODE)
-      0071EF                       7467 ___str_27:
-      0071EF 25                    7468 	.ascii "%"
-      0071F0 09                    7469 	.db 0x09
-      0071F1 6D 6F 64 75 6C 75 73  7470 	.ascii "modulus top 2"
+      0071EC 0D                    7463 	.db 0x0d
+      0071ED 0A                    7464 	.db 0x0a
+      0071EE 00                    7465 	.db 0x00
+                                   7466 	.area CSEG    (CODE)
+                                   7467 	.area CONST   (CODE)
+      0071EF                       7468 ___str_27:
+      0071EF 25                    7469 	.ascii "%"
+      0071F0 09                    7470 	.db 0x09
+      0071F1 6D 6F 64 75 6C 75 73  7471 	.ascii "modulus top 2"
              20 74 6F 70 20 32
-      0071FE 0D                    7471 	.db 0x0d
-      0071FF 0A                    7472 	.db 0x0a
-      007200 00                    7473 	.db 0x00
-                                   7474 	.area CSEG    (CODE)
-                                   7475 	.area CONST   (CODE)
-      007201                       7476 ___str_28:
-      007201 23                    7477 	.ascii "#"
-      007202 09                    7478 	.db 0x09
-      007203 6D 6F 64 75 6C 75 73  7479 	.ascii "modulus top 2 unsigned"
+      0071FE 0D                    7472 	.db 0x0d
+      0071FF 0A                    7473 	.db 0x0a
+      007200 00                    7474 	.db 0x00
+                                   7475 	.area CSEG    (CODE)
+                                   7476 	.area CONST   (CODE)
+      007201                       7477 ___str_28:
+      007201 23                    7478 	.ascii "#"
+      007202 09                    7479 	.db 0x09
+      007203 6D 6F 64 75 6C 75 73  7480 	.ascii "modulus top 2 unsigned"
              20 74 6F 70 20 32 20
              75 6E 73 69 67 6E 65
              64
-      007219 0D                    7480 	.db 0x0d
-      00721A 0A                    7481 	.db 0x0a
-      00721B 00                    7482 	.db 0x00
-                                   7483 	.area CSEG    (CODE)
-                                   7484 	.area CONST   (CODE)
-      00721C                       7485 ___str_29:
-      00721C 26                    7486 	.ascii "&"
-      00721D 09                    7487 	.db 0x09
-      00721E 61 6E 64 20 74 6F 70  7488 	.ascii "and top 2"
+      007219 0D                    7481 	.db 0x0d
+      00721A 0A                    7482 	.db 0x0a
+      00721B 00                    7483 	.db 0x00
+                                   7484 	.area CSEG    (CODE)
+                                   7485 	.area CONST   (CODE)
+      00721C                       7486 ___str_29:
+      00721C 26                    7487 	.ascii "&"
+      00721D 09                    7488 	.db 0x09
+      00721E 61 6E 64 20 74 6F 70  7489 	.ascii "and top 2"
              20 32
-      007227 0D                    7489 	.db 0x0d
-      007228 0A                    7490 	.db 0x0a
-      007229 00                    7491 	.db 0x00
-                                   7492 	.area CSEG    (CODE)
-                                   7493 	.area CONST   (CODE)
-      00722A                       7494 ___str_30:
-      00722A 7C                    7495 	.ascii "|"
-      00722B 09                    7496 	.db 0x09
-      00722C 6F 72 20 74 6F 70 20  7497 	.ascii "or top 2"
+      007227 0D                    7490 	.db 0x0d
+      007228 0A                    7491 	.db 0x0a
+      007229 00                    7492 	.db 0x00
+                                   7493 	.area CSEG    (CODE)
+                                   7494 	.area CONST   (CODE)
+      00722A                       7495 ___str_30:
+      00722A 7C                    7496 	.ascii "|"
+      00722B 09                    7497 	.db 0x09
+      00722C 6F 72 20 74 6F 70 20  7498 	.ascii "or top 2"
              32
-      007234 0D                    7498 	.db 0x0d
-      007235 0A                    7499 	.db 0x0a
-      007236 00                    7500 	.db 0x00
-                                   7501 	.area CSEG    (CODE)
-                                   7502 	.area CONST   (CODE)
-      007237                       7503 ___str_31:
-      007237 5E                    7504 	.ascii "^"
-      007238 09                    7505 	.db 0x09
-      007239 78 6F 72 20 74 6F 70  7506 	.ascii "xor top 2"
+      007234 0D                    7499 	.db 0x0d
+      007235 0A                    7500 	.db 0x0a
+      007236 00                    7501 	.db 0x00
+                                   7502 	.area CSEG    (CODE)
+                                   7503 	.area CONST   (CODE)
+      007237                       7504 ___str_31:
+      007237 5E                    7505 	.ascii "^"
+      007238 09                    7506 	.db 0x09
+      007239 78 6F 72 20 74 6F 70  7507 	.ascii "xor top 2"
              20 32
-      007242 0D                    7507 	.db 0x0d
-      007243 0A                    7508 	.db 0x0a
-      007244 00                    7509 	.db 0x00
-                                   7510 	.area CSEG    (CODE)
-                                   7511 	.area CONST   (CODE)
-      007245                       7512 ___str_32:
-      007245 3E                    7513 	.ascii ">"
-      007246 09                    7514 	.db 0x09
-      007247 73 68 69 66 74 20 72  7515 	.ascii "shift right top 2"
+      007242 0D                    7508 	.db 0x0d
+      007243 0A                    7509 	.db 0x0a
+      007244 00                    7510 	.db 0x00
+                                   7511 	.area CSEG    (CODE)
+                                   7512 	.area CONST   (CODE)
+      007245                       7513 ___str_32:
+      007245 3E                    7514 	.ascii ">"
+      007246 09                    7515 	.db 0x09
+      007247 73 68 69 66 74 20 72  7516 	.ascii "shift right top 2"
              69 67 68 74 20 74 6F
              70 20 32
-      007258 0D                    7516 	.db 0x0d
-      007259 0A                    7517 	.db 0x0a
-      00725A 00                    7518 	.db 0x00
-                                   7519 	.area CSEG    (CODE)
-                                   7520 	.area CONST   (CODE)
-      00725B                       7521 ___str_33:
-      00725B 5D                    7522 	.ascii "]"
-      00725C 09                    7523 	.db 0x09
-      00725D 61 72 69 74 68 6D 65  7524 	.ascii "arithmetic shift right top 2"
+      007258 0D                    7517 	.db 0x0d
+      007259 0A                    7518 	.db 0x0a
+      00725A 00                    7519 	.db 0x00
+                                   7520 	.area CSEG    (CODE)
+                                   7521 	.area CONST   (CODE)
+      00725B                       7522 ___str_33:
+      00725B 5D                    7523 	.ascii "]"
+      00725C 09                    7524 	.db 0x09
+      00725D 61 72 69 74 68 6D 65  7525 	.ascii "arithmetic shift right top 2"
              74 69 63 20 73 68 69
              66 74 20 72 69 67 68
              74 20 74 6F 70 20 32
-      007279 0D                    7525 	.db 0x0d
-      00727A 0A                    7526 	.db 0x0a
-      00727B 00                    7527 	.db 0x00
-                                   7528 	.area CSEG    (CODE)
-                                   7529 	.area CONST   (CODE)
-      00727C                       7530 ___str_34:
-      00727C 3C                    7531 	.ascii "<"
-      00727D 09                    7532 	.db 0x09
-      00727E 73 68 69 66 74 20 6C  7533 	.ascii "shift left top 2"
+      007279 0D                    7526 	.db 0x0d
+      00727A 0A                    7527 	.db 0x0a
+      00727B 00                    7528 	.db 0x00
+                                   7529 	.area CSEG    (CODE)
+                                   7530 	.area CONST   (CODE)
+      00727C                       7531 ___str_34:
+      00727C 3C                    7532 	.ascii "<"
+      00727D 09                    7533 	.db 0x09
+      00727E 73 68 69 66 74 20 6C  7534 	.ascii "shift left top 2"
              65 66 74 20 74 6F 70
              20 32
-      00728E 0D                    7534 	.db 0x0d
-      00728F 0A                    7535 	.db 0x0a
-      007290 00                    7536 	.db 0x00
-                                   7537 	.area CSEG    (CODE)
-                                   7538 	.area CONST   (CODE)
-      007291                       7539 ___str_35:
-      007291 7E                    7540 	.ascii "~"
-      007292 09                    7541 	.db 0x09
-      007293 62 69 74 77 69 73 65  7542 	.ascii "bitwise not top"
+      00728E 0D                    7535 	.db 0x0d
+      00728F 0A                    7536 	.db 0x0a
+      007290 00                    7537 	.db 0x00
+                                   7538 	.area CSEG    (CODE)
+                                   7539 	.area CONST   (CODE)
+      007291                       7540 ___str_35:
+      007291 7E                    7541 	.ascii "~"
+      007292 09                    7542 	.db 0x09
+      007293 62 69 74 77 69 73 65  7543 	.ascii "bitwise not top"
              20 6E 6F 74 20 74 6F
              70
-      0072A2 0D                    7543 	.db 0x0d
-      0072A3 0A                    7544 	.db 0x0a
-      0072A4 00                    7545 	.db 0x00
-                                   7546 	.area CSEG    (CODE)
-                                   7547 	.area CONST   (CODE)
-      0072A5                       7548 ___str_36:
-      0072A5 3F                    7549 	.ascii "?"
-      0072A6 09                    7550 	.db 0x09
-      0072A7 68 65 6C 70           7551 	.ascii "help"
-      0072AB 0D                    7552 	.db 0x0d
-      0072AC 0A                    7553 	.db 0x0a
-      0072AD 00                    7554 	.db 0x00
-                                   7555 	.area CSEG    (CODE)
-                                   7556 	.area CONST   (CODE)
-      0072AE                       7557 ___str_37:
-      0072AE 71                    7558 	.ascii "q"
-      0072AF 09                    7559 	.db 0x09
-      0072B0 71 75 69 74           7560 	.ascii "quit"
-      0072B4 0D                    7561 	.db 0x0d
-      0072B5 0A                    7562 	.db 0x0a
-      0072B6 00                    7563 	.db 0x00
-                                   7564 	.area CSEG    (CODE)
-                                   7565 	.area XINIT   (CODE)
-      0072C8                       7566 __xinit__deltas:
-      0072C8 00 00                 7567 	.byte #0x00, #0x00	;  0
-      0072CA 00 00                 7568 	.byte #0x00, #0x00	;  0
-      0072CC 00 00                 7569 	.byte #0x00, #0x00	;  0
-      0072CE 00 00                 7570 	.byte #0x00,#0x00
-      0072D0 00 00                 7571 	.byte #0x00,#0x00
-      0072D2 00 00                 7572 	.byte #0x00, #0x00	;  0
-      0072D4 01 00                 7573 	.byte #0x01, #0x00	;  1
-      0072D6 02 00                 7574 	.byte #0x02, #0x00	;  2
-      0072D8 00 00                 7575 	.byte #0x00,#0x00
-      0072DA E2 29                 7576 	.byte _accumulate, (_accumulate >> 8)
-      0072DC 00 00                 7577 	.byte #0x00, #0x00	;  0
-      0072DE 02 00                 7578 	.byte #0x02, #0x00	;  2
-      0072E0 01 00                 7579 	.byte #0x01, #0x00	;  1
-      0072E2 00 00                 7580 	.byte #0x00,#0x00
-      0072E4 3B 2F                 7581 	.byte _operator, (_operator >> 8)
-      0072E6 01 00                 7582 	.byte #0x01, #0x00	;  1
-      0072E8 00 00                 7583 	.byte #0x00, #0x00	;  0
-      0072EA 00 00                 7584 	.byte #0x00, #0x00	;  0
-      0072EC 00 00                 7585 	.byte #0x00,#0x00
-      0072EE 00 00                 7586 	.byte #0x00,#0x00
-      0072F0 01 00                 7587 	.byte #0x01, #0x00	;  1
-      0072F2 02 00                 7588 	.byte #0x02, #0x00	;  2
-      0072F4 01 00                 7589 	.byte #0x01, #0x00	;  1
-      0072F6 00 00                 7590 	.byte #0x00,#0x00
-      0072F8 3B 2F                 7591 	.byte _operator, (_operator >> 8)
-      0072FA 01 00                 7592 	.byte #0x01, #0x00	;  1
-      0072FC 01 00                 7593 	.byte #0x01, #0x00	;  1
-      0072FE 02 00                 7594 	.byte #0x02, #0x00	;  2
-      007300 00 00                 7595 	.byte #0x00,#0x00
-      007302 E2 29                 7596 	.byte _accumulate, (_accumulate >> 8)
-      007304 02 00                 7597 	.byte #0x02, #0x00	;  2
-      007306 00 00                 7598 	.byte #0x00, #0x00	;  0
-      007308 00 00                 7599 	.byte #0x00, #0x00	;  0
-      00730A 00 00                 7600 	.byte #0x00,#0x00
-      00730C CE 46                 7601 	.byte _push_acc, (_push_acc >> 8)
-      00730E 02 00                 7602 	.byte #0x02, #0x00	;  2
-      007310 06 00                 7603 	.byte #0x06, #0x00	;  6
-      007312 00 00                 7604 	.byte #0x00, #0x00	;  0
-      007314 00 00                 7605 	.byte #0x00,#0x00
-      007316 D5 47                 7606 	.byte _reset_acc, (_reset_acc >> 8)
-      007318 02 00                 7607 	.byte #0x02, #0x00	;  2
-      00731A 01 00                 7608 	.byte #0x01, #0x00	;  1
-      00731C 02 00                 7609 	.byte #0x02, #0x00	;  2
-      00731E 00 00                 7610 	.byte #0x00,#0x00
-      007320 E2 29                 7611 	.byte _accumulate, (_accumulate >> 8)
-      007322 02 00                 7612 	.byte #0x02, #0x00	;  2
-      007324 02 00                 7613 	.byte #0x02, #0x00	;  2
-      007326 01 00                 7614 	.byte #0x01, #0x00	;  1
-      007328 00 00                 7615 	.byte #0x00,#0x00
-      00732A CE 46                 7616 	.byte _push_acc, (_push_acc >> 8)
-      00732C FF 7F                 7617 	.byte #0xff, #0x7f	;  32767
-      00732E 05 00                 7618 	.byte #0x05, #0x00	;  5
-      007330 FF 7F                 7619 	.byte #0xff, #0x7f	;  32767
-      007332 00 00                 7620 	.byte #0x00,#0x00
-      007334 D5 47                 7621 	.byte _reset_acc, (_reset_acc >> 8)
-      007336 FF 7F                 7622 	.byte #0xff, #0x7f	;  32767
-      007338 06 00                 7623 	.byte #0x06, #0x00	;  6
-      00733A FF 7F                 7624 	.byte #0xff, #0x7f	;  32767
-      00733C 00 00                 7625 	.byte #0x00,#0x00
-      00733E 00 00                 7626 	.byte #0x00,#0x00
-      007340 FF 7F                 7627 	.byte #0xff, #0x7f	;  32767
-      007342 04 00                 7628 	.byte #0x04, #0x00	;  4
-      007344 FF 7F                 7629 	.byte #0xff, #0x7f	;  32767
-      007346 00 00                 7630 	.byte #0x00,#0x00
-      007348 3F 48                 7631 	.byte _reset_base, (_reset_base >> 8)
-      00734A FF 7F                 7632 	.byte #0xff, #0x7f	;  32767
-      00734C 03 00                 7633 	.byte #0x03, #0x00	;  3
-      00734E FF 7F                 7634 	.byte #0xff, #0x7f	;  32767
-      007350 00 00                 7635 	.byte #0x00,#0x00
-      007352 BD 48                 7636 	.byte _help, (_help >> 8)
-      007354 FF 7F                 7637 	.byte #0xff, #0x7f	;  32767
-      007356 07 00                 7638 	.byte #0x07, #0x00	;  7
-      007358 03 00                 7639 	.byte #0x03, #0x00	;  3
-      00735A 00 00                 7640 	.byte #0x00,#0x00
-      00735C 53 2B                 7641 	.byte _dump_pop, (_dump_pop >> 8)
-      00735E 00 80                 7642 	.byte #0x00, #0x80	; -32768
-      007360 00 80                 7643 	.byte #0x00, #0x80	; -32768
-      007362 00 80                 7644 	.byte #0x00, #0x80	; -32768
-      007364 00 00                 7645 	.byte #0x00,#0x00
-      007366 00 00                 7646 	.byte #0x00,#0x00
-                                   7647 	.area CABS    (ABS,CODE)
+      0072A2 0D                    7544 	.db 0x0d
+      0072A3 0A                    7545 	.db 0x0a
+      0072A4 00                    7546 	.db 0x00
+                                   7547 	.area CSEG    (CODE)
+                                   7548 	.area CONST   (CODE)
+      0072A5                       7549 ___str_36:
+      0072A5 3F                    7550 	.ascii "?"
+      0072A6 09                    7551 	.db 0x09
+      0072A7 68 65 6C 70           7552 	.ascii "help"
+      0072AB 0D                    7553 	.db 0x0d
+      0072AC 0A                    7554 	.db 0x0a
+      0072AD 00                    7555 	.db 0x00
+                                   7556 	.area CSEG    (CODE)
+                                   7557 	.area CONST   (CODE)
+      0072AE                       7558 ___str_37:
+      0072AE 71                    7559 	.ascii "q"
+      0072AF 09                    7560 	.db 0x09
+      0072B0 71 75 69 74           7561 	.ascii "quit"
+      0072B4 0D                    7562 	.db 0x0d
+      0072B5 0A                    7563 	.db 0x0a
+      0072B6 00                    7564 	.db 0x00
+                                   7565 	.area CSEG    (CODE)
+                                   7566 	.area XINIT   (CODE)
+      0072C8                       7567 __xinit__deltas:
+      0072C8 00 00                 7568 	.byte #0x00, #0x00	;  0
+      0072CA 00 00                 7569 	.byte #0x00, #0x00	;  0
+      0072CC 00 00                 7570 	.byte #0x00, #0x00	;  0
+      0072CE 00 00                 7571 	.byte #0x00,#0x00
+      0072D0 00 00                 7572 	.byte #0x00,#0x00
+      0072D2 00 00                 7573 	.byte #0x00, #0x00	;  0
+      0072D4 01 00                 7574 	.byte #0x01, #0x00	;  1
+      0072D6 02 00                 7575 	.byte #0x02, #0x00	;  2
+      0072D8 00 00                 7576 	.byte #0x00,#0x00
+      0072DA E2 29                 7577 	.byte _accumulate, (_accumulate >> 8)
+      0072DC 00 00                 7578 	.byte #0x00, #0x00	;  0
+      0072DE 02 00                 7579 	.byte #0x02, #0x00	;  2
+      0072E0 01 00                 7580 	.byte #0x01, #0x00	;  1
+      0072E2 00 00                 7581 	.byte #0x00,#0x00
+      0072E4 3B 2F                 7582 	.byte _operator, (_operator >> 8)
+      0072E6 01 00                 7583 	.byte #0x01, #0x00	;  1
+      0072E8 00 00                 7584 	.byte #0x00, #0x00	;  0
+      0072EA 00 00                 7585 	.byte #0x00, #0x00	;  0
+      0072EC 00 00                 7586 	.byte #0x00,#0x00
+      0072EE 00 00                 7587 	.byte #0x00,#0x00
+      0072F0 01 00                 7588 	.byte #0x01, #0x00	;  1
+      0072F2 02 00                 7589 	.byte #0x02, #0x00	;  2
+      0072F4 01 00                 7590 	.byte #0x01, #0x00	;  1
+      0072F6 00 00                 7591 	.byte #0x00,#0x00
+      0072F8 3B 2F                 7592 	.byte _operator, (_operator >> 8)
+      0072FA 01 00                 7593 	.byte #0x01, #0x00	;  1
+      0072FC 01 00                 7594 	.byte #0x01, #0x00	;  1
+      0072FE 02 00                 7595 	.byte #0x02, #0x00	;  2
+      007300 00 00                 7596 	.byte #0x00,#0x00
+      007302 E2 29                 7597 	.byte _accumulate, (_accumulate >> 8)
+      007304 02 00                 7598 	.byte #0x02, #0x00	;  2
+      007306 00 00                 7599 	.byte #0x00, #0x00	;  0
+      007308 00 00                 7600 	.byte #0x00, #0x00	;  0
+      00730A 00 00                 7601 	.byte #0x00,#0x00
+      00730C CE 46                 7602 	.byte _push_acc, (_push_acc >> 8)
+      00730E 02 00                 7603 	.byte #0x02, #0x00	;  2
+      007310 06 00                 7604 	.byte #0x06, #0x00	;  6
+      007312 00 00                 7605 	.byte #0x00, #0x00	;  0
+      007314 00 00                 7606 	.byte #0x00,#0x00
+      007316 D5 47                 7607 	.byte _reset_acc, (_reset_acc >> 8)
+      007318 02 00                 7608 	.byte #0x02, #0x00	;  2
+      00731A 01 00                 7609 	.byte #0x01, #0x00	;  1
+      00731C 02 00                 7610 	.byte #0x02, #0x00	;  2
+      00731E 00 00                 7611 	.byte #0x00,#0x00
+      007320 E2 29                 7612 	.byte _accumulate, (_accumulate >> 8)
+      007322 02 00                 7613 	.byte #0x02, #0x00	;  2
+      007324 02 00                 7614 	.byte #0x02, #0x00	;  2
+      007326 01 00                 7615 	.byte #0x01, #0x00	;  1
+      007328 00 00                 7616 	.byte #0x00,#0x00
+      00732A CE 46                 7617 	.byte _push_acc, (_push_acc >> 8)
+      00732C FF 7F                 7618 	.byte #0xff, #0x7f	;  32767
+      00732E 05 00                 7619 	.byte #0x05, #0x00	;  5
+      007330 FF 7F                 7620 	.byte #0xff, #0x7f	;  32767
+      007332 00 00                 7621 	.byte #0x00,#0x00
+      007334 D5 47                 7622 	.byte _reset_acc, (_reset_acc >> 8)
+      007336 FF 7F                 7623 	.byte #0xff, #0x7f	;  32767
+      007338 06 00                 7624 	.byte #0x06, #0x00	;  6
+      00733A FF 7F                 7625 	.byte #0xff, #0x7f	;  32767
+      00733C 00 00                 7626 	.byte #0x00,#0x00
+      00733E 00 00                 7627 	.byte #0x00,#0x00
+      007340 FF 7F                 7628 	.byte #0xff, #0x7f	;  32767
+      007342 04 00                 7629 	.byte #0x04, #0x00	;  4
+      007344 FF 7F                 7630 	.byte #0xff, #0x7f	;  32767
+      007346 00 00                 7631 	.byte #0x00,#0x00
+      007348 3F 48                 7632 	.byte _reset_base, (_reset_base >> 8)
+      00734A FF 7F                 7633 	.byte #0xff, #0x7f	;  32767
+      00734C 03 00                 7634 	.byte #0x03, #0x00	;  3
+      00734E FF 7F                 7635 	.byte #0xff, #0x7f	;  32767
+      007350 00 00                 7636 	.byte #0x00,#0x00
+      007352 BD 48                 7637 	.byte _help, (_help >> 8)
+      007354 FF 7F                 7638 	.byte #0xff, #0x7f	;  32767
+      007356 07 00                 7639 	.byte #0x07, #0x00	;  7
+      007358 03 00                 7640 	.byte #0x03, #0x00	;  3
+      00735A 00 00                 7641 	.byte #0x00,#0x00
+      00735C 53 2B                 7642 	.byte _dump_pop, (_dump_pop >> 8)
+      00735E 00 80                 7643 	.byte #0x00, #0x80	; -32768
+      007360 00 80                 7644 	.byte #0x00, #0x80	; -32768
+      007362 00 80                 7645 	.byte #0x00, #0x80	; -32768
+      007364 00 00                 7646 	.byte #0x00,#0x00
+      007366 00 00                 7647 	.byte #0x00,#0x00
+                                   7648 	.area CABS    (ABS,CODE)

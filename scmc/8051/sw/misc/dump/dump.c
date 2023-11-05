@@ -83,5 +83,7 @@ void main(void) {
 	P1_7 = 1; /* deactivate IO address space from 0xe000 to 0xffff */
 	
 	PCON |= 2;
+	
+	return;
 }
 

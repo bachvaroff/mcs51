@@ -2628,7 +2628,8 @@ _main:
 	lcall	_getchar
 ;	life.c:333: PCON |= 2;
 	orl	_PCON,#0x02
-;	life.c:334: }
+;	life.c:335: return;
+;	life.c:336: }
 	mov	sp,_bp
 	pop	_bp
 	ret

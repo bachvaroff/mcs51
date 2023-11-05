@@ -76,5 +76,7 @@ void main(void) {
 	}
 	
 	PCON |= 2;
+	
+	return;
 }
 

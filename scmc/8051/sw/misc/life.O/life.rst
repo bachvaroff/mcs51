@@ -2349,90 +2349,91 @@
       002AAD                       2349 00184$:
                                    2350 ;	life.c:260: (void)getchar();
       002AAD 12 20 CA         [24] 2351 	lcall	_getchar
-                                   2352 ;	life.c:264: __endasm;
-      002AB0 02 00 00         [24] 2353 	ljmp	0
-                                   2354 ;	life.c:265: }
-      002AB3 85 10 81         [24] 2355 	mov	sp,_bp
-      002AB6 D0 10            [24] 2356 	pop	_bp
-      002AB8 22               [24] 2357 	ret
-                                   2358 	.area CSEG    (CODE)
-                                   2359 	.area CONST   (CODE)
+                                   2352 ;	life.c:262: PCON |= 2;
+      002AB0 43 87 02         [24] 2353 	orl	_PCON,#0x02
+                                   2354 ;	life.c:264: return;
+                                   2355 ;	life.c:265: }
+      002AB3 85 10 81         [24] 2356 	mov	sp,_bp
+      002AB6 D0 10            [24] 2357 	pop	_bp
+      002AB8 22               [24] 2358 	ret
+                                   2359 	.area CSEG    (CODE)
                                    2360 	.area CONST   (CODE)
-      002D05                       2361 ___str_0:
-      002D05 1B                    2362 	.db 0x1b
-      002D06 5B 32 4A              2363 	.ascii "[2J"
-      002D09 1B                    2364 	.db 0x1b
-      002D0A 5B 6D 47 45 4E 20     2365 	.ascii "[mGEN "
-      002D10 00                    2366 	.db 0x00
-                                   2367 	.area CSEG    (CODE)
-                                   2368 	.area CONST   (CODE)
-      002D11                       2369 ___str_1:
-      002D11 0D                    2370 	.db 0x0d
-      002D12 0A                    2371 	.db 0x0a
-      002D13 00                    2372 	.db 0x00
-                                   2373 	.area CSEG    (CODE)
-                                   2374 	.area CONST   (CODE)
-      002D14                       2375 ___str_2:
-      002D14 4C 4F 41 44 20 3C     2376 	.ascii "LOAD <"
-      002D1A 00                    2377 	.db 0x00
-                                   2378 	.area CSEG    (CODE)
-                                   2379 	.area CONST   (CODE)
-      002D1B                       2380 ___str_3:
-      002D1B 3E                    2381 	.ascii ">"
-      002D1C 0D                    2382 	.db 0x0d
-      002D1D 0A                    2383 	.db 0x0a
-      002D1E 00                    2384 	.db 0x00
-                                   2385 	.area CSEG    (CODE)
-                                   2386 	.area CONST   (CODE)
-      002D1F                       2387 ___str_4:
-      002D1F 1B                    2388 	.db 0x1b
-      002D20 5B 32 4A              2389 	.ascii "[2J"
-      002D23 1B                    2390 	.db 0x1b
-      002D24 5B 6D 4C 49 46 45 20  2391 	.ascii "[mLIFE INIT"
+                                   2361 	.area CONST   (CODE)
+      002D05                       2362 ___str_0:
+      002D05 1B                    2363 	.db 0x1b
+      002D06 5B 32 4A              2364 	.ascii "[2J"
+      002D09 1B                    2365 	.db 0x1b
+      002D0A 5B 6D 47 45 4E 20     2366 	.ascii "[mGEN "
+      002D10 00                    2367 	.db 0x00
+                                   2368 	.area CSEG    (CODE)
+                                   2369 	.area CONST   (CODE)
+      002D11                       2370 ___str_1:
+      002D11 0D                    2371 	.db 0x0d
+      002D12 0A                    2372 	.db 0x0a
+      002D13 00                    2373 	.db 0x00
+                                   2374 	.area CSEG    (CODE)
+                                   2375 	.area CONST   (CODE)
+      002D14                       2376 ___str_2:
+      002D14 4C 4F 41 44 20 3C     2377 	.ascii "LOAD <"
+      002D1A 00                    2378 	.db 0x00
+                                   2379 	.area CSEG    (CODE)
+                                   2380 	.area CONST   (CODE)
+      002D1B                       2381 ___str_3:
+      002D1B 3E                    2382 	.ascii ">"
+      002D1C 0D                    2383 	.db 0x0d
+      002D1D 0A                    2384 	.db 0x0a
+      002D1E 00                    2385 	.db 0x00
+                                   2386 	.area CSEG    (CODE)
+                                   2387 	.area CONST   (CODE)
+      002D1F                       2388 ___str_4:
+      002D1F 1B                    2389 	.db 0x1b
+      002D20 5B 32 4A              2390 	.ascii "[2J"
+      002D23 1B                    2391 	.db 0x1b
+      002D24 5B 6D 4C 49 46 45 20  2392 	.ascii "[mLIFE INIT"
              49 4E 49 54
-      002D2F 0D                    2392 	.db 0x0d
-      002D30 0A                    2393 	.db 0x0a
-      002D31 00                    2394 	.db 0x00
-                                   2395 	.area CSEG    (CODE)
-                                   2396 	.area CONST   (CODE)
-      002D32                       2397 ___str_5:
-      002D32 52 45 41 44 59        2398 	.ascii "READY"
-      002D37 0D                    2399 	.db 0x0d
-      002D38 0A                    2400 	.db 0x0a
-      002D39 00                    2401 	.db 0x00
-                                   2402 	.area CSEG    (CODE)
-                                   2403 	.area CONST   (CODE)
-      002D3A                       2404 ___str_6:
-      002D3A 44 4F 4E 45 20        2405 	.ascii "DONE "
-      002D3F 00                    2406 	.db 0x00
-                                   2407 	.area CSEG    (CODE)
-                                   2408 	.area CONST   (CODE)
-      002D40                       2409 ___str_7:
-      002D40 46 49 58 45 44        2410 	.ascii "FIXED"
-      002D45 0D                    2411 	.db 0x0d
-      002D46 0A                    2412 	.db 0x0a
-      002D47 00                    2413 	.db 0x00
-                                   2414 	.area CSEG    (CODE)
-                                   2415 	.area CONST   (CODE)
-      002D48                       2416 ___str_8:
-      002D48 43 59 43 4C 45 32     2417 	.ascii "CYCLE2"
-      002D4E 0D                    2418 	.db 0x0d
-      002D4F 0A                    2419 	.db 0x0a
-      002D50 00                    2420 	.db 0x00
-                                   2421 	.area CSEG    (CODE)
-                                   2422 	.area CONST   (CODE)
-      002D51                       2423 ___str_9:
-      002D51 42 52 45 41 4B        2424 	.ascii "BREAK"
-      002D56 0D                    2425 	.db 0x0d
-      002D57 0A                    2426 	.db 0x0a
-      002D58 00                    2427 	.db 0x00
-                                   2428 	.area CSEG    (CODE)
-                                   2429 	.area CONST   (CODE)
-      002D59                       2430 ___str_10:
-      002D59 54 45 52 4D           2431 	.ascii "TERM"
-      002D5D 0D                    2432 	.db 0x0d
-      002D5E 0A                    2433 	.db 0x0a
-      002D5F 00                    2434 	.db 0x00
-                                   2435 	.area CSEG    (CODE)
-                                   2436 	.area XINIT   (CODE)
-                                   2437 	.area CABS    (ABS,CODE)
+      002D2F 0D                    2393 	.db 0x0d
+      002D30 0A                    2394 	.db 0x0a
+      002D31 00                    2395 	.db 0x00
+                                   2396 	.area CSEG    (CODE)
+                                   2397 	.area CONST   (CODE)
+      002D32                       2398 ___str_5:
+      002D32 52 45 41 44 59        2399 	.ascii "READY"
+      002D37 0D                    2400 	.db 0x0d
+      002D38 0A                    2401 	.db 0x0a
+      002D39 00                    2402 	.db 0x00
+                                   2403 	.area CSEG    (CODE)
+                                   2404 	.area CONST   (CODE)
+      002D3A                       2405 ___str_6:
+      002D3A 44 4F 4E 45 20        2406 	.ascii "DONE "
+      002D3F 00                    2407 	.db 0x00
+                                   2408 	.area CSEG    (CODE)
+                                   2409 	.area CONST   (CODE)
+      002D40                       2410 ___str_7:
+      002D40 46 49 58 45 44        2411 	.ascii "FIXED"
+      002D45 0D                    2412 	.db 0x0d
+      002D46 0A                    2413 	.db 0x0a
+      002D47 00                    2414 	.db 0x00
+                                   2415 	.area CSEG    (CODE)
+                                   2416 	.area CONST   (CODE)
+      002D48                       2417 ___str_8:
+      002D48 43 59 43 4C 45 32     2418 	.ascii "CYCLE2"
+      002D4E 0D                    2419 	.db 0x0d
+      002D4F 0A                    2420 	.db 0x0a
+      002D50 00                    2421 	.db 0x00
+                                   2422 	.area CSEG    (CODE)
+                                   2423 	.area CONST   (CODE)
+      002D51                       2424 ___str_9:
+      002D51 42 52 45 41 4B        2425 	.ascii "BREAK"
+      002D56 0D                    2426 	.db 0x0d
+      002D57 0A                    2427 	.db 0x0a
+      002D58 00                    2428 	.db 0x00
+                                   2429 	.area CSEG    (CODE)
+                                   2430 	.area CONST   (CODE)
+      002D59                       2431 ___str_10:
+      002D59 54 45 52 4D           2432 	.ascii "TERM"
+      002D5D 0D                    2433 	.db 0x0d
+      002D5E 0A                    2434 	.db 0x0a
+      002D5F 00                    2435 	.db 0x00
+                                   2436 	.area CSEG    (CODE)
+                                   2437 	.area XINIT   (CODE)
+                                   2438 	.area CABS    (ABS,CODE)

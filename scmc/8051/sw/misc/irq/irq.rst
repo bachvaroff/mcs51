@@ -556,26 +556,27 @@
       002111 12 20 7A         [24]  556 	lcall	_getchar
                                     557 ;	irq.c:56: PCON |= 2;
       002114 43 87 02         [24]  558 	orl	_PCON,#0x02
-                                    559 ;	irq.c:57: }
-      002117 22               [24]  560 	ret
-                                    561 	.area CSEG    (CODE)
-                                    562 	.area CONST   (CODE)
+                                    559 ;	irq.c:58: return;
+                                    560 ;	irq.c:59: }
+      002117 22               [24]  561 	ret
+                                    562 	.area CSEG    (CODE)
                                     563 	.area CONST   (CODE)
-      003442                        564 ___str_0:
-      003442 77 6F 72 6B 69 6E 67   565 	.ascii "working %d..."
+                                    564 	.area CONST   (CODE)
+      003442                        565 ___str_0:
+      003442 77 6F 72 6B 69 6E 67   566 	.ascii "working %d..."
              20 25 64 2E 2E 2E
-      00344F 0D                     566 	.db 0x0d
-      003450 0A                     567 	.db 0x0a
-      003451 00                     568 	.db 0x00
-                                    569 	.area CSEG    (CODE)
-                                    570 	.area CONST   (CODE)
-      003452                        571 ___str_1:
-      003452 67 6F 74 20 69 6E 74   572 	.ascii "got interrupt %d"
+      00344F 0D                     567 	.db 0x0d
+      003450 0A                     568 	.db 0x0a
+      003451 00                     569 	.db 0x00
+                                    570 	.area CSEG    (CODE)
+                                    571 	.area CONST   (CODE)
+      003452                        572 ___str_1:
+      003452 67 6F 74 20 69 6E 74   573 	.ascii "got interrupt %d"
              65 72 72 75 70 74 20
              25 64
-      003462 0D                     573 	.db 0x0d
-      003463 0A                     574 	.db 0x0a
-      003464 00                     575 	.db 0x00
-                                    576 	.area CSEG    (CODE)
-                                    577 	.area XINIT   (CODE)
-                                    578 	.area CABS    (ABS,CODE)
+      003462 0D                     574 	.db 0x0d
+      003463 0A                     575 	.db 0x0a
+      003464 00                     576 	.db 0x00
+                                    577 	.area CSEG    (CODE)
+                                    578 	.area XINIT   (CODE)
+                                    579 	.area CABS    (ABS,CODE)

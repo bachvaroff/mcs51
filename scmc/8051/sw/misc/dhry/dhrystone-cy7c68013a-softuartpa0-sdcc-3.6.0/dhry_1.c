@@ -300,6 +300,8 @@ printf ("%ld \r\n", (long int)Dhrystones_Per_Second);
   }
   
   PCON |= 2;
+  
+  return;
 }
 
 

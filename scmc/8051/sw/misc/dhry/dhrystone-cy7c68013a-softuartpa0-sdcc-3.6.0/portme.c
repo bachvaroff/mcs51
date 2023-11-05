@@ -29,15 +29,17 @@ void init(void)
 	TL0 = (65536 - 1382) % 256;
 	TMOD = 0x01;
 	IE = 0x82;
-	TCON |= 0x50; // Start timers
+	TR0 = 1; // Start timers
 }
 
 void clockinc(void) __interrupt TF0_VECTOR __using 1
 {
-	TH0 = (65536 - 1382) / 256;
-	TL0 = (65536 - 1382) % 256;
 	clocktime++;
 	clockupdate = true;
+	TR0 = 0;
+	TH0 = (65536 - 1382) / 256;
+	TL0 = (65536 - 1382) % 256;
+	TR0 = 1;
 }
 
 unsigned long int clock(void)

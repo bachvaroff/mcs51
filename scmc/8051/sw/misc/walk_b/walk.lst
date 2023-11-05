@@ -2143,20 +2143,20 @@
       000A13 12r00r00         [24] 2143 	lcall	_puts
                                    2144 ;	walk.c:35: PCON |= 2;
       000A16 43 87 02         [24] 2145 	orl	_PCON,#0x02
-                                   2146 ;	walk.c:202: reset();
-                                   2147 ;	walk.c:203: }
+                                   2146 ;	walk.c:204: return;
+                                   2147 ;	walk.c:205: }
       000A19 85*00 81         [24] 2148 	mov	sp,_bp
       000A1C D0*00            [24] 2149 	pop	_bp
       000A1E 22               [24] 2150 	ret
                                    2151 ;------------------------------------------------------------
                                    2152 ;Allocation info for local variables in function 'qinit'
                                    2153 ;------------------------------------------------------------
-                                   2154 ;	walk.c:205: static void qinit(void) {
+                                   2154 ;	walk.c:207: static void qinit(void) {
                                    2155 ;	-----------------------------------------
                                    2156 ;	 function qinit
                                    2157 ;	-----------------------------------------
       000A1F                       2158 _qinit:
-                                   2159 ;	walk.c:206: hp = tp = 0;
+                                   2159 ;	walk.c:208: hp = tp = 0;
       000A1F 90rBCr72         [24] 2160 	mov	dptr,#_tp
       000A22 E4               [12] 2161 	clr	a
       000A23 F0               [24] 2162 	movx	@dptr,a
@@ -2166,8 +2166,8 @@
       000A29 F0               [24] 2166 	movx	@dptr,a
       000A2A A3               [24] 2167 	inc	dptr
       000A2B F0               [24] 2168 	movx	@dptr,a
-                                   2169 ;	walk.c:207: return;
-                                   2170 ;	walk.c:208: }
+                                   2169 ;	walk.c:209: return;
+                                   2170 ;	walk.c:210: }
       000A2C 22               [24] 2171 	ret
                                    2172 ;------------------------------------------------------------
                                    2173 ;Allocation info for local variables in function 'qadd'
@@ -2178,7 +2178,7 @@
                                    2178 ;sloc2                     Allocated to stack - _bp +5
                                    2179 ;sloc3                     Allocated to stack - _bp +10
                                    2180 ;------------------------------------------------------------
-                                   2181 ;	walk.c:210: static uint8_t qadd(struct node *t) {
+                                   2181 ;	walk.c:212: static uint8_t qadd(struct node *t) {
                                    2182 ;	-----------------------------------------
                                    2183 ;	 function qadd
                                    2184 ;	-----------------------------------------
@@ -2191,7 +2191,7 @@
       000A37 AF 82            [24] 2191 	mov	r7,dpl
       000A39 AD 83            [24] 2192 	mov	r5,dph
       000A3B AE F0            [24] 2193 	mov	r6,b
-                                   2194 ;	walk.c:211: if (((hp + 1) % QMAX) == tp) return 0u;
+                                   2194 ;	walk.c:213: if (((hp + 1) % QMAX) == tp) return 0u;
       000A3D 90rBCr70         [24] 2195 	mov	dptr,#_hp
       000A40 E0               [24] 2196 	movx	a,@dptr
       000A41 FB               [12] 2197 	mov	r3,a
@@ -2267,7 +2267,7 @@
       000AAF 75 82 00         [24] 2267 	mov	dpl,#0x00
       000AB2 80 65            [24] 2268 	sjmp	00103$
       000AB4                       2269 00102$:
-                                   2270 ;	walk.c:212: queue[hp] = *t;
+                                   2270 ;	walk.c:214: queue[hp] = *t;
       000AB4 8F 02            [24] 2271 	mov	ar2,r7
       000AB6 8E 07            [24] 2272 	mov	ar7,r6
       000AB8 EB               [12] 2273 	mov	a,r3
@@ -2303,7 +2303,7 @@
       000AE4 E5 81            [12] 2303 	mov	a,sp
       000AE6 24 FB            [12] 2304 	add	a,#0xfb
       000AE8 F5 81            [12] 2305 	mov	sp,a
-                                   2306 ;	walk.c:213: hp = (hp + 1) % QMAX;
+                                   2306 ;	walk.c:215: hp = (hp + 1) % QMAX;
       000AEA 90rBCr70         [24] 2307 	mov	dptr,#_hp
       000AED E0               [24] 2308 	movx	a,@dptr
       000AEE FD               [12] 2309 	mov	r5,a
@@ -2331,10 +2331,10 @@
       000B13 EE               [12] 2331 	mov	a,r6
       000B14 A3               [24] 2332 	inc	dptr
       000B15 F0               [24] 2333 	movx	@dptr,a
-                                   2334 ;	walk.c:214: return 1u;
+                                   2334 ;	walk.c:216: return 1u;
       000B16 75 82 01         [24] 2335 	mov	dpl,#0x01
       000B19                       2336 00103$:
-                                   2337 ;	walk.c:215: }
+                                   2337 ;	walk.c:217: }
       000B19 85*00 81         [24] 2338 	mov	sp,_bp
       000B1C D0*00            [24] 2339 	pop	_bp
       000B1E 22               [24] 2340 	ret
@@ -2343,7 +2343,7 @@
                                    2343 ;------------------------------------------------------------
                                    2344 ;t                         Allocated to registers r5 r6 r7 
                                    2345 ;------------------------------------------------------------
-                                   2346 ;	walk.c:217: static uint8_t qget(struct node *t) {
+                                   2346 ;	walk.c:219: static uint8_t qget(struct node *t) {
                                    2347 ;	-----------------------------------------
                                    2348 ;	 function qget
                                    2349 ;	-----------------------------------------
@@ -2351,7 +2351,7 @@
       000B1F AD 82            [24] 2351 	mov	r5,dpl
       000B21 AE 83            [24] 2352 	mov	r6,dph
       000B23 AF F0            [24] 2353 	mov	r7,b
-                                   2354 ;	walk.c:218: if (hp == tp) return 0u;
+                                   2354 ;	walk.c:220: if (hp == tp) return 0u;
       000B25 90rBCr70         [24] 2355 	mov	dptr,#_hp
       000B28 E0               [24] 2356 	movx	a,@dptr
       000B29 FB               [12] 2357 	mov	r3,a
@@ -2371,7 +2371,7 @@
       000B3D 75 82 00         [24] 2371 	mov	dpl,#0x00
       000B40 22               [24] 2372 	ret
       000B41                       2373 00102$:
-                                   2374 ;	walk.c:219: *t = queue[tp];
+                                   2374 ;	walk.c:221: *t = queue[tp];
       000B41 E9               [12] 2375 	mov	a,r1
       000B42 29               [12] 2376 	add	a,r1
       000B43 F9               [12] 2377 	mov	r1,a
@@ -2405,7 +2405,7 @@
       000B6D E5 81            [12] 2405 	mov	a,sp
       000B6F 24 FB            [12] 2406 	add	a,#0xfb
       000B71 F5 81            [12] 2407 	mov	sp,a
-                                   2408 ;	walk.c:220: tp = (tp + 1) % QMAX;
+                                   2408 ;	walk.c:222: tp = (tp + 1) % QMAX;
       000B73 90rBCr72         [24] 2409 	mov	dptr,#_tp
       000B76 E0               [24] 2410 	movx	a,@dptr
       000B77 FE               [12] 2411 	mov	r6,a
@@ -2433,9 +2433,9 @@
       000B9C EF               [12] 2433 	mov	a,r7
       000B9D A3               [24] 2434 	inc	dptr
       000B9E F0               [24] 2435 	movx	@dptr,a
-                                   2436 ;	walk.c:221: return 1u;
+                                   2436 ;	walk.c:223: return 1u;
       000B9F 75 82 01         [24] 2437 	mov	dpl,#0x01
-                                   2438 ;	walk.c:222: }
+                                   2438 ;	walk.c:224: }
       000BA2 22               [24] 2439 	ret
                                    2440 	.area CSEG    (CODE)
                                    2441 	.area CONST   (CODE)

@@ -54,5 +54,7 @@ void main(void) {
 	(void)getchar();
 	
 	PCON |= 2;
+	
+	return;
 }
 

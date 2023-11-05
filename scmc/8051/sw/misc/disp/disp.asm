@@ -1452,7 +1452,8 @@ _main:
 	lcall	_getchar
 ;	disp.c:264: PCON |= 2;
 	orl	_PCON,#0x02
-;	disp.c:265: }
+;	disp.c:266: return;
+;	disp.c:267: }
 	mov	sp,_bp
 	pop	_bp
 	ret

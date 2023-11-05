@@ -2121,34 +2121,34 @@
       002A67 12 2D 68         [24] 2121 	lcall	_puts
                                    2122 ;	walk.c:35: PCON |= 2;
       002A6A 43 87 02         [24] 2123 	orl	_PCON,#0x02
-                                   2124 ;	walk.c:197: reset();
-                                   2125 ;	walk.c:198: }
+                                   2124 ;	walk.c:199: return;
+                                   2125 ;	walk.c:200: }
       002A6D 85 10 81         [24] 2126 	mov	sp,_bp
       002A70 D0 10            [24] 2127 	pop	_bp
       002A72 22               [24] 2128 	ret
                                    2129 ;------------------------------------------------------------
                                    2130 ;Allocation info for local variables in function 'stinit'
                                    2131 ;------------------------------------------------------------
-                                   2132 ;	walk.c:200: static void stinit(void) {
+                                   2132 ;	walk.c:202: static void stinit(void) {
                                    2133 ;	-----------------------------------------
                                    2134 ;	 function stinit
                                    2135 ;	-----------------------------------------
       002A73                       2136 _stinit:
-                                   2137 ;	walk.c:201: sp = -1;
+                                   2137 ;	walk.c:203: sp = -1;
       002A73 90 FE 70         [24] 2138 	mov	dptr,#_sp
       002A76 74 FF            [12] 2139 	mov	a,#0xff
       002A78 F0               [24] 2140 	movx	@dptr,a
       002A79 A3               [24] 2141 	inc	dptr
       002A7A F0               [24] 2142 	movx	@dptr,a
-                                   2143 ;	walk.c:202: return;
-                                   2144 ;	walk.c:203: }
+                                   2143 ;	walk.c:204: return;
+                                   2144 ;	walk.c:205: }
       002A7B 22               [24] 2145 	ret
                                    2146 ;------------------------------------------------------------
                                    2147 ;Allocation info for local variables in function 'stpush'
                                    2148 ;------------------------------------------------------------
                                    2149 ;t                         Allocated to registers r5 r6 r7 
                                    2150 ;------------------------------------------------------------
-                                   2151 ;	walk.c:205: static uint8_t stpush(struct node *t) {
+                                   2151 ;	walk.c:207: static uint8_t stpush(struct node *t) {
                                    2152 ;	-----------------------------------------
                                    2153 ;	 function stpush
                                    2154 ;	-----------------------------------------
@@ -2156,7 +2156,7 @@
       002A7C AD 82            [24] 2156 	mov	r5,dpl
       002A7E AE 83            [24] 2157 	mov	r6,dph
       002A80 AF F0            [24] 2158 	mov	r7,b
-                                   2159 ;	walk.c:206: if (sp == (SMAX - 1)) return 0u;
+                                   2159 ;	walk.c:208: if (sp == (SMAX - 1)) return 0u;
       002A82 90 FE 70         [24] 2160 	mov	dptr,#_sp
       002A85 E0               [24] 2161 	movx	a,@dptr
       002A86 FB               [12] 2162 	mov	r3,a
@@ -2168,7 +2168,7 @@
       002A90 75 82 00         [24] 2168 	mov	dpl,#0x00
       002A93 22               [24] 2169 	ret
       002A94                       2170 00102$:
-                                   2171 ;	walk.c:207: sp++;
+                                   2171 ;	walk.c:209: sp++;
       002A94 90 FE 70         [24] 2172 	mov	dptr,#_sp
       002A97 74 01            [12] 2173 	mov	a,#0x01
       002A99 2B               [12] 2174 	add	a,r3
@@ -2177,7 +2177,7 @@
       002A9C 3C               [12] 2177 	addc	a,r4
       002A9D A3               [24] 2178 	inc	dptr
       002A9E F0               [24] 2179 	movx	@dptr,a
-                                   2180 ;	walk.c:208: stack[sp] = *t;
+                                   2180 ;	walk.c:210: stack[sp] = *t;
       002A9F 90 FE 70         [24] 2181 	mov	dptr,#_sp
       002AA2 E0               [24] 2182 	movx	a,@dptr
       002AA3 FB               [12] 2183 	mov	r3,a
@@ -2217,16 +2217,16 @@
       002AD3 E5 81            [12] 2217 	mov	a,sp
       002AD5 24 FB            [12] 2218 	add	a,#0xfb
       002AD7 F5 81            [12] 2219 	mov	sp,a
-                                   2220 ;	walk.c:209: return 1u;
+                                   2220 ;	walk.c:211: return 1u;
       002AD9 75 82 01         [24] 2221 	mov	dpl,#0x01
-                                   2222 ;	walk.c:210: }
+                                   2222 ;	walk.c:212: }
       002ADC 22               [24] 2223 	ret
                                    2224 ;------------------------------------------------------------
                                    2225 ;Allocation info for local variables in function 'stpop'
                                    2226 ;------------------------------------------------------------
                                    2227 ;t                         Allocated to registers r5 r6 r7 
                                    2228 ;------------------------------------------------------------
-                                   2229 ;	walk.c:212: static uint8_t stpop(struct node *t) {
+                                   2229 ;	walk.c:214: static uint8_t stpop(struct node *t) {
                                    2230 ;	-----------------------------------------
                                    2231 ;	 function stpop
                                    2232 ;	-----------------------------------------
@@ -2234,7 +2234,7 @@
       002ADD AD 82            [24] 2234 	mov	r5,dpl
       002ADF AE 83            [24] 2235 	mov	r6,dph
       002AE1 AF F0            [24] 2236 	mov	r7,b
-                                   2237 ;	walk.c:213: if (sp == -1) return 0u;
+                                   2237 ;	walk.c:215: if (sp == -1) return 0u;
       002AE3 90 FE 70         [24] 2238 	mov	dptr,#_sp
       002AE6 E0               [24] 2239 	movx	a,@dptr
       002AE7 FB               [12] 2240 	mov	r3,a
@@ -2246,7 +2246,7 @@
       002AF1 75 82 00         [24] 2246 	mov	dpl,#0x00
       002AF4 22               [24] 2247 	ret
       002AF5                       2248 00102$:
-                                   2249 ;	walk.c:214: *t = stack[sp];
+                                   2249 ;	walk.c:216: *t = stack[sp];
       002AF5 EB               [12] 2250 	mov	a,r3
       002AF6 2B               [12] 2251 	add	a,r3
       002AF7 FB               [12] 2252 	mov	r3,a
@@ -2280,7 +2280,7 @@
       002B21 E5 81            [12] 2280 	mov	a,sp
       002B23 24 FB            [12] 2281 	add	a,#0xfb
       002B25 F5 81            [12] 2282 	mov	sp,a
-                                   2283 ;	walk.c:215: sp--;
+                                   2283 ;	walk.c:217: sp--;
       002B27 90 FE 70         [24] 2284 	mov	dptr,#_sp
       002B2A E0               [24] 2285 	movx	a,@dptr
       002B2B 24 FF            [12] 2286 	add	a,#0xff
@@ -2295,9 +2295,9 @@
       002B38 EF               [12] 2295 	mov	a,r7
       002B39 A3               [24] 2296 	inc	dptr
       002B3A F0               [24] 2297 	movx	@dptr,a
-                                   2298 ;	walk.c:216: return 1u;
+                                   2298 ;	walk.c:218: return 1u;
       002B3B 75 82 01         [24] 2299 	mov	dpl,#0x01
-                                   2300 ;	walk.c:217: }
+                                   2300 ;	walk.c:219: }
       002B3E 22               [24] 2301 	ret
                                    2302 	.area CSEG    (CODE)
                                    2303 	.area CONST   (CODE)

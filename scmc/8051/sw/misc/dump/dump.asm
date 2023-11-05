@@ -830,7 +830,8 @@ _main:
 	setb	_P1_7
 ;	dump.c:85: PCON |= 2;
 	orl	_PCON,#0x02
-;	dump.c:86: }
+;	dump.c:87: return;
+;	dump.c:88: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

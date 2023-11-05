@@ -331,5 +331,7 @@ term:
 	(void)getchar();
 	
 	PCON |= 2;
+	
+	return;
 }
 

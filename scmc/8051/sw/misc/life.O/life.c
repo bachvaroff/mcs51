@@ -260,5 +260,7 @@ terminate:
 	(void)getchar();
 	
 	PCON |= 2;
+	
+	return;
 }
 

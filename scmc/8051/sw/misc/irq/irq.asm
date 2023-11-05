@@ -556,7 +556,8 @@ _main:
 	lcall	_getchar
 ;	irq.c:56: PCON |= 2;
 	orl	_PCON,#0x02
-;	irq.c:57: }
+;	irq.c:58: return;
+;	irq.c:59: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

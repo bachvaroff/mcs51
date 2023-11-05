@@ -420,7 +420,7 @@
       002000 02 20 11         [24]  420 	ljmp	__sdcc_gsinit_startup
       002003 32               [24]  421 	reti
       002004                        422 	.ds	7
-      00200B 02 34 7A         [24]  423 	ljmp	_clockinc
+      00200B 02 34 79         [24]  423 	ljmp	_clockinc
                                     424 ;--------------------------------------------------------
                                     425 ; global & static initialisations
                                     426 ;--------------------------------------------------------
@@ -542,7 +542,7 @@
       0020AD 8F F0            [24]  542 	mov	b,r7
                                     543 ;	Peephole 181	changed mov to clr
       0020AF E4               [12]  544 	clr	a
-      0020B0 12 37 4F         [24]  545 	lcall	__gptrput
+      0020B0 12 37 52         [24]  545 	lcall	__gptrput
                                     546 ;	dhry_1.c:109: Ptr_Glob->variant.var_1.Enum_Comp     = Ident_3;
                                     547 ;	genAssign
       0020B3 90 80 00         [24]  548 	mov	dptr,#_Ptr_Glob
@@ -569,7 +569,7 @@
       0020C7 8E 83            [24]  569 	mov	dph,r6
       0020C9 8F F0            [24]  570 	mov	b,r7
       0020CB 74 02            [12]  571 	mov	a,#0x02
-      0020CD 12 37 4F         [24]  572 	lcall	__gptrput
+      0020CD 12 37 52         [24]  572 	lcall	__gptrput
                                     573 ;	dhry_1.c:110: Ptr_Glob->variant.var_1.Int_Comp      = 40;
                                     574 ;	genAssign
       0020D0 90 80 00         [24]  575 	mov	dptr,#_Ptr_Glob
@@ -596,11 +596,11 @@
       0020E4 8E 83            [24]  596 	mov	dph,r6
       0020E6 8F F0            [24]  597 	mov	b,r7
       0020E8 74 28            [12]  598 	mov	a,#0x28
-      0020EA 12 37 4F         [24]  599 	lcall	__gptrput
+      0020EA 12 37 52         [24]  599 	lcall	__gptrput
       0020ED A3               [24]  600 	inc	dptr
                                     601 ;	Peephole 181	changed mov to clr
       0020EE E4               [12]  602 	clr	a
-      0020EF 12 37 4F         [24]  603 	lcall	__gptrput
+      0020EF 12 37 52         [24]  603 	lcall	__gptrput
                                     604 ;	dhry_1.c:111: strcpy (Ptr_Glob->variant.var_1.Str_Comp, 
                                     605 ;	genAssign
       0020F2 90 80 00         [24]  606 	mov	dptr,#_Ptr_Glob
@@ -624,7 +624,7 @@
                                     624 ;	dhry_1.c:112: "DHRYSTONE PROGRAM, SOME STRING");
                                     625 ;	genCast
       002104 90 94 CE         [24]  626 	mov	dptr,#_strcpy_PARM_2
-      002107 74 F7            [12]  627 	mov	a,#___str_0
+      002107 74 FA            [12]  627 	mov	a,#___str_0
       002109 F0               [24]  628 	movx	@dptr,a
       00210A 74 44            [12]  629 	mov	a,#(___str_0 >> 8)
       00210C A3               [24]  630 	inc	dptr
@@ -636,11 +636,11 @@
       002112 8D 82            [24]  636 	mov	dpl,r5
       002114 8E 83            [24]  637 	mov	dph,r6
       002116 8F F0            [24]  638 	mov	b,r7
-      002118 12 34 E4         [24]  639 	lcall	_strcpy
+      002118 12 34 E7         [24]  639 	lcall	_strcpy
                                     640 ;	dhry_1.c:113: strcpy (Str_1_Loc, "DHRYSTONE PROGRAM, 1'ST STRING");
                                     641 ;	genCast
       00211B 90 94 CE         [24]  642 	mov	dptr,#_strcpy_PARM_2
-      00211E 74 16            [12]  643 	mov	a,#___str_1
+      00211E 74 19            [12]  643 	mov	a,#___str_1
       002120 F0               [24]  644 	movx	@dptr,a
       002121 74 45            [12]  645 	mov	a,#(___str_1 >> 8)
       002123 A3               [24]  646 	inc	dptr
@@ -652,7 +652,7 @@
                                     652 ;	Peephole 182.a	used 16 bit load of DPTR
       002129 90 94 5F         [24]  653 	mov	dptr,#_main_Str_1_Loc_65536_54
       00212C 75 F0 00         [24]  654 	mov	b,#0x00
-      00212F 12 34 E4         [24]  655 	lcall	_strcpy
+      00212F 12 34 E7         [24]  655 	lcall	_strcpy
                                     656 ;	dhry_1.c:115: Arr_2_Glob [8][7] = 10;
                                     657 ;	genPointerSet
                                     658 ;	genFarPointerSet
@@ -665,40 +665,40 @@
       00213A F0               [24]  665 	movx	@dptr,a
                                     666 ;	dhry_1.c:121: printf ("\r\n");
                                     667 ;	genIpush
-      00213B 74 35            [12]  668 	mov	a,#___str_2
+      00213B 74 38            [12]  668 	mov	a,#___str_2
       00213D C0 E0            [24]  669 	push	acc
       00213F 74 45            [12]  670 	mov	a,#(___str_2 >> 8)
       002141 C0 E0            [24]  671 	push	acc
       002143 74 80            [12]  672 	mov	a,#0x80
       002145 C0 E0            [24]  673 	push	acc
                                     674 ;	genCall
-      002147 12 39 AF         [24]  675 	lcall	_printf
+      002147 12 39 B2         [24]  675 	lcall	_printf
       00214A 15 81            [12]  676 	dec	sp
       00214C 15 81            [12]  677 	dec	sp
       00214E 15 81            [12]  678 	dec	sp
                                     679 ;	dhry_1.c:122: printf ("Dhrystone Benchmark, Version 2.1 (Language: C)\r\n");
                                     680 ;	genIpush
-      002150 74 38            [12]  681 	mov	a,#___str_3
+      002150 74 3B            [12]  681 	mov	a,#___str_3
       002152 C0 E0            [24]  682 	push	acc
       002154 74 45            [12]  683 	mov	a,#(___str_3 >> 8)
       002156 C0 E0            [24]  684 	push	acc
       002158 74 80            [12]  685 	mov	a,#0x80
       00215A C0 E0            [24]  686 	push	acc
                                     687 ;	genCall
-      00215C 12 39 AF         [24]  688 	lcall	_printf
+      00215C 12 39 B2         [24]  688 	lcall	_printf
       00215F 15 81            [12]  689 	dec	sp
       002161 15 81            [12]  690 	dec	sp
       002163 15 81            [12]  691 	dec	sp
                                     692 ;	dhry_1.c:123: printf ("\r\n");
                                     693 ;	genIpush
-      002165 74 35            [12]  694 	mov	a,#___str_2
+      002165 74 38            [12]  694 	mov	a,#___str_2
       002167 C0 E0            [24]  695 	push	acc
       002169 74 45            [12]  696 	mov	a,#(___str_2 >> 8)
       00216B C0 E0            [24]  697 	push	acc
       00216D 74 80            [12]  698 	mov	a,#0x80
       00216F C0 E0            [24]  699 	push	acc
                                     700 ;	genCall
-      002171 12 39 AF         [24]  701 	lcall	_printf
+      002171 12 39 B2         [24]  701 	lcall	_printf
       002174 15 81            [12]  702 	dec	sp
       002176 15 81            [12]  703 	dec	sp
       002178 15 81            [12]  704 	dec	sp
@@ -716,27 +716,27 @@
                                     716 ;	Peephole 500	removed redundant label 00161$
                                     717 ;	dhry_1.c:126: printf ("Program compiled with 'register' attribute\r\n");
                                     718 ;	genIpush
-      002186 74 69            [12]  719 	mov	a,#___str_4
+      002186 74 6C            [12]  719 	mov	a,#___str_4
       002188 C0 E0            [24]  720 	push	acc
       00218A 74 45            [12]  721 	mov	a,#(___str_4 >> 8)
       00218C C0 E0            [24]  722 	push	acc
       00218E 74 80            [12]  723 	mov	a,#0x80
       002190 C0 E0            [24]  724 	push	acc
                                     725 ;	genCall
-      002192 12 39 AF         [24]  726 	lcall	_printf
+      002192 12 39 B2         [24]  726 	lcall	_printf
       002195 15 81            [12]  727 	dec	sp
       002197 15 81            [12]  728 	dec	sp
       002199 15 81            [12]  729 	dec	sp
                                     730 ;	dhry_1.c:127: printf ("\r\n");
                                     731 ;	genIpush
-      00219B 74 35            [12]  732 	mov	a,#___str_2
+      00219B 74 38            [12]  732 	mov	a,#___str_2
       00219D C0 E0            [24]  733 	push	acc
       00219F 74 45            [12]  734 	mov	a,#(___str_2 >> 8)
       0021A1 C0 E0            [24]  735 	push	acc
       0021A3 74 80            [12]  736 	mov	a,#0x80
       0021A5 C0 E0            [24]  737 	push	acc
                                     738 ;	genCall
-      0021A7 12 39 AF         [24]  739 	lcall	_printf
+      0021A7 12 39 B2         [24]  739 	lcall	_printf
       0021AA 15 81            [12]  740 	dec	sp
       0021AC 15 81            [12]  741 	dec	sp
       0021AE 15 81            [12]  742 	dec	sp
@@ -745,54 +745,54 @@
       0021B2                        745 00102$:
                                     746 ;	dhry_1.c:131: printf ("Program compiled without 'register' attribute\r\n");
                                     747 ;	genIpush
-      0021B2 74 96            [12]  748 	mov	a,#___str_5
+      0021B2 74 99            [12]  748 	mov	a,#___str_5
       0021B4 C0 E0            [24]  749 	push	acc
       0021B6 74 45            [12]  750 	mov	a,#(___str_5 >> 8)
       0021B8 C0 E0            [24]  751 	push	acc
       0021BA 74 80            [12]  752 	mov	a,#0x80
       0021BC C0 E0            [24]  753 	push	acc
                                     754 ;	genCall
-      0021BE 12 39 AF         [24]  755 	lcall	_printf
+      0021BE 12 39 B2         [24]  755 	lcall	_printf
       0021C1 15 81            [12]  756 	dec	sp
       0021C3 15 81            [12]  757 	dec	sp
       0021C5 15 81            [12]  758 	dec	sp
                                     759 ;	dhry_1.c:132: printf ("\r\n");
                                     760 ;	genIpush
-      0021C7 74 35            [12]  761 	mov	a,#___str_2
+      0021C7 74 38            [12]  761 	mov	a,#___str_2
       0021C9 C0 E0            [24]  762 	push	acc
       0021CB 74 45            [12]  763 	mov	a,#(___str_2 >> 8)
       0021CD C0 E0            [24]  764 	push	acc
       0021CF 74 80            [12]  765 	mov	a,#0x80
       0021D1 C0 E0            [24]  766 	push	acc
                                     767 ;	genCall
-      0021D3 12 39 AF         [24]  768 	lcall	_printf
+      0021D3 12 39 B2         [24]  768 	lcall	_printf
       0021D6 15 81            [12]  769 	dec	sp
       0021D8 15 81            [12]  770 	dec	sp
       0021DA 15 81            [12]  771 	dec	sp
       0021DC                        772 00103$:
                                     773 ;	dhry_1.c:134: printf ("Please give the number of runs through the benchmark: ");
                                     774 ;	genIpush
-      0021DC 74 C6            [12]  775 	mov	a,#___str_6
+      0021DC 74 C9            [12]  775 	mov	a,#___str_6
       0021DE C0 E0            [24]  776 	push	acc
       0021E0 74 45            [12]  777 	mov	a,#(___str_6 >> 8)
       0021E2 C0 E0            [24]  778 	push	acc
       0021E4 74 80            [12]  779 	mov	a,#0x80
       0021E6 C0 E0            [24]  780 	push	acc
                                     781 ;	genCall
-      0021E8 12 39 AF         [24]  782 	lcall	_printf
+      0021E8 12 39 B2         [24]  782 	lcall	_printf
       0021EB 15 81            [12]  783 	dec	sp
       0021ED 15 81            [12]  784 	dec	sp
       0021EF 15 81            [12]  785 	dec	sp
                                     786 ;	dhry_1.c:140: printf ("\r\n");
                                     787 ;	genIpush
-      0021F1 74 35            [12]  788 	mov	a,#___str_2
+      0021F1 74 38            [12]  788 	mov	a,#___str_2
       0021F3 C0 E0            [24]  789 	push	acc
       0021F5 74 45            [12]  790 	mov	a,#(___str_2 >> 8)
       0021F7 C0 E0            [24]  791 	push	acc
       0021F9 74 80            [12]  792 	mov	a,#0x80
       0021FB C0 E0            [24]  793 	push	acc
                                     794 ;	genCall
-      0021FD 12 39 AF         [24]  795 	lcall	_printf
+      0021FD 12 39 B2         [24]  795 	lcall	_printf
       002200 15 81            [12]  796 	dec	sp
       002202 15 81            [12]  797 	dec	sp
       002204 15 81            [12]  798 	dec	sp
@@ -803,20 +803,20 @@
       00220A 74 4E            [12]  803 	mov	a,#0x4e
       00220C C0 E0            [24]  804 	push	acc
                                     805 ;	genIpush
-      00220E 74 FD            [12]  806 	mov	a,#___str_7
+      00220E 74 00            [12]  806 	mov	a,#___str_7
       002210 C0 E0            [24]  807 	push	acc
-      002212 74 45            [12]  808 	mov	a,#(___str_7 >> 8)
+      002212 74 46            [12]  808 	mov	a,#(___str_7 >> 8)
       002214 C0 E0            [24]  809 	push	acc
       002216 74 80            [12]  810 	mov	a,#0x80
       002218 C0 E0            [24]  811 	push	acc
                                     812 ;	genCall
-      00221A 12 39 AF         [24]  813 	lcall	_printf
+      00221A 12 39 B2         [24]  813 	lcall	_printf
       00221D E5 81            [12]  814 	mov	a,sp
       00221F 24 FB            [12]  815 	add	a,#0xfb
       002221 F5 81            [12]  816 	mov	sp,a
                                     817 ;	dhry_1.c:156: Begin_Time = clock();
                                     818 ;	genCall
-      002223 12 34 B3         [24]  819 	lcall	_clock
+      002223 12 34 B6         [24]  819 	lcall	_clock
       002226 AC 82            [24]  820 	mov	r4,dpl
       002228 AD 83            [24]  821 	mov	r5,dph
       00222A AE F0            [24]  822 	mov	r6,b
@@ -888,7 +888,7 @@
                                     888 ;	dhry_1.c:167: strcpy (Str_2_Loc, "DHRYSTONE PROGRAM, 2'ND STRING");
                                     889 ;	genCast
       00226D 90 94 CE         [24]  890 	mov	dptr,#_strcpy_PARM_2
-      002270 74 2B            [12]  891 	mov	a,#___str_8
+      002270 74 2E            [12]  891 	mov	a,#___str_8
       002272 F0               [24]  892 	movx	@dptr,a
       002273 74 46            [12]  893 	mov	a,#(___str_8 >> 8)
       002275 A3               [24]  894 	inc	dptr
@@ -902,7 +902,7 @@
       00227E 75 F0 00         [24]  902 	mov	b,#0x00
                                     903 ;	Peephole	push ar7 removed
                                     904 ;	Peephole	push ar6 removed
-      002281 12 34 E4         [24]  905 	lcall	_strcpy
+      002281 12 34 E7         [24]  905 	lcall	_strcpy
                                     906 ;	Peephole 300	pop ar6 removed
                                     907 ;	Peephole 300	pop ar7 removed
                                     908 ;	dhry_1.c:168: Enum_Loc = Ident_2;
@@ -987,7 +987,7 @@
       0022D9 C0 06            [24]  987 	push	ar6
       0022DB C0 05            [24]  988 	push	ar5
       0022DD C0 04            [24]  989 	push	ar4
-      0022DF 12 37 6A         [24]  990 	lcall	__mulint
+      0022DF 12 37 6D         [24]  990 	lcall	__mulint
       0022E2 E5 82            [12]  991 	mov	a,dpl
       0022E4 85 83 F0         [24]  992 	mov	b,dph
       0022E7 D0 04            [24]  993 	pop	ar4
@@ -1207,7 +1207,7 @@
                                    1207 ;	dhry_1.c:190: strcpy (Str_2_Loc, "DHRYSTONE PROGRAM, 3'RD STRING");
                                    1208 ;	genCast
       0023D9 90 94 CE         [24] 1209 	mov	dptr,#_strcpy_PARM_2
-      0023DC 74 4A            [12] 1210 	mov	a,#___str_9
+      0023DC 74 4D            [12] 1210 	mov	a,#___str_9
       0023DE F0               [24] 1211 	movx	@dptr,a
       0023DF 74 46            [12] 1212 	mov	a,#(___str_9 >> 8)
       0023E1 A3               [24] 1213 	inc	dptr
@@ -1224,7 +1224,7 @@
                                    1224 ;	Peephole	push ar5 removed
                                    1225 ;	Peephole	push ar4 removed
                                    1226 ;	Peephole	push ar3 removed
-      0023ED 12 34 E4         [24] 1227 	lcall	_strcpy
+      0023ED 12 34 E7         [24] 1227 	lcall	_strcpy
       0023F0 D0 03            [24] 1228 	pop	ar3
       0023F2 D0 04            [24] 1229 	pop	ar4
       0023F4 D0 05            [24] 1230 	pop	ar5
@@ -1280,7 +1280,7 @@
       002428 8B 83            [24] 1280 	mov	dph,r3
       00242A C0 07            [24] 1281 	push	ar7
       00242C C0 06            [24] 1282 	push	ar6
-      00242E 12 37 6A         [24] 1283 	lcall	__mulint
+      00242E 12 37 6D         [24] 1283 	lcall	__mulint
       002431 E5 82            [12] 1284 	mov	a,dpl
       002433 85 83 F0         [24] 1285 	mov	b,dph
                                    1286 ;	Peephole 300	pop ar6 removed
@@ -1322,7 +1322,7 @@
       00245C C0 04            [24] 1322 	push	ar4
       00245E C0 03            [24] 1323 	push	ar3
       002460 C0 02            [24] 1324 	push	ar2
-      002462 12 38 13         [24] 1325 	lcall	__divsint
+      002462 12 38 16         [24] 1325 	lcall	__divsint
       002465 A8 82            [24] 1326 	mov	r0,dpl
       002467 A9 83            [24] 1327 	mov	r1,dph
       002469 D0 02            [24] 1328 	pop	ar2
@@ -1356,7 +1356,7 @@
                                    1356 ;	Peephole	push ar6 removed
       002487 C0 01            [24] 1357 	push	ar1
       002489 C0 00            [24] 1358 	push	ar0
-      00248B 12 37 6A         [24] 1359 	lcall	__mulint
+      00248B 12 37 6D         [24] 1359 	lcall	__mulint
       00248E E5 82            [12] 1360 	mov	a,dpl
       002490 85 83 F0         [24] 1361 	mov	b,dph
       002493 D0 00            [24] 1362 	pop	ar0
@@ -1393,7 +1393,7 @@
       0024B7                       1393 00110$:
                                    1394 ;	dhry_1.c:217: End_Time = clock();
                                    1395 ;	genCall
-      0024B7 12 34 B3         [24] 1396 	lcall	_clock
+      0024B7 12 34 B6         [24] 1396 	lcall	_clock
       0024BA AC 82            [24] 1397 	mov	r4,dpl
       0024BC AD 83            [24] 1398 	mov	r5,dph
       0024BE AE F0            [24] 1399 	mov	r6,b
@@ -1413,53 +1413,53 @@
       0024CE F0               [24] 1413 	movx	@dptr,a
                                    1414 ;	dhry_1.c:220: printf ("Execution ends\r\n");
                                    1415 ;	genIpush
-      0024CF 74 69            [12] 1416 	mov	a,#___str_10
+      0024CF 74 6C            [12] 1416 	mov	a,#___str_10
       0024D1 C0 E0            [24] 1417 	push	acc
       0024D3 74 46            [12] 1418 	mov	a,#(___str_10 >> 8)
       0024D5 C0 E0            [24] 1419 	push	acc
       0024D7 74 80            [12] 1420 	mov	a,#0x80
       0024D9 C0 E0            [24] 1421 	push	acc
                                    1422 ;	genCall
-      0024DB 12 39 AF         [24] 1423 	lcall	_printf
+      0024DB 12 39 B2         [24] 1423 	lcall	_printf
       0024DE 15 81            [12] 1424 	dec	sp
       0024E0 15 81            [12] 1425 	dec	sp
       0024E2 15 81            [12] 1426 	dec	sp
                                    1427 ;	dhry_1.c:221: printf ("\r\n");
                                    1428 ;	genIpush
-      0024E4 74 35            [12] 1429 	mov	a,#___str_2
+      0024E4 74 38            [12] 1429 	mov	a,#___str_2
       0024E6 C0 E0            [24] 1430 	push	acc
       0024E8 74 45            [12] 1431 	mov	a,#(___str_2 >> 8)
       0024EA C0 E0            [24] 1432 	push	acc
       0024EC 74 80            [12] 1433 	mov	a,#0x80
       0024EE C0 E0            [24] 1434 	push	acc
                                    1435 ;	genCall
-      0024F0 12 39 AF         [24] 1436 	lcall	_printf
+      0024F0 12 39 B2         [24] 1436 	lcall	_printf
       0024F3 15 81            [12] 1437 	dec	sp
       0024F5 15 81            [12] 1438 	dec	sp
       0024F7 15 81            [12] 1439 	dec	sp
                                    1440 ;	dhry_1.c:222: printf ("Final values of the variables used in the benchmark:\r\n");
                                    1441 ;	genIpush
-      0024F9 74 7A            [12] 1442 	mov	a,#___str_11
+      0024F9 74 7D            [12] 1442 	mov	a,#___str_11
       0024FB C0 E0            [24] 1443 	push	acc
       0024FD 74 46            [12] 1444 	mov	a,#(___str_11 >> 8)
       0024FF C0 E0            [24] 1445 	push	acc
       002501 74 80            [12] 1446 	mov	a,#0x80
       002503 C0 E0            [24] 1447 	push	acc
                                    1448 ;	genCall
-      002505 12 39 AF         [24] 1449 	lcall	_printf
+      002505 12 39 B2         [24] 1449 	lcall	_printf
       002508 15 81            [12] 1450 	dec	sp
       00250A 15 81            [12] 1451 	dec	sp
       00250C 15 81            [12] 1452 	dec	sp
                                    1453 ;	dhry_1.c:223: printf ("\r\n");
                                    1454 ;	genIpush
-      00250E 74 35            [12] 1455 	mov	a,#___str_2
+      00250E 74 38            [12] 1455 	mov	a,#___str_2
       002510 C0 E0            [24] 1456 	push	acc
       002512 74 45            [12] 1457 	mov	a,#(___str_2 >> 8)
       002514 C0 E0            [24] 1458 	push	acc
       002516 74 80            [12] 1459 	mov	a,#0x80
       002518 C0 E0            [24] 1460 	push	acc
                                    1461 ;	genCall
-      00251A 12 39 AF         [24] 1462 	lcall	_printf
+      00251A 12 39 B2         [24] 1462 	lcall	_printf
       00251D 15 81            [12] 1463 	dec	sp
       00251F 15 81            [12] 1464 	dec	sp
       002521 15 81            [12] 1465 	dec	sp
@@ -1472,14 +1472,14 @@
       00252A E0               [24] 1472 	movx	a,@dptr
       00252B C0 E0            [24] 1473 	push	acc
                                    1474 ;	genIpush
-      00252D 74 B1            [12] 1475 	mov	a,#___str_12
+      00252D 74 B4            [12] 1475 	mov	a,#___str_12
       00252F C0 E0            [24] 1476 	push	acc
       002531 74 46            [12] 1477 	mov	a,#(___str_12 >> 8)
       002533 C0 E0            [24] 1478 	push	acc
       002535 74 80            [12] 1479 	mov	a,#0x80
       002537 C0 E0            [24] 1480 	push	acc
                                    1481 ;	genCall
-      002539 12 39 AF         [24] 1482 	lcall	_printf
+      002539 12 39 B2         [24] 1482 	lcall	_printf
       00253C E5 81            [12] 1483 	mov	a,sp
       00253E 24 FB            [12] 1484 	add	a,#0xfb
       002540 F5 81            [12] 1485 	mov	sp,a
@@ -1491,14 +1491,14 @@
       002546 E4               [12] 1491 	clr	a
       002547 C0 E0            [24] 1492 	push	acc
                                    1493 ;	genIpush
-      002549 74 CB            [12] 1494 	mov	a,#___str_13
+      002549 74 CE            [12] 1494 	mov	a,#___str_13
       00254B C0 E0            [24] 1495 	push	acc
       00254D 74 46            [12] 1496 	mov	a,#(___str_13 >> 8)
       00254F C0 E0            [24] 1497 	push	acc
       002551 74 80            [12] 1498 	mov	a,#0x80
       002553 C0 E0            [24] 1499 	push	acc
                                    1500 ;	genCall
-      002555 12 39 AF         [24] 1501 	lcall	_printf
+      002555 12 39 B2         [24] 1501 	lcall	_printf
       002558 E5 81            [12] 1502 	mov	a,sp
       00255A 24 FB            [12] 1503 	add	a,#0xfb
       00255C F5 81            [12] 1504 	mov	sp,a
@@ -1511,14 +1511,14 @@
       002565 E0               [24] 1511 	movx	a,@dptr
       002566 C0 E0            [24] 1512 	push	acc
                                    1513 ;	genIpush
-      002568 74 E5            [12] 1514 	mov	a,#___str_14
+      002568 74 E8            [12] 1514 	mov	a,#___str_14
       00256A C0 E0            [24] 1515 	push	acc
       00256C 74 46            [12] 1516 	mov	a,#(___str_14 >> 8)
       00256E C0 E0            [24] 1517 	push	acc
       002570 74 80            [12] 1518 	mov	a,#0x80
       002572 C0 E0            [24] 1519 	push	acc
                                    1520 ;	genCall
-      002574 12 39 AF         [24] 1521 	lcall	_printf
+      002574 12 39 B2         [24] 1521 	lcall	_printf
       002577 E5 81            [12] 1522 	mov	a,sp
       002579 24 FB            [12] 1523 	add	a,#0xfb
       00257B F5 81            [12] 1524 	mov	sp,a
@@ -1530,14 +1530,14 @@
       002581 E4               [12] 1530 	clr	a
       002582 C0 E0            [24] 1531 	push	acc
                                    1532 ;	genIpush
-      002584 74 CB            [12] 1533 	mov	a,#___str_13
+      002584 74 CE            [12] 1533 	mov	a,#___str_13
       002586 C0 E0            [24] 1534 	push	acc
       002588 74 46            [12] 1535 	mov	a,#(___str_13 >> 8)
       00258A C0 E0            [24] 1536 	push	acc
       00258C 74 80            [12] 1537 	mov	a,#0x80
       00258E C0 E0            [24] 1538 	push	acc
                                    1539 ;	genCall
-      002590 12 39 AF         [24] 1540 	lcall	_printf
+      002590 12 39 B2         [24] 1540 	lcall	_printf
       002593 E5 81            [12] 1541 	mov	a,sp
       002595 24 FB            [12] 1542 	add	a,#0xfb
       002597 F5 81            [12] 1543 	mov	sp,a
@@ -1552,14 +1552,14 @@
       0025A0 C0 07            [24] 1552 	push	ar7
       0025A2 C0 06            [24] 1553 	push	ar6
                                    1554 ;	genIpush
-      0025A4 74 FF            [12] 1555 	mov	a,#___str_15
+      0025A4 74 02            [12] 1555 	mov	a,#___str_15
       0025A6 C0 E0            [24] 1556 	push	acc
-      0025A8 74 46            [12] 1557 	mov	a,#(___str_15 >> 8)
+      0025A8 74 47            [12] 1557 	mov	a,#(___str_15 >> 8)
       0025AA C0 E0            [24] 1558 	push	acc
       0025AC 74 80            [12] 1559 	mov	a,#0x80
       0025AE C0 E0            [24] 1560 	push	acc
                                    1561 ;	genCall
-      0025B0 12 39 AF         [24] 1562 	lcall	_printf
+      0025B0 12 39 B2         [24] 1562 	lcall	_printf
       0025B3 E5 81            [12] 1563 	mov	a,sp
       0025B5 24 FB            [12] 1564 	add	a,#0xfb
       0025B7 F5 81            [12] 1565 	mov	sp,a
@@ -1571,14 +1571,14 @@
       0025BD E4               [12] 1571 	clr	a
       0025BE C0 E0            [24] 1572 	push	acc
                                    1573 ;	genIpush
-      0025C0 74 19            [12] 1574 	mov	a,#___str_16
+      0025C0 74 1C            [12] 1574 	mov	a,#___str_16
       0025C2 C0 E0            [24] 1575 	push	acc
       0025C4 74 47            [12] 1576 	mov	a,#(___str_16 >> 8)
       0025C6 C0 E0            [24] 1577 	push	acc
       0025C8 74 80            [12] 1578 	mov	a,#0x80
       0025CA C0 E0            [24] 1579 	push	acc
                                    1580 ;	genCall
-      0025CC 12 39 AF         [24] 1581 	lcall	_printf
+      0025CC 12 39 B2         [24] 1581 	lcall	_printf
       0025CF E5 81            [12] 1582 	mov	a,sp
       0025D1 24 FB            [12] 1583 	add	a,#0xfb
       0025D3 F5 81            [12] 1584 	mov	sp,a
@@ -1593,14 +1593,14 @@
       0025DC C0 07            [24] 1593 	push	ar7
       0025DE C0 06            [24] 1594 	push	ar6
                                    1595 ;	genIpush
-      0025E0 74 33            [12] 1596 	mov	a,#___str_17
+      0025E0 74 36            [12] 1596 	mov	a,#___str_17
       0025E2 C0 E0            [24] 1597 	push	acc
       0025E4 74 47            [12] 1598 	mov	a,#(___str_17 >> 8)
       0025E6 C0 E0            [24] 1599 	push	acc
       0025E8 74 80            [12] 1600 	mov	a,#0x80
       0025EA C0 E0            [24] 1601 	push	acc
                                    1602 ;	genCall
-      0025EC 12 39 AF         [24] 1603 	lcall	_printf
+      0025EC 12 39 B2         [24] 1603 	lcall	_printf
       0025EF E5 81            [12] 1604 	mov	a,sp
       0025F1 24 FB            [12] 1605 	add	a,#0xfb
       0025F3 F5 81            [12] 1606 	mov	sp,a
@@ -1612,14 +1612,14 @@
       0025F9 E4               [12] 1612 	clr	a
       0025FA C0 E0            [24] 1613 	push	acc
                                    1614 ;	genIpush
-      0025FC 74 19            [12] 1615 	mov	a,#___str_16
+      0025FC 74 1C            [12] 1615 	mov	a,#___str_16
       0025FE C0 E0            [24] 1616 	push	acc
       002600 74 47            [12] 1617 	mov	a,#(___str_16 >> 8)
       002602 C0 E0            [24] 1618 	push	acc
       002604 74 80            [12] 1619 	mov	a,#0x80
       002606 C0 E0            [24] 1620 	push	acc
                                    1621 ;	genCall
-      002608 12 39 AF         [24] 1622 	lcall	_printf
+      002608 12 39 B2         [24] 1622 	lcall	_printf
       00260B E5 81            [12] 1623 	mov	a,sp
       00260D 24 FB            [12] 1624 	add	a,#0xfb
       00260F F5 81            [12] 1625 	mov	sp,a
@@ -1636,14 +1636,14 @@
       002619 C0 06            [24] 1636 	push	ar6
       00261B C0 07            [24] 1637 	push	ar7
                                    1638 ;	genIpush
-      00261D 74 4D            [12] 1639 	mov	a,#___str_18
+      00261D 74 50            [12] 1639 	mov	a,#___str_18
       00261F C0 E0            [24] 1640 	push	acc
       002621 74 47            [12] 1641 	mov	a,#(___str_18 >> 8)
       002623 C0 E0            [24] 1642 	push	acc
       002625 74 80            [12] 1643 	mov	a,#0x80
       002627 C0 E0            [24] 1644 	push	acc
                                    1645 ;	genCall
-      002629 12 39 AF         [24] 1646 	lcall	_printf
+      002629 12 39 B2         [24] 1646 	lcall	_printf
       00262C E5 81            [12] 1647 	mov	a,sp
       00262E 24 FB            [12] 1648 	add	a,#0xfb
       002630 F5 81            [12] 1649 	mov	sp,a
@@ -1655,14 +1655,14 @@
       002636 E4               [12] 1655 	clr	a
       002637 C0 E0            [24] 1656 	push	acc
                                    1657 ;	genIpush
-      002639 74 CB            [12] 1658 	mov	a,#___str_13
+      002639 74 CE            [12] 1658 	mov	a,#___str_13
       00263B C0 E0            [24] 1659 	push	acc
       00263D 74 46            [12] 1660 	mov	a,#(___str_13 >> 8)
       00263F C0 E0            [24] 1661 	push	acc
       002641 74 80            [12] 1662 	mov	a,#0x80
       002643 C0 E0            [24] 1663 	push	acc
                                    1664 ;	genCall
-      002645 12 39 AF         [24] 1665 	lcall	_printf
+      002645 12 39 B2         [24] 1665 	lcall	_printf
       002648 E5 81            [12] 1666 	mov	a,sp
       00264A 24 FB            [12] 1667 	add	a,#0xfb
       00264C F5 81            [12] 1668 	mov	sp,a
@@ -1679,40 +1679,40 @@
       002656 C0 06            [24] 1679 	push	ar6
       002658 C0 07            [24] 1680 	push	ar7
                                    1681 ;	genIpush
-      00265A 74 67            [12] 1682 	mov	a,#___str_19
+      00265A 74 6A            [12] 1682 	mov	a,#___str_19
       00265C C0 E0            [24] 1683 	push	acc
       00265E 74 47            [12] 1684 	mov	a,#(___str_19 >> 8)
       002660 C0 E0            [24] 1685 	push	acc
       002662 74 80            [12] 1686 	mov	a,#0x80
       002664 C0 E0            [24] 1687 	push	acc
                                    1688 ;	genCall
-      002666 12 39 AF         [24] 1689 	lcall	_printf
+      002666 12 39 B2         [24] 1689 	lcall	_printf
       002669 E5 81            [12] 1690 	mov	a,sp
       00266B 24 FB            [12] 1691 	add	a,#0xfb
       00266D F5 81            [12] 1692 	mov	sp,a
                                    1693 ;	dhry_1.c:235: printf ("        should be:   Number_Of_Runs + 10\r\n");
                                    1694 ;	genIpush
-      00266F 74 81            [12] 1695 	mov	a,#___str_20
+      00266F 74 84            [12] 1695 	mov	a,#___str_20
       002671 C0 E0            [24] 1696 	push	acc
       002673 74 47            [12] 1697 	mov	a,#(___str_20 >> 8)
       002675 C0 E0            [24] 1698 	push	acc
       002677 74 80            [12] 1699 	mov	a,#0x80
       002679 C0 E0            [24] 1700 	push	acc
                                    1701 ;	genCall
-      00267B 12 39 AF         [24] 1702 	lcall	_printf
+      00267B 12 39 B2         [24] 1702 	lcall	_printf
       00267E 15 81            [12] 1703 	dec	sp
       002680 15 81            [12] 1704 	dec	sp
       002682 15 81            [12] 1705 	dec	sp
                                    1706 ;	dhry_1.c:236: printf ("Ptr_Glob->\r\n");
                                    1707 ;	genIpush
-      002684 74 AC            [12] 1708 	mov	a,#___str_21
+      002684 74 AF            [12] 1708 	mov	a,#___str_21
       002686 C0 E0            [24] 1709 	push	acc
       002688 74 47            [12] 1710 	mov	a,#(___str_21 >> 8)
       00268A C0 E0            [24] 1711 	push	acc
       00268C 74 80            [12] 1712 	mov	a,#0x80
       00268E C0 E0            [24] 1713 	push	acc
                                    1714 ;	genCall
-      002690 12 39 AF         [24] 1715 	lcall	_printf
+      002690 12 39 B2         [24] 1715 	lcall	_printf
       002693 15 81            [12] 1716 	dec	sp
       002695 15 81            [12] 1717 	dec	sp
       002697 15 81            [12] 1718 	dec	sp
@@ -1732,36 +1732,36 @@
       0026A4 8D 82            [24] 1732 	mov	dpl,r5
       0026A6 8E 83            [24] 1733 	mov	dph,r6
       0026A8 8F F0            [24] 1734 	mov	b,r7
-      0026AA 12 44 94         [24] 1735 	lcall	__gptrget
+      0026AA 12 44 97         [24] 1735 	lcall	__gptrget
       0026AD FD               [12] 1736 	mov	r5,a
       0026AE A3               [24] 1737 	inc	dptr
-      0026AF 12 44 94         [24] 1738 	lcall	__gptrget
+      0026AF 12 44 97         [24] 1738 	lcall	__gptrget
       0026B2 FE               [12] 1739 	mov	r6,a
                                    1740 ;	genIpush
       0026B3 C0 05            [24] 1741 	push	ar5
       0026B5 C0 06            [24] 1742 	push	ar6
                                    1743 ;	genIpush
-      0026B7 74 B9            [12] 1744 	mov	a,#___str_22
+      0026B7 74 BC            [12] 1744 	mov	a,#___str_22
       0026B9 C0 E0            [24] 1745 	push	acc
       0026BB 74 47            [12] 1746 	mov	a,#(___str_22 >> 8)
       0026BD C0 E0            [24] 1747 	push	acc
       0026BF 74 80            [12] 1748 	mov	a,#0x80
       0026C1 C0 E0            [24] 1749 	push	acc
                                    1750 ;	genCall
-      0026C3 12 39 AF         [24] 1751 	lcall	_printf
+      0026C3 12 39 B2         [24] 1751 	lcall	_printf
       0026C6 E5 81            [12] 1752 	mov	a,sp
       0026C8 24 FB            [12] 1753 	add	a,#0xfb
       0026CA F5 81            [12] 1754 	mov	sp,a
                                    1755 ;	dhry_1.c:238: printf ("        should be:   (implementation-dependent)\r\n");
                                    1756 ;	genIpush
-      0026CC 74 D3            [12] 1757 	mov	a,#___str_23
+      0026CC 74 D6            [12] 1757 	mov	a,#___str_23
       0026CE C0 E0            [24] 1758 	push	acc
       0026D0 74 47            [12] 1759 	mov	a,#(___str_23 >> 8)
       0026D2 C0 E0            [24] 1760 	push	acc
       0026D4 74 80            [12] 1761 	mov	a,#0x80
       0026D6 C0 E0            [24] 1762 	push	acc
                                    1763 ;	genCall
-      0026D8 12 39 AF         [24] 1764 	lcall	_printf
+      0026D8 12 39 B2         [24] 1764 	lcall	_printf
       0026DB 15 81            [12] 1765 	dec	sp
       0026DD 15 81            [12] 1766 	dec	sp
       0026DF 15 81            [12] 1767 	dec	sp
@@ -1790,7 +1790,7 @@
       0026F3 8D 82            [24] 1790 	mov	dpl,r5
       0026F5 8E 83            [24] 1791 	mov	dph,r6
       0026F7 8F F0            [24] 1792 	mov	b,r7
-      0026F9 12 44 94         [24] 1793 	lcall	__gptrget
+      0026F9 12 44 97         [24] 1793 	lcall	__gptrget
       0026FC FD               [12] 1794 	mov	r5,a
                                    1795 ;	genCast
       0026FD 7F 00            [12] 1796 	mov	r7,#0x00
@@ -1798,14 +1798,14 @@
       0026FF C0 05            [24] 1798 	push	ar5
       002701 C0 07            [24] 1799 	push	ar7
                                    1800 ;	genIpush
-      002703 74 05            [12] 1801 	mov	a,#___str_24
+      002703 74 08            [12] 1801 	mov	a,#___str_24
       002705 C0 E0            [24] 1802 	push	acc
       002707 74 48            [12] 1803 	mov	a,#(___str_24 >> 8)
       002709 C0 E0            [24] 1804 	push	acc
       00270B 74 80            [12] 1805 	mov	a,#0x80
       00270D C0 E0            [24] 1806 	push	acc
                                    1807 ;	genCall
-      00270F 12 39 AF         [24] 1808 	lcall	_printf
+      00270F 12 39 B2         [24] 1808 	lcall	_printf
       002712 E5 81            [12] 1809 	mov	a,sp
       002714 24 FB            [12] 1810 	add	a,#0xfb
       002716 F5 81            [12] 1811 	mov	sp,a
@@ -1816,14 +1816,14 @@
       002719 C0 E0            [24] 1816 	push	acc
       00271B C0 E0            [24] 1817 	push	acc
                                    1818 ;	genIpush
-      00271D 74 CB            [12] 1819 	mov	a,#___str_13
+      00271D 74 CE            [12] 1819 	mov	a,#___str_13
       00271F C0 E0            [24] 1820 	push	acc
       002721 74 46            [12] 1821 	mov	a,#(___str_13 >> 8)
       002723 C0 E0            [24] 1822 	push	acc
       002725 74 80            [12] 1823 	mov	a,#0x80
       002727 C0 E0            [24] 1824 	push	acc
                                    1825 ;	genCall
-      002729 12 39 AF         [24] 1826 	lcall	_printf
+      002729 12 39 B2         [24] 1826 	lcall	_printf
       00272C E5 81            [12] 1827 	mov	a,sp
       00272E 24 FB            [12] 1828 	add	a,#0xfb
       002730 F5 81            [12] 1829 	mov	sp,a
@@ -1852,7 +1852,7 @@
       002744 8D 82            [24] 1852 	mov	dpl,r5
       002746 8E 83            [24] 1853 	mov	dph,r6
       002748 8F F0            [24] 1854 	mov	b,r7
-      00274A 12 44 94         [24] 1855 	lcall	__gptrget
+      00274A 12 44 97         [24] 1855 	lcall	__gptrget
       00274D FD               [12] 1856 	mov	r5,a
                                    1857 ;	genCast
       00274E 7F 00            [12] 1858 	mov	r7,#0x00
@@ -1860,14 +1860,14 @@
       002750 C0 05            [24] 1860 	push	ar5
       002752 C0 07            [24] 1861 	push	ar7
                                    1862 ;	genIpush
-      002754 74 1F            [12] 1863 	mov	a,#___str_25
+      002754 74 22            [12] 1863 	mov	a,#___str_25
       002756 C0 E0            [24] 1864 	push	acc
       002758 74 48            [12] 1865 	mov	a,#(___str_25 >> 8)
       00275A C0 E0            [24] 1866 	push	acc
       00275C 74 80            [12] 1867 	mov	a,#0x80
       00275E C0 E0            [24] 1868 	push	acc
                                    1869 ;	genCall
-      002760 12 39 AF         [24] 1870 	lcall	_printf
+      002760 12 39 B2         [24] 1870 	lcall	_printf
       002763 E5 81            [12] 1871 	mov	a,sp
       002765 24 FB            [12] 1872 	add	a,#0xfb
       002767 F5 81            [12] 1873 	mov	sp,a
@@ -1879,14 +1879,14 @@
       00276D E4               [12] 1879 	clr	a
       00276E C0 E0            [24] 1880 	push	acc
                                    1881 ;	genIpush
-      002770 74 CB            [12] 1882 	mov	a,#___str_13
+      002770 74 CE            [12] 1882 	mov	a,#___str_13
       002772 C0 E0            [24] 1883 	push	acc
       002774 74 46            [12] 1884 	mov	a,#(___str_13 >> 8)
       002776 C0 E0            [24] 1885 	push	acc
       002778 74 80            [12] 1886 	mov	a,#0x80
       00277A C0 E0            [24] 1887 	push	acc
                                    1888 ;	genCall
-      00277C 12 39 AF         [24] 1889 	lcall	_printf
+      00277C 12 39 B2         [24] 1889 	lcall	_printf
       00277F E5 81            [12] 1890 	mov	a,sp
       002781 24 FB            [12] 1891 	add	a,#0xfb
       002783 F5 81            [12] 1892 	mov	sp,a
@@ -1915,23 +1915,23 @@
       002797 8D 82            [24] 1915 	mov	dpl,r5
       002799 8E 83            [24] 1916 	mov	dph,r6
       00279B 8F F0            [24] 1917 	mov	b,r7
-      00279D 12 44 94         [24] 1918 	lcall	__gptrget
+      00279D 12 44 97         [24] 1918 	lcall	__gptrget
       0027A0 FD               [12] 1919 	mov	r5,a
       0027A1 A3               [24] 1920 	inc	dptr
-      0027A2 12 44 94         [24] 1921 	lcall	__gptrget
+      0027A2 12 44 97         [24] 1921 	lcall	__gptrget
       0027A5 FE               [12] 1922 	mov	r6,a
                                    1923 ;	genIpush
       0027A6 C0 05            [24] 1924 	push	ar5
       0027A8 C0 06            [24] 1925 	push	ar6
                                    1926 ;	genIpush
-      0027AA 74 39            [12] 1927 	mov	a,#___str_26
+      0027AA 74 3C            [12] 1927 	mov	a,#___str_26
       0027AC C0 E0            [24] 1928 	push	acc
       0027AE 74 48            [12] 1929 	mov	a,#(___str_26 >> 8)
       0027B0 C0 E0            [24] 1930 	push	acc
       0027B2 74 80            [12] 1931 	mov	a,#0x80
       0027B4 C0 E0            [24] 1932 	push	acc
                                    1933 ;	genCall
-      0027B6 12 39 AF         [24] 1934 	lcall	_printf
+      0027B6 12 39 B2         [24] 1934 	lcall	_printf
       0027B9 E5 81            [12] 1935 	mov	a,sp
       0027BB 24 FB            [12] 1936 	add	a,#0xfb
       0027BD F5 81            [12] 1937 	mov	sp,a
@@ -1943,14 +1943,14 @@
       0027C3 E4               [12] 1943 	clr	a
       0027C4 C0 E0            [24] 1944 	push	acc
                                    1945 ;	genIpush
-      0027C6 74 CB            [12] 1946 	mov	a,#___str_13
+      0027C6 74 CE            [12] 1946 	mov	a,#___str_13
       0027C8 C0 E0            [24] 1947 	push	acc
       0027CA 74 46            [12] 1948 	mov	a,#(___str_13 >> 8)
       0027CC C0 E0            [24] 1949 	push	acc
       0027CE 74 80            [12] 1950 	mov	a,#0x80
       0027D0 C0 E0            [24] 1951 	push	acc
                                    1952 ;	genCall
-      0027D2 12 39 AF         [24] 1953 	lcall	_printf
+      0027D2 12 39 B2         [24] 1953 	lcall	_printf
       0027D5 E5 81            [12] 1954 	mov	a,sp
       0027D7 24 FB            [12] 1955 	add	a,#0xfb
       0027D9 F5 81            [12] 1956 	mov	sp,a
@@ -1979,40 +1979,40 @@
       0027EF C0 06            [24] 1979 	push	ar6
       0027F1 C0 07            [24] 1980 	push	ar7
                                    1981 ;	genIpush
-      0027F3 74 53            [12] 1982 	mov	a,#___str_27
+      0027F3 74 56            [12] 1982 	mov	a,#___str_27
       0027F5 C0 E0            [24] 1983 	push	acc
       0027F7 74 48            [12] 1984 	mov	a,#(___str_27 >> 8)
       0027F9 C0 E0            [24] 1985 	push	acc
       0027FB 74 80            [12] 1986 	mov	a,#0x80
       0027FD C0 E0            [24] 1987 	push	acc
                                    1988 ;	genCall
-      0027FF 12 39 AF         [24] 1989 	lcall	_printf
+      0027FF 12 39 B2         [24] 1989 	lcall	_printf
       002802 E5 81            [12] 1990 	mov	a,sp
       002804 24 FA            [12] 1991 	add	a,#0xfa
       002806 F5 81            [12] 1992 	mov	sp,a
                                    1993 ;	dhry_1.c:246: printf ("        should be:   DHRYSTONE PROGRAM, SOME STRING\r\n");
                                    1994 ;	genIpush
-      002808 74 6D            [12] 1995 	mov	a,#___str_28
+      002808 74 70            [12] 1995 	mov	a,#___str_28
       00280A C0 E0            [24] 1996 	push	acc
       00280C 74 48            [12] 1997 	mov	a,#(___str_28 >> 8)
       00280E C0 E0            [24] 1998 	push	acc
       002810 74 80            [12] 1999 	mov	a,#0x80
       002812 C0 E0            [24] 2000 	push	acc
                                    2001 ;	genCall
-      002814 12 39 AF         [24] 2002 	lcall	_printf
+      002814 12 39 B2         [24] 2002 	lcall	_printf
       002817 15 81            [12] 2003 	dec	sp
       002819 15 81            [12] 2004 	dec	sp
       00281B 15 81            [12] 2005 	dec	sp
                                    2006 ;	dhry_1.c:247: printf ("Next_Ptr_Glob->\r\n");
                                    2007 ;	genIpush
-      00281D 74 A3            [12] 2008 	mov	a,#___str_29
+      00281D 74 A6            [12] 2008 	mov	a,#___str_29
       00281F C0 E0            [24] 2009 	push	acc
       002821 74 48            [12] 2010 	mov	a,#(___str_29 >> 8)
       002823 C0 E0            [24] 2011 	push	acc
       002825 74 80            [12] 2012 	mov	a,#0x80
       002827 C0 E0            [24] 2013 	push	acc
                                    2014 ;	genCall
-      002829 12 39 AF         [24] 2015 	lcall	_printf
+      002829 12 39 B2         [24] 2015 	lcall	_printf
       00282C 15 81            [12] 2016 	dec	sp
       00282E 15 81            [12] 2017 	dec	sp
       002830 15 81            [12] 2018 	dec	sp
@@ -2032,36 +2032,36 @@
       00283D 8D 82            [24] 2032 	mov	dpl,r5
       00283F 8E 83            [24] 2033 	mov	dph,r6
       002841 8F F0            [24] 2034 	mov	b,r7
-      002843 12 44 94         [24] 2035 	lcall	__gptrget
+      002843 12 44 97         [24] 2035 	lcall	__gptrget
       002846 FD               [12] 2036 	mov	r5,a
       002847 A3               [24] 2037 	inc	dptr
-      002848 12 44 94         [24] 2038 	lcall	__gptrget
+      002848 12 44 97         [24] 2038 	lcall	__gptrget
       00284B FE               [12] 2039 	mov	r6,a
                                    2040 ;	genIpush
       00284C C0 05            [24] 2041 	push	ar5
       00284E C0 06            [24] 2042 	push	ar6
                                    2043 ;	genIpush
-      002850 74 B9            [12] 2044 	mov	a,#___str_22
+      002850 74 BC            [12] 2044 	mov	a,#___str_22
       002852 C0 E0            [24] 2045 	push	acc
       002854 74 47            [12] 2046 	mov	a,#(___str_22 >> 8)
       002856 C0 E0            [24] 2047 	push	acc
       002858 74 80            [12] 2048 	mov	a,#0x80
       00285A C0 E0            [24] 2049 	push	acc
                                    2050 ;	genCall
-      00285C 12 39 AF         [24] 2051 	lcall	_printf
+      00285C 12 39 B2         [24] 2051 	lcall	_printf
       00285F E5 81            [12] 2052 	mov	a,sp
       002861 24 FB            [12] 2053 	add	a,#0xfb
       002863 F5 81            [12] 2054 	mov	sp,a
                                    2055 ;	dhry_1.c:249: printf ("        should be:   (implementation-dependent), same as above\r\n");
                                    2056 ;	genIpush
-      002865 74 B5            [12] 2057 	mov	a,#___str_30
+      002865 74 B8            [12] 2057 	mov	a,#___str_30
       002867 C0 E0            [24] 2058 	push	acc
       002869 74 48            [12] 2059 	mov	a,#(___str_30 >> 8)
       00286B C0 E0            [24] 2060 	push	acc
       00286D 74 80            [12] 2061 	mov	a,#0x80
       00286F C0 E0            [24] 2062 	push	acc
                                    2063 ;	genCall
-      002871 12 39 AF         [24] 2064 	lcall	_printf
+      002871 12 39 B2         [24] 2064 	lcall	_printf
       002874 15 81            [12] 2065 	dec	sp
       002876 15 81            [12] 2066 	dec	sp
       002878 15 81            [12] 2067 	dec	sp
@@ -2090,7 +2090,7 @@
       00288C 8D 82            [24] 2090 	mov	dpl,r5
       00288E 8E 83            [24] 2091 	mov	dph,r6
       002890 8F F0            [24] 2092 	mov	b,r7
-      002892 12 44 94         [24] 2093 	lcall	__gptrget
+      002892 12 44 97         [24] 2093 	lcall	__gptrget
       002895 FD               [12] 2094 	mov	r5,a
                                    2095 ;	genCast
       002896 7F 00            [12] 2096 	mov	r7,#0x00
@@ -2098,14 +2098,14 @@
       002898 C0 05            [24] 2098 	push	ar5
       00289A C0 07            [24] 2099 	push	ar7
                                    2100 ;	genIpush
-      00289C 74 05            [12] 2101 	mov	a,#___str_24
+      00289C 74 08            [12] 2101 	mov	a,#___str_24
       00289E C0 E0            [24] 2102 	push	acc
       0028A0 74 48            [12] 2103 	mov	a,#(___str_24 >> 8)
       0028A2 C0 E0            [24] 2104 	push	acc
       0028A4 74 80            [12] 2105 	mov	a,#0x80
       0028A6 C0 E0            [24] 2106 	push	acc
                                    2107 ;	genCall
-      0028A8 12 39 AF         [24] 2108 	lcall	_printf
+      0028A8 12 39 B2         [24] 2108 	lcall	_printf
       0028AB E5 81            [12] 2109 	mov	a,sp
       0028AD 24 FB            [12] 2110 	add	a,#0xfb
       0028AF F5 81            [12] 2111 	mov	sp,a
@@ -2116,14 +2116,14 @@
       0028B2 C0 E0            [24] 2116 	push	acc
       0028B4 C0 E0            [24] 2117 	push	acc
                                    2118 ;	genIpush
-      0028B6 74 CB            [12] 2119 	mov	a,#___str_13
+      0028B6 74 CE            [12] 2119 	mov	a,#___str_13
       0028B8 C0 E0            [24] 2120 	push	acc
       0028BA 74 46            [12] 2121 	mov	a,#(___str_13 >> 8)
       0028BC C0 E0            [24] 2122 	push	acc
       0028BE 74 80            [12] 2123 	mov	a,#0x80
       0028C0 C0 E0            [24] 2124 	push	acc
                                    2125 ;	genCall
-      0028C2 12 39 AF         [24] 2126 	lcall	_printf
+      0028C2 12 39 B2         [24] 2126 	lcall	_printf
       0028C5 E5 81            [12] 2127 	mov	a,sp
       0028C7 24 FB            [12] 2128 	add	a,#0xfb
       0028C9 F5 81            [12] 2129 	mov	sp,a
@@ -2152,7 +2152,7 @@
       0028DD 8D 82            [24] 2152 	mov	dpl,r5
       0028DF 8E 83            [24] 2153 	mov	dph,r6
       0028E1 8F F0            [24] 2154 	mov	b,r7
-      0028E3 12 44 94         [24] 2155 	lcall	__gptrget
+      0028E3 12 44 97         [24] 2155 	lcall	__gptrget
       0028E6 FD               [12] 2156 	mov	r5,a
                                    2157 ;	genCast
       0028E7 7F 00            [12] 2158 	mov	r7,#0x00
@@ -2160,14 +2160,14 @@
       0028E9 C0 05            [24] 2160 	push	ar5
       0028EB C0 07            [24] 2161 	push	ar7
                                    2162 ;	genIpush
-      0028ED 74 1F            [12] 2163 	mov	a,#___str_25
+      0028ED 74 22            [12] 2163 	mov	a,#___str_25
       0028EF C0 E0            [24] 2164 	push	acc
       0028F1 74 48            [12] 2165 	mov	a,#(___str_25 >> 8)
       0028F3 C0 E0            [24] 2166 	push	acc
       0028F5 74 80            [12] 2167 	mov	a,#0x80
       0028F7 C0 E0            [24] 2168 	push	acc
                                    2169 ;	genCall
-      0028F9 12 39 AF         [24] 2170 	lcall	_printf
+      0028F9 12 39 B2         [24] 2170 	lcall	_printf
       0028FC E5 81            [12] 2171 	mov	a,sp
       0028FE 24 FB            [12] 2172 	add	a,#0xfb
       002900 F5 81            [12] 2173 	mov	sp,a
@@ -2179,14 +2179,14 @@
       002906 E4               [12] 2179 	clr	a
       002907 C0 E0            [24] 2180 	push	acc
                                    2181 ;	genIpush
-      002909 74 CB            [12] 2182 	mov	a,#___str_13
+      002909 74 CE            [12] 2182 	mov	a,#___str_13
       00290B C0 E0            [24] 2183 	push	acc
       00290D 74 46            [12] 2184 	mov	a,#(___str_13 >> 8)
       00290F C0 E0            [24] 2185 	push	acc
       002911 74 80            [12] 2186 	mov	a,#0x80
       002913 C0 E0            [24] 2187 	push	acc
                                    2188 ;	genCall
-      002915 12 39 AF         [24] 2189 	lcall	_printf
+      002915 12 39 B2         [24] 2189 	lcall	_printf
       002918 E5 81            [12] 2190 	mov	a,sp
       00291A 24 FB            [12] 2191 	add	a,#0xfb
       00291C F5 81            [12] 2192 	mov	sp,a
@@ -2215,23 +2215,23 @@
       002930 8D 82            [24] 2215 	mov	dpl,r5
       002932 8E 83            [24] 2216 	mov	dph,r6
       002934 8F F0            [24] 2217 	mov	b,r7
-      002936 12 44 94         [24] 2218 	lcall	__gptrget
+      002936 12 44 97         [24] 2218 	lcall	__gptrget
       002939 FD               [12] 2219 	mov	r5,a
       00293A A3               [24] 2220 	inc	dptr
-      00293B 12 44 94         [24] 2221 	lcall	__gptrget
+      00293B 12 44 97         [24] 2221 	lcall	__gptrget
       00293E FE               [12] 2222 	mov	r6,a
                                    2223 ;	genIpush
       00293F C0 05            [24] 2224 	push	ar5
       002941 C0 06            [24] 2225 	push	ar6
                                    2226 ;	genIpush
-      002943 74 39            [12] 2227 	mov	a,#___str_26
+      002943 74 3C            [12] 2227 	mov	a,#___str_26
       002945 C0 E0            [24] 2228 	push	acc
       002947 74 48            [12] 2229 	mov	a,#(___str_26 >> 8)
       002949 C0 E0            [24] 2230 	push	acc
       00294B 74 80            [12] 2231 	mov	a,#0x80
       00294D C0 E0            [24] 2232 	push	acc
                                    2233 ;	genCall
-      00294F 12 39 AF         [24] 2234 	lcall	_printf
+      00294F 12 39 B2         [24] 2234 	lcall	_printf
       002952 E5 81            [12] 2235 	mov	a,sp
       002954 24 FB            [12] 2236 	add	a,#0xfb
       002956 F5 81            [12] 2237 	mov	sp,a
@@ -2243,14 +2243,14 @@
       00295C E4               [12] 2243 	clr	a
       00295D C0 E0            [24] 2244 	push	acc
                                    2245 ;	genIpush
-      00295F 74 CB            [12] 2246 	mov	a,#___str_13
+      00295F 74 CE            [12] 2246 	mov	a,#___str_13
       002961 C0 E0            [24] 2247 	push	acc
       002963 74 46            [12] 2248 	mov	a,#(___str_13 >> 8)
       002965 C0 E0            [24] 2249 	push	acc
       002967 74 80            [12] 2250 	mov	a,#0x80
       002969 C0 E0            [24] 2251 	push	acc
                                    2252 ;	genCall
-      00296B 12 39 AF         [24] 2253 	lcall	_printf
+      00296B 12 39 B2         [24] 2253 	lcall	_printf
       00296E E5 81            [12] 2254 	mov	a,sp
       002970 24 FB            [12] 2255 	add	a,#0xfb
       002972 F5 81            [12] 2256 	mov	sp,a
@@ -2280,27 +2280,27 @@
       002988 C0 06            [24] 2280 	push	ar6
       00298A C0 07            [24] 2281 	push	ar7
                                    2282 ;	genIpush
-      00298C 74 53            [12] 2283 	mov	a,#___str_27
+      00298C 74 56            [12] 2283 	mov	a,#___str_27
       00298E C0 E0            [24] 2284 	push	acc
       002990 74 48            [12] 2285 	mov	a,#(___str_27 >> 8)
       002992 C0 E0            [24] 2286 	push	acc
       002994 74 80            [12] 2287 	mov	a,#0x80
       002996 C0 E0            [24] 2288 	push	acc
                                    2289 ;	genCall
-      002998 12 39 AF         [24] 2290 	lcall	_printf
+      002998 12 39 B2         [24] 2290 	lcall	_printf
       00299B E5 81            [12] 2291 	mov	a,sp
       00299D 24 FA            [12] 2292 	add	a,#0xfa
       00299F F5 81            [12] 2293 	mov	sp,a
                                    2294 ;	dhry_1.c:258: printf ("        should be:   DHRYSTONE PROGRAM, SOME STRING\r\n");
                                    2295 ;	genIpush
-      0029A1 74 6D            [12] 2296 	mov	a,#___str_28
+      0029A1 74 70            [12] 2296 	mov	a,#___str_28
       0029A3 C0 E0            [24] 2297 	push	acc
       0029A5 74 48            [12] 2298 	mov	a,#(___str_28 >> 8)
       0029A7 C0 E0            [24] 2299 	push	acc
       0029A9 74 80            [12] 2300 	mov	a,#0x80
       0029AB C0 E0            [24] 2301 	push	acc
                                    2302 ;	genCall
-      0029AD 12 39 AF         [24] 2303 	lcall	_printf
+      0029AD 12 39 B2         [24] 2303 	lcall	_printf
       0029B0 15 81            [12] 2304 	dec	sp
       0029B2 15 81            [12] 2305 	dec	sp
       0029B4 15 81            [12] 2306 	dec	sp
@@ -2313,14 +2313,14 @@
       0029BD E0               [24] 2313 	movx	a,@dptr
       0029BE C0 E0            [24] 2314 	push	acc
                                    2315 ;	genIpush
-      0029C0 74 F6            [12] 2316 	mov	a,#___str_31
+      0029C0 74 F9            [12] 2316 	mov	a,#___str_31
       0029C2 C0 E0            [24] 2317 	push	acc
       0029C4 74 48            [12] 2318 	mov	a,#(___str_31 >> 8)
       0029C6 C0 E0            [24] 2319 	push	acc
       0029C8 74 80            [12] 2320 	mov	a,#0x80
       0029CA C0 E0            [24] 2321 	push	acc
                                    2322 ;	genCall
-      0029CC 12 39 AF         [24] 2323 	lcall	_printf
+      0029CC 12 39 B2         [24] 2323 	lcall	_printf
       0029CF E5 81            [12] 2324 	mov	a,sp
       0029D1 24 FB            [12] 2325 	add	a,#0xfb
       0029D3 F5 81            [12] 2326 	mov	sp,a
@@ -2332,14 +2332,14 @@
       0029D9 E4               [12] 2332 	clr	a
       0029DA C0 E0            [24] 2333 	push	acc
                                    2334 ;	genIpush
-      0029DC 74 CB            [12] 2335 	mov	a,#___str_13
+      0029DC 74 CE            [12] 2335 	mov	a,#___str_13
       0029DE C0 E0            [24] 2336 	push	acc
       0029E0 74 46            [12] 2337 	mov	a,#(___str_13 >> 8)
       0029E2 C0 E0            [24] 2338 	push	acc
       0029E4 74 80            [12] 2339 	mov	a,#0x80
       0029E6 C0 E0            [24] 2340 	push	acc
                                    2341 ;	genCall
-      0029E8 12 39 AF         [24] 2342 	lcall	_printf
+      0029E8 12 39 B2         [24] 2342 	lcall	_printf
       0029EB E5 81            [12] 2343 	mov	a,sp
       0029ED 24 FB            [12] 2344 	add	a,#0xfb
       0029EF F5 81            [12] 2345 	mov	sp,a
@@ -2352,14 +2352,14 @@
       0029F8 E0               [24] 2352 	movx	a,@dptr
       0029F9 C0 E0            [24] 2353 	push	acc
                                    2354 ;	genIpush
-      0029FB 74 10            [12] 2355 	mov	a,#___str_32
+      0029FB 74 13            [12] 2355 	mov	a,#___str_32
       0029FD C0 E0            [24] 2356 	push	acc
       0029FF 74 49            [12] 2357 	mov	a,#(___str_32 >> 8)
       002A01 C0 E0            [24] 2358 	push	acc
       002A03 74 80            [12] 2359 	mov	a,#0x80
       002A05 C0 E0            [24] 2360 	push	acc
                                    2361 ;	genCall
-      002A07 12 39 AF         [24] 2362 	lcall	_printf
+      002A07 12 39 B2         [24] 2362 	lcall	_printf
       002A0A E5 81            [12] 2363 	mov	a,sp
       002A0C 24 FB            [12] 2364 	add	a,#0xfb
       002A0E F5 81            [12] 2365 	mov	sp,a
@@ -2371,14 +2371,14 @@
       002A14 E4               [12] 2371 	clr	a
       002A15 C0 E0            [24] 2372 	push	acc
                                    2373 ;	genIpush
-      002A17 74 CB            [12] 2374 	mov	a,#___str_13
+      002A17 74 CE            [12] 2374 	mov	a,#___str_13
       002A19 C0 E0            [24] 2375 	push	acc
       002A1B 74 46            [12] 2376 	mov	a,#(___str_13 >> 8)
       002A1D C0 E0            [24] 2377 	push	acc
       002A1F 74 80            [12] 2378 	mov	a,#0x80
       002A21 C0 E0            [24] 2379 	push	acc
                                    2380 ;	genCall
-      002A23 12 39 AF         [24] 2381 	lcall	_printf
+      002A23 12 39 B2         [24] 2381 	lcall	_printf
       002A26 E5 81            [12] 2382 	mov	a,sp
       002A28 24 FB            [12] 2383 	add	a,#0xfb
       002A2A F5 81            [12] 2384 	mov	sp,a
@@ -2391,14 +2391,14 @@
       002A33 E0               [24] 2391 	movx	a,@dptr
       002A34 C0 E0            [24] 2392 	push	acc
                                    2393 ;	genIpush
-      002A36 74 2A            [12] 2394 	mov	a,#___str_33
+      002A36 74 2D            [12] 2394 	mov	a,#___str_33
       002A38 C0 E0            [24] 2395 	push	acc
       002A3A 74 49            [12] 2396 	mov	a,#(___str_33 >> 8)
       002A3C C0 E0            [24] 2397 	push	acc
       002A3E 74 80            [12] 2398 	mov	a,#0x80
       002A40 C0 E0            [24] 2399 	push	acc
                                    2400 ;	genCall
-      002A42 12 39 AF         [24] 2401 	lcall	_printf
+      002A42 12 39 B2         [24] 2401 	lcall	_printf
       002A45 E5 81            [12] 2402 	mov	a,sp
       002A47 24 FB            [12] 2403 	add	a,#0xfb
       002A49 F5 81            [12] 2404 	mov	sp,a
@@ -2410,14 +2410,14 @@
       002A4F E4               [12] 2410 	clr	a
       002A50 C0 E0            [24] 2411 	push	acc
                                    2412 ;	genIpush
-      002A52 74 CB            [12] 2413 	mov	a,#___str_13
+      002A52 74 CE            [12] 2413 	mov	a,#___str_13
       002A54 C0 E0            [24] 2414 	push	acc
       002A56 74 46            [12] 2415 	mov	a,#(___str_13 >> 8)
       002A58 C0 E0            [24] 2416 	push	acc
       002A5A 74 80            [12] 2417 	mov	a,#0x80
       002A5C C0 E0            [24] 2418 	push	acc
                                    2419 ;	genCall
-      002A5E 12 39 AF         [24] 2420 	lcall	_printf
+      002A5E 12 39 B2         [24] 2420 	lcall	_printf
       002A61 E5 81            [12] 2421 	mov	a,sp
       002A63 24 FB            [12] 2422 	add	a,#0xfb
       002A65 F5 81            [12] 2423 	mov	sp,a
@@ -2432,14 +2432,14 @@
       002A6E C0 07            [24] 2432 	push	ar7
       002A70 C0 06            [24] 2433 	push	ar6
                                    2434 ;	genIpush
-      002A72 74 44            [12] 2435 	mov	a,#___str_34
+      002A72 74 47            [12] 2435 	mov	a,#___str_34
       002A74 C0 E0            [24] 2436 	push	acc
       002A76 74 49            [12] 2437 	mov	a,#(___str_34 >> 8)
       002A78 C0 E0            [24] 2438 	push	acc
       002A7A 74 80            [12] 2439 	mov	a,#0x80
       002A7C C0 E0            [24] 2440 	push	acc
                                    2441 ;	genCall
-      002A7E 12 39 AF         [24] 2442 	lcall	_printf
+      002A7E 12 39 B2         [24] 2442 	lcall	_printf
       002A81 E5 81            [12] 2443 	mov	a,sp
       002A83 24 FB            [12] 2444 	add	a,#0xfb
       002A85 F5 81            [12] 2445 	mov	sp,a
@@ -2451,14 +2451,14 @@
       002A8B E4               [12] 2451 	clr	a
       002A8C C0 E0            [24] 2452 	push	acc
                                    2453 ;	genIpush
-      002A8E 74 CB            [12] 2454 	mov	a,#___str_13
+      002A8E 74 CE            [12] 2454 	mov	a,#___str_13
       002A90 C0 E0            [24] 2455 	push	acc
       002A92 74 46            [12] 2456 	mov	a,#(___str_13 >> 8)
       002A94 C0 E0            [24] 2457 	push	acc
       002A96 74 80            [12] 2458 	mov	a,#0x80
       002A98 C0 E0            [24] 2459 	push	acc
                                    2460 ;	genCall
-      002A9A 12 39 AF         [24] 2461 	lcall	_printf
+      002A9A 12 39 B2         [24] 2461 	lcall	_printf
       002A9D E5 81            [12] 2462 	mov	a,sp
       002A9F 24 FB            [12] 2463 	add	a,#0xfb
       002AA1 F5 81            [12] 2464 	mov	sp,a
@@ -2472,27 +2472,27 @@
       002AAB E4               [12] 2472 	clr	a
       002AAC C0 E0            [24] 2473 	push	acc
                                    2474 ;	genIpush
-      002AAE 74 5E            [12] 2475 	mov	a,#___str_35
+      002AAE 74 61            [12] 2475 	mov	a,#___str_35
       002AB0 C0 E0            [24] 2476 	push	acc
       002AB2 74 49            [12] 2477 	mov	a,#(___str_35 >> 8)
       002AB4 C0 E0            [24] 2478 	push	acc
       002AB6 74 80            [12] 2479 	mov	a,#0x80
       002AB8 C0 E0            [24] 2480 	push	acc
                                    2481 ;	genCall
-      002ABA 12 39 AF         [24] 2482 	lcall	_printf
+      002ABA 12 39 B2         [24] 2482 	lcall	_printf
       002ABD E5 81            [12] 2483 	mov	a,sp
       002ABF 24 FA            [12] 2484 	add	a,#0xfa
       002AC1 F5 81            [12] 2485 	mov	sp,a
                                    2486 ;	dhry_1.c:268: printf ("        should be:   DHRYSTONE PROGRAM, 1'ST STRING\r\n");
                                    2487 ;	genIpush
-      002AC3 74 78            [12] 2488 	mov	a,#___str_36
+      002AC3 74 7B            [12] 2488 	mov	a,#___str_36
       002AC5 C0 E0            [24] 2489 	push	acc
       002AC7 74 49            [12] 2490 	mov	a,#(___str_36 >> 8)
       002AC9 C0 E0            [24] 2491 	push	acc
       002ACB 74 80            [12] 2492 	mov	a,#0x80
       002ACD C0 E0            [24] 2493 	push	acc
                                    2494 ;	genCall
-      002ACF 12 39 AF         [24] 2495 	lcall	_printf
+      002ACF 12 39 B2         [24] 2495 	lcall	_printf
       002AD2 15 81            [12] 2496 	dec	sp
       002AD4 15 81            [12] 2497 	dec	sp
       002AD6 15 81            [12] 2498 	dec	sp
@@ -2506,40 +2506,40 @@
       002AE0 E4               [12] 2506 	clr	a
       002AE1 C0 E0            [24] 2507 	push	acc
                                    2508 ;	genIpush
-      002AE3 74 AE            [12] 2509 	mov	a,#___str_37
+      002AE3 74 B1            [12] 2509 	mov	a,#___str_37
       002AE5 C0 E0            [24] 2510 	push	acc
       002AE7 74 49            [12] 2511 	mov	a,#(___str_37 >> 8)
       002AE9 C0 E0            [24] 2512 	push	acc
       002AEB 74 80            [12] 2513 	mov	a,#0x80
       002AED C0 E0            [24] 2514 	push	acc
                                    2515 ;	genCall
-      002AEF 12 39 AF         [24] 2516 	lcall	_printf
+      002AEF 12 39 B2         [24] 2516 	lcall	_printf
       002AF2 E5 81            [12] 2517 	mov	a,sp
       002AF4 24 FA            [12] 2518 	add	a,#0xfa
       002AF6 F5 81            [12] 2519 	mov	sp,a
                                    2520 ;	dhry_1.c:270: printf ("        should be:   DHRYSTONE PROGRAM, 2'ND STRING\r\n");
                                    2521 ;	genIpush
-      002AF8 74 C8            [12] 2522 	mov	a,#___str_38
+      002AF8 74 CB            [12] 2522 	mov	a,#___str_38
       002AFA C0 E0            [24] 2523 	push	acc
       002AFC 74 49            [12] 2524 	mov	a,#(___str_38 >> 8)
       002AFE C0 E0            [24] 2525 	push	acc
       002B00 74 80            [12] 2526 	mov	a,#0x80
       002B02 C0 E0            [24] 2527 	push	acc
                                    2528 ;	genCall
-      002B04 12 39 AF         [24] 2529 	lcall	_printf
+      002B04 12 39 B2         [24] 2529 	lcall	_printf
       002B07 15 81            [12] 2530 	dec	sp
       002B09 15 81            [12] 2531 	dec	sp
       002B0B 15 81            [12] 2532 	dec	sp
                                    2533 ;	dhry_1.c:271: printf ("\r\n");
                                    2534 ;	genIpush
-      002B0D 74 35            [12] 2535 	mov	a,#___str_2
+      002B0D 74 38            [12] 2535 	mov	a,#___str_2
       002B0F C0 E0            [24] 2536 	push	acc
       002B11 74 45            [12] 2537 	mov	a,#(___str_2 >> 8)
       002B13 C0 E0            [24] 2538 	push	acc
       002B15 74 80            [12] 2539 	mov	a,#0x80
       002B17 C0 E0            [24] 2540 	push	acc
                                    2541 ;	genCall
-      002B19 12 39 AF         [24] 2542 	lcall	_printf
+      002B19 12 39 B2         [24] 2542 	lcall	_printf
       002B1C 15 81            [12] 2543 	dec	sp
       002B1E 15 81            [12] 2544 	dec	sp
       002B20 15 81            [12] 2545 	dec	sp
@@ -2616,40 +2616,40 @@
                                    2616 ;	Peephole 500	removed redundant label 00170$
                                    2617 ;	dhry_1.c:277: printf ("Measured time too small to obtain meaningful results\r\n");
                                    2618 ;	genIpush
-      002B6A 74 FE            [12] 2619 	mov	a,#___str_39
+      002B6A 74 01            [12] 2619 	mov	a,#___str_39
       002B6C C0 E0            [24] 2620 	push	acc
-      002B6E 74 49            [12] 2621 	mov	a,#(___str_39 >> 8)
+      002B6E 74 4A            [12] 2621 	mov	a,#(___str_39 >> 8)
       002B70 C0 E0            [24] 2622 	push	acc
       002B72 74 80            [12] 2623 	mov	a,#0x80
       002B74 C0 E0            [24] 2624 	push	acc
                                    2625 ;	genCall
-      002B76 12 39 AF         [24] 2626 	lcall	_printf
+      002B76 12 39 B2         [24] 2626 	lcall	_printf
       002B79 15 81            [12] 2627 	dec	sp
       002B7B 15 81            [12] 2628 	dec	sp
       002B7D 15 81            [12] 2629 	dec	sp
                                    2630 ;	dhry_1.c:278: printf ("Please increase number of runs\r\n");
                                    2631 ;	genIpush
-      002B7F 74 35            [12] 2632 	mov	a,#___str_40
+      002B7F 74 38            [12] 2632 	mov	a,#___str_40
       002B81 C0 E0            [24] 2633 	push	acc
       002B83 74 4A            [12] 2634 	mov	a,#(___str_40 >> 8)
       002B85 C0 E0            [24] 2635 	push	acc
       002B87 74 80            [12] 2636 	mov	a,#0x80
       002B89 C0 E0            [24] 2637 	push	acc
                                    2638 ;	genCall
-      002B8B 12 39 AF         [24] 2639 	lcall	_printf
+      002B8B 12 39 B2         [24] 2639 	lcall	_printf
       002B8E 15 81            [12] 2640 	dec	sp
       002B90 15 81            [12] 2641 	dec	sp
       002B92 15 81            [12] 2642 	dec	sp
                                    2643 ;	dhry_1.c:279: printf ("\r\n");
                                    2644 ;	genIpush
-      002B94 74 35            [12] 2645 	mov	a,#___str_2
+      002B94 74 38            [12] 2645 	mov	a,#___str_2
       002B96 C0 E0            [24] 2646 	push	acc
       002B98 74 45            [12] 2647 	mov	a,#(___str_2 >> 8)
       002B9A C0 E0            [24] 2648 	push	acc
       002B9C 74 80            [12] 2649 	mov	a,#0x80
       002B9E C0 E0            [24] 2650 	push	acc
                                    2651 ;	genCall
-      002BA0 12 39 AF         [24] 2652 	lcall	_printf
+      002BA0 12 39 B2         [24] 2652 	lcall	_printf
       002BA3 15 81            [12] 2653 	dec	sp
       002BA5 15 81            [12] 2654 	dec	sp
       002BA7 15 81            [12] 2655 	dec	sp
@@ -2661,7 +2661,7 @@
       002BAE 8D 83            [24] 2661 	mov	dph,r5
       002BB0 8E F0            [24] 2662 	mov	b,r6
       002BB2 EF               [12] 2663 	mov	a,r7
-      002BB3 12 36 B5         [24] 2664 	lcall	___slong2fs
+      002BB3 12 36 B8         [24] 2664 	lcall	___slong2fs
       002BB6 AC 82            [24] 2665 	mov	r4,dpl
       002BB8 AD 83            [24] 2666 	mov	r5,dph
       002BBA AE F0            [24] 2667 	mov	r6,b
@@ -2681,7 +2681,7 @@
       002BCD 90 24 00         [24] 2681 	mov	dptr,#0x2400
       002BD0 75 F0 74         [24] 2682 	mov	b,#0x74
       002BD3 74 49            [12] 2683 	mov	a,#0x49
-      002BD5 12 35 3D         [24] 2684 	lcall	___fsmul
+      002BD5 12 35 40         [24] 2684 	lcall	___fsmul
       002BD8 A8 82            [24] 2685 	mov	r0,dpl
       002BDA A9 83            [24] 2686 	mov	r1,dph
       002BDC AA F0            [24] 2687 	mov	r2,b
@@ -2711,7 +2711,7 @@
       002BF7 89 83            [24] 2711 	mov	dph,r1
       002BF9 8A F0            [24] 2712 	mov	b,r2
       002BFB EB               [12] 2713 	mov	a,r3
-      002BFC 12 43 D1         [24] 2714 	lcall	___fsdiv
+      002BFC 12 43 D4         [24] 2714 	lcall	___fsdiv
       002BFF A8 82            [24] 2715 	mov	r0,dpl
       002C01 A9 83            [24] 2716 	mov	r1,dph
       002C03 AA F0            [24] 2717 	mov	r2,b
@@ -2747,7 +2747,7 @@
       002C2A 90 96 80         [24] 2747 	mov	dptr,#0x9680
       002C2D 75 F0 98         [24] 2748 	mov	b,#0x98
       002C30 74 4B            [12] 2749 	mov	a,#0x4b
-      002C32 12 43 D1         [24] 2750 	lcall	___fsdiv
+      002C32 12 43 D4         [24] 2750 	lcall	___fsdiv
       002C35 AC 82            [24] 2751 	mov	r4,dpl
       002C37 AD 83            [24] 2752 	mov	r5,dph
       002C39 AE F0            [24] 2753 	mov	r6,b
@@ -2770,14 +2770,14 @@
       002C4F F0               [24] 2770 	movx	@dptr,a
                                    2771 ;	dhry_1.c:293: printf ("Microseconds for one run through Dhrystone: ");
                                    2772 ;	genIpush
-      002C50 74 56            [12] 2773 	mov	a,#___str_41
+      002C50 74 59            [12] 2773 	mov	a,#___str_41
       002C52 C0 E0            [24] 2774 	push	acc
       002C54 74 4A            [12] 2775 	mov	a,#(___str_41 >> 8)
       002C56 C0 E0            [24] 2776 	push	acc
       002C58 74 80            [12] 2777 	mov	a,#0x80
       002C5A C0 E0            [24] 2778 	push	acc
                                    2779 ;	genCall
-      002C5C 12 39 AF         [24] 2780 	lcall	_printf
+      002C5C 12 39 B2         [24] 2780 	lcall	_printf
       002C5F 15 81            [12] 2781 	dec	sp
       002C61 15 81            [12] 2782 	dec	sp
       002C63 15 81            [12] 2783 	dec	sp
@@ -2800,7 +2800,7 @@
       002C74 8D 83            [24] 2800 	mov	dph,r5
       002C76 8E F0            [24] 2801 	mov	b,r6
                                    2802 ;	Peephole 191	removed redundant mov
-      002C78 12 36 E2         [24] 2803 	lcall	___fs2slong
+      002C78 12 36 E5         [24] 2803 	lcall	___fs2slong
       002C7B AC 82            [24] 2804 	mov	r4,dpl
       002C7D AD 83            [24] 2805 	mov	r5,dph
       002C7F AE F0            [24] 2806 	mov	r6,b
@@ -2811,27 +2811,27 @@
       002C86 C0 06            [24] 2811 	push	ar6
       002C88 C0 07            [24] 2812 	push	ar7
                                    2813 ;	genIpush
-      002C8A 74 83            [12] 2814 	mov	a,#___str_42
+      002C8A 74 86            [12] 2814 	mov	a,#___str_42
       002C8C C0 E0            [24] 2815 	push	acc
       002C8E 74 4A            [12] 2816 	mov	a,#(___str_42 >> 8)
       002C90 C0 E0            [24] 2817 	push	acc
       002C92 74 80            [12] 2818 	mov	a,#0x80
       002C94 C0 E0            [24] 2819 	push	acc
                                    2820 ;	genCall
-      002C96 12 39 AF         [24] 2821 	lcall	_printf
+      002C96 12 39 B2         [24] 2821 	lcall	_printf
       002C99 E5 81            [12] 2822 	mov	a,sp
       002C9B 24 F9            [12] 2823 	add	a,#0xf9
       002C9D F5 81            [12] 2824 	mov	sp,a
                                    2825 ;	dhry_1.c:296: printf ("Dhrystones per Second:                      ");
                                    2826 ;	genIpush
-      002C9F 74 8A            [12] 2827 	mov	a,#___str_43
+      002C9F 74 8D            [12] 2827 	mov	a,#___str_43
       002CA1 C0 E0            [24] 2828 	push	acc
       002CA3 74 4A            [12] 2829 	mov	a,#(___str_43 >> 8)
       002CA5 C0 E0            [24] 2830 	push	acc
       002CA7 74 80            [12] 2831 	mov	a,#0x80
       002CA9 C0 E0            [24] 2832 	push	acc
                                    2833 ;	genCall
-      002CAB 12 39 AF         [24] 2834 	lcall	_printf
+      002CAB 12 39 B2         [24] 2834 	lcall	_printf
       002CAE 15 81            [12] 2835 	dec	sp
       002CB0 15 81            [12] 2836 	dec	sp
       002CB2 15 81            [12] 2837 	dec	sp
@@ -2854,7 +2854,7 @@
       002CC3 8D 83            [24] 2854 	mov	dph,r5
       002CC5 8E F0            [24] 2855 	mov	b,r6
                                    2856 ;	Peephole 191	removed redundant mov
-      002CC7 12 36 E2         [24] 2857 	lcall	___fs2slong
+      002CC7 12 36 E5         [24] 2857 	lcall	___fs2slong
       002CCA AC 82            [24] 2858 	mov	r4,dpl
       002CCC AD 83            [24] 2859 	mov	r5,dph
       002CCE AE F0            [24] 2860 	mov	r6,b
@@ -2865,27 +2865,27 @@
       002CD5 C0 06            [24] 2865 	push	ar6
       002CD7 C0 07            [24] 2866 	push	ar7
                                    2867 ;	genIpush
-      002CD9 74 83            [12] 2868 	mov	a,#___str_42
+      002CD9 74 86            [12] 2868 	mov	a,#___str_42
       002CDB C0 E0            [24] 2869 	push	acc
       002CDD 74 4A            [12] 2870 	mov	a,#(___str_42 >> 8)
       002CDF C0 E0            [24] 2871 	push	acc
       002CE1 74 80            [12] 2872 	mov	a,#0x80
       002CE3 C0 E0            [24] 2873 	push	acc
                                    2874 ;	genCall
-      002CE5 12 39 AF         [24] 2875 	lcall	_printf
+      002CE5 12 39 B2         [24] 2875 	lcall	_printf
       002CE8 E5 81            [12] 2876 	mov	a,sp
       002CEA 24 F9            [12] 2877 	add	a,#0xf9
       002CEC F5 81            [12] 2878 	mov	sp,a
                                    2879 ;	dhry_1.c:299: printf ("\r\n");
                                    2880 ;	genIpush
-      002CEE 74 35            [12] 2881 	mov	a,#___str_2
+      002CEE 74 38            [12] 2881 	mov	a,#___str_2
       002CF0 C0 E0            [24] 2882 	push	acc
       002CF2 74 45            [12] 2883 	mov	a,#(___str_2 >> 8)
       002CF4 C0 E0            [24] 2884 	push	acc
       002CF6 74 80            [12] 2885 	mov	a,#0x80
       002CF8 C0 E0            [24] 2886 	push	acc
                                    2887 ;	genCall
-      002CFA 12 39 AF         [24] 2888 	lcall	_printf
+      002CFA 12 39 B2         [24] 2888 	lcall	_printf
       002CFD 15 81            [12] 2889 	dec	sp
       002CFF 15 81            [12] 2890 	dec	sp
       002D01 15 81            [12] 2891 	dec	sp
@@ -2893,823 +2893,825 @@
                                    2893 ;	dhry_1.c:302: PCON |= 2;
                                    2894 ;	genOr
       002D03 43 87 02         [24] 2895 	orl	_PCON,#0x02
-                                   2896 ;	Peephole 500	removed redundant label 00120$
-                                   2897 ;	dhry_1.c:303: }
-      002D06 22               [24] 2898 	ret
-                                   2899 ;------------------------------------------------------------
-                                   2900 ;Allocation info for local variables in function 'Proc_1'
+                                   2896 ;	dhry_1.c:304: return;
+                                   2897 ;	genRet
+                                   2898 ;	Peephole 500	removed redundant label 00120$
+                                   2899 ;	dhry_1.c:305: }
+      002D06 22               [24] 2900 	ret
                                    2901 ;------------------------------------------------------------
-                                   2902 ;sloc0                     Allocated with name '_Proc_1_sloc0_1_0'
-                                   2903 ;sloc1                     Allocated with name '_Proc_1_sloc1_1_0'
-                                   2904 ;sloc2                     Allocated with name '_Proc_1_sloc2_1_0'
-                                   2905 ;Ptr_Val_Par               Allocated with name '_Proc_1_Ptr_Val_Par_65536_66'
-                                   2906 ;Next_Record               Allocated with name '_Proc_1_Next_Record_65536_67'
-                                   2907 ;------------------------------------------------------------
-                                   2908 ;	dhry_1.c:306: void Proc_1 (REG Rec_Pointer Ptr_Val_Par)
-                                   2909 ;	-----------------------------------------
-                                   2910 ;	 function Proc_1
+                                   2902 ;Allocation info for local variables in function 'Proc_1'
+                                   2903 ;------------------------------------------------------------
+                                   2904 ;sloc0                     Allocated with name '_Proc_1_sloc0_1_0'
+                                   2905 ;sloc1                     Allocated with name '_Proc_1_sloc1_1_0'
+                                   2906 ;sloc2                     Allocated with name '_Proc_1_sloc2_1_0'
+                                   2907 ;Ptr_Val_Par               Allocated with name '_Proc_1_Ptr_Val_Par_65536_66'
+                                   2908 ;Next_Record               Allocated with name '_Proc_1_Next_Record_65536_67'
+                                   2909 ;------------------------------------------------------------
+                                   2910 ;	dhry_1.c:308: void Proc_1 (REG Rec_Pointer Ptr_Val_Par)
                                    2911 ;	-----------------------------------------
-      002D07                       2912 _Proc_1:
-                                   2913 ;	genReceive
-      002D07 AF F0            [24] 2914 	mov	r7,b
-      002D09 AE 83            [24] 2915 	mov	r6,dph
-      002D0B E5 82            [12] 2916 	mov	a,dpl
-      002D0D 90 94 9D         [24] 2917 	mov	dptr,#_Proc_1_Ptr_Val_Par_65536_66
-      002D10 F0               [24] 2918 	movx	@dptr,a
-      002D11 EE               [12] 2919 	mov	a,r6
-      002D12 A3               [24] 2920 	inc	dptr
-      002D13 F0               [24] 2921 	movx	@dptr,a
-      002D14 EF               [12] 2922 	mov	a,r7
-      002D15 A3               [24] 2923 	inc	dptr
-      002D16 F0               [24] 2924 	movx	@dptr,a
-                                   2925 ;	dhry_1.c:312: REG Rec_Pointer Next_Record = Ptr_Val_Par->Ptr_Comp;  
-                                   2926 ;	genAssign
-      002D17 90 94 9D         [24] 2927 	mov	dptr,#_Proc_1_Ptr_Val_Par_65536_66
-      002D1A E0               [24] 2928 	movx	a,@dptr
-      002D1B F5 10            [12] 2929 	mov	_Proc_1_sloc0_1_0,a
-      002D1D A3               [24] 2930 	inc	dptr
-      002D1E E0               [24] 2931 	movx	a,@dptr
-      002D1F F5 11            [12] 2932 	mov	(_Proc_1_sloc0_1_0 + 1),a
-      002D21 A3               [24] 2933 	inc	dptr
-      002D22 E0               [24] 2934 	movx	a,@dptr
-      002D23 F5 12            [12] 2935 	mov	(_Proc_1_sloc0_1_0 + 2),a
-                                   2936 ;	genPointerGet
-                                   2937 ;	genGenPointerGet
-      002D25 85 10 82         [24] 2938 	mov	dpl,_Proc_1_sloc0_1_0
-      002D28 85 11 83         [24] 2939 	mov	dph,(_Proc_1_sloc0_1_0 + 1)
-      002D2B 85 12 F0         [24] 2940 	mov	b,(_Proc_1_sloc0_1_0 + 2)
-      002D2E 12 44 94         [24] 2941 	lcall	__gptrget
-      002D31 FA               [12] 2942 	mov	r2,a
-      002D32 A3               [24] 2943 	inc	dptr
-      002D33 12 44 94         [24] 2944 	lcall	__gptrget
-      002D36 FB               [12] 2945 	mov	r3,a
-      002D37 A3               [24] 2946 	inc	dptr
-      002D38 12 44 94         [24] 2947 	lcall	__gptrget
-      002D3B FC               [12] 2948 	mov	r4,a
-                                   2949 ;	dhry_1.c:317: structassign (*Ptr_Val_Par->Ptr_Comp, *Ptr_Glob); 
-                                   2950 ;	genAssign
-      002D3C 8A 00            [24] 2951 	mov	ar0,r2
-      002D3E 8B 01            [24] 2952 	mov	ar1,r3
-      002D40 8C 07            [24] 2953 	mov	ar7,r4
-                                   2954 ;	genCast
-      002D42 88 13            [24] 2955 	mov	_Proc_1_sloc1_1_0,r0
-      002D44 89 14            [24] 2956 	mov	(_Proc_1_sloc1_1_0 + 1),r1
-      002D46 8F 15            [24] 2957 	mov	(_Proc_1_sloc1_1_0 + 2),r7
-                                   2958 ;	genAssign
-      002D48 90 80 00         [24] 2959 	mov	dptr,#_Ptr_Glob
-      002D4B E0               [24] 2960 	movx	a,@dptr
-      002D4C FD               [12] 2961 	mov	r5,a
-      002D4D A3               [24] 2962 	inc	dptr
-      002D4E E0               [24] 2963 	movx	a,@dptr
-      002D4F FE               [12] 2964 	mov	r6,a
-      002D50 A3               [24] 2965 	inc	dptr
-      002D51 E0               [24] 2966 	movx	a,@dptr
-      002D52 FF               [12] 2967 	mov	r7,a
-                                   2968 ;	genCast
-      002D53 90 94 D4         [24] 2969 	mov	dptr,#___memcpy_PARM_2
-      002D56 ED               [12] 2970 	mov	a,r5
-      002D57 F0               [24] 2971 	movx	@dptr,a
-      002D58 EE               [12] 2972 	mov	a,r6
-      002D59 A3               [24] 2973 	inc	dptr
-      002D5A F0               [24] 2974 	movx	@dptr,a
-      002D5B EF               [12] 2975 	mov	a,r7
-      002D5C A3               [24] 2976 	inc	dptr
-      002D5D F0               [24] 2977 	movx	@dptr,a
-                                   2978 ;	genAssign
-      002D5E 90 94 D7         [24] 2979 	mov	dptr,#___memcpy_PARM_3
-      002D61 74 26            [12] 2980 	mov	a,#0x26
-      002D63 F0               [24] 2981 	movx	@dptr,a
-                                   2982 ;	Peephole 181	changed mov to clr
-      002D64 E4               [12] 2983 	clr	a
-      002D65 A3               [24] 2984 	inc	dptr
-      002D66 F0               [24] 2985 	movx	@dptr,a
-                                   2986 ;	genCall
-      002D67 85 13 82         [24] 2987 	mov	dpl,_Proc_1_sloc1_1_0
-      002D6A 85 14 83         [24] 2988 	mov	dph,(_Proc_1_sloc1_1_0 + 1)
-      002D6D 85 15 F0         [24] 2989 	mov	b,(_Proc_1_sloc1_1_0 + 2)
-      002D70 C0 04            [24] 2990 	push	ar4
-      002D72 C0 03            [24] 2991 	push	ar3
-      002D74 C0 02            [24] 2992 	push	ar2
-      002D76 12 36 0E         [24] 2993 	lcall	___memcpy
-      002D79 D0 02            [24] 2994 	pop	ar2
-      002D7B D0 03            [24] 2995 	pop	ar3
-      002D7D D0 04            [24] 2996 	pop	ar4
-                                   2997 ;	dhry_1.c:318: Ptr_Val_Par->variant.var_1.Int_Comp = 5;
-                                   2998 ;	genPlus
-                                   2999 ;	genPlusIncr
-      002D7F 74 04            [12] 3000 	mov	a,#0x04
-      002D81 25 10            [12] 3001 	add	a,_Proc_1_sloc0_1_0
-      002D83 F5 13            [12] 3002 	mov	_Proc_1_sloc1_1_0,a
-                                   3003 ;	Peephole 181	changed mov to clr
-      002D85 E4               [12] 3004 	clr	a
-      002D86 35 11            [12] 3005 	addc	a,(_Proc_1_sloc0_1_0 + 1)
-      002D88 F5 14            [12] 3006 	mov	(_Proc_1_sloc1_1_0 + 1),a
-      002D8A 85 12 15         [24] 3007 	mov	(_Proc_1_sloc1_1_0 + 2),(_Proc_1_sloc0_1_0 + 2)
-                                   3008 ;	genPlus
-                                   3009 ;	genPlusIncr
-      002D8D 74 05            [12] 3010 	mov	a,#0x05
-      002D8F 25 10            [12] 3011 	add	a,_Proc_1_sloc0_1_0
-      002D91 F5 16            [12] 3012 	mov	_Proc_1_sloc2_1_0,a
-                                   3013 ;	Peephole 181	changed mov to clr
-      002D93 E4               [12] 3014 	clr	a
-      002D94 35 11            [12] 3015 	addc	a,(_Proc_1_sloc0_1_0 + 1)
-      002D96 F5 17            [12] 3016 	mov	(_Proc_1_sloc2_1_0 + 1),a
-      002D98 85 12 18         [24] 3017 	mov	(_Proc_1_sloc2_1_0 + 2),(_Proc_1_sloc0_1_0 + 2)
-                                   3018 ;	genPointerSet
-                                   3019 ;	genGenPointerSet
-      002D9B 85 16 82         [24] 3020 	mov	dpl,_Proc_1_sloc2_1_0
-      002D9E 85 17 83         [24] 3021 	mov	dph,(_Proc_1_sloc2_1_0 + 1)
-      002DA1 85 18 F0         [24] 3022 	mov	b,(_Proc_1_sloc2_1_0 + 2)
-      002DA4 74 05            [12] 3023 	mov	a,#0x05
-      002DA6 12 37 4F         [24] 3024 	lcall	__gptrput
-      002DA9 A3               [24] 3025 	inc	dptr
-                                   3026 ;	Peephole 181	changed mov to clr
-      002DAA E4               [12] 3027 	clr	a
-      002DAB 12 37 4F         [24] 3028 	lcall	__gptrput
-                                   3029 ;	dhry_1.c:319: Next_Record->variant.var_1.Int_Comp 
-                                   3030 ;	genPlus
-                                   3031 ;	genPlusIncr
-      002DAE 74 04            [12] 3032 	mov	a,#0x04
-      002DB0 2A               [12] 3033 	add	a,r2
-      002DB1 FD               [12] 3034 	mov	r5,a
-                                   3035 ;	Peephole 181	changed mov to clr
-      002DB2 E4               [12] 3036 	clr	a
-      002DB3 3B               [12] 3037 	addc	a,r3
-      002DB4 FE               [12] 3038 	mov	r6,a
-      002DB5 8C 07            [24] 3039 	mov	ar7,r4
-                                   3040 ;	genPlus
-                                   3041 ;	genPlusIncr
-      002DB7 0D               [12] 3042 	inc	r5
-      002DB8 BD 00 01         [24] 3043 	cjne	r5,#0x00,00110$
-      002DBB 0E               [12] 3044 	inc	r6
-      002DBC                       3045 00110$:
-                                   3046 ;	dhry_1.c:320: = Ptr_Val_Par->variant.var_1.Int_Comp;
-                                   3047 ;	genPointerGet
-                                   3048 ;	genGenPointerGet
-      002DBC 85 16 82         [24] 3049 	mov	dpl,_Proc_1_sloc2_1_0
-      002DBF 85 17 83         [24] 3050 	mov	dph,(_Proc_1_sloc2_1_0 + 1)
-      002DC2 85 18 F0         [24] 3051 	mov	b,(_Proc_1_sloc2_1_0 + 2)
-      002DC5 12 44 94         [24] 3052 	lcall	__gptrget
-      002DC8 F8               [12] 3053 	mov	r0,a
-      002DC9 A3               [24] 3054 	inc	dptr
-      002DCA 12 44 94         [24] 3055 	lcall	__gptrget
-      002DCD F9               [12] 3056 	mov	r1,a
-                                   3057 ;	genPointerSet
-                                   3058 ;	genGenPointerSet
-      002DCE 8D 82            [24] 3059 	mov	dpl,r5
-      002DD0 8E 83            [24] 3060 	mov	dph,r6
-      002DD2 8F F0            [24] 3061 	mov	b,r7
-      002DD4 E8               [12] 3062 	mov	a,r0
-      002DD5 12 37 4F         [24] 3063 	lcall	__gptrput
-      002DD8 A3               [24] 3064 	inc	dptr
-      002DD9 E9               [12] 3065 	mov	a,r1
-      002DDA 12 37 4F         [24] 3066 	lcall	__gptrput
-                                   3067 ;	dhry_1.c:321: Next_Record->Ptr_Comp = Ptr_Val_Par->Ptr_Comp;
-                                   3068 ;	genPointerGet
-                                   3069 ;	genGenPointerGet
-      002DDD 85 10 82         [24] 3070 	mov	dpl,_Proc_1_sloc0_1_0
-      002DE0 85 11 83         [24] 3071 	mov	dph,(_Proc_1_sloc0_1_0 + 1)
-      002DE3 85 12 F0         [24] 3072 	mov	b,(_Proc_1_sloc0_1_0 + 2)
-      002DE6 12 44 94         [24] 3073 	lcall	__gptrget
-      002DE9 FD               [12] 3074 	mov	r5,a
-      002DEA A3               [24] 3075 	inc	dptr
-      002DEB 12 44 94         [24] 3076 	lcall	__gptrget
-      002DEE FE               [12] 3077 	mov	r6,a
-      002DEF A3               [24] 3078 	inc	dptr
-      002DF0 12 44 94         [24] 3079 	lcall	__gptrget
-      002DF3 FF               [12] 3080 	mov	r7,a
-                                   3081 ;	genPointerSet
-                                   3082 ;	genGenPointerSet
-      002DF4 8A 82            [24] 3083 	mov	dpl,r2
-      002DF6 8B 83            [24] 3084 	mov	dph,r3
-      002DF8 8C F0            [24] 3085 	mov	b,r4
-      002DFA ED               [12] 3086 	mov	a,r5
-      002DFB 12 37 4F         [24] 3087 	lcall	__gptrput
-      002DFE A3               [24] 3088 	inc	dptr
-      002DFF EE               [12] 3089 	mov	a,r6
-      002E00 12 37 4F         [24] 3090 	lcall	__gptrput
-      002E03 A3               [24] 3091 	inc	dptr
-      002E04 EF               [12] 3092 	mov	a,r7
-      002E05 12 37 4F         [24] 3093 	lcall	__gptrput
-                                   3094 ;	dhry_1.c:322: Proc_3 (&Next_Record->Ptr_Comp);
-                                   3095 ;	genCall
-      002E08 8A 82            [24] 3096 	mov	dpl,r2
-      002E0A 8B 83            [24] 3097 	mov	dph,r3
-      002E0C 8C F0            [24] 3098 	mov	b,r4
-      002E0E C0 04            [24] 3099 	push	ar4
-      002E10 C0 03            [24] 3100 	push	ar3
-      002E12 C0 02            [24] 3101 	push	ar2
-      002E14 12 2F 91         [24] 3102 	lcall	_Proc_3
-      002E17 D0 02            [24] 3103 	pop	ar2
-      002E19 D0 03            [24] 3104 	pop	ar3
-      002E1B D0 04            [24] 3105 	pop	ar4
-                                   3106 ;	dhry_1.c:325: if (Next_Record->Discr == Ident_1)
-                                   3107 ;	genPlus
-                                   3108 ;	genPlusIncr
-      002E1D 74 03            [12] 3109 	mov	a,#0x03
-      002E1F 2A               [12] 3110 	add	a,r2
-      002E20 FD               [12] 3111 	mov	r5,a
-                                   3112 ;	Peephole 181	changed mov to clr
-      002E21 E4               [12] 3113 	clr	a
-      002E22 3B               [12] 3114 	addc	a,r3
-      002E23 FE               [12] 3115 	mov	r6,a
-      002E24 8C 07            [24] 3116 	mov	ar7,r4
-                                   3117 ;	genPointerGet
-                                   3118 ;	genGenPointerGet
-      002E26 8D 82            [24] 3119 	mov	dpl,r5
-      002E28 8E 83            [24] 3120 	mov	dph,r6
-      002E2A 8F F0            [24] 3121 	mov	b,r7
-      002E2C 12 44 94         [24] 3122 	lcall	__gptrget
-                                   3123 ;	genIfxJump
-      002E2F 60 03            [24] 3124 	jz	00111$
-      002E31 02 2E EF         [24] 3125 	ljmp	00102$
-      002E34                       3126 00111$:
-                                   3127 ;	dhry_1.c:328: Next_Record->variant.var_1.Int_Comp = 6;
-                                   3128 ;	genPlus
-                                   3129 ;	genPlusIncr
-      002E34 74 04            [12] 3130 	mov	a,#0x04
-      002E36 2A               [12] 3131 	add	a,r2
-      002E37 F5 16            [12] 3132 	mov	_Proc_1_sloc2_1_0,a
-                                   3133 ;	Peephole 181	changed mov to clr
-      002E39 E4               [12] 3134 	clr	a
-      002E3A 3B               [12] 3135 	addc	a,r3
-      002E3B F5 17            [12] 3136 	mov	(_Proc_1_sloc2_1_0 + 1),a
-      002E3D 8C 18            [24] 3137 	mov	(_Proc_1_sloc2_1_0 + 2),r4
-                                   3138 ;	genPlus
-                                   3139 ;	genPlusIncr
-      002E3F 74 01            [12] 3140 	mov	a,#0x01
-      002E41 25 16            [12] 3141 	add	a,_Proc_1_sloc2_1_0
-      002E43 F8               [12] 3142 	mov	r0,a
-                                   3143 ;	Peephole 181	changed mov to clr
-      002E44 E4               [12] 3144 	clr	a
-      002E45 35 17            [12] 3145 	addc	a,(_Proc_1_sloc2_1_0 + 1)
-      002E47 F9               [12] 3146 	mov	r1,a
-      002E48 AF 18            [24] 3147 	mov	r7,(_Proc_1_sloc2_1_0 + 2)
-                                   3148 ;	genPointerSet
-                                   3149 ;	genGenPointerSet
-      002E4A 88 82            [24] 3150 	mov	dpl,r0
-      002E4C 89 83            [24] 3151 	mov	dph,r1
-      002E4E 8F F0            [24] 3152 	mov	b,r7
-      002E50 74 06            [12] 3153 	mov	a,#0x06
-      002E52 12 37 4F         [24] 3154 	lcall	__gptrput
-      002E55 A3               [24] 3155 	inc	dptr
-                                   3156 ;	Peephole 181	changed mov to clr
-      002E56 E4               [12] 3157 	clr	a
-      002E57 12 37 4F         [24] 3158 	lcall	__gptrput
-                                   3159 ;	dhry_1.c:329: Proc_6 (Ptr_Val_Par->variant.var_1.Enum_Comp, 
-                                   3160 ;	genPointerGet
-                                   3161 ;	genGenPointerGet
-      002E5A 85 13 82         [24] 3162 	mov	dpl,_Proc_1_sloc1_1_0
-      002E5D 85 14 83         [24] 3163 	mov	dph,(_Proc_1_sloc1_1_0 + 1)
-      002E60 85 15 F0         [24] 3164 	mov	b,(_Proc_1_sloc1_1_0 + 2)
-      002E63 12 44 94         [24] 3165 	lcall	__gptrget
-      002E66 FF               [12] 3166 	mov	r7,a
-                                   3167 ;	dhry_1.c:330: &Next_Record->variant.var_1.Enum_Comp);
-                                   3168 ;	genAssign
-      002E67 90 94 A7         [24] 3169 	mov	dptr,#_Proc_6_PARM_2
-      002E6A E5 16            [12] 3170 	mov	a,_Proc_1_sloc2_1_0
-      002E6C F0               [24] 3171 	movx	@dptr,a
-      002E6D E5 17            [12] 3172 	mov	a,(_Proc_1_sloc2_1_0 + 1)
-      002E6F A3               [24] 3173 	inc	dptr
-      002E70 F0               [24] 3174 	movx	@dptr,a
-      002E71 E5 18            [12] 3175 	mov	a,(_Proc_1_sloc2_1_0 + 2)
-      002E73 A3               [24] 3176 	inc	dptr
-      002E74 F0               [24] 3177 	movx	@dptr,a
-                                   3178 ;	genCall
-      002E75 8F 82            [24] 3179 	mov	dpl,r7
-      002E77 C0 04            [24] 3180 	push	ar4
-      002E79 C0 03            [24] 3181 	push	ar3
-      002E7B C0 02            [24] 3182 	push	ar2
-      002E7D 12 30 4A         [24] 3183 	lcall	_Proc_6
-      002E80 D0 02            [24] 3184 	pop	ar2
-      002E82 D0 03            [24] 3185 	pop	ar3
-      002E84 D0 04            [24] 3186 	pop	ar4
-                                   3187 ;	dhry_1.c:331: Next_Record->Ptr_Comp = Ptr_Glob->Ptr_Comp;
-                                   3188 ;	genAssign
-      002E86 90 80 00         [24] 3189 	mov	dptr,#_Ptr_Glob
-      002E89 E0               [24] 3190 	movx	a,@dptr
-      002E8A FD               [12] 3191 	mov	r5,a
-      002E8B A3               [24] 3192 	inc	dptr
-      002E8C E0               [24] 3193 	movx	a,@dptr
-      002E8D FE               [12] 3194 	mov	r6,a
-      002E8E A3               [24] 3195 	inc	dptr
-      002E8F E0               [24] 3196 	movx	a,@dptr
-      002E90 FF               [12] 3197 	mov	r7,a
-                                   3198 ;	genPointerGet
-                                   3199 ;	genGenPointerGet
-      002E91 8D 82            [24] 3200 	mov	dpl,r5
-      002E93 8E 83            [24] 3201 	mov	dph,r6
-      002E95 8F F0            [24] 3202 	mov	b,r7
-      002E97 12 44 94         [24] 3203 	lcall	__gptrget
-      002E9A FD               [12] 3204 	mov	r5,a
-      002E9B A3               [24] 3205 	inc	dptr
-      002E9C 12 44 94         [24] 3206 	lcall	__gptrget
-      002E9F FE               [12] 3207 	mov	r6,a
-      002EA0 A3               [24] 3208 	inc	dptr
-      002EA1 12 44 94         [24] 3209 	lcall	__gptrget
-      002EA4 FF               [12] 3210 	mov	r7,a
-                                   3211 ;	genPointerSet
-                                   3212 ;	genGenPointerSet
-      002EA5 8A 82            [24] 3213 	mov	dpl,r2
-      002EA7 8B 83            [24] 3214 	mov	dph,r3
-      002EA9 8C F0            [24] 3215 	mov	b,r4
-      002EAB ED               [12] 3216 	mov	a,r5
-      002EAC 12 37 4F         [24] 3217 	lcall	__gptrput
-      002EAF A3               [24] 3218 	inc	dptr
-      002EB0 EE               [12] 3219 	mov	a,r6
-      002EB1 12 37 4F         [24] 3220 	lcall	__gptrput
-      002EB4 A3               [24] 3221 	inc	dptr
-      002EB5 EF               [12] 3222 	mov	a,r7
-      002EB6 12 37 4F         [24] 3223 	lcall	__gptrput
-                                   3224 ;	dhry_1.c:332: Proc_7 (Next_Record->variant.var_1.Int_Comp, 10, 
-                                   3225 ;	genPlus
-                                   3226 ;	genPlusIncr
-      002EB9 74 04            [12] 3227 	mov	a,#0x04
-      002EBB 2A               [12] 3228 	add	a,r2
-      002EBC FA               [12] 3229 	mov	r2,a
-                                   3230 ;	Peephole 181	changed mov to clr
-      002EBD E4               [12] 3231 	clr	a
-      002EBE 3B               [12] 3232 	addc	a,r3
-      002EBF FB               [12] 3233 	mov	r3,a
-                                   3234 ;	genPlus
-                                   3235 ;	genPlusIncr
-      002EC0 0A               [12] 3236 	inc	r2
-      002EC1 BA 00 01         [24] 3237 	cjne	r2,#0x00,00112$
-      002EC4 0B               [12] 3238 	inc	r3
-      002EC5                       3239 00112$:
-                                   3240 ;	genPointerGet
-                                   3241 ;	genGenPointerGet
-      002EC5 8A 82            [24] 3242 	mov	dpl,r2
-      002EC7 8B 83            [24] 3243 	mov	dph,r3
-      002EC9 8C F0            [24] 3244 	mov	b,r4
-      002ECB 12 44 94         [24] 3245 	lcall	__gptrget
-      002ECE FE               [12] 3246 	mov	r6,a
-      002ECF A3               [24] 3247 	inc	dptr
-      002ED0 12 44 94         [24] 3248 	lcall	__gptrget
-      002ED3 FF               [12] 3249 	mov	r7,a
-                                   3250 ;	dhry_1.c:333: &Next_Record->variant.var_1.Int_Comp);
-                                   3251 ;	genAssign
-      002ED4 90 94 AB         [24] 3252 	mov	dptr,#_Proc_7_PARM_2
-      002ED7 74 0A            [12] 3253 	mov	a,#0x0a
-      002ED9 F0               [24] 3254 	movx	@dptr,a
-                                   3255 ;	Peephole 181	changed mov to clr
-      002EDA E4               [12] 3256 	clr	a
-      002EDB A3               [24] 3257 	inc	dptr
-      002EDC F0               [24] 3258 	movx	@dptr,a
-                                   3259 ;	genAssign
-      002EDD 90 94 AD         [24] 3260 	mov	dptr,#_Proc_7_PARM_3
-      002EE0 EA               [12] 3261 	mov	a,r2
-      002EE1 F0               [24] 3262 	movx	@dptr,a
-      002EE2 EB               [12] 3263 	mov	a,r3
-      002EE3 A3               [24] 3264 	inc	dptr
-      002EE4 F0               [24] 3265 	movx	@dptr,a
-      002EE5 EC               [12] 3266 	mov	a,r4
-      002EE6 A3               [24] 3267 	inc	dptr
-      002EE7 F0               [24] 3268 	movx	@dptr,a
-                                   3269 ;	genCall
-      002EE8 8E 82            [24] 3270 	mov	dpl,r6
-      002EEA 8F 83            [24] 3271 	mov	dph,r7
-                                   3272 ;	Peephole 112.b	changed ljmp to sjmp
-                                   3273 ;	Peephole 251.b	replaced sjmp 00104$ to ret with ret
-                                   3274 ;	Peephole 400.a	replaced lcall/ret with ljmp
-      002EEC 02 30 F4         [24] 3275 	ljmp	_Proc_7
-      002EEF                       3276 00102$:
-                                   3277 ;	dhry_1.c:336: structassign (*Ptr_Val_Par, *Ptr_Val_Par->Ptr_Comp);
-                                   3278 ;	genAssign
-      002EEF AD 10            [24] 3279 	mov	r5,_Proc_1_sloc0_1_0
-      002EF1 AE 11            [24] 3280 	mov	r6,(_Proc_1_sloc0_1_0 + 1)
-      002EF3 AF 12            [24] 3281 	mov	r7,(_Proc_1_sloc0_1_0 + 2)
-                                   3282 ;	genCast
-                                   3283 ;	genPointerGet
-                                   3284 ;	genGenPointerGet
-      002EF5 85 10 82         [24] 3285 	mov	dpl,_Proc_1_sloc0_1_0
-      002EF8 85 11 83         [24] 3286 	mov	dph,(_Proc_1_sloc0_1_0 + 1)
-      002EFB 85 12 F0         [24] 3287 	mov	b,(_Proc_1_sloc0_1_0 + 2)
-      002EFE 12 44 94         [24] 3288 	lcall	__gptrget
-      002F01 FA               [12] 3289 	mov	r2,a
-      002F02 A3               [24] 3290 	inc	dptr
-      002F03 12 44 94         [24] 3291 	lcall	__gptrget
-      002F06 FB               [12] 3292 	mov	r3,a
-      002F07 A3               [24] 3293 	inc	dptr
-      002F08 12 44 94         [24] 3294 	lcall	__gptrget
-      002F0B FC               [12] 3295 	mov	r4,a
-                                   3296 ;	genCast
-      002F0C 90 94 D4         [24] 3297 	mov	dptr,#___memcpy_PARM_2
-      002F0F EA               [12] 3298 	mov	a,r2
-      002F10 F0               [24] 3299 	movx	@dptr,a
-      002F11 EB               [12] 3300 	mov	a,r3
-      002F12 A3               [24] 3301 	inc	dptr
-      002F13 F0               [24] 3302 	movx	@dptr,a
-      002F14 EC               [12] 3303 	mov	a,r4
-      002F15 A3               [24] 3304 	inc	dptr
-      002F16 F0               [24] 3305 	movx	@dptr,a
-                                   3306 ;	genAssign
-      002F17 90 94 D7         [24] 3307 	mov	dptr,#___memcpy_PARM_3
-      002F1A 74 26            [12] 3308 	mov	a,#0x26
-      002F1C F0               [24] 3309 	movx	@dptr,a
-                                   3310 ;	Peephole 181	changed mov to clr
-      002F1D E4               [12] 3311 	clr	a
-      002F1E A3               [24] 3312 	inc	dptr
-      002F1F F0               [24] 3313 	movx	@dptr,a
-                                   3314 ;	genCall
-      002F20 8D 82            [24] 3315 	mov	dpl,r5
-      002F22 8E 83            [24] 3316 	mov	dph,r6
-      002F24 8F F0            [24] 3317 	mov	b,r7
-                                   3318 ;	dhry_1.c:337: } /* Proc_1 */
-                                   3319 ;	Peephole 400.b	replaced lcall/ret with ljmp
-      002F26 02 36 0E         [24] 3320 	ljmp	___memcpy
-                                   3321 ;
-                                   3322 ;------------------------------------------------------------
-                                   3323 ;Allocation info for local variables in function 'Proc_2'
+                                   2912 ;	 function Proc_1
+                                   2913 ;	-----------------------------------------
+      002D07                       2914 _Proc_1:
+                                   2915 ;	genReceive
+      002D07 AF F0            [24] 2916 	mov	r7,b
+      002D09 AE 83            [24] 2917 	mov	r6,dph
+      002D0B E5 82            [12] 2918 	mov	a,dpl
+      002D0D 90 94 9D         [24] 2919 	mov	dptr,#_Proc_1_Ptr_Val_Par_65536_66
+      002D10 F0               [24] 2920 	movx	@dptr,a
+      002D11 EE               [12] 2921 	mov	a,r6
+      002D12 A3               [24] 2922 	inc	dptr
+      002D13 F0               [24] 2923 	movx	@dptr,a
+      002D14 EF               [12] 2924 	mov	a,r7
+      002D15 A3               [24] 2925 	inc	dptr
+      002D16 F0               [24] 2926 	movx	@dptr,a
+                                   2927 ;	dhry_1.c:314: REG Rec_Pointer Next_Record = Ptr_Val_Par->Ptr_Comp;  
+                                   2928 ;	genAssign
+      002D17 90 94 9D         [24] 2929 	mov	dptr,#_Proc_1_Ptr_Val_Par_65536_66
+      002D1A E0               [24] 2930 	movx	a,@dptr
+      002D1B F5 10            [12] 2931 	mov	_Proc_1_sloc0_1_0,a
+      002D1D A3               [24] 2932 	inc	dptr
+      002D1E E0               [24] 2933 	movx	a,@dptr
+      002D1F F5 11            [12] 2934 	mov	(_Proc_1_sloc0_1_0 + 1),a
+      002D21 A3               [24] 2935 	inc	dptr
+      002D22 E0               [24] 2936 	movx	a,@dptr
+      002D23 F5 12            [12] 2937 	mov	(_Proc_1_sloc0_1_0 + 2),a
+                                   2938 ;	genPointerGet
+                                   2939 ;	genGenPointerGet
+      002D25 85 10 82         [24] 2940 	mov	dpl,_Proc_1_sloc0_1_0
+      002D28 85 11 83         [24] 2941 	mov	dph,(_Proc_1_sloc0_1_0 + 1)
+      002D2B 85 12 F0         [24] 2942 	mov	b,(_Proc_1_sloc0_1_0 + 2)
+      002D2E 12 44 97         [24] 2943 	lcall	__gptrget
+      002D31 FA               [12] 2944 	mov	r2,a
+      002D32 A3               [24] 2945 	inc	dptr
+      002D33 12 44 97         [24] 2946 	lcall	__gptrget
+      002D36 FB               [12] 2947 	mov	r3,a
+      002D37 A3               [24] 2948 	inc	dptr
+      002D38 12 44 97         [24] 2949 	lcall	__gptrget
+      002D3B FC               [12] 2950 	mov	r4,a
+                                   2951 ;	dhry_1.c:319: structassign (*Ptr_Val_Par->Ptr_Comp, *Ptr_Glob); 
+                                   2952 ;	genAssign
+      002D3C 8A 00            [24] 2953 	mov	ar0,r2
+      002D3E 8B 01            [24] 2954 	mov	ar1,r3
+      002D40 8C 07            [24] 2955 	mov	ar7,r4
+                                   2956 ;	genCast
+      002D42 88 13            [24] 2957 	mov	_Proc_1_sloc1_1_0,r0
+      002D44 89 14            [24] 2958 	mov	(_Proc_1_sloc1_1_0 + 1),r1
+      002D46 8F 15            [24] 2959 	mov	(_Proc_1_sloc1_1_0 + 2),r7
+                                   2960 ;	genAssign
+      002D48 90 80 00         [24] 2961 	mov	dptr,#_Ptr_Glob
+      002D4B E0               [24] 2962 	movx	a,@dptr
+      002D4C FD               [12] 2963 	mov	r5,a
+      002D4D A3               [24] 2964 	inc	dptr
+      002D4E E0               [24] 2965 	movx	a,@dptr
+      002D4F FE               [12] 2966 	mov	r6,a
+      002D50 A3               [24] 2967 	inc	dptr
+      002D51 E0               [24] 2968 	movx	a,@dptr
+      002D52 FF               [12] 2969 	mov	r7,a
+                                   2970 ;	genCast
+      002D53 90 94 D4         [24] 2971 	mov	dptr,#___memcpy_PARM_2
+      002D56 ED               [12] 2972 	mov	a,r5
+      002D57 F0               [24] 2973 	movx	@dptr,a
+      002D58 EE               [12] 2974 	mov	a,r6
+      002D59 A3               [24] 2975 	inc	dptr
+      002D5A F0               [24] 2976 	movx	@dptr,a
+      002D5B EF               [12] 2977 	mov	a,r7
+      002D5C A3               [24] 2978 	inc	dptr
+      002D5D F0               [24] 2979 	movx	@dptr,a
+                                   2980 ;	genAssign
+      002D5E 90 94 D7         [24] 2981 	mov	dptr,#___memcpy_PARM_3
+      002D61 74 26            [12] 2982 	mov	a,#0x26
+      002D63 F0               [24] 2983 	movx	@dptr,a
+                                   2984 ;	Peephole 181	changed mov to clr
+      002D64 E4               [12] 2985 	clr	a
+      002D65 A3               [24] 2986 	inc	dptr
+      002D66 F0               [24] 2987 	movx	@dptr,a
+                                   2988 ;	genCall
+      002D67 85 13 82         [24] 2989 	mov	dpl,_Proc_1_sloc1_1_0
+      002D6A 85 14 83         [24] 2990 	mov	dph,(_Proc_1_sloc1_1_0 + 1)
+      002D6D 85 15 F0         [24] 2991 	mov	b,(_Proc_1_sloc1_1_0 + 2)
+      002D70 C0 04            [24] 2992 	push	ar4
+      002D72 C0 03            [24] 2993 	push	ar3
+      002D74 C0 02            [24] 2994 	push	ar2
+      002D76 12 36 11         [24] 2995 	lcall	___memcpy
+      002D79 D0 02            [24] 2996 	pop	ar2
+      002D7B D0 03            [24] 2997 	pop	ar3
+      002D7D D0 04            [24] 2998 	pop	ar4
+                                   2999 ;	dhry_1.c:320: Ptr_Val_Par->variant.var_1.Int_Comp = 5;
+                                   3000 ;	genPlus
+                                   3001 ;	genPlusIncr
+      002D7F 74 04            [12] 3002 	mov	a,#0x04
+      002D81 25 10            [12] 3003 	add	a,_Proc_1_sloc0_1_0
+      002D83 F5 13            [12] 3004 	mov	_Proc_1_sloc1_1_0,a
+                                   3005 ;	Peephole 181	changed mov to clr
+      002D85 E4               [12] 3006 	clr	a
+      002D86 35 11            [12] 3007 	addc	a,(_Proc_1_sloc0_1_0 + 1)
+      002D88 F5 14            [12] 3008 	mov	(_Proc_1_sloc1_1_0 + 1),a
+      002D8A 85 12 15         [24] 3009 	mov	(_Proc_1_sloc1_1_0 + 2),(_Proc_1_sloc0_1_0 + 2)
+                                   3010 ;	genPlus
+                                   3011 ;	genPlusIncr
+      002D8D 74 05            [12] 3012 	mov	a,#0x05
+      002D8F 25 10            [12] 3013 	add	a,_Proc_1_sloc0_1_0
+      002D91 F5 16            [12] 3014 	mov	_Proc_1_sloc2_1_0,a
+                                   3015 ;	Peephole 181	changed mov to clr
+      002D93 E4               [12] 3016 	clr	a
+      002D94 35 11            [12] 3017 	addc	a,(_Proc_1_sloc0_1_0 + 1)
+      002D96 F5 17            [12] 3018 	mov	(_Proc_1_sloc2_1_0 + 1),a
+      002D98 85 12 18         [24] 3019 	mov	(_Proc_1_sloc2_1_0 + 2),(_Proc_1_sloc0_1_0 + 2)
+                                   3020 ;	genPointerSet
+                                   3021 ;	genGenPointerSet
+      002D9B 85 16 82         [24] 3022 	mov	dpl,_Proc_1_sloc2_1_0
+      002D9E 85 17 83         [24] 3023 	mov	dph,(_Proc_1_sloc2_1_0 + 1)
+      002DA1 85 18 F0         [24] 3024 	mov	b,(_Proc_1_sloc2_1_0 + 2)
+      002DA4 74 05            [12] 3025 	mov	a,#0x05
+      002DA6 12 37 52         [24] 3026 	lcall	__gptrput
+      002DA9 A3               [24] 3027 	inc	dptr
+                                   3028 ;	Peephole 181	changed mov to clr
+      002DAA E4               [12] 3029 	clr	a
+      002DAB 12 37 52         [24] 3030 	lcall	__gptrput
+                                   3031 ;	dhry_1.c:321: Next_Record->variant.var_1.Int_Comp 
+                                   3032 ;	genPlus
+                                   3033 ;	genPlusIncr
+      002DAE 74 04            [12] 3034 	mov	a,#0x04
+      002DB0 2A               [12] 3035 	add	a,r2
+      002DB1 FD               [12] 3036 	mov	r5,a
+                                   3037 ;	Peephole 181	changed mov to clr
+      002DB2 E4               [12] 3038 	clr	a
+      002DB3 3B               [12] 3039 	addc	a,r3
+      002DB4 FE               [12] 3040 	mov	r6,a
+      002DB5 8C 07            [24] 3041 	mov	ar7,r4
+                                   3042 ;	genPlus
+                                   3043 ;	genPlusIncr
+      002DB7 0D               [12] 3044 	inc	r5
+      002DB8 BD 00 01         [24] 3045 	cjne	r5,#0x00,00110$
+      002DBB 0E               [12] 3046 	inc	r6
+      002DBC                       3047 00110$:
+                                   3048 ;	dhry_1.c:322: = Ptr_Val_Par->variant.var_1.Int_Comp;
+                                   3049 ;	genPointerGet
+                                   3050 ;	genGenPointerGet
+      002DBC 85 16 82         [24] 3051 	mov	dpl,_Proc_1_sloc2_1_0
+      002DBF 85 17 83         [24] 3052 	mov	dph,(_Proc_1_sloc2_1_0 + 1)
+      002DC2 85 18 F0         [24] 3053 	mov	b,(_Proc_1_sloc2_1_0 + 2)
+      002DC5 12 44 97         [24] 3054 	lcall	__gptrget
+      002DC8 F8               [12] 3055 	mov	r0,a
+      002DC9 A3               [24] 3056 	inc	dptr
+      002DCA 12 44 97         [24] 3057 	lcall	__gptrget
+      002DCD F9               [12] 3058 	mov	r1,a
+                                   3059 ;	genPointerSet
+                                   3060 ;	genGenPointerSet
+      002DCE 8D 82            [24] 3061 	mov	dpl,r5
+      002DD0 8E 83            [24] 3062 	mov	dph,r6
+      002DD2 8F F0            [24] 3063 	mov	b,r7
+      002DD4 E8               [12] 3064 	mov	a,r0
+      002DD5 12 37 52         [24] 3065 	lcall	__gptrput
+      002DD8 A3               [24] 3066 	inc	dptr
+      002DD9 E9               [12] 3067 	mov	a,r1
+      002DDA 12 37 52         [24] 3068 	lcall	__gptrput
+                                   3069 ;	dhry_1.c:323: Next_Record->Ptr_Comp = Ptr_Val_Par->Ptr_Comp;
+                                   3070 ;	genPointerGet
+                                   3071 ;	genGenPointerGet
+      002DDD 85 10 82         [24] 3072 	mov	dpl,_Proc_1_sloc0_1_0
+      002DE0 85 11 83         [24] 3073 	mov	dph,(_Proc_1_sloc0_1_0 + 1)
+      002DE3 85 12 F0         [24] 3074 	mov	b,(_Proc_1_sloc0_1_0 + 2)
+      002DE6 12 44 97         [24] 3075 	lcall	__gptrget
+      002DE9 FD               [12] 3076 	mov	r5,a
+      002DEA A3               [24] 3077 	inc	dptr
+      002DEB 12 44 97         [24] 3078 	lcall	__gptrget
+      002DEE FE               [12] 3079 	mov	r6,a
+      002DEF A3               [24] 3080 	inc	dptr
+      002DF0 12 44 97         [24] 3081 	lcall	__gptrget
+      002DF3 FF               [12] 3082 	mov	r7,a
+                                   3083 ;	genPointerSet
+                                   3084 ;	genGenPointerSet
+      002DF4 8A 82            [24] 3085 	mov	dpl,r2
+      002DF6 8B 83            [24] 3086 	mov	dph,r3
+      002DF8 8C F0            [24] 3087 	mov	b,r4
+      002DFA ED               [12] 3088 	mov	a,r5
+      002DFB 12 37 52         [24] 3089 	lcall	__gptrput
+      002DFE A3               [24] 3090 	inc	dptr
+      002DFF EE               [12] 3091 	mov	a,r6
+      002E00 12 37 52         [24] 3092 	lcall	__gptrput
+      002E03 A3               [24] 3093 	inc	dptr
+      002E04 EF               [12] 3094 	mov	a,r7
+      002E05 12 37 52         [24] 3095 	lcall	__gptrput
+                                   3096 ;	dhry_1.c:324: Proc_3 (&Next_Record->Ptr_Comp);
+                                   3097 ;	genCall
+      002E08 8A 82            [24] 3098 	mov	dpl,r2
+      002E0A 8B 83            [24] 3099 	mov	dph,r3
+      002E0C 8C F0            [24] 3100 	mov	b,r4
+      002E0E C0 04            [24] 3101 	push	ar4
+      002E10 C0 03            [24] 3102 	push	ar3
+      002E12 C0 02            [24] 3103 	push	ar2
+      002E14 12 2F 91         [24] 3104 	lcall	_Proc_3
+      002E17 D0 02            [24] 3105 	pop	ar2
+      002E19 D0 03            [24] 3106 	pop	ar3
+      002E1B D0 04            [24] 3107 	pop	ar4
+                                   3108 ;	dhry_1.c:327: if (Next_Record->Discr == Ident_1)
+                                   3109 ;	genPlus
+                                   3110 ;	genPlusIncr
+      002E1D 74 03            [12] 3111 	mov	a,#0x03
+      002E1F 2A               [12] 3112 	add	a,r2
+      002E20 FD               [12] 3113 	mov	r5,a
+                                   3114 ;	Peephole 181	changed mov to clr
+      002E21 E4               [12] 3115 	clr	a
+      002E22 3B               [12] 3116 	addc	a,r3
+      002E23 FE               [12] 3117 	mov	r6,a
+      002E24 8C 07            [24] 3118 	mov	ar7,r4
+                                   3119 ;	genPointerGet
+                                   3120 ;	genGenPointerGet
+      002E26 8D 82            [24] 3121 	mov	dpl,r5
+      002E28 8E 83            [24] 3122 	mov	dph,r6
+      002E2A 8F F0            [24] 3123 	mov	b,r7
+      002E2C 12 44 97         [24] 3124 	lcall	__gptrget
+                                   3125 ;	genIfxJump
+      002E2F 60 03            [24] 3126 	jz	00111$
+      002E31 02 2E EF         [24] 3127 	ljmp	00102$
+      002E34                       3128 00111$:
+                                   3129 ;	dhry_1.c:330: Next_Record->variant.var_1.Int_Comp = 6;
+                                   3130 ;	genPlus
+                                   3131 ;	genPlusIncr
+      002E34 74 04            [12] 3132 	mov	a,#0x04
+      002E36 2A               [12] 3133 	add	a,r2
+      002E37 F5 16            [12] 3134 	mov	_Proc_1_sloc2_1_0,a
+                                   3135 ;	Peephole 181	changed mov to clr
+      002E39 E4               [12] 3136 	clr	a
+      002E3A 3B               [12] 3137 	addc	a,r3
+      002E3B F5 17            [12] 3138 	mov	(_Proc_1_sloc2_1_0 + 1),a
+      002E3D 8C 18            [24] 3139 	mov	(_Proc_1_sloc2_1_0 + 2),r4
+                                   3140 ;	genPlus
+                                   3141 ;	genPlusIncr
+      002E3F 74 01            [12] 3142 	mov	a,#0x01
+      002E41 25 16            [12] 3143 	add	a,_Proc_1_sloc2_1_0
+      002E43 F8               [12] 3144 	mov	r0,a
+                                   3145 ;	Peephole 181	changed mov to clr
+      002E44 E4               [12] 3146 	clr	a
+      002E45 35 17            [12] 3147 	addc	a,(_Proc_1_sloc2_1_0 + 1)
+      002E47 F9               [12] 3148 	mov	r1,a
+      002E48 AF 18            [24] 3149 	mov	r7,(_Proc_1_sloc2_1_0 + 2)
+                                   3150 ;	genPointerSet
+                                   3151 ;	genGenPointerSet
+      002E4A 88 82            [24] 3152 	mov	dpl,r0
+      002E4C 89 83            [24] 3153 	mov	dph,r1
+      002E4E 8F F0            [24] 3154 	mov	b,r7
+      002E50 74 06            [12] 3155 	mov	a,#0x06
+      002E52 12 37 52         [24] 3156 	lcall	__gptrput
+      002E55 A3               [24] 3157 	inc	dptr
+                                   3158 ;	Peephole 181	changed mov to clr
+      002E56 E4               [12] 3159 	clr	a
+      002E57 12 37 52         [24] 3160 	lcall	__gptrput
+                                   3161 ;	dhry_1.c:331: Proc_6 (Ptr_Val_Par->variant.var_1.Enum_Comp, 
+                                   3162 ;	genPointerGet
+                                   3163 ;	genGenPointerGet
+      002E5A 85 13 82         [24] 3164 	mov	dpl,_Proc_1_sloc1_1_0
+      002E5D 85 14 83         [24] 3165 	mov	dph,(_Proc_1_sloc1_1_0 + 1)
+      002E60 85 15 F0         [24] 3166 	mov	b,(_Proc_1_sloc1_1_0 + 2)
+      002E63 12 44 97         [24] 3167 	lcall	__gptrget
+      002E66 FF               [12] 3168 	mov	r7,a
+                                   3169 ;	dhry_1.c:332: &Next_Record->variant.var_1.Enum_Comp);
+                                   3170 ;	genAssign
+      002E67 90 94 A7         [24] 3171 	mov	dptr,#_Proc_6_PARM_2
+      002E6A E5 16            [12] 3172 	mov	a,_Proc_1_sloc2_1_0
+      002E6C F0               [24] 3173 	movx	@dptr,a
+      002E6D E5 17            [12] 3174 	mov	a,(_Proc_1_sloc2_1_0 + 1)
+      002E6F A3               [24] 3175 	inc	dptr
+      002E70 F0               [24] 3176 	movx	@dptr,a
+      002E71 E5 18            [12] 3177 	mov	a,(_Proc_1_sloc2_1_0 + 2)
+      002E73 A3               [24] 3178 	inc	dptr
+      002E74 F0               [24] 3179 	movx	@dptr,a
+                                   3180 ;	genCall
+      002E75 8F 82            [24] 3181 	mov	dpl,r7
+      002E77 C0 04            [24] 3182 	push	ar4
+      002E79 C0 03            [24] 3183 	push	ar3
+      002E7B C0 02            [24] 3184 	push	ar2
+      002E7D 12 30 4A         [24] 3185 	lcall	_Proc_6
+      002E80 D0 02            [24] 3186 	pop	ar2
+      002E82 D0 03            [24] 3187 	pop	ar3
+      002E84 D0 04            [24] 3188 	pop	ar4
+                                   3189 ;	dhry_1.c:333: Next_Record->Ptr_Comp = Ptr_Glob->Ptr_Comp;
+                                   3190 ;	genAssign
+      002E86 90 80 00         [24] 3191 	mov	dptr,#_Ptr_Glob
+      002E89 E0               [24] 3192 	movx	a,@dptr
+      002E8A FD               [12] 3193 	mov	r5,a
+      002E8B A3               [24] 3194 	inc	dptr
+      002E8C E0               [24] 3195 	movx	a,@dptr
+      002E8D FE               [12] 3196 	mov	r6,a
+      002E8E A3               [24] 3197 	inc	dptr
+      002E8F E0               [24] 3198 	movx	a,@dptr
+      002E90 FF               [12] 3199 	mov	r7,a
+                                   3200 ;	genPointerGet
+                                   3201 ;	genGenPointerGet
+      002E91 8D 82            [24] 3202 	mov	dpl,r5
+      002E93 8E 83            [24] 3203 	mov	dph,r6
+      002E95 8F F0            [24] 3204 	mov	b,r7
+      002E97 12 44 97         [24] 3205 	lcall	__gptrget
+      002E9A FD               [12] 3206 	mov	r5,a
+      002E9B A3               [24] 3207 	inc	dptr
+      002E9C 12 44 97         [24] 3208 	lcall	__gptrget
+      002E9F FE               [12] 3209 	mov	r6,a
+      002EA0 A3               [24] 3210 	inc	dptr
+      002EA1 12 44 97         [24] 3211 	lcall	__gptrget
+      002EA4 FF               [12] 3212 	mov	r7,a
+                                   3213 ;	genPointerSet
+                                   3214 ;	genGenPointerSet
+      002EA5 8A 82            [24] 3215 	mov	dpl,r2
+      002EA7 8B 83            [24] 3216 	mov	dph,r3
+      002EA9 8C F0            [24] 3217 	mov	b,r4
+      002EAB ED               [12] 3218 	mov	a,r5
+      002EAC 12 37 52         [24] 3219 	lcall	__gptrput
+      002EAF A3               [24] 3220 	inc	dptr
+      002EB0 EE               [12] 3221 	mov	a,r6
+      002EB1 12 37 52         [24] 3222 	lcall	__gptrput
+      002EB4 A3               [24] 3223 	inc	dptr
+      002EB5 EF               [12] 3224 	mov	a,r7
+      002EB6 12 37 52         [24] 3225 	lcall	__gptrput
+                                   3226 ;	dhry_1.c:334: Proc_7 (Next_Record->variant.var_1.Int_Comp, 10, 
+                                   3227 ;	genPlus
+                                   3228 ;	genPlusIncr
+      002EB9 74 04            [12] 3229 	mov	a,#0x04
+      002EBB 2A               [12] 3230 	add	a,r2
+      002EBC FA               [12] 3231 	mov	r2,a
+                                   3232 ;	Peephole 181	changed mov to clr
+      002EBD E4               [12] 3233 	clr	a
+      002EBE 3B               [12] 3234 	addc	a,r3
+      002EBF FB               [12] 3235 	mov	r3,a
+                                   3236 ;	genPlus
+                                   3237 ;	genPlusIncr
+      002EC0 0A               [12] 3238 	inc	r2
+      002EC1 BA 00 01         [24] 3239 	cjne	r2,#0x00,00112$
+      002EC4 0B               [12] 3240 	inc	r3
+      002EC5                       3241 00112$:
+                                   3242 ;	genPointerGet
+                                   3243 ;	genGenPointerGet
+      002EC5 8A 82            [24] 3244 	mov	dpl,r2
+      002EC7 8B 83            [24] 3245 	mov	dph,r3
+      002EC9 8C F0            [24] 3246 	mov	b,r4
+      002ECB 12 44 97         [24] 3247 	lcall	__gptrget
+      002ECE FE               [12] 3248 	mov	r6,a
+      002ECF A3               [24] 3249 	inc	dptr
+      002ED0 12 44 97         [24] 3250 	lcall	__gptrget
+      002ED3 FF               [12] 3251 	mov	r7,a
+                                   3252 ;	dhry_1.c:335: &Next_Record->variant.var_1.Int_Comp);
+                                   3253 ;	genAssign
+      002ED4 90 94 AB         [24] 3254 	mov	dptr,#_Proc_7_PARM_2
+      002ED7 74 0A            [12] 3255 	mov	a,#0x0a
+      002ED9 F0               [24] 3256 	movx	@dptr,a
+                                   3257 ;	Peephole 181	changed mov to clr
+      002EDA E4               [12] 3258 	clr	a
+      002EDB A3               [24] 3259 	inc	dptr
+      002EDC F0               [24] 3260 	movx	@dptr,a
+                                   3261 ;	genAssign
+      002EDD 90 94 AD         [24] 3262 	mov	dptr,#_Proc_7_PARM_3
+      002EE0 EA               [12] 3263 	mov	a,r2
+      002EE1 F0               [24] 3264 	movx	@dptr,a
+      002EE2 EB               [12] 3265 	mov	a,r3
+      002EE3 A3               [24] 3266 	inc	dptr
+      002EE4 F0               [24] 3267 	movx	@dptr,a
+      002EE5 EC               [12] 3268 	mov	a,r4
+      002EE6 A3               [24] 3269 	inc	dptr
+      002EE7 F0               [24] 3270 	movx	@dptr,a
+                                   3271 ;	genCall
+      002EE8 8E 82            [24] 3272 	mov	dpl,r6
+      002EEA 8F 83            [24] 3273 	mov	dph,r7
+                                   3274 ;	Peephole 112.b	changed ljmp to sjmp
+                                   3275 ;	Peephole 251.b	replaced sjmp 00104$ to ret with ret
+                                   3276 ;	Peephole 400.a	replaced lcall/ret with ljmp
+      002EEC 02 30 F4         [24] 3277 	ljmp	_Proc_7
+      002EEF                       3278 00102$:
+                                   3279 ;	dhry_1.c:338: structassign (*Ptr_Val_Par, *Ptr_Val_Par->Ptr_Comp);
+                                   3280 ;	genAssign
+      002EEF AD 10            [24] 3281 	mov	r5,_Proc_1_sloc0_1_0
+      002EF1 AE 11            [24] 3282 	mov	r6,(_Proc_1_sloc0_1_0 + 1)
+      002EF3 AF 12            [24] 3283 	mov	r7,(_Proc_1_sloc0_1_0 + 2)
+                                   3284 ;	genCast
+                                   3285 ;	genPointerGet
+                                   3286 ;	genGenPointerGet
+      002EF5 85 10 82         [24] 3287 	mov	dpl,_Proc_1_sloc0_1_0
+      002EF8 85 11 83         [24] 3288 	mov	dph,(_Proc_1_sloc0_1_0 + 1)
+      002EFB 85 12 F0         [24] 3289 	mov	b,(_Proc_1_sloc0_1_0 + 2)
+      002EFE 12 44 97         [24] 3290 	lcall	__gptrget
+      002F01 FA               [12] 3291 	mov	r2,a
+      002F02 A3               [24] 3292 	inc	dptr
+      002F03 12 44 97         [24] 3293 	lcall	__gptrget
+      002F06 FB               [12] 3294 	mov	r3,a
+      002F07 A3               [24] 3295 	inc	dptr
+      002F08 12 44 97         [24] 3296 	lcall	__gptrget
+      002F0B FC               [12] 3297 	mov	r4,a
+                                   3298 ;	genCast
+      002F0C 90 94 D4         [24] 3299 	mov	dptr,#___memcpy_PARM_2
+      002F0F EA               [12] 3300 	mov	a,r2
+      002F10 F0               [24] 3301 	movx	@dptr,a
+      002F11 EB               [12] 3302 	mov	a,r3
+      002F12 A3               [24] 3303 	inc	dptr
+      002F13 F0               [24] 3304 	movx	@dptr,a
+      002F14 EC               [12] 3305 	mov	a,r4
+      002F15 A3               [24] 3306 	inc	dptr
+      002F16 F0               [24] 3307 	movx	@dptr,a
+                                   3308 ;	genAssign
+      002F17 90 94 D7         [24] 3309 	mov	dptr,#___memcpy_PARM_3
+      002F1A 74 26            [12] 3310 	mov	a,#0x26
+      002F1C F0               [24] 3311 	movx	@dptr,a
+                                   3312 ;	Peephole 181	changed mov to clr
+      002F1D E4               [12] 3313 	clr	a
+      002F1E A3               [24] 3314 	inc	dptr
+      002F1F F0               [24] 3315 	movx	@dptr,a
+                                   3316 ;	genCall
+      002F20 8D 82            [24] 3317 	mov	dpl,r5
+      002F22 8E 83            [24] 3318 	mov	dph,r6
+      002F24 8F F0            [24] 3319 	mov	b,r7
+                                   3320 ;	dhry_1.c:339: } /* Proc_1 */
+                                   3321 ;	Peephole 400.b	replaced lcall/ret with ljmp
+      002F26 02 36 11         [24] 3322 	ljmp	___memcpy
+                                   3323 ;
                                    3324 ;------------------------------------------------------------
-                                   3325 ;Int_Par_Ref               Allocated with name '_Proc_2_Int_Par_Ref_65536_69'
-                                   3326 ;Int_Loc                   Allocated with name '_Proc_2_Int_Loc_65536_70'
-                                   3327 ;Enum_Loc                  Allocated with name '_Proc_2_Enum_Loc_65536_70'
-                                   3328 ;------------------------------------------------------------
-                                   3329 ;	dhry_1.c:340: void Proc_2 (One_Fifty *Int_Par_Ref)
-                                   3330 ;	-----------------------------------------
-                                   3331 ;	 function Proc_2
+                                   3325 ;Allocation info for local variables in function 'Proc_2'
+                                   3326 ;------------------------------------------------------------
+                                   3327 ;Int_Par_Ref               Allocated with name '_Proc_2_Int_Par_Ref_65536_69'
+                                   3328 ;Int_Loc                   Allocated with name '_Proc_2_Int_Loc_65536_70'
+                                   3329 ;Enum_Loc                  Allocated with name '_Proc_2_Enum_Loc_65536_70'
+                                   3330 ;------------------------------------------------------------
+                                   3331 ;	dhry_1.c:342: void Proc_2 (One_Fifty *Int_Par_Ref)
                                    3332 ;	-----------------------------------------
-      002F29                       3333 _Proc_2:
-                                   3334 ;	genReceive
-      002F29 AF F0            [24] 3335 	mov	r7,b
-      002F2B AE 83            [24] 3336 	mov	r6,dph
-      002F2D E5 82            [12] 3337 	mov	a,dpl
-      002F2F 90 94 A0         [24] 3338 	mov	dptr,#_Proc_2_Int_Par_Ref_65536_69
-      002F32 F0               [24] 3339 	movx	@dptr,a
-      002F33 EE               [12] 3340 	mov	a,r6
-      002F34 A3               [24] 3341 	inc	dptr
-      002F35 F0               [24] 3342 	movx	@dptr,a
-      002F36 EF               [12] 3343 	mov	a,r7
-      002F37 A3               [24] 3344 	inc	dptr
-      002F38 F0               [24] 3345 	movx	@dptr,a
-                                   3346 ;	dhry_1.c:349: Int_Loc = *Int_Par_Ref + 10;
-                                   3347 ;	genAssign
-      002F39 90 94 A0         [24] 3348 	mov	dptr,#_Proc_2_Int_Par_Ref_65536_69
-      002F3C E0               [24] 3349 	movx	a,@dptr
-      002F3D FD               [12] 3350 	mov	r5,a
-      002F3E A3               [24] 3351 	inc	dptr
-      002F3F E0               [24] 3352 	movx	a,@dptr
-      002F40 FE               [12] 3353 	mov	r6,a
-      002F41 A3               [24] 3354 	inc	dptr
-      002F42 E0               [24] 3355 	movx	a,@dptr
-      002F43 FF               [12] 3356 	mov	r7,a
-                                   3357 ;	genPointerGet
-                                   3358 ;	genGenPointerGet
-      002F44 8D 82            [24] 3359 	mov	dpl,r5
-      002F46 8E 83            [24] 3360 	mov	dph,r6
-      002F48 8F F0            [24] 3361 	mov	b,r7
-      002F4A 12 44 94         [24] 3362 	lcall	__gptrget
-      002F4D FB               [12] 3363 	mov	r3,a
-      002F4E A3               [24] 3364 	inc	dptr
-      002F4F 12 44 94         [24] 3365 	lcall	__gptrget
-      002F52 FC               [12] 3366 	mov	r4,a
-                                   3367 ;	genPlus
-                                   3368 ;	genPlusIncr
-      002F53 74 0A            [12] 3369 	mov	a,#0x0a
-      002F55 2B               [12] 3370 	add	a,r3
-      002F56 FB               [12] 3371 	mov	r3,a
-                                   3372 ;	Peephole 181	changed mov to clr
-      002F57 E4               [12] 3373 	clr	a
-      002F58 3C               [12] 3374 	addc	a,r4
-      002F59 FC               [12] 3375 	mov	r4,a
-                                   3376 ;	dhry_1.c:350: do /* executed once */
-      002F5A                       3377 00103$:
-                                   3378 ;	dhry_1.c:351: if (Ch_1_Glob == 'A')
-                                   3379 ;	genAssign
-      002F5A 90 80 0A         [24] 3380 	mov	dptr,#_Ch_1_Glob
-      002F5D E0               [24] 3381 	movx	a,@dptr
-      002F5E FA               [12] 3382 	mov	r2,a
-                                   3383 ;	genCmpEq
-                                   3384 ;	gencjneshort
-                                   3385 ;	Peephole 112.b	changed ljmp to sjmp
-                                   3386 ;	Peephole 198.b	optimized misc jump sequence
-      002F5F BA 41 28         [24] 3387 	cjne	r2,#0x41,00104$
-                                   3388 ;	Peephole 200.b	removed redundant sjmp
-                                   3389 ;	Peephole 500	removed redundant label 00117$
-                                   3390 ;	Peephole 500	removed redundant label 00118$
-                                   3391 ;	dhry_1.c:354: Int_Loc -= 1;
-                                   3392 ;	genMinus
-                                   3393 ;	genMinusDec
-      002F62 1B               [12] 3394 	dec	r3
-      002F63 BB FF 01         [24] 3395 	cjne	r3,#0xff,00119$
-      002F66 1C               [12] 3396 	dec	r4
-      002F67                       3397 00119$:
-                                   3398 ;	dhry_1.c:355: *Int_Par_Ref = Int_Loc - Int_Glob;
-                                   3399 ;	genAssign
-      002F67 90 80 06         [24] 3400 	mov	dptr,#_Int_Glob
-      002F6A E0               [24] 3401 	movx	a,@dptr
-      002F6B F9               [12] 3402 	mov	r1,a
-      002F6C A3               [24] 3403 	inc	dptr
-      002F6D E0               [24] 3404 	movx	a,@dptr
-      002F6E FA               [12] 3405 	mov	r2,a
-                                   3406 ;	genMinus
-      002F6F EB               [12] 3407 	mov	a,r3
-      002F70 C3               [12] 3408 	clr	c
-      002F71 99               [12] 3409 	subb	a,r1
-      002F72 F9               [12] 3410 	mov	r1,a
-      002F73 EC               [12] 3411 	mov	a,r4
-      002F74 9A               [12] 3412 	subb	a,r2
-      002F75 FA               [12] 3413 	mov	r2,a
-                                   3414 ;	genPointerSet
-                                   3415 ;	genGenPointerSet
-      002F76 8D 82            [24] 3416 	mov	dpl,r5
-      002F78 8E 83            [24] 3417 	mov	dph,r6
-      002F7A 8F F0            [24] 3418 	mov	b,r7
-      002F7C E9               [12] 3419 	mov	a,r1
-      002F7D 12 37 4F         [24] 3420 	lcall	__gptrput
-      002F80 A3               [24] 3421 	inc	dptr
-      002F81 EA               [12] 3422 	mov	a,r2
-      002F82 12 37 4F         [24] 3423 	lcall	__gptrput
-                                   3424 ;	dhry_1.c:356: Enum_Loc = Ident_1;
-                                   3425 ;	genAssign
-      002F85 90 94 A3         [24] 3426 	mov	dptr,#_Proc_2_Enum_Loc_65536_70
-                                   3427 ;	Peephole 181	changed mov to clr
-      002F88 E4               [12] 3428 	clr	a
-      002F89 F0               [24] 3429 	movx	@dptr,a
-      002F8A                       3430 00104$:
-                                   3431 ;	dhry_1.c:358: while (Enum_Loc != Ident_1); /* true */
-                                   3432 ;	genIfx
-      002F8A 90 94 A3         [24] 3433 	mov	dptr,#_Proc_2_Enum_Loc_65536_70
-      002F8D E0               [24] 3434 	movx	a,@dptr
-                                   3435 ;	genIfxJump
-                                   3436 ;	Peephole 108.b	removed ljmp by inverse jump logic
-      002F8E 70 CA            [24] 3437 	jnz	00103$
-                                   3438 ;	Peephole 500	removed redundant label 00120$
-                                   3439 ;	Peephole 500	removed redundant label 00106$
-                                   3440 ;	dhry_1.c:359: } /* Proc_2 */
-      002F90 22               [24] 3441 	ret
-                                   3442 ;------------------------------------------------------------
-                                   3443 ;Allocation info for local variables in function 'Proc_3'
+                                   3333 ;	 function Proc_2
+                                   3334 ;	-----------------------------------------
+      002F29                       3335 _Proc_2:
+                                   3336 ;	genReceive
+      002F29 AF F0            [24] 3337 	mov	r7,b
+      002F2B AE 83            [24] 3338 	mov	r6,dph
+      002F2D E5 82            [12] 3339 	mov	a,dpl
+      002F2F 90 94 A0         [24] 3340 	mov	dptr,#_Proc_2_Int_Par_Ref_65536_69
+      002F32 F0               [24] 3341 	movx	@dptr,a
+      002F33 EE               [12] 3342 	mov	a,r6
+      002F34 A3               [24] 3343 	inc	dptr
+      002F35 F0               [24] 3344 	movx	@dptr,a
+      002F36 EF               [12] 3345 	mov	a,r7
+      002F37 A3               [24] 3346 	inc	dptr
+      002F38 F0               [24] 3347 	movx	@dptr,a
+                                   3348 ;	dhry_1.c:351: Int_Loc = *Int_Par_Ref + 10;
+                                   3349 ;	genAssign
+      002F39 90 94 A0         [24] 3350 	mov	dptr,#_Proc_2_Int_Par_Ref_65536_69
+      002F3C E0               [24] 3351 	movx	a,@dptr
+      002F3D FD               [12] 3352 	mov	r5,a
+      002F3E A3               [24] 3353 	inc	dptr
+      002F3F E0               [24] 3354 	movx	a,@dptr
+      002F40 FE               [12] 3355 	mov	r6,a
+      002F41 A3               [24] 3356 	inc	dptr
+      002F42 E0               [24] 3357 	movx	a,@dptr
+      002F43 FF               [12] 3358 	mov	r7,a
+                                   3359 ;	genPointerGet
+                                   3360 ;	genGenPointerGet
+      002F44 8D 82            [24] 3361 	mov	dpl,r5
+      002F46 8E 83            [24] 3362 	mov	dph,r6
+      002F48 8F F0            [24] 3363 	mov	b,r7
+      002F4A 12 44 97         [24] 3364 	lcall	__gptrget
+      002F4D FB               [12] 3365 	mov	r3,a
+      002F4E A3               [24] 3366 	inc	dptr
+      002F4F 12 44 97         [24] 3367 	lcall	__gptrget
+      002F52 FC               [12] 3368 	mov	r4,a
+                                   3369 ;	genPlus
+                                   3370 ;	genPlusIncr
+      002F53 74 0A            [12] 3371 	mov	a,#0x0a
+      002F55 2B               [12] 3372 	add	a,r3
+      002F56 FB               [12] 3373 	mov	r3,a
+                                   3374 ;	Peephole 181	changed mov to clr
+      002F57 E4               [12] 3375 	clr	a
+      002F58 3C               [12] 3376 	addc	a,r4
+      002F59 FC               [12] 3377 	mov	r4,a
+                                   3378 ;	dhry_1.c:352: do /* executed once */
+      002F5A                       3379 00103$:
+                                   3380 ;	dhry_1.c:353: if (Ch_1_Glob == 'A')
+                                   3381 ;	genAssign
+      002F5A 90 80 0A         [24] 3382 	mov	dptr,#_Ch_1_Glob
+      002F5D E0               [24] 3383 	movx	a,@dptr
+      002F5E FA               [12] 3384 	mov	r2,a
+                                   3385 ;	genCmpEq
+                                   3386 ;	gencjneshort
+                                   3387 ;	Peephole 112.b	changed ljmp to sjmp
+                                   3388 ;	Peephole 198.b	optimized misc jump sequence
+      002F5F BA 41 28         [24] 3389 	cjne	r2,#0x41,00104$
+                                   3390 ;	Peephole 200.b	removed redundant sjmp
+                                   3391 ;	Peephole 500	removed redundant label 00117$
+                                   3392 ;	Peephole 500	removed redundant label 00118$
+                                   3393 ;	dhry_1.c:356: Int_Loc -= 1;
+                                   3394 ;	genMinus
+                                   3395 ;	genMinusDec
+      002F62 1B               [12] 3396 	dec	r3
+      002F63 BB FF 01         [24] 3397 	cjne	r3,#0xff,00119$
+      002F66 1C               [12] 3398 	dec	r4
+      002F67                       3399 00119$:
+                                   3400 ;	dhry_1.c:357: *Int_Par_Ref = Int_Loc - Int_Glob;
+                                   3401 ;	genAssign
+      002F67 90 80 06         [24] 3402 	mov	dptr,#_Int_Glob
+      002F6A E0               [24] 3403 	movx	a,@dptr
+      002F6B F9               [12] 3404 	mov	r1,a
+      002F6C A3               [24] 3405 	inc	dptr
+      002F6D E0               [24] 3406 	movx	a,@dptr
+      002F6E FA               [12] 3407 	mov	r2,a
+                                   3408 ;	genMinus
+      002F6F EB               [12] 3409 	mov	a,r3
+      002F70 C3               [12] 3410 	clr	c
+      002F71 99               [12] 3411 	subb	a,r1
+      002F72 F9               [12] 3412 	mov	r1,a
+      002F73 EC               [12] 3413 	mov	a,r4
+      002F74 9A               [12] 3414 	subb	a,r2
+      002F75 FA               [12] 3415 	mov	r2,a
+                                   3416 ;	genPointerSet
+                                   3417 ;	genGenPointerSet
+      002F76 8D 82            [24] 3418 	mov	dpl,r5
+      002F78 8E 83            [24] 3419 	mov	dph,r6
+      002F7A 8F F0            [24] 3420 	mov	b,r7
+      002F7C E9               [12] 3421 	mov	a,r1
+      002F7D 12 37 52         [24] 3422 	lcall	__gptrput
+      002F80 A3               [24] 3423 	inc	dptr
+      002F81 EA               [12] 3424 	mov	a,r2
+      002F82 12 37 52         [24] 3425 	lcall	__gptrput
+                                   3426 ;	dhry_1.c:358: Enum_Loc = Ident_1;
+                                   3427 ;	genAssign
+      002F85 90 94 A3         [24] 3428 	mov	dptr,#_Proc_2_Enum_Loc_65536_70
+                                   3429 ;	Peephole 181	changed mov to clr
+      002F88 E4               [12] 3430 	clr	a
+      002F89 F0               [24] 3431 	movx	@dptr,a
+      002F8A                       3432 00104$:
+                                   3433 ;	dhry_1.c:360: while (Enum_Loc != Ident_1); /* true */
+                                   3434 ;	genIfx
+      002F8A 90 94 A3         [24] 3435 	mov	dptr,#_Proc_2_Enum_Loc_65536_70
+      002F8D E0               [24] 3436 	movx	a,@dptr
+                                   3437 ;	genIfxJump
+                                   3438 ;	Peephole 108.b	removed ljmp by inverse jump logic
+      002F8E 70 CA            [24] 3439 	jnz	00103$
+                                   3440 ;	Peephole 500	removed redundant label 00120$
+                                   3441 ;	Peephole 500	removed redundant label 00106$
+                                   3442 ;	dhry_1.c:361: } /* Proc_2 */
+      002F90 22               [24] 3443 	ret
                                    3444 ;------------------------------------------------------------
-                                   3445 ;Ptr_Ref_Par               Allocated with name '_Proc_3_Ptr_Ref_Par_65536_72'
+                                   3445 ;Allocation info for local variables in function 'Proc_3'
                                    3446 ;------------------------------------------------------------
-                                   3447 ;	dhry_1.c:362: void Proc_3 (Rec_Pointer *Ptr_Ref_Par)
-                                   3448 ;	-----------------------------------------
-                                   3449 ;	 function Proc_3
+                                   3447 ;Ptr_Ref_Par               Allocated with name '_Proc_3_Ptr_Ref_Par_65536_72'
+                                   3448 ;------------------------------------------------------------
+                                   3449 ;	dhry_1.c:364: void Proc_3 (Rec_Pointer *Ptr_Ref_Par)
                                    3450 ;	-----------------------------------------
-      002F91                       3451 _Proc_3:
-                                   3452 ;	genReceive
-      002F91 AF F0            [24] 3453 	mov	r7,b
-      002F93 AE 83            [24] 3454 	mov	r6,dph
-      002F95 E5 82            [12] 3455 	mov	a,dpl
-      002F97 90 94 A4         [24] 3456 	mov	dptr,#_Proc_3_Ptr_Ref_Par_65536_72
-      002F9A F0               [24] 3457 	movx	@dptr,a
-      002F9B EE               [12] 3458 	mov	a,r6
-      002F9C A3               [24] 3459 	inc	dptr
-      002F9D F0               [24] 3460 	movx	@dptr,a
-      002F9E EF               [12] 3461 	mov	a,r7
-      002F9F A3               [24] 3462 	inc	dptr
-      002FA0 F0               [24] 3463 	movx	@dptr,a
-                                   3464 ;	dhry_1.c:368: if (Ptr_Glob != Null)
-                                   3465 ;	genAssign
-      002FA1 90 80 00         [24] 3466 	mov	dptr,#_Ptr_Glob
-      002FA4 E0               [24] 3467 	movx	a,@dptr
-      002FA5 FD               [12] 3468 	mov	r5,a
-      002FA6 A3               [24] 3469 	inc	dptr
-      002FA7 E0               [24] 3470 	movx	a,@dptr
-      002FA8 FE               [12] 3471 	mov	r6,a
-      002FA9 A3               [24] 3472 	inc	dptr
-      002FAA E0               [24] 3473 	movx	a,@dptr
-      002FAB FF               [12] 3474 	mov	r7,a
-                                   3475 ;	genIfx
-      002FAC 90 80 00         [24] 3476 	mov	dptr,#_Ptr_Glob
-      002FAF E0               [24] 3477 	movx	a,@dptr
-      002FB0 F5 F0            [12] 3478 	mov	b,a
-      002FB2 A3               [24] 3479 	inc	dptr
-      002FB3 E0               [24] 3480 	movx	a,@dptr
-      002FB4 45 F0            [12] 3481 	orl	a,b
-                                   3482 ;	genIfxJump
-                                   3483 ;	Peephole 108.c	removed ljmp by inverse jump logic
-      002FB6 60 33            [24] 3484 	jz	00102$
-                                   3485 ;	Peephole 500	removed redundant label 00109$
-                                   3486 ;	dhry_1.c:370: *Ptr_Ref_Par = Ptr_Glob->Ptr_Comp;
-                                   3487 ;	genAssign
-      002FB8 90 94 A4         [24] 3488 	mov	dptr,#_Proc_3_Ptr_Ref_Par_65536_72
-      002FBB E0               [24] 3489 	movx	a,@dptr
-      002FBC FA               [12] 3490 	mov	r2,a
-      002FBD A3               [24] 3491 	inc	dptr
-      002FBE E0               [24] 3492 	movx	a,@dptr
-      002FBF FB               [12] 3493 	mov	r3,a
-      002FC0 A3               [24] 3494 	inc	dptr
-      002FC1 E0               [24] 3495 	movx	a,@dptr
-      002FC2 FC               [12] 3496 	mov	r4,a
-                                   3497 ;	genPointerGet
-                                   3498 ;	genGenPointerGet
-      002FC3 8D 82            [24] 3499 	mov	dpl,r5
-      002FC5 8E 83            [24] 3500 	mov	dph,r6
-      002FC7 8F F0            [24] 3501 	mov	b,r7
-      002FC9 12 44 94         [24] 3502 	lcall	__gptrget
-      002FCC FD               [12] 3503 	mov	r5,a
-      002FCD A3               [24] 3504 	inc	dptr
-      002FCE 12 44 94         [24] 3505 	lcall	__gptrget
-      002FD1 FE               [12] 3506 	mov	r6,a
-      002FD2 A3               [24] 3507 	inc	dptr
-      002FD3 12 44 94         [24] 3508 	lcall	__gptrget
-      002FD6 FF               [12] 3509 	mov	r7,a
-                                   3510 ;	genPointerSet
-                                   3511 ;	genGenPointerSet
-      002FD7 8A 82            [24] 3512 	mov	dpl,r2
-      002FD9 8B 83            [24] 3513 	mov	dph,r3
-      002FDB 8C F0            [24] 3514 	mov	b,r4
-      002FDD ED               [12] 3515 	mov	a,r5
-      002FDE 12 37 4F         [24] 3516 	lcall	__gptrput
-      002FE1 A3               [24] 3517 	inc	dptr
-      002FE2 EE               [12] 3518 	mov	a,r6
-      002FE3 12 37 4F         [24] 3519 	lcall	__gptrput
-      002FE6 A3               [24] 3520 	inc	dptr
-      002FE7 EF               [12] 3521 	mov	a,r7
-      002FE8 12 37 4F         [24] 3522 	lcall	__gptrput
-      002FEB                       3523 00102$:
-                                   3524 ;	dhry_1.c:371: Proc_7 (10, Int_Glob, &Ptr_Glob->variant.var_1.Int_Comp);
-                                   3525 ;	genAssign
-      002FEB 90 80 06         [24] 3526 	mov	dptr,#_Int_Glob
-      002FEE E0               [24] 3527 	movx	a,@dptr
-      002FEF FE               [12] 3528 	mov	r6,a
-      002FF0 A3               [24] 3529 	inc	dptr
-      002FF1 E0               [24] 3530 	movx	a,@dptr
-      002FF2 FF               [12] 3531 	mov	r7,a
-                                   3532 ;	genAssign
-      002FF3 90 80 00         [24] 3533 	mov	dptr,#_Ptr_Glob
-      002FF6 E0               [24] 3534 	movx	a,@dptr
-      002FF7 FB               [12] 3535 	mov	r3,a
-      002FF8 A3               [24] 3536 	inc	dptr
-      002FF9 E0               [24] 3537 	movx	a,@dptr
-      002FFA FC               [12] 3538 	mov	r4,a
-      002FFB A3               [24] 3539 	inc	dptr
-      002FFC E0               [24] 3540 	movx	a,@dptr
-      002FFD FD               [12] 3541 	mov	r5,a
-                                   3542 ;	genPlus
-                                   3543 ;	genPlusIncr
-      002FFE 74 05            [12] 3544 	mov	a,#0x05
-      003000 2B               [12] 3545 	add	a,r3
-      003001 FB               [12] 3546 	mov	r3,a
-                                   3547 ;	Peephole 181	changed mov to clr
-      003002 E4               [12] 3548 	clr	a
-      003003 3C               [12] 3549 	addc	a,r4
-      003004 FC               [12] 3550 	mov	r4,a
-                                   3551 ;	genAssign
-      003005 90 94 AB         [24] 3552 	mov	dptr,#_Proc_7_PARM_2
-      003008 EE               [12] 3553 	mov	a,r6
-      003009 F0               [24] 3554 	movx	@dptr,a
-      00300A EF               [12] 3555 	mov	a,r7
-      00300B A3               [24] 3556 	inc	dptr
-      00300C F0               [24] 3557 	movx	@dptr,a
-                                   3558 ;	genAssign
-      00300D 90 94 AD         [24] 3559 	mov	dptr,#_Proc_7_PARM_3
-      003010 EB               [12] 3560 	mov	a,r3
-      003011 F0               [24] 3561 	movx	@dptr,a
-      003012 EC               [12] 3562 	mov	a,r4
-      003013 A3               [24] 3563 	inc	dptr
-      003014 F0               [24] 3564 	movx	@dptr,a
-      003015 ED               [12] 3565 	mov	a,r5
-      003016 A3               [24] 3566 	inc	dptr
-      003017 F0               [24] 3567 	movx	@dptr,a
-                                   3568 ;	genCall
-                                   3569 ;	Peephole 182.b	used 16 bit load of dptr
-      003018 90 00 0A         [24] 3570 	mov	dptr,#0x000a
-                                   3571 ;	dhry_1.c:372: } /* Proc_3 */
-                                   3572 ;	Peephole 400.b	replaced lcall/ret with ljmp
-      00301B 02 30 F4         [24] 3573 	ljmp	_Proc_7
-                                   3574 ;
-                                   3575 ;------------------------------------------------------------
-                                   3576 ;Allocation info for local variables in function 'Proc_4'
+                                   3451 ;	 function Proc_3
+                                   3452 ;	-----------------------------------------
+      002F91                       3453 _Proc_3:
+                                   3454 ;	genReceive
+      002F91 AF F0            [24] 3455 	mov	r7,b
+      002F93 AE 83            [24] 3456 	mov	r6,dph
+      002F95 E5 82            [12] 3457 	mov	a,dpl
+      002F97 90 94 A4         [24] 3458 	mov	dptr,#_Proc_3_Ptr_Ref_Par_65536_72
+      002F9A F0               [24] 3459 	movx	@dptr,a
+      002F9B EE               [12] 3460 	mov	a,r6
+      002F9C A3               [24] 3461 	inc	dptr
+      002F9D F0               [24] 3462 	movx	@dptr,a
+      002F9E EF               [12] 3463 	mov	a,r7
+      002F9F A3               [24] 3464 	inc	dptr
+      002FA0 F0               [24] 3465 	movx	@dptr,a
+                                   3466 ;	dhry_1.c:370: if (Ptr_Glob != Null)
+                                   3467 ;	genAssign
+      002FA1 90 80 00         [24] 3468 	mov	dptr,#_Ptr_Glob
+      002FA4 E0               [24] 3469 	movx	a,@dptr
+      002FA5 FD               [12] 3470 	mov	r5,a
+      002FA6 A3               [24] 3471 	inc	dptr
+      002FA7 E0               [24] 3472 	movx	a,@dptr
+      002FA8 FE               [12] 3473 	mov	r6,a
+      002FA9 A3               [24] 3474 	inc	dptr
+      002FAA E0               [24] 3475 	movx	a,@dptr
+      002FAB FF               [12] 3476 	mov	r7,a
+                                   3477 ;	genIfx
+      002FAC 90 80 00         [24] 3478 	mov	dptr,#_Ptr_Glob
+      002FAF E0               [24] 3479 	movx	a,@dptr
+      002FB0 F5 F0            [12] 3480 	mov	b,a
+      002FB2 A3               [24] 3481 	inc	dptr
+      002FB3 E0               [24] 3482 	movx	a,@dptr
+      002FB4 45 F0            [12] 3483 	orl	a,b
+                                   3484 ;	genIfxJump
+                                   3485 ;	Peephole 108.c	removed ljmp by inverse jump logic
+      002FB6 60 33            [24] 3486 	jz	00102$
+                                   3487 ;	Peephole 500	removed redundant label 00109$
+                                   3488 ;	dhry_1.c:372: *Ptr_Ref_Par = Ptr_Glob->Ptr_Comp;
+                                   3489 ;	genAssign
+      002FB8 90 94 A4         [24] 3490 	mov	dptr,#_Proc_3_Ptr_Ref_Par_65536_72
+      002FBB E0               [24] 3491 	movx	a,@dptr
+      002FBC FA               [12] 3492 	mov	r2,a
+      002FBD A3               [24] 3493 	inc	dptr
+      002FBE E0               [24] 3494 	movx	a,@dptr
+      002FBF FB               [12] 3495 	mov	r3,a
+      002FC0 A3               [24] 3496 	inc	dptr
+      002FC1 E0               [24] 3497 	movx	a,@dptr
+      002FC2 FC               [12] 3498 	mov	r4,a
+                                   3499 ;	genPointerGet
+                                   3500 ;	genGenPointerGet
+      002FC3 8D 82            [24] 3501 	mov	dpl,r5
+      002FC5 8E 83            [24] 3502 	mov	dph,r6
+      002FC7 8F F0            [24] 3503 	mov	b,r7
+      002FC9 12 44 97         [24] 3504 	lcall	__gptrget
+      002FCC FD               [12] 3505 	mov	r5,a
+      002FCD A3               [24] 3506 	inc	dptr
+      002FCE 12 44 97         [24] 3507 	lcall	__gptrget
+      002FD1 FE               [12] 3508 	mov	r6,a
+      002FD2 A3               [24] 3509 	inc	dptr
+      002FD3 12 44 97         [24] 3510 	lcall	__gptrget
+      002FD6 FF               [12] 3511 	mov	r7,a
+                                   3512 ;	genPointerSet
+                                   3513 ;	genGenPointerSet
+      002FD7 8A 82            [24] 3514 	mov	dpl,r2
+      002FD9 8B 83            [24] 3515 	mov	dph,r3
+      002FDB 8C F0            [24] 3516 	mov	b,r4
+      002FDD ED               [12] 3517 	mov	a,r5
+      002FDE 12 37 52         [24] 3518 	lcall	__gptrput
+      002FE1 A3               [24] 3519 	inc	dptr
+      002FE2 EE               [12] 3520 	mov	a,r6
+      002FE3 12 37 52         [24] 3521 	lcall	__gptrput
+      002FE6 A3               [24] 3522 	inc	dptr
+      002FE7 EF               [12] 3523 	mov	a,r7
+      002FE8 12 37 52         [24] 3524 	lcall	__gptrput
+      002FEB                       3525 00102$:
+                                   3526 ;	dhry_1.c:373: Proc_7 (10, Int_Glob, &Ptr_Glob->variant.var_1.Int_Comp);
+                                   3527 ;	genAssign
+      002FEB 90 80 06         [24] 3528 	mov	dptr,#_Int_Glob
+      002FEE E0               [24] 3529 	movx	a,@dptr
+      002FEF FE               [12] 3530 	mov	r6,a
+      002FF0 A3               [24] 3531 	inc	dptr
+      002FF1 E0               [24] 3532 	movx	a,@dptr
+      002FF2 FF               [12] 3533 	mov	r7,a
+                                   3534 ;	genAssign
+      002FF3 90 80 00         [24] 3535 	mov	dptr,#_Ptr_Glob
+      002FF6 E0               [24] 3536 	movx	a,@dptr
+      002FF7 FB               [12] 3537 	mov	r3,a
+      002FF8 A3               [24] 3538 	inc	dptr
+      002FF9 E0               [24] 3539 	movx	a,@dptr
+      002FFA FC               [12] 3540 	mov	r4,a
+      002FFB A3               [24] 3541 	inc	dptr
+      002FFC E0               [24] 3542 	movx	a,@dptr
+      002FFD FD               [12] 3543 	mov	r5,a
+                                   3544 ;	genPlus
+                                   3545 ;	genPlusIncr
+      002FFE 74 05            [12] 3546 	mov	a,#0x05
+      003000 2B               [12] 3547 	add	a,r3
+      003001 FB               [12] 3548 	mov	r3,a
+                                   3549 ;	Peephole 181	changed mov to clr
+      003002 E4               [12] 3550 	clr	a
+      003003 3C               [12] 3551 	addc	a,r4
+      003004 FC               [12] 3552 	mov	r4,a
+                                   3553 ;	genAssign
+      003005 90 94 AB         [24] 3554 	mov	dptr,#_Proc_7_PARM_2
+      003008 EE               [12] 3555 	mov	a,r6
+      003009 F0               [24] 3556 	movx	@dptr,a
+      00300A EF               [12] 3557 	mov	a,r7
+      00300B A3               [24] 3558 	inc	dptr
+      00300C F0               [24] 3559 	movx	@dptr,a
+                                   3560 ;	genAssign
+      00300D 90 94 AD         [24] 3561 	mov	dptr,#_Proc_7_PARM_3
+      003010 EB               [12] 3562 	mov	a,r3
+      003011 F0               [24] 3563 	movx	@dptr,a
+      003012 EC               [12] 3564 	mov	a,r4
+      003013 A3               [24] 3565 	inc	dptr
+      003014 F0               [24] 3566 	movx	@dptr,a
+      003015 ED               [12] 3567 	mov	a,r5
+      003016 A3               [24] 3568 	inc	dptr
+      003017 F0               [24] 3569 	movx	@dptr,a
+                                   3570 ;	genCall
+                                   3571 ;	Peephole 182.b	used 16 bit load of dptr
+      003018 90 00 0A         [24] 3572 	mov	dptr,#0x000a
+                                   3573 ;	dhry_1.c:374: } /* Proc_3 */
+                                   3574 ;	Peephole 400.b	replaced lcall/ret with ljmp
+      00301B 02 30 F4         [24] 3575 	ljmp	_Proc_7
+                                   3576 ;
                                    3577 ;------------------------------------------------------------
-                                   3578 ;Bool_Loc                  Allocated with name '_Proc_4_Bool_Loc_65536_75'
+                                   3578 ;Allocation info for local variables in function 'Proc_4'
                                    3579 ;------------------------------------------------------------
-                                   3580 ;	dhry_1.c:375: void Proc_4 (void) /* without parameters */
-                                   3581 ;	-----------------------------------------
-                                   3582 ;	 function Proc_4
+                                   3580 ;Bool_Loc                  Allocated with name '_Proc_4_Bool_Loc_65536_75'
+                                   3581 ;------------------------------------------------------------
+                                   3582 ;	dhry_1.c:377: void Proc_4 (void) /* without parameters */
                                    3583 ;	-----------------------------------------
-      00301E                       3584 _Proc_4:
-                                   3585 ;	dhry_1.c:380: Bool_Loc = Ch_1_Glob == 'A';
-                                   3586 ;	genAssign
-      00301E 90 80 0A         [24] 3587 	mov	dptr,#_Ch_1_Glob
-      003021 E0               [24] 3588 	movx	a,@dptr
-      003022 FF               [12] 3589 	mov	r7,a
-                                   3590 ;	genCmpEq
-                                   3591 ;	gencjne
-                                   3592 ;	gencjneshort
-                                   3593 ;	Peephole 181	changed mov to clr
-                                   3594 ;	Peephole 241.d	optimized compare
-      003023 E4               [12] 3595 	clr	a
-      003024 BF 41 01         [24] 3596 	cjne	r7,#0x41,00103$
-      003027 04               [12] 3597 	inc	a
-      003028                       3598 00103$:
-                                   3599 ;	Peephole 500	removed redundant label 00104$
-      003028 FF               [12] 3600 	mov	r7,a
-                                   3601 ;	genCast
-      003029 7E 00            [12] 3602 	mov	r6,#0x00
-                                   3603 ;	dhry_1.c:381: Bool_Glob = Bool_Loc | Bool_Glob;
-                                   3604 ;	genOr
-      00302B 90 80 08         [24] 3605 	mov	dptr,#_Bool_Glob
-      00302E E0               [24] 3606 	movx	a,@dptr
-      00302F 4F               [12] 3607 	orl	a,r7
-      003030 F0               [24] 3608 	movx	@dptr,a
-      003031 A3               [24] 3609 	inc	dptr
-      003032 E0               [24] 3610 	movx	a,@dptr
-      003033 4E               [12] 3611 	orl	a,r6
-      003034 F0               [24] 3612 	movx	@dptr,a
-                                   3613 ;	dhry_1.c:382: Ch_2_Glob = 'B';
-                                   3614 ;	genAssign
-      003035 90 80 0B         [24] 3615 	mov	dptr,#_Ch_2_Glob
-      003038 74 42            [12] 3616 	mov	a,#0x42
-      00303A F0               [24] 3617 	movx	@dptr,a
-                                   3618 ;	Peephole 500	removed redundant label 00101$
-                                   3619 ;	dhry_1.c:383: } /* Proc_4 */
-      00303B 22               [24] 3620 	ret
-                                   3621 ;------------------------------------------------------------
-                                   3622 ;Allocation info for local variables in function 'Proc_5'
+                                   3584 ;	 function Proc_4
+                                   3585 ;	-----------------------------------------
+      00301E                       3586 _Proc_4:
+                                   3587 ;	dhry_1.c:382: Bool_Loc = Ch_1_Glob == 'A';
+                                   3588 ;	genAssign
+      00301E 90 80 0A         [24] 3589 	mov	dptr,#_Ch_1_Glob
+      003021 E0               [24] 3590 	movx	a,@dptr
+      003022 FF               [12] 3591 	mov	r7,a
+                                   3592 ;	genCmpEq
+                                   3593 ;	gencjne
+                                   3594 ;	gencjneshort
+                                   3595 ;	Peephole 181	changed mov to clr
+                                   3596 ;	Peephole 241.d	optimized compare
+      003023 E4               [12] 3597 	clr	a
+      003024 BF 41 01         [24] 3598 	cjne	r7,#0x41,00103$
+      003027 04               [12] 3599 	inc	a
+      003028                       3600 00103$:
+                                   3601 ;	Peephole 500	removed redundant label 00104$
+      003028 FF               [12] 3602 	mov	r7,a
+                                   3603 ;	genCast
+      003029 7E 00            [12] 3604 	mov	r6,#0x00
+                                   3605 ;	dhry_1.c:383: Bool_Glob = Bool_Loc | Bool_Glob;
+                                   3606 ;	genOr
+      00302B 90 80 08         [24] 3607 	mov	dptr,#_Bool_Glob
+      00302E E0               [24] 3608 	movx	a,@dptr
+      00302F 4F               [12] 3609 	orl	a,r7
+      003030 F0               [24] 3610 	movx	@dptr,a
+      003031 A3               [24] 3611 	inc	dptr
+      003032 E0               [24] 3612 	movx	a,@dptr
+      003033 4E               [12] 3613 	orl	a,r6
+      003034 F0               [24] 3614 	movx	@dptr,a
+                                   3615 ;	dhry_1.c:384: Ch_2_Glob = 'B';
+                                   3616 ;	genAssign
+      003035 90 80 0B         [24] 3617 	mov	dptr,#_Ch_2_Glob
+      003038 74 42            [12] 3618 	mov	a,#0x42
+      00303A F0               [24] 3619 	movx	@dptr,a
+                                   3620 ;	Peephole 500	removed redundant label 00101$
+                                   3621 ;	dhry_1.c:385: } /* Proc_4 */
+      00303B 22               [24] 3622 	ret
                                    3623 ;------------------------------------------------------------
-                                   3624 ;	dhry_1.c:386: void Proc_5 (void) /* without parameters */
-                                   3625 ;	-----------------------------------------
-                                   3626 ;	 function Proc_5
+                                   3624 ;Allocation info for local variables in function 'Proc_5'
+                                   3625 ;------------------------------------------------------------
+                                   3626 ;	dhry_1.c:388: void Proc_5 (void) /* without parameters */
                                    3627 ;	-----------------------------------------
-      00303C                       3628 _Proc_5:
-                                   3629 ;	dhry_1.c:390: Ch_1_Glob = 'A';
-                                   3630 ;	genAssign
-      00303C 90 80 0A         [24] 3631 	mov	dptr,#_Ch_1_Glob
-      00303F 74 41            [12] 3632 	mov	a,#0x41
-      003041 F0               [24] 3633 	movx	@dptr,a
-                                   3634 ;	dhry_1.c:391: Bool_Glob = false;
-                                   3635 ;	genAssign
-      003042 90 80 08         [24] 3636 	mov	dptr,#_Bool_Glob
-                                   3637 ;	Peephole 181	changed mov to clr
-      003045 E4               [12] 3638 	clr	a
-      003046 F0               [24] 3639 	movx	@dptr,a
-                                   3640 ;	genFromRTrack acc==0x00
-      003047 A3               [24] 3641 	inc	dptr
-      003048 F0               [24] 3642 	movx	@dptr,a
-                                   3643 ;	Peephole 500	removed redundant label 00101$
-                                   3644 ;	dhry_1.c:392: } /* Proc_5 */
-      003049 22               [24] 3645 	ret
-                                   3646 	.area CSEG    (CODE)
-                                   3647 	.area CONST   (CODE)
-                                   3648 	.area CONST   (CODE)
-      0044F7                       3649 ___str_0:
-      0044F7 44 48 52 59 53 54 4F  3650 	.ascii "DHRYSTONE PROGRAM, SOME STRING"
+                                   3628 ;	 function Proc_5
+                                   3629 ;	-----------------------------------------
+      00303C                       3630 _Proc_5:
+                                   3631 ;	dhry_1.c:392: Ch_1_Glob = 'A';
+                                   3632 ;	genAssign
+      00303C 90 80 0A         [24] 3633 	mov	dptr,#_Ch_1_Glob
+      00303F 74 41            [12] 3634 	mov	a,#0x41
+      003041 F0               [24] 3635 	movx	@dptr,a
+                                   3636 ;	dhry_1.c:393: Bool_Glob = false;
+                                   3637 ;	genAssign
+      003042 90 80 08         [24] 3638 	mov	dptr,#_Bool_Glob
+                                   3639 ;	Peephole 181	changed mov to clr
+      003045 E4               [12] 3640 	clr	a
+      003046 F0               [24] 3641 	movx	@dptr,a
+                                   3642 ;	genFromRTrack acc==0x00
+      003047 A3               [24] 3643 	inc	dptr
+      003048 F0               [24] 3644 	movx	@dptr,a
+                                   3645 ;	Peephole 500	removed redundant label 00101$
+                                   3646 ;	dhry_1.c:394: } /* Proc_5 */
+      003049 22               [24] 3647 	ret
+                                   3648 	.area CSEG    (CODE)
+                                   3649 	.area CONST   (CODE)
+                                   3650 	.area CONST   (CODE)
+      0044FA                       3651 ___str_0:
+      0044FA 44 48 52 59 53 54 4F  3652 	.ascii "DHRYSTONE PROGRAM, SOME STRING"
              4E 45 20 50 52 4F 47
              52 41 4D 2C 20 53 4F
              4D 45 20 53 54 52 49
              4E 47
-      004515 00                    3651 	.db 0x00
-                                   3652 	.area CSEG    (CODE)
-                                   3653 	.area CONST   (CODE)
-      004516                       3654 ___str_1:
-      004516 44 48 52 59 53 54 4F  3655 	.ascii "DHRYSTONE PROGRAM, 1'ST STRING"
+      004518 00                    3653 	.db 0x00
+                                   3654 	.area CSEG    (CODE)
+                                   3655 	.area CONST   (CODE)
+      004519                       3656 ___str_1:
+      004519 44 48 52 59 53 54 4F  3657 	.ascii "DHRYSTONE PROGRAM, 1'ST STRING"
              4E 45 20 50 52 4F 47
              52 41 4D 2C 20 31 27
              53 54 20 53 54 52 49
              4E 47
-      004534 00                    3656 	.db 0x00
-                                   3657 	.area CSEG    (CODE)
-                                   3658 	.area CONST   (CODE)
-      004535                       3659 ___str_2:
-      004535 0D                    3660 	.db 0x0d
-      004536 0A                    3661 	.db 0x0a
-      004537 00                    3662 	.db 0x00
-                                   3663 	.area CSEG    (CODE)
-                                   3664 	.area CONST   (CODE)
-      004538                       3665 ___str_3:
-      004538 44 68 72 79 73 74 6F  3666 	.ascii "Dhrystone Benchmark, Version 2.1 (Language: C)"
+      004537 00                    3658 	.db 0x00
+                                   3659 	.area CSEG    (CODE)
+                                   3660 	.area CONST   (CODE)
+      004538                       3661 ___str_2:
+      004538 0D                    3662 	.db 0x0d
+      004539 0A                    3663 	.db 0x0a
+      00453A 00                    3664 	.db 0x00
+                                   3665 	.area CSEG    (CODE)
+                                   3666 	.area CONST   (CODE)
+      00453B                       3667 ___str_3:
+      00453B 44 68 72 79 73 74 6F  3668 	.ascii "Dhrystone Benchmark, Version 2.1 (Language: C)"
              6E 65 20 42 65 6E 63
              68 6D 61 72 6B 2C 20
              56 65 72 73 69 6F 6E
              20 32 2E 31 20 28 4C
              61 6E 67 75 61 67 65
              3A 20 43 29
-      004566 0D                    3667 	.db 0x0d
-      004567 0A                    3668 	.db 0x0a
-      004568 00                    3669 	.db 0x00
-                                   3670 	.area CSEG    (CODE)
-                                   3671 	.area CONST   (CODE)
-      004569                       3672 ___str_4:
-      004569 50 72 6F 67 72 61 6D  3673 	.ascii "Program compiled with 'register' attribute"
+      004569 0D                    3669 	.db 0x0d
+      00456A 0A                    3670 	.db 0x0a
+      00456B 00                    3671 	.db 0x00
+                                   3672 	.area CSEG    (CODE)
+                                   3673 	.area CONST   (CODE)
+      00456C                       3674 ___str_4:
+      00456C 50 72 6F 67 72 61 6D  3675 	.ascii "Program compiled with 'register' attribute"
              20 63 6F 6D 70 69 6C
              65 64 20 77 69 74 68
              20 27 72 65 67 69 73
              74 65 72 27 20 61 74
              74 72 69 62 75 74 65
-      004593 0D                    3674 	.db 0x0d
-      004594 0A                    3675 	.db 0x0a
-      004595 00                    3676 	.db 0x00
-                                   3677 	.area CSEG    (CODE)
-                                   3678 	.area CONST   (CODE)
-      004596                       3679 ___str_5:
-      004596 50 72 6F 67 72 61 6D  3680 	.ascii "Program compiled without 'register' attribute"
+      004596 0D                    3676 	.db 0x0d
+      004597 0A                    3677 	.db 0x0a
+      004598 00                    3678 	.db 0x00
+                                   3679 	.area CSEG    (CODE)
+                                   3680 	.area CONST   (CODE)
+      004599                       3681 ___str_5:
+      004599 50 72 6F 67 72 61 6D  3682 	.ascii "Program compiled without 'register' attribute"
              20 63 6F 6D 70 69 6C
              65 64 20 77 69 74 68
              6F 75 74 20 27 72 65
              67 69 73 74 65 72 27
              20 61 74 74 72 69 62
              75 74 65
-      0045C3 0D                    3681 	.db 0x0d
-      0045C4 0A                    3682 	.db 0x0a
-      0045C5 00                    3683 	.db 0x00
-                                   3684 	.area CSEG    (CODE)
-                                   3685 	.area CONST   (CODE)
-      0045C6                       3686 ___str_6:
-      0045C6 50 6C 65 61 73 65 20  3687 	.ascii "Please give the number of runs through the benchmark: "
+      0045C6 0D                    3683 	.db 0x0d
+      0045C7 0A                    3684 	.db 0x0a
+      0045C8 00                    3685 	.db 0x00
+                                   3686 	.area CSEG    (CODE)
+                                   3687 	.area CONST   (CODE)
+      0045C9                       3688 ___str_6:
+      0045C9 50 6C 65 61 73 65 20  3689 	.ascii "Please give the number of runs through the benchmark: "
              67 69 76 65 20 74 68
              65 20 6E 75 6D 62 65
              72 20 6F 66 20 72 75
@@ -3717,50 +3719,50 @@
              75 67 68 20 74 68 65
              20 62 65 6E 63 68 6D
              61 72 6B 3A 20
-      0045FC 00                    3688 	.db 0x00
-                                   3689 	.area CSEG    (CODE)
-                                   3690 	.area CONST   (CODE)
-      0045FD                       3691 ___str_7:
-      0045FD 45 78 65 63 75 74 69  3692 	.ascii "Execution starts, %d runs through Dhrystone"
+      0045FF 00                    3690 	.db 0x00
+                                   3691 	.area CSEG    (CODE)
+                                   3692 	.area CONST   (CODE)
+      004600                       3693 ___str_7:
+      004600 45 78 65 63 75 74 69  3694 	.ascii "Execution starts, %d runs through Dhrystone"
              6F 6E 20 73 74 61 72
              74 73 2C 20 25 64 20
              72 75 6E 73 20 74 68
              72 6F 75 67 68 20 44
              68 72 79 73 74 6F 6E
              65
-      004628 0D                    3693 	.db 0x0d
-      004629 0A                    3694 	.db 0x0a
-      00462A 00                    3695 	.db 0x00
-                                   3696 	.area CSEG    (CODE)
-                                   3697 	.area CONST   (CODE)
-      00462B                       3698 ___str_8:
-      00462B 44 48 52 59 53 54 4F  3699 	.ascii "DHRYSTONE PROGRAM, 2'ND STRING"
+      00462B 0D                    3695 	.db 0x0d
+      00462C 0A                    3696 	.db 0x0a
+      00462D 00                    3697 	.db 0x00
+                                   3698 	.area CSEG    (CODE)
+                                   3699 	.area CONST   (CODE)
+      00462E                       3700 ___str_8:
+      00462E 44 48 52 59 53 54 4F  3701 	.ascii "DHRYSTONE PROGRAM, 2'ND STRING"
              4E 45 20 50 52 4F 47
              52 41 4D 2C 20 32 27
              4E 44 20 53 54 52 49
              4E 47
-      004649 00                    3700 	.db 0x00
-                                   3701 	.area CSEG    (CODE)
-                                   3702 	.area CONST   (CODE)
-      00464A                       3703 ___str_9:
-      00464A 44 48 52 59 53 54 4F  3704 	.ascii "DHRYSTONE PROGRAM, 3'RD STRING"
+      00464C 00                    3702 	.db 0x00
+                                   3703 	.area CSEG    (CODE)
+                                   3704 	.area CONST   (CODE)
+      00464D                       3705 ___str_9:
+      00464D 44 48 52 59 53 54 4F  3706 	.ascii "DHRYSTONE PROGRAM, 3'RD STRING"
              4E 45 20 50 52 4F 47
              52 41 4D 2C 20 33 27
              52 44 20 53 54 52 49
              4E 47
-      004668 00                    3705 	.db 0x00
-                                   3706 	.area CSEG    (CODE)
-                                   3707 	.area CONST   (CODE)
-      004669                       3708 ___str_10:
-      004669 45 78 65 63 75 74 69  3709 	.ascii "Execution ends"
+      00466B 00                    3707 	.db 0x00
+                                   3708 	.area CSEG    (CODE)
+                                   3709 	.area CONST   (CODE)
+      00466C                       3710 ___str_10:
+      00466C 45 78 65 63 75 74 69  3711 	.ascii "Execution ends"
              6F 6E 20 65 6E 64 73
-      004677 0D                    3710 	.db 0x0d
-      004678 0A                    3711 	.db 0x0a
-      004679 00                    3712 	.db 0x00
-                                   3713 	.area CSEG    (CODE)
-                                   3714 	.area CONST   (CODE)
-      00467A                       3715 ___str_11:
-      00467A 46 69 6E 61 6C 20 76  3716 	.ascii "Final values of the variables used in the benchmark:"
+      00467A 0D                    3712 	.db 0x0d
+      00467B 0A                    3713 	.db 0x0a
+      00467C 00                    3714 	.db 0x00
+                                   3715 	.area CSEG    (CODE)
+                                   3716 	.area CONST   (CODE)
+      00467D                       3717 ___str_11:
+      00467D 46 69 6E 61 6C 20 76  3718 	.ascii "Final values of the variables used in the benchmark:"
              61 6C 75 65 73 20 6F
              66 20 74 68 65 20 76
              61 72 69 61 62 6C 65
@@ -3768,176 +3770,176 @@
              69 6E 20 74 68 65 20
              62 65 6E 63 68 6D 61
              72 6B 3A
-      0046AE 0D                    3717 	.db 0x0d
-      0046AF 0A                    3718 	.db 0x0a
-      0046B0 00                    3719 	.db 0x00
-                                   3720 	.area CSEG    (CODE)
-                                   3721 	.area CONST   (CODE)
-      0046B1                       3722 ___str_12:
-      0046B1 49 6E 74 5F 47 6C 6F  3723 	.ascii "Int_Glob:            %d"
+      0046B1 0D                    3719 	.db 0x0d
+      0046B2 0A                    3720 	.db 0x0a
+      0046B3 00                    3721 	.db 0x00
+                                   3722 	.area CSEG    (CODE)
+                                   3723 	.area CONST   (CODE)
+      0046B4                       3724 ___str_12:
+      0046B4 49 6E 74 5F 47 6C 6F  3725 	.ascii "Int_Glob:            %d"
              62 3A 20 20 20 20 20
              20 20 20 20 20 20 20
              25 64
-      0046C8 0D                    3724 	.db 0x0d
-      0046C9 0A                    3725 	.db 0x0a
-      0046CA 00                    3726 	.db 0x00
-                                   3727 	.area CSEG    (CODE)
-                                   3728 	.area CONST   (CODE)
-      0046CB                       3729 ___str_13:
-      0046CB 20 20 20 20 20 20 20  3730 	.ascii "        should be:   %d"
+      0046CB 0D                    3726 	.db 0x0d
+      0046CC 0A                    3727 	.db 0x0a
+      0046CD 00                    3728 	.db 0x00
+                                   3729 	.area CSEG    (CODE)
+                                   3730 	.area CONST   (CODE)
+      0046CE                       3731 ___str_13:
+      0046CE 20 20 20 20 20 20 20  3732 	.ascii "        should be:   %d"
              20 73 68 6F 75 6C 64
              20 62 65 3A 20 20 20
              25 64
-      0046E2 0D                    3731 	.db 0x0d
-      0046E3 0A                    3732 	.db 0x0a
-      0046E4 00                    3733 	.db 0x00
-                                   3734 	.area CSEG    (CODE)
-                                   3735 	.area CONST   (CODE)
-      0046E5                       3736 ___str_14:
-      0046E5 42 6F 6F 6C 5F 47 6C  3737 	.ascii "Bool_Glob:           %d"
+      0046E5 0D                    3733 	.db 0x0d
+      0046E6 0A                    3734 	.db 0x0a
+      0046E7 00                    3735 	.db 0x00
+                                   3736 	.area CSEG    (CODE)
+                                   3737 	.area CONST   (CODE)
+      0046E8                       3738 ___str_14:
+      0046E8 42 6F 6F 6C 5F 47 6C  3739 	.ascii "Bool_Glob:           %d"
              6F 62 3A 20 20 20 20
              20 20 20 20 20 20 20
              25 64
-      0046FC 0D                    3738 	.db 0x0d
-      0046FD 0A                    3739 	.db 0x0a
-      0046FE 00                    3740 	.db 0x00
-                                   3741 	.area CSEG    (CODE)
-                                   3742 	.area CONST   (CODE)
-      0046FF                       3743 ___str_15:
-      0046FF 43 68 5F 31 5F 47 6C  3744 	.ascii "Ch_1_Glob:           %c"
+      0046FF 0D                    3740 	.db 0x0d
+      004700 0A                    3741 	.db 0x0a
+      004701 00                    3742 	.db 0x00
+                                   3743 	.area CSEG    (CODE)
+                                   3744 	.area CONST   (CODE)
+      004702                       3745 ___str_15:
+      004702 43 68 5F 31 5F 47 6C  3746 	.ascii "Ch_1_Glob:           %c"
              6F 62 3A 20 20 20 20
              20 20 20 20 20 20 20
              25 63
-      004716 0D                    3745 	.db 0x0d
-      004717 0A                    3746 	.db 0x0a
-      004718 00                    3747 	.db 0x00
-                                   3748 	.area CSEG    (CODE)
-                                   3749 	.area CONST   (CODE)
-      004719                       3750 ___str_16:
-      004719 20 20 20 20 20 20 20  3751 	.ascii "        should be:   %c"
+      004719 0D                    3747 	.db 0x0d
+      00471A 0A                    3748 	.db 0x0a
+      00471B 00                    3749 	.db 0x00
+                                   3750 	.area CSEG    (CODE)
+                                   3751 	.area CONST   (CODE)
+      00471C                       3752 ___str_16:
+      00471C 20 20 20 20 20 20 20  3753 	.ascii "        should be:   %c"
              20 73 68 6F 75 6C 64
              20 62 65 3A 20 20 20
              25 63
-      004730 0D                    3752 	.db 0x0d
-      004731 0A                    3753 	.db 0x0a
-      004732 00                    3754 	.db 0x00
-                                   3755 	.area CSEG    (CODE)
-                                   3756 	.area CONST   (CODE)
-      004733                       3757 ___str_17:
-      004733 43 68 5F 32 5F 47 6C  3758 	.ascii "Ch_2_Glob:           %c"
+      004733 0D                    3754 	.db 0x0d
+      004734 0A                    3755 	.db 0x0a
+      004735 00                    3756 	.db 0x00
+                                   3757 	.area CSEG    (CODE)
+                                   3758 	.area CONST   (CODE)
+      004736                       3759 ___str_17:
+      004736 43 68 5F 32 5F 47 6C  3760 	.ascii "Ch_2_Glob:           %c"
              6F 62 3A 20 20 20 20
              20 20 20 20 20 20 20
              25 63
-      00474A 0D                    3759 	.db 0x0d
-      00474B 0A                    3760 	.db 0x0a
-      00474C 00                    3761 	.db 0x00
-                                   3762 	.area CSEG    (CODE)
-                                   3763 	.area CONST   (CODE)
-      00474D                       3764 ___str_18:
-      00474D 41 72 72 5F 31 5F 47  3765 	.ascii "Arr_1_Glob[8]:       %d"
+      00474D 0D                    3761 	.db 0x0d
+      00474E 0A                    3762 	.db 0x0a
+      00474F 00                    3763 	.db 0x00
+                                   3764 	.area CSEG    (CODE)
+                                   3765 	.area CONST   (CODE)
+      004750                       3766 ___str_18:
+      004750 41 72 72 5F 31 5F 47  3767 	.ascii "Arr_1_Glob[8]:       %d"
              6C 6F 62 5B 38 5D 3A
              20 20 20 20 20 20 20
              25 64
-      004764 0D                    3766 	.db 0x0d
-      004765 0A                    3767 	.db 0x0a
-      004766 00                    3768 	.db 0x00
-                                   3769 	.area CSEG    (CODE)
-                                   3770 	.area CONST   (CODE)
-      004767                       3771 ___str_19:
-      004767 41 72 72 5F 32 5F 47  3772 	.ascii "Arr_2_Glob[8][7]:    %d"
+      004767 0D                    3768 	.db 0x0d
+      004768 0A                    3769 	.db 0x0a
+      004769 00                    3770 	.db 0x00
+                                   3771 	.area CSEG    (CODE)
+                                   3772 	.area CONST   (CODE)
+      00476A                       3773 ___str_19:
+      00476A 41 72 72 5F 32 5F 47  3774 	.ascii "Arr_2_Glob[8][7]:    %d"
              6C 6F 62 5B 38 5D 5B
              37 5D 3A 20 20 20 20
              25 64
-      00477E 0D                    3773 	.db 0x0d
-      00477F 0A                    3774 	.db 0x0a
-      004780 00                    3775 	.db 0x00
-                                   3776 	.area CSEG    (CODE)
-                                   3777 	.area CONST   (CODE)
-      004781                       3778 ___str_20:
-      004781 20 20 20 20 20 20 20  3779 	.ascii "        should be:   Number_Of_Runs + 10"
+      004781 0D                    3775 	.db 0x0d
+      004782 0A                    3776 	.db 0x0a
+      004783 00                    3777 	.db 0x00
+                                   3778 	.area CSEG    (CODE)
+                                   3779 	.area CONST   (CODE)
+      004784                       3780 ___str_20:
+      004784 20 20 20 20 20 20 20  3781 	.ascii "        should be:   Number_Of_Runs + 10"
              20 73 68 6F 75 6C 64
              20 62 65 3A 20 20 20
              4E 75 6D 62 65 72 5F
              4F 66 5F 52 75 6E 73
              20 2B 20 31 30
-      0047A9 0D                    3780 	.db 0x0d
-      0047AA 0A                    3781 	.db 0x0a
-      0047AB 00                    3782 	.db 0x00
-                                   3783 	.area CSEG    (CODE)
-                                   3784 	.area CONST   (CODE)
-      0047AC                       3785 ___str_21:
-      0047AC 50 74 72 5F 47 6C 6F  3786 	.ascii "Ptr_Glob->"
+      0047AC 0D                    3782 	.db 0x0d
+      0047AD 0A                    3783 	.db 0x0a
+      0047AE 00                    3784 	.db 0x00
+                                   3785 	.area CSEG    (CODE)
+                                   3786 	.area CONST   (CODE)
+      0047AF                       3787 ___str_21:
+      0047AF 50 74 72 5F 47 6C 6F  3788 	.ascii "Ptr_Glob->"
              62 2D 3E
-      0047B6 0D                    3787 	.db 0x0d
-      0047B7 0A                    3788 	.db 0x0a
-      0047B8 00                    3789 	.db 0x00
-                                   3790 	.area CSEG    (CODE)
-                                   3791 	.area CONST   (CODE)
-      0047B9                       3792 ___str_22:
-      0047B9 20 20 50 74 72 5F 43  3793 	.ascii "  Ptr_Comp:          %d"
+      0047B9 0D                    3789 	.db 0x0d
+      0047BA 0A                    3790 	.db 0x0a
+      0047BB 00                    3791 	.db 0x00
+                                   3792 	.area CSEG    (CODE)
+                                   3793 	.area CONST   (CODE)
+      0047BC                       3794 ___str_22:
+      0047BC 20 20 50 74 72 5F 43  3795 	.ascii "  Ptr_Comp:          %d"
              6F 6D 70 3A 20 20 20
              20 20 20 20 20 20 20
              25 64
-      0047D0 0D                    3794 	.db 0x0d
-      0047D1 0A                    3795 	.db 0x0a
-      0047D2 00                    3796 	.db 0x00
-                                   3797 	.area CSEG    (CODE)
-                                   3798 	.area CONST   (CODE)
-      0047D3                       3799 ___str_23:
-      0047D3 20 20 20 20 20 20 20  3800 	.ascii "        should be:   (implementation-dependent)"
+      0047D3 0D                    3796 	.db 0x0d
+      0047D4 0A                    3797 	.db 0x0a
+      0047D5 00                    3798 	.db 0x00
+                                   3799 	.area CSEG    (CODE)
+                                   3800 	.area CONST   (CODE)
+      0047D6                       3801 ___str_23:
+      0047D6 20 20 20 20 20 20 20  3802 	.ascii "        should be:   (implementation-dependent)"
              20 73 68 6F 75 6C 64
              20 62 65 3A 20 20 20
              28 69 6D 70 6C 65 6D
              65 6E 74 61 74 69 6F
              6E 2D 64 65 70 65 6E
              64 65 6E 74 29
-      004802 0D                    3801 	.db 0x0d
-      004803 0A                    3802 	.db 0x0a
-      004804 00                    3803 	.db 0x00
-                                   3804 	.area CSEG    (CODE)
-                                   3805 	.area CONST   (CODE)
-      004805                       3806 ___str_24:
-      004805 20 20 44 69 73 63 72  3807 	.ascii "  Discr:             %d"
+      004805 0D                    3803 	.db 0x0d
+      004806 0A                    3804 	.db 0x0a
+      004807 00                    3805 	.db 0x00
+                                   3806 	.area CSEG    (CODE)
+                                   3807 	.area CONST   (CODE)
+      004808                       3808 ___str_24:
+      004808 20 20 44 69 73 63 72  3809 	.ascii "  Discr:             %d"
              3A 20 20 20 20 20 20
              20 20 20 20 20 20 20
              25 64
-      00481C 0D                    3808 	.db 0x0d
-      00481D 0A                    3809 	.db 0x0a
-      00481E 00                    3810 	.db 0x00
-                                   3811 	.area CSEG    (CODE)
-                                   3812 	.area CONST   (CODE)
-      00481F                       3813 ___str_25:
-      00481F 20 20 45 6E 75 6D 5F  3814 	.ascii "  Enum_Comp:         %d"
+      00481F 0D                    3810 	.db 0x0d
+      004820 0A                    3811 	.db 0x0a
+      004821 00                    3812 	.db 0x00
+                                   3813 	.area CSEG    (CODE)
+                                   3814 	.area CONST   (CODE)
+      004822                       3815 ___str_25:
+      004822 20 20 45 6E 75 6D 5F  3816 	.ascii "  Enum_Comp:         %d"
              43 6F 6D 70 3A 20 20
              20 20 20 20 20 20 20
              25 64
-      004836 0D                    3815 	.db 0x0d
-      004837 0A                    3816 	.db 0x0a
-      004838 00                    3817 	.db 0x00
-                                   3818 	.area CSEG    (CODE)
-                                   3819 	.area CONST   (CODE)
-      004839                       3820 ___str_26:
-      004839 20 20 49 6E 74 5F 43  3821 	.ascii "  Int_Comp:          %d"
+      004839 0D                    3817 	.db 0x0d
+      00483A 0A                    3818 	.db 0x0a
+      00483B 00                    3819 	.db 0x00
+                                   3820 	.area CSEG    (CODE)
+                                   3821 	.area CONST   (CODE)
+      00483C                       3822 ___str_26:
+      00483C 20 20 49 6E 74 5F 43  3823 	.ascii "  Int_Comp:          %d"
              6F 6D 70 3A 20 20 20
              20 20 20 20 20 20 20
              25 64
-      004850 0D                    3822 	.db 0x0d
-      004851 0A                    3823 	.db 0x0a
-      004852 00                    3824 	.db 0x00
-                                   3825 	.area CSEG    (CODE)
-                                   3826 	.area CONST   (CODE)
-      004853                       3827 ___str_27:
-      004853 20 20 53 74 72 5F 43  3828 	.ascii "  Str_Comp:          %s"
+      004853 0D                    3824 	.db 0x0d
+      004854 0A                    3825 	.db 0x0a
+      004855 00                    3826 	.db 0x00
+                                   3827 	.area CSEG    (CODE)
+                                   3828 	.area CONST   (CODE)
+      004856                       3829 ___str_27:
+      004856 20 20 53 74 72 5F 43  3830 	.ascii "  Str_Comp:          %s"
              6F 6D 70 3A 20 20 20
              20 20 20 20 20 20 20
              25 73
-      00486A 0D                    3829 	.db 0x0d
-      00486B 0A                    3830 	.db 0x0a
-      00486C 00                    3831 	.db 0x00
-                                   3832 	.area CSEG    (CODE)
-                                   3833 	.area CONST   (CODE)
-      00486D                       3834 ___str_28:
-      00486D 20 20 20 20 20 20 20  3835 	.ascii "        should be:   DHRYSTONE PROGRAM, SOME STRING"
+      00486D 0D                    3831 	.db 0x0d
+      00486E 0A                    3832 	.db 0x0a
+      00486F 00                    3833 	.db 0x00
+                                   3834 	.area CSEG    (CODE)
+                                   3835 	.area CONST   (CODE)
+      004870                       3836 ___str_28:
+      004870 20 20 20 20 20 20 20  3837 	.ascii "        should be:   DHRYSTONE PROGRAM, SOME STRING"
              20 73 68 6F 75 6C 64
              20 62 65 3A 20 20 20
              44 48 52 59 53 54 4F
@@ -3945,22 +3947,22 @@
              52 41 4D 2C 20 53 4F
              4D 45 20 53 54 52 49
              4E 47
-      0048A0 0D                    3836 	.db 0x0d
-      0048A1 0A                    3837 	.db 0x0a
-      0048A2 00                    3838 	.db 0x00
-                                   3839 	.area CSEG    (CODE)
-                                   3840 	.area CONST   (CODE)
-      0048A3                       3841 ___str_29:
-      0048A3 4E 65 78 74 5F 50 74  3842 	.ascii "Next_Ptr_Glob->"
+      0048A3 0D                    3838 	.db 0x0d
+      0048A4 0A                    3839 	.db 0x0a
+      0048A5 00                    3840 	.db 0x00
+                                   3841 	.area CSEG    (CODE)
+                                   3842 	.area CONST   (CODE)
+      0048A6                       3843 ___str_29:
+      0048A6 4E 65 78 74 5F 50 74  3844 	.ascii "Next_Ptr_Glob->"
              72 5F 47 6C 6F 62 2D
              3E
-      0048B2 0D                    3843 	.db 0x0d
-      0048B3 0A                    3844 	.db 0x0a
-      0048B4 00                    3845 	.db 0x00
-                                   3846 	.area CSEG    (CODE)
-                                   3847 	.area CONST   (CODE)
-      0048B5                       3848 ___str_30:
-      0048B5 20 20 20 20 20 20 20  3849 	.ascii "        should be:   (implementation-dependent), same as abo"
+      0048B5 0D                    3845 	.db 0x0d
+      0048B6 0A                    3846 	.db 0x0a
+      0048B7 00                    3847 	.db 0x00
+                                   3848 	.area CSEG    (CODE)
+                                   3849 	.area CONST   (CODE)
+      0048B8                       3850 ___str_30:
+      0048B8 20 20 20 20 20 20 20  3851 	.ascii "        should be:   (implementation-dependent), same as abo"
              20 73 68 6F 75 6C 64
              20 62 65 3A 20 20 20
              28 69 6D 70 6C 65 6D
@@ -3969,64 +3971,64 @@
              64 65 6E 74 29 2C 20
              73 61 6D 65 20 61 73
              20 61 62 6F
-      0048F1 76 65                 3850 	.ascii "ve"
-      0048F3 0D                    3851 	.db 0x0d
-      0048F4 0A                    3852 	.db 0x0a
-      0048F5 00                    3853 	.db 0x00
-                                   3854 	.area CSEG    (CODE)
-                                   3855 	.area CONST   (CODE)
-      0048F6                       3856 ___str_31:
-      0048F6 49 6E 74 5F 31 5F 4C  3857 	.ascii "Int_1_Loc:           %d"
+      0048F4 76 65                 3852 	.ascii "ve"
+      0048F6 0D                    3853 	.db 0x0d
+      0048F7 0A                    3854 	.db 0x0a
+      0048F8 00                    3855 	.db 0x00
+                                   3856 	.area CSEG    (CODE)
+                                   3857 	.area CONST   (CODE)
+      0048F9                       3858 ___str_31:
+      0048F9 49 6E 74 5F 31 5F 4C  3859 	.ascii "Int_1_Loc:           %d"
              6F 63 3A 20 20 20 20
              20 20 20 20 20 20 20
              25 64
-      00490D 0D                    3858 	.db 0x0d
-      00490E 0A                    3859 	.db 0x0a
-      00490F 00                    3860 	.db 0x00
-                                   3861 	.area CSEG    (CODE)
-                                   3862 	.area CONST   (CODE)
-      004910                       3863 ___str_32:
-      004910 49 6E 74 5F 32 5F 4C  3864 	.ascii "Int_2_Loc:           %d"
+      004910 0D                    3860 	.db 0x0d
+      004911 0A                    3861 	.db 0x0a
+      004912 00                    3862 	.db 0x00
+                                   3863 	.area CSEG    (CODE)
+                                   3864 	.area CONST   (CODE)
+      004913                       3865 ___str_32:
+      004913 49 6E 74 5F 32 5F 4C  3866 	.ascii "Int_2_Loc:           %d"
              6F 63 3A 20 20 20 20
              20 20 20 20 20 20 20
              25 64
-      004927 0D                    3865 	.db 0x0d
-      004928 0A                    3866 	.db 0x0a
-      004929 00                    3867 	.db 0x00
-                                   3868 	.area CSEG    (CODE)
-                                   3869 	.area CONST   (CODE)
-      00492A                       3870 ___str_33:
-      00492A 49 6E 74 5F 33 5F 4C  3871 	.ascii "Int_3_Loc:           %d"
+      00492A 0D                    3867 	.db 0x0d
+      00492B 0A                    3868 	.db 0x0a
+      00492C 00                    3869 	.db 0x00
+                                   3870 	.area CSEG    (CODE)
+                                   3871 	.area CONST   (CODE)
+      00492D                       3872 ___str_33:
+      00492D 49 6E 74 5F 33 5F 4C  3873 	.ascii "Int_3_Loc:           %d"
              6F 63 3A 20 20 20 20
              20 20 20 20 20 20 20
              25 64
-      004941 0D                    3872 	.db 0x0d
-      004942 0A                    3873 	.db 0x0a
-      004943 00                    3874 	.db 0x00
-                                   3875 	.area CSEG    (CODE)
-                                   3876 	.area CONST   (CODE)
-      004944                       3877 ___str_34:
-      004944 45 6E 75 6D 5F 4C 6F  3878 	.ascii "Enum_Loc:            %d"
+      004944 0D                    3874 	.db 0x0d
+      004945 0A                    3875 	.db 0x0a
+      004946 00                    3876 	.db 0x00
+                                   3877 	.area CSEG    (CODE)
+                                   3878 	.area CONST   (CODE)
+      004947                       3879 ___str_34:
+      004947 45 6E 75 6D 5F 4C 6F  3880 	.ascii "Enum_Loc:            %d"
              63 3A 20 20 20 20 20
              20 20 20 20 20 20 20
              25 64
-      00495B 0D                    3879 	.db 0x0d
-      00495C 0A                    3880 	.db 0x0a
-      00495D 00                    3881 	.db 0x00
-                                   3882 	.area CSEG    (CODE)
-                                   3883 	.area CONST   (CODE)
-      00495E                       3884 ___str_35:
-      00495E 53 74 72 5F 31 5F 4C  3885 	.ascii "Str_1_Loc:           %s"
+      00495E 0D                    3881 	.db 0x0d
+      00495F 0A                    3882 	.db 0x0a
+      004960 00                    3883 	.db 0x00
+                                   3884 	.area CSEG    (CODE)
+                                   3885 	.area CONST   (CODE)
+      004961                       3886 ___str_35:
+      004961 53 74 72 5F 31 5F 4C  3887 	.ascii "Str_1_Loc:           %s"
              6F 63 3A 20 20 20 20
              20 20 20 20 20 20 20
              25 73
-      004975 0D                    3886 	.db 0x0d
-      004976 0A                    3887 	.db 0x0a
-      004977 00                    3888 	.db 0x00
-                                   3889 	.area CSEG    (CODE)
-                                   3890 	.area CONST   (CODE)
-      004978                       3891 ___str_36:
-      004978 20 20 20 20 20 20 20  3892 	.ascii "        should be:   DHRYSTONE PROGRAM, 1'ST STRING"
+      004978 0D                    3888 	.db 0x0d
+      004979 0A                    3889 	.db 0x0a
+      00497A 00                    3890 	.db 0x00
+                                   3891 	.area CSEG    (CODE)
+                                   3892 	.area CONST   (CODE)
+      00497B                       3893 ___str_36:
+      00497B 20 20 20 20 20 20 20  3894 	.ascii "        should be:   DHRYSTONE PROGRAM, 1'ST STRING"
              20 73 68 6F 75 6C 64
              20 62 65 3A 20 20 20
              44 48 52 59 53 54 4F
@@ -4034,23 +4036,23 @@
              52 41 4D 2C 20 31 27
              53 54 20 53 54 52 49
              4E 47
-      0049AB 0D                    3893 	.db 0x0d
-      0049AC 0A                    3894 	.db 0x0a
-      0049AD 00                    3895 	.db 0x00
-                                   3896 	.area CSEG    (CODE)
-                                   3897 	.area CONST   (CODE)
-      0049AE                       3898 ___str_37:
-      0049AE 53 74 72 5F 32 5F 4C  3899 	.ascii "Str_2_Loc:           %s"
+      0049AE 0D                    3895 	.db 0x0d
+      0049AF 0A                    3896 	.db 0x0a
+      0049B0 00                    3897 	.db 0x00
+                                   3898 	.area CSEG    (CODE)
+                                   3899 	.area CONST   (CODE)
+      0049B1                       3900 ___str_37:
+      0049B1 53 74 72 5F 32 5F 4C  3901 	.ascii "Str_2_Loc:           %s"
              6F 63 3A 20 20 20 20
              20 20 20 20 20 20 20
              25 73
-      0049C5 0D                    3900 	.db 0x0d
-      0049C6 0A                    3901 	.db 0x0a
-      0049C7 00                    3902 	.db 0x00
-                                   3903 	.area CSEG    (CODE)
-                                   3904 	.area CONST   (CODE)
-      0049C8                       3905 ___str_38:
-      0049C8 20 20 20 20 20 20 20  3906 	.ascii "        should be:   DHRYSTONE PROGRAM, 2'ND STRING"
+      0049C8 0D                    3902 	.db 0x0d
+      0049C9 0A                    3903 	.db 0x0a
+      0049CA 00                    3904 	.db 0x00
+                                   3905 	.area CSEG    (CODE)
+                                   3906 	.area CONST   (CODE)
+      0049CB                       3907 ___str_38:
+      0049CB 20 20 20 20 20 20 20  3908 	.ascii "        should be:   DHRYSTONE PROGRAM, 2'ND STRING"
              20 73 68 6F 75 6C 64
              20 62 65 3A 20 20 20
              44 48 52 59 53 54 4F
@@ -4058,13 +4060,13 @@
              52 41 4D 2C 20 32 27
              4E 44 20 53 54 52 49
              4E 47
-      0049FB 0D                    3907 	.db 0x0d
-      0049FC 0A                    3908 	.db 0x0a
-      0049FD 00                    3909 	.db 0x00
-                                   3910 	.area CSEG    (CODE)
-                                   3911 	.area CONST   (CODE)
-      0049FE                       3912 ___str_39:
-      0049FE 4D 65 61 73 75 72 65  3913 	.ascii "Measured time too small to obtain meaningful results"
+      0049FE 0D                    3909 	.db 0x0d
+      0049FF 0A                    3910 	.db 0x0a
+      004A00 00                    3911 	.db 0x00
+                                   3912 	.area CSEG    (CODE)
+                                   3913 	.area CONST   (CODE)
+      004A01                       3914 ___str_39:
+      004A01 4D 65 61 73 75 72 65  3915 	.ascii "Measured time too small to obtain meaningful results"
              64 20 74 69 6D 65 20
              74 6F 6F 20 73 6D 61
              6C 6C 20 74 6F 20 6F
@@ -4072,51 +4074,51 @@
              65 61 6E 69 6E 67 66
              75 6C 20 72 65 73 75
              6C 74 73
-      004A32 0D                    3914 	.db 0x0d
-      004A33 0A                    3915 	.db 0x0a
-      004A34 00                    3916 	.db 0x00
-                                   3917 	.area CSEG    (CODE)
-                                   3918 	.area CONST   (CODE)
-      004A35                       3919 ___str_40:
-      004A35 50 6C 65 61 73 65 20  3920 	.ascii "Please increase number of runs"
+      004A35 0D                    3916 	.db 0x0d
+      004A36 0A                    3917 	.db 0x0a
+      004A37 00                    3918 	.db 0x00
+                                   3919 	.area CSEG    (CODE)
+                                   3920 	.area CONST   (CODE)
+      004A38                       3921 ___str_40:
+      004A38 50 6C 65 61 73 65 20  3922 	.ascii "Please increase number of runs"
              69 6E 63 72 65 61 73
              65 20 6E 75 6D 62 65
              72 20 6F 66 20 72 75
              6E 73
-      004A53 0D                    3921 	.db 0x0d
-      004A54 0A                    3922 	.db 0x0a
-      004A55 00                    3923 	.db 0x00
-                                   3924 	.area CSEG    (CODE)
-                                   3925 	.area CONST   (CODE)
-      004A56                       3926 ___str_41:
-      004A56 4D 69 63 72 6F 73 65  3927 	.ascii "Microseconds for one run through Dhrystone: "
+      004A56 0D                    3923 	.db 0x0d
+      004A57 0A                    3924 	.db 0x0a
+      004A58 00                    3925 	.db 0x00
+                                   3926 	.area CSEG    (CODE)
+                                   3927 	.area CONST   (CODE)
+      004A59                       3928 ___str_41:
+      004A59 4D 69 63 72 6F 73 65  3929 	.ascii "Microseconds for one run through Dhrystone: "
              63 6F 6E 64 73 20 66
              6F 72 20 6F 6E 65 20
              72 75 6E 20 74 68 72
              6F 75 67 68 20 44 68
              72 79 73 74 6F 6E 65
              3A 20
-      004A82 00                    3928 	.db 0x00
-                                   3929 	.area CSEG    (CODE)
-                                   3930 	.area CONST   (CODE)
-      004A83                       3931 ___str_42:
-      004A83 25 6C 64 20           3932 	.ascii "%ld "
-      004A87 0D                    3933 	.db 0x0d
-      004A88 0A                    3934 	.db 0x0a
-      004A89 00                    3935 	.db 0x00
-                                   3936 	.area CSEG    (CODE)
-                                   3937 	.area CONST   (CODE)
-      004A8A                       3938 ___str_43:
-      004A8A 44 68 72 79 73 74 6F  3939 	.ascii "Dhrystones per Second:                      "
+      004A85 00                    3930 	.db 0x00
+                                   3931 	.area CSEG    (CODE)
+                                   3932 	.area CONST   (CODE)
+      004A86                       3933 ___str_42:
+      004A86 25 6C 64 20           3934 	.ascii "%ld "
+      004A8A 0D                    3935 	.db 0x0d
+      004A8B 0A                    3936 	.db 0x0a
+      004A8C 00                    3937 	.db 0x00
+                                   3938 	.area CSEG    (CODE)
+                                   3939 	.area CONST   (CODE)
+      004A8D                       3940 ___str_43:
+      004A8D 44 68 72 79 73 74 6F  3941 	.ascii "Dhrystones per Second:                      "
              6E 65 73 20 70 65 72
              20 53 65 63 6F 6E 64
              3A 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20
-      004AB6 00                    3940 	.db 0x00
-                                   3941 	.area CSEG    (CODE)
-                                   3942 	.area XINIT   (CODE)
-      004AC2                       3943 __xinit__Reg:
-      004AC2 01 00                 3944 	.byte #0x01, #0x00	;  1
-                                   3945 	.area CABS    (ABS,CODE)
+      004AB9 00                    3942 	.db 0x00
+                                   3943 	.area CSEG    (CODE)
+                                   3944 	.area XINIT   (CODE)
+      004AC5                       3945 __xinit__Reg:
+      004AC5 01 00                 3946 	.byte #0x01, #0x00	;  1
+                                   3947 	.area CABS    (ABS,CODE)

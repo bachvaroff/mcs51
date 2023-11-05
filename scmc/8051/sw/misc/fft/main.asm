@@ -868,8 +868,8 @@ _main:
 	inc	r7
 00150$:
 	ljmp	00117$
-;	main.c:78: PCON |= 2;
-;	main.c:79: }
+;	main.c:80: return;
+;	main.c:81: }
 	mov	sp,_bp
 	pop	_bp
 	ret
