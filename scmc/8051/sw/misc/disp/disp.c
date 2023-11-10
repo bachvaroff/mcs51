@@ -5,6 +5,8 @@
 
 #include "font6x8.h"
 
+#include "initial.h"
+
 #define pm2_entry_cout 0x0030
 #define pm2_entry_cin 0x0032
 
@@ -141,7 +143,7 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	return;
 }
 
-const static uint8_t *initial = "Sieg Heil! Sieg Heil! Viktoria! Sieg Heil! Viktoria! ";
+const static uint8_t *initial = INITIAL_MSG;
 static uint8_t buf[257];
 
 inline void delay(void) {
