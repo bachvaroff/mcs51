@@ -26,3 +26,19 @@ always @(E or D)
 
 endmodule
 
+module _latch2(E, D, Q, nQ);
+input wire E;
+input wire D;
+output wire Q;
+output wire nQ;
+
+reg rQ;
+
+assign Q = rQ;
+assign nQ = ~rQ;
+
+always @(E or D)
+	if (E) rQ <= D;
+
+endmodule
+
