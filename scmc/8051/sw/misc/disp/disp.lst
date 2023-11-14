@@ -554,7 +554,7 @@
                                     554 ;	disp.c:107: ET1 = 0;
                                     555 ;	assignBit
       00005F C2 AB            [12]  556 	clr	_ET1
-                                    557 ;	disp.c:108: EA  = 1;
+                                    557 ;	disp.c:108: EA = 1;
                                     558 ;	assignBit
       000061 D2 AF            [12]  559 	setb	_EA
                                     560 ;	disp.c:110: return;

@@ -105,7 +105,7 @@ void init_intr(void) {
 	TR1 = 0;
 	ET0 = 1;
 	ET1 = 0;
-	EA  = 1;
+	EA = 1;
 	
 	return;
 }

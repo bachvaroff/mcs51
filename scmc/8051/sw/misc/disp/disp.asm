@@ -554,7 +554,7 @@ _init_intr:
 ;	disp.c:107: ET1 = 0;
 ;	assignBit
 	clr	_ET1
-;	disp.c:108: EA  = 1;
+;	disp.c:108: EA = 1;
 ;	assignBit
 	setb	_EA
 ;	disp.c:110: return;
