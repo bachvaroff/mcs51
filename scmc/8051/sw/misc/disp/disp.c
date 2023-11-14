@@ -48,6 +48,10 @@ inline void printstr(const char *s) {
 	return;
 }
 
+#define TR0_COUNT	0xf800u
+#define TR1_COUNT_0	0x0000u
+#define TR1_COUNT_1	0xc000u
+
 #ifdef GPO_PDATA
 #define GPO_BASE_H	0xf0u
 #define GPO_BASE_L	0x00u
@@ -98,7 +102,9 @@ void clear_gpo(void) {
 
 void init_intr(void) {
 	TR0 = 0;
+	TR1 = 0;
 	ET0 = 1;
+	ET1 = 0;
 	EA  = 1;
 	
 	return;
@@ -106,9 +112,18 @@ void init_intr(void) {
 
 void init_timer0(void) {
 	TR0 = 0;
-	TMOD = 0x01;
-	TH0 = 0xf8;
-	TL0 = 0x00;
+	TMOD |= 0x01;
+	TH0 = TR0_COUNT >> 8;
+	TL0 = TR0_COUNT & 0xffu;
+	
+	return;
+}
+
+void init_timer1(void) {
+	TR1 = 0;
+	TMOD |= 0x10;
+	TH1 = TR1_COUNT_0 >> 8;
+	TL1 = TR1_COUNT_0 & 0xffu;
 	
 	return;
 }
@@ -136,40 +151,37 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	column++;
 	
 	TR0 = 0;
-	TH0 = 0xf8;
-	TL0 = 0x00;
+	TH0 = TR0_COUNT >> 8;
+	TL0 = TR0_COUNT & 0xffu;
 	TR0 = 1;
+	
+	return;
+}
+
+inline void delay(void) {
+	TR1 = 0;
+	TH1 = TR1_COUNT_0 >> 8;
+	TL1 = TR1_COUNT_0 & 0xffu;	
+	TF1 = 0;
+	TR1 = 1;
+	while (!TF1);
+	TF1 = 0;
+	
+	TR1 = 0;
+	TH1 = TR1_COUNT_1 >> 8;
+	TL1 = TR1_COUNT_1 & 0xffu;	
+	TF1 = 0;
+	TR1 = 1;
+	while (!TF1);
+	TF1 = 0;
+	
+	TR1 = 0;
 	
 	return;
 }
 
 const static uint8_t *initial = INITIAL_MSG;
 static uint8_t buf[257];
-
-inline void delay(void) {
-	register uint8_t i, j;
-	
-	i = 0u;
-	do {
-		j = 0u;
-		do {
-			__asm
-				nop
-				nop
-				nop
-				nop
-#if 0
-				nop
-				nop
-				nop
-				nop
-#endif
-			__endasm;
-		} while ((++j) ^ 0x80u);
-	} while ((++i) ^ 0x80u);
-	
-	return;
-}
 
 int scroll(uint8_t *msg) {
 	register uint8_t symbol, bit;
@@ -216,6 +228,7 @@ void main(void) {
 	clear_gpo();
 	init_disp();
 	init_timer0();
+	init_timer1();
 	init_intr();
 	TR0 = 1;
 	
