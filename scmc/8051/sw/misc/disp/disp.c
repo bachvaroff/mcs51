@@ -52,12 +52,9 @@ inline void printstr(const char *s) {
 #define TR1_COUNT_0	0x0000u
 #define TR1_COUNT_1	0xc000u
 
-#ifdef GPO_PDATA
 #define GPO_BASE_H	0xf0u
 #define GPO_BASE_L	0x00u
-#else
-#define GPO_BASE	0xf000u
-#endif
+#define GPO_BASE	((GPO_BASE_H << 8) | GPO_BASE_L)
 #define GPO_OE		6
 
 #ifdef GPO_PDATA

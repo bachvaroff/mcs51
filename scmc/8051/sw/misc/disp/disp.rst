@@ -380,7 +380,7 @@
                                     380 	.globl __mcs51_genXINIT
                                     381 	.globl __mcs51_genXRAMCLEAR
                                     382 	.globl __mcs51_genRAMCLEAR
-                                    383 ;	disp.c:68: __idata const uint8_t dcol[8] = {
+                                    383 ;	disp.c:65: __idata const uint8_t dcol[8] = {
       00206A 78 21            [12]  384 	mov	r0,#_dcol
       00206C 76 80            [12]  385 	mov	@r0,#0x80
       00206E 78 22            [12]  386 	mov	r0,#(_dcol + 0x0001)
@@ -468,7 +468,7 @@
                                     468 ;------------------------------------------------------------
                                     469 ;Allocation info for local variables in function 'init_gpo'
                                     470 ;------------------------------------------------------------
-                                    471 ;	disp.c:87: void init_gpo(void) {
+                                    471 ;	disp.c:84: void init_gpo(void) {
                                     472 ;	-----------------------------------------
                                     473 ;	 function init_gpo
                                     474 ;	-----------------------------------------
@@ -481,12 +481,12 @@
                            000002   481 	ar2 = 0x02
                            000001   482 	ar1 = 0x01
                            000000   483 	ar0 = 0x00
-                                    484 ;	disp.c:88: P1_7 = 0;
+                                    484 ;	disp.c:85: P1_7 = 0;
                                     485 ;	assignBit
       0020AF C2 97            [12]  486 	clr	_P1_7
-                                    487 ;	disp.c:90: P2 = GPO_BASE_H;
+                                    487 ;	disp.c:87: P2 = GPO_BASE_H;
       0020B1 75 A0 F0         [24]  488 	mov	_P2,#0xf0
-                                    489 ;	disp.c:92: CLEAR_GPO;
+                                    489 ;	disp.c:89: CLEAR_GPO;
       0020B4 78 06            [12]  490 	mov	r0,#(_gpo + 0x0006)
       0020B6 74 3F            [12]  491 	mov	a,#0x3f
       0020B8 F2               [24]  492 	movx	@r0,a
@@ -503,18 +503,18 @@
       0020C8 F2               [24]  503 	movx	@r0,a
       0020C9 78 05            [12]  504 	mov	r0,#(_gpo + 0x0005)
       0020CB F2               [24]  505 	movx	@r0,a
-                                    506 ;	disp.c:94: return;
-                                    507 ;	disp.c:95: }
+                                    506 ;	disp.c:91: return;
+                                    507 ;	disp.c:92: }
       0020CC 22               [24]  508 	ret
                                     509 ;------------------------------------------------------------
                                     510 ;Allocation info for local variables in function 'clear_gpo'
                                     511 ;------------------------------------------------------------
-                                    512 ;	disp.c:97: void clear_gpo(void) {
+                                    512 ;	disp.c:94: void clear_gpo(void) {
                                     513 ;	-----------------------------------------
                                     514 ;	 function clear_gpo
                                     515 ;	-----------------------------------------
       0020CD                        516 _clear_gpo:
-                                    517 ;	disp.c:98: CLEAR_GPO;
+                                    517 ;	disp.c:95: CLEAR_GPO;
       0020CD 78 06            [12]  518 	mov	r0,#(_gpo + 0x0006)
       0020CF 74 3F            [12]  519 	mov	a,#0x3f
       0020D1 F2               [24]  520 	movx	@r0,a
@@ -531,98 +531,98 @@
       0020E1 F2               [24]  531 	movx	@r0,a
       0020E2 78 05            [12]  532 	mov	r0,#(_gpo + 0x0005)
       0020E4 F2               [24]  533 	movx	@r0,a
-                                    534 ;	disp.c:100: return;
-                                    535 ;	disp.c:101: }
+                                    534 ;	disp.c:97: return;
+                                    535 ;	disp.c:98: }
       0020E5 22               [24]  536 	ret
                                     537 ;------------------------------------------------------------
                                     538 ;Allocation info for local variables in function 'init_intr'
                                     539 ;------------------------------------------------------------
-                                    540 ;	disp.c:103: void init_intr(void) {
+                                    540 ;	disp.c:100: void init_intr(void) {
                                     541 ;	-----------------------------------------
                                     542 ;	 function init_intr
                                     543 ;	-----------------------------------------
       0020E6                        544 _init_intr:
-                                    545 ;	disp.c:104: TR0 = 0;
+                                    545 ;	disp.c:101: TR0 = 0;
                                     546 ;	assignBit
       0020E6 C2 8C            [12]  547 	clr	_TR0
-                                    548 ;	disp.c:105: TR1 = 0;
+                                    548 ;	disp.c:102: TR1 = 0;
                                     549 ;	assignBit
       0020E8 C2 8E            [12]  550 	clr	_TR1
-                                    551 ;	disp.c:106: ET0 = 1;
+                                    551 ;	disp.c:103: ET0 = 1;
                                     552 ;	assignBit
       0020EA D2 A9            [12]  553 	setb	_ET0
-                                    554 ;	disp.c:107: ET1 = 0;
+                                    554 ;	disp.c:104: ET1 = 0;
                                     555 ;	assignBit
       0020EC C2 AB            [12]  556 	clr	_ET1
-                                    557 ;	disp.c:108: EA = 1;
+                                    557 ;	disp.c:105: EA = 1;
                                     558 ;	assignBit
       0020EE D2 AF            [12]  559 	setb	_EA
-                                    560 ;	disp.c:110: return;
-                                    561 ;	disp.c:111: }
+                                    560 ;	disp.c:107: return;
+                                    561 ;	disp.c:108: }
       0020F0 22               [24]  562 	ret
                                     563 ;------------------------------------------------------------
                                     564 ;Allocation info for local variables in function 'init_timer0'
                                     565 ;------------------------------------------------------------
-                                    566 ;	disp.c:113: void init_timer0(void) {
+                                    566 ;	disp.c:110: void init_timer0(void) {
                                     567 ;	-----------------------------------------
                                     568 ;	 function init_timer0
                                     569 ;	-----------------------------------------
       0020F1                        570 _init_timer0:
-                                    571 ;	disp.c:114: TR0 = 0;
+                                    571 ;	disp.c:111: TR0 = 0;
                                     572 ;	assignBit
       0020F1 C2 8C            [12]  573 	clr	_TR0
-                                    574 ;	disp.c:115: TMOD |= 0x01;
+                                    574 ;	disp.c:112: TMOD |= 0x01;
       0020F3 43 89 01         [24]  575 	orl	_TMOD,#0x01
-                                    576 ;	disp.c:116: TH0 = TR0_COUNT >> 8;
+                                    576 ;	disp.c:113: TH0 = TR0_COUNT >> 8;
       0020F6 75 8C F8         [24]  577 	mov	_TH0,#0xf8
-                                    578 ;	disp.c:117: TL0 = TR0_COUNT & 0xffu;
+                                    578 ;	disp.c:114: TL0 = TR0_COUNT & 0xffu;
       0020F9 75 8A 00         [24]  579 	mov	_TL0,#0x00
-                                    580 ;	disp.c:119: return;
-                                    581 ;	disp.c:120: }
+                                    580 ;	disp.c:116: return;
+                                    581 ;	disp.c:117: }
       0020FC 22               [24]  582 	ret
                                     583 ;------------------------------------------------------------
                                     584 ;Allocation info for local variables in function 'init_timer1'
                                     585 ;------------------------------------------------------------
-                                    586 ;	disp.c:122: void init_timer1(void) {
+                                    586 ;	disp.c:119: void init_timer1(void) {
                                     587 ;	-----------------------------------------
                                     588 ;	 function init_timer1
                                     589 ;	-----------------------------------------
       0020FD                        590 _init_timer1:
-                                    591 ;	disp.c:123: TR1 = 0;
+                                    591 ;	disp.c:120: TR1 = 0;
                                     592 ;	assignBit
       0020FD C2 8E            [12]  593 	clr	_TR1
-                                    594 ;	disp.c:124: TMOD |= 0x10;
+                                    594 ;	disp.c:121: TMOD |= 0x10;
       0020FF 43 89 10         [24]  595 	orl	_TMOD,#0x10
-                                    596 ;	disp.c:125: TH1 = TR1_COUNT_0 >> 8;
+                                    596 ;	disp.c:122: TH1 = TR1_COUNT_0 >> 8;
       002102 75 8D 00         [24]  597 	mov	_TH1,#0x00
-                                    598 ;	disp.c:126: TL1 = TR1_COUNT_0 & 0xffu;
+                                    598 ;	disp.c:123: TL1 = TR1_COUNT_0 & 0xffu;
       002105 75 8B 00         [24]  599 	mov	_TL1,#0x00
-                                    600 ;	disp.c:128: return;
-                                    601 ;	disp.c:129: }
+                                    600 ;	disp.c:125: return;
+                                    601 ;	disp.c:126: }
       002108 22               [24]  602 	ret
                                     603 ;------------------------------------------------------------
                                     604 ;Allocation info for local variables in function 'init_disp'
                                     605 ;------------------------------------------------------------
-                                    606 ;	disp.c:131: void init_disp(void) {
+                                    606 ;	disp.c:128: void init_disp(void) {
                                     607 ;	-----------------------------------------
                                     608 ;	 function init_disp
                                     609 ;	-----------------------------------------
       002109                        610 _init_disp:
-                                    611 ;	disp.c:132: gpo[DISP_COL] = 0u;
+                                    611 ;	disp.c:129: gpo[DISP_COL] = 0u;
       002109 78 05            [12]  612 	mov	r0,#(_gpo + 0x0005)
       00210B E4               [12]  613 	clr	a
       00210C F2               [24]  614 	movx	@r0,a
-                                    615 ;	disp.c:133: gpo[DISP_DATA] = 0u;
+                                    615 ;	disp.c:130: gpo[DISP_DATA] = 0u;
       00210D 78 04            [12]  616 	mov	r0,#(_gpo + 0x0004)
       00210F F2               [24]  617 	movx	@r0,a
-                                    618 ;	disp.c:134: OE = 0x0fu; /* 00_001111 */
+                                    618 ;	disp.c:131: OE = 0x0fu; /* 00_001111 */
       002110 78 32            [12]  619 	mov	r0,#_OE
       002112 76 0F            [12]  620 	mov	@r0,#0x0f
-                                    621 ;	disp.c:135: gpo[GPO_OE] = OE;
+                                    621 ;	disp.c:132: gpo[GPO_OE] = OE;
       002114 78 06            [12]  622 	mov	r0,#(_gpo + 0x0006)
       002116 74 0F            [12]  623 	mov	a,#0x0f
       002118 F2               [24]  624 	movx	@r0,a
-                                    625 ;	disp.c:137: for (column = 0u; column < 8u; column++)
+                                    625 ;	disp.c:134: for (column = 0u; column < 8u; column++)
       002119 78 31            [12]  626 	mov	r0,#_column
       00211B 76 00            [12]  627 	mov	@r0,#0x00
       00211D                        628 00103$:
@@ -630,13 +630,13 @@
       00211F B6 08 00         [24]  630 	cjne	@r0,#0x08,00115$
       002122                        631 00115$:
       002122 50 11            [24]  632 	jnc	00101$
-                                    633 ;	disp.c:138: ddata[column] = 0u;
+                                    633 ;	disp.c:135: ddata[column] = 0u;
       002124 78 31            [12]  634 	mov	r0,#_column
       002126 E6               [12]  635 	mov	a,@r0
       002127 24 29            [12]  636 	add	a,#_ddata
       002129 F8               [12]  637 	mov	r0,a
       00212A 76 00            [12]  638 	mov	@r0,#0x00
-                                    639 ;	disp.c:137: for (column = 0u; column < 8u; column++)
+                                    639 ;	disp.c:134: for (column = 0u; column < 8u; column++)
       00212C 78 31            [12]  640 	mov	r0,#_column
       00212E E6               [12]  641 	mov	a,@r0
       00212F 78 31            [12]  642 	mov	r0,#_column
@@ -644,18 +644,18 @@
       002132 F6               [12]  644 	mov	@r0,a
       002133 80 E8            [24]  645 	sjmp	00103$
       002135                        646 00101$:
-                                    647 ;	disp.c:139: column = 0u;
+                                    647 ;	disp.c:136: column = 0u;
       002135 78 31            [12]  648 	mov	r0,#_column
       002137 76 00            [12]  649 	mov	@r0,#0x00
-                                    650 ;	disp.c:141: return;
-                                    651 ;	disp.c:142: }
+                                    650 ;	disp.c:138: return;
+                                    651 ;	disp.c:139: }
       002139 22               [24]  652 	ret
                                     653 ;------------------------------------------------------------
                                     654 ;Allocation info for local variables in function 'timer0_intr'
                                     655 ;------------------------------------------------------------
                                     656 ;t                         Allocated to registers r7 
                                     657 ;------------------------------------------------------------
-                                    658 ;	disp.c:144: void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
+                                    658 ;	disp.c:141: void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
                                     659 ;	-----------------------------------------
                                     660 ;	 function timer0_intr
                                     661 ;	-----------------------------------------
@@ -671,15 +671,15 @@
       00213A C0 E0            [24]  671 	push	acc
       00213C C0 D0            [24]  672 	push	psw
       00213E 75 D0 08         [24]  673 	mov	psw,#0x08
-                                    674 ;	disp.c:147: t = column & 7u;
+                                    674 ;	disp.c:144: t = column & 7u;
       002141 78 31            [12]  675 	mov	r0,#_column
       002143 86 0F            [24]  676 	mov	ar7,@r0
       002145 53 0F 07         [24]  677 	anl	ar7,#0x07
-                                    678 ;	disp.c:148: gpo[DISP_COL] = 0u;
+                                    678 ;	disp.c:145: gpo[DISP_COL] = 0u;
       002148 78 05            [12]  679 	mov	r0,#(_gpo + 0x0005)
       00214A E4               [12]  680 	clr	a
       00214B F2               [24]  681 	movx	@r0,a
-                                    682 ;	disp.c:149: gpo[DISP_DATA] = ddata[t];
+                                    682 ;	disp.c:146: gpo[DISP_DATA] = ddata[t];
       00214C EF               [12]  683 	mov	a,r7
       00214D 24 29            [12]  684 	add	a,#_ddata
       00214F F9               [12]  685 	mov	r1,a
@@ -687,7 +687,7 @@
       002152 78 04            [12]  687 	mov	r0,#(_gpo + 0x0004)
       002154 EE               [12]  688 	mov	a,r6
       002155 F2               [24]  689 	movx	@r0,a
-                                    690 ;	disp.c:150: gpo[DISP_COL] = dcol[t];
+                                    690 ;	disp.c:147: gpo[DISP_COL] = dcol[t];
       002156 EF               [12]  691 	mov	a,r7
       002157 24 21            [12]  692 	add	a,#_dcol
       002159 F9               [12]  693 	mov	r1,a
@@ -695,24 +695,24 @@
       00215C 78 05            [12]  695 	mov	r0,#(_gpo + 0x0005)
       00215E EF               [12]  696 	mov	a,r7
       00215F F2               [24]  697 	movx	@r0,a
-                                    698 ;	disp.c:151: column++;
+                                    698 ;	disp.c:148: column++;
       002160 78 31            [12]  699 	mov	r0,#_column
       002162 E6               [12]  700 	mov	a,@r0
       002163 78 31            [12]  701 	mov	r0,#_column
       002165 04               [12]  702 	inc	a
       002166 F6               [12]  703 	mov	@r0,a
-                                    704 ;	disp.c:153: TR0 = 0;
+                                    704 ;	disp.c:150: TR0 = 0;
                                     705 ;	assignBit
       002167 C2 8C            [12]  706 	clr	_TR0
-                                    707 ;	disp.c:154: TH0 = TR0_COUNT >> 8;
+                                    707 ;	disp.c:151: TH0 = TR0_COUNT >> 8;
       002169 75 8C F8         [24]  708 	mov	_TH0,#0xf8
-                                    709 ;	disp.c:155: TL0 = TR0_COUNT & 0xffu;
+                                    709 ;	disp.c:152: TL0 = TR0_COUNT & 0xffu;
       00216C 75 8A 00         [24]  710 	mov	_TL0,#0x00
-                                    711 ;	disp.c:156: TR0 = 1;
+                                    711 ;	disp.c:153: TR0 = 1;
                                     712 ;	assignBit
       00216F D2 8C            [12]  713 	setb	_TR0
-                                    714 ;	disp.c:158: return;
-                                    715 ;	disp.c:159: }
+                                    714 ;	disp.c:155: return;
+                                    715 ;	disp.c:156: }
       002171 D0 D0            [24]  716 	pop	psw
       002173 D0 E0            [24]  717 	pop	acc
       002175 32               [24]  718 	reti
@@ -734,7 +734,7 @@
                                     734 ;sloc1                     Allocated to stack - _bp +18
                                     735 ;sloc2                     Allocated to stack - _bp +19
                                     736 ;------------------------------------------------------------
-                                    737 ;	disp.c:186: int scroll(uint8_t *msg) {
+                                    737 ;	disp.c:183: int scroll(uint8_t *msg) {
                                     738 ;	-----------------------------------------
                                     739 ;	 function scroll
                                     740 ;	-----------------------------------------
@@ -755,7 +755,7 @@
       002181 E5 81            [12]  755 	mov	a,sp
       002183 24 05            [12]  756 	add	a,#0x05
       002185 F5 81            [12]  757 	mov	sp,a
-                                    758 ;	disp.c:192: for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
+                                    758 ;	disp.c:189: for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
       002187 E5 10            [12]  759 	mov	a,_bp
       002189 24 06            [12]  760 	add	a,#0x06
       00218B F8               [12]  761 	mov	r0,a
@@ -768,13 +768,13 @@
       002195 08               [12]  768 	inc	r0
       002196 F6               [12]  769 	mov	@r0,a
       002197                        770 00136$:
-                                    771 ;	disp.c:193: if (!bit) {
+                                    771 ;	disp.c:190: if (!bit) {
       002197 E5 10            [12]  772 	mov	a,_bp
       002199 24 06            [12]  773 	add	a,#0x06
       00219B F8               [12]  774 	mov	r0,a
       00219C E6               [12]  775 	mov	a,@r0
       00219D 70 55            [24]  776 	jnz	00104$
-                                    777 ;	disp.c:194: symbol = msg[i];
+                                    777 ;	disp.c:191: symbol = msg[i];
       00219F A8 10            [24]  778 	mov	r0,_bp
       0021A1 08               [12]  779 	inc	r0
       0021A2 E5 10            [12]  780 	mov	a,_bp
@@ -799,10 +799,10 @@
       0021BE 24 04            [12]  799 	add	a,#0x04
       0021C0 F8               [12]  800 	mov	r0,a
       0021C1 A6 02            [24]  801 	mov	@r0,ar2
-                                    802 ;	disp.c:195: if (!symbol) {
+                                    802 ;	disp.c:192: if (!symbol) {
       0021C3 EA               [12]  803 	mov	a,r2
       0021C4 70 1D            [24]  804 	jnz	00102$
-                                    805 ;	disp.c:196: i = 0u;
+                                    805 ;	disp.c:193: i = 0u;
       0021C6 E5 10            [12]  806 	mov	a,_bp
       0021C8 24 07            [12]  807 	add	a,#0x07
       0021CA F8               [12]  808 	mov	r0,a
@@ -810,7 +810,7 @@
       0021CC F6               [12]  810 	mov	@r0,a
       0021CD 08               [12]  811 	inc	r0
       0021CE F6               [12]  812 	mov	@r0,a
-                                    813 ;	disp.c:197: symbol = msg[i];
+                                    813 ;	disp.c:194: symbol = msg[i];
       0021CF A8 10            [24]  814 	mov	r0,_bp
       0021D1 08               [12]  815 	inc	r0
       0021D2 86 82            [24]  816 	mov	dpl,@r0
@@ -824,7 +824,7 @@
       0021DF 12 26 4E         [24]  824 	lcall	__gptrget
       0021E2 F7               [12]  825 	mov	@r1,a
       0021E3                        826 00102$:
-                                    827 ;	disp.c:199: i++;
+                                    827 ;	disp.c:196: i++;
       0021E3 E5 10            [12]  828 	mov	a,_bp
       0021E5 24 07            [12]  829 	add	a,#0x07
       0021E7 F8               [12]  830 	mov	r0,a
@@ -833,21 +833,21 @@
       0021EC 08               [12]  833 	inc	r0
       0021ED 06               [12]  834 	inc	@r0
       0021EE                        835 00223$:
-                                    836 ;	disp.c:200: OE = 0x8fu;
+                                    836 ;	disp.c:197: OE = 0x8fu;
       0021EE 78 32            [12]  837 	mov	r0,#_OE
       0021F0 76 8F            [12]  838 	mov	@r0,#0x8f
       0021F2 80 04            [24]  839 	sjmp	00105$
       0021F4                        840 00104$:
-                                    841 ;	disp.c:201: } else OE = 0x0fu;
+                                    841 ;	disp.c:198: } else OE = 0x0fu;
       0021F4 78 32            [12]  842 	mov	r0,#_OE
       0021F6 76 0F            [12]  843 	mov	@r0,#0x0f
       0021F8                        844 00105$:
-                                    845 ;	disp.c:202: gpo[GPO_OE] = OE;
+                                    845 ;	disp.c:199: gpo[GPO_OE] = OE;
       0021F8 78 06            [12]  846 	mov	r0,#(_gpo + 0x0006)
       0021FA 79 32            [12]  847 	mov	r1,#_OE
       0021FC E7               [12]  848 	mov	a,@r1
       0021FD F2               [24]  849 	movx	@r0,a
-                                    850 ;	disp.c:204: if ((SKIPL > bit) || (bit > (7u - SKIPH))) continue;
+                                    850 ;	disp.c:201: if ((SKIPL > bit) || (bit > (7u - SKIPH))) continue;
       0021FE E5 10            [12]  851 	mov	a,_bp
       002200 24 06            [12]  852 	add	a,#0x06
       002202 F8               [12]  853 	mov	r0,a
@@ -856,50 +856,50 @@
       002206 50 03            [24]  856 	jnc	00224$
       002208 02 22 DF         [24]  857 	ljmp	00120$
       00220B                        858 00224$:
-                                    859 ;	disp.c:162: TR1 = 0;
+                                    859 ;	disp.c:159: TR1 = 0;
                                     860 ;	assignBit
       00220B C2 8E            [12]  861 	clr	_TR1
-                                    862 ;	disp.c:163: TH1 = TR1_COUNT_0 >> 8;
+                                    862 ;	disp.c:160: TH1 = TR1_COUNT_0 >> 8;
       00220D 75 8D 00         [24]  863 	mov	_TH1,#0x00
-                                    864 ;	disp.c:164: TL1 = TR1_COUNT_0 & 0xffu;	
+                                    864 ;	disp.c:161: TL1 = TR1_COUNT_0 & 0xffu;	
       002210 75 8B 00         [24]  865 	mov	_TL1,#0x00
-                                    866 ;	disp.c:165: TF1 = 0;
+                                    866 ;	disp.c:162: TF1 = 0;
                                     867 ;	assignBit
       002213 C2 8F            [12]  868 	clr	_TF1
-                                    869 ;	disp.c:166: TR1 = 1;
+                                    869 ;	disp.c:163: TR1 = 1;
                                     870 ;	assignBit
       002215 D2 8E            [12]  871 	setb	_TR1
-                                    872 ;	disp.c:167: while (!TF1);
+                                    872 ;	disp.c:164: while (!TF1);
       002217                        873 00122$:
-                                    874 ;	disp.c:168: TF1 = 0;
+                                    874 ;	disp.c:165: TF1 = 0;
                                     875 ;	assignBit
       002217 10 8F 02         [24]  876 	jbc	_TF1,00225$
       00221A 80 FB            [24]  877 	sjmp	00122$
       00221C                        878 00225$:
-                                    879 ;	disp.c:170: TR1 = 0;
+                                    879 ;	disp.c:167: TR1 = 0;
                                     880 ;	assignBit
       00221C C2 8E            [12]  881 	clr	_TR1
-                                    882 ;	disp.c:171: TH1 = TR1_COUNT_1 >> 8;
+                                    882 ;	disp.c:168: TH1 = TR1_COUNT_1 >> 8;
       00221E 75 8D C0         [24]  883 	mov	_TH1,#0xc0
-                                    884 ;	disp.c:172: TL1 = TR1_COUNT_1 & 0xffu;	
+                                    884 ;	disp.c:169: TL1 = TR1_COUNT_1 & 0xffu;	
       002221 75 8B 00         [24]  885 	mov	_TL1,#0x00
-                                    886 ;	disp.c:173: TF1 = 0;
+                                    886 ;	disp.c:170: TF1 = 0;
                                     887 ;	assignBit
       002224 C2 8F            [12]  888 	clr	_TF1
-                                    889 ;	disp.c:174: TR1 = 1;
+                                    889 ;	disp.c:171: TR1 = 1;
                                     890 ;	assignBit
       002226 D2 8E            [12]  891 	setb	_TR1
-                                    892 ;	disp.c:175: while (!TF1);
+                                    892 ;	disp.c:172: while (!TF1);
       002228                        893 00125$:
-                                    894 ;	disp.c:176: TF1 = 0;
+                                    894 ;	disp.c:173: TF1 = 0;
                                     895 ;	assignBit
       002228 10 8F 02         [24]  896 	jbc	_TF1,00226$
       00222B 80 FB            [24]  897 	sjmp	00125$
       00222D                        898 00226$:
-                                    899 ;	disp.c:178: TR1 = 0;
+                                    899 ;	disp.c:175: TR1 = 0;
                                     900 ;	assignBit
       00222D C2 8E            [12]  901 	clr	_TR1
-                                    902 ;	disp.c:208: for (j = 0u; j < 8u; j++)
+                                    902 ;	disp.c:205: for (j = 0u; j < 8u; j++)
       00222F E5 10            [12]  903 	mov	a,_bp
       002231 24 04            [12]  904 	add	a,#0x04
       002233 F8               [12]  905 	mov	r0,a
@@ -920,7 +920,7 @@
       00224A FD               [12]  920 	mov	r5,a
       00224B 7C 00            [12]  921 	mov	r4,#0x00
       00224D                        922 00131$:
-                                    923 ;	disp.c:209: ddata[j] = ((FONT_TABLE[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
+                                    923 ;	disp.c:206: ddata[j] = ((FONT_TABLE[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
       00224D EC               [12]  924 	mov	a,r4
       00224E 24 29            [12]  925 	add	a,#_ddata
       002250 F9               [12]  926 	mov	r1,a
@@ -950,12 +950,12 @@
       002270 13               [12]  950 	rrc	a
       002271 4F               [12]  951 	orl	a,r7
       002272 F7               [12]  952 	mov	@r1,a
-                                    953 ;	disp.c:208: for (j = 0u; j < 8u; j++)
+                                    953 ;	disp.c:205: for (j = 0u; j < 8u; j++)
       002273 0C               [12]  954 	inc	r4
       002274 BC 08 00         [24]  955 	cjne	r4,#0x08,00230$
       002277                        956 00230$:
       002277 40 D4            [24]  957 	jc	00131$
-                                    958 ;	disp.c:211: if ((r = getchar_poll()) >= 0) {
+                                    958 ;	disp.c:208: if ((r = getchar_poll()) >= 0) {
       002279 12 20 9B         [24]  959 	lcall	_getchar_poll
       00227C AB 82            [24]  960 	mov	r3,dpl
       00227E AC 83            [24]  961 	mov	r4,dph
@@ -963,13 +963,13 @@
       002282 EC               [12]  963 	mov	a,r4
       002283 FE               [12]  964 	mov	r6,a
       002284 20 E7 58         [24]  965 	jb	acc.7,00120$
-                                    966 ;	disp.c:212: r = toupper(r);
+                                    966 ;	disp.c:209: r = toupper(r);
       002287 8F 82            [24]  967 	mov	dpl,r7
       002289 8E 83            [24]  968 	mov	dph,r6
       00228B 12 25 70         [24]  969 	lcall	_toupper
       00228E AB 82            [24]  970 	mov	r3,dpl
       002290 AC 83            [24]  971 	mov	r4,dph
-                                    972 ;	disp.c:213: if ((r == (int)'P') || (r == (int)' ')) {
+                                    972 ;	disp.c:210: if ((r == (int)'P') || (r == (int)' ')) {
       002292 BB 50 05         [24]  973 	cjne	r3,#0x50,00233$
       002295 BC 00 02         [24]  974 	cjne	r4,#0x00,00233$
       002298 80 06            [24]  975 	sjmp	00114$
@@ -977,7 +977,7 @@
       00229A BB 20 2A         [24]  977 	cjne	r3,#0x20,00115$
       00229D BC 00 27         [24]  978 	cjne	r4,#0x00,00115$
       0022A0                        979 00114$:
-                                    980 ;	disp.c:214: printstr("PAUSE\r\n");
+                                    980 ;	disp.c:211: printstr("PAUSE\r\n");
       0022A0 7E 89            [12]  981 	mov	r6,#___str_0
       0022A2 7C 26            [12]  982 	mov	r4,#(___str_0 >> 8)
       0022A4 7B 80            [12]  983 	mov	r3,#0x80
@@ -995,16 +995,16 @@
       0022B6 8F 83            [24]  995 	mov	dph,r7
       0022B8 12 20 8D         [24]  996 	lcall	_putchar
       0022BB 0E               [12]  997 	inc	r6
-                                    998 ;	disp.c:214: printstr("PAUSE\r\n");
+                                    998 ;	disp.c:211: printstr("PAUSE\r\n");
       0022BC BE 00 E7         [24]  999 	cjne	r6,#0x00,00134$
       0022BF 0C               [12] 1000 	inc	r4
       0022C0 80 E4            [24] 1001 	sjmp	00134$
       0022C2                       1002 00130$:
-                                   1003 ;	disp.c:215: (void)getchar();
+                                   1003 ;	disp.c:212: (void)getchar();
       0022C2 12 20 92         [24] 1004 	lcall	_getchar
       0022C5 80 18            [24] 1005 	sjmp	00120$
       0022C7                       1006 00115$:
-                                   1007 ;	disp.c:216: } else if ((r == (int)'T') || (r == (int)'R') || (r == (int)'L')) break;
+                                   1007 ;	disp.c:213: } else if ((r == (int)'T') || (r == (int)'R') || (r == (int)'L')) break;
       0022C7 BB 54 05         [24] 1008 	cjne	r3,#0x54,00238$
       0022CA BC 00 02         [24] 1009 	cjne	r4,#0x00,00238$
       0022CD 80 24            [24] 1010 	sjmp	00121$
@@ -1018,7 +1018,7 @@
       0022DD 80 14            [24] 1018 	sjmp	00121$
       0022DF                       1019 00240$:
       0022DF                       1020 00120$:
-                                   1021 ;	disp.c:192: for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
+                                   1021 ;	disp.c:189: for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
       0022DF E5 10            [12] 1022 	mov	a,_bp
       0022E1 24 06            [12] 1023 	add	a,#0x06
       0022E3 F8               [12] 1024 	mov	r0,a
@@ -1033,10 +1033,10 @@
       0022EF F6               [12] 1033 	mov	@r0,a
       0022F0 02 21 97         [24] 1034 	ljmp	00136$
       0022F3                       1035 00121$:
-                                   1036 ;	disp.c:220: return r;
+                                   1036 ;	disp.c:217: return r;
       0022F3 8B 82            [24] 1037 	mov	dpl,r3
       0022F5 8C 83            [24] 1038 	mov	dph,r4
-                                   1039 ;	disp.c:221: }
+                                   1039 ;	disp.c:218: }
       0022F7 85 10 81         [24] 1040 	mov	sp,_bp
       0022FA D0 10            [24] 1041 	pop	_bp
       0022FC 22               [24] 1042 	ret
@@ -1067,7 +1067,7 @@
                                    1067 ;s                         Allocated to registers r5 r6 r7 
                                    1068 ;sloc0                     Allocated to stack - _bp +65
                                    1069 ;------------------------------------------------------------
-                                   1070 ;	disp.c:223: void main(void) {
+                                   1070 ;	disp.c:220: void main(void) {
                                    1071 ;	-----------------------------------------
                                    1072 ;	 function main
                                    1073 ;	-----------------------------------------
@@ -1076,26 +1076,26 @@
       0022FF 85 81 10         [24] 1076 	mov	_bp,sp
       002302 05 81            [12] 1077 	inc	sp
       002304 05 81            [12] 1078 	inc	sp
-                                   1079 ;	disp.c:227: init_gpo();
+                                   1079 ;	disp.c:224: init_gpo();
       002306 12 20 AF         [24] 1080 	lcall	_init_gpo
-                                   1081 ;	disp.c:228: clear_gpo();
+                                   1081 ;	disp.c:225: clear_gpo();
       002309 12 20 CD         [24] 1082 	lcall	_clear_gpo
-                                   1083 ;	disp.c:229: init_disp();
+                                   1083 ;	disp.c:226: init_disp();
       00230C 12 21 09         [24] 1084 	lcall	_init_disp
-                                   1085 ;	disp.c:230: init_timer0();
+                                   1085 ;	disp.c:227: init_timer0();
       00230F 12 20 F1         [24] 1086 	lcall	_init_timer0
-                                   1087 ;	disp.c:231: init_timer1();
+                                   1087 ;	disp.c:228: init_timer1();
       002312 12 20 FD         [24] 1088 	lcall	_init_timer1
-                                   1089 ;	disp.c:232: init_intr();
+                                   1089 ;	disp.c:229: init_intr();
       002315 12 20 E6         [24] 1090 	lcall	_init_intr
-                                   1091 ;	disp.c:233: TR0 = 1;
+                                   1091 ;	disp.c:230: TR0 = 1;
                                    1092 ;	assignBit
       002318 D2 8C            [12] 1093 	setb	_TR0
-                                   1094 ;	disp.c:235: reset:
+                                   1094 ;	disp.c:232: reset:
       00231A                       1095 00101$:
-                                   1096 ;	disp.c:236: init_disp();
+                                   1096 ;	disp.c:233: init_disp();
       00231A 12 21 09         [24] 1097 	lcall	_init_disp
-                                   1098 ;	disp.c:237: printstr("RESET\r\n");
+                                   1098 ;	disp.c:234: printstr("RESET\r\n");
       00231D 7D 91            [12] 1099 	mov	r5,#___str_1
       00231F 7E 26            [12] 1100 	mov	r6,#(___str_1 >> 8)
       002321 7F 80            [12] 1101 	mov	r7,#0x80
@@ -1113,12 +1113,12 @@
       002333 8B 83            [24] 1113 	mov	dph,r3
       002335 12 20 8D         [24] 1114 	lcall	_putchar
       002338 0D               [12] 1115 	inc	r5
-                                   1116 ;	disp.c:237: printstr("RESET\r\n");
+                                   1116 ;	disp.c:234: printstr("RESET\r\n");
       002339 BD 00 E7         [24] 1117 	cjne	r5,#0x00,00146$
       00233C 0E               [12] 1118 	inc	r6
       00233D 80 E4            [24] 1119 	sjmp	00146$
       00233F                       1120 00126$:
-                                   1121 ;	disp.c:238: (void)strncpy(buf, initial, sizeof (buf) - 1u);
+                                   1121 ;	disp.c:235: (void)strncpy(buf, initial, sizeof (buf) - 1u);
       00233F E4               [12] 1122 	clr	a
       002340 C0 E0            [24] 1123 	push	acc
       002342 04               [12] 1124 	inc	a
@@ -1138,13 +1138,13 @@
       00235C E5 81            [12] 1138 	mov	a,sp
       00235E 24 FB            [12] 1139 	add	a,#0xfb
       002360 F5 81            [12] 1140 	mov	sp,a
-                                   1141 ;	disp.c:239: buf[sizeof (buf) - 1u] = 0u;
+                                   1141 ;	disp.c:236: buf[sizeof (buf) - 1u] = 0u;
       002362 90 81 00         [24] 1142 	mov	dptr,#(_buf + 0x0100)
       002365 E4               [12] 1143 	clr	a
       002366 F0               [24] 1144 	movx	@dptr,a
-                                   1145 ;	disp.c:241: while (1) {
+                                   1145 ;	disp.c:238: while (1) {
       002367                       1146 00122$:
-                                   1147 ;	disp.c:242: printstr("P SP L ENT S R T START MSG \"");
+                                   1147 ;	disp.c:239: printstr("P SP L ENT S R T START MSG \"");
       002367 7D 99            [12] 1148 	mov	r5,#___str_2
       002369 7E 26            [12] 1149 	mov	r6,#(___str_2 >> 8)
       00236B 7F 80            [12] 1150 	mov	r7,#0x80
@@ -1162,12 +1162,12 @@
       00237D 8B 83            [24] 1162 	mov	dph,r3
       00237F 12 20 8D         [24] 1163 	lcall	_putchar
       002382 0D               [12] 1164 	inc	r5
-                                   1165 ;	disp.c:242: printstr("P SP L ENT S R T START MSG \"");
+                                   1165 ;	disp.c:239: printstr("P SP L ENT S R T START MSG \"");
       002383 BD 00 E7         [24] 1166 	cjne	r5,#0x00,00149$
       002386 0E               [12] 1167 	inc	r6
       002387 80 E4            [24] 1168 	sjmp	00149$
       002389                       1169 00128$:
-                                   1170 ;	disp.c:243: printstr((char *)buf);
+                                   1170 ;	disp.c:240: printstr((char *)buf);
       002389 7D 00            [12] 1171 	mov	r5,#_buf
       00238B 7E 80            [12] 1172 	mov	r6,#(_buf >> 8)
       00238D 7F 00            [12] 1173 	mov	r7,#0x00
@@ -1185,12 +1185,12 @@
       00239F 8B 83            [24] 1185 	mov	dph,r3
       0023A1 12 20 8D         [24] 1186 	lcall	_putchar
       0023A4 0D               [12] 1187 	inc	r5
-                                   1188 ;	disp.c:243: printstr((char *)buf);
+                                   1188 ;	disp.c:240: printstr((char *)buf);
       0023A5 BD 00 E7         [24] 1189 	cjne	r5,#0x00,00152$
       0023A8 0E               [12] 1190 	inc	r6
       0023A9 80 E4            [24] 1191 	sjmp	00152$
       0023AB                       1192 00130$:
-                                   1193 ;	disp.c:244: printstr("\"\r\n");
+                                   1193 ;	disp.c:241: printstr("\"\r\n");
       0023AB 7D B6            [12] 1194 	mov	r5,#___str_3
       0023AD 7E 26            [12] 1195 	mov	r6,#(___str_3 >> 8)
       0023AF 7F 80            [12] 1196 	mov	r7,#0x80
@@ -1208,39 +1208,39 @@
       0023C1 8B 83            [24] 1208 	mov	dph,r3
       0023C3 12 20 8D         [24] 1209 	lcall	_putchar
       0023C6 0D               [12] 1210 	inc	r5
-                                   1211 ;	disp.c:244: printstr("\"\r\n");
+                                   1211 ;	disp.c:241: printstr("\"\r\n");
       0023C7 BD 00 E7         [24] 1212 	cjne	r5,#0x00,00155$
       0023CA 0E               [12] 1213 	inc	r6
       0023CB 80 E4            [24] 1214 	sjmp	00155$
       0023CD                       1215 00132$:
-                                   1216 ;	disp.c:246: c = scroll(buf);
+                                   1216 ;	disp.c:243: c = scroll(buf);
       0023CD 90 80 00         [24] 1217 	mov	dptr,#_buf
       0023D0 75 F0 00         [24] 1218 	mov	b,#0x00
       0023D3 12 21 76         [24] 1219 	lcall	_scroll
       0023D6 AE 82            [24] 1220 	mov	r6,dpl
       0023D8 AF 83            [24] 1221 	mov	r7,dph
-                                   1222 ;	disp.c:248: while (1) {
+                                   1222 ;	disp.c:245: while (1) {
       0023DA                       1223 00119$:
-                                   1224 ;	disp.c:249: if (c == (int)'T') goto term;
+                                   1224 ;	disp.c:246: if (c == (int)'T') goto term;
       0023DA BE 54 06         [24] 1225 	cjne	r6,#0x54,00337$
       0023DD BF 00 03         [24] 1226 	cjne	r7,#0x00,00337$
       0023E0 02 25 3D         [24] 1227 	ljmp	00124$
       0023E3                       1228 00337$:
-                                   1229 ;	disp.c:250: else if (c == (int)'R') goto reset;
+                                   1229 ;	disp.c:247: else if (c == (int)'R') goto reset;
       0023E3 BE 52 06         [24] 1230 	cjne	r6,#0x52,00338$
       0023E6 BF 00 03         [24] 1231 	cjne	r7,#0x00,00338$
       0023E9 02 23 1A         [24] 1232 	ljmp	00101$
       0023EC                       1233 00338$:
-                                   1234 ;	disp.c:251: else if (c == (int)'L') {
+                                   1234 ;	disp.c:248: else if (c == (int)'L') {
       0023EC BE 4C 05         [24] 1235 	cjne	r6,#0x4c,00339$
       0023EF BF 00 02         [24] 1236 	cjne	r7,#0x00,00339$
       0023F2 80 03            [24] 1237 	sjmp	00340$
       0023F4                       1238 00339$:
       0023F4 02 25 27         [24] 1239 	ljmp	00110$
       0023F7                       1240 00340$:
-                                   1241 ;	disp.c:252: init_disp();
+                                   1241 ;	disp.c:249: init_disp();
       0023F7 12 21 09         [24] 1242 	lcall	_init_disp
-                                   1243 ;	disp.c:253: printstr("LOAD ");
+                                   1243 ;	disp.c:250: printstr("LOAD ");
       0023FA 7F BA            [12] 1244 	mov	r7,#___str_4
       0023FC 7E 26            [12] 1245 	mov	r6,#(___str_4 >> 8)
       0023FE 7C 80            [12] 1246 	mov	r4,#0x80
@@ -1258,12 +1258,12 @@
       002410 8D 83            [24] 1258 	mov	dph,r5
       002412 12 20 8D         [24] 1259 	lcall	_putchar
       002415 0F               [12] 1260 	inc	r7
-                                   1261 ;	disp.c:253: printstr("LOAD ");
+                                   1261 ;	disp.c:250: printstr("LOAD ");
       002416 BF 00 E7         [24] 1262 	cjne	r7,#0x00,00158$
       002419 0E               [12] 1263 	inc	r6
       00241A 80 E4            [24] 1264 	sjmp	00158$
       00241C                       1265 00134$:
-                                   1266 ;	disp.c:254: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
+                                   1266 ;	disp.c:251: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
       00241C 7C 00            [12] 1267 	mov	r4,#0x00
       00241E 7D 00            [12] 1268 	mov	r5,#0x00
       002420 A8 10            [24] 1269 	mov	r0,_bp
@@ -1273,7 +1273,7 @@
       002425 08               [12] 1273 	inc	r0
       002426 F6               [12] 1274 	mov	@r0,a
       002427                       1275 00160$:
-                                   1276 ;	disp.c:255: c = getchar();
+                                   1276 ;	disp.c:252: c = getchar();
       002427 C0 04            [24] 1277 	push	ar4
       002429 C0 05            [24] 1278 	push	ar5
       00242B 12 20 92         [24] 1279 	lcall	_getchar
@@ -1281,11 +1281,11 @@
       002430 AD 83            [24] 1281 	mov	r5,dph
       002432 8C 07            [24] 1282 	mov	ar7,r4
       002434 8D 06            [24] 1283 	mov	ar6,r5
-                                   1284 ;	disp.c:256: (void)putchar(c);
+                                   1284 ;	disp.c:253: (void)putchar(c);
       002436 8F 82            [24] 1285 	mov	dpl,r7
       002438 8E 83            [24] 1286 	mov	dph,r6
       00243A 12 20 8D         [24] 1287 	lcall	_putchar
-                                   1288 ;	disp.c:257: if ((c == (int)'\r') || (c == (int)'\n')) {
+                                   1288 ;	disp.c:254: if ((c == (int)'\r') || (c == (int)'\n')) {
       00243D BF 0D 09         [24] 1289 	cjne	r7,#0x0d,00343$
       002440 BE 00 06         [24] 1290 	cjne	r6,#0x00,00343$
       002443 D0 05            [24] 1291 	pop	ar5
@@ -1297,7 +1297,7 @@
       00244D BF 0A 11         [24] 1297 	cjne	r7,#0x0a,00103$
       002450 BE 00 0E         [24] 1298 	cjne	r6,#0x00,00103$
       002453                       1299 00102$:
-                                   1300 ;	disp.c:258: buf[j] = 0u;
+                                   1300 ;	disp.c:255: buf[j] = 0u;
       002453 EC               [12] 1301 	mov	a,r4
       002454 24 00            [12] 1302 	add	a,#_buf
       002456 F5 82            [12] 1303 	mov	dpl,a
@@ -1306,10 +1306,10 @@
       00245B F5 83            [12] 1306 	mov	dph,a
       00245D E4               [12] 1307 	clr	a
       00245E F0               [24] 1308 	movx	@dptr,a
-                                   1309 ;	disp.c:259: break;
+                                   1309 ;	disp.c:256: break;
       00245F 80 32            [24] 1310 	sjmp	00106$
       002461                       1311 00103$:
-                                   1312 ;	disp.c:260: } else buf[j] = c & 0xffu;
+                                   1312 ;	disp.c:257: } else buf[j] = c & 0xffu;
       002461 A8 10            [24] 1313 	mov	r0,_bp
       002463 08               [12] 1314 	inc	r0
       002464 E6               [12] 1315 	mov	a,@r0
@@ -1324,7 +1324,7 @@
       002471 8C 83            [24] 1324 	mov	dph,r4
       002473 EB               [12] 1325 	mov	a,r3
       002474 F0               [24] 1326 	movx	@dptr,a
-                                   1327 ;	disp.c:254: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
+                                   1327 ;	disp.c:251: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
       002475 A8 10            [24] 1328 	mov	r0,_bp
       002477 08               [12] 1329 	inc	r0
       002478 06               [12] 1330 	inc	@r0
@@ -1346,7 +1346,7 @@
       002490 2B               [12] 1346 	add	a,r3
       002491 50 94            [24] 1347 	jnc	00160$
       002493                       1348 00106$:
-                                   1349 ;	disp.c:262: buf[j] = 0u;
+                                   1349 ;	disp.c:259: buf[j] = 0u;
       002493 EC               [12] 1350 	mov	a,r4
       002494 24 00            [12] 1351 	add	a,#_buf
       002496 F5 82            [12] 1352 	mov	dpl,a
@@ -1355,7 +1355,7 @@
       00249B F5 83            [12] 1355 	mov	dph,a
       00249D E4               [12] 1356 	clr	a
       00249E F0               [24] 1357 	movx	@dptr,a
-                                   1358 ;	disp.c:263: printstr("\r\n");
+                                   1358 ;	disp.c:260: printstr("\r\n");
       00249F 7F C0            [12] 1359 	mov	r7,#___str_5
       0024A1 7E 26            [12] 1360 	mov	r6,#(___str_5 >> 8)
       0024A3 7C 80            [12] 1361 	mov	r4,#0x80
@@ -1373,12 +1373,12 @@
       0024B5 8D 83            [24] 1373 	mov	dph,r5
       0024B7 12 20 8D         [24] 1374 	lcall	_putchar
       0024BA 0F               [12] 1375 	inc	r7
-                                   1376 ;	disp.c:263: printstr("\r\n");
+                                   1376 ;	disp.c:260: printstr("\r\n");
       0024BB BF 00 E7         [24] 1377 	cjne	r7,#0x00,00163$
       0024BE 0E               [12] 1378 	inc	r6
       0024BF 80 E4            [24] 1379 	sjmp	00163$
       0024C1                       1380 00136$:
-                                   1381 ;	disp.c:264: printstr("MSG \"");
+                                   1381 ;	disp.c:261: printstr("MSG \"");
       0024C1 7F C3            [12] 1382 	mov	r7,#___str_6
       0024C3 7E 26            [12] 1383 	mov	r6,#(___str_6 >> 8)
       0024C5 7C 80            [12] 1384 	mov	r4,#0x80
@@ -1396,12 +1396,12 @@
       0024D7 8D 83            [24] 1396 	mov	dph,r5
       0024D9 12 20 8D         [24] 1397 	lcall	_putchar
       0024DC 0F               [12] 1398 	inc	r7
-                                   1399 ;	disp.c:264: printstr("MSG \"");
+                                   1399 ;	disp.c:261: printstr("MSG \"");
       0024DD BF 00 E7         [24] 1400 	cjne	r7,#0x00,00166$
       0024E0 0E               [12] 1401 	inc	r6
       0024E1 80 E4            [24] 1402 	sjmp	00166$
       0024E3                       1403 00138$:
-                                   1404 ;	disp.c:265: printstr((char *)buf);
+                                   1404 ;	disp.c:262: printstr((char *)buf);
       0024E3 7F 00            [12] 1405 	mov	r7,#_buf
       0024E5 7E 80            [12] 1406 	mov	r6,#(_buf >> 8)
       0024E7 7C 00            [12] 1407 	mov	r4,#0x00
@@ -1419,12 +1419,12 @@
       0024F9 8D 83            [24] 1419 	mov	dph,r5
       0024FB 12 20 8D         [24] 1420 	lcall	_putchar
       0024FE 0F               [12] 1421 	inc	r7
-                                   1422 ;	disp.c:265: printstr((char *)buf);
+                                   1422 ;	disp.c:262: printstr((char *)buf);
       0024FF BF 00 E7         [24] 1423 	cjne	r7,#0x00,00169$
       002502 0E               [12] 1424 	inc	r6
       002503 80 E4            [24] 1425 	sjmp	00169$
       002505                       1426 00140$:
-                                   1427 ;	disp.c:266: printstr("\"\r\n");
+                                   1427 ;	disp.c:263: printstr("\"\r\n");
       002505 7F B6            [12] 1428 	mov	r7,#___str_3
       002507 7E 26            [12] 1429 	mov	r6,#(___str_3 >> 8)
       002509 7C 80            [12] 1430 	mov	r4,#0x80
@@ -1442,31 +1442,31 @@
       00251B 8D 83            [24] 1442 	mov	dph,r5
       00251D 12 20 8D         [24] 1443 	lcall	_putchar
       002520 0F               [12] 1444 	inc	r7
-                                   1445 ;	disp.c:266: printstr("\"\r\n");
+                                   1445 ;	disp.c:263: printstr("\"\r\n");
       002521 BF 00 E7         [24] 1446 	cjne	r7,#0x00,00172$
       002524 0E               [12] 1447 	inc	r6
       002525 80 E4            [24] 1448 	sjmp	00172$
       002527                       1449 00110$:
-                                   1450 ;	disp.c:267: } else if (c == (int)'S') break;
+                                   1450 ;	disp.c:264: } else if (c == (int)'S') break;
       002527 BE 53 06         [24] 1451 	cjne	r6,#0x53,00356$
       00252A BF 00 03         [24] 1452 	cjne	r7,#0x00,00356$
       00252D 02 23 67         [24] 1453 	ljmp	00122$
       002530                       1454 00356$:
       002530                       1455 00117$:
-                                   1456 ;	disp.c:269: c = toupper(getchar());
+                                   1456 ;	disp.c:266: c = toupper(getchar());
       002530 12 20 92         [24] 1457 	lcall	_getchar
       002533 12 25 70         [24] 1458 	lcall	_toupper
       002536 AE 82            [24] 1459 	mov	r6,dpl
       002538 AF 83            [24] 1460 	mov	r7,dph
       00253A 02 23 DA         [24] 1461 	ljmp	00119$
-                                   1462 ;	disp.c:273: term:	
+                                   1462 ;	disp.c:270: term:	
       00253D                       1463 00124$:
-                                   1464 ;	disp.c:274: EA = 0;
+                                   1464 ;	disp.c:271: EA = 0;
                                    1465 ;	assignBit
       00253D C2 AF            [12] 1466 	clr	_EA
-                                   1467 ;	disp.c:275: init_disp();
+                                   1467 ;	disp.c:272: init_disp();
       00253F 12 21 09         [24] 1468 	lcall	_init_disp
-                                   1469 ;	disp.c:276: printstr("TERM\r\n");
+                                   1469 ;	disp.c:273: printstr("TERM\r\n");
       002542 7D C9            [12] 1470 	mov	r5,#___str_7
       002544 7E 26            [12] 1471 	mov	r6,#(___str_7 >> 8)
       002546 7F 80            [12] 1472 	mov	r7,#0x80
@@ -1484,17 +1484,17 @@
       002558 8B 83            [24] 1484 	mov	dph,r3
       00255A 12 20 8D         [24] 1485 	lcall	_putchar
       00255D 0D               [12] 1486 	inc	r5
-                                   1487 ;	disp.c:276: printstr("TERM\r\n");
+                                   1487 ;	disp.c:273: printstr("TERM\r\n");
       00255E BD 00 E7         [24] 1488 	cjne	r5,#0x00,00175$
       002561 0E               [12] 1489 	inc	r6
       002562 80 E4            [24] 1490 	sjmp	00175$
       002564                       1491 00144$:
-                                   1492 ;	disp.c:277: (void)getchar();
+                                   1492 ;	disp.c:274: (void)getchar();
       002564 12 20 92         [24] 1493 	lcall	_getchar
-                                   1494 ;	disp.c:279: PCON |= 2;
+                                   1494 ;	disp.c:276: PCON |= 2;
       002567 43 87 02         [24] 1495 	orl	_PCON,#0x02
-                                   1496 ;	disp.c:281: return;
-                                   1497 ;	disp.c:282: }
+                                   1496 ;	disp.c:278: return;
+                                   1497 ;	disp.c:279: }
       00256A 85 10 81         [24] 1498 	mov	sp,_bp
       00256D D0 10            [24] 1499 	pop	_bp
       00256F 22               [24] 1500 	ret
