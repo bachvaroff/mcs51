@@ -198,13 +198,13 @@ int scroll(uint8_t *msg) {
 		} else OE = 0x0fu;
 		gpo[GPO_OE] = OE;
 		
-		if ((SKIPL > bit) || (bit > (7u - SKIPH))) continue;
+		if ((SKIPL > bit) || (bit > (7u - SKIPH))) goto skip_shift;
 		
 		delay();
-		
 		for (j = 0u; j < 8u; j++)
 			ddata[j] = ((FONT_TABLE[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
 		
+skip_shift:
 		if ((r = getchar_poll()) >= 0) {
 			r = toupper(r);
 			if ((r == (int)'P') || (r == (int)' ')) {

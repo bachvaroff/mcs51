@@ -829,10 +829,10 @@ _scroll:
 	add	a,#0x07
 	mov	r0,a
 	inc	@r0
-	cjne	@r0,#0x00,00223$
+	cjne	@r0,#0x00,00219$
 	inc	r0
 	inc	@r0
-00223$:
+00219$:
 ;	disp.c:197: OE = 0x8fu;
 	mov	r0,#_OE
 	mov	@r0,#0x8f
@@ -847,15 +847,13 @@ _scroll:
 	mov	r1,#_OE
 	mov	a,@r1
 	movx	@r0,a
-;	disp.c:201: if ((SKIPL > bit) || (bit > (7u - SKIPH))) continue;
+;	disp.c:201: if ((SKIPL > bit) || (bit > (7u - SKIPH))) goto skip_shift;
 	mov	a,_bp
 	add	a,#0x06
 	mov	r0,a
 	mov	a,@r0
 	add	a,#0xff - 0x05
-	jnc	00224$
-	ljmp	00120$
-00224$:
+	jc	00110$
 ;	disp.c:159: TR1 = 0;
 ;	assignBit
 	clr	_TR1
@@ -873,9 +871,9 @@ _scroll:
 00122$:
 ;	disp.c:165: TF1 = 0;
 ;	assignBit
-	jbc	_TF1,00225$
+	jbc	_TF1,00221$
 	sjmp	00122$
-00225$:
+00221$:
 ;	disp.c:167: TR1 = 0;
 ;	assignBit
 	clr	_TR1
@@ -893,13 +891,13 @@ _scroll:
 00125$:
 ;	disp.c:173: TF1 = 0;
 ;	assignBit
-	jbc	_TF1,00226$
+	jbc	_TF1,00222$
 	sjmp	00125$
-00226$:
+00222$:
 ;	disp.c:175: TR1 = 0;
 ;	assignBit
 	clr	_TR1
-;	disp.c:205: for (j = 0u; j < 8u; j++)
+;	disp.c:204: for (j = 0u; j < 8u; j++)
 	mov	a,_bp
 	add	a,#0x04
 	mov	r0,a
@@ -920,7 +918,7 @@ _scroll:
 	mov	r5,a
 	mov	r4,#0x00
 00131$:
-;	disp.c:206: ddata[j] = ((FONT_TABLE[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
+;	disp.c:205: ddata[j] = ((FONT_TABLE[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
 	mov	a,r4
 	add	a,#_ddata
 	mov	r1,a
@@ -935,11 +933,11 @@ _scroll:
 	mov	b,r5
 	inc	b
 	mov	a,r7
-	sjmp	00229$
-00227$:
+	sjmp	00225$
+00223$:
 	add	a,acc
-00229$:
-	djnz	b,00227$
+00225$:
+	djnz	b,00223$
 	anl	a,#0x80
 	mov	r7,a
 	mov	a,r4
@@ -948,13 +946,16 @@ _scroll:
 	mov	a,@r0
 	clr	c
 	rrc	a
+	mov	r6,a
 	orl	a,r7
 	mov	@r1,a
-;	disp.c:205: for (j = 0u; j < 8u; j++)
+;	disp.c:204: for (j = 0u; j < 8u; j++)
 	inc	r4
-	cjne	r4,#0x08,00230$
-00230$:
+	cjne	r4,#0x08,00226$
+00226$:
 	jc	00131$
+;	disp.c:207: skip_shift:
+00110$:
 ;	disp.c:208: if ((r = getchar_poll()) >= 0) {
 	lcall	_getchar_poll
 	mov	r3,dpl
@@ -962,7 +963,7 @@ _scroll:
 	mov	ar7,r3
 	mov	a,r4
 	mov	r6,a
-	jb	acc.7,00120$
+	jb	acc.7,00137$
 ;	disp.c:209: r = toupper(r);
 	mov	dpl,r7
 	mov	dph,r6
@@ -970,13 +971,13 @@ _scroll:
 	mov	r3,dpl
 	mov	r4,dph
 ;	disp.c:210: if ((r == (int)'P') || (r == (int)' ')) {
-	cjne	r3,#0x50,00233$
-	cjne	r4,#0x00,00233$
-	sjmp	00114$
-00233$:
-	cjne	r3,#0x20,00115$
-	cjne	r4,#0x00,00115$
-00114$:
+	cjne	r3,#0x50,00229$
+	cjne	r4,#0x00,00229$
+	sjmp	00115$
+00229$:
+	cjne	r3,#0x20,00116$
+	cjne	r4,#0x00,00116$
+00115$:
 ;	disp.c:211: printstr("PAUSE\r\n");
 	mov	r6,#___str_0
 	mov	r4,#(___str_0 >> 8)
@@ -1002,22 +1003,22 @@ _scroll:
 00130$:
 ;	disp.c:212: (void)getchar();
 	lcall	_getchar
-	sjmp	00120$
-00115$:
+	sjmp	00137$
+00116$:
 ;	disp.c:213: } else if ((r == (int)'T') || (r == (int)'R') || (r == (int)'L')) break;
-	cjne	r3,#0x54,00238$
-	cjne	r4,#0x00,00238$
+	cjne	r3,#0x54,00234$
+	cjne	r4,#0x00,00234$
 	sjmp	00121$
-00238$:
-	cjne	r3,#0x52,00239$
-	cjne	r4,#0x00,00239$
+00234$:
+	cjne	r3,#0x52,00235$
+	cjne	r4,#0x00,00235$
 	sjmp	00121$
-00239$:
-	cjne	r3,#0x4c,00240$
-	cjne	r4,#0x00,00240$
+00235$:
+	cjne	r3,#0x4c,00236$
+	cjne	r4,#0x00,00236$
 	sjmp	00121$
-00240$:
-00120$:
+00236$:
+00137$:
 ;	disp.c:189: for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
 	mov	a,_bp
 	add	a,#0x06
