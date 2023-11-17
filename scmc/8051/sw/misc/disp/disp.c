@@ -62,8 +62,11 @@ __pdata __at(GPO_BASE_L) volatile uint8_t gpo[8];
 #else
 __xdata __at(GPO_BASE) volatile uint8_t gpo[8];
 #endif
-__idata const uint8_t dcol[8] = {
+__idata const uint8_t dsdcol[8] = {
 	0x80u, 0x40u, 0x20u, 0x10u, 0x08u, 0x04u, 0x02u, 0x01u
+};
+__idata const uint8_t sddcol[8] = {
+	0x01u, 0x02u, 0x04u, 0x08u, 0x10u, 0x20u, 0x40u, 0x80u
 };
 #define DISP_DATA	4
 #define DISP_COL	5
@@ -144,7 +147,7 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	t = column & 7u;
 	gpo[DISP_COL] = 0u;
 	gpo[DISP_DATA] = ddata[t];
-	gpo[DISP_COL] = dcol[t];
+	gpo[DISP_COL] = dsdcol[t];
 	column++;
 	
 	TR0 = 0;
@@ -198,7 +201,7 @@ int scroll(uint8_t *msg) {
 		} else OE = 0x0fu;
 		gpo[GPO_OE] = OE;
 		
-		if ((SKIPL > bit) || (bit > (7u - SKIPH))) goto skip_shift;
+		if (FONT_SKIP & sddcol[bit]) goto skip_shift;
 		
 		delay();
 		for (j = 0u; j < 8u; j++)

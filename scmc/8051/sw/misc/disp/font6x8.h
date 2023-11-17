@@ -5,9 +5,9 @@
 #error FONT_TABLE already defined
 #endif
 
+/* 11000000 */
 #define FONT_TABLE	_ft_font6x8
-#define SKIPH	2u
-#define SKIPL	0u
+#define FONT_SKIP	0xc0u
 
 __xdata static const uint8_t FONT_TABLE[256][8] = {
 	{ 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u, 0x00u },
