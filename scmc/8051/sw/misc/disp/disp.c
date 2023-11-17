@@ -62,11 +62,11 @@ __pdata __at(GPO_BASE_L) volatile uint8_t gpo[8];
 #else
 __xdata __at(GPO_BASE) volatile uint8_t gpo[8];
 #endif
-/* b7|b6|b5|b4|b3|b2|b1|b0 */
+/* S b7|b6|b5|b4|b3|b2|b1|b0 D */
 __idata const uint8_t dsdcol[8] = {
 	0x80u, 0x40u, 0x20u, 0x10u, 0x08u, 0x04u, 0x02u, 0x01u
 };
-/* b0|b1|b2|b3|b4|b5|b6|b7 */
+/* S b0|b1|b2|b3|b4|b5|b6|b7 D */
 __idata const uint8_t sddcol[8] = {
 	0x01u, 0x02u, 0x04u, 0x08u, 0x10u, 0x20u, 0x40u, 0x80u
 };
