@@ -6,6 +6,7 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "calc.h"
 #include "sm.h"
 #include "stack.h"
 
@@ -59,30 +60,8 @@ inline void printbin(long d) {
 	return;
 }
 
-#define STATE_START 0
-#define STATE_OPERATOR 1
-#define STATE_NUMBER 2
-#define STATE_FINAL 3
-
-#define EVENT_DELIM 0
-#define EVENT_DIGIT 1
-#define EVENT_OP 2
-#define EVENT_HELP 3
-#define EVENT_BASE 4
-#define EVENT_RSTA_i 5
-#define EVENT_RSTA_I 6
-#define EVENT_TERM 7
-
-struct ctx {
-	int base;
-	long acc;
-	char acc_valid;
-	char digit[2];
-	stack_t s;
-};
-
 static int accumulate(void *_ctx, delta_t *delta) __reentrant {
-	struct ctx *ctx = (struct ctx *)_ctx;
+	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
 	long d;
 	
 	(void)delta;
@@ -99,13 +78,13 @@ static int accumulate(void *_ctx, delta_t *delta) __reentrant {
 }
 
 static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
-	struct ctx *ctx = (struct ctx *)_ctx;
+	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
 	long d;
 	int r;
 	
 	if (delta->event == EVENT_TERM) printstr("\r\n");
 	
-	r = stack_pop(&ctx->s, &d);
+	r = stack_pop(ctx->ps, &d);
 	if (!r) {
 		if (delta->event != EVENT_TERM) printstr("stack underflow\r\n");
 	} else while (r > 0) {
@@ -114,7 +93,7 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 		printf("%08lx / ", d);
 		printbin(d);
 		printstr("\r\n");
-		r = stack_pop(&ctx->s, &d);
+		r = stack_pop(ctx->ps, &d);
 	}
 	
 	return 1;
@@ -133,13 +112,14 @@ static int dump_peek(void *_ctx, long d) __reentrant {
 }
 
 static int operator(void *_ctx, delta_t *delta) __reentrant {
-	struct ctx *ctx = (struct ctx *)_ctx;
+	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+	stack_t *t0;
 	long d0, d1;
 	
 	switch (ctx->digit[0]) {
 	case 'p':
 		printstr("\r\n");
-		if (!stack_peek(&ctx->s, &d0)) printstr("stack underflow\r\n");
+		if (!stack_peek(ctx->ps, &d0)) printstr("stack underflow\r\n");
 		else {
 			printstr("PT ");
 			printf("% 11ld / ", d0);
@@ -150,12 +130,12 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		break;
 	case 'P':
 		printstr("\r\n");
-		if (!stack_iter_peek(&ctx->s, dump_peek, ctx)) printstr("stack underflow\r\n");
+		if (!stack_iter_peek(ctx->ps, dump_peek, ctx)) printstr("stack underflow\r\n");
 		break;
 	case '.':
 	case 'v':
 		printstr("\r\n");
-		if (!stack_pop(&ctx->s, &d0)) printstr("stack underflow\r\n");
+		if (!stack_pop(ctx->ps, &d0)) printstr("stack underflow\r\n");
 		else {
 			printstr("VT ");
 			printf("% 11ld / ", d0);
@@ -169,142 +149,185 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		(void)dump_pop(_ctx, delta);
 		break;
 	case 'x':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
-		else if (!stack_pop(&ctx->s, &d1)) {
-			(void)stack_push(&ctx->s, d0);
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(ctx->ps, &d1)) {
+			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
-			(void)stack_push(&ctx->s, d0);
-			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(ctx->ps, d0);
+			(void)stack_push(ctx->ps, d1);
 		}
 		break;
+	case 'm':
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else {
+			if (!stack_push(ctx->ss, d0)) {
+				printstr("\r\nsecondary stack overflow\r\n");
+				(void)stack_push(ctx->ps, d0);
+			}
+		}
+		break;
+	case 'M':
+		if (!stack_pop(ctx->ss, &d0)) printstr("\r\nsecondary stack underflow\r\n");
+		else {
+			if (!stack_push(ctx->ps, d0)) {
+				printstr("\r\nstack overflow\r\n");
+				(void)stack_push(ctx->ss, d0);
+			}
+		}
+		break;
+	case 'u':
+		if (!stack_peek(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_push(ctx->ss, d0)) printstr("\r\nsecondary stack overflow\r\n");
+		break;
+	case 'U':
+		if (!stack_peek(ctx->ss, &d0)) printstr("\r\nsecondary stack underflow\r\n");
+		else if (!stack_push(ctx->ps, d0)) printstr("\r\nstack overflow\r\n");
+		break;
+	case 'T':
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else {
+			if (!stack_pop(ctx->ss, &d1)) {
+				printstr("\r\nsecondary stack underflow\r\n");
+				(void)stack_push(ctx->ps, d0);
+			} else {
+				(void)stack_push(ctx->ps, d1);
+				(void)stack_push(ctx->ss, d0);
+			}
+		}
+		break;
+	case 'X':
+		t0 = ctx->ps;
+		ctx->ps = ctx->ss;
+		ctx->ss = t0;
+		break;
 	case '+':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
-		else if (!stack_pop(&ctx->s, &d1)) {
-			(void)stack_push(&ctx->s, d0);
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(ctx->ps, &d1)) {
+			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
 			d1 += d0;
-			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(ctx->ps, d1);
 		}
 		break;
 	case '-':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
-		else if (!stack_pop(&ctx->s, &d1)) {
-			(void)stack_push(&ctx->s, d0);
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(ctx->ps, &d1)) {
+			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
 			d1 -= d0;
-			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(ctx->ps, d1);
 		}
 		break;
 	case '*':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
-		else if (!stack_pop(&ctx->s, &d1)) {
-			(void)stack_push(&ctx->s, d0);
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(ctx->ps, &d1)) {
+			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
 			d1 *= d0;
-			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(ctx->ps, d1);
 		}
 		break;
 	case '/':
 	case '\\':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
-		else if (!stack_pop(&ctx->s, &d1)) {
-			(void)stack_push(&ctx->s, d0);
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(ctx->ps, &d1)) {
+			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else if (!d0) {
-			(void)stack_push(&ctx->s, d1);
-			(void)stack_push(&ctx->s, d0);			
+			(void)stack_push(ctx->ps, d1);
+			(void)stack_push(ctx->ps, d0);			
 			printstr("\r\ndivision by zero\r\n");
 		} else {
 			if (ctx->digit[0] == '/') d1 /= d0;
 			else d1 = (unsigned long)d1 / (unsigned long)d0;
-			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(ctx->ps, d1);
 		}
 		break;
 	case '%':
 	case '#':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
-		else if (!stack_pop(&ctx->s, &d1)) {
-			(void)stack_push(&ctx->s, d0);
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(ctx->ps, &d1)) {
+			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else if (!d0) {
-			(void)stack_push(&ctx->s, d1);
-			(void)stack_push(&ctx->s, d0);			
+			(void)stack_push(ctx->ps, d1);
+			(void)stack_push(ctx->ps, d0);			
 			printstr("\r\ndivision by zero\r\n");
 		} else {
 			if (ctx->digit[0] == '%') d1 %= d0;
 			else d1 = (unsigned long)d1 % (unsigned long)d0;
-			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(ctx->ps, d1);
 		}
 		break;
 	case '&':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
-		else if (!stack_pop(&ctx->s, &d1)) {
-			(void)stack_push(&ctx->s, d0);
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(ctx->ps, &d1)) {
+			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
 			d1 &= d0;
-			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(ctx->ps, d1);
 		}
 		break;
 	case '|':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
-		else if (!stack_pop(&ctx->s, &d1)) {
-			(void)stack_push(&ctx->s, d0);
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(ctx->ps, &d1)) {
+			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
 			d1 |= d0;
-			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(ctx->ps, d1);
 		}
 		break;
 	case '^':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
-		else if (!stack_pop(&ctx->s, &d1)) {
-			(void)stack_push(&ctx->s, d0);
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(ctx->ps, &d1)) {
+			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
 			d1 ^= d0;
-			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(ctx->ps, d1);
 		}
 		break;
 	case '>':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
-		else if (!stack_pop(&ctx->s, &d1)) {
-			(void)stack_push(&ctx->s, d0);
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(ctx->ps, &d1)) {
+			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
 			d1 = (unsigned long)d1 >> ((unsigned long)d0 & 0x0000001flu);
-			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(ctx->ps, d1);
 		}
 		break;
 	case ']':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
-		else if (!stack_pop(&ctx->s, &d1)) {
-			(void)stack_push(&ctx->s, d0);
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(ctx->ps, &d1)) {
+			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
 			d1 >>= ((unsigned long)d0 & 0x0000001flu);
-			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(ctx->ps, d1);
 		}
 		break;
 	case '<':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
-		else if (!stack_pop(&ctx->s, &d1)) {
-			(void)stack_push(&ctx->s, d0);
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else if (!stack_pop(ctx->ps, &d1)) {
+			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
 			d1 <<= ((unsigned long)d0 & 0x0000001flu);
-			(void)stack_push(&ctx->s, d1);
+			(void)stack_push(ctx->ps, d1);
 		}
 		break;
 	case '~':
-		if (!stack_pop(&ctx->s, &d0)) printstr("\r\nstack underflow\r\n");
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
 		else {
 			d0 = ~d0;
-			(void)stack_push(&ctx->s, d0);
+			(void)stack_push(ctx->ps, d0);
 		}
 		break;
 	default:
@@ -315,19 +338,19 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 }
 
 static int push_acc(void *_ctx, delta_t *delta) __reentrant {
-	struct ctx *ctx = (struct ctx *)_ctx;
+	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
 	
 	(void)delta;
 	
 	ctx->acc_valid = 0;
-	if (!stack_push(&ctx->s, ctx->acc)) printstr("\r\nstack overflow\r\n");
+	if (!stack_push(ctx->ps, ctx->acc)) printstr("\r\nstack overflow\r\n");
 	
 	if (delta->event == EVENT_OP) return operator(_ctx, delta);
 	else return 1;
 }
 
 static int reset_acc(void *_ctx, delta_t *delta) __reentrant {
-	struct ctx *ctx = (struct ctx *)_ctx;
+	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
 	
 	if (delta->event == EVENT_RSTA_I) ctx->acc_valid = 0;
 	ctx->acc = 0l;
@@ -336,7 +359,7 @@ static int reset_acc(void *_ctx, delta_t *delta) __reentrant {
 }
 
 static int reset_base(void *_ctx, delta_t *delta) __reentrant {
-	struct ctx *ctx = (struct ctx *)_ctx;
+	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
 	
 	(void)delta;
 	
@@ -358,16 +381,26 @@ static int reset_base(void *_ctx, delta_t *delta) __reentrant {
 	return 1;
 }
 
-static int help(void *_ctx, delta_t *delta) __reentrant {
-	struct ctx *ctx = (struct ctx *)_ctx;
+static int status(void *_ctx, delta_t *delta) __reentrant {
+	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
 	
 	(void)delta;
+	
 	printf("\r\nbase = %d, ", ctx->base);
 	printf("acc = %ld / ", ctx->acc);
 	printf("%08lx / ", ctx->acc);
 	printbin(ctx->acc);
-	printf(", acc_valid = %d\r\n\r\n", (int)ctx->acc_valid);
-	printstr("HhOo\tbase 16 10 8 2\r\n");
+	printf(", acc_valid = %d\r\n", (int)ctx->acc_valid);
+	printf("primary = %p, secondary = %p\r\n", ctx->ps, ctx->ss);
+		
+	return 1;
+}
+
+static int help(void *_ctx, delta_t *delta) __reentrant {
+	(void)_ctx;
+	(void)delta;
+	
+	printstr("\r\nHhOo\tbase 16 10 8 2\r\n");
 	printstr("p\tpeek top\r\n");
 	printstr("P\tprint stack\r\n");
 	printstr("v.\tpop top\r\n");
@@ -375,6 +408,12 @@ static int help(void *_ctx, delta_t *delta) __reentrant {
 	printstr("i\treset acc\r\n");
 	printstr("I\treset and discard acc\r\n");
 	printstr("x\texchange top 2\r\n");
+	printstr("X\texchange stacks primary <-> secondary\r\n");
+	printstr("T\texchange tops primary <-> secondary\r\n");
+	printstr("U\tcopy top secondary -> primary\r\n");
+	printstr("u\tcopy top primary -> secondary\r\n");
+	printstr("M\tmove top secondary -> primary\r\n");
+	printstr("m\tmove top primary -> secondary\r\n");
 	printstr("+\tadd top 2\r\n");
 	printstr("-\tsubtract top 2\r\n");
 	printstr("*\tmultiply top 2\r\n");
@@ -412,6 +451,7 @@ static delta_t deltas[] = {
 	{ ANY, EVENT_RSTA_i, ANY, NULL, reset_acc },
 	{ ANY, EVENT_RSTA_I, ANY, NULL, NULL },
 	{ ANY, EVENT_BASE, ANY, NULL, reset_base },
+	{ ANY, EVENT_STATUS, ANY, NULL, status },
 	{ ANY, EVENT_HELP, ANY, NULL, help },
 	
 	{ ANY, EVENT_TERM, STATE_FINAL, NULL, dump_pop },
@@ -420,7 +460,7 @@ static delta_t deltas[] = {
 };
 
 static state_t s;
-static struct ctx c;
+static calc_ctx_t c;
 
 void main(void) {
 	int input;
@@ -430,7 +470,11 @@ void main(void) {
 	c.acc_valid = (char)0;
 	c.digit[0] = c.digit[1] = '\0';
 	
-	stack_init(&c.s);	
+	c.ps = &c.s0;
+	c.ss = &c.s1;
+	stack_init(c.ps);
+	stack_init(c.ss);
+	
 	state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
 	
 	while (1) {
@@ -441,6 +485,8 @@ void main(void) {
 		
 		if ((char)input == 'q') {
 			if (state_exec(&s, EVENT_TERM) <= 0) break;
+		} else if ((char)input == 's') {
+			if (state_exec(&s, EVENT_STATUS) <= 0) break;
 		} else if ((char)input == '?') {
 			if (state_exec(&s, EVENT_HELP) <= 0) break;
 		} else if ((char)input == 'i') {
@@ -459,6 +505,12 @@ void main(void) {
 				((char)input == 'v') || ((char)input == 'V') ||
 				((char)input == '.') ||
 				((char)input == 'x')
+		) {
+			if (state_exec(&s, EVENT_OP) <= 0) break;
+		} else if (
+				((char)input == 'X') || ((char)input == 'T') ||
+				((char)input == 'm') || ((char)input == 'M') ||
+				((char)input == 'u') || ((char)input == 'U')
 		) {
 			if (state_exec(&s, EVENT_OP) <= 0) break;
 		} else if (
