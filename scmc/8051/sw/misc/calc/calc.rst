@@ -460,7 +460,7 @@
       0029EC AD 82            [24]  460 	mov	r5,dpl
       0029EE AE 83            [24]  461 	mov	r6,dph
       0029F0 AF F0            [24]  462 	mov	r7,b
-                                    463 ;	calc.c:64: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+                                    463 ;	calc.c:64: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
       0029F2 E5 08            [12]  464 	mov	a,_bp
       0029F4 24 08            [12]  465 	add	a,#0x08
       0029F6 F8               [12]  466 	mov	r0,a
@@ -727,7 +727,7 @@
       002B5D AD 82            [24]  727 	mov	r5,dpl
       002B5F AE 83            [24]  728 	mov	r6,dph
       002B61 AF F0            [24]  729 	mov	r7,b
-                                    730 ;	calc.c:81: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+                                    730 ;	calc.c:81: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
       002B63 E5 08            [12]  731 	mov	a,_bp
       002B65 24 08            [12]  732 	add	a,#0x08
       002B67 F8               [12]  733 	mov	r0,a
@@ -1557,7 +1557,7 @@
       002F76 E5 81            [12] 1557 	mov	a,sp
       002F78 24 1D            [12] 1558 	add	a,#0x1d
       002F7A F5 81            [12] 1559 	mov	sp,a
-                                   1560 ;	calc.c:115: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+                                   1560 ;	calc.c:115: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
       002F7C A8 08            [24] 1561 	mov	r0,_bp
       002F7E 08               [12] 1562 	inc	r0
       002F7F E5 08            [12] 1563 	mov	a,_bp
@@ -7216,7 +7216,7 @@
       005204 E5 81            [12] 7216 	mov	a,sp
       005206 24 04            [12] 7217 	add	a,#0x04
       005208 F5 81            [12] 7218 	mov	sp,a
-                                   7219 ;	calc.c:341: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+                                   7219 ;	calc.c:341: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
       00520A A8 08            [24] 7220 	mov	r0,_bp
       00520C 08               [12] 7221 	inc	r0
       00520D 86 02            [24] 7222 	mov	ar2,@r0
@@ -7401,7 +7401,7 @@
       00531A AD 82            [24] 7401 	mov	r5,dpl
       00531C AE 83            [24] 7402 	mov	r6,dph
       00531E AF F0            [24] 7403 	mov	r7,b
-                                   7404 ;	calc.c:353: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+                                   7404 ;	calc.c:353: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
                                    7405 ;	calc.c:355: if (delta->event == EVENT_RSTA_I) ctx->acc_valid = 0;
       005320 E5 08            [12] 7406 	mov	a,_bp
       005322 24 FB            [12] 7407 	add	a,#0xfb
@@ -7480,7 +7480,7 @@
       005384 AD 82            [24] 7480 	mov	r5,dpl
       005386 AE 83            [24] 7481 	mov	r6,dph
       005388 AF F0            [24] 7482 	mov	r7,b
-                                   7483 ;	calc.c:362: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+                                   7483 ;	calc.c:362: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
                                    7484 ;	calc.c:366: switch (ctx->digit[0]) {
       00538A 74 07            [12] 7485 	mov	a,#0x07
       00538C 2D               [12] 7486 	add	a,r5
@@ -7586,7 +7586,7 @@
       005407 AD 82            [24] 7586 	mov	r5,dpl
       005409 AE 83            [24] 7587 	mov	r6,dph
       00540B AF F0            [24] 7588 	mov	r7,b
-                                   7589 ;	calc.c:385: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+                                   7589 ;	calc.c:385: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
       00540D E5 08            [12] 7590 	mov	a,_bp
       00540F 24 04            [12] 7591 	add	a,#0x04
       005411 F8               [12] 7592 	mov	r0,a

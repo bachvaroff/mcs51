@@ -61,7 +61,7 @@ inline void printbin(long d) {
 }
 
 static int accumulate(void *_ctx, delta_t *delta) __reentrant {
-	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+	calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	long d;
 	
 	(void)delta;
@@ -78,7 +78,7 @@ static int accumulate(void *_ctx, delta_t *delta) __reentrant {
 }
 
 static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
-	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+	calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	long d;
 	int r;
 	
@@ -112,7 +112,7 @@ static int dump_peek(void *_ctx, long d) __reentrant {
 }
 
 static int operator(void *_ctx, delta_t *delta) __reentrant {
-	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+	calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	stack_t *t0;
 	long d0, d1;
 	
@@ -338,7 +338,7 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 }
 
 static int push_acc(void *_ctx, delta_t *delta) __reentrant {
-	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+	calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	
 	(void)delta;
 	
@@ -350,7 +350,7 @@ static int push_acc(void *_ctx, delta_t *delta) __reentrant {
 }
 
 static int reset_acc(void *_ctx, delta_t *delta) __reentrant {
-	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+	calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	
 	if (delta->event == EVENT_RSTA_I) ctx->acc_valid = 0;
 	ctx->acc = 0l;
@@ -359,7 +359,7 @@ static int reset_acc(void *_ctx, delta_t *delta) __reentrant {
 }
 
 static int reset_base(void *_ctx, delta_t *delta) __reentrant {
-	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+	calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	
 	(void)delta;
 	
@@ -382,7 +382,7 @@ static int reset_base(void *_ctx, delta_t *delta) __reentrant {
 }
 
 static int status(void *_ctx, delta_t *delta) __reentrant {
-	calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+	calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	
 	(void)delta;
 	

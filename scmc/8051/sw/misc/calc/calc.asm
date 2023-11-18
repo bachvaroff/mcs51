@@ -460,7 +460,7 @@ _accumulate:
 	mov	r5,dpl
 	mov	r6,dph
 	mov	r7,b
-;	calc.c:64: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+;	calc.c:64: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	mov	a,_bp
 	add	a,#0x08
 	mov	r0,a
@@ -727,7 +727,7 @@ _dump_pop:
 	mov	r5,dpl
 	mov	r6,dph
 	mov	r7,b
-;	calc.c:81: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+;	calc.c:81: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	mov	a,_bp
 	add	a,#0x08
 	mov	r0,a
@@ -1557,7 +1557,7 @@ _operator:
 	mov	a,sp
 	add	a,#0x1d
 	mov	sp,a
-;	calc.c:115: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+;	calc.c:115: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	mov	r0,_bp
 	inc	r0
 	mov	a,_bp
@@ -7216,7 +7216,7 @@ _push_acc:
 	mov	a,sp
 	add	a,#0x04
 	mov	sp,a
-;	calc.c:341: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+;	calc.c:341: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	mov	r0,_bp
 	inc	r0
 	mov	ar2,@r0
@@ -7401,7 +7401,7 @@ _reset_acc:
 	mov	r5,dpl
 	mov	r6,dph
 	mov	r7,b
-;	calc.c:353: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+;	calc.c:353: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 ;	calc.c:355: if (delta->event == EVENT_RSTA_I) ctx->acc_valid = 0;
 	mov	a,_bp
 	add	a,#0xfb
@@ -7480,7 +7480,7 @@ _reset_base:
 	mov	r5,dpl
 	mov	r6,dph
 	mov	r7,b
-;	calc.c:362: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+;	calc.c:362: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 ;	calc.c:366: switch (ctx->digit[0]) {
 	mov	a,#0x07
 	add	a,r5
@@ -7586,7 +7586,7 @@ _status:
 	mov	r5,dpl
 	mov	r6,dph
 	mov	r7,b
-;	calc.c:385: calc_ctx_t*ctx = (calc_ctx_t*)_ctx;
+;	calc.c:385: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	mov	a,_bp
 	add	a,#0x04
 	mov	r0,a
