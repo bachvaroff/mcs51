@@ -478,6 +478,8 @@ void main(void) {
 	
 	state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
 	
+	(void)status(&c, deltas);
+	
 	while (1) {
 		input = getchar();
 		if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
