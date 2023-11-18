@@ -428,6 +428,7 @@ static int help(void *_ctx, delta_t *delta) __reentrant {
 	printstr("]\tarithmetic shift right top 2\r\n");
 	printstr("<\tshift left top 2\r\n");
 	printstr("~\tbitwise not top\r\n");
+	printstr("s\tstatus\r\n");
 	printstr("?\thelp\r\n");
 	printstr("q\tquit\r\n");
 	
