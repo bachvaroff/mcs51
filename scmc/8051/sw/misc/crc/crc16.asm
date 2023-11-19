@@ -29,6 +29,7 @@ next_byte:
 	lcall	phex16
 	lcall	nl
 	lcall	cin
+	orl	pcon, #2
 	ljmp	0x0000
 
 init_crc16:

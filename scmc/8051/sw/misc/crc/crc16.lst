@@ -1,0 +1,92 @@
+0000:              .equ     cin, 0x0032
+0000:              .equ     phex16, 0x0036
+0000:              .equ     nl, 0x0048
+                   
+0000:              .equ     initial_l, 0xff
+0000:              .equ     initial_h, 0xff
+0000:              .equ     final_l, 0x00
+0000:              .equ     final_h, 0x00
+0000:              .equ     poly_l, 0x21
+0000:              .equ     poly_h, 0x10
+                   
+2000:              .org     0x2000
+                   
+                   calc_crc16:
+2000: 11 23                 acall   init_crc16
+                            
+2002: 90 00 00              mov     dptr, #0x0000
+                   next_byte:
+2005: E0                    movx    a, @dptr        
+2006: 11 28                 acall   update_crc16
+2008: A3                    inc     dptr
+2009: E5 83                 mov     a, dph
+200B: B4 20 F7              cjne    a, #0x20, next_byte
+                            
+200E: 11 52                 acall   finish_crc16
+                            
+2010: 8A 82                 mov     dpl, r2
+2012: 8B 83                 mov     dph, r3
+2014: 12 00 36              lcall   phex16
+2017: 12 00 48              lcall   nl
+201A: 12 00 32              lcall   cin
+201D: 43 87 02              orl     pcon, #2
+2020: 02 00 00              ljmp    0x0000
+                   
+                   init_crc16:
+2023: 7A FF                 mov     r2, #initial_l
+2025: 7B FF                 mov     r3, #initial_h
+2027: 22                    ret
+                            
+                   update_crc16:
+2028: F5 F0                 mov     b, a
+202A: 74 80                 mov     a, #0x80
+                            
+                   loop:
+202C: F8                    mov     r0, a
+202D: E5 F0                 mov     a, b
+                            
+202F: 58                    anl     a, r0
+2030: 60 02                 jz      skip0
+2032: 74 01                 mov     a, #1
+                   skip0:
+2034: F9                    mov     r1, a
+2035: EB                    mov     a, r3
+2036: 23                    rl      a
+2037: 54 01                 anl     a, #1
+2039: 69                    xrl     a, r1
+203A: F9                    mov     r1, a
+                            
+203B: EA                    mov     a, r2
+203C: 2A                    add     a, r2
+203D: FA                    mov     r2, a
+203E: EB                    mov     a, r3
+203F: 33                    rlc     a
+2040: FB                    mov     r3, a
+                            
+2041: E9                    mov     a, r1
+2042: 60 08                 jz      skip1
+                            
+2044: EA                    mov     a, r2
+2045: 64 21                 xrl     a, #poly_l
+2047: FA                    mov     r2, a
+2048: EB                    mov     a, r3
+2049: 64 10                 xrl     a, #poly_h
+204B: FB                    mov     r3, a
+                            
+                   skip1:
+204C: E8                    mov     a, r0
+204D: C3                    clr     c
+204E: 13                    rrc     a
+204F: 70 DB                 jnz     loop
+                                    
+2051: 22                    ret
+                            
+                   finish_crc16:
+2052: EA                    mov     a, r2
+2053: 64 00                 xrl     a, #final_l
+2055: FA                    mov     r2, a
+2056: EB                    mov     a, r3
+2057: 64 00                 xrl     a, #final_h
+2059: FB                    mov     r3, a
+205A: 22                    ret
+                            
