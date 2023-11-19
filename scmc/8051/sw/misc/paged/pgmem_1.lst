@@ -13,73 +13,74 @@
 4004: 79 40                 mov     r1, #0x40
 4006: 7E 00                 mov     r6, #0x00
 4008: 7F 20                 mov     r7, #0x20
-400A: 11 35                 acall   test_page
+400A: 11 38                 acall   test_page
 400C: 78 AA                 mov     r0, #0xaa
 400E: 79 40                 mov     r1, #0x40
 4010: 7E 00                 mov     r6, #0x00
 4012: 7F 20                 mov     r7, #0x20
-4014: 11 35                 acall   test_page
+4014: 11 38                 acall   test_page
 4016: D2 91                 setb    p1.1
 4018: 78 55                 mov     r0, #0x55
 401A: 79 40                 mov     r1, #0x40
 401C: 7E 00                 mov     r6, #0x00
 401E: 7F 20                 mov     r7, #0x20
-4020: 11 35                 acall   test_page
+4020: 11 38                 acall   test_page
 4022: 78 AA                 mov     r0, #0xaa
 4024: 79 40                 mov     r1, #0x40
 4026: 7E 00                 mov     r6, #0x00
 4028: 7F 20                 mov     r7, #0x20
-402A: 11 35                 acall   test_page
+402A: 11 38                 acall   test_page
 402C: 12 00 48              lcall   nl
 402F: 12 00 32              lcall   cin
                    ;--------------------------------
-4032: 02 00 00              ljmp    0x0000
+4032: 43 87 02              orl     pcon, #2
+4035: 02 00 00              ljmp    0x0000
                    
                    ;--------
                    ; r0 = fill byte; r1 = final dph; r6 = dpl; r7 = dph
                    test_page:
-4035: 8E 82                 mov     dpl, r6
-4037: 8F 83                 mov     dph, r7
-4039: 11 42                 acall   fill
-403B: 8E 82                 mov     dpl, r6
-403D: 8F 83                 mov     dph, r7
-403F: 11 4B                 acall   dump
-4041: 22                    ret
+4038: 8E 82                 mov     dpl, r6
+403A: 8F 83                 mov     dph, r7
+403C: 11 45                 acall   fill
+403E: 8E 82                 mov     dpl, r6
+4040: 8F 83                 mov     dph, r7
+4042: 11 4E                 acall   dump
+4044: 22                    ret
                    ;--------
                             
                    ;--------
                    fill:
-4042: E8                    mov     a, r0
-4043: F0                    movx    @dptr, a
-4044: A3                    inc     dptr
-4045: E5 83                 mov     a, dph
-4047: 69                    xrl     a, r1
-4048: 70 F8                 jnz     fill
-404A: 22                    ret
+4045: E8                    mov     a, r0
+4046: F0                    movx    @dptr, a
+4047: A3                    inc     dptr
+4048: E5 83                 mov     a, dph
+404A: 69                    xrl     a, r1
+404B: 70 F8                 jnz     fill
+404D: 22                    ret
                    ;--------
                    
                    ;--------
                    dump:
-404B: 12 00 36              lcall   phex16
-404E: 74 20                 mov     a, #' '
-4050: 12 00 30              lcall   cout    
+404E: 12 00 36              lcall   phex16
+4051: 74 20                 mov     a, #' '
+4053: 12 00 30              lcall   cout    
                    dumpb:
-4053: E0                    movx    a, @dptr
-4054: 12 00 34              lcall   phex
-4057: A3                    inc     dptr
-4058: E5 82                 mov     a, dpl
-405A: 54 1F                 anl     a, #0x1f
-405C: 70 05                 jnz     print_sp
-405E: 12 00 48              lcall   nl
-4061: 80 07                 sjmp    next
+4056: E0                    movx    a, @dptr
+4057: 12 00 34              lcall   phex
+405A: A3                    inc     dptr
+405B: E5 82                 mov     a, dpl
+405D: 54 1F                 anl     a, #0x1f
+405F: 70 05                 jnz     print_sp
+4061: 12 00 48              lcall   nl
+4064: 80 07                 sjmp    next
                    print_sp:
-4063: 74 20                 mov     a, #' '
-4065: 12 00 30              lcall   cout
-4068: 80 E9                 sjmp    dumpb
+4066: 74 20                 mov     a, #' '
+4068: 12 00 30              lcall   cout
+406B: 80 E9                 sjmp    dumpb
                    next:
-406A: E5 83                 mov     a, dph
-406C: 69                    xrl     a, r1
-406D: 70 DC                 jnz     dump
-406F: 22                    ret
+406D: E5 83                 mov     a, dph
+406F: 69                    xrl     a, r1
+4070: 70 DC                 jnz     dump
+4072: 22                    ret
                    ;--------
                    

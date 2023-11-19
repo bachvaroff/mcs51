@@ -33,6 +33,7 @@ test:
 	lcall	nl
 	lcall	cin
 ;--------------------------------
+	orl	pcon, #2
 	ljmp	0x0000
 
 ;--------

@@ -1,0 +1,42 @@
+0000:              .equ     cin, 0x0032
+0000:              .equ     cout, 0x0030
+0000:              .equ     phex, 0x0034
+0000:              .equ     phex16, 0x0036
+0000:              .equ     nl, 0x0048
+                   
+2000:              .org     0x2000
+                   
+                   main:
+2000: 74 40                 mov     a, #0x40
+2002: F5 A0                 mov     p2, a
+2004: 78 00                 mov     r0, #0x00
+2006: 90 40 08              mov     dptr, #0x4008
+                            
+2009: 79 00                 mov     r1, #0x00
+200B: 7A F5                 mov     r2, #0xF5
+                   floop:
+200D: EA                    mov     a, r2
+200E: F2                    movx    @r0, a
+200F: 24 08                 add     a, #0x08
+2011: F0                    movx    @dptr, a
+2012: 0A                    inc     r2
+                            
+2013: 08                    inc     r0
+2014: A3                    inc     dptr
+                   
+2015: 09                    inc     r1
+2016: B9 08 F4              cjne    r1, #0x08, floop
+                   
+2019: 78 00                 mov     r0, #0x00
+                   ploop:
+201B: E2                    movx    a, @r0
+201C: 12 00 34              lcall   phex
+201F: 12 00 48              lcall   nl
+2022: 08                    inc     r0
+2023: B8 10 F5              cjne    r0, #0x10, ploop
+                            
+2026: 12 00 32              lcall   cin
+                            
+2029: 43 87 02              orl     pcon, #2
+                   ; not reached
+202C: 02 00 00              ljmp    0x0000

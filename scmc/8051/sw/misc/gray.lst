@@ -17,7 +17,7 @@
 2008: 12 00 30              lcall   cout
                             
 200B: EF                    mov     a, r7
-200C: 11 2A                 acall   genc
+200C: 11 2D                 acall   genc
 200E: 12 00 34              lcall   phex
                             
 2011: FE                    mov     r6, a
@@ -26,7 +26,7 @@
 2014: 12 00 30              lcall   cout
                             
 2017: EE                    mov     a, r6
-2018: 11 2F                 acall   gdec
+2018: 11 32                 acall   gdec
 201A: 12 00 34              lcall   phex
                             
 201D: 12 00 48              lcall   nl
@@ -36,30 +36,32 @@
                             
 2024: 12 00 32              lcall   cin
                             
-2027: 02 00 00              ljmp    0x0000
+2027: 43 87 02              orl     pcon, #2
+                   ; not reached
+202A: 02 00 00              ljmp    0x0000
                             
                    ;--------
                    genc:
-202A: F8                    mov     r0, a
-202B: C3                    clr     c
-202C: 13                    rrc     a
-202D: 68                    xrl     a, r0
-202E: 22                    ret
+202D: F8                    mov     r0, a
+202E: C3                    clr     c
+202F: 13                    rrc     a
+2030: 68                    xrl     a, r0
+2031: 22                    ret
                    ;--------
                    
                    ;--------
                    gdec:
-202F: F8                    mov     r0, a
+2032: F8                    mov     r0, a
                    gdec_shift_xor:
-2030: C3                    clr     c
-2031: 13                    rrc     a
-2032: 60 05                 jz      gdec_out
-2034: C8                    xch     a, r0
-2035: 68                    xrl     a, r0
-2036: C8                    xch     a, r0
-2037: 80 F7                 sjmp    gdec_shift_xor
-                   gdec_out:
+2033: C3                    clr     c
+2034: 13                    rrc     a
+2035: 60 05                 jz      gdec_out
+2037: C8                    xch     a, r0
+2038: 68                    xrl     a, r0
 2039: C8                    xch     a, r0
-203A: 22                    ret
+203A: 80 F7                 sjmp    gdec_shift_xor
+                   gdec_out:
+203C: C8                    xch     a, r0
+203D: 22                    ret
                    ;--------
                    

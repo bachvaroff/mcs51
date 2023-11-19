@@ -36,6 +36,8 @@ next:
 	
 	lcall	cin
 	
+	orl	pcon, #2
+; not reached
 	ljmp	0x0000
 	
 ;--------
