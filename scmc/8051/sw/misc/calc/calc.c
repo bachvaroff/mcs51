@@ -82,8 +82,7 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 	long d;
 	int r;
 	
-	if (delta->event == EVENT_TERM) printstr("\r\n");
-	
+	if (delta->event == EVENT_TERM) printstr("\r\nPS\r\n");
 	r = stack_pop(ctx->ps, &d);
 	if (!r) {
 		if (delta->event != EVENT_TERM) printstr("stack underflow\r\n");
@@ -94,6 +93,17 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 		printbin(d);
 		printstr("\r\n");
 		r = stack_pop(ctx->ps, &d);
+	}
+	
+	if (delta->event == EVENT_TERM) {
+		printstr("SS\r\n");
+		for (r = stack_pop(ctx->ss, &d); r > 0; r = stack_pop(ctx->ss, &d)) {
+			printstr("VA ");
+			printf("% 11ld / ", d);
+			printf("%08lx / ", d);
+			printbin(d);
+			printstr("\r\n");
+		}
 	}
 	
 	return 1;
@@ -538,6 +548,8 @@ void main(void) {
 			if (state_exec(&s, EVENT_DELIM) <= 0) break;
 		}
 	}
+	
+	printstr("TERM\r\n");
 	
 	PCON |= 2;
 	

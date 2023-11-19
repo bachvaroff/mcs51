@@ -47,14 +47,14 @@ void int0(void) __interrupt IE0_VECTOR __using 1 {
 	intr = 1u;
 }
 
+__idata volatile pxd_uint8_t base, t;
+__idata uint16_t len, off, crc;
+__idata uint8_t bitp;
+
 #define PLEN 0x2000u
 #define TLEN 0xffffu
 
 void main(void) {
-	volatile pxd_uint8_t base, t;
-	uint16_t len, off, crc;
-	uint8_t bitp;
-	
 	intr = 0u;
 	
 	IT0 = 1;
@@ -64,7 +64,7 @@ void main(void) {
 	while (!intr) {
 		base = (pxd_uint8_t)0x0u;
 		len = TLEN;
-		printf("COMPLETE base=0x%04x ", (unsigned int)base);
+		printf("COMPLETE base=%p ", base);
 		printf("len=0x%04x ", len);
 		CCRCB_INIT(crc);
 		for (off = 0u; off < len; off++)
@@ -74,7 +74,7 @@ void main(void) {
 		
 		len = PLEN;
 		while (1) {
-			printf("PARTIAL base=0x%04x ", (unsigned int)base);
+			printf("PARTIAL base=%p ", base);
 			printf("len=0x%04x ", len);
 			CCRCB_INIT(crc);
 			for (off = 0u; off < len; off++)

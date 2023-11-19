@@ -134,6 +134,12 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
+	.globl _bitp
+	.globl _crc
+	.globl _off
+	.globl _len
+	.globl _t
+	.globl _base
 	.globl _intr
 	.globl _putchar
 	.globl _getchar
@@ -311,6 +317,18 @@ __start__stack:
 	.area ISEG    (DATA)
 _intr::
 	.ds 1
+_base::
+	.ds 2
+_t::
+	.ds 2
+_len::
+	.ds 2
+_off::
+	.ds 2
+_crc::
+	.ds 2
+_bitp::
+	.ds 1
 ;--------------------------------------------------------
 ; absolute internal ram data
 ;--------------------------------------------------------
@@ -443,14 +461,7 @@ _int0:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;base                      Allocated to stack - _bp +1
-;t                         Allocated to stack - _bp +3
-;len                       Allocated to registers 
-;off                       Allocated to stack - _bp +5
-;crc                       Allocated to registers r6 r7 
-;bitp                      Allocated to registers r3 
-;------------------------------------------------------------
-;	crc16.c:53: void main(void) {
+;	crc16.c:57: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -463,11 +474,6 @@ _main:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-	push	_bp
-	mov	a,sp
-	mov	_bp,a
-	add	a,#0x06
-	mov	sp,a
 ;	crc16.c:58: intr = 0u;
 	mov	r0,#_intr
 	mov	@r0,#0x00
@@ -484,22 +490,27 @@ _main:
 00131$:
 	mov	r0,#_intr
 	mov	a,@r0
-	jz	00227$
+	jz	00210$
 	ljmp	00133$
-00227$:
+00210$:
 ;	crc16.c:65: base = (pxd_uint8_t)0x0u;
-	mov	r0,_bp
-	inc	r0
+	mov	r0,#_base
 	clr	a
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-;	crc16.c:67: printf("COMPLETE base=0x%04x ", (unsigned int)base);
-	mov	r0,_bp
+;	crc16.c:66: len = TLEN;
+	mov	r0,#_len
+	mov	@r0,#0xff
+	inc	r0
+	mov	@r0,#0xff
+;	crc16.c:67: printf("COMPLETE base=%p ", base);
+	mov	r0,#_base
+	mov	ar5,@r0
 	inc	r0
 	mov	ar6,@r0
-	inc	r0
-	mov	ar7,@r0
+	mov	r7,#0x00
+	push	ar5
 	push	ar6
 	push	ar7
 	mov	a,#___str_0
@@ -510,11 +521,14 @@ _main:
 	push	acc
 	lcall	_printf
 	mov	a,sp
-	add	a,#0xfb
+	add	a,#0xfa
 	mov	sp,a
 ;	crc16.c:68: printf("len=0x%04x ", len);
-	mov	a,#0xff
+	mov	r0,#_len
+	mov	a,@r0
 	push	acc
+	inc	r0
+	mov	a,@r0
 	push	acc
 	mov	a,#___str_1
 	push	acc
@@ -527,40 +541,39 @@ _main:
 	add	a,#0xfb
 	mov	sp,a
 ;	crc16.c:69: CCRCB_INIT(crc);
-	mov	r6,#0xff
-	mov	r7,#0xff
+	mov	r0,#_crc
+	mov	@r0,#0xff
+	inc	r0
+	mov	@r0,#0xff
 ;	crc16.c:70: for (off = 0u; off < len; off++)
-	mov	a,_bp
-	add	a,#0x05
-	mov	r0,a
+	mov	r0,#_off
 	clr	a
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
 00137$:
-	mov	a,_bp
-	add	a,#0x05
-	mov	r0,a
+	mov	r0,#_off
+	mov	r1,#_len
 	clr	c
 	mov	a,@r0
-	subb	a,#0xff
+	subb	a,@r1
 	inc	r0
 	mov	a,@r0
-	subb	a,#0xff
+	inc	r1
+	subb	a,@r1
 	jnc	00109$
 ;	crc16.c:71: CCRCB(crc, base[off], bitp);
-	mov	r3,#0x80
+	mov	r0,#_bitp
+	mov	@r0,#0x80
 00134$:
-	mov	a,r7
+	mov	r0,#(_crc + 1)
+	mov	a,@r0
 	rl	a
 	anl	a,#0x01
-	mov	r2,a
-	mov	r5,#0x00
-	mov	r0,_bp
-	inc	r0
-	mov	a,_bp
-	add	a,#0x05
-	mov	r1,a
+	mov	r6,a
+	mov	r7,#0x00
+	mov	r0,#_base
+	mov	r1,#_off
 	mov	a,@r1
 	add	a,@r0
 	mov	dpl,a
@@ -570,65 +583,83 @@ _main:
 	addc	a,@r0
 	mov	dph,a
 	movx	a,@dptr
-	mov	r4,a
-	mov	a,r3
-	anl	ar4,a
-	mov	a,r4
-	cjne	a,#0x01,00229$
-00229$:
+	mov	r5,a
+	mov	r0,#_bitp
+	mov	a,@r0
+	anl	ar5,a
+	mov	a,r5
+	cjne	a,#0x01,00212$
+00212$:
 	cpl	c
 	mov	b0,c
-	push	ar3
-	mov	c,b0
 	clr	a
 	rlc	a
-	mov	r4,#0x00
-	xrl	ar2,a
-	mov	a,r4
-	xrl	ar5,a
-	pop	ar3
-	mov	a,r2
-	orl	a,r5
-	jz	00146$
-	mov	a,r6
-	add	a,r6
 	mov	r4,a
-	mov	a,r7
+	mov	r5,#0x00
+	xrl	ar6,a
+	mov	a,r5
+	xrl	ar7,a
+	mov	a,r6
+	orl	a,r7
+	jz	00146$
+	mov	r0,#_crc
+	mov	a,@r0
+	add	a,acc
+	mov	r6,a
+	inc	r0
+	mov	a,@r0
 	rlc	a
-	mov	r5,a
-	xrl	ar4,#0x21
-	xrl	ar5,#0x10
+	mov	r7,a
+	xrl	ar6,#0x21
+	xrl	ar7,#0x10
 	sjmp	00147$
 00146$:
-	mov	a,r6
-	add	a,r6
-	mov	r4,a
-	mov	a,r7
+	mov	r0,#_crc
+	mov	a,@r0
+	add	a,acc
+	mov	r6,a
+	inc	r0
+	mov	a,@r0
 	rlc	a
-	mov	r5,a
+	mov	r7,a
 00147$:
-	mov	ar6,r4
-	mov	ar7,r5
-	mov	a,r3
+	mov	r0,#_crc
+	mov	@r0,ar6
+	inc	r0
+	mov	@r0,ar7
+	mov	r0,#_bitp
+	mov	a,@r0
 	clr	c
 	rrc	a
-	mov	r3,a
+	mov	@r0,a
+	mov	r0,#_bitp
+	mov	a,@r0
 	jnz	00134$
 ;	crc16.c:70: for (off = 0u; off < len; off++)
-	mov	a,_bp
-	add	a,#0x05
-	mov	r0,a
+	mov	r0,#_off
 	inc	@r0
-	cjne	@r0,#0x00,00232$
+	cjne	@r0,#0x00,00215$
 	inc	r0
 	inc	@r0
-00232$:
+00215$:
 ;	crc16.c:72: CCRCB_FINISH(crc);
 	sjmp	00137$
 00109$:
+	mov	r0,#_crc
+	mov	ar6,@r0
+	inc	r0
+	mov	ar7,@r0
+	mov	r0,#_crc
+	mov	@r0,ar6
+	inc	r0
+	mov	@r0,ar7
 ;	crc16.c:73: printf("CRC16=0x%04x\r\n", crc);
-	push	ar6
-	push	ar7
+	mov	r0,#_crc
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
 	mov	a,#___str_2
 	push	acc
 	mov	a,#(___str_2 >> 8)
@@ -639,14 +670,20 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
+;	crc16.c:75: len = PLEN;
+	mov	r0,#_len
+	mov	@r0,#0x00
+	inc	r0
+	mov	@r0,#0x20
 ;	crc16.c:76: while (1) {
 00129$:
-;	crc16.c:77: printf("PARTIAL base=0x%04x ", (unsigned int)base);
-	mov	r0,_bp
+;	crc16.c:77: printf("PARTIAL base=%p ", base);
+	mov	r0,#_base
+	mov	ar5,@r0
 	inc	r0
 	mov	ar6,@r0
-	inc	r0
-	mov	ar7,@r0
+	mov	r7,#0x00
+	push	ar5
 	push	ar6
 	push	ar7
 	mov	a,#___str_3
@@ -657,12 +694,14 @@ _main:
 	push	acc
 	lcall	_printf
 	mov	a,sp
-	add	a,#0xfb
+	add	a,#0xfa
 	mov	sp,a
 ;	crc16.c:78: printf("len=0x%04x ", len);
-	clr	a
+	mov	r0,#_len
+	mov	a,@r0
 	push	acc
-	mov	a,#0x20
+	inc	r0
+	mov	a,@r0
 	push	acc
 	mov	a,#___str_1
 	push	acc
@@ -675,38 +714,39 @@ _main:
 	add	a,#0xfb
 	mov	sp,a
 ;	crc16.c:79: CCRCB_INIT(crc);
-	mov	r6,#0xff
-	mov	r7,#0xff
+	mov	r0,#_crc
+	mov	@r0,#0xff
+	inc	r0
+	mov	@r0,#0xff
 ;	crc16.c:80: for (off = 0u; off < len; off++)
-	mov	a,_bp
-	add	a,#0x05
-	mov	r0,a
+	mov	r0,#_off
 	clr	a
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
 00142$:
-	mov	a,_bp
-	add	a,#0x05
-	mov	r0,a
+	mov	r0,#_off
+	mov	r1,#_len
 	clr	c
+	mov	a,@r0
+	subb	a,@r1
 	inc	r0
 	mov	a,@r0
-	subb	a,#0x20
+	inc	r1
+	subb	a,@r1
 	jnc	00120$
 ;	crc16.c:81: CCRCB(crc, base[off], bitp);
-	mov	r3,#0x80
+	mov	r0,#_bitp
+	mov	@r0,#0x80
 00139$:
-	mov	a,r7
+	mov	r0,#(_crc + 1)
+	mov	a,@r0
 	rl	a
 	anl	a,#0x01
-	mov	r2,a
-	mov	r5,#0x00
-	mov	r0,_bp
-	inc	r0
-	mov	a,_bp
-	add	a,#0x05
-	mov	r1,a
+	mov	r6,a
+	mov	r7,#0x00
+	mov	r0,#_base
+	mov	r1,#_off
 	mov	a,@r1
 	add	a,@r0
 	mov	dpl,a
@@ -716,65 +756,83 @@ _main:
 	addc	a,@r0
 	mov	dph,a
 	movx	a,@dptr
-	mov	r4,a
-	mov	a,r3
-	anl	ar4,a
-	mov	a,r4
-	cjne	a,#0x01,00234$
-00234$:
+	mov	r5,a
+	mov	r0,#_bitp
+	mov	a,@r0
+	anl	ar5,a
+	mov	a,r5
+	cjne	a,#0x01,00217$
+00217$:
 	cpl	c
 	mov	b0,c
-	push	ar3
-	mov	c,b0
 	clr	a
 	rlc	a
-	mov	r4,#0x00
-	xrl	ar2,a
-	mov	a,r4
-	xrl	ar5,a
-	pop	ar3
-	mov	a,r2
-	orl	a,r5
-	jz	00148$
-	mov	a,r6
-	add	a,r6
 	mov	r4,a
-	mov	a,r7
+	mov	r5,#0x00
+	xrl	ar6,a
+	mov	a,r5
+	xrl	ar7,a
+	mov	a,r6
+	orl	a,r7
+	jz	00148$
+	mov	r0,#_crc
+	mov	a,@r0
+	add	a,acc
+	mov	r6,a
+	inc	r0
+	mov	a,@r0
 	rlc	a
-	mov	r5,a
-	xrl	ar4,#0x21
-	xrl	ar5,#0x10
+	mov	r7,a
+	xrl	ar6,#0x21
+	xrl	ar7,#0x10
 	sjmp	00149$
 00148$:
-	mov	a,r6
-	add	a,r6
-	mov	r4,a
-	mov	a,r7
+	mov	r0,#_crc
+	mov	a,@r0
+	add	a,acc
+	mov	r6,a
+	inc	r0
+	mov	a,@r0
 	rlc	a
-	mov	r5,a
+	mov	r7,a
 00149$:
-	mov	ar6,r4
-	mov	ar7,r5
-	mov	a,r3
+	mov	r0,#_crc
+	mov	@r0,ar6
+	inc	r0
+	mov	@r0,ar7
+	mov	r0,#_bitp
+	mov	a,@r0
 	clr	c
 	rrc	a
-	mov	r3,a
+	mov	@r0,a
+	mov	r0,#_bitp
+	mov	a,@r0
 	jnz	00139$
 ;	crc16.c:80: for (off = 0u; off < len; off++)
-	mov	a,_bp
-	add	a,#0x05
-	mov	r0,a
+	mov	r0,#_off
 	inc	@r0
-	cjne	@r0,#0x00,00237$
+	cjne	@r0,#0x00,00220$
 	inc	r0
 	inc	@r0
-00237$:
+00220$:
 ;	crc16.c:82: CCRCB_FINISH(crc);
 	sjmp	00142$
 00120$:
+	mov	r0,#_crc
+	mov	ar6,@r0
+	inc	r0
+	mov	ar7,@r0
+	mov	r0,#_crc
+	mov	@r0,ar6
+	inc	r0
+	mov	@r0,ar7
 ;	crc16.c:83: printf("CRC16=0x%04x\r\n", crc);
-	push	ar6
-	push	ar7
+	mov	r0,#_crc
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
 	mov	a,#___str_2
 	push	acc
 	mov	a,#(___str_2 >> 8)
@@ -807,24 +865,31 @@ _main:
 	ljmp	00131$
 00124$:
 ;	crc16.c:91: t = base + (len >> 1);
-	mov	r0,_bp
+	mov	r0,#_len
+	mov	ar6,@r0
 	inc	r0
-	mov	a,_bp
-	add	a,#0x03
-	mov	r1,a
 	mov	a,@r0
-	mov	@r1,a
-	mov	a,#0x10
-	inc	r0
+	clr	c
+	rrc	a
+	xch	a,r6
+	rrc	a
+	xch	a,r6
+	mov	r7,a
+	mov	r0,#_base
+	mov	a,r6
 	add	a,@r0
-	inc	r1
-	mov	@r1,a
+	mov	r6,a
+	mov	a,r7
+	inc	r0
+	addc	a,@r0
+	mov	r7,a
+	mov	r0,#_t
+	mov	@r0,ar6
+	inc	r0
+	mov	@r0,ar7
 ;	crc16.c:92: if (t < base) break;
-	mov	a,_bp
-	add	a,#0x03
-	mov	r0,a
-	mov	r1,_bp
-	inc	r1
+	mov	r0,#_t
+	mov	r1,#_base
 	clr	c
 	mov	a,@r0
 	subb	a,@r1
@@ -832,15 +897,12 @@ _main:
 	mov	a,@r0
 	inc	r1
 	subb	a,@r1
-	jnc	00239$
+	jnc	00222$
 	ljmp	00131$
-00239$:
+00222$:
 ;	crc16.c:93: else base = t;
-	mov	a,_bp
-	add	a,#0x03
-	mov	r0,a
-	mov	r1,_bp
-	inc	r1
+	mov	r0,#_t
+	mov	r1,#_base
 	mov	a,@r0
 	mov	@r1,a
 	inc	r0
@@ -853,14 +915,12 @@ _main:
 	orl	_PCON,#0x02
 ;	crc16.c:99: return;
 ;	crc16.c:100: }
-	mov	sp,_bp
-	pop	_bp
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area CONST   (CODE)
 ___str_0:
-	.ascii "COMPLETE base=0x%04x "
+	.ascii "COMPLETE base=%p "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -877,7 +937,7 @@ ___str_2:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_3:
-	.ascii "PARTIAL base=0x%04x "
+	.ascii "PARTIAL base=%p "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

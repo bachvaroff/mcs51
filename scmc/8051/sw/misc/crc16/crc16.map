@@ -36,7 +36,6 @@ C:   00000000  s_RSEG0
 C:   00000000  s_RSEG1                         
 C:   00000000  s_XABS                          
 C:   00000001  l_BIT_BANK                      
-C:   00000001  l_ISEG                          
 C:   00000003  l_GSFINAL                       
 C:   00000003  l_GSINIT0                       
 C:   00000008  l_REG_BANK_0                    
@@ -44,6 +43,7 @@ C:   00000008  l_REG_BANK_1
 C:   00000008  s_REG_BANK_1                    
 C:   00000009  l_HOME                          
 C:   0000000A  l_GSINIT2                       
+C:   0000000C  l_ISEG                          
 C:   00000010  s_REG_BANK_2                    
 C:   00000011  s_ISEG                          
 C:   00000018  s_REG_BANK_3                    
@@ -54,8 +54,8 @@ C:   00000020  s__CODE
 C:   00000021  s_SSEG                          
 C:   00000022  l_GSINIT3                       
 C:   0000002A  l_GSINIT4                       
-C:   0000005E  l_CONST                         
-C:   00000072  l_DSEG                          
+C:   00000056  l_CONST                         
+C:   0000007D  l_DSEG                          
 C:   000000DF  l_SSEG                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
@@ -67,7 +67,7 @@ CABS                                00000000    00000000 =           0. bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00000100  l_IRAM                          
-C:   0000156E  l_CSEG                          
+C:   000015B4  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002009  s_GSINIT0                       
 C:   0000200C  s_GSINIT1                       
@@ -78,8 +78,8 @@ C:   00002062  s_GSFINAL
 C:   00002062  s_GSINIT                        
 C:   00002062  s_GSINIT5                       
 C:   00002065  s_CSEG                          
-C:   000035D3  s_CONST                         
-C:   00003631  s_XINIT                         
+C:   00003619  s_CONST                         
+C:   0000366F  s_XINIT                         
 C:   00004000  s_PSEG                          
 C:   00004000  s_XISEG                         
 C:   00004000  s_XSEG                          
@@ -272,7 +272,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-DSEG                                00000000    00000072 =         114. bytes (REL,CON)
+DSEG                                00000000    0000007D =         125. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -283,11 +283,17 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-ISEG                                00000011    00000001 =           1. bytes (REL,CON)
+ISEG                                00000011    0000000C =          12. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000011  _intr                              crc16
+     00000012  _base                              crc16
+     00000014  _t                                 crc16
+     00000016  _len                               crc16
+     00000018  _off                               crc16
+     0000001A  _crc                               crc16
+     0000001C  _bitp                              crc16
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 Hexadecimal  [32-Bits]
@@ -368,7 +374,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002065    0000156E =        5486. bytes (REL,CON,CODE)
+CSEG                                00002065    000015B4 =        5556. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -376,20 +382,20 @@ C:   00002065  _putchar                           crc16
 C:   0000206A  _getchar                           crc16
 C:   00002073  _int0                              crc16
 C:   0000207F  _main                              crc16
-C:   000022B8  _vprintf                           vprintf
-C:   000022EF  _printf                            vprintf
-C:   00002328  __sdcc_external_startup            _startup
-C:   00002459  __print_format                     printf_large
-C:   00003501  __mulint                           _mulint
-C:   0000359F  _strlen                            _strlen
-C:   000035B7  __gptrget                          _gptrget
+C:   000022FE  _vprintf                           vprintf
+C:   00002335  _printf                            vprintf
+C:   0000236E  __sdcc_external_startup            _startup
+C:   0000249F  __print_format                     printf_large
+C:   00003547  __mulint                           _mulint
+C:   000035E5  _strlen                            _strlen
+C:   000035FD  __gptrget                          _gptrget
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               000035D3    0000005E =          94. bytes (REL,CON,CODE)
+CONST                               00003619    00000056 =          86. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -409,8 +415,6 @@ Libraries Linked                          [ object file ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/mcs51.lib
                                           [ crtxclear.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
-                                          [ _bp.rel ]
-/usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
                                           [ vprintf.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/mcs51.lib
                                           [ crtpagesfr.rel ]
@@ -422,6 +426,8 @@ Libraries Linked                          [ object file ]
                                           [ printf_large.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libint.lib
                                           [ _mulint.rel ]
+/usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
+                                          [ _bp.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
                                           [ _strlen.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
