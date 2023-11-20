@@ -1,5 +1,5 @@
 SDCCCFLAGS=--model-large --stack-auto -I.
-ASLINKFLAGS=--model-large --stack-auto --code-loc 0x2000 --code-size 0x2300 --xram-loc 0x4300
+ASLINKFLAGS=--model-large --stack-auto --code-loc 0x2000 --code-size 0x2310 --xram-loc 0x4310
 
 %.rel: %.c
 	sdcc $(SDCCCFLAGS) -c "$<"
