@@ -2,10 +2,10 @@
 -i walk.ihx
 -M
 -Y
--C 0x2200
+-C 0x2300
 -b HOME = 0x2000
--b XSEG = 0x4200
--b PSEG = 0x4200
+-b XSEG = 0x4300
+-b PSEG = 0x4300
 -b ISEG = 0x0000
 -b BSEG = 0x0000
 -k /usr/bin/../share/sdcc/lib/large-stack-auto

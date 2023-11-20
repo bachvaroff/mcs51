@@ -82,11 +82,29 @@ static uint8_t qget(struct node *t);
 __idata static uint8_t OE76;
 __xdata __at(0xf006u) static volatile uint8_t OEreg;
 
-static void flashOE(uint8_t mask) {
+static void setOE(uint8_t mask) {
+	OE76 |= mask;
 	P1_7 = 0;
 	OEreg = OE76;
 	P1_7 = 1;
+	
+	return;
+}
+
+static void unsetOE(uint8_t mask) {
+	OE76 &= ~mask;
+	P1_7 = 0;
+	OEreg = OE76;
+	P1_7 = 1;
+	
+	return;
+}
+
+static void flipOE(uint8_t mask) {
 	OE76 ^= mask;
+	P1_7 = 0;
+	OEreg = OE76;
+	P1_7 = 1;
 	
 	return;
 }
@@ -115,12 +133,14 @@ static void walk(struct node *nstart) {
 	g[nstart->r][nstart->c] = 0xaau;
 	
 process:
+	unsetOE(OE76_MASK7 | OE76_MASK6);
+	
 	if (!qget(&cur)) goto term;
 		
 	printf("\033[2;1H% 8d% 8d% 8d% 8d", hp, tp, cur.r, cur.c);
 	
 	printf("\033[%d;%dH.", cur.r + 4, cur.c + 1);
-	flashOE(OE76_MASK6);
+	setOE(OE76_MASK6);
 	
 	for (j = 0u; j < NMAX; j++)
 		scramble[j] = j;
@@ -134,14 +154,17 @@ process:
 		scramble[tj] = tx;
 	}
 	
-	for (j = 0u; j < NMAX; j++)
+	for (j = 0u; j < NMAX; j++) {
+		unsetOE(OE76_MASK7);
+		
 		if (update(&t, &cur, scramble[j])) {
 			if (!qadd(&t)) bang();
 			g[t.r][t.c] = 0xaau;
 			
+			setOE(OE76_MASK7);
 			printf("\033[%d;%dHo", t.r + 4, t.c + 1);
-			flashOE(OE76_MASK7);
 		}
+	}
 	
 	goto process;
 	
@@ -184,7 +207,7 @@ void main(void) {
 		}
 		
 		OE76 = OE76_0;
-		flashOE(OE76_NC);
+		setOE(OE76_NC);
 		
 		walk(&initial);
 		

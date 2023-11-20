@@ -82,11 +82,29 @@ static uint8_t stpop(struct node *t);
 __idata static uint8_t OE76;
 __xdata __at(0xf006u) static volatile uint8_t OEreg;
 
-static void flashOE(uint8_t mask) {
+static void setOE(uint8_t mask) {
+	OE76 |= mask;
 	P1_7 = 0;
 	OEreg = OE76;
 	P1_7 = 1;
+	
+	return;
+}
+
+static void unsetOE(uint8_t mask) {
+	OE76 &= ~mask;
+	P1_7 = 0;
+	OEreg = OE76;
+	P1_7 = 1;
+	
+	return;
+}
+
+static void flipOE(uint8_t mask) {
 	OE76 ^= mask;
+	P1_7 = 0;
+	OEreg = OE76;
+	P1_7 = 1;
 	
 	return;
 }
@@ -116,10 +134,11 @@ process:
 	g[cur.r][cur.c] = 0xaau;
 	
 	printf("\033[%d;%dHo", cur.r + 4, cur.c + 1);
-	flashOE(OE76_MASK7);
+	setOE(OE76_MASK7);
 	
 next:
 	printf("\033[2;1H% 8d% 8d% 8d", sp, cur.r, cur.c);
+	unsetOE(OE76_MASK7 | OE76_MASK6);
 	
 	for (j = 0u, f = 0u; j < NMAX; j++) {
 		if (!update(&t, &cur, j)) continue;
@@ -137,9 +156,11 @@ next:
 	}
 	
 	printf("\033[%d;%dH.", cur.r + 4, cur.c + 1);
-	flashOE(OE76_MASK6);
+	setOE(OE76_MASK6);
 	
 	if (stpop(&cur)) goto next;
+	
+	unsetOE(OE76_MASK7 | OE76_MASK6);
 	
 	return;
 }
@@ -179,7 +200,7 @@ void main(void) {
 		}
 		
 		OE76 = OE76_0;
-		flashOE(OE76_NC);
+		setOE(OE76_NC);
 		
 		walk(&initial);
 		
