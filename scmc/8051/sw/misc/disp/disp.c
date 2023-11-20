@@ -88,6 +88,11 @@ __idata uint8_t OE;
 
 void init_gpo(void) {
 	P1_7 = 0;
+	__asm
+		nop
+		nop
+		nop
+	__endasm;
 #ifdef GPO_PDATA
 	P2 = GPO_BASE_H;
 #endif

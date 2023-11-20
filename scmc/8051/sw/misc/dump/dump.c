@@ -64,6 +64,11 @@ void main(void) {
 	EA = 1;
 	
 	P1_7 = 0; /* activate IO address space from 0xe000 to 0xffff */
+	__asm
+		nop
+		nop
+		nop
+	__endasm;
 	
 	for (base = (unsigned char *)0u; !intr; base += 0x400u) {
 		for (off = 0u; off < 0x400u; off += 0x20u) {
@@ -81,6 +86,11 @@ void main(void) {
 	}
 	
 	P1_7 = 1; /* deactivate IO address space from 0xe000 to 0xffff */
+	__asm
+		nop
+		nop
+		nop
+	__endasm;
 	
 	PCON |= 2;
 	

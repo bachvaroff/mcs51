@@ -476,7 +476,11 @@ _main:
 ;	dump.c:66: P1_7 = 0; /* activate IO address space from 0xe000 to 0xffff */
 ;	assignBit
 	clr	_P1_7
-;	dump.c:68: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
+;	dump.c:71: __endasm;
+	nop
+	nop
+	nop
+;	dump.c:73: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
 	mov	dptr,#_base
 	clr	a
 	movx	@dptr,a
@@ -490,14 +494,14 @@ _main:
 	jz	00160$
 	ljmp	00106$
 00160$:
-;	dump.c:69: for (off = 0u; off < 0x400u; off += 0x20u) {
+;	dump.c:74: for (off = 0u; off < 0x400u; off += 0x20u) {
 	mov	dptr,#_off
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
 00116$:
-;	dump.c:70: print16x((unsigned int)base + off);
+;	dump.c:75: print16x((unsigned int)base + off);
 	mov	dptr,#_base
 	movx	a,@dptr
 	mov	r5,a
@@ -609,7 +613,7 @@ _main:
 	mov	dpl,r7
 	mov	dph,r6
 	lcall	_putchar
-;	dump.c:71: printstr(" : ");
+;	dump.c:76: printstr(" : ");
 	mov	r5,#___str_0
 	mov	r6,#(___str_0 >> 8)
 	mov	r7,#0x80
@@ -627,19 +631,19 @@ _main:
 	mov	dph,r3
 	lcall	_putchar
 	inc	r5
-;	dump.c:71: printstr(" : ");
+;	dump.c:76: printstr(" : ");
 	cjne	r5,#0x00,00112$
 	inc	r6
 	sjmp	00112$
 00109$:
-;	dump.c:72: for (col = 0u; col < 0x20u; col++) {
+;	dump.c:77: for (col = 0u; col < 0x20u; col++) {
 	mov	dptr,#_col
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
 00114$:
-;	dump.c:73: print8x(base[off + col]);
+;	dump.c:78: print8x(base[off + col]);
 	mov	dptr,#_col
 	movx	a,@dptr
 	mov	r6,a
@@ -727,7 +731,7 @@ _main:
 	mov	dpl,r7
 	mov	dph,r6
 	lcall	_putchar
-;	dump.c:74: if (col == 0x1fu) {
+;	dump.c:79: if (col == 0x1fu) {
 	mov	dptr,#_col
 	movx	a,@dptr
 	mov	r6,a
@@ -736,18 +740,18 @@ _main:
 	mov	r7,a
 	cjne	r6,#0x1f,00102$
 	cjne	r7,#0x00,00102$
-;	dump.c:75: putchar('\r'); putchar('\n');
+;	dump.c:80: putchar('\r'); putchar('\n');
 	mov	dptr,#0x000d
 	lcall	_putchar
 	mov	dptr,#0x000a
 	lcall	_putchar
 	sjmp	00115$
 00102$:
-;	dump.c:76: } else putchar(' ');
+;	dump.c:81: } else putchar(' ');
 	mov	dptr,#0x0020
 	lcall	_putchar
 00115$:
-;	dump.c:72: for (col = 0u; col < 0x20u; col++) {
+;	dump.c:77: for (col = 0u; col < 0x20u; col++) {
 	mov	dptr,#_col
 	movx	a,@dptr
 	add	a,#0x01
@@ -770,7 +774,7 @@ _main:
 	jnc	00168$
 	ljmp	00114$
 00168$:
-;	dump.c:69: for (off = 0u; off < 0x400u; off += 0x20u) {
+;	dump.c:74: for (off = 0u; off < 0x400u; off += 0x20u) {
 	mov	dptr,#_off
 	movx	a,@dptr
 	mov	r6,a
@@ -796,14 +800,14 @@ _main:
 	jnc	00169$
 	ljmp	00116$
 00169$:
-;	dump.c:79: getchar();
+;	dump.c:84: getchar();
 	lcall	_getchar
-;	dump.c:80: putchar('\r'); putchar('\n');
+;	dump.c:85: putchar('\r'); putchar('\n');
 	mov	dptr,#0x000d
 	lcall	_putchar
 	mov	dptr,#0x000a
 	lcall	_putchar
-;	dump.c:68: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
+;	dump.c:73: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
 	mov	dptr,#_base
 	movx	a,@dptr
 	mov	r5,a
@@ -825,13 +829,17 @@ _main:
 	movx	@dptr,a
 	ljmp	00119$
 00106$:
-;	dump.c:83: P1_7 = 1; /* deactivate IO address space from 0xe000 to 0xffff */
+;	dump.c:88: P1_7 = 1; /* deactivate IO address space from 0xe000 to 0xffff */
 ;	assignBit
 	setb	_P1_7
-;	dump.c:85: PCON |= 2;
+;	dump.c:93: __endasm;
+	nop
+	nop
+	nop
+;	dump.c:95: PCON |= 2;
 	orl	_PCON,#0x02
-;	dump.c:87: return;
-;	dump.c:88: }
+;	dump.c:97: return;
+;	dump.c:98: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

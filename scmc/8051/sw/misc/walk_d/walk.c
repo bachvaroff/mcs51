@@ -85,8 +85,18 @@ __xdata __at(0xf006u) static volatile uint8_t OEreg;
 static void setOE(uint8_t mask) {
 	OE76 |= mask;
 	P1_7 = 0;
+	__asm
+		nop
+		nop
+		nop
+	__endasm;
 	OEreg = OE76;
 	P1_7 = 1;
+	__asm
+		nop
+		nop
+		nop
+	__endasm;
 	
 	return;
 }
@@ -94,8 +104,18 @@ static void setOE(uint8_t mask) {
 static void unsetOE(uint8_t mask) {
 	OE76 &= ~mask;
 	P1_7 = 0;
+	__asm
+		nop
+		nop
+		nop
+	__endasm;
 	OEreg = OE76;
 	P1_7 = 1;
+	__asm
+		nop
+		nop
+		nop
+	__endasm;
 	
 	return;
 }
@@ -103,8 +123,18 @@ static void unsetOE(uint8_t mask) {
 static void flipOE(uint8_t mask) {
 	OE76 ^= mask;
 	P1_7 = 0;
+	__asm
+		nop
+		nop
+		nop
+	__endasm;
 	OEreg = OE76;
 	P1_7 = 1;
+	__asm
+		nop
+		nop
+		nop
+	__endasm;
 	
 	return;
 }

@@ -88,8 +88,18 @@ __xdata __at(0xf006u) static volatile uint8_t OEreg;
 
 static void flashOE(void) {
 	P1_7 = 0;
+	__asm
+		nop
+		nop
+		nop
+	__endasm;
 	OEreg = OE76;
 	P1_7 = 1;
+	__asm
+		nop
+		nop
+		nop
+	__endasm;
 	
 	return;
 }
@@ -266,6 +276,11 @@ void main(void) {
 	EX1 = 1;
 	EA = 1;	
 	P1_7 = 1;
+	__asm
+		nop
+		nop
+		nop
+	__endasm;
 	
         srand(RND);
         
