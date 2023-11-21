@@ -5,10 +5,12 @@ PIN   4 =  A11I
 PIN   5 =  A12I 
 PIN  13 =  A1I 
 PIN  11 =  A2I 
+PIN   6 =  A7I 
 PIN   1 =  A8I 
 PIN   2 =  A9I 
 PIN   7 =  CSIO77I 
 PIN  10 =  DEI 
+PIN  22 =  DEO 
 PIN  16 =  L0LE 
 PIN  17 =  L1LE 
 PIN  18 =  L2LE 
@@ -18,13 +20,12 @@ PIN  21 =  L5LE
 PIN  15 =  OECTRL_CLK 
 PIN  23 =  OECTRL_CLR 
 PIN   9 =  RSTI 
-PIN  22 =  TRIGLE 
 PIN   8 =  WRI 
 %END
 
 %FIELD
-FIELD ADDRESS = DE,A2I,A1I,A0I
-FIELD DECODE = L0LE,L1LE,L2LE,L3LE,L4LE,L5LE,OECTRL_CLK,TRIGLE
+FIELD ADDRESS = DEO,A2I,A1I,A0I
+FIELD DECODE = L0LE,L1LE,L2LE,L3LE,L4LE,L5LE,OECTRL_CLK
 %END
 
 %EQUATION
@@ -33,128 +34,63 @@ BOARD_ID =>
   # A10I
   # A9I
   # A8I
+  # A7I
 
 CSIO =>
     A11I
   # A10I
   # A9I
   # A8I
+  # A7I
   # CSIO77I
   # !A12I
 
-DE =>
-    A11I
-  # A10I
-  # A9I
-  # A8I
-  # CSIO77I
-  # !A12I
-  # WRI
-  # RSTI
+!DEO =>
+    !A10I & !A11I & A12I & !A7I & !A8I & !A9I & !CSIO77I & !DEI & !RSTI & !WRI
 
 !L0LE =>
     A0I
-  # A10I
-  # A11I
-  # !A12I
   # A1I
   # A2I
-  # A8I
-  # A9I
-  # CSIO77I
-  # RSTI
-  # WRI
+  # DEO
 
 !L1LE =>
     !A0I
-  # A10I
-  # A11I
-  # !A12I
   # A1I
   # A2I
-  # A8I
-  # A9I
-  # CSIO77I
-  # RSTI
-  # WRI
+  # DEO
 
 !L2LE =>
     A0I
-  # A10I
-  # A11I
-  # !A12I
   # !A1I
   # A2I
-  # A8I
-  # A9I
-  # CSIO77I
-  # RSTI
-  # WRI
+  # DEO
 
 !L3LE =>
     !A0I
-  # A10I
-  # A11I
-  # !A12I
   # !A1I
   # A2I
-  # A8I
-  # A9I
-  # CSIO77I
-  # RSTI
-  # WRI
+  # DEO
 
 !L4LE =>
     A0I
-  # A10I
-  # A11I
-  # !A12I
   # A1I
   # !A2I
-  # A8I
-  # A9I
-  # CSIO77I
-  # RSTI
-  # WRI
+  # DEO
 
 !L5LE =>
     !A0I
-  # A10I
-  # A11I
-  # !A12I
   # A1I
   # !A2I
-  # A8I
-  # A9I
-  # CSIO77I
-  # RSTI
-  # WRI
+  # DEO
 
 !OECTRL_CLK =>
-    A10I
-  # A11I
-  # !A12I
-  # !A1I
+    !A1I
   # !A2I
-  # A8I
-  # A9I
-  # CSIO77I
-  # RSTI
-  # WRI
+  # DEO
 
 !OECTRL_CLR =>
     RSTI
-
-!TRIGLE =>
-    A10I
-  # A11I
-  # !A12I
-  # A8I
-  # A9I
-  # CSIO77I
-  # RSTI
-  # WRI
-  # A1I & A2I
 
 UPPER_HALF_IO77 =>
     CSIO77I
@@ -162,6 +98,9 @@ UPPER_HALF_IO77 =>
 
 A0I.oe  =>
     0 
+
+DEO.oe  =>
+    1 
 
 L0LE.oe  =>
     1 
@@ -185,9 +124,6 @@ OECTRL_CLK.oe  =>
     1 
 
 OECTRL_CLR.oe  =>
-    1 
-
-TRIGLE.oe  =>
     1 
 
 %END

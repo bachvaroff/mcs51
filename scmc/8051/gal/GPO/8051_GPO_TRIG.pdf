@@ -1,11 +1,11 @@
-{COMPONENT \\MIDIAN\NASKO\VAR\GIT\GITHUB\V\SCMC\8051\GAL\8051_GPO_TRIG.SYM
+{COMPONENT \\MIDIAN\NASKO\VAR\GIT\GITHUB\V\SCMC\8051\GAL\GPO\8051_GPO_TRIG.SYM
 
  {ENVIRONMENT
   {PDIFvrev 3.00}
   {Program "CUPL(WM) Version 5.0a"}
   {DBtype "Schematic"}
   {DBvrev 1.01}
-  {DBtime "Tue Sep 12 00:33:33 2023 "}
+  {DBtime "Tue Nov 21 15:06:05 2023 "}
   {DBunit "MIL"}
   {DBgrid 10}
   {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
@@ -53,7 +53,7 @@
    {P L3LE {Pt "I/O"}{Lq 0}{Ploc 350 100}}
    {P L4LE {Pt "I/O"}{Lq 0}{Ploc 350 120}}
    {P L5LE {Pt "I/O"}{Lq 0}{Ploc 350 140}}
-   {P TRIGLE {Pt "I/O"}{Lq 0}{Ploc 350 160}}
+   {P DEO {Pt "I/O"}{Lq 0}{Ploc 350 160}}
   }
 
   {PKG
@@ -139,7 +139,7 @@
    {T "L3LE" 310 100}
    {T "L4LE" 310 120}
    {T "L5LE" 310 140}
-   {T "TRIGLE" 310 160}
+   {T "DEO" 310 160}
    [Ly "DEVICE"]
    [Tj "CT"]
    {T "G22V10" 225 -10}
@@ -153,7 +153,7 @@
    {EX
     [Ly "ATTR2"]
     [Ts 12][Tj "CT"][Tr 0][Tm "N"]
-    {At PLD \\MIDIAN\NASKO\VAR\GIT\GITHUB\V\SCMC\8051\GAL\8051_GPO_TRIG 225 300}
+    {At PLD \\MIDIAN\NASKO\VAR\GIT\GITHUB\V\SCMC\8051\GAL\GPO\8051_GPO_TRIG 225 300}
    }
   }
  }
@@ -203,7 +203,7 @@
    }
    {N L5LE
    }
-   {N TRIGLE
+   {N DEO
    }
   }
 
