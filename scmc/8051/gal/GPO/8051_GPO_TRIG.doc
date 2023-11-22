@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# 60008009
 Device          g22v10  Library DLIB-h-40-1
-Created         Tue Nov 21 15:06:05 2023
+Created         Wed Nov 22 13:03:08 2023
 Name            8051_GPO_TRIG
 Partno          U0 G22V10
 Revision        1.0
@@ -39,54 +39,59 @@ CSIO =>
   # !A12I
 
 DECODE =>
-    L0LE , L1LE , L2LE , L3LE , L4LE , L5LE , OECTRL_LE
+    L0LEO , L1LEO , L2LEO , L3LEO , L4LEO , L5LEO , OELEO , LxLEO
 
 !DEO =>
     !A10I & !A11I & A12I & !A7I & !A8I & !A9I & !CSIO77I & !DEI & !RSTI & !WRI
 
-!L0LE =>
+!L0LEO =>
     A0I
   # A1I
   # A2I
   # DEO
   # RSTI
 
-!L1LE =>
+!L1LEO =>
     !A0I
   # A1I
   # A2I
   # DEO
   # RSTI
 
-!L2LE =>
+!L2LEO =>
     A0I
   # !A1I
   # A2I
   # DEO
   # RSTI
 
-!L3LE =>
+!L3LEO =>
     !A0I
   # !A1I
   # A2I
   # DEO
   # RSTI
 
-!L4LE =>
+!L4LEO =>
     A0I
   # A1I
   # !A2I
   # DEO
   # RSTI
 
-!L5LE =>
+!L5LEO =>
     !A0I
   # A1I
   # !A2I
   # DEO
   # RSTI
 
-!OECTRL_LE =>
+!LxLEO =>
+    DEO
+  # RSTI
+  # A1I & A2I
+
+!OELEO =>
     !A1I & !RSTI
   # !A2I & !RSTI
   # DEO & !RSTI
@@ -101,25 +106,28 @@ A0I.oe  =>
 DEO.oe  =>
     1 
 
-L0LE.oe  =>
+L0LEO.oe  =>
     1 
 
-L1LE.oe  =>
+L1LEO.oe  =>
     1 
 
-L2LE.oe  =>
+L2LEO.oe  =>
     1 
 
-L3LE.oe  =>
+L3LEO.oe  =>
     1 
 
-L4LE.oe  =>
+L4LEO.oe  =>
     1 
 
-L5LE.oe  =>
+L5LEO.oe  =>
     1 
 
-OECTRL_LE.oe  =>
+LxLEO.oe  =>
+    1 
+
+OELEO.oe  =>
     1 
 
 
@@ -147,25 +155,27 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
     DECODE                      0        F        -       -       -     
     DEI                         10       V        -       -       -     
     DEO                         22       V        1       10      2     
-    L0LE                        16       V        5       12      2     
-    L1LE                        17       V        5       14      2     
-    L2LE                        18       V        5       16      2     
-    L3LE                        19       V        5       16      2     
-    L4LE                        20       V        5       14      2     
-    L5LE                        21       V        5       12      2     
-    OECTRL_LE                   15       V        3       10      2     
+    L0LEO                       16       V        5       12      2     
+    L1LEO                       17       V        5       14      2     
+    L2LEO                       18       V        5       16      2     
+    L3LEO                       19       V        5       16      2     
+    L4LEO                       20       V        5       14      2     
+    L5LEO                       21       V        5       12      2     
+    LxLEO                       23       V        3       8       2     
+    OELEO                       15       V        3       10      2     
     RSTI                        9        V        -       -       -     
     UPPER_HALF_IO77             0        I        2       -       -     
     WRI                         8        V        -       -       -     
     A0I                 oe      14       D        1       1       0     
     DEO                 oe      22       D        1       1       0     
-    L0LE                oe      16       D        1       1       0     
-    L1LE                oe      17       D        1       1       0     
-    L2LE                oe      18       D        1       1       0     
-    L3LE                oe      19       D        1       1       0     
-    L4LE                oe      20       D        1       1       0     
-    L5LE                oe      21       D        1       1       0     
-    OECTRL_LE           oe      15       D        1       1       0     
+    L0LEO               oe      16       D        1       1       0     
+    L1LEO               oe      17       D        1       1       0     
+    L2LEO               oe      18       D        1       1       0     
+    L3LEO               oe      19       D        1       1       0     
+    L4LEO               oe      20       D        1       1       0     
+    L5LEO               oe      21       D        1       1       0     
+    LxLEO               oe      23       D        1       1       0     
+    OELEO               oe      15       D        1       1       0     
 
 
 LEGEND    D : default variable         F : field      G : group
@@ -184,11 +194,11 @@ SP
 AR 
  00000 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 
-Pin #23  05808 Mode  xx 
- 00044 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 00088 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 00132 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
- 00176 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #23  05808 Mode  x- 
+ 00044 -------------------------------------------- 
+ 00088 ------x------------------------------------- 
+ 00132 --------------------------------x----------- 
+ 00176 ----------------------------------------x-x- 
  00220 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00264 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00308 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -336,15 +346,15 @@ LEGEND    X : fuse not blown
                                ______________
                               |8051_GPO_TRIG |
                       A8I x---|1           24|---x Vcc                      
-                      A9I x---|2           23|---x                          
+                      A9I x---|2           23|---x LxLEO                    
                      A10I x---|3           22|---x DEO                      
-                     A11I x---|4           21|---x L5LE                     
-                     A12I x---|5           20|---x L4LE                     
-                      A7I x---|6           19|---x L3LE                     
-                  CSIO77I x---|7           18|---x L2LE                     
-                      WRI x---|8           17|---x L1LE                     
-                     RSTI x---|9           16|---x L0LE                     
-                      DEI x---|10          15|---x OECTRL_LE                
+                     A11I x---|4           21|---x L5LEO                    
+                     A12I x---|5           20|---x L4LEO                    
+                      A7I x---|6           19|---x L3LEO                    
+                  CSIO77I x---|7           18|---x L2LEO                    
+                      WRI x---|8           17|---x L1LEO                    
+                     RSTI x---|9           16|---x L0LEO                    
+                      DEI x---|10          15|---x OELEO                    
                       A2I x---|11          14|---x A0I                      
                       GND x---|12          13|---x A1I                      
                               |______________|

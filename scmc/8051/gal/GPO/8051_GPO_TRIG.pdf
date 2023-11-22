@@ -5,7 +5,7 @@
   {Program "CUPL(WM) Version 5.0a"}
   {DBtype "Schematic"}
   {DBvrev 1.01}
-  {DBtime "Tue Nov 21 15:06:05 2023 "}
+  {DBtime "Wed Nov 22 13:03:08 2023 "}
   {DBunit "MIL"}
   {DBgrid 10}
   {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
@@ -46,20 +46,21 @@
    {P A2I {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
    {P A1I {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
    {P A0I {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
-   {P OECTRL_L {Pt "I/O"}{Lq 0}{Ploc 350 20}}
-   {P L0LE {Pt "I/O"}{Lq 0}{Ploc 350 40}}
-   {P L1LE {Pt "I/O"}{Lq 0}{Ploc 350 60}}
-   {P L2LE {Pt "I/O"}{Lq 0}{Ploc 350 80}}
-   {P L3LE {Pt "I/O"}{Lq 0}{Ploc 350 100}}
-   {P L4LE {Pt "I/O"}{Lq 0}{Ploc 350 120}}
-   {P L5LE {Pt "I/O"}{Lq 0}{Ploc 350 140}}
-   {P DEO {Pt "I/O"}{Lq 0}{Ploc 350 160}}
+   {P OELEO {Pt "I/O"}{Lq 0}{Ploc 320 20}}
+   {P L0LEO {Pt "I/O"}{Lq 0}{Ploc 320 40}}
+   {P L1LEO {Pt "I/O"}{Lq 0}{Ploc 320 60}}
+   {P L2LEO {Pt "I/O"}{Lq 0}{Ploc 320 80}}
+   {P L3LEO {Pt "I/O"}{Lq 0}{Ploc 320 100}}
+   {P L4LEO {Pt "I/O"}{Lq 0}{Ploc 320 120}}
+   {P L5LEO {Pt "I/O"}{Lq 0}{Ploc 320 140}}
+   {P DEO {Pt "I/O"}{Lq 0}{Ploc 320 160}}
+   {P LXLEO {Pt "I/O"}{Lq 0}{Ploc 320 180}}
   }
 
   {PKG
    [Ly "REFDES"]
    [Ts 25][Tj "CB"][Tr 0][Tm "N"]
-   {Rdl 225 310}
+   {Rdl 210 310}
 
    [Ly "PINNUM"]
    [Ts 15][Tj "RC"]
@@ -78,22 +79,23 @@
    {Pnl 120 50}
    {Pnl 120 30}
    [Ts 15][Tj "LC"]
-   {Pnl 330 30}
-   {Pnl 330 50}
-   {Pnl 330 70}
-   {Pnl 330 90}
-   {Pnl 330 110}
-   {Pnl 330 130}
-   {Pnl 330 150}
-   {Pnl 330 170}
+   {Pnl 300 30}
+   {Pnl 300 50}
+   {Pnl 300 70}
+   {Pnl 300 90}
+   {Pnl 300 110}
+   {Pnl 300 130}
+   {Pnl 300 150}
+   {Pnl 300 170}
+   {Pnl 300 190}
 
-   {Sd A 1 2 3 4 5 6 7 8 9 10 11 13 14 15 16 17 18 19 20 21 22}
+   {Sd A 1 2 3 4 5 6 7 8 9 10 11 13 14 15 16 17 18 19 20 21 22 23}
   }
 
   {PIC
    [Ly "GATE"]
    [Ts 15][Tj "LC"][Tr 0][Tm "N"]
-   {R 130 300 320 0}
+   {R 130 300 290 0}
    {L 130 280 100 280}
    {L 130 290 140 280 130 270}
    {L 130 240 100 240}
@@ -108,14 +110,15 @@
    {L 130 60 100 60}
    {L 130 40 100 40}
    {L 130 20 100 20}
-   {L 320 20 350 20}
-   {L 320 40 350 40}
-   {L 320 60 350 60}
-   {L 320 80 350 80}
-   {L 320 100 350 100}
-   {L 320 120 350 120}
-   {L 320 140 350 140}
-   {L 320 160 350 160}
+   {L 290 20 320 20}
+   {L 290 40 320 40}
+   {L 290 60 320 60}
+   {L 290 80 320 80}
+   {L 290 100 320 100}
+   {L 290 120 320 120}
+   {L 290 140 320 140}
+   {L 290 160 320 160}
+   {L 290 180 320 180}
    [Ly "PINNAM"]
    [Tj "LC"]
    {T "A8I" 140 280}
@@ -132,17 +135,18 @@
    {T "A1I" 140 40}
    {T "A0I" 140 20}
    [Tj "RC"]
-   {T "OECTRL_L" 310 20}
-   {T "L0LE" 310 40}
-   {T "L1LE" 310 60}
-   {T "L2LE" 310 80}
-   {T "L3LE" 310 100}
-   {T "L4LE" 310 120}
-   {T "L5LE" 310 140}
-   {T "DEO" 310 160}
+   {T "OELEO" 280 20}
+   {T "L0LEO" 280 40}
+   {T "L1LEO" 280 60}
+   {T "L2LEO" 280 80}
+   {T "L3LEO" 280 100}
+   {T "L4LEO" 280 120}
+   {T "L5LEO" 280 140}
+   {T "DEO" 280 160}
+   {T "LXLEO" 280 180}
    [Ly "DEVICE"]
    [Tj "CT"]
-   {T "G22V10" 225 -10}
+   {T "G22V10" 210 -10}
   }
 
   {ATR
@@ -153,7 +157,7 @@
    {EX
     [Ly "ATTR2"]
     [Ts 12][Tj "CT"][Tr 0][Tm "N"]
-    {At PLD \\MIDIAN\NASKO\VAR\GIT\GITHUB\V\SCMC\8051\GAL\GPO\8051_GPO_TRIG 225 300}
+    {At PLD \\MIDIAN\NASKO\VAR\GIT\GITHUB\V\SCMC\8051\GAL\GPO\8051_GPO_TRIG 210 300}
    }
   }
  }
@@ -189,21 +193,23 @@
    }
    {N A0I
    }
-   {N OECTRL_L
+   {N OELEO
    }
-   {N L0LE
+   {N L0LEO
    }
-   {N L1LE
+   {N L1LEO
    }
-   {N L2LE
+   {N L2LEO
    }
-   {N L3LE
+   {N L3LEO
    }
-   {N L4LE
+   {N L4LEO
    }
-   {N L5LE
+   {N L5LEO
    }
    {N DEO
+   }
+   {N LXLEO
    }
   }
 

@@ -11,20 +11,21 @@ PIN   2 =  A9I
 PIN   7 =  CSIO77I 
 PIN  10 =  DEI 
 PIN  22 =  DEO 
-PIN  16 =  L0LE 
-PIN  17 =  L1LE 
-PIN  18 =  L2LE 
-PIN  19 =  L3LE 
-PIN  20 =  L4LE 
-PIN  21 =  L5LE 
-PIN  15 =  OECTRL_LE 
+PIN  16 =  L0LEO 
+PIN  17 =  L1LEO 
+PIN  18 =  L2LEO 
+PIN  19 =  L3LEO 
+PIN  20 =  L4LEO 
+PIN  21 =  L5LEO 
+PIN  23 =  LxLEO 
+PIN  15 =  OELEO 
 PIN   9 =  RSTI 
 PIN   8 =  WRI 
 %END
 
 %FIELD
 FIELD ADDRESS = RSTI,DEO,A2I,A1I,A0I
-FIELD DECODE = L0LE,L1LE,L2LE,L3LE,L4LE,L5LE,OECTRL_LE
+FIELD DECODE = L0LEO,L1LEO,L2LEO,L3LEO,L4LEO,L5LEO,OELEO,LxLEO
 %END
 
 %EQUATION
@@ -47,49 +48,54 @@ CSIO =>
 !DEO =>
     !A10I & !A11I & A12I & !A7I & !A8I & !A9I & !CSIO77I & !DEI & !RSTI & !WRI
 
-!L0LE =>
+!L0LEO =>
     A0I
   # A1I
   # A2I
   # DEO
   # RSTI
 
-!L1LE =>
+!L1LEO =>
     !A0I
   # A1I
   # A2I
   # DEO
   # RSTI
 
-!L2LE =>
+!L2LEO =>
     A0I
   # !A1I
   # A2I
   # DEO
   # RSTI
 
-!L3LE =>
+!L3LEO =>
     !A0I
   # !A1I
   # A2I
   # DEO
   # RSTI
 
-!L4LE =>
+!L4LEO =>
     A0I
   # A1I
   # !A2I
   # DEO
   # RSTI
 
-!L5LE =>
+!L5LEO =>
     !A0I
   # A1I
   # !A2I
   # DEO
   # RSTI
 
-!OECTRL_LE =>
+!LxLEO =>
+    DEO
+  # RSTI
+  # A1I & A2I
+
+!OELEO =>
     !A1I & !RSTI
   # !A2I & !RSTI
   # DEO & !RSTI
@@ -104,25 +110,28 @@ A0I.oe  =>
 DEO.oe  =>
     1 
 
-L0LE.oe  =>
+L0LEO.oe  =>
     1 
 
-L1LE.oe  =>
+L1LEO.oe  =>
     1 
 
-L2LE.oe  =>
+L2LEO.oe  =>
     1 
 
-L3LE.oe  =>
+L3LEO.oe  =>
     1 
 
-L4LE.oe  =>
+L4LEO.oe  =>
     1 
 
-L5LE.oe  =>
+L5LEO.oe  =>
     1 
 
-OECTRL_LE.oe  =>
+LxLEO.oe  =>
+    1 
+
+OELEO.oe  =>
     1 
 
 %END
