@@ -86,29 +86,21 @@
 ; bc = 65536 - (OSC / 32) / baud
 ;---------------------------------------------------------;
 ; 0xfffa @ 57600bps @ 11.059MHz
-;.equ	bc_h, 0xff
-;.equ	bc_l, 0xfa
-; 0xfffa @ 38400bps @ 11.059MHz
-;.equ	bc_h, 0xff
-;.equ	bc_l, 0xf7
+;.equ	bc, 0xfffa
+; 0xfff7 @ 38400bps @ 11.059MHz
+;.equ	bc, 0xfff7
 ; 0xffee @ 19200bps @ 11.059MHz
-;.equ	bc_h, 0xff
-;.equ	bc_l, 0xee
+;.equ	bc, 0xffee
 ; 0xffdc @ 9600bps @ 11.059MHz
-;.equ	bc_h, 0xff
-;.equ	bc_l, 0xdc
+;.equ	bc, 0xffdc
 ; 0xfff7 @ 57600bps @ 16.5888MHz
-.equ	bc_h, 0xff
-.equ	bc_l, 0xf7
+.equ	bc, 0xfff7
 ; 0xffee @ 28800bps @ 16.5888MHz
-;.equ	bc_h, 0xff
-;.equ	bc_l, 0xee
+;.equ	bc, 0xffee
 ; 0xffe5 @ 19200bps @ 16.5888MHz
-;.equ	bc_h, 0xff
-;.equ	bc_l, 0xe5
+;.equ	bc, 0xffe5
 ; 0xffca @ 9600bps @ 16.5888MHz
-;.equ	bc_h, 0xff
-;.equ	bc_l, 0xca
+;.equ	bc, 0xffca
 ;---------------------------------------------------------;
 
 ;---------------------------------------------------------;
@@ -1920,8 +1912,8 @@ reset:
 	lcall	pgm		; switch_shadow
 	
 ; initialize the serial port
-	mov	a, #bc_l
-	mov	b, #bc_h
+	mov	a, #(bc & 0xff)	; lsb
+	mov	b, #(bc >> 8)	; msb
 	lcall	setbaud
 	
 ; run any user initialization programs in external memory
