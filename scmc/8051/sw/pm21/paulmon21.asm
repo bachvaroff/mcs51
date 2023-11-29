@@ -231,8 +231,8 @@ pcstr_h:
 
 cin:
 	jnb	ri, cin
-	clr	ri
 	mov	a, sbuf
+	clr	ri
 	ret
 
 ;---------------------------------------------------------;
@@ -1571,6 +1571,7 @@ clrm:
 	mov	dptr, #sure
 	acall	pcstr_h
 	acall	cin
+	acall	cout
 	acall	upper
 	cjne	a, #'Y', abort_it
 	acall	dcrlf
@@ -1606,6 +1607,7 @@ reset_baud:
 	mov	dptr, #sure
 	acall	pcstr_h
 	acall	cin
+	acall	cout
 	acall	upper
 	cjne	a, #'Y', bailout_pop
 	acall	dcrlf
@@ -1928,9 +1930,7 @@ reset:
 	lcall	crlf
 	lcall	crlf
 	lcall	crlf
-	mov	dptr, #logon1
-	lcall	pcstr
-	mov	dptr, #logon2
+	mov	dptr, #logon
 	lcall	pcstr
 	lcall	dir
 	mov	r6, #(pgm & 255)
@@ -2122,368 +2122,184 @@ pint16y:
 
 ;---------------------------------------------------------;
 
-; pcstr prints the compressed strings. A dictionary of 128 words is
-; stored in 4 bit packed binary format.	When pcstr finds a byte in
-; a string with the high bit set, it prints the word from the dictionary.
-; A few bytes have special functions and everything else prints as if
-; it were an ordinary string.
-
-; special codes for pcstr:
-;    0 = end of string
-;   13 = CR/LF
-;   14 = CR/LF and end of string
-;   31 = next word code should be capitalized
+; print string
 
 pcstr:
 	push	acc
-	mov	a, r0
-	push	acc
-	mov	a, r1
-	push	acc
-	mov	a, r4
-	push	acc
-	setb	psw.1
-	setb	psw.5
 pcstr1:
 	movx	a, @dptr
 	inc	dptr
 	jz	pcstr2
-	jb	acc.7, decomp
-	anl	a, #0x7F
-pcstrs1:
-	cjne	a, #13, pcstrs2
-	lcall	crlf
-	setb	psw.1
-	sjmp	pcstr1
-pcstrs2:
-	cjne	a, #31, pcstrs3
-	clr	psw.5
-	sjmp	pcstr1
-pcstrs3:
-	cjne	a, #14, pcstrs4
-	lcall	crlf
-	sjmp	pcstr2
-pcstrs4:
-	clr	psw.1
 	lcall	cout
 	sjmp	pcstr1
 pcstr2:
 	pop	acc
-	mov	r4, a
-	pop	acc
-	mov	r1, a
-	pop	acc
-	mov	r0, a
-	pop	acc
-	ret
-
-;---------------------------------------------------------;
-
-; dcomp actually takes care of printing a word from the dictionary
-; dptr = position in packed words table
-; r4=0 if next nibble is low, r4=255 if next nibble is high
-
-decomp:
-	anl	a, #0x7F
-	mov	r0, a		; r0 counts which word
-	jb	psw.1, decomp1	; avoid leading space if first word
-	lcall	space
-decomp1:
-	clr	psw.1
-	push	dpl
-	push	dph
-	mov	dptr, #words
-	mov	r4, #0
-	mov	a, r0
-	jz	dcomp3
-	; here we must seek past all the words in the table
-	; that come before the one we're supposed to print
-	mov	r1, a
-dcomp2:
-	acall	get_next_nibble
-	jnz	dcomp2
-	; when we get here, a word has been skipped... keep doing
-	; this until we're pointing to the correct one
-	djnz	r1, dcomp2
-dcomp3:
-	; now we're pointing to the correct word, so all we have
-	; to do is print it out
-	acall	get_next_nibble
-	jz	dcomp_end
-	cjne	a, #15, dcomp4
-	; the character is one of the 12 least commonly used
-	acall	get_next_nibble
-	inc	a
-	movc	a, @a+pc
-	sjmp	dcomp5
-	.db	"hfwgybxvkqjz"
-dcomp4:
-	; the character is one of the 14 most commonly used
-	inc	a
-	movc	a, @a+pc
-	sjmp	dcomp5
-	.db	"etarnisolumpdc"
-dcomp5:
-	; decide if it should be uppercase or lowercase
-	mov	c, psw.5
-	mov	acc.5, c
-	setb	psw.5
-	cjne	r0, #20, dcomp6
-	clr	acc.5
-dcomp6:
-	cjne	r0, #12, dcomp7
-	clr	acc.5
-dcomp7:
-	lcall	cout
-	sjmp	dcomp3
-dcomp_end:
-	pop	dph
-	pop	dpl
-	ajmp	pcstr1
-
-get_next_nibble:
-	; ... and update dptr and r4, of course
-	movx	a, @dptr
-	cjne	r4, #0, gnn2
-	mov	r4, #255
-	anl	a, #00001111b
-	ret
-gnn2:
-	mov	r4, #0
-	inc	dptr
-	swap	a
-	anl	a, #00001111b
 	ret
 
 ;---------------------------------------------------------;
 ;							  ;
-;	 Here begins the data tables and strings	  ;
+;	 Strings					  ;
 ;							  ;
 ;---------------------------------------------------------;
 
-; this is the dictionary of 128 words used by pcstr.
-
-words:
-	.db	0x82, 0x90, 0xE8, 0x23, 0x86, 0x05, 0x4C, 0xF8
-	.db	0x44, 0xB3, 0xB0, 0xB1, 0x48, 0x5F, 0xF0, 0x11
-	.db	0x7F, 0xA0, 0x15, 0x7F, 0x1C, 0x2E, 0xD1, 0x40
-	.db	0x5A, 0x50, 0xF1, 0x03, 0xBF, 0xBA, 0x0C, 0x2F
-	.db	0x96, 0x01, 0x8D, 0x3F, 0x95, 0x38, 0x0D, 0x6F
-	.db	0x5F, 0x12, 0x07, 0x71, 0x0E, 0x56, 0x2F, 0x48
-	.db	0x3B, 0x62, 0x58, 0x20, 0x1F, 0x76, 0x70, 0x32
-	.db	0x24, 0x40, 0xB8, 0x40, 0xE1, 0x61, 0x8F, 0x01
-	.db	0x34, 0x0B, 0xCA, 0x89, 0xD3, 0xC0, 0xA3, 0xB9
-	.db	0x58, 0x80, 0x04, 0xF8, 0x02, 0x85, 0x60, 0x25
-	.db	0x91, 0xF0, 0x92, 0x73, 0x1F, 0x10, 0x7F, 0x12
-	.db	0x54, 0x93, 0x10, 0x44, 0x48, 0x07, 0xD1, 0x26
-	.db	0x56, 0x4F, 0xD0, 0xF6, 0x64, 0x72, 0xE0, 0xB8
-	.db	0x3B, 0xD5, 0xF0, 0x16, 0x4F, 0x56, 0x30, 0x6F
-	.db	0x48, 0x02, 0x5F, 0xA8, 0x20, 0x1F, 0x01, 0x76
-	.db	0x30, 0xD5, 0x60, 0x25, 0x41, 0xA4, 0x2C, 0x60
-	.db	0x05, 0x6F, 0x01, 0x3F, 0x26, 0x1F, 0x30, 0x07
-	.db	0x8E, 0x1D, 0xF0, 0x63, 0x99, 0xF0, 0x42, 0xB8
-	.db	0x20, 0x1F, 0x23, 0x30, 0x02, 0x7A, 0xD1, 0x60
-	.db	0x2F, 0xF0, 0xF6, 0x05, 0x8F, 0x93, 0x1A, 0x50
-	.db	0x28, 0xF0, 0x82, 0x04, 0x6F, 0xA3, 0x0D, 0x3F
-	.db	0x1F, 0x51, 0x40, 0x23, 0x01, 0x3E, 0x05, 0x43
-	.db	0x01, 0x7A, 0x01, 0x17, 0x64, 0x93, 0x30, 0x2A
-	.db	0x08, 0x8C, 0x24, 0x30, 0x99, 0xB0, 0xF3, 0x19
-	.db	0x60, 0x25, 0x41, 0x35, 0x09, 0x8E, 0xCB, 0x19
-	.db	0x12, 0x30, 0x05, 0x1F, 0x31, 0x1D, 0x04, 0x14
-	.db	0x4F, 0x76, 0x12, 0x04, 0xAB, 0x27, 0x90, 0x56
-	.db	0x01, 0x2F, 0xA8, 0xD5, 0xF0, 0xAA, 0x26, 0x20
-	.db	0x5F, 0x1C, 0xF0, 0xF3, 0x61, 0xFE, 0x01, 0x41
-	.db	0x73, 0x01, 0x27, 0xC1, 0xC0, 0x84, 0x8F, 0xD6
-	.db	0x01, 0x87, 0x70, 0x56, 0x4F, 0x19, 0x70, 0x1F
-	.db	0xA8, 0xD9, 0x90, 0x76, 0x02, 0x17, 0x43, 0xFE
-	.db	0x01, 0xC1, 0x84, 0x0B, 0x15, 0x7F, 0x02, 0x8B
-	.db	0x14, 0x30, 0x8F, 0x63, 0x39, 0x6F, 0x19, 0xF0
-	.db	0x11, 0xC9, 0x10, 0x6D, 0x02, 0x3F, 0x91, 0x09
-	.db	0x7A, 0x41, 0xD0, 0xBA, 0x0C, 0x1D, 0x39, 0x5F
-	.db	0x07, 0xF2, 0x11, 0x17, 0x20, 0x41, 0x6B, 0x35
-	.db	0x09, 0xF7, 0x75, 0x12, 0x0B, 0xA7, 0xCC, 0x48
-	.db	0x02, 0x3F, 0x64, 0x12, 0xA0, 0x0C, 0x27, 0xE3
-	.db	0x9F, 0xC0, 0x14, 0x77, 0x70, 0x11, 0x40, 0x71
-	.db	0x21, 0xC0, 0x68, 0x25, 0x41, 0xF0, 0x62, 0x7F
-	.db	0xD1, 0xD0, 0x21, 0xE1, 0x62, 0x58, 0xB0, 0xF3
-	.db	0x05, 0x1F, 0x73, 0x30, 0x77, 0xB1, 0x6F, 0x19
-	.db	0xE0, 0x19, 0x43, 0xE0, 0x58, 0x2F, 0xF6, 0xA4
-	.db	0x14, 0xD0, 0x23, 0x03, 0xFE, 0x31, 0xF5, 0x14
-	.db	0x30, 0x99, 0xF8, 0x03, 0x3F, 0x64, 0x22, 0x51
-	.db	0x60, 0x25, 0x41, 0x2F, 0xE3, 0x01, 0x56, 0x27
-	.db	0x93, 0x09, 0xFE, 0x11, 0xFE, 0x79, 0xBA, 0x60
-	.db	0x75, 0x42, 0xEA, 0x62, 0x58, 0xA0, 0xE5, 0x1F
-	.db	0x53, 0x4F, 0xD1, 0xC0, 0xA3, 0x09, 0x42, 0x53
-	.db	0xF7, 0x12, 0x04, 0x62, 0x1B, 0x30, 0xF5, 0x05
-	.db	0xF7, 0x69, 0x0C, 0x35, 0x1B, 0x70, 0x82, 0x2F
-	.db	0x2F, 0x14, 0x4F, 0x51, 0xC0, 0x64, 0x25, 0x00
-
-; STR
-
-logon1:
-	.db	"Welcome", 128, 148, "2 v2.1, by", 31, 248, 31, 254, 13, 14
-
-logon2:
-	.db	32, 32, "See", 148, "2.DOC,", 148, "2.EQU", 164
-	.db	148, "2.HDR", 180, 213, 141, '.', 14
-
+logon:
+	.db	"PAULMON2 v2.1ab\r\n\r\n", 0
+	
 abort:
-	.db	' ', 31, 158, 31, 160, '!', 13, 14
-
+	.db	"  Command aborted\r\n\r\n", 0
+	
 prompt1:
-	.db	148, "2 Loc:", 0
-
+	.db	"Location:", 0
+	
 prompt2:
-	.db	" >", 160
-
+	.db	" > ", 0
+	
 prompt3:
-	.db	134, 202, 130, '(', 0
-
+	.db	"run which program (", 0
+	
 prompt4:
-	.db	"),", 149, 140, 128, 200, ": ", 0
-
+	.db	"), or ESC to abort: ", 0
+	
 prompt5:
-	.db	31, 151, 130, 195, 's', 199, 166, 131, ','
-	.db	186, " JUMP", 128, 134, 161, 'r', 130, 13, 14
-
+	.db	"No program headers found in memory, use JUMP instead\r\n\r\n", 0
+	
 prompt6:
-	.db	13, 13, 31, 135, 131, 129, ": ", 0
-
+	.db	"\r\n\r\nNew location: ", 0
+	
 prompt7:
-	.db	31, 228, 251, " key: ", 0
-
+	.db	"Press any key...", 0
+	
 prompt8:
-	.db	13, 13, 31, 136, 128, 131, 129, " (", 0
-
+	.db	"\r\n\r\nJump to memory location (", 0
+	
 prompt9:
-	.db	13, 13, 31, 130, 31, 253, 0
-
+	.db	"\r\n\r\nProgram Name", 0
+	
 prompt9b:
-	.db	31, 129, 32, 32, 32, 32, 32, 31, 201, 14
-
+	.db	"Location      Type\r\n", 0
+	
 prompt10:
-	.db	") ", 31, 135, 31, 178, ": ", 0
-
+	.db	") New value: ", 0
+	
 beg_str:
-	.db	"First", 31, 129, ": ", 0
-
+	.db	"First location: ", 0
+	
 end_str:
-	.db	"Last", 31, 129, ':', 32, 32, 0
-
+	.db	"Last location: ", 0
+	
 sure:
-	.db	31, 185, 161, " sure?", 0
-
+	.db	"Are you sure? ", 0
+	
 edits1:
-	.db	13, 13, 31, 156, 154, 146, ',', 140, 128, 200, 14
-
+	.db	"\r\n\r\nEditing external RAM, ESC to abort\r\n", 0
+	
 edits2:
-	.db	"  ", 31, 156, 193, ',', 142, 129, 247, 13, 14
-
+	.db	"  Editing complete, this location unchanged\r\n\r\n", 0
+	
 dnlds1:
-	.db	13, 13, 31, 159, " ascii", 249, 150, 31, 152, 132, 137
-	.db	',', 149, 140, 128, 160, 13, 14
-
+	.db	"\r\n\r\nBegin transfer of Intel hex file, ESC to abort\r\n\r\n", 0
+	
 dnlds2:
-	.db	13, 31, 138, 160, "ed", 13, 14
-
+	.db	"\r\nDownload aborted\r\n\r\n", 0
+	
 dnlds3:
-	.db	13, 31, 138, 193, 'd', 13, 14
-
+	.db	"\r\nDownload completed\r\n\r\n", 0
+	
 dnlds4:
-	.db	"Summary:", 14
-
+	.db	"Summary:\r\n", 0
+	
 dnlds5:
-	.db	' ', 198, 's', 145, 'd', 14
-
+	.db	"  lines received\r\n", 0
+	
 dnlds6a:
-	.db	' ', 139, 145, 'd', 14
-
+	.db	"  bytes received\r\n", 0
+	
 dnlds6b:
-	.db	' ', 139, " written", 14
-
+	.db	"  bytes written\r\n", 0
+	
 dnlds7:
-	.db	31, 155, ':', 14
-
+	.db	"Errors:\r\n", 0
+	
 dnlds8:
-	.db	' ', 139, " unable", 128, " write", 14
-
+	.db	"  bytes unable to write\r\n", 0
+	
 dnlds9:
-	.db	32, 32, "bad", 245, 's', 14
-
+	.db	"  bad checksums\r\n", 0
+	
 dnlds10:
-	.db	' ', 133, 159, 150, 198, 14
-
+	.db	"  unexpected begin of line\r\n", 0
+	
 dnlds11:
-	.db	' ', 133, 132, 157, 14
-
+	.db	"  unexpected hex digits\r\n", 0
+	
 dnlds12:
-	.db	' ', 133, " non", 132, 157, 14
-
+	.db	"  unexpected non hex digits\r\n", 0
+	
 dnlds13:
-	.db	31, 151, 155, " detected", 13, 14
-
+	.db	"No errors detected\r\n\r\n", 0
+	
 runs1:
-	.db	13, 134, "ning", 130, ':', 13, 14
-
+	.db	"\r\nrunning program:\r\n\r\n", 0
+	
 uplds3:
-	.db	13, 13, "Sending", 31, 152, 132, 137, 172, 32, 32, 0
-
+	.db	"\r\n\r\nSending Intel hex file from ", 0
+	
 uplds4:
-	.db	' ', 128, 32, 32, 0
-
+	.db	" to ", 0
+	
 help1txt:
-	.db	13, 13, "Standard", 31, 158, 's', 14
-
+	.db	"\r\n\r\nStandard commands:\r\n", 0
+	
 help2txt:
-	.db	31, 218, 31, 244, "ed", 31, 158, 's', 14
-
+	.db	"\r\nUser installed commands:\r\n", 0
+	
 type1:
-	.db	31, 154, 158, 0
-
+	.db	"External command", 0
+	
 type2:
-	.db	31, 130, 0
-
+	.db	"Program", 0
+	
 type4:
-	.db	31, 143, 31, 226, 31, 170, 0
-
+	.db	"Startup code", 0
+	
 type5:
 	.db	"???", 0
-
+	
 help_cmd2:
-	.db	31, 215, 0
-
+	.db	"Help", 0
+	
 help_cmd:
-	.db	31, 142, 215, 209, 0
-
+	.db	"This help list", 0
+	
 dir_cmd:
-	.db	31, 209, 130, 's', 0
-
+	.db	"List programs", 0
+	
 run_cmd:
-	.db	31, 134, 130, 0
-
+	.db	"Run program", 0
+	
 dnld_cmd:
-	.db	31, 138, 0
-
+	.db	"Download", 0
+	
 upld_cmd:
-	.db	31, 147, 0
-
+	.db	"Upload", 0
+	
 nloc_cmd:
-	.db	31, 135, 129, 0
-
+	.db	"New location", 0
+	
 jump_cmd:
-	.db	31, 136, 128, 131, 129, 0
-
+	.db	"Jump to memory location", 0
+	
 dump_cmd:
-	.db	31, 132, 219, 154, 131, 0
-
+	.db	"Hex dump external memory", 0
+	
 intm_cmd:
-	.db	31, 132, 219, 192, 131, 0
-
+	.db	"Hex dump internal memory", 0
+	
 edit_cmd:
-	.db	31, 156, 154, 146, 0
-
+	.db	"Edit external memory", 0
+	
 clrm_cmd:
-	.db	31, 237, 131, 0
+	.db	"Clear external memory", 0
 
 crc16_cmd:
 	.db	"Calculate CRC16", 0

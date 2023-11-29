@@ -52,9 +52,6 @@
 
 .equ    lastpc, 0x7C		;don't forget to update the docs below
 
-
-
-;DIS
 ;---------------------------------------------------------;
 ;                                                         ;
 ;                      list command                       ;
@@ -667,7 +664,15 @@ space_h:
 	ajmp	cout_h
 
 
-;SINGLE
+;---------------------------------------------------------;
+;                                                         ;
+;                    single step strings                  ;
+;                                                         ;
+;---------------------------------------------------------;
+
+sserr3:	.db	"Cannot print interrupt vector at ", 0
+ssmsg:  .db	"\r\nSingle step mode: <RET>=step, ?=Help\r\n\r\n", 0
+
 ;---------------------------------------------------------;
 ;                                                         ;
 ;                 single step command                     ;
@@ -678,7 +683,7 @@ space_h:
 .db     0xA5,0xE5,0xE0,0xA5     ;signiture
 .db     254,step_key,0,0             ;id (254=user installed command)
 .db     0,0,0,0                 ;prompt code vector
-.dB     0,0,0,0                 ;reserved
+.db     0,0,0,0                 ;reserved
 .db     0,0,0,0                 ;reserved
 .db     0,0,0,0                 ;reserved
 .db     0,0,0,0                 ;user defined
@@ -1167,7 +1172,14 @@ mnot2:  .db     0x2B, 0x21, 0x06, 0x0A  ;inc, dec, add, addc
         .db     0x5D, 0x12, 0x8F, 0x4C  ;orl, anl, xlr, mov
         .db     0x4C, 0x80, 0x4C, 0x15  ;mov, subb, mov, cjne
         .db     0x88, 0x27, 0x4C, 0x4C  ;xch, djnz, mov, mov
+        
+;---------------------------------------------------------;
+;                                                         ;
+;                    single step strings                  ;
+;                                                         ;
+;---------------------------------------------------------;
 
+sserr1: .db	"\r\nPull INT1 down to use single step\r\n", 0
 
 ;---------------------------------------------------------;
 ;                                                         ;
@@ -1431,11 +1443,11 @@ cmd_fill_abort:
 	ajmp	main
 
 fill_prompt1:
-        .db     "Fill",31,131,"; First: ",0
+        .db	"Fill memory; First:", 0
 fill_prompt2:
-        .db     "  Last: ",0
+        .db	" Last:", 0
 fill_prompt3:
-        .db     " ",168,": ",0 
+        .db	" with:", 0
 
 cmd_edit:
 	acall	erase_commands
@@ -1475,7 +1487,7 @@ cmdgt_abort:
 
 
 goto_prompt:
-	.db	31,131,31,129,": ",0
+	.db	"Memory location: ", 0
 
 cmd_up:
 	acall	blank_it
@@ -1910,20 +1922,21 @@ pcmd_finish:
         mov     dptr, #str_cmd1
         ajmp    pstr_hh
 
-str_cmd1: .db "  ^G=Goto  ^C=Code  ^D=Data  ^L=Redraw  ^Q=Quit", 0
-str_cmd2: .db "^E-Edit",0
-str_cmd3: .db "^A=", esc_char, "[0;7m", "ASCII", esc_char, "[0m", "  ^X=Hex", 0
-str_cmd4: .db "^A=ASCII  ^X=", esc_char, "[0;7m", "Hex", esc_char, "[0m", 0
-str_cmd5: .db "  ^F=Fill",0
+str_cmd1: .db	"  ^G=Goto  ^C=Code  ^D=Data  ^L=Redraw  ^Q=Quit", 0
+str_cmd2: .db	"^E=Edit",0
+str_cmd3: .db	"^A=", esc_char, "[0;7m", "ASCII", esc_char, "[0m", "  ^X=Hex", 0
+str_cmd4: .db	"^A=ASCII  ^X=", esc_char, "[0;7m", "Hex", esc_char, "[0m", 0
+str_cmd5: .db	"  ^F=Fill",0
 
 
 str_cl:	.db	esc_char, "[H", esc_char, "[2J", 0
 
-str_addr: .db "ADDR:",0
-str_ascii_equiv: .db	"   ASCII EQUIVILANT",0
-str_title: .db	"8051",31,154,31,131,31,216,"or,",31,248,31,254,", 1996",0
-str_code: .db "CODE",0
-str_data: .db "DATA",0
+str_addr: .db	"ADDR:", 0
+str_ascii_equiv:
+	.db	"   ASCII EQUIVALENT", 0
+str_title: .db	"8051 Ext Memory Editor, Paul Stoffregen, 1996", 0
+str_code: .db	"CODE", 0
+str_data: .db	"DATA", 0
 
 
 cout_hh:ljmp	cout
@@ -1943,38 +1956,25 @@ pint_hh:ljmp	pint8
 
 
            
-prompt4:.db     "), or <ESC> to exit: ",0 
-prompt8:.db     13,31,136,128,131,129," (",0 
-abort:  .db     " Command Aborted.",13,10,0
-
-
-sserr1: .db     13,161,197," connect INT1 (pin 13) low"
-        .db     128,186,207,204,13,0
-sserr2:	.db	148,"2",179,199,174,129," 0013",13,0
-sserr3:	.db	31,184,179,255,165," vector",174," ",0
-ssmsg:  .db     13,"Now",134,"ning",166,207,204," mode:  "
-        .db     "<RET>=",204,", ?= Help",13,13,0
-
-sskip1: .db     "Skipping Instruction-> ",0
-ssdmps1:.db     13,10,"Loc:  Int RAM Memory Contents",13,10,0
-chaccs1:.db     "New Acc Value: ",0
-
-help5txt:.db	13
-        .db     31,207,31,204,31,158,":",13
-        .db     "<RET> ",134,212,246,13
-        .db     " <SP> ",134,212,246,13
-        .db     " '?'  ",255,142,215,13
-	.db	" '.'  ",255,196,253,"s",13
-        .db     " 'R'  ",255," special function",196,"s",13
-        .db     " 'H'  ",132,219,192,146,13
-        .db     " 'S'  ",252,212,246,13
-        .db     " 'A'  ",240,162," Acc value",13
-	.db     " 'Q'  ",200,207,204,13,14
-
-squit:	.db	"Quit",13,10,0
-
-ssnames:.db	"  ACC B C DPTR  R0 R1 R2 R3 R4 R5 R6 R7  SP"
-	.db	"   Addr  Instruction",13,10,0
+prompt4:.db	") or <ESC> to exit: ", 0
+prompt8:.db	"\r\nJump to memory location (", 0
+abort:  .db	"  Command aborted\r\n\r\n", 0
+sserr2:	.db	"No LJMP found at location 0013\r\n", 0
+sskip1: .db	"Skipping -> ", 0
+ssdmps1:.db	"\r\nLoc:  Int RAM Memory Contents\r\n", 0
+chaccs1:.db	"New ACC value: ", 0
+help5txt:
+	.db	"\r\nSingle Step Command:\r\n"
+	.db	"  ? - print this\r\n"
+	.db	"<RET>/<SP> - next\r\n"
+	.db	"  . - print register names\r\n"
+	.db	"  R - print SFRs\r\n"
+	.db	"  H - hexdump internal RAM\r\n"
+	.db	"  S - skip next\r\n"
+	.db	"  A - change ACC\r\n"
+	.db	"  Q - quit\r\n\r\n", 0
+squit:	.db	"Quit\r\n", 0
+ssnames:.db	"  ACC B C DPTR  R0 R1 R2 R3 R4 R5 R6 R7  SP   Addr  Instruction\r\n", 0
 
 
 ;---------------------------------------------------------;
@@ -2048,8 +2048,8 @@ bitmnu: .db     'P','0'+128
         .db     "PS",'W'+128
         .db     'D','8'+128
         .db     "AC",'C'+128
-        .db     'E'+'8'+128
+        .db     'E','8'+128
         .db     'B'+128
-        .db     'F'+'8'+128
+        .db     'F','8'+128
 
 
