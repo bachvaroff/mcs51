@@ -32,8 +32,8 @@ int getchar_poll(void) __naked {
 		mov a, #0xff
 		mov b, a
 		jnb ri, nochar
-		clr ri
 		mov a, sbuf
+		clr ri
 		mov b, #0
 nochar:
 		mov dpl, a

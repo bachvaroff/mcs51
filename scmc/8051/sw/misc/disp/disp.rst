@@ -476,8 +476,8 @@
       0020BB 74 FF            [12]  476 	mov	a, #0xff
       0020BD F5 F0            [12]  477 	mov	b, a
       0020BF 30 98 07         [24]  478 	jnb	ri, nochar
-      0020C2 C2 98            [12]  479 	clr	ri
-      0020C4 E5 99            [12]  480 	mov	a, sbuf
+      0020C2 E5 99            [12]  479 	mov	a, sbuf
+      0020C4 C2 98            [12]  480 	clr	ri
       0020C6 75 F0 00         [24]  481 	mov	b, #0
       0020C9                        482 	nochar:
       0020C9 F5 82            [12]  483 	mov	dpl, a
