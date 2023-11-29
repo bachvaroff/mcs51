@@ -2155,10 +2155,10 @@ prompt2:
 	.db	" > ", 0
 	
 prompt3:
-	.db	"run which program (", 0
+	.db	"Select program to run (", 0
 	
 prompt4:
-	.db	"), or ESC to abort: ", 0
+	.db	") or ESC to abort: ", 0
 	
 prompt5:
 	.db	"No program headers found in memory, use JUMP instead\r\n\r\n", 0

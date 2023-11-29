@@ -1,0 +1,38 @@
+0000:              .equ     cin, 0x0032
+0000:              .equ     cout, 0x0030
+0000:              .equ    pcstr, 0x0045
+                   
+0000:              .equ     locat, 0x8000           ; Location for this program
+8000:              .org     locat
+8000: A5 E5 E0 A5 
+                   .db      0xA5, 0xE5, 0xE0, 0xA5  ; signiture bytes
+8004: 23 FF 00 00 
+                   .db      35, 255, 0, 0           ; id (35=prog)
+8008: 00 00 00 00 
+                   .db      0, 0, 0, 0              ; prompt code vector
+800C: 00 00 00 00 
+                   .db      0, 0, 0, 0              ; reserved
+8010: 00 00 00 00 
+                   .db      0, 0, 0, 0              ; reserved
+8014: 00 00 00 00 
+                   .db      0, 0, 0, 0              ; reserved
+8018: 00 00 00 00 
+                   .db      0, 0, 0, 0              ; user defined
+801C: FF FF FF FF 
+                   .db      255, 255, 255, 255      ; length and checksum (255=
+8020: 68 65 6C 6C 
+      6F 00        .db      "hello", 0              ; max 31 characters, plus t
+8040:              .org     locat + 64              ; executable code begins he
+                   
+                   start:
+8040: 90 80 4C              mov     dptr, #hello
+8043: 12 00 45              lcall   pcstr
+8046: 12 00 32              lcall   cin
+8049: 43 87 02              orl     pcon, #2
+                            
+                   hello:
+804C: 48 65 6C 6C 
+      6F 20 77 6F 
+      72 6C 64 21 
+      0D 0A 00              .db "Hello world!\r\n", 0
+                            
