@@ -76,7 +76,7 @@ __idata volatile uint8_t ddata[8];
 __idata volatile uint8_t column;
 __idata uint8_t OE;
 
-#define CLEAR_GPO do { \
+#define GPO_CLEAR do { \
 	gpo[GPO_OE] = 0x3fu; \
 	gpo[0] = 0u; \
 	gpo[1] = 0u; \
@@ -86,7 +86,15 @@ __idata uint8_t OE;
 	gpo[5] = 0u; \
 } while (0)
 
-void init_gpo(void) {
+#define GPO_SETOE(OEVAL) do { \
+	gpo[GPO_OE] = (OEVAL); \
+} while (0)
+
+#define GPO_SETREG(REG, VAL) do { \
+	gpo[(REG)] = (VAL); \
+} while (0)
+
+void gpo_init(void) {
 	P1_7 = 0;
 	__asm
 		nop
@@ -96,13 +104,25 @@ void init_gpo(void) {
 #ifdef GPO_PDATA
 	P2 = GPO_BASE_H;
 #endif
-	CLEAR_GPO;
+	GPO_CLEAR;
 	
 	return;
 }
 
-void clear_gpo(void) {
-	CLEAR_GPO;
+void gpo_clear(void) {
+	GPO_CLEAR;
+	
+	return;
+}
+
+inline void gpo_setoe(uint8_t oe) {
+	GPO_SETOE(oe);
+	
+	return;
+}
+
+inline void gpo_setreg(uint8_t reg, uint8_t val) {
+	GPO_SETREG(reg & 0x7fu, val); /* GPO memory mapped io 0xf000 - 0xf07f */
 	
 	return;
 }
@@ -136,10 +156,10 @@ void init_timer1(void) {
 }
 
 void init_disp(void) {
-	gpo[DISP_COL] = 0u;
-	gpo[DISP_DATA] = 0u;
+	GPO_SETREG(DISP_COL, 0u);
+	GPO_SETREG(DISP_DATA, 0u);
 	OE = 0x0fu; /* 00_001111 */
-	gpo[GPO_OE] = OE;
+	GPO_SETOE(OE);
 	
 	for (column = 0u; column < 8u; column++)
 		ddata[column] = 0u;
@@ -152,9 +172,9 @@ void timer0_intr(void) __interrupt TF0_VECTOR __using 1 {
 	register uint8_t t;
 		
 	t = column & 7u;
-	gpo[DISP_COL] = 0u;
-	gpo[DISP_DATA] = ddata[t];
-	gpo[DISP_COL] = dsdcol[t];
+	GPO_SETREG(DISP_COL, 0u);
+	GPO_SETREG(DISP_DATA, ddata[t]);
+	GPO_SETREG(DISP_COL, dsdcol[t]);
 	column++;
 	
 	TR0 = 0;
@@ -202,11 +222,11 @@ int scroll(uint8_t *msg) {
 			if (!symbol) {
 				i = 0u;
 				symbol = msg[i];
-				OE = 0x4fu;
-			} else OE = 0x8fu;
+				OE |= 0x80u;
+			} else OE |= 0x40u;
 			i++;
-		} else OE = 0x0fu;
-		gpo[GPO_OE] = OE;
+		} else OE &= ~(0x80u | 0x40u);
+		GPO_SETOE(OE);
 		
 		if (FONT_SKIP & sddcol[bit]) goto skip_shift;
 		
@@ -231,8 +251,8 @@ void main(void) {
 	register uint16_t j;
 	int c;
 	
-	init_gpo();
-	clear_gpo();
+	gpo_init();
+	gpo_clear();
 	init_disp();
 	init_timer0();
 	init_timer1();

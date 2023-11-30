@@ -354,25 +354,25 @@ Symbol Table
  1A __xinit__initial                                               000800 R
     _bp                                                            ****** GX
   C _buf                                                           000000 R
- 18 _clear_gpo                                                     000043 GR
   8 _column                                                        000018 GR
   8 _ddata                                                         000010 GR
   8 _dsdcol                                                        000000 GR
+ 18 _getchar                                                       000005 GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
- 18 _getchar                                                       000005 GR
  18 _getchar_poll                                                  00000E GR
     _gpo                                                        =  000000 G
+ 18 _gpo_clear                                                     000043 GR
+ 18 _gpo_init                                                      000022 GR
  18 _init_disp                                                     00007F GR
- 18 _init_gpo                                                      000022 GR
  18 _init_intr                                                     00005C GR
  18 _init_timer0                                                   000067 GR
  18 _init_timer1                                                   000073 GR
   E _initial                                                       000800 R
- 18 _main                                                          00027E GR
+ 18 _main                                                          000284 GR
  18 _putchar                                                       000000 GR
  18 _scroll                                                        0000EC GR
   8 _sddcol                                                        000008 GR
@@ -609,7 +609,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size     40   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    4F1   flags   20
+  18 CSEG                                       size    4F7   flags   20
   19 CONST                                      size     79   flags   20
   1A XINIT                                      size    803   flags   20
   1B CABS                                       size      0   flags   28
