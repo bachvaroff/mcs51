@@ -1626,7 +1626,7 @@ ___str_7:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_8:
-	.ascii "Jedem das Seine! IVSTITIA SVVM CVIQVE DISTRIBVIT "
+	.ascii "CAEDITE EOS : NOVIT ENIM DOMINVS QVI SVNT EIVS : "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)

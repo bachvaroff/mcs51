@@ -1630,13 +1630,13 @@
                                    1626 	.area CSEG    (CODE)
                                    1627 	.area CONST   (CODE)
       002732                       1628 ___str_8:
-      002732 4A 65 64 65 6D 20 64  1629 	.ascii "Jedem das Seine! IVSTITIA SVVM CVIQVE DISTRIBVIT "
-             61 73 20 53 65 69 6E
-             65 21 20 49 56 53 54
-             49 54 49 41 20 53 56
-             56 4D 20 43 56 49 51
-             56 45 20 44 49 53 54
-             52 49 42 56 49 54 20
+      002732 43 41 45 44 49 54 45  1629 	.ascii "CAEDITE EOS : NOVIT ENIM DOMINVS QVI SVNT EIVS : "
+             20 45 4F 53 20 3A 20
+             4E 4F 56 49 54 20 45
+             4E 49 4D 20 44 4F 4D
+             49 4E 56 53 20 51 56
+             49 20 53 56 4E 54 20
+             45 49 56 53 20 3A 20
       002763 00                    1630 	.db 0x00
                                    1631 	.area CSEG    (CODE)
                                    1632 	.area XINIT   (CODE)
