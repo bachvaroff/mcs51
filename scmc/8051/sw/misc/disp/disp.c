@@ -202,9 +202,9 @@ int scroll(uint8_t *msg) {
 			if (!symbol) {
 				i = 0u;
 				symbol = msg[i];
-			}
+				OE = 0x4fu;
+			} else OE = 0x8fu;
 			i++;
-			OE = 0x8fu;
 		} else OE = 0x0fu;
 		gpo[GPO_OE] = OE;
 		

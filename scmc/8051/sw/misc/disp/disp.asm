@@ -791,13 +791,13 @@ _scroll:
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-00135$:
+00136$:
 ;	disp.c:200: if (!bit) {
 	mov	a,_bp
 	add	a,#0x06
 	mov	r0,a
 	mov	a,@r0
-	jnz	00104$
+	jnz	00105$
 ;	disp.c:201: symbol = msg[i];
 	mov	r0,_bp
 	inc	r0
@@ -847,25 +847,30 @@ _scroll:
 	mov	r1,a
 	lcall	__gptrget
 	mov	@r1,a
+;	disp.c:205: OE = 0x4fu;
+	mov	r0,#_OE
+	mov	@r0,#0x4f
+	sjmp	00103$
 00102$:
-;	disp.c:206: i++;
+;	disp.c:206: } else OE = 0x8fu;
+	mov	r0,#_OE
+	mov	@r0,#0x8f
+00103$:
+;	disp.c:207: i++;
 	mov	a,_bp
 	add	a,#0x07
 	mov	r0,a
 	inc	@r0
-	cjne	@r0,#0x00,00218$
+	cjne	@r0,#0x00,00219$
 	inc	r0
 	inc	@r0
-00218$:
-;	disp.c:207: OE = 0x8fu;
-	mov	r0,#_OE
-	mov	@r0,#0x8f
-	sjmp	00105$
-00104$:
+00219$:
+	sjmp	00106$
+00105$:
 ;	disp.c:208: } else OE = 0x0fu;
 	mov	r0,#_OE
 	mov	@r0,#0x0f
-00105$:
+00106$:
 ;	disp.c:209: gpo[GPO_OE] = OE;
 	mov	r0,#(_gpo + 0x0006)
 	mov	r1,#_OE
@@ -881,9 +886,9 @@ _scroll:
 	mov	a,@r1
 	mov	r3,a
 	anl	a,#0xc0
-	jz	00220$
-	sjmp	00109$
-00220$:
+	jz	00221$
+	sjmp	00110$
+00221$:
 ;	disp.c:169: TR1 = 0;
 ;	assignBit
 	clr	_TR1
@@ -898,12 +903,12 @@ _scroll:
 ;	assignBit
 	setb	_TR1
 ;	disp.c:174: while (!TF1);
-00121$:
+00122$:
 ;	disp.c:175: TF1 = 0;
 ;	assignBit
-	jbc	_TF1,00221$
-	sjmp	00121$
-00221$:
+	jbc	_TF1,00222$
+	sjmp	00122$
+00222$:
 ;	disp.c:177: TR1 = 0;
 ;	assignBit
 	clr	_TR1
@@ -918,12 +923,12 @@ _scroll:
 ;	assignBit
 	setb	_TR1
 ;	disp.c:182: while (!TF1);
-00124$:
+00125$:
 ;	disp.c:183: TF1 = 0;
 ;	assignBit
-	jbc	_TF1,00222$
-	sjmp	00124$
-00222$:
+	jbc	_TF1,00223$
+	sjmp	00125$
+00223$:
 ;	disp.c:185: TR1 = 0;
 ;	assignBit
 	clr	_TR1
@@ -947,7 +952,7 @@ _scroll:
 	subb	a,@r0
 	mov	r5,a
 	mov	r4,#0x00
-00130$:
+00131$:
 ;	disp.c:215: ddata[j] = ((FONT_TABLE[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
 	mov	a,r4
 	add	a,#_ddata
@@ -963,11 +968,11 @@ _scroll:
 	mov	b,r5
 	inc	b
 	mov	a,r7
-	sjmp	00225$
-00223$:
+	sjmp	00226$
+00224$:
 	add	a,acc
-00225$:
-	djnz	b,00223$
+00226$:
+	djnz	b,00224$
 	anl	a,#0x80
 	mov	r7,a
 	mov	a,r4
@@ -981,11 +986,11 @@ _scroll:
 	mov	@r1,a
 ;	disp.c:214: for (j = 0u; j < 8u; j++)
 	inc	r4
-	cjne	r4,#0x08,00226$
-00226$:
-	jc	00130$
+	cjne	r4,#0x08,00227$
+00227$:
+	jc	00131$
 ;	disp.c:217: skip_shift:
-00109$:
+00110$:
 ;	disp.c:218: if ((r = getchar_poll()) >= 0) {
 	lcall	_getchar_poll
 	mov	r3,dpl
@@ -993,7 +998,7 @@ _scroll:
 	mov	ar7,r3
 	mov	a,r4
 	mov	r6,a
-	jb	acc.7,00136$
+	jb	acc.7,00137$
 ;	disp.c:219: r = toupper(r);
 	mov	dpl,r7
 	mov	dph,r6
@@ -1001,54 +1006,54 @@ _scroll:
 	mov	r3,dpl
 	mov	r4,dph
 ;	disp.c:220: if ((r == (int)'P') || (r == (int)' ')) {
-	cjne	r3,#0x50,00229$
-	cjne	r4,#0x00,00229$
-	sjmp	00114$
-00229$:
-	cjne	r3,#0x20,00115$
-	cjne	r4,#0x00,00115$
-00114$:
+	cjne	r3,#0x50,00230$
+	cjne	r4,#0x00,00230$
+	sjmp	00115$
+00230$:
+	cjne	r3,#0x20,00116$
+	cjne	r4,#0x00,00116$
+00115$:
 ;	disp.c:221: printstr("PAUSE\r\n");
 	mov	r6,#___str_0
 	mov	r4,#(___str_0 >> 8)
 	mov	r3,#0x80
 ;	disp.c:48: return;
-00133$:
+00134$:
 ;	disp.c:46: for (; *s; s++) putchar(*s);
 	mov	dpl,r6
 	mov	dph,r4
 	mov	b,r3
 	lcall	__gptrget
 	mov	r5,a
-	jz	00129$
+	jz	00130$
 	mov	r7,#0x00
 	mov	dpl,r5
 	mov	dph,r7
 	lcall	_putchar
 	inc	r6
 ;	disp.c:221: printstr("PAUSE\r\n");
-	cjne	r6,#0x00,00133$
+	cjne	r6,#0x00,00134$
 	inc	r4
-	sjmp	00133$
-00129$:
+	sjmp	00134$
+00130$:
 ;	disp.c:222: (void)getchar();
 	lcall	_getchar
-	sjmp	00136$
-00115$:
+	sjmp	00137$
+00116$:
 ;	disp.c:223: } else if ((r == (int)'T') || (r == (int)'R') || (r == (int)'L')) break;
-	cjne	r3,#0x54,00234$
-	cjne	r4,#0x00,00234$
-	sjmp	00120$
-00234$:
-	cjne	r3,#0x52,00235$
+	cjne	r3,#0x54,00235$
 	cjne	r4,#0x00,00235$
-	sjmp	00120$
+	sjmp	00121$
 00235$:
-	cjne	r3,#0x4c,00236$
+	cjne	r3,#0x52,00236$
 	cjne	r4,#0x00,00236$
-	sjmp	00120$
+	sjmp	00121$
 00236$:
-00136$:
+	cjne	r3,#0x4c,00237$
+	cjne	r4,#0x00,00237$
+	sjmp	00121$
+00237$:
+00137$:
 ;	disp.c:199: for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
 	mov	a,_bp
 	add	a,#0x06
@@ -1062,8 +1067,8 @@ _scroll:
 	mov	a,#0x07
 	anl	a,r7
 	mov	@r0,a
-	ljmp	00135$
-00120$:
+	ljmp	00136$
+00121$:
 ;	disp.c:227: return r;
 	mov	dpl,r3
 	mov	dph,r4
