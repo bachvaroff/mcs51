@@ -365,20 +365,20 @@ Symbol Table
 
  18 _getchar_poll                                                  00000E GR
     _gpo                                                        =  000000 G
- 18 _gpo_clear                                                     000043 GR
- 18 _gpo_init                                                      000022 GR
- 18 _init_disp                                                     00007F GR
- 18 _init_intr                                                     00005C GR
- 18 _init_timer0                                                   000067 GR
- 18 _init_timer1                                                   000073 GR
+ 18 _gpo_clear                                                     00004B GR
+ 18 _gpo_init                                                      00002A GR
+ 18 _init_disp                                                     000087 GR
+ 18 _init_intr                                                     000064 GR
+ 18 _init_timer0                                                   00006F GR
+ 18 _init_timer1                                                   00007B GR
   E _initial                                                       000800 R
   8 _inv                                                           00001A GR
- 18 _main                                                          000296 GR
+ 18 _main                                                          00029E GR
  18 _putchar                                                       000000 GR
- 18 _scroll                                                        0000EC GR
+ 18 _scroll                                                        0000F4 GR
   8 _sddcol                                                        000008 GR
     _strncpy                                                       ****** GX
- 18 _timer0_intr                                                   0000B0 GR
+ 18 _timer0_intr                                                   0000B8 GR
     _toupper                                                       ****** GX
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -457,7 +457,7 @@ Symbol Table
     ip.5                                                        =  0000BD L
     it0                                                         =  000088 L
     it1                                                         =  00008A L
- 18 nochar                                                         00001C R
+ 18 nochar                                                         000020 R
     ov                                                          =  0000D2 L
     p                                                           =  0000D0 L
     p0                                                          =  000080 L
@@ -611,7 +611,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size     40   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    51B   flags   20
+  18 CSEG                                       size    523   flags   20
   19 CONST                                      size     7B   flags   20
   1A XINIT                                      size    803   flags   20
   1B CABS                                       size      0   flags   28

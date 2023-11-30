@@ -29,6 +29,8 @@ int getchar(void) __naked {
 
 int getchar_poll(void) __naked {
 	__asm
+		push acc
+		push b
 		mov a, #0xff
 		mov b, a
 		jnb ri, nochar
@@ -38,6 +40,8 @@ int getchar_poll(void) __naked {
 nochar:
 		mov dpl, a
 		mov dph, b
+		pop b
+		pop acc
 		ret
 	__endasm;
 }
