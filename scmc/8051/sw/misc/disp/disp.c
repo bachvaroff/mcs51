@@ -130,6 +130,7 @@ __idata const uint8_t sddcol[8] = {
 __idata volatile uint8_t ddata[8];
 __idata volatile uint8_t column;
 __idata uint8_t OE;
+__idata uint8_t inv;
 
 void init_intr(void) {
 	TR0 = 0;
@@ -236,7 +237,7 @@ int scroll(uint8_t *msg) {
 		
 		delay();
 		for (j = 0u; j < 8u; j++)
-			ddata[j] = ((FONT_TABLE[symbol][j] << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
+			ddata[j] = (((FONT_TABLE[symbol][j] ^ inv) << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
 		
 skip_shift:
 		if ((r = getchar_poll()) >= 0) {
@@ -244,7 +245,8 @@ skip_shift:
 			if ((r == (int)'P') || (r == (int)' ')) {
 				printstr("PAUSE\r\n");
 				(void)getchar();
-			} else if ((r == (int)'T') || (r == (int)'R') || (r == (int)'L')) break;
+			} else if (r == (int)'I') inv = ~inv;
+			else if ((r == (int)'T') || (r == (int)'R') || (r == (int)'L')) break;
 		}
 	}
 	
@@ -268,9 +270,10 @@ reset:
 	printstr("RESET\r\n");
 	(void)strncpy(buf, initial, sizeof (buf) - 1u);
 	buf[sizeof (buf) - 1u] = 0u;
+	inv = 0u;
 	
 	while (1) {
-		printstr("P SP L ENT S R T START MSG \"");
+		printstr("P SP I L ENT S R T START MSG \"");
 		printstr((char *)buf);
 		printstr("\"\r\n");
 		
@@ -279,6 +282,7 @@ reset:
 		while (1) {
 			if (c == (int)'T') goto term;
 			else if (c == (int)'R') goto reset;
+			else if (c == (int)'I') inv = ~inv;
 			else if (c == (int)'L') {
 				init_disp();
 				printstr("LOAD ");
