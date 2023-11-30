@@ -4,9 +4,9 @@
 #include <ctype.h>
 
 #include "font6x8.h"
-
 #include "initial.h"
 
+/* -------- serial IO -------- */
 #define pm2_entry_cout 0x0030
 #define pm2_entry_cin 0x0032
 
@@ -47,11 +47,9 @@ inline void printstr(const char *s) {
 	
 	return;
 }
+/* -------- serial IO -------- */
 
-#define TR0_COUNT	0xf800u
-#define TR1_COUNT_0	0x0000u
-#define TR1_COUNT_1	0xc000u
-
+/* -------- GPO -------- */
 #define GPO_BASE_H	0xf0u
 #define GPO_BASE_L	0x00u
 #define GPO_BASE	((GPO_BASE_H << 8) | GPO_BASE_L)
@@ -62,19 +60,6 @@ __pdata __at(GPO_BASE_L) volatile uint8_t gpo[8];
 #else
 __xdata __at(GPO_BASE) volatile uint8_t gpo[8];
 #endif
-/* S b7|b6|b5|b4|b3|b2|b1|b0 D */
-__idata const uint8_t dsdcol[8] = {
-	0x80u, 0x40u, 0x20u, 0x10u, 0x08u, 0x04u, 0x02u, 0x01u
-};
-/* S b0|b1|b2|b3|b4|b5|b6|b7 D */
-__idata const uint8_t sddcol[8] = {
-	0x01u, 0x02u, 0x04u, 0x08u, 0x10u, 0x20u, 0x40u, 0x80u
-};
-#define DISP_DATA	4
-#define DISP_COL	5
-__idata volatile uint8_t ddata[8];
-__idata volatile uint8_t column;
-__idata uint8_t OE;
 
 #define GPO_CLEAR do { \
 	gpo[GPO_OE] = 0x3fu; \
@@ -126,6 +111,25 @@ inline void gpo_setreg(uint8_t reg, uint8_t val) {
 	
 	return;
 }
+/* -------- GPO -------- */
+
+#define TR0_COUNT	0xf800u
+#define TR1_COUNT_0	0x0000u
+#define TR1_COUNT_1	0xc000u
+#define DISP_DATA	4
+#define DISP_COL	5
+
+/* S b7|b6|b5|b4|b3|b2|b1|b0 D */
+__idata const uint8_t dsdcol[8] = {
+	0x80u, 0x40u, 0x20u, 0x10u, 0x08u, 0x04u, 0x02u, 0x01u
+};
+/* S b0|b1|b2|b3|b4|b5|b6|b7 D */
+__idata const uint8_t sddcol[8] = {
+	0x01u, 0x02u, 0x04u, 0x08u, 0x10u, 0x20u, 0x40u, 0x80u
+};
+__idata volatile uint8_t ddata[8];
+__idata volatile uint8_t column;
+__idata uint8_t OE;
 
 void init_intr(void) {
 	TR0 = 0;
