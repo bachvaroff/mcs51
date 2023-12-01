@@ -579,7 +579,7 @@ menu0:
 	acall	upper
 
 ; push return address onto stack so we can just jump to the program
-	mov	b, #(menu & 255)	; we push the return address now,
+	mov	b, #(menu & 0xff)	; we push the return address now,
 	push	b			; to save code later...
 	mov	b, #(menu >> 8)		; if bogus input, just ret for
 	push	b			; another prompt.
@@ -614,7 +614,7 @@ menux1:
 menux2:
 	inc	dph
 	mov	a, dph
-	cjne	a, #((emem + 1) >> 8) & 255, menux1
+	cjne	a, #((emem + 1) >> 8) & 0xff, menux1
 menuxend:
 	mov	a, b
 
@@ -956,13 +956,13 @@ dnld_sum:
 	mov	dptr, #dnlds4
 	acall	pcstr_h
 	mov	r1, #dnld_parm
-	mov	r6, #dnlds5 & 255
+	mov	r6, #dnlds5 & 0xff
 	mov	r7, #dnlds5 >> 8
 	acall	dnld_i0
-	mov	r6, #dnlds6a & 255
+	mov	r6, #dnlds6a & 0xff
 	mov	r7, #dnlds6a >> 8
 	acall	dnld_i0
-	mov	r6, #dnlds6b & 255
+	mov	r6, #dnlds6b & 0xff
 	mov	r7, #dnlds6b >> 8
 	acall	dnld_i0
 
@@ -985,19 +985,19 @@ dnlder3:
 	acall	pcstr_h
 ; but let's not be nasty... only print if necessary
 	mov	r1, #(dnld_parm + 6)
-	mov	r6, #dnlds8 & 255
+	mov	r6, #dnlds8 & 0xff
 	mov	r7, #dnlds8 >> 8
 	acall	dnld_item
-	mov	r6, #dnlds9 & 255
+	mov	r6, #dnlds9 & 0xff
 	mov	r7, #dnlds9 >> 8
 	acall	dnld_item
-	mov	r6, #dnlds10 & 255
+	mov	r6, #dnlds10 & 0xff
 	mov	r7, #dnlds10 >> 8
 	acall	dnld_item
-	mov	r6, #dnlds11 & 255
+	mov	r6, #dnlds11 & 0xff
 	mov	r7, #dnlds11 >> 8
 	acall	dnld_item
-	mov	r6, #dnlds12 & 255
+	mov	r6, #dnlds12 & 0xff
 	mov	r7, #dnlds12 >> 8
 	acall	dnld_item
 dlnd_sum_done:
@@ -1221,7 +1221,7 @@ dir7:
 dir8:
 	inc	dph
 	mov	a, dph
-	cjne	a, #((emem + 1) >> 8) & 255, dir1
+	cjne	a, #((emem + 1) >> 8) & 0xff, dir1
 	ajmp	dir_end
 
 ; type1=Ext Command
@@ -1239,7 +1239,7 @@ run:
 run2:
 	inc	dph
 	mov	a, dph
-	cjne	a, #((emem + 1) >> 8) & 255, run2b
+	cjne	a, #((emem + 1) >> 8) & 0xff, run2b
 	sjmp	run3
 run2b:
 	lcall	find
@@ -1304,7 +1304,7 @@ run4a:
 run5:
 	inc	dph
 	mov	a, dph
-	cjne	a, #((emem + 1) >> 8) & 255, run5b
+	cjne	a, #((emem + 1) >> 8) & 0xff, run5b
 	sjmp	run8
 run5b:
 	lcall	find
@@ -1407,7 +1407,7 @@ help3:
 help3a:
 	inc	dph
 	mov	a, dph
-	cjne	a, #((emem + 1) >> 8) & 255, help3
+	cjne	a, #((emem + 1) >> 8) & 0xff, help3
 help4:	
 	ajmp	crlf
 
@@ -1933,7 +1933,7 @@ reset:
 	mov	dptr, #logon
 	lcall	pcstr
 	lcall	dir
-	mov	r6, #(pgm & 255)
+	mov	r6, #(pgm & 0xff)
 	mov	r7, #(pgm >> 8)
 	ljmp	menu
 
@@ -1947,7 +1947,7 @@ stcode2:
 	cjne	a, b, stcode4	; only startup code if matches B
 	push	b
 	push	dph
-	mov	a, #(stcode3 & 255)
+	mov	a, #(stcode3 & 0xff)
 	push	acc
 	mov	a, #(stcode3 >> 8)
 	push	acc
@@ -1960,7 +1960,7 @@ stcode3:
 stcode4:
 	inc	dph
 	mov	a, dph
-	cjne	a, #((emem + 1) >> 8) & 255, stcode2
+	cjne	a, #((emem + 1) >> 8) & 0xff, stcode2
 stcode5:
 	ret			; now we've executed all of 'em
 

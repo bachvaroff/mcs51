@@ -579,7 +579,7 @@
 01DC: 31 93                 acall   upper
                    
                    ; push return address onto stack so we can just jump to the 
-01DE: 75 F0 C3              mov     b, #(menu & 255)        ; we push the retur
+01DE: 75 F0 C3              mov     b, #(menu & 0xff)       ; we push the retur
 01E1: C0 F0                 push    b                       ; to save code late
 01E3: 75 F0 01              mov     b, #(menu >> 8)                 ; if bogus 
 01E6: C0 F0                 push    b                       ; another prompt.
@@ -614,7 +614,7 @@
                    menux2:
 020D: 05 83                 inc     dph
 020F: E5 83                 mov     a, dph
-0211: B4 E0 D9              cjne    a, #((emem + 1) >> 8) & 255, menux1
+0211: B4 E0 D9              cjne    a, #((emem + 1) >> 8) & 0xff, menux1
                    menuxend:
 0214: E5 F0                 mov     a, b
                    
@@ -956,13 +956,13 @@
 03AD: 90 0C 28              mov     dptr, #dnlds4
 03B0: 11 45                 acall   pcstr_h
 03B2: 79 08                 mov     r1, #dnld_parm
-03B4: 7E 33                 mov     r6, #dnlds5 & 255
+03B4: 7E 33                 mov     r6, #dnlds5 & 0xff
 03B6: 7F 0C                 mov     r7, #dnlds5 >> 8
 03B8: 91 10                 acall   dnld_i0
-03BA: 7E 46                 mov     r6, #dnlds6a & 255
+03BA: 7E 46                 mov     r6, #dnlds6a & 0xff
 03BC: 7F 0C                 mov     r7, #dnlds6a >> 8
 03BE: 91 10                 acall   dnld_i0
-03C0: 7E 59                 mov     r6, #dnlds6b & 255
+03C0: 7E 59                 mov     r6, #dnlds6b & 0xff
 03C2: 7F 0C                 mov     r7, #dnlds6b >> 8
 03C4: 91 10                 acall   dnld_i0
                    
@@ -985,19 +985,19 @@
 03D8: 11 45                 acall   pcstr_h
                    ; but let's not be nasty... only print if necessary
 03DA: 79 0E                 mov     r1, #(dnld_parm + 6)
-03DC: 7E 75                 mov     r6, #dnlds8 & 255
+03DC: 7E 75                 mov     r6, #dnlds8 & 0xff
 03DE: 7F 0C                 mov     r7, #dnlds8 >> 8
 03E0: 91 02                 acall   dnld_item
-03E2: 7E 8F                 mov     r6, #dnlds9 & 255
+03E2: 7E 8F                 mov     r6, #dnlds9 & 0xff
 03E4: 7F 0C                 mov     r7, #dnlds9 >> 8
 03E6: 91 02                 acall   dnld_item
-03E8: 7E A1                 mov     r6, #dnlds10 & 255
+03E8: 7E A1                 mov     r6, #dnlds10 & 0xff
 03EA: 7F 0C                 mov     r7, #dnlds10 >> 8
 03EC: 91 02                 acall   dnld_item
-03EE: 7E BE                 mov     r6, #dnlds11 & 255
+03EE: 7E BE                 mov     r6, #dnlds11 & 0xff
 03F0: 7F 0C                 mov     r7, #dnlds11 >> 8
 03F2: 91 02                 acall   dnld_item
-03F4: 7E D8                 mov     r6, #dnlds12 & 255
+03F4: 7E D8                 mov     r6, #dnlds12 & 0xff
 03F6: 7F 0C                 mov     r7, #dnlds12 >> 8
 03F8: 91 02                 acall   dnld_item
                    dlnd_sum_done:
@@ -1221,7 +1221,7 @@
                    dir8:
 052E: 05 83                 inc     dph
 0530: E5 83                 mov     a, dph
-0532: B4 E0 9B              cjne    a, #((emem + 1) >> 8) & 255, dir1
+0532: B4 E0 9B              cjne    a, #((emem + 1) >> 8) & 0xff, dir1
 0535: 81 D5                 ajmp    dir_end
                    
                    ; type1=Ext Command
@@ -1239,7 +1239,7 @@
                    run2:
 0540: 05 83                 inc     dph
 0542: E5 83                 mov     a, dph
-0544: B4 E0 02              cjne    a, #((emem + 1) >> 8) & 255, run2b
+0544: B4 E0 02              cjne    a, #((emem + 1) >> 8) & 0xff, run2b
 0547: 80 21                 sjmp    run3
                    run2b:
 0549: 12 08 48              lcall   find
@@ -1304,7 +1304,7 @@
                    run5:
 05AE: 05 83                 inc     dph
 05B0: E5 83                 mov     a, dph
-05B2: B4 E0 02              cjne    a, #((emem + 1) >> 8) & 255, run5b
+05B2: B4 E0 02              cjne    a, #((emem + 1) >> 8) & 0xff, run5b
 05B5: 80 17                 sjmp    run8
                    run5b:
 05B7: 12 08 48              lcall   find
@@ -1407,7 +1407,7 @@
                    help3a:
 0661: 05 83                 inc     dph
 0663: E5 83                 mov     a, dph
-0665: B4 E0 DD              cjne    a, #((emem + 1) >> 8) & 255, help3
+0665: B4 E0 DD              cjne    a, #((emem + 1) >> 8) & 0xff, help3
                    help4:   
 0668: 01 7A                 ajmp    crlf
                    
@@ -1933,7 +1933,7 @@
 090F: 90 0A 25              mov     dptr, #logon
 0912: 12 0A 17              lcall   pcstr
 0915: 12 04 BD              lcall   dir
-0918: 7E 00                 mov     r6, #(pgm & 255)
+0918: 7E 00                 mov     r6, #(pgm & 0xff)
 091A: 7F 20                 mov     r7, #(pgm >> 8)
 091C: 02 01 C3              ljmp    menu
                    
@@ -1947,7 +1947,7 @@
 092B: B5 F0 15              cjne    a, b, stcode4   ; only startup code if matc
 092E: C0 F0                 push    b
 0930: C0 83                 push    dph
-0932: 74 3F                 mov     a, #(stcode3 & 255)
+0932: 74 3F                 mov     a, #(stcode3 & 0xff)
 0934: C0 E0                 push    acc
 0936: 74 09                 mov     a, #(stcode3 >> 8)
 0938: C0 E0                 push    acc
@@ -1960,7 +1960,7 @@
                    stcode4:
 0943: 05 83                 inc     dph
 0945: E5 83                 mov     a, dph
-0947: B4 E0 D8              cjne    a, #((emem + 1) >> 8) & 255, stcode2
+0947: B4 E0 D8              cjne    a, #((emem + 1) >> 8) & 0xff, stcode2
                    stcode5:
 094A: 22                    ret                     ; now we've executed all of
                    
