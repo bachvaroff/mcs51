@@ -111,12 +111,14 @@
                 
                 <context id="registers" style-ref="register">         
                     <match extended="true">
-                        (
+                        \b(
                             (a|A)|(ab|AB)|(acc|ACC)|
                             (b|B)|
                             (c|C)|
-                            (dptr|DPTR)|(dpl|DPL)|(dph|DPH)|
-                            ([rR][0-7])
+			    (dptr|DPTR)|(dpl|DPL)|(dph|DPH)|
+			    (psw)|(sp)|
+			    ([rR][0-7])|
+			    (p[0-3])
                         )\b
                     </match>          
                 </context>
