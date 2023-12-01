@@ -62,7 +62,7 @@
 ; may reconfigure it unexpectedly.
 .equ	pgm, 0x2000		; default location for the user program
 .equ	bmem, 0x1000		; where is the beginning of memory to search
-.equ	emem, 0xDFFF		; end of the memory to search
+.equ	emem, 0xdfff		; end of the memory to search
 ;---------------------------------------------------------;
 
 ;---------------------------------------------------------;
@@ -199,28 +199,28 @@ dash_sp:
 ; Update paulmon21.equ accordingly
 
 .org	base + 46
-	ajmp	phex1		; 0x2E
+	ajmp	phex1		; 0x2e
 	ajmp	cout		; 0x30
 	ajmp	cin		; 0x32
 	ajmp	phex		; 0x34
 	ajmp	phex16		; 0x36
 	ajmp	pstr		; 0x38
-	ajmp	ghex		; 0x3A
-	ajmp	ghex16		; 0x3C
-	ajmp	esc		; 0x4E
+	ajmp	ghex		; 0x3a
+	ajmp	ghex16		; 0x3c
+	ajmp	esc		; 0x4e
 	ajmp	upper		; 0x40
 	ljmp	setbaud		; 0x42
 pcstr_h:
 	ljmp	pcstr		; 0x45
 	ajmp	crlf		; 0x48
-	ljmp	lenstr		; 0x4A
-	ljmp	pint8u		; 0x4D
+	ljmp	lenstr		; 0x4a
+	ljmp	pint8u		; 0x4d
 	ljmp	pint8		; 0x50
 	ljmp	pint16u		; 0x53
 	ljmp	find		; 0x56
 	ajmp	asc2hex		; 0x59
-	ljmp	init_crc16	; 0x5B
-	ljmp	update_crc16	; 0x5E
+	ljmp	init_crc16	; 0x5b
+	ljmp	update_crc16	; 0x5e
 	ljmp	finish_crc16	; 0x61
 
 ;---------------------------------------------------------;
@@ -494,7 +494,7 @@ pstr1:
 	inc	dptr
 	jz	pstr2
 	mov	c, acc.7
-	anl	a, #0x7F
+	anl	a, #0x7f
 	acall	cout
 	jc	pstr2
 	sjmp	pstr1
@@ -1790,16 +1790,16 @@ dio77:
 find:
 	mov	dpl, #0
 	movx	a, @dptr
-	cjne	a, #0xA5, find3
+	cjne	a, #0xa5, find3
 	inc	dptr
 	movx	a, @dptr
-	cjne	a, #0xE5, find3
+	cjne	a, #0xe5, find3
 	inc	dptr
 	movx	a, @dptr
-	cjne	a, #0xE0, find3
+	cjne	a, #0xe0, find3
 	inc	dptr
 	movx	a, @dptr
-	cjne	a, #0xA5, find3
+	cjne	a, #0xa5, find3
 	mov	dpl, #0			; found one here!
 	setb	c
 	ret
