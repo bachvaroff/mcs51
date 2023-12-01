@@ -80,7 +80,7 @@
                 <context id="hexadecimal-number" style-ref="hexadecimal">
                     <match extended="true">
                         (?&lt;![\w\.])
-                        [#]?[+-]?(0[xX][0-9a-fA-F]+[hH]?|[0-9a-fA-F]+[hH])
+                        [+-]?(0[xX][0-9a-fA-F]+[hH]?|[0-9a-fA-F]+[hH])
                         (?![\w\.])
                     </match>
                 </context>
@@ -88,7 +88,7 @@
                 <context id="binary-number" style-ref="binary">
                     <match extended="true">
                         (?&lt;![\w\.])
-                        [#]?(0[bB][01]+[bB]?|[01]+[bB])
+                        (0[bB][01]+[bB]?|[01]+[bB])
                         (?![\w\.])
                     </match>
                 </context>
@@ -96,7 +96,7 @@
                 <context id="decimal-number" style-ref="decimal">
                     <match extended="true">
                         (?&lt;![\w\.])
-                        [#]?(-?)[0-9]+[dD]?
+                        (-?)[0-9]+[dD]?
                         (?![\w\.])
                     </match>
                 </context>
@@ -104,7 +104,7 @@
                 <context id="octal-number" style-ref="octal">
                     <match extended="true">
                         (?&lt;![\w\.])
-                        [#]?(-?)[0-7]+[oO]
+                        (-?)[0-7]+[oO]
                         (?![\w\.])
                     </match>
                 </context>
