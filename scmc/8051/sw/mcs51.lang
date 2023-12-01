@@ -112,13 +112,23 @@
                 <context id="registers" style-ref="register">         
                     <match extended="true">
                         \b(
-                            (a|A)|(ab|AB)|(acc|ACC)|
-                            (b|B)|
-                            (c|C)|
-			    (dptr|DPTR)|(dpl|DPL)|(dph|DPH)|
-			    (psw)|(sp)|
+                            (a|A)|(ab|AB)|(acc|ACC)|(b|B)|
+			    (dptr|DPTR)|(dp)[hl]|(DP)[HL]|
+			    (psw|PSW)|
+			    (sp|SP)|
 			    ([rR][0-7])|
-			    (p[0-3])
+			    ([pP][0-3])|
+			    (pcon|PCON)|
+			    (tcon|TCON)|
+			    (t2con|T2CON)|
+			    (rcap2|rcap2)[hl]|(RCAP2|RCAP2)[HL]|
+			    (tmod|TMOD)|
+			    ((tl|TL)[012])|
+			    ((th|TH)[012])|
+			    (scon|SCON)|
+			    (sbuf|SBUF)|
+			    (ie|IE)|
+			    (ip|IP)
                         )\b
                     </match>          
                 </context>
