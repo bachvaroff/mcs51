@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ 
+ Author: Atanas Bachvaroff
+ Copyright (C) 2023-∞ Atanas Bachvaroff
+ The 4-Clause Original BSD / CDDL-1.0 license applies.
+ 
+-->
+
+<language id="mcs51" _name="MCS51" version="2.0" _section="Others">
+    <metadata>
+        <property name="mimetypes">text/mcs51</property>
+        <property name="globs">*.asm</property>
+        <property name="line-comment-start">;</property>
+    </metadata>
+ 
+    <styles>
+        <style id="comment" _name="Comment" map-to="def:comment" />
+        <style id="error" _name="Error" map-to="def:error" />
+        <style id="string" _name="String" map-to="def:string" />
+        <style id="char" _name="String" map-to="def:string" />
+        <style id="preprocessor" _name="Preprocessor" map-to="def:preprocessor" />
+        <style id="opcode" _name="Opcode" map-to="def:keyword" />
+        <style id="register" _name="Register" map-to="def:type" />
+        <style id="type" _name="Data Type" map-to="def:type" />
+        <style id="escaped-character" _name="Escaped Character" map-to="def:special-char" />
+        <style id="decimal" _name="Decimal number" map-to="def:decimal" />
+        <style id="hexadecimal" _name="Hexadecimal number" map-to="def:base-n-integer" />
+        <style id="binary" _name="Binary number" map-to="def:base-n-integer" />
+        <style id="octal" _name="Octal number" map-to="def:base-n-integer" />
+        <style id="label" _name="Label" map-to="def:identifier" />
+    </styles>
+     
+    <default-regex-options case-sensitive="false" />
+ 
+    <definitions>
+        <define-regex id="escaped-character" extended="true">
+            \\([\\\"\'])
+        </define-regex>
+ 
+        <context id="mcs51">
+            <include>  
+                <context id="comment" style-ref="comment" end-at-line-end="true">
+                    <start>;</start>
+                    <include>
+                        <context ref="def:in-line-comment" />
+                    </include>
+                </context>
+                
+                <context id="preprocessor" style-ref="preprocessor">
+                    <prefix>^\s?\.</prefix>
+                    <keyword>org</keyword>
+                    <keyword>equ</keyword>
+                    <keyword>end</keyword>
+                    <keyword>skip</keyword>
+                    <keyword>flag</keyword>
+                </context>
+
+                <context id="string" style-ref="string" end-at-line-end="true">
+                    <start>"</start>
+                    <end>"</end>
+                    <include>
+                        <context id="escaped-characterw" style-ref="escaped-character">
+                            <match>\%{escaped-character}</match>
+                        </context>
+                    </include>
+                </context>
+                
+                <context id="char" style-ref="char" end-at-line-end="true">
+                    <start>[#]?'</start>
+                    <end>'</end>
+                    <include>
+                        <context id="escaped-characters" style-ref="escaped-character">
+                            <match>\%{escaped-character}</match>
+                        </context>
+                    </include>
+                </context>
+
+                <context id="hexadecimal-number" style-ref="hexadecimal">
+                    <match extended="true">
+                        (?&lt;![\w\.])
+                        [#]?[+-]?(0[xX][0-9a-fA-F]+[hH]?|[0-9a-fA-F]+[hH])
+                        (?![\w\.])
+                    </match>
+                </context>
+ 
+                <context id="binary-number" style-ref="binary">
+                    <match extended="true">
+                        (?&lt;![\w\.])
+                        [#]?(0[bB][01]+[bB]?|[01]+[bB])
+                        (?![\w\.])
+                    </match>
+                </context>
+            
+                <context id="decimal-number" style-ref="decimal">
+                    <match extended="true">
+                        (?&lt;![\w\.])
+                        [#]?(-?)[0-9]+[dD]?
+                        (?![\w\.])
+                    </match>
+                </context>
+ 
+                <context id="octal-number" style-ref="octal">
+                    <match extended="true">
+                        (?&lt;![\w\.])
+                        [#]?(-?)[0-7]+[oO]
+                        (?![\w\.])
+                    </match>
+                </context>
+                
+                <context id="registers" style-ref="register">         
+                    <match extended="true">
+                        (
+                            (a|A)|(ab|AB)|(acc|ACC)|
+                            (b|B)|
+                            (c|C)|
+                            (dptr|DPTR)|(dpl|DPL)|(dph|DPH)|
+                            ([rR][0-7])
+                        )\b
+                    </match>          
+                </context>
+
+                <context id="label" style-ref="label">
+                    <match extended="true">
+                        \w+:
+                    </match>
+                </context>
+ 
+                <context id="opcodes_simple" style-ref="opcode">
+                    <keyword>add</keyword>
+                    <keyword>addc</keyword>
+                    <keyword>subb</keyword>
+                    <keyword>inc</keyword>
+                    <keyword>dec</keyword>
+                    <keyword>mul</keyword>
+                    <keyword>div</keyword>
+                    <keyword>da</keyword>
+                    
+                    <keyword>anl</keyword>
+                    <keyword>orl</keyword>
+                    <keyword>xrl</keyword>
+                    <keyword>clr</keyword>
+                    <keyword>cpl</keyword>
+                    <keyword>rl</keyword>
+                    <keyword>rlc</keyword>
+                    <keyword>rr</keyword>
+                    <keyword>rrc</keyword>
+                    <keyword>swap</keyword>
+                    <keyword>setb</keyword>                    
+                    <keyword>mov</keyword>
+                    <keyword>movc</keyword>
+                    <keyword>movx</keyword>
+                    <keyword>push</keyword>
+                    <keyword>pop</keyword>
+                    <keyword>xch</keyword>
+                    <keyword>xchd</keyword>
+                    
+                    <keyword>acall</keyword>
+                    <keyword>lcall</keyword>
+                    <keyword>ret</keyword>
+                    <keyword>reti</keyword>
+                    <keyword>ajmp</keyword>
+                    <keyword>ljmp</keyword>
+                    <keyword>sjmp</keyword>
+                    <keyword>jmp</keyword>
+                    <keyword>jz</keyword>
+                    <keyword>jnz</keyword>
+                    <keyword>jc</keyword>
+                    <keyword>jnc</keyword>
+                    <keyword>jb</keyword>
+                    <keyword>jnb</keyword>
+                    <keyword>jnc</keyword>
+                    <keyword>cjne</keyword>
+                    <keyword>djnz</keyword>
+                    <keyword>nop</keyword>                    
+                </context>
+                 
+                <context id="types" style-ref="type">
+                    <prefix>\.</prefix>
+                    <keyword>byte</keyword>
+                    <keyword>word</keyword>
+                    <keyword>db</keyword>
+                    <keyword>dw</keyword>
+                </context>         
+            </include>
+        </context>
+    </definitions>
+</language>
+
