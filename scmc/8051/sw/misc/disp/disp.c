@@ -60,9 +60,9 @@ inline void printstr(const char *s) {
 #define GPO_OE		6
 
 #ifdef GPO_PDATA
-__pdata __at(GPO_BASE_L) volatile uint8_t gpo[8];
+__pdata __at(GPO_BASE_L) volatile uint8_t gpo[128];
 #else
-__xdata __at(GPO_BASE) volatile uint8_t gpo[8];
+__xdata __at(GPO_BASE) volatile uint8_t gpo[128];
 #endif
 
 #define GPO_CLEAR do { \
