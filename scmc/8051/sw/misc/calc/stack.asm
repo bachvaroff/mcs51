@@ -656,11 +656,11 @@ _stack_peek:
 ;------------------------------------------------------------
 ;vals                      Allocated to stack - _bp -5
 ;s                         Allocated to stack - _bp +1
-;nvals                     Allocated to registers r3 r2 
-;sloc0                     Allocated to stack - _bp +6
-;sloc1                     Allocated to stack - _bp +4
-;sloc2                     Allocated to stack - _bp +11
-;sloc3                     Allocated to stack - _bp +7
+;nvals                     Allocated to registers r5 r4 
+;sloc0                     Allocated to stack - _bp +4
+;sloc1                     Allocated to stack - _bp +7
+;sloc2                     Allocated to stack - _bp +12
+;sloc3                     Allocated to stack - _bp +10
 ;------------------------------------------------------------
 ;	stack.c:36: int stack_peek2(stack_t *s, long *vals) __reentrant {
 ;	-----------------------------------------
@@ -673,12 +673,80 @@ _stack_peek2:
 	push	dph
 	push	b
 	mov	a,sp
-	add	a,#0x06
+	add	a,#0x09
 	mov	sp,a
-;	stack.c:37: int nvals = 0;
-	mov	r3,#0x00
-	mov	r2,#0x00
-;	stack.c:39: if (s->spin) goto out; /* if called from ISR */
+;	stack.c:39: nvals = 0;
+;	stack.c:40: vals[0] = vals[1] = 0l;
+	clr	a
+	mov	r5,a
+	mov	r4,a
+	mov	a,_bp
+	add	a,#0xfb
+	mov	r0,a
+	mov	a,_bp
+	add	a,#0x0a
+	mov	r1,a
+	mov	a,@r0
+	mov	@r1,a
+	inc	r0
+	inc	r1
+	mov	a,@r0
+	mov	@r1,a
+	inc	r0
+	inc	r1
+	mov	a,@r0
+	mov	@r1,a
+	mov	a,_bp
+	add	a,#0x0a
+	mov	r0,a
+	mov	a,_bp
+	add	a,#0x04
+	mov	r1,a
+	mov	a,#0x04
+	add	a,@r0
+	mov	@r1,a
+	clr	a
+	inc	r0
+	addc	a,@r0
+	inc	r1
+	mov	@r1,a
+	inc	r0
+	inc	r1
+	mov	a,@r0
+	mov	@r1,a
+	mov	a,_bp
+	add	a,#0x04
+	mov	r0,a
+	mov	dpl,@r0
+	inc	r0
+	mov	dph,@r0
+	inc	r0
+	mov	b,@r0
+	clr	a
+	lcall	__gptrput
+	inc	dptr
+	lcall	__gptrput
+	inc	dptr
+	lcall	__gptrput
+	inc	dptr
+	lcall	__gptrput
+	mov	a,_bp
+	add	a,#0x0a
+	mov	r0,a
+	mov	dpl,@r0
+	inc	r0
+	mov	dph,@r0
+	inc	r0
+	mov	b,@r0
+	clr	a
+	lcall	__gptrput
+	inc	dptr
+	lcall	__gptrput
+	inc	dptr
+	lcall	__gptrput
+	inc	dptr
+	lcall	__gptrput
+;	stack.c:42: if (s->spin) goto out; /* if called from ISR */
 	mov	r0,_bp
 	inc	r0
 	mov	dpl,@r0
@@ -690,7 +758,7 @@ _stack_peek2:
 	jz	00122$
 	ljmp	00107$
 00122$:
-;	stack.c:41: if (s->p < 0) goto out;
+;	stack.c:44: if (s->p < 0) goto out;
 	mov	r0,_bp
 	inc	r0
 	mov	a,_bp
@@ -717,136 +785,14 @@ _stack_peek2:
 	inc	r0
 	mov	b,@r0
 	lcall	__gptrget
-	mov	r7,a
+	mov	r6,a
 	inc	dptr
 	lcall	__gptrget
-	mov	r6,a
+	mov	r7,a
 	jnb	acc.7,00123$
 	ljmp	00107$
 00123$:
-;	stack.c:42: vals[1] = s->data[s->p];
-	mov	a,_bp
-	add	a,#0xfb
-	mov	r0,a
-	mov	a,_bp
-	add	a,#0x04
-	mov	r1,a
-	mov	a,#0x04
-	add	a,@r0
-	mov	@r1,a
-	clr	a
-	inc	r0
-	addc	a,@r0
-	inc	r1
-	mov	@r1,a
-	inc	r0
-	inc	r1
-	mov	a,@r0
-	mov	@r1,a
-	mov	r0,_bp
-	inc	r0
-	mov	a,#0x01
-	add	a,@r0
-	mov	r5,a
-	clr	a
-	inc	r0
-	addc	a,@r0
-	mov	r4,a
-	inc	r0
-	mov	ar3,@r0
-	mov	a,r7
-	add	a,r7
-	mov	r7,a
-	mov	a,r6
-	rlc	a
-	mov	r6,a
-	mov	a,r7
-	add	a,r7
-	mov	r7,a
-	mov	a,r6
-	rlc	a
-	mov	r6,a
-	mov	a,r7
-	add	a,r5
-	mov	r5,a
-	mov	a,r6
-	addc	a,r4
-	mov	r6,a
-	mov	ar7,r3
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
-	lcall	__gptrget
-	mov	r5,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r6,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r7,a
-	mov	a,_bp
-	add	a,#0x04
-	mov	r0,a
-	mov	dpl,@r0
-	inc	r0
-	mov	dph,@r0
-	inc	r0
-	mov	b,@r0
-	mov	a,r5
-	lcall	__gptrput
-	inc	dptr
-	mov	a,r6
-	lcall	__gptrput
-	inc	dptr
-	mov	a,r4
-	lcall	__gptrput
-	inc	dptr
-	mov	a,r7
-	lcall	__gptrput
-;	stack.c:43: nvals++;
-	mov	r3,#0x01
-	mov	r2,#0x00
-;	stack.c:45: if ((s->p - 1) < 0) goto out;
-	mov	a,_bp
-	add	a,#0x07
-	mov	r0,a
-	mov	dpl,@r0
-	inc	r0
-	mov	dph,@r0
-	inc	r0
-	mov	b,@r0
-	lcall	__gptrget
-	mov	r6,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r7,a
-	mov	a,r6
-	add	a,#0xff
-	mov	r4,a
-	mov	a,r7
-	addc	a,#0xff
-	mov	r5,a
-	jb	acc.7,00107$
-;	stack.c:46: vals[0] = s->data[s->p - 1];
-	mov	a,_bp
-	add	a,#0xfb
-	mov	r0,a
-	mov	a,_bp
-	add	a,#0x07
-	mov	r1,a
-	mov	a,@r0
-	mov	@r1,a
-	inc	r0
-	inc	r1
-	mov	a,@r0
-	mov	@r1,a
-	inc	r0
-	inc	r1
-	mov	a,@r0
-	mov	@r1,a
+;	stack.c:45: vals[1] = s->data[s->p];
 	mov	r0,_bp
 	inc	r0
 	mov	a,#0x01
@@ -855,13 +801,9 @@ _stack_peek2:
 	clr	a
 	inc	r0
 	addc	a,@r0
-	mov	r4,a
+	mov	r3,a
 	inc	r0
-	mov	ar5,@r0
-	dec	r6
-	cjne	r6,#0xff,00125$
-	dec	r7
-00125$:
+	mov	ar4,@r0
 	mov	a,r6
 	add	a,r6
 	mov	r6,a
@@ -878,24 +820,24 @@ _stack_peek2:
 	add	a,r2
 	mov	r2,a
 	mov	a,r7
-	addc	a,r4
-	mov	r4,a
+	addc	a,r3
+	mov	r3,a
 	mov	dpl,r2
-	mov	dph,r4
-	mov	b,r5
+	mov	dph,r3
+	mov	b,r4
 	lcall	__gptrget
 	mov	r2,a
 	inc	dptr
 	lcall	__gptrget
-	mov	r4,a
+	mov	r3,a
 	inc	dptr
 	lcall	__gptrget
-	mov	r5,a
+	mov	r4,a
 	inc	dptr
 	lcall	__gptrget
 	mov	r7,a
 	mov	a,_bp
-	add	a,#0x07
+	add	a,#0x04
 	mov	r0,a
 	mov	dpl,@r0
 	inc	r0
@@ -905,23 +847,128 @@ _stack_peek2:
 	mov	a,r2
 	lcall	__gptrput
 	inc	dptr
+	mov	a,r3
+	lcall	__gptrput
+	inc	dptr
 	mov	a,r4
+	lcall	__gptrput
+	inc	dptr
+	mov	a,r7
+	lcall	__gptrput
+;	stack.c:46: nvals++;
+	mov	r5,#0x01
+	mov	r4,#0x00
+;	stack.c:48: if ((s->p - 1) < 0) goto out;
+	mov	a,_bp
+	add	a,#0x07
+	mov	r0,a
+	mov	dpl,@r0
+	inc	r0
+	mov	dph,@r0
+	inc	r0
+	mov	b,@r0
+	lcall	__gptrget
+	mov	r3,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r2,a
+	mov	a,r3
+	add	a,#0xff
+	mov	r6,a
+	mov	a,r2
+	addc	a,#0xff
+	mov	r7,a
+	jb	acc.7,00107$
+;	stack.c:49: vals[0] = s->data[s->p - 1];
+	mov	r0,_bp
+	inc	r0
+	mov	a,_bp
+	add	a,#0x07
+	mov	r1,a
+	mov	a,#0x01
+	add	a,@r0
+	mov	@r1,a
+	clr	a
+	inc	r0
+	addc	a,@r0
+	inc	r1
+	mov	@r1,a
+	inc	r0
+	inc	r1
+	mov	a,@r0
+	mov	@r1,a
+	mov	a,r3
+	add	a,#0xff
+	mov	r6,a
+	mov	a,r2
+	addc	a,#0xff
+	mov	r7,a
+	mov	a,r6
+	add	a,r6
+	mov	r6,a
+	mov	a,r7
+	rlc	a
+	mov	r7,a
+	mov	a,r6
+	add	a,r6
+	mov	r6,a
+	mov	a,r7
+	rlc	a
+	mov	r7,a
+	mov	a,_bp
+	add	a,#0x07
+	mov	r0,a
+	mov	a,r6
+	add	a,@r0
+	mov	r6,a
+	mov	a,r7
+	inc	r0
+	addc	a,@r0
+	mov	r5,a
+	inc	r0
+	mov	ar7,@r0
+	mov	dpl,r6
+	mov	dph,r5
+	mov	b,r7
+	lcall	__gptrget
+	mov	r6,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r5,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r4,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r7,a
+	mov	a,_bp
+	add	a,#0x0a
+	mov	r0,a
+	mov	dpl,@r0
+	inc	r0
+	mov	dph,@r0
+	inc	r0
+	mov	b,@r0
+	mov	a,r6
 	lcall	__gptrput
 	inc	dptr
 	mov	a,r5
 	lcall	__gptrput
 	inc	dptr
+	mov	a,r4
+	lcall	__gptrput
+	inc	dptr
 	mov	a,r7
 	lcall	__gptrput
-;	stack.c:47: nvals++;
-	mov	r3,#0x02
-	mov	r2,#0x00
-;	stack.c:49: out:
+;	stack.c:50: nvals++;
+	mov	r5,#0x02
+	mov	r4,#0x00
+;	stack.c:52: out:
 00107$:
-;	stack.c:50: return nvals;
-	mov	dpl,r3
-	mov	dph,r2
-;	stack.c:51: }
+;	stack.c:53: return nvals;
+	mov	dpl,r5
+	mov	dph,r4
+;	stack.c:54: }
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -935,7 +982,7 @@ _stack_peek2:
 ;r                         Allocated to registers r2 r7 
 ;sloc0                     Allocated to stack - _bp +4
 ;------------------------------------------------------------
-;	stack.c:53: int stack_iter_peek(stack_t *s, stack_iter_t iter, void *_ctx) __reentrant {
+;	stack.c:56: int stack_iter_peek(stack_t *s, stack_iter_t iter, void *_ctx) __reentrant {
 ;	-----------------------------------------
 ;	 function stack_iter_peek
 ;	-----------------------------------------
@@ -948,7 +995,7 @@ _stack_iter_peek:
 	inc	sp
 	inc	sp
 	inc	sp
-;	stack.c:56: if (s->p < 0) return 0;
+;	stack.c:59: if (s->p < 0) return 0;
 	mov	r0,_bp
 	inc	r0
 	mov	a,#0x03
@@ -972,7 +1019,7 @@ _stack_iter_peek:
 	mov	dptr,#0x0000
 	ljmp	00109$
 00102$:
-;	stack.c:58: for (j = s->p, r = 0; j >= 0; j--) {
+;	stack.c:61: for (j = s->p, r = 0; j >= 0; j--) {
 	mov	r2,#0x00
 	mov	r7,#0x00
 	mov	r0,_bp
@@ -997,7 +1044,7 @@ _stack_iter_peek:
 	jnb	acc.7,00129$
 	ljmp	00105$
 00129$:
-;	stack.c:59: r = iter(_ctx, s->data[j]);
+;	stack.c:62: r = iter(_ctx, s->data[j]);
 	mov	a,r3
 	add	a,r3
 	mov	r5,a
@@ -1074,7 +1121,7 @@ _stack_iter_peek:
 	pop	ar4
 	mov	ar2,r5
 	mov	ar7,r6
-;	stack.c:60: if (r <= 0) break;
+;	stack.c:63: if (r <= 0) break;
 	clr	c
 	clr	a
 	subb	a,r2
@@ -1085,18 +1132,18 @@ _stack_iter_peek:
 	pop	ar4
 	pop	ar3
 	jnc	00105$
-;	stack.c:58: for (j = s->p, r = 0; j >= 0; j--) {
+;	stack.c:61: for (j = s->p, r = 0; j >= 0; j--) {
 	dec	r3
 	cjne	r3,#0xff,00133$
 	dec	r4
 00133$:
 	ljmp	00107$
 00105$:
-;	stack.c:63: return r;
+;	stack.c:66: return r;
 	mov	dpl,r2
 	mov	dph,r7
 00109$:
-;	stack.c:64: }
+;	stack.c:67: }
 	mov	sp,_bp
 	pop	_bp
 	ret

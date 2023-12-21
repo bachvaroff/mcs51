@@ -34,7 +34,10 @@ int stack_peek(stack_t *s, long *val) __reentrant {
 }
 
 int stack_peek2(stack_t *s, long *vals) __reentrant {
-	int nvals = 0;
+	int nvals;
+	
+	nvals = 0;
+	vals[0] = vals[1] = 0l;
 	
 	if (s->spin) goto out; /* if called from ISR */
 	
