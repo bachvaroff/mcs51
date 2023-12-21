@@ -393,6 +393,8 @@ static int reset_base(void *_ctx, delta_t *delta) __reentrant {
 
 static int status(void *_ctx, delta_t *delta) __reentrant {
 	calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
+	long vals[2];
+	int n;
 	
 	(void)delta;
 	
@@ -402,7 +404,37 @@ static int status(void *_ctx, delta_t *delta) __reentrant {
 	printbin(ctx->acc);
 	printf(", acc_valid = %d\r\n", (int)ctx->acc_valid);
 	printf("primary = %p, secondary = %p\r\n", ctx->ps, ctx->ss);
-		
+	
+	n = stack_peek2(ctx->ps, vals);
+	printstr("PSTOP1 = ");
+	if (n > 0) {
+		printf("% 11ld / ", vals[1]);
+		printf("%08lx / ", vals[1]);
+		printbin(vals[1]);
+	}
+	printstr("\r\nPSTOP0 = ");
+	if (n > 1) {
+		printf("% 11ld / ", vals[0]);
+		printf("%08lx / ", vals[0]);
+		printbin(vals[0]);
+	}
+	printstr("\r\n");
+	
+	n = stack_peek2(ctx->ss, vals);
+	printstr("SSTOP1 = ");
+	if (n > 0) {
+		printf("% 11ld / ", vals[1]);
+		printf("%08lx / ", vals[1]);
+		printbin(vals[1]);
+	}
+	printstr("\r\nSSTOP0 = ");
+	if (n > 1) {
+		printf("% 11ld / ", vals[0]);
+		printf("%08lx / ", vals[0]);
+		printbin(vals[0]);
+	}
+	printstr("\r\n");
+	
 	return 1;
 }
 
