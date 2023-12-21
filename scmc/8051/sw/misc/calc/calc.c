@@ -398,15 +398,18 @@ static int status(void *_ctx, delta_t *delta) __reentrant {
 	
 	(void)delta;
 	
-	printf("\r\nbase = %d, ", ctx->base);
-	printf("acc = %ld / ", ctx->acc);
-	printf("%08lx / ", ctx->acc);
-	printbin(ctx->acc);
-	printf(", acc_valid = %d\r\n", (int)ctx->acc_valid);
-	printf("primary = %p, secondary = %p\r\n", ctx->ps, ctx->ss);
+	printf("\r\nprimary = %p, secondary = %p\r\n", ctx->ps, ctx->ss);
+	printf("acc_valid = %d, base = %d\r\n", (int)ctx->acc_valid, ctx->base);
+	
+	printstr("acc    = ");
+	if (ctx->acc_valid) {
+		printf("% 11ld / ", ctx->acc);
+		printf("%08lx / ", ctx->acc);
+		printbin(ctx->acc);
+	}
 	
 	n = stack_peek2(ctx->ps, vals);
-	printstr("PSTOP1 = ");
+	printstr("\r\nPSTOP1 = ");
 	if (n > 0) {
 		printf("% 11ld / ", vals[1]);
 		printf("%08lx / ", vals[1]);
@@ -418,10 +421,9 @@ static int status(void *_ctx, delta_t *delta) __reentrant {
 		printf("%08lx / ", vals[0]);
 		printbin(vals[0]);
 	}
-	printstr("\r\n");
 	
 	n = stack_peek2(ctx->ss, vals);
-	printstr("SSTOP1 = ");
+	printstr("\r\nSSTOP1 = ");
 	if (n > 0) {
 		printf("% 11ld / ", vals[1]);
 		printf("%08lx / ", vals[1]);

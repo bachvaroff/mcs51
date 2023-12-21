@@ -370,7 +370,7 @@
                                     370 	.area HOME    (CODE)
                                     371 	.area HOME    (CODE)
       002003                        372 __sdcc_program_startup:
-      002003 02 64 ED         [24]  373 	ljmp	_main
+      002003 02 65 4B         [24]  373 	ljmp	_main
                                     374 ;	return from main will return to caller
                                     375 ;--------------------------------------------------------
                                     376 ; code
@@ -486,14 +486,14 @@
       002C6E 8A 82            [24]  486 	mov	dpl,r2
       002C70 8B 83            [24]  487 	mov	dph,r3
       002C72 8C F0            [24]  488 	mov	b,r4
-      002C74 12 70 1B         [24]  489 	lcall	__gptrget
+      002C74 12 70 79         [24]  489 	lcall	__gptrget
       002C77 70 31            [24]  490 	jnz	00102$
                                     491 ;	calc.c:70: ctx->acc_valid = 1;
       002C79 8A 82            [24]  492 	mov	dpl,r2
       002C7B 8B 83            [24]  493 	mov	dph,r3
       002C7D 8C F0            [24]  494 	mov	b,r4
       002C7F 74 01            [12]  495 	mov	a,#0x01
-      002C81 12 6B A0         [24]  496 	lcall	__gptrput
+      002C81 12 6B FE         [24]  496 	lcall	__gptrput
                                     497 ;	calc.c:71: ctx->acc = 0l;
       002C84 E5 08            [12]  498 	mov	a,_bp
       002C86 24 08            [12]  499 	add	a,#0x08
@@ -511,13 +511,13 @@
       002C96 8B 83            [24]  511 	mov	dph,r3
       002C98 8C F0            [24]  512 	mov	b,r4
       002C9A E4               [12]  513 	clr	a
-      002C9B 12 6B A0         [24]  514 	lcall	__gptrput
+      002C9B 12 6B FE         [24]  514 	lcall	__gptrput
       002C9E A3               [24]  515 	inc	dptr
-      002C9F 12 6B A0         [24]  516 	lcall	__gptrput
+      002C9F 12 6B FE         [24]  516 	lcall	__gptrput
       002CA2 A3               [24]  517 	inc	dptr
-      002CA3 12 6B A0         [24]  518 	lcall	__gptrput
+      002CA3 12 6B FE         [24]  518 	lcall	__gptrput
       002CA6 A3               [24]  519 	inc	dptr
-      002CA7 12 6B A0         [24]  520 	lcall	__gptrput
+      002CA7 12 6B FE         [24]  520 	lcall	__gptrput
       002CAA                        521 00102$:
                                     522 ;	calc.c:74: d = strtol(ctx->digit, NULL, ctx->base);
       002CAA E5 08            [12]  523 	mov	a,_bp
@@ -528,10 +528,10 @@
       002CB2 86 83            [24]  528 	mov	dph,@r0
       002CB4 08               [12]  529 	inc	r0
       002CB5 86 F0            [24]  530 	mov	b,@r0
-      002CB7 12 70 1B         [24]  531 	lcall	__gptrget
+      002CB7 12 70 79         [24]  531 	lcall	__gptrget
       002CBA FB               [12]  532 	mov	r3,a
       002CBB A3               [24]  533 	inc	dptr
-      002CBC 12 70 1B         [24]  534 	lcall	__gptrget
+      002CBC 12 70 79         [24]  534 	lcall	__gptrget
       002CBF FC               [12]  535 	mov	r4,a
       002CC0 E5 08            [12]  536 	mov	a,_bp
       002CC2 24 08            [12]  537 	add	a,#0x08
@@ -554,7 +554,7 @@
       002CDB 8A 82            [24]  554 	mov	dpl,r2
       002CDD 8E 83            [24]  555 	mov	dph,r6
       002CDF 8F F0            [24]  556 	mov	b,r7
-      002CE1 12 69 62         [24]  557 	lcall	_strtol
+      002CE1 12 69 C0         [24]  557 	lcall	_strtol
       002CE4 C8               [12]  558 	xch	a,r0
       002CE5 E5 08            [12]  559 	mov	a,_bp
       002CE7 24 0B            [12]  560 	add	a,#0x0b
@@ -597,18 +597,18 @@
       002D1A E5 08            [12]  597 	mov	a,_bp
       002D1C 24 04            [12]  598 	add	a,#0x04
       002D1E F9               [12]  599 	mov	r1,a
-      002D1F 12 70 1B         [24]  600 	lcall	__gptrget
+      002D1F 12 70 79         [24]  600 	lcall	__gptrget
       002D22 F7               [12]  601 	mov	@r1,a
       002D23 A3               [24]  602 	inc	dptr
-      002D24 12 70 1B         [24]  603 	lcall	__gptrget
+      002D24 12 70 79         [24]  603 	lcall	__gptrget
       002D27 09               [12]  604 	inc	r1
       002D28 F7               [12]  605 	mov	@r1,a
       002D29 A3               [24]  606 	inc	dptr
-      002D2A 12 70 1B         [24]  607 	lcall	__gptrget
+      002D2A 12 70 79         [24]  607 	lcall	__gptrget
       002D2D 09               [12]  608 	inc	r1
       002D2E F7               [12]  609 	mov	@r1,a
       002D2F A3               [24]  610 	inc	dptr
-      002D30 12 70 1B         [24]  611 	lcall	__gptrget
+      002D30 12 70 79         [24]  611 	lcall	__gptrget
       002D33 09               [12]  612 	inc	r1
       002D34 F7               [12]  613 	mov	@r1,a
       002D35 E5 08            [12]  614 	mov	a,_bp
@@ -619,10 +619,10 @@
       002D3D 86 83            [24]  619 	mov	dph,@r0
       002D3F 08               [12]  620 	inc	r0
       002D40 86 F0            [24]  621 	mov	b,@r0
-      002D42 12 70 1B         [24]  622 	lcall	__gptrget
+      002D42 12 70 79         [24]  622 	lcall	__gptrget
       002D45 FA               [12]  623 	mov	r2,a
       002D46 A3               [24]  624 	inc	dptr
-      002D47 12 70 1B         [24]  625 	lcall	__gptrget
+      002D47 12 70 79         [24]  625 	lcall	__gptrget
       002D4A FB               [12]  626 	mov	r3,a
       002D4B 33               [12]  627 	rlc	a
       002D4C 95 E0            [12]  628 	subb	a,acc
@@ -642,7 +642,7 @@
       002D63 86 F0            [24]  642 	mov	b,@r0
       002D65 08               [12]  643 	inc	r0
       002D66 E6               [12]  644 	mov	a,@r0
-      002D67 12 74 14         [24]  645 	lcall	__mullong
+      002D67 12 74 72         [24]  645 	lcall	__mullong
       002D6A AC 82            [24]  646 	mov	r4,dpl
       002D6C AD 83            [24]  647 	mov	r5,dph
       002D6E AE F0            [24]  648 	mov	r6,b
@@ -676,16 +676,16 @@
       002D93 08               [12]  676 	inc	r0
       002D94 86 F0            [24]  677 	mov	b,@r0
       002D96 EC               [12]  678 	mov	a,r4
-      002D97 12 6B A0         [24]  679 	lcall	__gptrput
+      002D97 12 6B FE         [24]  679 	lcall	__gptrput
       002D9A A3               [24]  680 	inc	dptr
       002D9B ED               [12]  681 	mov	a,r5
-      002D9C 12 6B A0         [24]  682 	lcall	__gptrput
+      002D9C 12 6B FE         [24]  682 	lcall	__gptrput
       002D9F A3               [24]  683 	inc	dptr
       002DA0 EE               [12]  684 	mov	a,r6
-      002DA1 12 6B A0         [24]  685 	lcall	__gptrput
+      002DA1 12 6B FE         [24]  685 	lcall	__gptrput
       002DA4 A3               [24]  686 	inc	dptr
       002DA5 EF               [12]  687 	mov	a,r7
-      002DA6 12 6B A0         [24]  688 	lcall	__gptrput
+      002DA6 12 6B FE         [24]  688 	lcall	__gptrput
                                     689 ;	calc.c:77: return 1;
       002DA9 90 00 01         [24]  690 	mov	dptr,#0x0001
                                     691 ;	calc.c:78: }
@@ -776,14 +776,14 @@
       002DF4 86 83            [24]  776 	mov	dph,@r0
       002DF6 08               [12]  777 	inc	r0
       002DF7 86 F0            [24]  778 	mov	b,@r0
-      002DF9 12 70 1B         [24]  779 	lcall	__gptrget
+      002DF9 12 70 79         [24]  779 	lcall	__gptrget
       002DFC FE               [12]  780 	mov	r6,a
       002DFD A3               [24]  781 	inc	dptr
-      002DFE 12 70 1B         [24]  782 	lcall	__gptrget
+      002DFE 12 70 79         [24]  782 	lcall	__gptrget
       002E01 FF               [12]  783 	mov	r7,a
       002E02 BE 08 27         [24]  784 	cjne	r6,#0x08,00102$
       002E05 BF 00 24         [24]  785 	cjne	r7,#0x00,00102$
-      002E08 7D 9C            [12]  786 	mov	r5,#___str_0
+      002E08 7D FA            [12]  786 	mov	r5,#___str_0
       002E0A 7E 88            [12]  787 	mov	r6,#(___str_0 >> 8)
       002E0C 7F 80            [12]  788 	mov	r7,#0x80
                                     789 ;	calc.c:51: return;
@@ -792,7 +792,7 @@
       002E0E 8D 82            [24]  792 	mov	dpl,r5
       002E10 8E 83            [24]  793 	mov	dph,r6
       002E12 8F F0            [24]  794 	mov	b,r7
-      002E14 12 70 1B         [24]  795 	lcall	__gptrget
+      002E14 12 70 79         [24]  795 	lcall	__gptrget
       002E17 FC               [12]  796 	mov	r4,a
       002E18 60 12            [24]  797 	jz	00102$
       002E1A 8C 03            [24]  798 	mov	ar3,r4
@@ -844,13 +844,13 @@
       002E5C 86 83            [24]  844 	mov	dph,@r0
       002E5E 08               [12]  845 	inc	r0
       002E5F 86 F0            [24]  846 	mov	b,@r0
-      002E61 12 70 1B         [24]  847 	lcall	__gptrget
+      002E61 12 70 79         [24]  847 	lcall	__gptrget
       002E64 FA               [12]  848 	mov	r2,a
       002E65 A3               [24]  849 	inc	dptr
-      002E66 12 70 1B         [24]  850 	lcall	__gptrget
+      002E66 12 70 79         [24]  850 	lcall	__gptrget
       002E69 FB               [12]  851 	mov	r3,a
       002E6A A3               [24]  852 	inc	dptr
-      002E6B 12 70 1B         [24]  853 	lcall	__gptrget
+      002E6B 12 70 79         [24]  853 	lcall	__gptrget
       002E6E FE               [12]  854 	mov	r6,a
       002E6F C0 07            [24]  855 	push	ar7
       002E71 E5 08            [12]  856 	mov	a,_bp
@@ -887,17 +887,17 @@
       002EA2 86 83            [24]  887 	mov	dph,@r0
       002EA4 08               [12]  888 	inc	r0
       002EA5 86 F0            [24]  889 	mov	b,@r0
-      002EA7 12 70 1B         [24]  890 	lcall	__gptrget
+      002EA7 12 70 79         [24]  890 	lcall	__gptrget
       002EAA FD               [12]  891 	mov	r5,a
       002EAB A3               [24]  892 	inc	dptr
-      002EAC 12 70 1B         [24]  893 	lcall	__gptrget
+      002EAC 12 70 79         [24]  893 	lcall	__gptrget
       002EAF FE               [12]  894 	mov	r6,a
       002EB0 BD 08 06         [24]  895 	cjne	r5,#0x08,00318$
       002EB3 BE 00 03         [24]  896 	cjne	r6,#0x00,00318$
       002EB6 02 30 64         [24]  897 	ljmp	00110$
       002EB9                        898 00318$:
-      002EB9 7C A3            [12]  899 	mov	r4,#___str_1
-      002EBB 7D 88            [12]  900 	mov	r5,#(___str_1 >> 8)
+      002EB9 7C 01            [12]  899 	mov	r4,#___str_1
+      002EBB 7D 89            [12]  900 	mov	r5,#(___str_1 >> 8)
       002EBD 7E 80            [12]  901 	mov	r6,#0x80
                                     902 ;	calc.c:51: return;
       002EBF                        903 00136$:
@@ -905,7 +905,7 @@
       002EBF 8C 82            [24]  905 	mov	dpl,r4
       002EC1 8D 83            [24]  906 	mov	dph,r5
       002EC3 8E F0            [24]  907 	mov	b,r6
-      002EC5 12 70 1B         [24]  908 	lcall	__gptrget
+      002EC5 12 70 79         [24]  908 	lcall	__gptrget
       002EC8 FB               [12]  909 	mov	r3,a
       002EC9 70 03            [24]  910 	jnz	00319$
       002ECB 02 30 64         [24]  911 	ljmp	00110$
@@ -935,8 +935,8 @@
       002EF1 02 30 64         [24]  935 	ljmp	00110$
       002EF4                        936 00321$:
                                     937 ;	calc.c:90: printstr("VA ");
-      002EF4 7B B5            [12]  938 	mov	r3,#___str_2
-      002EF6 7C 88            [12]  939 	mov	r4,#(___str_2 >> 8)
+      002EF4 7B 13            [12]  938 	mov	r3,#___str_2
+      002EF6 7C 89            [12]  939 	mov	r4,#(___str_2 >> 8)
       002EF8 7D 80            [12]  940 	mov	r5,#0x80
                                     941 ;	calc.c:51: return;
       002EFA                        942 00139$:
@@ -944,7 +944,7 @@
       002EFA 8B 82            [24]  944 	mov	dpl,r3
       002EFC 8C 83            [24]  945 	mov	dph,r4
       002EFE 8D F0            [24]  946 	mov	b,r5
-      002F00 12 70 1B         [24]  947 	lcall	__gptrget
+      002F00 12 70 79         [24]  947 	lcall	__gptrget
       002F03 FA               [12]  948 	mov	r2,a
       002F04 60 10            [24]  949 	jz	00119$
       002F06 7E 00            [12]  950 	mov	r6,#0x00
@@ -973,13 +973,13 @@
       002F28 08               [12]  973 	inc	r0
       002F29 E6               [12]  974 	mov	a,@r0
       002F2A C0 E0            [24]  975 	push	acc
-      002F2C 74 B9            [12]  976 	mov	a,#___str_3
+      002F2C 74 17            [12]  976 	mov	a,#___str_3
       002F2E C0 E0            [24]  977 	push	acc
-      002F30 74 88            [12]  978 	mov	a,#(___str_3 >> 8)
+      002F30 74 89            [12]  978 	mov	a,#(___str_3 >> 8)
       002F32 C0 E0            [24]  979 	push	acc
       002F34 74 80            [12]  980 	mov	a,#0x80
       002F36 C0 E0            [24]  981 	push	acc
-      002F38 12 6F E2         [24]  982 	lcall	_printf
+      002F38 12 70 40         [24]  982 	lcall	_printf
       002F3B E5 81            [12]  983 	mov	a,sp
       002F3D 24 F9            [12]  984 	add	a,#0xf9
       002F3F F5 81            [12]  985 	mov	sp,a
@@ -998,13 +998,13 @@
       002F51 08               [12]  998 	inc	r0
       002F52 E6               [12]  999 	mov	a,@r0
       002F53 C0 E0            [24] 1000 	push	acc
-      002F55 74 C3            [12] 1001 	mov	a,#___str_4
+      002F55 74 21            [12] 1001 	mov	a,#___str_4
       002F57 C0 E0            [24] 1002 	push	acc
-      002F59 74 88            [12] 1003 	mov	a,#(___str_4 >> 8)
+      002F59 74 89            [12] 1003 	mov	a,#(___str_4 >> 8)
       002F5B C0 E0            [24] 1004 	push	acc
       002F5D 74 80            [12] 1005 	mov	a,#0x80
       002F5F C0 E0            [24] 1006 	push	acc
-      002F61 12 6F E2         [24] 1007 	lcall	_printf
+      002F61 12 70 40         [24] 1007 	lcall	_printf
       002F64 E5 81            [12] 1008 	mov	a,sp
       002F66 24 F9            [12] 1009 	add	a,#0xf9
       002F68 F5 81            [12] 1010 	mov	sp,a
@@ -1118,8 +1118,8 @@
       002FF8 46               [12] 1118 	orl	a,@r0
       002FF9 70 9F            [24] 1119 	jnz	00141$
                                    1120 ;	calc.c:94: printstr("\r\n");
-      002FFB 7B CC            [12] 1121 	mov	r3,#___str_5
-      002FFD 7C 88            [12] 1122 	mov	r4,#(___str_5 >> 8)
+      002FFB 7B 2A            [12] 1121 	mov	r3,#___str_5
+      002FFD 7C 89            [12] 1122 	mov	r4,#(___str_5 >> 8)
       002FFF 7D 80            [12] 1123 	mov	r5,#0x80
                                    1124 ;	calc.c:51: return;
       003001                       1125 00144$:
@@ -1127,7 +1127,7 @@
       003001 8B 82            [24] 1127 	mov	dpl,r3
       003003 8C 83            [24] 1128 	mov	dph,r4
       003005 8D F0            [24] 1129 	mov	b,r5
-      003007 12 70 1B         [24] 1130 	lcall	__gptrget
+      003007 12 70 79         [24] 1130 	lcall	__gptrget
       00300A FA               [12] 1131 	mov	r2,a
       00300B 60 10            [24] 1132 	jz	00123$
       00300D 7E 00            [12] 1133 	mov	r6,#0x00
@@ -1155,13 +1155,13 @@
       00302F 86 83            [24] 1155 	mov	dph,@r0
       003031 08               [12] 1156 	inc	r0
       003032 86 F0            [24] 1157 	mov	b,@r0
-      003034 12 70 1B         [24] 1158 	lcall	__gptrget
+      003034 12 70 79         [24] 1158 	lcall	__gptrget
       003037 FA               [12] 1159 	mov	r2,a
       003038 A3               [24] 1160 	inc	dptr
-      003039 12 70 1B         [24] 1161 	lcall	__gptrget
+      003039 12 70 79         [24] 1161 	lcall	__gptrget
       00303C FE               [12] 1162 	mov	r6,a
       00303D A3               [24] 1163 	inc	dptr
-      00303E 12 70 1B         [24] 1164 	lcall	__gptrget
+      00303E 12 70 79         [24] 1164 	lcall	__gptrget
       003041 FF               [12] 1165 	mov	r7,a
       003042 C0 07            [24] 1166 	push	ar7
       003044 C0 03            [24] 1167 	push	ar3
@@ -1189,10 +1189,10 @@
       00306C 86 83            [24] 1189 	mov	dph,@r0
       00306E 08               [12] 1190 	inc	r0
       00306F 86 F0            [24] 1191 	mov	b,@r0
-      003071 12 70 1B         [24] 1192 	lcall	__gptrget
+      003071 12 70 79         [24] 1192 	lcall	__gptrget
       003074 FD               [12] 1193 	mov	r5,a
       003075 A3               [24] 1194 	inc	dptr
-      003076 12 70 1B         [24] 1195 	lcall	__gptrget
+      003076 12 70 79         [24] 1195 	lcall	__gptrget
       003079 FE               [12] 1196 	mov	r6,a
       00307A BD 08 05         [24] 1197 	cjne	r5,#0x08,00328$
       00307D BE 00 02         [24] 1198 	cjne	r6,#0x00,00328$
@@ -1201,8 +1201,8 @@
       003082 02 32 A3         [24] 1201 	ljmp	00113$
       003085                       1202 00329$:
                                    1203 ;	calc.c:99: printstr("SS\r\n");
-      003085 7C CF            [12] 1204 	mov	r4,#___str_6
-      003087 7D 88            [12] 1205 	mov	r5,#(___str_6 >> 8)
+      003085 7C 2D            [12] 1204 	mov	r4,#___str_6
+      003087 7D 89            [12] 1205 	mov	r5,#(___str_6 >> 8)
       003089 7E 80            [12] 1206 	mov	r6,#0x80
                                    1207 ;	calc.c:51: return;
       00308B                       1208 00147$:
@@ -1210,7 +1210,7 @@
       00308B 8C 82            [24] 1210 	mov	dpl,r4
       00308D 8D 83            [24] 1211 	mov	dph,r5
       00308F 8E F0            [24] 1212 	mov	b,r6
-      003091 12 70 1B         [24] 1213 	lcall	__gptrget
+      003091 12 70 79         [24] 1213 	lcall	__gptrget
       003094 FB               [12] 1214 	mov	r3,a
       003095 60 10            [24] 1215 	jz	00125$
       003097 7A 00            [12] 1216 	mov	r2,#0x00
@@ -1259,13 +1259,13 @@
       0030D6 86 83            [24] 1259 	mov	dph,@r0
       0030D8 08               [12] 1260 	inc	r0
       0030D9 86 F0            [24] 1261 	mov	b,@r0
-      0030DB 12 70 1B         [24] 1262 	lcall	__gptrget
+      0030DB 12 70 79         [24] 1262 	lcall	__gptrget
       0030DE FA               [12] 1263 	mov	r2,a
       0030DF A3               [24] 1264 	inc	dptr
-      0030E0 12 70 1B         [24] 1265 	lcall	__gptrget
+      0030E0 12 70 79         [24] 1265 	lcall	__gptrget
       0030E3 FB               [12] 1266 	mov	r3,a
       0030E4 A3               [24] 1267 	inc	dptr
-      0030E5 12 70 1B         [24] 1268 	lcall	__gptrget
+      0030E5 12 70 79         [24] 1268 	lcall	__gptrget
       0030E8 FE               [12] 1269 	mov	r6,a
       0030E9 C0 07            [24] 1270 	push	ar7
       0030EB E5 08            [12] 1271 	mov	a,_bp
@@ -1301,8 +1301,8 @@
       00311E 02 32 A3         [24] 1301 	ljmp	00113$
       003121                       1302 00332$:
                                    1303 ;	calc.c:101: printstr("VA ");
-      003121 7D B5            [12] 1304 	mov	r5,#___str_2
-      003123 7B 88            [12] 1305 	mov	r3,#(___str_2 >> 8)
+      003121 7D 13            [12] 1304 	mov	r5,#___str_2
+      003123 7B 89            [12] 1305 	mov	r3,#(___str_2 >> 8)
       003125 7A 80            [12] 1306 	mov	r2,#0x80
                                    1307 ;	calc.c:51: return;
       003127                       1308 00150$:
@@ -1310,7 +1310,7 @@
       003127 8D 82            [24] 1310 	mov	dpl,r5
       003129 8B 83            [24] 1311 	mov	dph,r3
       00312B 8A F0            [24] 1312 	mov	b,r2
-      00312D 12 70 1B         [24] 1313 	lcall	__gptrget
+      00312D 12 70 79         [24] 1313 	lcall	__gptrget
       003130 FE               [12] 1314 	mov	r6,a
       003131 60 16            [24] 1315 	jz	00127$
       003133 C0 07            [24] 1316 	push	ar7
@@ -1344,13 +1344,13 @@
       00315D 08               [12] 1344 	inc	r0
       00315E E6               [12] 1345 	mov	a,@r0
       00315F C0 E0            [24] 1346 	push	acc
-      003161 74 B9            [12] 1347 	mov	a,#___str_3
+      003161 74 17            [12] 1347 	mov	a,#___str_3
       003163 C0 E0            [24] 1348 	push	acc
-      003165 74 88            [12] 1349 	mov	a,#(___str_3 >> 8)
+      003165 74 89            [12] 1349 	mov	a,#(___str_3 >> 8)
       003167 C0 E0            [24] 1350 	push	acc
       003169 74 80            [12] 1351 	mov	a,#0x80
       00316B C0 E0            [24] 1352 	push	acc
-      00316D 12 6F E2         [24] 1353 	lcall	_printf
+      00316D 12 70 40         [24] 1353 	lcall	_printf
       003170 E5 81            [12] 1354 	mov	a,sp
       003172 24 F9            [12] 1355 	add	a,#0xf9
       003174 F5 81            [12] 1356 	mov	sp,a
@@ -1369,13 +1369,13 @@
       003186 08               [12] 1369 	inc	r0
       003187 E6               [12] 1370 	mov	a,@r0
       003188 C0 E0            [24] 1371 	push	acc
-      00318A 74 C3            [12] 1372 	mov	a,#___str_4
+      00318A 74 21            [12] 1372 	mov	a,#___str_4
       00318C C0 E0            [24] 1373 	push	acc
-      00318E 74 88            [12] 1374 	mov	a,#(___str_4 >> 8)
+      00318E 74 89            [12] 1374 	mov	a,#(___str_4 >> 8)
       003190 C0 E0            [24] 1375 	push	acc
       003192 74 80            [12] 1376 	mov	a,#0x80
       003194 C0 E0            [24] 1377 	push	acc
-      003196 12 6F E2         [24] 1378 	lcall	_printf
+      003196 12 70 40         [24] 1378 	lcall	_printf
       003199 E5 81            [12] 1379 	mov	a,sp
       00319B 24 F9            [12] 1380 	add	a,#0xf9
       00319D F5 81            [12] 1381 	mov	sp,a
@@ -1494,8 +1494,8 @@
       003233 46               [12] 1494 	orl	a,@r0
       003234 70 9B            [24] 1495 	jnz	00152$
                                    1496 ;	calc.c:105: printstr("\r\n");
-      003236 7D CC            [12] 1497 	mov	r5,#___str_5
-      003238 7B 88            [12] 1498 	mov	r3,#(___str_5 >> 8)
+      003236 7D 2A            [12] 1497 	mov	r5,#___str_5
+      003238 7B 89            [12] 1498 	mov	r3,#(___str_5 >> 8)
       00323A 7A 80            [12] 1499 	mov	r2,#0x80
                                    1500 ;	calc.c:51: return;
       00323C                       1501 00155$:
@@ -1503,7 +1503,7 @@
       00323C 8D 82            [24] 1503 	mov	dpl,r5
       00323E 8B 83            [24] 1504 	mov	dph,r3
       003240 8A F0            [24] 1505 	mov	b,r2
-      003242 12 70 1B         [24] 1506 	lcall	__gptrget
+      003242 12 70 79         [24] 1506 	lcall	__gptrget
       003245 FE               [12] 1507 	mov	r6,a
       003246 60 16            [24] 1508 	jz	00131$
       003248 C0 07            [24] 1509 	push	ar7
@@ -1533,13 +1533,13 @@
       00326E 86 83            [24] 1533 	mov	dph,@r0
       003270 08               [12] 1534 	inc	r0
       003271 86 F0            [24] 1535 	mov	b,@r0
-      003273 12 70 1B         [24] 1536 	lcall	__gptrget
+      003273 12 70 79         [24] 1536 	lcall	__gptrget
       003276 FB               [12] 1537 	mov	r3,a
       003277 A3               [24] 1538 	inc	dptr
-      003278 12 70 1B         [24] 1539 	lcall	__gptrget
+      003278 12 70 79         [24] 1539 	lcall	__gptrget
       00327B FC               [12] 1540 	mov	r4,a
       00327C A3               [24] 1541 	inc	dptr
-      00327D 12 70 1B         [24] 1542 	lcall	__gptrget
+      00327D 12 70 79         [24] 1542 	lcall	__gptrget
       003280 FF               [12] 1543 	mov	r7,a
       003281 C0 06            [24] 1544 	push	ar6
       003283 C0 05            [24] 1545 	push	ar5
@@ -1588,8 +1588,8 @@
       0032B2 24 08            [12] 1588 	add	a,#0x08
       0032B4 F5 81            [12] 1589 	mov	sp,a
                                    1590 ;	calc.c:115: printstr("PA ");
-      0032B6 7D D4            [12] 1591 	mov	r5,#___str_7
-      0032B8 7E 88            [12] 1592 	mov	r6,#(___str_7 >> 8)
+      0032B6 7D 32            [12] 1591 	mov	r5,#___str_7
+      0032B8 7E 89            [12] 1592 	mov	r6,#(___str_7 >> 8)
       0032BA 7F 80            [12] 1593 	mov	r7,#0x80
                                    1594 ;	calc.c:51: return;
       0032BC                       1595 00108$:
@@ -1597,7 +1597,7 @@
       0032BC 8D 82            [24] 1597 	mov	dpl,r5
       0032BE 8E 83            [24] 1598 	mov	dph,r6
       0032C0 8F F0            [24] 1599 	mov	b,r7
-      0032C2 12 70 1B         [24] 1600 	lcall	__gptrget
+      0032C2 12 70 79         [24] 1600 	lcall	__gptrget
       0032C5 FC               [12] 1601 	mov	r4,a
       0032C6 60 10            [24] 1602 	jz	00102$
       0032C8 7B 00            [12] 1603 	mov	r3,#0x00
@@ -1625,13 +1625,13 @@
       0032E8 08               [12] 1625 	inc	r0
       0032E9 E6               [12] 1626 	mov	a,@r0
       0032EA C0 E0            [24] 1627 	push	acc
-      0032EC 74 B9            [12] 1628 	mov	a,#___str_3
+      0032EC 74 17            [12] 1628 	mov	a,#___str_3
       0032EE C0 E0            [24] 1629 	push	acc
-      0032F0 74 88            [12] 1630 	mov	a,#(___str_3 >> 8)
+      0032F0 74 89            [12] 1630 	mov	a,#(___str_3 >> 8)
       0032F2 C0 E0            [24] 1631 	push	acc
       0032F4 74 80            [12] 1632 	mov	a,#0x80
       0032F6 C0 E0            [24] 1633 	push	acc
-      0032F8 12 6F E2         [24] 1634 	lcall	_printf
+      0032F8 12 70 40         [24] 1634 	lcall	_printf
       0032FB E5 81            [12] 1635 	mov	a,sp
       0032FD 24 F9            [12] 1636 	add	a,#0xf9
       0032FF F5 81            [12] 1637 	mov	sp,a
@@ -1650,13 +1650,13 @@
       003311 08               [12] 1650 	inc	r0
       003312 E6               [12] 1651 	mov	a,@r0
       003313 C0 E0            [24] 1652 	push	acc
-      003315 74 C3            [12] 1653 	mov	a,#___str_4
+      003315 74 21            [12] 1653 	mov	a,#___str_4
       003317 C0 E0            [24] 1654 	push	acc
-      003319 74 88            [12] 1655 	mov	a,#(___str_4 >> 8)
+      003319 74 89            [12] 1655 	mov	a,#(___str_4 >> 8)
       00331B C0 E0            [24] 1656 	push	acc
       00331D 74 80            [12] 1657 	mov	a,#0x80
       00331F C0 E0            [24] 1658 	push	acc
-      003321 12 6F E2         [24] 1659 	lcall	_printf
+      003321 12 70 40         [24] 1659 	lcall	_printf
       003324 E5 81            [12] 1660 	mov	a,sp
       003326 24 F9            [12] 1661 	add	a,#0xf9
       003328 F5 81            [12] 1662 	mov	sp,a
@@ -1767,8 +1767,8 @@
       0033B2 46               [12] 1767 	orl	a,@r0
       0033B3 70 A1            [24] 1768 	jnz	00110$
                                    1769 ;	calc.c:119: printstr("\r\n");
-      0033B5 7D CC            [12] 1770 	mov	r5,#___str_5
-      0033B7 7E 88            [12] 1771 	mov	r6,#(___str_5 >> 8)
+      0033B5 7D 2A            [12] 1770 	mov	r5,#___str_5
+      0033B7 7E 89            [12] 1771 	mov	r6,#(___str_5 >> 8)
       0033B9 7F 80            [12] 1772 	mov	r7,#0x80
                                    1773 ;	calc.c:51: return;
       0033BB                       1774 00113$:
@@ -1776,7 +1776,7 @@
       0033BB 8D 82            [24] 1776 	mov	dpl,r5
       0033BD 8E 83            [24] 1777 	mov	dph,r6
       0033BF 8F F0            [24] 1778 	mov	b,r7
-      0033C1 12 70 1B         [24] 1779 	lcall	__gptrget
+      0033C1 12 70 79         [24] 1779 	lcall	__gptrget
       0033C4 FC               [12] 1780 	mov	r4,a
       0033C5 60 10            [24] 1781 	jz	00106$
       0033C7 7B 00            [12] 1782 	mov	r3,#0x00
@@ -1957,7 +1957,7 @@
       003413 8D 82            [24] 1957 	mov	dpl,r5
       003415 8E 83            [24] 1958 	mov	dph,r6
       003417 8F F0            [24] 1959 	mov	b,r7
-      003419 12 70 1B         [24] 1960 	lcall	__gptrget
+      003419 12 70 79         [24] 1960 	lcall	__gptrget
       00341C FC               [12] 1961 	mov	r4,a
       00341D BC 23 03         [24] 1962 	cjne	r4,#0x23,01232$
       003420 02 48 D9         [24] 1963 	ljmp	00189$
@@ -2041,8 +2041,8 @@
                                    2041 ;	calc.c:130: case 'p':
       0034BB                       2042 00101$:
                                    2043 ;	calc.c:131: printstr("\r\n");
-      0034BB 7F CC            [12] 2044 	mov	r7,#___str_5
-      0034BD 7E 88            [12] 2045 	mov	r6,#(___str_5 >> 8)
+      0034BB 7F 2A            [12] 2044 	mov	r7,#___str_5
+      0034BD 7E 89            [12] 2045 	mov	r6,#(___str_5 >> 8)
       0034BF 7D 80            [12] 2046 	mov	r5,#0x80
                                    2047 ;	calc.c:51: return;
       0034C1                       2048 00351$:
@@ -2050,7 +2050,7 @@
       0034C1 8F 82            [24] 2050 	mov	dpl,r7
       0034C3 8E 83            [24] 2051 	mov	dph,r6
       0034C5 8D F0            [24] 2052 	mov	b,r5
-      0034C7 12 70 1B         [24] 2053 	lcall	__gptrget
+      0034C7 12 70 79         [24] 2053 	lcall	__gptrget
       0034CA FC               [12] 2054 	mov	r4,a
       0034CB 60 10            [24] 2055 	jz	00251$
       0034CD 7B 00            [12] 2056 	mov	r3,#0x00
@@ -2084,13 +2084,13 @@
       0034F6 8A 82            [24] 2084 	mov	dpl,r2
       0034F8 8B 83            [24] 2085 	mov	dph,r3
       0034FA 8C F0            [24] 2086 	mov	b,r4
-      0034FC 12 70 1B         [24] 2087 	lcall	__gptrget
+      0034FC 12 70 79         [24] 2087 	lcall	__gptrget
       0034FF FA               [12] 2088 	mov	r2,a
       003500 A3               [24] 2089 	inc	dptr
-      003501 12 70 1B         [24] 2090 	lcall	__gptrget
+      003501 12 70 79         [24] 2090 	lcall	__gptrget
       003504 FB               [12] 2091 	mov	r3,a
       003505 A3               [24] 2092 	inc	dptr
-      003506 12 70 1B         [24] 2093 	lcall	__gptrget
+      003506 12 70 79         [24] 2093 	lcall	__gptrget
       003509 FC               [12] 2094 	mov	r4,a
       00350A C0 07            [24] 2095 	push	ar7
       00350C C0 06            [24] 2096 	push	ar6
@@ -2107,8 +2107,8 @@
       003523 EB               [12] 2107 	mov	a,r3
       003524 4C               [12] 2108 	orl	a,r4
       003525 70 25            [24] 2109 	jnz	00103$
-      003527 7F A3            [12] 2110 	mov	r7,#___str_1
-      003529 7E 88            [12] 2111 	mov	r6,#(___str_1 >> 8)
+      003527 7F 01            [12] 2110 	mov	r7,#___str_1
+      003529 7E 89            [12] 2111 	mov	r6,#(___str_1 >> 8)
       00352B 7D 80            [12] 2112 	mov	r5,#0x80
                                    2113 ;	calc.c:51: return;
       00352D                       2114 00354$:
@@ -2116,7 +2116,7 @@
       00352D 8F 82            [24] 2116 	mov	dpl,r7
       00352F 8E 83            [24] 2117 	mov	dph,r6
       003531 8D F0            [24] 2118 	mov	b,r5
-      003533 12 70 1B         [24] 2119 	lcall	__gptrget
+      003533 12 70 79         [24] 2119 	lcall	__gptrget
       003536 FC               [12] 2120 	mov	r4,a
       003537 70 03            [24] 2121 	jnz	01261$
       003539 02 56 65         [24] 2122 	ljmp	00249$
@@ -2132,8 +2132,8 @@
       00354A 80 E1            [24] 2132 	sjmp	00354$
       00354C                       2133 00103$:
                                    2134 ;	calc.c:134: printstr("PT ");
-      00354C 7F D8            [12] 2135 	mov	r7,#___str_8
-      00354E 7E 88            [12] 2136 	mov	r6,#(___str_8 >> 8)
+      00354C 7F 36            [12] 2135 	mov	r7,#___str_8
+      00354E 7E 89            [12] 2136 	mov	r6,#(___str_8 >> 8)
       003550 7D 80            [12] 2137 	mov	r5,#0x80
                                    2138 ;	calc.c:51: return;
       003552                       2139 00357$:
@@ -2141,7 +2141,7 @@
       003552 8F 82            [24] 2141 	mov	dpl,r7
       003554 8E 83            [24] 2142 	mov	dph,r6
       003556 8D F0            [24] 2143 	mov	b,r5
-      003558 12 70 1B         [24] 2144 	lcall	__gptrget
+      003558 12 70 79         [24] 2144 	lcall	__gptrget
       00355B FC               [12] 2145 	mov	r4,a
       00355C 60 10            [24] 2146 	jz	00255$
       00355E 7B 00            [12] 2147 	mov	r3,#0x00
@@ -2169,13 +2169,13 @@
       00357E 08               [12] 2169 	inc	r0
       00357F E6               [12] 2170 	mov	a,@r0
       003580 C0 E0            [24] 2171 	push	acc
-      003582 74 B9            [12] 2172 	mov	a,#___str_3
+      003582 74 17            [12] 2172 	mov	a,#___str_3
       003584 C0 E0            [24] 2173 	push	acc
-      003586 74 88            [12] 2174 	mov	a,#(___str_3 >> 8)
+      003586 74 89            [12] 2174 	mov	a,#(___str_3 >> 8)
       003588 C0 E0            [24] 2175 	push	acc
       00358A 74 80            [12] 2176 	mov	a,#0x80
       00358C C0 E0            [24] 2177 	push	acc
-      00358E 12 6F E2         [24] 2178 	lcall	_printf
+      00358E 12 70 40         [24] 2178 	lcall	_printf
       003591 E5 81            [12] 2179 	mov	a,sp
       003593 24 F9            [12] 2180 	add	a,#0xf9
       003595 F5 81            [12] 2181 	mov	sp,a
@@ -2194,13 +2194,13 @@
       0035A7 08               [12] 2194 	inc	r0
       0035A8 E6               [12] 2195 	mov	a,@r0
       0035A9 C0 E0            [24] 2196 	push	acc
-      0035AB 74 C3            [12] 2197 	mov	a,#___str_4
+      0035AB 74 21            [12] 2197 	mov	a,#___str_4
       0035AD C0 E0            [24] 2198 	push	acc
-      0035AF 74 88            [12] 2199 	mov	a,#(___str_4 >> 8)
+      0035AF 74 89            [12] 2199 	mov	a,#(___str_4 >> 8)
       0035B1 C0 E0            [24] 2200 	push	acc
       0035B3 74 80            [12] 2201 	mov	a,#0x80
       0035B5 C0 E0            [24] 2202 	push	acc
-      0035B7 12 6F E2         [24] 2203 	lcall	_printf
+      0035B7 12 70 40         [24] 2203 	lcall	_printf
       0035BA E5 81            [12] 2204 	mov	a,sp
       0035BC 24 F9            [12] 2205 	add	a,#0xf9
       0035BE F5 81            [12] 2206 	mov	sp,a
@@ -2320,8 +2320,8 @@
       00364E 46               [12] 2320 	orl	a,@r0
       00364F 70 8F            [24] 2321 	jnz	00359$
                                    2322 ;	calc.c:138: printstr("\r\n");
-      003651 7F CC            [12] 2323 	mov	r7,#___str_5
-      003653 7E 88            [12] 2324 	mov	r6,#(___str_5 >> 8)
+      003651 7F 2A            [12] 2323 	mov	r7,#___str_5
+      003653 7E 89            [12] 2324 	mov	r6,#(___str_5 >> 8)
       003655 7D 80            [12] 2325 	mov	r5,#0x80
                                    2326 ;	calc.c:51: return;
       003657                       2327 00362$:
@@ -2329,7 +2329,7 @@
       003657 8F 82            [24] 2329 	mov	dpl,r7
       003659 8E 83            [24] 2330 	mov	dph,r6
       00365B 8D F0            [24] 2331 	mov	b,r5
-      00365D 12 70 1B         [24] 2332 	lcall	__gptrget
+      00365D 12 70 79         [24] 2332 	lcall	__gptrget
       003660 FC               [12] 2333 	mov	r4,a
       003661 70 03            [24] 2334 	jnz	01267$
       003663 02 56 65         [24] 2335 	ljmp	00249$
@@ -2345,8 +2345,8 @@
       003674 80 E1            [24] 2345 	sjmp	00362$
       003676                       2346 00105$:
                                    2347 ;	calc.c:142: printstr("\r\n");
-      003676 7F CC            [12] 2348 	mov	r7,#___str_5
-      003678 7E 88            [12] 2349 	mov	r6,#(___str_5 >> 8)
+      003676 7F 2A            [12] 2348 	mov	r7,#___str_5
+      003678 7E 89            [12] 2349 	mov	r6,#(___str_5 >> 8)
       00367A 7D 80            [12] 2350 	mov	r5,#0x80
                                    2351 ;	calc.c:51: return;
       00367C                       2352 00365$:
@@ -2354,7 +2354,7 @@
       00367C 8F 82            [24] 2354 	mov	dpl,r7
       00367E 8E 83            [24] 2355 	mov	dph,r6
       003680 8D F0            [24] 2356 	mov	b,r5
-      003682 12 70 1B         [24] 2357 	lcall	__gptrget
+      003682 12 70 79         [24] 2357 	lcall	__gptrget
       003685 FC               [12] 2358 	mov	r4,a
       003686 60 10            [24] 2359 	jz	00261$
       003688 7B 00            [12] 2360 	mov	r3,#0x00
@@ -2391,13 +2391,13 @@
       0036B6 8A 82            [24] 2391 	mov	dpl,r2
       0036B8 8B 83            [24] 2392 	mov	dph,r3
       0036BA 8C F0            [24] 2393 	mov	b,r4
-      0036BC 12 70 1B         [24] 2394 	lcall	__gptrget
+      0036BC 12 70 79         [24] 2394 	lcall	__gptrget
       0036BF FA               [12] 2395 	mov	r2,a
       0036C0 A3               [24] 2396 	inc	dptr
-      0036C1 12 70 1B         [24] 2397 	lcall	__gptrget
+      0036C1 12 70 79         [24] 2397 	lcall	__gptrget
       0036C4 FB               [12] 2398 	mov	r3,a
       0036C5 A3               [24] 2399 	inc	dptr
-      0036C6 12 70 1B         [24] 2400 	lcall	__gptrget
+      0036C6 12 70 79         [24] 2400 	lcall	__gptrget
       0036C9 FC               [12] 2401 	mov	r4,a
       0036CA C0 07            [24] 2402 	push	ar7
       0036CC C0 06            [24] 2403 	push	ar6
@@ -2420,8 +2420,8 @@
       0036ED 60 03            [24] 2420 	jz	01271$
       0036EF 02 56 65         [24] 2421 	ljmp	00249$
       0036F2                       2422 01271$:
-      0036F2 7F A3            [12] 2423 	mov	r7,#___str_1
-      0036F4 7E 88            [12] 2424 	mov	r6,#(___str_1 >> 8)
+      0036F2 7F 01            [12] 2423 	mov	r7,#___str_1
+      0036F4 7E 89            [12] 2424 	mov	r6,#(___str_1 >> 8)
       0036F6 7D 80            [12] 2425 	mov	r5,#0x80
                                    2426 ;	calc.c:51: return;
       0036F8                       2427 00368$:
@@ -2429,7 +2429,7 @@
       0036F8 8F 82            [24] 2429 	mov	dpl,r7
       0036FA 8E 83            [24] 2430 	mov	dph,r6
       0036FC 8D F0            [24] 2431 	mov	b,r5
-      0036FE 12 70 1B         [24] 2432 	lcall	__gptrget
+      0036FE 12 70 79         [24] 2432 	lcall	__gptrget
       003701 FC               [12] 2433 	mov	r4,a
       003702 70 03            [24] 2434 	jnz	01272$
       003704 02 56 65         [24] 2435 	ljmp	00249$
@@ -2445,8 +2445,8 @@
       003715 80 E1            [24] 2445 	sjmp	00368$
       003717                       2446 00109$:
                                    2447 ;	calc.c:147: printstr("\r\n");
-      003717 7F CC            [12] 2448 	mov	r7,#___str_5
-      003719 7E 88            [12] 2449 	mov	r6,#(___str_5 >> 8)
+      003717 7F 2A            [12] 2448 	mov	r7,#___str_5
+      003719 7E 89            [12] 2449 	mov	r6,#(___str_5 >> 8)
       00371B 7D 80            [12] 2450 	mov	r5,#0x80
                                    2451 ;	calc.c:51: return;
       00371D                       2452 00371$:
@@ -2454,7 +2454,7 @@
       00371D 8F 82            [24] 2454 	mov	dpl,r7
       00371F 8E 83            [24] 2455 	mov	dph,r6
       003721 8D F0            [24] 2456 	mov	b,r5
-      003723 12 70 1B         [24] 2457 	lcall	__gptrget
+      003723 12 70 79         [24] 2457 	lcall	__gptrget
       003726 FC               [12] 2458 	mov	r4,a
       003727 60 10            [24] 2459 	jz	00265$
       003729 7B 00            [12] 2460 	mov	r3,#0x00
@@ -2488,13 +2488,13 @@
       003752 8A 82            [24] 2488 	mov	dpl,r2
       003754 8B 83            [24] 2489 	mov	dph,r3
       003756 8C F0            [24] 2490 	mov	b,r4
-      003758 12 70 1B         [24] 2491 	lcall	__gptrget
+      003758 12 70 79         [24] 2491 	lcall	__gptrget
       00375B FA               [12] 2492 	mov	r2,a
       00375C A3               [24] 2493 	inc	dptr
-      00375D 12 70 1B         [24] 2494 	lcall	__gptrget
+      00375D 12 70 79         [24] 2494 	lcall	__gptrget
       003760 FB               [12] 2495 	mov	r3,a
       003761 A3               [24] 2496 	inc	dptr
-      003762 12 70 1B         [24] 2497 	lcall	__gptrget
+      003762 12 70 79         [24] 2497 	lcall	__gptrget
       003765 FC               [12] 2498 	mov	r4,a
       003766 C0 07            [24] 2499 	push	ar7
       003768 C0 06            [24] 2500 	push	ar6
@@ -2511,8 +2511,8 @@
       00377F EB               [12] 2511 	mov	a,r3
       003780 4C               [12] 2512 	orl	a,r4
       003781 70 25            [24] 2513 	jnz	00111$
-      003783 7F A3            [12] 2514 	mov	r7,#___str_1
-      003785 7E 88            [12] 2515 	mov	r6,#(___str_1 >> 8)
+      003783 7F 01            [12] 2514 	mov	r7,#___str_1
+      003785 7E 89            [12] 2515 	mov	r6,#(___str_1 >> 8)
       003787 7D 80            [12] 2516 	mov	r5,#0x80
                                    2517 ;	calc.c:51: return;
       003789                       2518 00374$:
@@ -2520,7 +2520,7 @@
       003789 8F 82            [24] 2520 	mov	dpl,r7
       00378B 8E 83            [24] 2521 	mov	dph,r6
       00378D 8D F0            [24] 2522 	mov	b,r5
-      00378F 12 70 1B         [24] 2523 	lcall	__gptrget
+      00378F 12 70 79         [24] 2523 	lcall	__gptrget
       003792 FC               [12] 2524 	mov	r4,a
       003793 70 03            [24] 2525 	jnz	01277$
       003795 02 56 65         [24] 2526 	ljmp	00249$
@@ -2536,8 +2536,8 @@
       0037A6 80 E1            [24] 2536 	sjmp	00374$
       0037A8                       2537 00111$:
                                    2538 ;	calc.c:150: printstr("VT ");
-      0037A8 7F DC            [12] 2539 	mov	r7,#___str_9
-      0037AA 7E 88            [12] 2540 	mov	r6,#(___str_9 >> 8)
+      0037A8 7F 3A            [12] 2539 	mov	r7,#___str_9
+      0037AA 7E 89            [12] 2540 	mov	r6,#(___str_9 >> 8)
       0037AC 7D 80            [12] 2541 	mov	r5,#0x80
                                    2542 ;	calc.c:51: return;
       0037AE                       2543 00377$:
@@ -2545,7 +2545,7 @@
       0037AE 8F 82            [24] 2545 	mov	dpl,r7
       0037B0 8E 83            [24] 2546 	mov	dph,r6
       0037B2 8D F0            [24] 2547 	mov	b,r5
-      0037B4 12 70 1B         [24] 2548 	lcall	__gptrget
+      0037B4 12 70 79         [24] 2548 	lcall	__gptrget
       0037B7 FC               [12] 2549 	mov	r4,a
       0037B8 60 10            [24] 2550 	jz	00269$
       0037BA 7B 00            [12] 2551 	mov	r3,#0x00
@@ -2573,13 +2573,13 @@
       0037DA 08               [12] 2573 	inc	r0
       0037DB E6               [12] 2574 	mov	a,@r0
       0037DC C0 E0            [24] 2575 	push	acc
-      0037DE 74 B9            [12] 2576 	mov	a,#___str_3
+      0037DE 74 17            [12] 2576 	mov	a,#___str_3
       0037E0 C0 E0            [24] 2577 	push	acc
-      0037E2 74 88            [12] 2578 	mov	a,#(___str_3 >> 8)
+      0037E2 74 89            [12] 2578 	mov	a,#(___str_3 >> 8)
       0037E4 C0 E0            [24] 2579 	push	acc
       0037E6 74 80            [12] 2580 	mov	a,#0x80
       0037E8 C0 E0            [24] 2581 	push	acc
-      0037EA 12 6F E2         [24] 2582 	lcall	_printf
+      0037EA 12 70 40         [24] 2582 	lcall	_printf
       0037ED E5 81            [12] 2583 	mov	a,sp
       0037EF 24 F9            [12] 2584 	add	a,#0xf9
       0037F1 F5 81            [12] 2585 	mov	sp,a
@@ -2598,13 +2598,13 @@
       003803 08               [12] 2598 	inc	r0
       003804 E6               [12] 2599 	mov	a,@r0
       003805 C0 E0            [24] 2600 	push	acc
-      003807 74 C3            [12] 2601 	mov	a,#___str_4
+      003807 74 21            [12] 2601 	mov	a,#___str_4
       003809 C0 E0            [24] 2602 	push	acc
-      00380B 74 88            [12] 2603 	mov	a,#(___str_4 >> 8)
+      00380B 74 89            [12] 2603 	mov	a,#(___str_4 >> 8)
       00380D C0 E0            [24] 2604 	push	acc
       00380F 74 80            [12] 2605 	mov	a,#0x80
       003811 C0 E0            [24] 2606 	push	acc
-      003813 12 6F E2         [24] 2607 	lcall	_printf
+      003813 12 70 40         [24] 2607 	lcall	_printf
       003816 E5 81            [12] 2608 	mov	a,sp
       003818 24 F9            [12] 2609 	add	a,#0xf9
       00381A F5 81            [12] 2610 	mov	sp,a
@@ -2724,8 +2724,8 @@
       0038AA 46               [12] 2724 	orl	a,@r0
       0038AB 70 8F            [24] 2725 	jnz	00379$
                                    2726 ;	calc.c:154: printstr("\r\n");
-      0038AD 7F CC            [12] 2727 	mov	r7,#___str_5
-      0038AF 7E 88            [12] 2728 	mov	r6,#(___str_5 >> 8)
+      0038AD 7F 2A            [12] 2727 	mov	r7,#___str_5
+      0038AF 7E 89            [12] 2728 	mov	r6,#(___str_5 >> 8)
       0038B1 7D 80            [12] 2729 	mov	r5,#0x80
                                    2730 ;	calc.c:51: return;
       0038B3                       2731 00382$:
@@ -2733,7 +2733,7 @@
       0038B3 8F 82            [24] 2733 	mov	dpl,r7
       0038B5 8E 83            [24] 2734 	mov	dph,r6
       0038B7 8D F0            [24] 2735 	mov	b,r5
-      0038B9 12 70 1B         [24] 2736 	lcall	__gptrget
+      0038B9 12 70 79         [24] 2736 	lcall	__gptrget
       0038BC FC               [12] 2737 	mov	r4,a
       0038BD 70 03            [24] 2738 	jnz	01283$
       0038BF 02 56 65         [24] 2739 	ljmp	00249$
@@ -2749,8 +2749,8 @@
       0038D0 80 E1            [24] 2749 	sjmp	00382$
       0038D2                       2750 00113$:
                                    2751 ;	calc.c:158: printstr("\r\n");
-      0038D2 7F CC            [12] 2752 	mov	r7,#___str_5
-      0038D4 7E 88            [12] 2753 	mov	r6,#(___str_5 >> 8)
+      0038D2 7F 2A            [12] 2752 	mov	r7,#___str_5
+      0038D4 7E 89            [12] 2753 	mov	r6,#(___str_5 >> 8)
       0038D6 7D 80            [12] 2754 	mov	r5,#0x80
                                    2755 ;	calc.c:51: return;
       0038D8                       2756 00385$:
@@ -2758,7 +2758,7 @@
       0038D8 8F 82            [24] 2758 	mov	dpl,r7
       0038DA 8E 83            [24] 2759 	mov	dph,r6
       0038DC 8D F0            [24] 2760 	mov	b,r5
-      0038DE 12 70 1B         [24] 2761 	lcall	__gptrget
+      0038DE 12 70 79         [24] 2761 	lcall	__gptrget
       0038E1 FC               [12] 2762 	mov	r4,a
       0038E2 60 10            [24] 2763 	jz	00275$
       0038E4 7B 00            [12] 2764 	mov	r3,#0x00
@@ -2830,13 +2830,13 @@
       003944 86 83            [24] 2830 	mov	dph,@r0
       003946 08               [12] 2831 	inc	r0
       003947 86 F0            [24] 2832 	mov	b,@r0
-      003949 12 70 1B         [24] 2833 	lcall	__gptrget
+      003949 12 70 79         [24] 2833 	lcall	__gptrget
       00394C FA               [12] 2834 	mov	r2,a
       00394D A3               [24] 2835 	inc	dptr
-      00394E 12 70 1B         [24] 2836 	lcall	__gptrget
+      00394E 12 70 79         [24] 2836 	lcall	__gptrget
       003951 FB               [12] 2837 	mov	r3,a
       003952 A3               [24] 2838 	inc	dptr
-      003953 12 70 1B         [24] 2839 	lcall	__gptrget
+      003953 12 70 79         [24] 2839 	lcall	__gptrget
       003956 FC               [12] 2840 	mov	r4,a
       003957 C0 07            [24] 2841 	push	ar7
       003959 C0 06            [24] 2842 	push	ar6
@@ -2853,8 +2853,8 @@
       003970 EB               [12] 2853 	mov	a,r3
       003971 4C               [12] 2854 	orl	a,r4
       003972 70 25            [24] 2855 	jnz	00119$
-      003974 7F E0            [12] 2856 	mov	r7,#___str_10
-      003976 7E 88            [12] 2857 	mov	r6,#(___str_10 >> 8)
+      003974 7F 3E            [12] 2856 	mov	r7,#___str_10
+      003976 7E 89            [12] 2857 	mov	r6,#(___str_10 >> 8)
       003978 7D 80            [12] 2858 	mov	r5,#0x80
                                    2859 ;	calc.c:51: return;
       00397A                       2860 00388$:
@@ -2862,7 +2862,7 @@
       00397A 8F 82            [24] 2862 	mov	dpl,r7
       00397C 8E 83            [24] 2863 	mov	dph,r6
       00397E 8D F0            [24] 2864 	mov	b,r5
-      003980 12 70 1B         [24] 2865 	lcall	__gptrget
+      003980 12 70 79         [24] 2865 	lcall	__gptrget
       003983 FC               [12] 2866 	mov	r4,a
       003984 70 03            [24] 2867 	jnz	01288$
       003986 02 56 65         [24] 2868 	ljmp	00249$
@@ -2891,13 +2891,13 @@
       0039AA 86 83            [24] 2891 	mov	dph,@r0
       0039AC 08               [12] 2892 	inc	r0
       0039AD 86 F0            [24] 2893 	mov	b,@r0
-      0039AF 12 70 1B         [24] 2894 	lcall	__gptrget
+      0039AF 12 70 79         [24] 2894 	lcall	__gptrget
       0039B2 FA               [12] 2895 	mov	r2,a
       0039B3 A3               [24] 2896 	inc	dptr
-      0039B4 12 70 1B         [24] 2897 	lcall	__gptrget
+      0039B4 12 70 79         [24] 2897 	lcall	__gptrget
       0039B7 FB               [12] 2898 	mov	r3,a
       0039B8 A3               [24] 2899 	inc	dptr
-      0039B9 12 70 1B         [24] 2900 	lcall	__gptrget
+      0039B9 12 70 79         [24] 2900 	lcall	__gptrget
       0039BC FC               [12] 2901 	mov	r4,a
       0039BD C0 07            [24] 2902 	push	ar7
       0039BF C0 06            [24] 2903 	push	ar6
@@ -2923,13 +2923,13 @@
       0039E2 86 83            [24] 2923 	mov	dph,@r0
       0039E4 08               [12] 2924 	inc	r0
       0039E5 86 F0            [24] 2925 	mov	b,@r0
-      0039E7 12 70 1B         [24] 2926 	lcall	__gptrget
+      0039E7 12 70 79         [24] 2926 	lcall	__gptrget
       0039EA FA               [12] 2927 	mov	r2,a
       0039EB A3               [24] 2928 	inc	dptr
-      0039EC 12 70 1B         [24] 2929 	lcall	__gptrget
+      0039EC 12 70 79         [24] 2929 	lcall	__gptrget
       0039EF FB               [12] 2930 	mov	r3,a
       0039F0 A3               [24] 2931 	inc	dptr
-      0039F1 12 70 1B         [24] 2932 	lcall	__gptrget
+      0039F1 12 70 79         [24] 2932 	lcall	__gptrget
       0039F4 FC               [12] 2933 	mov	r4,a
       0039F5 E5 08            [12] 2934 	mov	a,_bp
       0039F7 24 15            [12] 2935 	add	a,#0x15
@@ -2953,8 +2953,8 @@
       003A14 24 FC            [12] 2953 	add	a,#0xfc
       003A16 F5 81            [12] 2954 	mov	sp,a
                                    2955 ;	calc.c:165: printstr("\r\nstack underflow\r\n");
-      003A18 7F E0            [12] 2956 	mov	r7,#___str_10
-      003A1A 7E 88            [12] 2957 	mov	r6,#(___str_10 >> 8)
+      003A18 7F 3E            [12] 2956 	mov	r7,#___str_10
+      003A1A 7E 89            [12] 2957 	mov	r6,#(___str_10 >> 8)
       003A1C 7D 80            [12] 2958 	mov	r5,#0x80
                                    2959 ;	calc.c:51: return;
       003A1E                       2960 00391$:
@@ -2962,7 +2962,7 @@
       003A1E 8F 82            [24] 2962 	mov	dpl,r7
       003A20 8E 83            [24] 2963 	mov	dph,r6
       003A22 8D F0            [24] 2964 	mov	b,r5
-      003A24 12 70 1B         [24] 2965 	lcall	__gptrget
+      003A24 12 70 79         [24] 2965 	lcall	__gptrget
       003A27 FC               [12] 2966 	mov	r4,a
       003A28 70 03            [24] 2967 	jnz	01291$
       003A2A 02 56 65         [24] 2968 	ljmp	00249$
@@ -2986,13 +2986,13 @@
       003A45 86 83            [24] 2986 	mov	dph,@r0
       003A47 08               [12] 2987 	inc	r0
       003A48 86 F0            [24] 2988 	mov	b,@r0
-      003A4A 12 70 1B         [24] 2989 	lcall	__gptrget
+      003A4A 12 70 79         [24] 2989 	lcall	__gptrget
       003A4D FA               [12] 2990 	mov	r2,a
       003A4E A3               [24] 2991 	inc	dptr
-      003A4F 12 70 1B         [24] 2992 	lcall	__gptrget
+      003A4F 12 70 79         [24] 2992 	lcall	__gptrget
       003A52 FB               [12] 2993 	mov	r3,a
       003A53 A3               [24] 2994 	inc	dptr
-      003A54 12 70 1B         [24] 2995 	lcall	__gptrget
+      003A54 12 70 79         [24] 2995 	lcall	__gptrget
       003A57 FC               [12] 2996 	mov	r4,a
       003A58 E5 08            [12] 2997 	mov	a,_bp
       003A5A 24 15            [12] 2998 	add	a,#0x15
@@ -3024,13 +3024,13 @@
       003A83 86 83            [24] 3024 	mov	dph,@r0
       003A85 08               [12] 3025 	inc	r0
       003A86 86 F0            [24] 3026 	mov	b,@r0
-      003A88 12 70 1B         [24] 3027 	lcall	__gptrget
+      003A88 12 70 79         [24] 3027 	lcall	__gptrget
       003A8B FA               [12] 3028 	mov	r2,a
       003A8C A3               [24] 3029 	inc	dptr
-      003A8D 12 70 1B         [24] 3030 	lcall	__gptrget
+      003A8D 12 70 79         [24] 3030 	lcall	__gptrget
       003A90 FB               [12] 3031 	mov	r3,a
       003A91 A3               [24] 3032 	inc	dptr
-      003A92 12 70 1B         [24] 3033 	lcall	__gptrget
+      003A92 12 70 79         [24] 3033 	lcall	__gptrget
       003A95 FC               [12] 3034 	mov	r4,a
       003A96 E5 08            [12] 3035 	mov	a,_bp
       003A98 24 19            [12] 3036 	add	a,#0x19
@@ -3089,13 +3089,13 @@
       003AE5 86 83            [24] 3089 	mov	dph,@r0
       003AE7 08               [12] 3090 	inc	r0
       003AE8 86 F0            [24] 3091 	mov	b,@r0
-      003AEA 12 70 1B         [24] 3092 	lcall	__gptrget
+      003AEA 12 70 79         [24] 3092 	lcall	__gptrget
       003AED FA               [12] 3093 	mov	r2,a
       003AEE A3               [24] 3094 	inc	dptr
-      003AEF 12 70 1B         [24] 3095 	lcall	__gptrget
+      003AEF 12 70 79         [24] 3095 	lcall	__gptrget
       003AF2 FB               [12] 3096 	mov	r3,a
       003AF3 A3               [24] 3097 	inc	dptr
-      003AF4 12 70 1B         [24] 3098 	lcall	__gptrget
+      003AF4 12 70 79         [24] 3098 	lcall	__gptrget
       003AF7 FC               [12] 3099 	mov	r4,a
       003AF8 C0 07            [24] 3100 	push	ar7
       003AFA C0 06            [24] 3101 	push	ar6
@@ -3112,8 +3112,8 @@
       003B11 EB               [12] 3112 	mov	a,r3
       003B12 4C               [12] 3113 	orl	a,r4
       003B13 70 25            [24] 3114 	jnz	00125$
-      003B15 7F E0            [12] 3115 	mov	r7,#___str_10
-      003B17 7E 88            [12] 3116 	mov	r6,#(___str_10 >> 8)
+      003B15 7F 3E            [12] 3115 	mov	r7,#___str_10
+      003B17 7E 89            [12] 3116 	mov	r6,#(___str_10 >> 8)
       003B19 7D 80            [12] 3117 	mov	r5,#0x80
                                    3118 ;	calc.c:51: return;
       003B1B                       3119 00394$:
@@ -3121,7 +3121,7 @@
       003B1B 8F 82            [24] 3121 	mov	dpl,r7
       003B1D 8E 83            [24] 3122 	mov	dph,r6
       003B1F 8D F0            [24] 3123 	mov	b,r5
-      003B21 12 70 1B         [24] 3124 	lcall	__gptrget
+      003B21 12 70 79         [24] 3124 	lcall	__gptrget
       003B24 FC               [12] 3125 	mov	r4,a
       003B25 70 03            [24] 3126 	jnz	01294$
       003B27 02 56 65         [24] 3127 	ljmp	00249$
@@ -3152,13 +3152,13 @@
       003B4B 8A 82            [24] 3152 	mov	dpl,r2
       003B4D 8B 83            [24] 3153 	mov	dph,r3
       003B4F 8C F0            [24] 3154 	mov	b,r4
-      003B51 12 70 1B         [24] 3155 	lcall	__gptrget
+      003B51 12 70 79         [24] 3155 	lcall	__gptrget
       003B54 FA               [12] 3156 	mov	r2,a
       003B55 A3               [24] 3157 	inc	dptr
-      003B56 12 70 1B         [24] 3158 	lcall	__gptrget
+      003B56 12 70 79         [24] 3158 	lcall	__gptrget
       003B59 FB               [12] 3159 	mov	r3,a
       003B5A A3               [24] 3160 	inc	dptr
-      003B5B 12 70 1B         [24] 3161 	lcall	__gptrget
+      003B5B 12 70 79         [24] 3161 	lcall	__gptrget
       003B5E FC               [12] 3162 	mov	r4,a
       003B5F E5 08            [12] 3163 	mov	a,_bp
       003B61 24 15            [12] 3164 	add	a,#0x15
@@ -3189,8 +3189,8 @@
       003B8A 02 56 65         [24] 3189 	ljmp	00249$
       003B8D                       3190 01296$:
                                    3191 ;	calc.c:175: printstr("\r\nsecondary stack overflow\r\n");
-      003B8D 7F F4            [12] 3192 	mov	r7,#___str_11
-      003B8F 7E 88            [12] 3193 	mov	r6,#(___str_11 >> 8)
+      003B8D 7F 52            [12] 3192 	mov	r7,#___str_11
+      003B8F 7E 89            [12] 3193 	mov	r6,#(___str_11 >> 8)
       003B91 7D 80            [12] 3194 	mov	r5,#0x80
                                    3195 ;	calc.c:51: return;
       003B93                       3196 00397$:
@@ -3198,7 +3198,7 @@
       003B93 8F 82            [24] 3198 	mov	dpl,r7
       003B95 8E 83            [24] 3199 	mov	dph,r6
       003B97 8D F0            [24] 3200 	mov	b,r5
-      003B99 12 70 1B         [24] 3201 	lcall	__gptrget
+      003B99 12 70 79         [24] 3201 	lcall	__gptrget
       003B9C FC               [12] 3202 	mov	r4,a
       003B9D 60 10            [24] 3203 	jz	00283$
       003B9F 7B 00            [12] 3204 	mov	r3,#0x00
@@ -3220,13 +3220,13 @@
       003BB7 86 83            [24] 3220 	mov	dph,@r0
       003BB9 08               [12] 3221 	inc	r0
       003BBA 86 F0            [24] 3222 	mov	b,@r0
-      003BBC 12 70 1B         [24] 3223 	lcall	__gptrget
+      003BBC 12 70 79         [24] 3223 	lcall	__gptrget
       003BBF FA               [12] 3224 	mov	r2,a
       003BC0 A3               [24] 3225 	inc	dptr
-      003BC1 12 70 1B         [24] 3226 	lcall	__gptrget
+      003BC1 12 70 79         [24] 3226 	lcall	__gptrget
       003BC4 FB               [12] 3227 	mov	r3,a
       003BC5 A3               [24] 3228 	inc	dptr
-      003BC6 12 70 1B         [24] 3229 	lcall	__gptrget
+      003BC6 12 70 79         [24] 3229 	lcall	__gptrget
       003BC9 FC               [12] 3230 	mov	r4,a
       003BCA E5 08            [12] 3231 	mov	a,_bp
       003BCC 24 15            [12] 3232 	add	a,#0x15
@@ -3285,13 +3285,13 @@
       003C19 86 83            [24] 3285 	mov	dph,@r0
       003C1B 08               [12] 3286 	inc	r0
       003C1C 86 F0            [24] 3287 	mov	b,@r0
-      003C1E 12 70 1B         [24] 3288 	lcall	__gptrget
+      003C1E 12 70 79         [24] 3288 	lcall	__gptrget
       003C21 FA               [12] 3289 	mov	r2,a
       003C22 A3               [24] 3290 	inc	dptr
-      003C23 12 70 1B         [24] 3291 	lcall	__gptrget
+      003C23 12 70 79         [24] 3291 	lcall	__gptrget
       003C26 FB               [12] 3292 	mov	r3,a
       003C27 A3               [24] 3293 	inc	dptr
-      003C28 12 70 1B         [24] 3294 	lcall	__gptrget
+      003C28 12 70 79         [24] 3294 	lcall	__gptrget
       003C2B FC               [12] 3295 	mov	r4,a
       003C2C C0 07            [24] 3296 	push	ar7
       003C2E C0 06            [24] 3297 	push	ar6
@@ -3308,7 +3308,7 @@
       003C45 EB               [12] 3308 	mov	a,r3
       003C46 4C               [12] 3309 	orl	a,r4
       003C47 70 25            [24] 3310 	jnz	00131$
-      003C49 7F 11            [12] 3311 	mov	r7,#___str_12
+      003C49 7F 6F            [12] 3311 	mov	r7,#___str_12
       003C4B 7E 89            [12] 3312 	mov	r6,#(___str_12 >> 8)
       003C4D 7D 80            [12] 3313 	mov	r5,#0x80
                                    3314 ;	calc.c:51: return;
@@ -3317,7 +3317,7 @@
       003C4F 8F 82            [24] 3317 	mov	dpl,r7
       003C51 8E 83            [24] 3318 	mov	dph,r6
       003C53 8D F0            [24] 3319 	mov	b,r5
-      003C55 12 70 1B         [24] 3320 	lcall	__gptrget
+      003C55 12 70 79         [24] 3320 	lcall	__gptrget
       003C58 FC               [12] 3321 	mov	r4,a
       003C59 70 03            [24] 3322 	jnz	01300$
       003C5B 02 56 65         [24] 3323 	ljmp	00249$
@@ -3348,13 +3348,13 @@
       003C7F 8A 82            [24] 3348 	mov	dpl,r2
       003C81 8B 83            [24] 3349 	mov	dph,r3
       003C83 8C F0            [24] 3350 	mov	b,r4
-      003C85 12 70 1B         [24] 3351 	lcall	__gptrget
+      003C85 12 70 79         [24] 3351 	lcall	__gptrget
       003C88 FA               [12] 3352 	mov	r2,a
       003C89 A3               [24] 3353 	inc	dptr
-      003C8A 12 70 1B         [24] 3354 	lcall	__gptrget
+      003C8A 12 70 79         [24] 3354 	lcall	__gptrget
       003C8D FB               [12] 3355 	mov	r3,a
       003C8E A3               [24] 3356 	inc	dptr
-      003C8F 12 70 1B         [24] 3357 	lcall	__gptrget
+      003C8F 12 70 79         [24] 3357 	lcall	__gptrget
       003C92 FC               [12] 3358 	mov	r4,a
       003C93 E5 08            [12] 3359 	mov	a,_bp
       003C95 24 15            [12] 3360 	add	a,#0x15
@@ -3385,7 +3385,7 @@
       003CBE 02 56 65         [24] 3385 	ljmp	00249$
       003CC1                       3386 01302$:
                                    3387 ;	calc.c:184: printstr("\r\nstack overflow\r\n");
-      003CC1 7F 2F            [12] 3388 	mov	r7,#___str_13
+      003CC1 7F 8D            [12] 3388 	mov	r7,#___str_13
       003CC3 7E 89            [12] 3389 	mov	r6,#(___str_13 >> 8)
       003CC5 7D 80            [12] 3390 	mov	r5,#0x80
                                    3391 ;	calc.c:51: return;
@@ -3394,7 +3394,7 @@
       003CC7 8F 82            [24] 3394 	mov	dpl,r7
       003CC9 8E 83            [24] 3395 	mov	dph,r6
       003CCB 8D F0            [24] 3396 	mov	b,r5
-      003CCD 12 70 1B         [24] 3397 	lcall	__gptrget
+      003CCD 12 70 79         [24] 3397 	lcall	__gptrget
       003CD0 FC               [12] 3398 	mov	r4,a
       003CD1 60 10            [24] 3399 	jz	00287$
       003CD3 7B 00            [12] 3400 	mov	r3,#0x00
@@ -3416,13 +3416,13 @@
       003CEB 86 83            [24] 3416 	mov	dph,@r0
       003CED 08               [12] 3417 	inc	r0
       003CEE 86 F0            [24] 3418 	mov	b,@r0
-      003CF0 12 70 1B         [24] 3419 	lcall	__gptrget
+      003CF0 12 70 79         [24] 3419 	lcall	__gptrget
       003CF3 FA               [12] 3420 	mov	r2,a
       003CF4 A3               [24] 3421 	inc	dptr
-      003CF5 12 70 1B         [24] 3422 	lcall	__gptrget
+      003CF5 12 70 79         [24] 3422 	lcall	__gptrget
       003CF8 FB               [12] 3423 	mov	r3,a
       003CF9 A3               [24] 3424 	inc	dptr
-      003CFA 12 70 1B         [24] 3425 	lcall	__gptrget
+      003CFA 12 70 79         [24] 3425 	lcall	__gptrget
       003CFD FC               [12] 3426 	mov	r4,a
       003CFE E5 08            [12] 3427 	mov	a,_bp
       003D00 24 15            [12] 3428 	add	a,#0x15
@@ -3470,13 +3470,13 @@
       003D3D 8A 82            [24] 3470 	mov	dpl,r2
       003D3F 8B 83            [24] 3471 	mov	dph,r3
       003D41 8C F0            [24] 3472 	mov	b,r4
-      003D43 12 70 1B         [24] 3473 	lcall	__gptrget
+      003D43 12 70 79         [24] 3473 	lcall	__gptrget
       003D46 FA               [12] 3474 	mov	r2,a
       003D47 A3               [24] 3475 	inc	dptr
-      003D48 12 70 1B         [24] 3476 	lcall	__gptrget
+      003D48 12 70 79         [24] 3476 	lcall	__gptrget
       003D4B FB               [12] 3477 	mov	r3,a
       003D4C A3               [24] 3478 	inc	dptr
-      003D4D 12 70 1B         [24] 3479 	lcall	__gptrget
+      003D4D 12 70 79         [24] 3479 	lcall	__gptrget
       003D50 FC               [12] 3480 	mov	r4,a
       003D51 C0 07            [24] 3481 	push	ar7
       003D53 C0 06            [24] 3482 	push	ar6
@@ -3493,8 +3493,8 @@
       003D6A EB               [12] 3493 	mov	a,r3
       003D6B 4C               [12] 3494 	orl	a,r4
       003D6C 70 25            [24] 3495 	jnz	00137$
-      003D6E 7F E0            [12] 3496 	mov	r7,#___str_10
-      003D70 7E 88            [12] 3497 	mov	r6,#(___str_10 >> 8)
+      003D6E 7F 3E            [12] 3496 	mov	r7,#___str_10
+      003D70 7E 89            [12] 3497 	mov	r6,#(___str_10 >> 8)
       003D72 7D 80            [12] 3498 	mov	r5,#0x80
                                    3499 ;	calc.c:51: return;
       003D74                       3500 00406$:
@@ -3502,7 +3502,7 @@
       003D74 8F 82            [24] 3502 	mov	dpl,r7
       003D76 8E 83            [24] 3503 	mov	dph,r6
       003D78 8D F0            [24] 3504 	mov	b,r5
-      003D7A 12 70 1B         [24] 3505 	lcall	__gptrget
+      003D7A 12 70 79         [24] 3505 	lcall	__gptrget
       003D7D FC               [12] 3506 	mov	r4,a
       003D7E 70 03            [24] 3507 	jnz	01306$
       003D80 02 56 65         [24] 3508 	ljmp	00249$
@@ -3533,13 +3533,13 @@
       003DA4 8A 82            [24] 3533 	mov	dpl,r2
       003DA6 8B 83            [24] 3534 	mov	dph,r3
       003DA8 8C F0            [24] 3535 	mov	b,r4
-      003DAA 12 70 1B         [24] 3536 	lcall	__gptrget
+      003DAA 12 70 79         [24] 3536 	lcall	__gptrget
       003DAD FA               [12] 3537 	mov	r2,a
       003DAE A3               [24] 3538 	inc	dptr
-      003DAF 12 70 1B         [24] 3539 	lcall	__gptrget
+      003DAF 12 70 79         [24] 3539 	lcall	__gptrget
       003DB2 FB               [12] 3540 	mov	r3,a
       003DB3 A3               [24] 3541 	inc	dptr
-      003DB4 12 70 1B         [24] 3542 	lcall	__gptrget
+      003DB4 12 70 79         [24] 3542 	lcall	__gptrget
       003DB7 FC               [12] 3543 	mov	r4,a
       003DB8 E5 08            [12] 3544 	mov	a,_bp
       003DBA 24 15            [12] 3545 	add	a,#0x15
@@ -3569,8 +3569,8 @@
       003DE1 60 03            [24] 3569 	jz	01308$
       003DE3 02 56 65         [24] 3570 	ljmp	00249$
       003DE6                       3571 01308$:
-      003DE6 7F F4            [12] 3572 	mov	r7,#___str_11
-      003DE8 7E 88            [12] 3573 	mov	r6,#(___str_11 >> 8)
+      003DE6 7F 52            [12] 3572 	mov	r7,#___str_11
+      003DE8 7E 89            [12] 3573 	mov	r6,#(___str_11 >> 8)
       003DEA 7D 80            [12] 3574 	mov	r5,#0x80
                                    3575 ;	calc.c:51: return;
       003DEC                       3576 00409$:
@@ -3578,7 +3578,7 @@
       003DEC 8F 82            [24] 3578 	mov	dpl,r7
       003DEE 8E 83            [24] 3579 	mov	dph,r6
       003DF0 8D F0            [24] 3580 	mov	b,r5
-      003DF2 12 70 1B         [24] 3581 	lcall	__gptrget
+      003DF2 12 70 79         [24] 3581 	lcall	__gptrget
       003DF5 FC               [12] 3582 	mov	r4,a
       003DF6 70 03            [24] 3583 	jnz	01309$
       003DF8 02 56 65         [24] 3584 	ljmp	00249$
@@ -3614,13 +3614,13 @@
       003E24 8A 82            [24] 3614 	mov	dpl,r2
       003E26 8B 83            [24] 3615 	mov	dph,r3
       003E28 8C F0            [24] 3616 	mov	b,r4
-      003E2A 12 70 1B         [24] 3617 	lcall	__gptrget
+      003E2A 12 70 79         [24] 3617 	lcall	__gptrget
       003E2D FA               [12] 3618 	mov	r2,a
       003E2E A3               [24] 3619 	inc	dptr
-      003E2F 12 70 1B         [24] 3620 	lcall	__gptrget
+      003E2F 12 70 79         [24] 3620 	lcall	__gptrget
       003E32 FB               [12] 3621 	mov	r3,a
       003E33 A3               [24] 3622 	inc	dptr
-      003E34 12 70 1B         [24] 3623 	lcall	__gptrget
+      003E34 12 70 79         [24] 3623 	lcall	__gptrget
       003E37 FC               [12] 3624 	mov	r4,a
       003E38 C0 07            [24] 3625 	push	ar7
       003E3A C0 06            [24] 3626 	push	ar6
@@ -3637,7 +3637,7 @@
       003E51 EB               [12] 3637 	mov	a,r3
       003E52 4C               [12] 3638 	orl	a,r4
       003E53 70 25            [24] 3639 	jnz	00143$
-      003E55 7F 11            [12] 3640 	mov	r7,#___str_12
+      003E55 7F 6F            [12] 3640 	mov	r7,#___str_12
       003E57 7E 89            [12] 3641 	mov	r6,#(___str_12 >> 8)
       003E59 7D 80            [12] 3642 	mov	r5,#0x80
                                    3643 ;	calc.c:51: return;
@@ -3646,7 +3646,7 @@
       003E5B 8F 82            [24] 3646 	mov	dpl,r7
       003E5D 8E 83            [24] 3647 	mov	dph,r6
       003E5F 8D F0            [24] 3648 	mov	b,r5
-      003E61 12 70 1B         [24] 3649 	lcall	__gptrget
+      003E61 12 70 79         [24] 3649 	lcall	__gptrget
       003E64 FC               [12] 3650 	mov	r4,a
       003E65 70 03            [24] 3651 	jnz	01312$
       003E67 02 56 65         [24] 3652 	ljmp	00249$
@@ -3677,13 +3677,13 @@
       003E8B 8A 82            [24] 3677 	mov	dpl,r2
       003E8D 8B 83            [24] 3678 	mov	dph,r3
       003E8F 8C F0            [24] 3679 	mov	b,r4
-      003E91 12 70 1B         [24] 3680 	lcall	__gptrget
+      003E91 12 70 79         [24] 3680 	lcall	__gptrget
       003E94 FA               [12] 3681 	mov	r2,a
       003E95 A3               [24] 3682 	inc	dptr
-      003E96 12 70 1B         [24] 3683 	lcall	__gptrget
+      003E96 12 70 79         [24] 3683 	lcall	__gptrget
       003E99 FB               [12] 3684 	mov	r3,a
       003E9A A3               [24] 3685 	inc	dptr
-      003E9B 12 70 1B         [24] 3686 	lcall	__gptrget
+      003E9B 12 70 79         [24] 3686 	lcall	__gptrget
       003E9E FC               [12] 3687 	mov	r4,a
       003E9F E5 08            [12] 3688 	mov	a,_bp
       003EA1 24 15            [12] 3689 	add	a,#0x15
@@ -3713,7 +3713,7 @@
       003EC8 60 03            [24] 3713 	jz	01314$
       003ECA 02 56 65         [24] 3714 	ljmp	00249$
       003ECD                       3715 01314$:
-      003ECD 7F 2F            [12] 3716 	mov	r7,#___str_13
+      003ECD 7F 8D            [12] 3716 	mov	r7,#___str_13
       003ECF 7E 89            [12] 3717 	mov	r6,#(___str_13 >> 8)
       003ED1 7D 80            [12] 3718 	mov	r5,#0x80
                                    3719 ;	calc.c:51: return;
@@ -3722,7 +3722,7 @@
       003ED3 8F 82            [24] 3722 	mov	dpl,r7
       003ED5 8E 83            [24] 3723 	mov	dph,r6
       003ED7 8D F0            [24] 3724 	mov	b,r5
-      003ED9 12 70 1B         [24] 3725 	lcall	__gptrget
+      003ED9 12 70 79         [24] 3725 	lcall	__gptrget
       003EDC FC               [12] 3726 	mov	r4,a
       003EDD 70 03            [24] 3727 	jnz	01315$
       003EDF 02 56 65         [24] 3728 	ljmp	00249$
@@ -3769,13 +3769,13 @@
       003F1B 86 83            [24] 3769 	mov	dph,@r0
       003F1D 08               [12] 3770 	inc	r0
       003F1E 86 F0            [24] 3771 	mov	b,@r0
-      003F20 12 70 1B         [24] 3772 	lcall	__gptrget
+      003F20 12 70 79         [24] 3772 	lcall	__gptrget
       003F23 FA               [12] 3773 	mov	r2,a
       003F24 A3               [24] 3774 	inc	dptr
-      003F25 12 70 1B         [24] 3775 	lcall	__gptrget
+      003F25 12 70 79         [24] 3775 	lcall	__gptrget
       003F28 FB               [12] 3776 	mov	r3,a
       003F29 A3               [24] 3777 	inc	dptr
-      003F2A 12 70 1B         [24] 3778 	lcall	__gptrget
+      003F2A 12 70 79         [24] 3778 	lcall	__gptrget
       003F2D FC               [12] 3779 	mov	r4,a
       003F2E C0 07            [24] 3780 	push	ar7
       003F30 C0 06            [24] 3781 	push	ar6
@@ -3792,8 +3792,8 @@
       003F47 EB               [12] 3792 	mov	a,r3
       003F48 4C               [12] 3793 	orl	a,r4
       003F49 70 25            [24] 3794 	jnz	00150$
-      003F4B 7F E0            [12] 3795 	mov	r7,#___str_10
-      003F4D 7E 88            [12] 3796 	mov	r6,#(___str_10 >> 8)
+      003F4B 7F 3E            [12] 3795 	mov	r7,#___str_10
+      003F4D 7E 89            [12] 3796 	mov	r6,#(___str_10 >> 8)
       003F4F 7D 80            [12] 3797 	mov	r5,#0x80
                                    3798 ;	calc.c:51: return;
       003F51                       3799 00418$:
@@ -3801,7 +3801,7 @@
       003F51 8F 82            [24] 3801 	mov	dpl,r7
       003F53 8E 83            [24] 3802 	mov	dph,r6
       003F55 8D F0            [24] 3803 	mov	b,r5
-      003F57 12 70 1B         [24] 3804 	lcall	__gptrget
+      003F57 12 70 79         [24] 3804 	lcall	__gptrget
       003F5A FC               [12] 3805 	mov	r4,a
       003F5B 70 03            [24] 3806 	jnz	01318$
       003F5D 02 56 65         [24] 3807 	ljmp	00249$
@@ -3848,13 +3848,13 @@
       003F99 86 83            [24] 3848 	mov	dph,@r0
       003F9B 08               [12] 3849 	inc	r0
       003F9C 86 F0            [24] 3850 	mov	b,@r0
-      003F9E 12 70 1B         [24] 3851 	lcall	__gptrget
+      003F9E 12 70 79         [24] 3851 	lcall	__gptrget
       003FA1 FA               [12] 3852 	mov	r2,a
       003FA2 A3               [24] 3853 	inc	dptr
-      003FA3 12 70 1B         [24] 3854 	lcall	__gptrget
+      003FA3 12 70 79         [24] 3854 	lcall	__gptrget
       003FA6 FB               [12] 3855 	mov	r3,a
       003FA7 A3               [24] 3856 	inc	dptr
-      003FA8 12 70 1B         [24] 3857 	lcall	__gptrget
+      003FA8 12 70 79         [24] 3857 	lcall	__gptrget
       003FAB FC               [12] 3858 	mov	r4,a
       003FAC C0 07            [24] 3859 	push	ar7
       003FAE C0 06            [24] 3860 	push	ar6
@@ -3872,7 +3872,7 @@
       003FC6 4C               [12] 3872 	orl	a,r4
       003FC7 70 63            [24] 3873 	jnz	00147$
                                    3874 ;	calc.c:201: printstr("\r\nsecondary stack underflow\r\n");
-      003FC9 7F 11            [12] 3875 	mov	r7,#___str_12
+      003FC9 7F 6F            [12] 3875 	mov	r7,#___str_12
       003FCB 7E 89            [12] 3876 	mov	r6,#(___str_12 >> 8)
       003FCD 7D 80            [12] 3877 	mov	r5,#0x80
                                    3878 ;	calc.c:51: return;
@@ -3881,7 +3881,7 @@
       003FCF 8F 82            [24] 3881 	mov	dpl,r7
       003FD1 8E 83            [24] 3882 	mov	dph,r6
       003FD3 8D F0            [24] 3883 	mov	b,r5
-      003FD5 12 70 1B         [24] 3884 	lcall	__gptrget
+      003FD5 12 70 79         [24] 3884 	lcall	__gptrget
       003FD8 FC               [12] 3885 	mov	r4,a
       003FD9 60 10            [24] 3886 	jz	00299$
       003FDB 7B 00            [12] 3887 	mov	r3,#0x00
@@ -3903,13 +3903,13 @@
       003FF3 86 83            [24] 3903 	mov	dph,@r0
       003FF5 08               [12] 3904 	inc	r0
       003FF6 86 F0            [24] 3905 	mov	b,@r0
-      003FF8 12 70 1B         [24] 3906 	lcall	__gptrget
+      003FF8 12 70 79         [24] 3906 	lcall	__gptrget
       003FFB FA               [12] 3907 	mov	r2,a
       003FFC A3               [24] 3908 	inc	dptr
-      003FFD 12 70 1B         [24] 3909 	lcall	__gptrget
+      003FFD 12 70 79         [24] 3909 	lcall	__gptrget
       004000 FB               [12] 3910 	mov	r3,a
       004001 A3               [24] 3911 	inc	dptr
-      004002 12 70 1B         [24] 3912 	lcall	__gptrget
+      004002 12 70 79         [24] 3912 	lcall	__gptrget
       004005 FC               [12] 3913 	mov	r4,a
       004006 E5 08            [12] 3914 	mov	a,_bp
       004008 24 15            [12] 3915 	add	a,#0x15
@@ -3943,13 +3943,13 @@
       004034 86 83            [24] 3943 	mov	dph,@r0
       004036 08               [12] 3944 	inc	r0
       004037 86 F0            [24] 3945 	mov	b,@r0
-      004039 12 70 1B         [24] 3946 	lcall	__gptrget
+      004039 12 70 79         [24] 3946 	lcall	__gptrget
       00403C FA               [12] 3947 	mov	r2,a
       00403D A3               [24] 3948 	inc	dptr
-      00403E 12 70 1B         [24] 3949 	lcall	__gptrget
+      00403E 12 70 79         [24] 3949 	lcall	__gptrget
       004041 FB               [12] 3950 	mov	r3,a
       004042 A3               [24] 3951 	inc	dptr
-      004043 12 70 1B         [24] 3952 	lcall	__gptrget
+      004043 12 70 79         [24] 3952 	lcall	__gptrget
       004046 FC               [12] 3953 	mov	r4,a
       004047 E5 08            [12] 3954 	mov	a,_bp
       004049 24 19            [12] 3955 	add	a,#0x19
@@ -3981,13 +3981,13 @@
       004072 86 83            [24] 3981 	mov	dph,@r0
       004074 08               [12] 3982 	inc	r0
       004075 86 F0            [24] 3983 	mov	b,@r0
-      004077 12 70 1B         [24] 3984 	lcall	__gptrget
+      004077 12 70 79         [24] 3984 	lcall	__gptrget
       00407A FA               [12] 3985 	mov	r2,a
       00407B A3               [24] 3986 	inc	dptr
-      00407C 12 70 1B         [24] 3987 	lcall	__gptrget
+      00407C 12 70 79         [24] 3987 	lcall	__gptrget
       00407F FB               [12] 3988 	mov	r3,a
       004080 A3               [24] 3989 	inc	dptr
-      004081 12 70 1B         [24] 3990 	lcall	__gptrget
+      004081 12 70 79         [24] 3990 	lcall	__gptrget
       004084 FC               [12] 3991 	mov	r4,a
       004085 E5 08            [12] 3992 	mov	a,_bp
       004087 24 15            [12] 3993 	add	a,#0x15
@@ -4041,13 +4041,13 @@
       0040CB 86 83            [24] 4041 	mov	dph,@r0
       0040CD 08               [12] 4042 	inc	r0
       0040CE 86 F0            [24] 4043 	mov	b,@r0
-      0040D0 12 70 1B         [24] 4044 	lcall	__gptrget
+      0040D0 12 70 79         [24] 4044 	lcall	__gptrget
       0040D3 FF               [12] 4045 	mov	r7,a
       0040D4 A3               [24] 4046 	inc	dptr
-      0040D5 12 70 1B         [24] 4047 	lcall	__gptrget
+      0040D5 12 70 79         [24] 4047 	lcall	__gptrget
       0040D8 FE               [12] 4048 	mov	r6,a
       0040D9 A3               [24] 4049 	inc	dptr
-      0040DA 12 70 1B         [24] 4050 	lcall	__gptrget
+      0040DA 12 70 79         [24] 4050 	lcall	__gptrget
       0040DD FD               [12] 4051 	mov	r5,a
                                    4052 ;	calc.c:211: ctx->ps = ctx->ss;
       0040DE E5 08            [12] 4053 	mov	a,_bp
@@ -4076,13 +4076,13 @@
       0040FE 86 83            [24] 4076 	mov	dph,@r0
       004100 08               [12] 4077 	inc	r0
       004101 86 F0            [24] 4078 	mov	b,@r0
-      004103 12 70 1B         [24] 4079 	lcall	__gptrget
+      004103 12 70 79         [24] 4079 	lcall	__gptrget
       004106 FA               [12] 4080 	mov	r2,a
       004107 A3               [24] 4081 	inc	dptr
-      004108 12 70 1B         [24] 4082 	lcall	__gptrget
+      004108 12 70 79         [24] 4082 	lcall	__gptrget
       00410B FB               [12] 4083 	mov	r3,a
       00410C A3               [24] 4084 	inc	dptr
-      00410D 12 70 1B         [24] 4085 	lcall	__gptrget
+      00410D 12 70 79         [24] 4085 	lcall	__gptrget
       004110 FC               [12] 4086 	mov	r4,a
       004111 E5 08            [12] 4087 	mov	a,_bp
       004113 24 0B            [12] 4088 	add	a,#0x0b
@@ -4093,13 +4093,13 @@
       00411B 08               [12] 4093 	inc	r0
       00411C 86 F0            [24] 4094 	mov	b,@r0
       00411E EA               [12] 4095 	mov	a,r2
-      00411F 12 6B A0         [24] 4096 	lcall	__gptrput
+      00411F 12 6B FE         [24] 4096 	lcall	__gptrput
       004122 A3               [24] 4097 	inc	dptr
       004123 EB               [12] 4098 	mov	a,r3
-      004124 12 6B A0         [24] 4099 	lcall	__gptrput
+      004124 12 6B FE         [24] 4099 	lcall	__gptrput
       004127 A3               [24] 4100 	inc	dptr
       004128 EC               [12] 4101 	mov	a,r4
-      004129 12 6B A0         [24] 4102 	lcall	__gptrput
+      004129 12 6B FE         [24] 4102 	lcall	__gptrput
                                    4103 ;	calc.c:212: ctx->ss = t0;
       00412C E5 08            [12] 4104 	mov	a,_bp
       00412E 24 07            [12] 4105 	add	a,#0x07
@@ -4110,13 +4110,13 @@
       004136 08               [12] 4110 	inc	r0
       004137 86 F0            [24] 4111 	mov	b,@r0
       004139 EF               [12] 4112 	mov	a,r7
-      00413A 12 6B A0         [24] 4113 	lcall	__gptrput
+      00413A 12 6B FE         [24] 4113 	lcall	__gptrput
       00413D A3               [24] 4114 	inc	dptr
       00413E EE               [12] 4115 	mov	a,r6
-      00413F 12 6B A0         [24] 4116 	lcall	__gptrput
+      00413F 12 6B FE         [24] 4116 	lcall	__gptrput
       004142 A3               [24] 4117 	inc	dptr
       004143 ED               [12] 4118 	mov	a,r5
-      004144 12 6B A0         [24] 4119 	lcall	__gptrput
+      004144 12 6B FE         [24] 4119 	lcall	__gptrput
                                    4120 ;	calc.c:213: break;
       004147 02 56 65         [24] 4121 	ljmp	00249$
                                    4122 ;	calc.c:214: case '+':
@@ -4153,13 +4153,13 @@
       004173 86 83            [24] 4153 	mov	dph,@r0
       004175 08               [12] 4154 	inc	r0
       004176 86 F0            [24] 4155 	mov	b,@r0
-      004178 12 70 1B         [24] 4156 	lcall	__gptrget
+      004178 12 70 79         [24] 4156 	lcall	__gptrget
       00417B FA               [12] 4157 	mov	r2,a
       00417C A3               [24] 4158 	inc	dptr
-      00417D 12 70 1B         [24] 4159 	lcall	__gptrget
+      00417D 12 70 79         [24] 4159 	lcall	__gptrget
       004180 FB               [12] 4160 	mov	r3,a
       004181 A3               [24] 4161 	inc	dptr
-      004182 12 70 1B         [24] 4162 	lcall	__gptrget
+      004182 12 70 79         [24] 4162 	lcall	__gptrget
       004185 FC               [12] 4163 	mov	r4,a
       004186 C0 07            [24] 4164 	push	ar7
       004188 C0 06            [24] 4165 	push	ar6
@@ -4176,8 +4176,8 @@
       00419F EB               [12] 4176 	mov	a,r3
       0041A0 4C               [12] 4177 	orl	a,r4
       0041A1 70 25            [24] 4178 	jnz	00158$
-      0041A3 7F E0            [12] 4179 	mov	r7,#___str_10
-      0041A5 7E 88            [12] 4180 	mov	r6,#(___str_10 >> 8)
+      0041A3 7F 3E            [12] 4179 	mov	r7,#___str_10
+      0041A5 7E 89            [12] 4180 	mov	r6,#(___str_10 >> 8)
       0041A7 7D 80            [12] 4181 	mov	r5,#0x80
                                    4182 ;	calc.c:51: return;
       0041A9                       4183 00424$:
@@ -4185,7 +4185,7 @@
       0041A9 8F 82            [24] 4185 	mov	dpl,r7
       0041AB 8E 83            [24] 4186 	mov	dph,r6
       0041AD 8D F0            [24] 4187 	mov	b,r5
-      0041AF 12 70 1B         [24] 4188 	lcall	__gptrget
+      0041AF 12 70 79         [24] 4188 	lcall	__gptrget
       0041B2 FC               [12] 4189 	mov	r4,a
       0041B3 70 03            [24] 4190 	jnz	01324$
       0041B5 02 56 65         [24] 4191 	ljmp	00249$
@@ -4214,13 +4214,13 @@
       0041D9 86 83            [24] 4214 	mov	dph,@r0
       0041DB 08               [12] 4215 	inc	r0
       0041DC 86 F0            [24] 4216 	mov	b,@r0
-      0041DE 12 70 1B         [24] 4217 	lcall	__gptrget
+      0041DE 12 70 79         [24] 4217 	lcall	__gptrget
       0041E1 FA               [12] 4218 	mov	r2,a
       0041E2 A3               [24] 4219 	inc	dptr
-      0041E3 12 70 1B         [24] 4220 	lcall	__gptrget
+      0041E3 12 70 79         [24] 4220 	lcall	__gptrget
       0041E6 FB               [12] 4221 	mov	r3,a
       0041E7 A3               [24] 4222 	inc	dptr
-      0041E8 12 70 1B         [24] 4223 	lcall	__gptrget
+      0041E8 12 70 79         [24] 4223 	lcall	__gptrget
       0041EB FC               [12] 4224 	mov	r4,a
       0041EC C0 07            [24] 4225 	push	ar7
       0041EE C0 06            [24] 4226 	push	ar6
@@ -4246,13 +4246,13 @@
       004211 86 83            [24] 4246 	mov	dph,@r0
       004213 08               [12] 4247 	inc	r0
       004214 86 F0            [24] 4248 	mov	b,@r0
-      004216 12 70 1B         [24] 4249 	lcall	__gptrget
+      004216 12 70 79         [24] 4249 	lcall	__gptrget
       004219 FA               [12] 4250 	mov	r2,a
       00421A A3               [24] 4251 	inc	dptr
-      00421B 12 70 1B         [24] 4252 	lcall	__gptrget
+      00421B 12 70 79         [24] 4252 	lcall	__gptrget
       00421E FB               [12] 4253 	mov	r3,a
       00421F A3               [24] 4254 	inc	dptr
-      004220 12 70 1B         [24] 4255 	lcall	__gptrget
+      004220 12 70 79         [24] 4255 	lcall	__gptrget
       004223 FC               [12] 4256 	mov	r4,a
       004224 E5 08            [12] 4257 	mov	a,_bp
       004226 24 15            [12] 4258 	add	a,#0x15
@@ -4276,8 +4276,8 @@
       004243 24 FC            [12] 4276 	add	a,#0xfc
       004245 F5 81            [12] 4277 	mov	sp,a
                                    4278 ;	calc.c:218: printstr("\r\nstack underflow\r\n");
-      004247 7F E0            [12] 4279 	mov	r7,#___str_10
-      004249 7E 88            [12] 4280 	mov	r6,#(___str_10 >> 8)
+      004247 7F 3E            [12] 4279 	mov	r7,#___str_10
+      004249 7E 89            [12] 4280 	mov	r6,#(___str_10 >> 8)
       00424B 7D 80            [12] 4281 	mov	r5,#0x80
                                    4282 ;	calc.c:51: return;
       00424D                       4283 00427$:
@@ -4285,7 +4285,7 @@
       00424D 8F 82            [24] 4285 	mov	dpl,r7
       00424F 8E 83            [24] 4286 	mov	dph,r6
       004251 8D F0            [24] 4287 	mov	b,r5
-      004253 12 70 1B         [24] 4288 	lcall	__gptrget
+      004253 12 70 79         [24] 4288 	lcall	__gptrget
       004256 FC               [12] 4289 	mov	r4,a
       004257 70 03            [24] 4290 	jnz	01327$
       004259 02 56 65         [24] 4291 	ljmp	00249$
@@ -4334,13 +4334,13 @@
       004290 86 83            [24] 4334 	mov	dph,@r0
       004292 08               [12] 4335 	inc	r0
       004293 86 F0            [24] 4336 	mov	b,@r0
-      004295 12 70 1B         [24] 4337 	lcall	__gptrget
+      004295 12 70 79         [24] 4337 	lcall	__gptrget
       004298 FA               [12] 4338 	mov	r2,a
       004299 A3               [24] 4339 	inc	dptr
-      00429A 12 70 1B         [24] 4340 	lcall	__gptrget
+      00429A 12 70 79         [24] 4340 	lcall	__gptrget
       00429D FB               [12] 4341 	mov	r3,a
       00429E A3               [24] 4342 	inc	dptr
-      00429F 12 70 1B         [24] 4343 	lcall	__gptrget
+      00429F 12 70 79         [24] 4343 	lcall	__gptrget
       0042A2 FC               [12] 4344 	mov	r4,a
       0042A3 E5 08            [12] 4345 	mov	a,_bp
       0042A5 24 19            [12] 4346 	add	a,#0x19
@@ -4399,13 +4399,13 @@
       0042F2 86 83            [24] 4399 	mov	dph,@r0
       0042F4 08               [12] 4400 	inc	r0
       0042F5 86 F0            [24] 4401 	mov	b,@r0
-      0042F7 12 70 1B         [24] 4402 	lcall	__gptrget
+      0042F7 12 70 79         [24] 4402 	lcall	__gptrget
       0042FA FA               [12] 4403 	mov	r2,a
       0042FB A3               [24] 4404 	inc	dptr
-      0042FC 12 70 1B         [24] 4405 	lcall	__gptrget
+      0042FC 12 70 79         [24] 4405 	lcall	__gptrget
       0042FF FB               [12] 4406 	mov	r3,a
       004300 A3               [24] 4407 	inc	dptr
-      004301 12 70 1B         [24] 4408 	lcall	__gptrget
+      004301 12 70 79         [24] 4408 	lcall	__gptrget
       004304 FC               [12] 4409 	mov	r4,a
       004305 C0 07            [24] 4410 	push	ar7
       004307 C0 06            [24] 4411 	push	ar6
@@ -4422,8 +4422,8 @@
       00431E EB               [12] 4422 	mov	a,r3
       00431F 4C               [12] 4423 	orl	a,r4
       004320 70 25            [24] 4424 	jnz	00165$
-      004322 7F E0            [12] 4425 	mov	r7,#___str_10
-      004324 7E 88            [12] 4426 	mov	r6,#(___str_10 >> 8)
+      004322 7F 3E            [12] 4425 	mov	r7,#___str_10
+      004324 7E 89            [12] 4426 	mov	r6,#(___str_10 >> 8)
       004326 7D 80            [12] 4427 	mov	r5,#0x80
                                    4428 ;	calc.c:51: return;
       004328                       4429 00430$:
@@ -4431,7 +4431,7 @@
       004328 8F 82            [24] 4431 	mov	dpl,r7
       00432A 8E 83            [24] 4432 	mov	dph,r6
       00432C 8D F0            [24] 4433 	mov	b,r5
-      00432E 12 70 1B         [24] 4434 	lcall	__gptrget
+      00432E 12 70 79         [24] 4434 	lcall	__gptrget
       004331 FC               [12] 4435 	mov	r4,a
       004332 70 03            [24] 4436 	jnz	01330$
       004334 02 56 65         [24] 4437 	ljmp	00249$
@@ -4460,13 +4460,13 @@
       004358 86 83            [24] 4460 	mov	dph,@r0
       00435A 08               [12] 4461 	inc	r0
       00435B 86 F0            [24] 4462 	mov	b,@r0
-      00435D 12 70 1B         [24] 4463 	lcall	__gptrget
+      00435D 12 70 79         [24] 4463 	lcall	__gptrget
       004360 FA               [12] 4464 	mov	r2,a
       004361 A3               [24] 4465 	inc	dptr
-      004362 12 70 1B         [24] 4466 	lcall	__gptrget
+      004362 12 70 79         [24] 4466 	lcall	__gptrget
       004365 FB               [12] 4467 	mov	r3,a
       004366 A3               [24] 4468 	inc	dptr
-      004367 12 70 1B         [24] 4469 	lcall	__gptrget
+      004367 12 70 79         [24] 4469 	lcall	__gptrget
       00436A FC               [12] 4470 	mov	r4,a
       00436B C0 07            [24] 4471 	push	ar7
       00436D C0 06            [24] 4472 	push	ar6
@@ -4492,13 +4492,13 @@
       004390 86 83            [24] 4492 	mov	dph,@r0
       004392 08               [12] 4493 	inc	r0
       004393 86 F0            [24] 4494 	mov	b,@r0
-      004395 12 70 1B         [24] 4495 	lcall	__gptrget
+      004395 12 70 79         [24] 4495 	lcall	__gptrget
       004398 FA               [12] 4496 	mov	r2,a
       004399 A3               [24] 4497 	inc	dptr
-      00439A 12 70 1B         [24] 4498 	lcall	__gptrget
+      00439A 12 70 79         [24] 4498 	lcall	__gptrget
       00439D FB               [12] 4499 	mov	r3,a
       00439E A3               [24] 4500 	inc	dptr
-      00439F 12 70 1B         [24] 4501 	lcall	__gptrget
+      00439F 12 70 79         [24] 4501 	lcall	__gptrget
       0043A2 FC               [12] 4502 	mov	r4,a
       0043A3 E5 08            [12] 4503 	mov	a,_bp
       0043A5 24 15            [12] 4504 	add	a,#0x15
@@ -4522,8 +4522,8 @@
       0043C2 24 FC            [12] 4522 	add	a,#0xfc
       0043C4 F5 81            [12] 4523 	mov	sp,a
                                    4524 ;	calc.c:228: printstr("\r\nstack underflow\r\n");
-      0043C6 7F E0            [12] 4525 	mov	r7,#___str_10
-      0043C8 7E 88            [12] 4526 	mov	r6,#(___str_10 >> 8)
+      0043C6 7F 3E            [12] 4525 	mov	r7,#___str_10
+      0043C8 7E 89            [12] 4526 	mov	r6,#(___str_10 >> 8)
       0043CA 7D 80            [12] 4527 	mov	r5,#0x80
                                    4528 ;	calc.c:51: return;
       0043CC                       4529 00433$:
@@ -4531,7 +4531,7 @@
       0043CC 8F 82            [24] 4531 	mov	dpl,r7
       0043CE 8E 83            [24] 4532 	mov	dph,r6
       0043D0 8D F0            [24] 4533 	mov	b,r5
-      0043D2 12 70 1B         [24] 4534 	lcall	__gptrget
+      0043D2 12 70 79         [24] 4534 	lcall	__gptrget
       0043D5 FC               [12] 4535 	mov	r4,a
       0043D6 70 03            [24] 4536 	jnz	01333$
       0043D8 02 56 65         [24] 4537 	ljmp	00249$
@@ -4581,13 +4581,13 @@
       004410 86 83            [24] 4581 	mov	dph,@r0
       004412 08               [12] 4582 	inc	r0
       004413 86 F0            [24] 4583 	mov	b,@r0
-      004415 12 70 1B         [24] 4584 	lcall	__gptrget
+      004415 12 70 79         [24] 4584 	lcall	__gptrget
       004418 FA               [12] 4585 	mov	r2,a
       004419 A3               [24] 4586 	inc	dptr
-      00441A 12 70 1B         [24] 4587 	lcall	__gptrget
+      00441A 12 70 79         [24] 4587 	lcall	__gptrget
       00441D FB               [12] 4588 	mov	r3,a
       00441E A3               [24] 4589 	inc	dptr
-      00441F 12 70 1B         [24] 4590 	lcall	__gptrget
+      00441F 12 70 79         [24] 4590 	lcall	__gptrget
       004422 FC               [12] 4591 	mov	r4,a
       004423 E5 08            [12] 4592 	mov	a,_bp
       004425 24 19            [12] 4593 	add	a,#0x19
@@ -4646,13 +4646,13 @@
       004472 86 83            [24] 4646 	mov	dph,@r0
       004474 08               [12] 4647 	inc	r0
       004475 86 F0            [24] 4648 	mov	b,@r0
-      004477 12 70 1B         [24] 4649 	lcall	__gptrget
+      004477 12 70 79         [24] 4649 	lcall	__gptrget
       00447A FA               [12] 4650 	mov	r2,a
       00447B A3               [24] 4651 	inc	dptr
-      00447C 12 70 1B         [24] 4652 	lcall	__gptrget
+      00447C 12 70 79         [24] 4652 	lcall	__gptrget
       00447F FB               [12] 4653 	mov	r3,a
       004480 A3               [24] 4654 	inc	dptr
-      004481 12 70 1B         [24] 4655 	lcall	__gptrget
+      004481 12 70 79         [24] 4655 	lcall	__gptrget
       004484 FC               [12] 4656 	mov	r4,a
       004485 C0 07            [24] 4657 	push	ar7
       004487 C0 06            [24] 4658 	push	ar6
@@ -4669,8 +4669,8 @@
       00449E EB               [12] 4669 	mov	a,r3
       00449F 4C               [12] 4670 	orl	a,r4
       0044A0 70 25            [24] 4671 	jnz	00172$
-      0044A2 7F E0            [12] 4672 	mov	r7,#___str_10
-      0044A4 7E 88            [12] 4673 	mov	r6,#(___str_10 >> 8)
+      0044A2 7F 3E            [12] 4672 	mov	r7,#___str_10
+      0044A4 7E 89            [12] 4673 	mov	r6,#(___str_10 >> 8)
       0044A6 7D 80            [12] 4674 	mov	r5,#0x80
                                    4675 ;	calc.c:51: return;
       0044A8                       4676 00436$:
@@ -4678,7 +4678,7 @@
       0044A8 8F 82            [24] 4678 	mov	dpl,r7
       0044AA 8E 83            [24] 4679 	mov	dph,r6
       0044AC 8D F0            [24] 4680 	mov	b,r5
-      0044AE 12 70 1B         [24] 4681 	lcall	__gptrget
+      0044AE 12 70 79         [24] 4681 	lcall	__gptrget
       0044B1 FC               [12] 4682 	mov	r4,a
       0044B2 70 03            [24] 4683 	jnz	01336$
       0044B4 02 56 65         [24] 4684 	ljmp	00249$
@@ -4707,13 +4707,13 @@
       0044D8 86 83            [24] 4707 	mov	dph,@r0
       0044DA 08               [12] 4708 	inc	r0
       0044DB 86 F0            [24] 4709 	mov	b,@r0
-      0044DD 12 70 1B         [24] 4710 	lcall	__gptrget
+      0044DD 12 70 79         [24] 4710 	lcall	__gptrget
       0044E0 FA               [12] 4711 	mov	r2,a
       0044E1 A3               [24] 4712 	inc	dptr
-      0044E2 12 70 1B         [24] 4713 	lcall	__gptrget
+      0044E2 12 70 79         [24] 4713 	lcall	__gptrget
       0044E5 FB               [12] 4714 	mov	r3,a
       0044E6 A3               [24] 4715 	inc	dptr
-      0044E7 12 70 1B         [24] 4716 	lcall	__gptrget
+      0044E7 12 70 79         [24] 4716 	lcall	__gptrget
       0044EA FC               [12] 4717 	mov	r4,a
       0044EB C0 07            [24] 4718 	push	ar7
       0044ED C0 06            [24] 4719 	push	ar6
@@ -4739,13 +4739,13 @@
       004510 86 83            [24] 4739 	mov	dph,@r0
       004512 08               [12] 4740 	inc	r0
       004513 86 F0            [24] 4741 	mov	b,@r0
-      004515 12 70 1B         [24] 4742 	lcall	__gptrget
+      004515 12 70 79         [24] 4742 	lcall	__gptrget
       004518 FA               [12] 4743 	mov	r2,a
       004519 A3               [24] 4744 	inc	dptr
-      00451A 12 70 1B         [24] 4745 	lcall	__gptrget
+      00451A 12 70 79         [24] 4745 	lcall	__gptrget
       00451D FB               [12] 4746 	mov	r3,a
       00451E A3               [24] 4747 	inc	dptr
-      00451F 12 70 1B         [24] 4748 	lcall	__gptrget
+      00451F 12 70 79         [24] 4748 	lcall	__gptrget
       004522 FC               [12] 4749 	mov	r4,a
       004523 E5 08            [12] 4750 	mov	a,_bp
       004525 24 15            [12] 4751 	add	a,#0x15
@@ -4769,8 +4769,8 @@
       004542 24 FC            [12] 4769 	add	a,#0xfc
       004544 F5 81            [12] 4770 	mov	sp,a
                                    4771 ;	calc.c:238: printstr("\r\nstack underflow\r\n");
-      004546 7F E0            [12] 4772 	mov	r7,#___str_10
-      004548 7E 88            [12] 4773 	mov	r6,#(___str_10 >> 8)
+      004546 7F 3E            [12] 4772 	mov	r7,#___str_10
+      004548 7E 89            [12] 4773 	mov	r6,#(___str_10 >> 8)
       00454A 7D 80            [12] 4774 	mov	r5,#0x80
                                    4775 ;	calc.c:51: return;
       00454C                       4776 00439$:
@@ -4778,7 +4778,7 @@
       00454C 8F 82            [24] 4778 	mov	dpl,r7
       00454E 8E 83            [24] 4779 	mov	dph,r6
       004550 8D F0            [24] 4780 	mov	b,r5
-      004552 12 70 1B         [24] 4781 	lcall	__gptrget
+      004552 12 70 79         [24] 4781 	lcall	__gptrget
       004555 FC               [12] 4782 	mov	r4,a
       004556 70 03            [24] 4783 	jnz	01339$
       004558 02 56 65         [24] 4784 	ljmp	00249$
@@ -4818,7 +4818,7 @@
       00458A 86 F0            [24] 4818 	mov	b,@r0
       00458C 08               [12] 4819 	inc	r0
       00458D E6               [12] 4820 	mov	a,@r0
-      00458E 12 74 14         [24] 4821 	lcall	__mullong
+      00458E 12 74 72         [24] 4821 	lcall	__mullong
       004591 AF 82            [24] 4822 	mov	r7,dpl
       004593 AE 83            [24] 4823 	mov	r6,dph
       004595 AD F0            [24] 4824 	mov	r5,b
@@ -4845,13 +4845,13 @@
       0045B6 86 83            [24] 4845 	mov	dph,@r0
       0045B8 08               [12] 4846 	inc	r0
       0045B9 86 F0            [24] 4847 	mov	b,@r0
-      0045BB 12 70 1B         [24] 4848 	lcall	__gptrget
+      0045BB 12 70 79         [24] 4848 	lcall	__gptrget
       0045BE FA               [12] 4849 	mov	r2,a
       0045BF A3               [24] 4850 	inc	dptr
-      0045C0 12 70 1B         [24] 4851 	lcall	__gptrget
+      0045C0 12 70 79         [24] 4851 	lcall	__gptrget
       0045C3 FB               [12] 4852 	mov	r3,a
       0045C4 A3               [24] 4853 	inc	dptr
-      0045C5 12 70 1B         [24] 4854 	lcall	__gptrget
+      0045C5 12 70 79         [24] 4854 	lcall	__gptrget
       0045C8 FC               [12] 4855 	mov	r4,a
       0045C9 E5 08            [12] 4856 	mov	a,_bp
       0045CB 24 19            [12] 4857 	add	a,#0x19
@@ -4913,13 +4913,13 @@
       00461E 86 83            [24] 4913 	mov	dph,@r0
       004620 08               [12] 4914 	inc	r0
       004621 86 F0            [24] 4915 	mov	b,@r0
-      004623 12 70 1B         [24] 4916 	lcall	__gptrget
+      004623 12 70 79         [24] 4916 	lcall	__gptrget
       004626 FD               [12] 4917 	mov	r5,a
       004627 A3               [24] 4918 	inc	dptr
-      004628 12 70 1B         [24] 4919 	lcall	__gptrget
+      004628 12 70 79         [24] 4919 	lcall	__gptrget
       00462B FE               [12] 4920 	mov	r6,a
       00462C A3               [24] 4921 	inc	dptr
-      00462D 12 70 1B         [24] 4922 	lcall	__gptrget
+      00462D 12 70 79         [24] 4922 	lcall	__gptrget
       004630 FF               [12] 4923 	mov	r7,a
       004631 C0 05            [24] 4924 	push	ar5
       004633 C0 04            [24] 4925 	push	ar4
@@ -4941,8 +4941,8 @@
       004652 D0 06            [24] 4941 	pop	ar6
       004654 D0 05            [24] 4942 	pop	ar5
       004656 70 25            [24] 4943 	jnz	00186$
-      004658 7F E0            [12] 4944 	mov	r7,#___str_10
-      00465A 7E 88            [12] 4945 	mov	r6,#(___str_10 >> 8)
+      004658 7F 3E            [12] 4944 	mov	r7,#___str_10
+      00465A 7E 89            [12] 4945 	mov	r6,#(___str_10 >> 8)
       00465C 7D 80            [12] 4946 	mov	r5,#0x80
                                    4947 ;	calc.c:51: return;
       00465E                       4948 00442$:
@@ -4950,7 +4950,7 @@
       00465E 8F 82            [24] 4950 	mov	dpl,r7
       004660 8E 83            [24] 4951 	mov	dph,r6
       004662 8D F0            [24] 4952 	mov	b,r5
-      004664 12 70 1B         [24] 4953 	lcall	__gptrget
+      004664 12 70 79         [24] 4953 	lcall	__gptrget
       004667 FC               [12] 4954 	mov	r4,a
       004668 70 03            [24] 4955 	jnz	01342$
       00466A 02 56 65         [24] 4956 	ljmp	00249$
@@ -4982,13 +4982,13 @@
       004694 86 83            [24] 4982 	mov	dph,@r0
       004696 08               [12] 4983 	inc	r0
       004697 86 F0            [24] 4984 	mov	b,@r0
-      004699 12 70 1B         [24] 4985 	lcall	__gptrget
+      004699 12 70 79         [24] 4985 	lcall	__gptrget
       00469C FD               [12] 4986 	mov	r5,a
       00469D A3               [24] 4987 	inc	dptr
-      00469E 12 70 1B         [24] 4988 	lcall	__gptrget
+      00469E 12 70 79         [24] 4988 	lcall	__gptrget
       0046A1 FE               [12] 4989 	mov	r6,a
       0046A2 A3               [24] 4990 	inc	dptr
-      0046A3 12 70 1B         [24] 4991 	lcall	__gptrget
+      0046A3 12 70 79         [24] 4991 	lcall	__gptrget
       0046A6 FF               [12] 4992 	mov	r7,a
       0046A7 C0 05            [24] 4993 	push	ar5
       0046A9 C0 04            [24] 4994 	push	ar4
@@ -5019,13 +5019,13 @@
       0046D6 86 83            [24] 5019 	mov	dph,@r0
       0046D8 08               [12] 5020 	inc	r0
       0046D9 86 F0            [24] 5021 	mov	b,@r0
-      0046DB 12 70 1B         [24] 5022 	lcall	__gptrget
+      0046DB 12 70 79         [24] 5022 	lcall	__gptrget
       0046DE FA               [12] 5023 	mov	r2,a
       0046DF A3               [24] 5024 	inc	dptr
-      0046E0 12 70 1B         [24] 5025 	lcall	__gptrget
+      0046E0 12 70 79         [24] 5025 	lcall	__gptrget
       0046E3 FB               [12] 5026 	mov	r3,a
       0046E4 A3               [24] 5027 	inc	dptr
-      0046E5 12 70 1B         [24] 5028 	lcall	__gptrget
+      0046E5 12 70 79         [24] 5028 	lcall	__gptrget
       0046E8 FC               [12] 5029 	mov	r4,a
       0046E9 E5 08            [12] 5030 	mov	a,_bp
       0046EB 24 15            [12] 5031 	add	a,#0x15
@@ -5049,8 +5049,8 @@
       004708 24 FC            [12] 5049 	add	a,#0xfc
       00470A F5 81            [12] 5050 	mov	sp,a
                                    5051 ;	calc.c:249: printstr("\r\nstack underflow\r\n");
-      00470C 7F E0            [12] 5052 	mov	r7,#___str_10
-      00470E 7E 88            [12] 5053 	mov	r6,#(___str_10 >> 8)
+      00470C 7F 3E            [12] 5052 	mov	r7,#___str_10
+      00470E 7E 89            [12] 5053 	mov	r6,#(___str_10 >> 8)
       004710 7D 80            [12] 5054 	mov	r5,#0x80
                                    5055 ;	calc.c:51: return;
       004712                       5056 00445$:
@@ -5058,7 +5058,7 @@
       004712 8F 82            [24] 5058 	mov	dpl,r7
       004714 8E 83            [24] 5059 	mov	dph,r6
       004716 8D F0            [24] 5060 	mov	b,r5
-      004718 12 70 1B         [24] 5061 	lcall	__gptrget
+      004718 12 70 79         [24] 5061 	lcall	__gptrget
       00471B FC               [12] 5062 	mov	r4,a
       00471C 70 03            [24] 5063 	jnz	01345$
       00471E 02 56 65         [24] 5064 	ljmp	00249$
@@ -5096,13 +5096,13 @@
       00474A 86 83            [24] 5096 	mov	dph,@r0
       00474C 08               [12] 5097 	inc	r0
       00474D 86 F0            [24] 5098 	mov	b,@r0
-      00474F 12 70 1B         [24] 5099 	lcall	__gptrget
+      00474F 12 70 79         [24] 5099 	lcall	__gptrget
       004752 FA               [12] 5100 	mov	r2,a
       004753 A3               [24] 5101 	inc	dptr
-      004754 12 70 1B         [24] 5102 	lcall	__gptrget
+      004754 12 70 79         [24] 5102 	lcall	__gptrget
       004757 FB               [12] 5103 	mov	r3,a
       004758 A3               [24] 5104 	inc	dptr
-      004759 12 70 1B         [24] 5105 	lcall	__gptrget
+      004759 12 70 79         [24] 5105 	lcall	__gptrget
       00475C FC               [12] 5106 	mov	r4,a
       00475D E5 08            [12] 5107 	mov	a,_bp
       00475F 24 19            [12] 5108 	add	a,#0x19
@@ -5134,13 +5134,13 @@
       004788 86 83            [24] 5134 	mov	dph,@r0
       00478A 08               [12] 5135 	inc	r0
       00478B 86 F0            [24] 5136 	mov	b,@r0
-      00478D 12 70 1B         [24] 5137 	lcall	__gptrget
+      00478D 12 70 79         [24] 5137 	lcall	__gptrget
       004790 FA               [12] 5138 	mov	r2,a
       004791 A3               [24] 5139 	inc	dptr
-      004792 12 70 1B         [24] 5140 	lcall	__gptrget
+      004792 12 70 79         [24] 5140 	lcall	__gptrget
       004795 FB               [12] 5141 	mov	r3,a
       004796 A3               [24] 5142 	inc	dptr
-      004797 12 70 1B         [24] 5143 	lcall	__gptrget
+      004797 12 70 79         [24] 5143 	lcall	__gptrget
       00479A FC               [12] 5144 	mov	r4,a
       00479B E5 08            [12] 5145 	mov	a,_bp
       00479D 24 15            [12] 5146 	add	a,#0x15
@@ -5164,7 +5164,7 @@
       0047BA 24 FC            [12] 5164 	add	a,#0xfc
       0047BC F5 81            [12] 5165 	mov	sp,a
                                    5166 ;	calc.c:253: printstr("\r\ndivision by zero\r\n");
-      0047BE 7F 42            [12] 5167 	mov	r7,#___str_14
+      0047BE 7F A0            [12] 5167 	mov	r7,#___str_14
       0047C0 7E 89            [12] 5168 	mov	r6,#(___str_14 >> 8)
       0047C2 7D 80            [12] 5169 	mov	r5,#0x80
                                    5170 ;	calc.c:51: return;
@@ -5173,7 +5173,7 @@
       0047C4 8F 82            [24] 5173 	mov	dpl,r7
       0047C6 8E 83            [24] 5174 	mov	dph,r6
       0047C8 8D F0            [24] 5175 	mov	b,r5
-      0047CA 12 70 1B         [24] 5176 	lcall	__gptrget
+      0047CA 12 70 79         [24] 5176 	lcall	__gptrget
       0047CD FC               [12] 5177 	mov	r4,a
       0047CE 70 03            [24] 5178 	jnz	01348$
       0047D0 02 56 65         [24] 5179 	ljmp	00249$
@@ -5192,7 +5192,7 @@
       0047E3 8D 82            [24] 5192 	mov	dpl,r5
       0047E5 8E 83            [24] 5193 	mov	dph,r6
       0047E7 8F F0            [24] 5194 	mov	b,r7
-      0047E9 12 70 1B         [24] 5195 	lcall	__gptrget
+      0047E9 12 70 79         [24] 5195 	lcall	__gptrget
       0047EC FC               [12] 5196 	mov	r4,a
       0047ED BC 2F 45         [24] 5197 	cjne	r4,#0x2f,00177$
       0047F0 E5 08            [12] 5198 	mov	a,_bp
@@ -5219,7 +5219,7 @@
       00480F 86 F0            [24] 5219 	mov	b,@r0
       004811 08               [12] 5220 	inc	r0
       004812 E6               [12] 5221 	mov	a,@r0
-      004813 12 6E 12         [24] 5222 	lcall	__divslong
+      004813 12 6E 70         [24] 5222 	lcall	__divslong
       004816 AF 82            [24] 5223 	mov	r7,dpl
       004818 AE 83            [24] 5224 	mov	r6,dph
       00481A AD F0            [24] 5225 	mov	r5,b
@@ -5288,7 +5288,7 @@
       004873 8E 83            [24] 5288 	mov	dph,r6
       004875 8D F0            [24] 5289 	mov	b,r5
       004877 EC               [12] 5290 	mov	a,r4
-      004878 12 6F 0F         [24] 5291 	lcall	__divulong
+      004878 12 6F 6D         [24] 5291 	lcall	__divulong
       00487B AF 82            [24] 5292 	mov	r7,dpl
       00487D AE 83            [24] 5293 	mov	r6,dph
       00487F AD F0            [24] 5294 	mov	r5,b
@@ -5316,13 +5316,13 @@
       0048A0 86 83            [24] 5316 	mov	dph,@r0
       0048A2 08               [12] 5317 	inc	r0
       0048A3 86 F0            [24] 5318 	mov	b,@r0
-      0048A5 12 70 1B         [24] 5319 	lcall	__gptrget
+      0048A5 12 70 79         [24] 5319 	lcall	__gptrget
       0048A8 FA               [12] 5320 	mov	r2,a
       0048A9 A3               [24] 5321 	inc	dptr
-      0048AA 12 70 1B         [24] 5322 	lcall	__gptrget
+      0048AA 12 70 79         [24] 5322 	lcall	__gptrget
       0048AD FB               [12] 5323 	mov	r3,a
       0048AE A3               [24] 5324 	inc	dptr
-      0048AF 12 70 1B         [24] 5325 	lcall	__gptrget
+      0048AF 12 70 79         [24] 5325 	lcall	__gptrget
       0048B2 FC               [12] 5326 	mov	r4,a
       0048B3 E5 08            [12] 5327 	mov	a,_bp
       0048B5 24 19            [12] 5328 	add	a,#0x19
@@ -5384,13 +5384,13 @@
       004908 86 83            [24] 5384 	mov	dph,@r0
       00490A 08               [12] 5385 	inc	r0
       00490B 86 F0            [24] 5386 	mov	b,@r0
-      00490D 12 70 1B         [24] 5387 	lcall	__gptrget
+      00490D 12 70 79         [24] 5387 	lcall	__gptrget
       004910 FD               [12] 5388 	mov	r5,a
       004911 A3               [24] 5389 	inc	dptr
-      004912 12 70 1B         [24] 5390 	lcall	__gptrget
+      004912 12 70 79         [24] 5390 	lcall	__gptrget
       004915 FE               [12] 5391 	mov	r6,a
       004916 A3               [24] 5392 	inc	dptr
-      004917 12 70 1B         [24] 5393 	lcall	__gptrget
+      004917 12 70 79         [24] 5393 	lcall	__gptrget
       00491A FF               [12] 5394 	mov	r7,a
       00491B C0 05            [24] 5395 	push	ar5
       00491D C0 04            [24] 5396 	push	ar4
@@ -5412,8 +5412,8 @@
       00493C D0 06            [24] 5412 	pop	ar6
       00493E D0 05            [24] 5413 	pop	ar5
       004940 70 25            [24] 5414 	jnz	00200$
-      004942 7F E0            [12] 5415 	mov	r7,#___str_10
-      004944 7E 88            [12] 5416 	mov	r6,#(___str_10 >> 8)
+      004942 7F 3E            [12] 5415 	mov	r7,#___str_10
+      004944 7E 89            [12] 5416 	mov	r6,#(___str_10 >> 8)
       004946 7D 80            [12] 5417 	mov	r5,#0x80
                                    5418 ;	calc.c:51: return;
       004948                       5419 00451$:
@@ -5421,7 +5421,7 @@
       004948 8F 82            [24] 5421 	mov	dpl,r7
       00494A 8E 83            [24] 5422 	mov	dph,r6
       00494C 8D F0            [24] 5423 	mov	b,r5
-      00494E 12 70 1B         [24] 5424 	lcall	__gptrget
+      00494E 12 70 79         [24] 5424 	lcall	__gptrget
       004951 FC               [12] 5425 	mov	r4,a
       004952 70 03            [24] 5426 	jnz	01353$
       004954 02 56 65         [24] 5427 	ljmp	00249$
@@ -5453,13 +5453,13 @@
       00497E 86 83            [24] 5453 	mov	dph,@r0
       004980 08               [12] 5454 	inc	r0
       004981 86 F0            [24] 5455 	mov	b,@r0
-      004983 12 70 1B         [24] 5456 	lcall	__gptrget
+      004983 12 70 79         [24] 5456 	lcall	__gptrget
       004986 FD               [12] 5457 	mov	r5,a
       004987 A3               [24] 5458 	inc	dptr
-      004988 12 70 1B         [24] 5459 	lcall	__gptrget
+      004988 12 70 79         [24] 5459 	lcall	__gptrget
       00498B FE               [12] 5460 	mov	r6,a
       00498C A3               [24] 5461 	inc	dptr
-      00498D 12 70 1B         [24] 5462 	lcall	__gptrget
+      00498D 12 70 79         [24] 5462 	lcall	__gptrget
       004990 FF               [12] 5463 	mov	r7,a
       004991 C0 05            [24] 5464 	push	ar5
       004993 C0 04            [24] 5465 	push	ar4
@@ -5490,13 +5490,13 @@
       0049C0 86 83            [24] 5490 	mov	dph,@r0
       0049C2 08               [12] 5491 	inc	r0
       0049C3 86 F0            [24] 5492 	mov	b,@r0
-      0049C5 12 70 1B         [24] 5493 	lcall	__gptrget
+      0049C5 12 70 79         [24] 5493 	lcall	__gptrget
       0049C8 FA               [12] 5494 	mov	r2,a
       0049C9 A3               [24] 5495 	inc	dptr
-      0049CA 12 70 1B         [24] 5496 	lcall	__gptrget
+      0049CA 12 70 79         [24] 5496 	lcall	__gptrget
       0049CD FB               [12] 5497 	mov	r3,a
       0049CE A3               [24] 5498 	inc	dptr
-      0049CF 12 70 1B         [24] 5499 	lcall	__gptrget
+      0049CF 12 70 79         [24] 5499 	lcall	__gptrget
       0049D2 FC               [12] 5500 	mov	r4,a
       0049D3 E5 08            [12] 5501 	mov	a,_bp
       0049D5 24 15            [12] 5502 	add	a,#0x15
@@ -5520,8 +5520,8 @@
       0049F2 24 FC            [12] 5520 	add	a,#0xfc
       0049F4 F5 81            [12] 5521 	mov	sp,a
                                    5522 ;	calc.c:265: printstr("\r\nstack underflow\r\n");
-      0049F6 7F E0            [12] 5523 	mov	r7,#___str_10
-      0049F8 7E 88            [12] 5524 	mov	r6,#(___str_10 >> 8)
+      0049F6 7F 3E            [12] 5523 	mov	r7,#___str_10
+      0049F8 7E 89            [12] 5524 	mov	r6,#(___str_10 >> 8)
       0049FA 7D 80            [12] 5525 	mov	r5,#0x80
                                    5526 ;	calc.c:51: return;
       0049FC                       5527 00454$:
@@ -5529,7 +5529,7 @@
       0049FC 8F 82            [24] 5529 	mov	dpl,r7
       0049FE 8E 83            [24] 5530 	mov	dph,r6
       004A00 8D F0            [24] 5531 	mov	b,r5
-      004A02 12 70 1B         [24] 5532 	lcall	__gptrget
+      004A02 12 70 79         [24] 5532 	lcall	__gptrget
       004A05 FC               [12] 5533 	mov	r4,a
       004A06 70 03            [24] 5534 	jnz	01356$
       004A08 02 56 65         [24] 5535 	ljmp	00249$
@@ -5567,13 +5567,13 @@
       004A34 86 83            [24] 5567 	mov	dph,@r0
       004A36 08               [12] 5568 	inc	r0
       004A37 86 F0            [24] 5569 	mov	b,@r0
-      004A39 12 70 1B         [24] 5570 	lcall	__gptrget
+      004A39 12 70 79         [24] 5570 	lcall	__gptrget
       004A3C FA               [12] 5571 	mov	r2,a
       004A3D A3               [24] 5572 	inc	dptr
-      004A3E 12 70 1B         [24] 5573 	lcall	__gptrget
+      004A3E 12 70 79         [24] 5573 	lcall	__gptrget
       004A41 FB               [12] 5574 	mov	r3,a
       004A42 A3               [24] 5575 	inc	dptr
-      004A43 12 70 1B         [24] 5576 	lcall	__gptrget
+      004A43 12 70 79         [24] 5576 	lcall	__gptrget
       004A46 FC               [12] 5577 	mov	r4,a
       004A47 E5 08            [12] 5578 	mov	a,_bp
       004A49 24 19            [12] 5579 	add	a,#0x19
@@ -5605,13 +5605,13 @@
       004A72 86 83            [24] 5605 	mov	dph,@r0
       004A74 08               [12] 5606 	inc	r0
       004A75 86 F0            [24] 5607 	mov	b,@r0
-      004A77 12 70 1B         [24] 5608 	lcall	__gptrget
+      004A77 12 70 79         [24] 5608 	lcall	__gptrget
       004A7A FA               [12] 5609 	mov	r2,a
       004A7B A3               [24] 5610 	inc	dptr
-      004A7C 12 70 1B         [24] 5611 	lcall	__gptrget
+      004A7C 12 70 79         [24] 5611 	lcall	__gptrget
       004A7F FB               [12] 5612 	mov	r3,a
       004A80 A3               [24] 5613 	inc	dptr
-      004A81 12 70 1B         [24] 5614 	lcall	__gptrget
+      004A81 12 70 79         [24] 5614 	lcall	__gptrget
       004A84 FC               [12] 5615 	mov	r4,a
       004A85 E5 08            [12] 5616 	mov	a,_bp
       004A87 24 15            [12] 5617 	add	a,#0x15
@@ -5635,7 +5635,7 @@
       004AA4 24 FC            [12] 5635 	add	a,#0xfc
       004AA6 F5 81            [12] 5636 	mov	sp,a
                                    5637 ;	calc.c:269: printstr("\r\ndivision by zero\r\n");
-      004AA8 7F 42            [12] 5638 	mov	r7,#___str_14
+      004AA8 7F A0            [12] 5638 	mov	r7,#___str_14
       004AAA 7E 89            [12] 5639 	mov	r6,#(___str_14 >> 8)
       004AAC 7D 80            [12] 5640 	mov	r5,#0x80
                                    5641 ;	calc.c:51: return;
@@ -5644,7 +5644,7 @@
       004AAE 8F 82            [24] 5644 	mov	dpl,r7
       004AB0 8E 83            [24] 5645 	mov	dph,r6
       004AB2 8D F0            [24] 5646 	mov	b,r5
-      004AB4 12 70 1B         [24] 5647 	lcall	__gptrget
+      004AB4 12 70 79         [24] 5647 	lcall	__gptrget
       004AB7 FC               [12] 5648 	mov	r4,a
       004AB8 70 03            [24] 5649 	jnz	01359$
       004ABA 02 56 65         [24] 5650 	ljmp	00249$
@@ -5663,7 +5663,7 @@
       004ACD 8D 82            [24] 5663 	mov	dpl,r5
       004ACF 8E 83            [24] 5664 	mov	dph,r6
       004AD1 8F F0            [24] 5665 	mov	b,r7
-      004AD3 12 70 1B         [24] 5666 	lcall	__gptrget
+      004AD3 12 70 79         [24] 5666 	lcall	__gptrget
       004AD6 FD               [12] 5667 	mov	r5,a
       004AD7 BD 25 45         [24] 5668 	cjne	r5,#0x25,00191$
       004ADA E5 08            [12] 5669 	mov	a,_bp
@@ -5690,7 +5690,7 @@
       004AF9 86 F0            [24] 5690 	mov	b,@r0
       004AFB 08               [12] 5691 	inc	r0
       004AFC E6               [12] 5692 	mov	a,@r0
-      004AFD 12 6C 59         [24] 5693 	lcall	__modslong
+      004AFD 12 6C B7         [24] 5693 	lcall	__modslong
       004B00 AC 82            [24] 5694 	mov	r4,dpl
       004B02 AD 83            [24] 5695 	mov	r5,dph
       004B04 AE F0            [24] 5696 	mov	r6,b
@@ -5755,7 +5755,7 @@
       004B5A 86 F0            [24] 5755 	mov	b,@r0
       004B5C 08               [12] 5756 	inc	r0
       004B5D E6               [12] 5757 	mov	a,@r0
-      004B5E 12 6D 50         [24] 5758 	lcall	__modulong
+      004B5E 12 6D AE         [24] 5758 	lcall	__modulong
       004B61 AC 82            [24] 5759 	mov	r4,dpl
       004B63 AD 83            [24] 5760 	mov	r5,dph
       004B65 AE F0            [24] 5761 	mov	r6,b
@@ -5783,13 +5783,13 @@
       004B86 86 83            [24] 5783 	mov	dph,@r0
       004B88 08               [12] 5784 	inc	r0
       004B89 86 F0            [24] 5785 	mov	b,@r0
-      004B8B 12 70 1B         [24] 5786 	lcall	__gptrget
+      004B8B 12 70 79         [24] 5786 	lcall	__gptrget
       004B8E FD               [12] 5787 	mov	r5,a
       004B8F A3               [24] 5788 	inc	dptr
-      004B90 12 70 1B         [24] 5789 	lcall	__gptrget
+      004B90 12 70 79         [24] 5789 	lcall	__gptrget
       004B93 FE               [12] 5790 	mov	r6,a
       004B94 A3               [24] 5791 	inc	dptr
-      004B95 12 70 1B         [24] 5792 	lcall	__gptrget
+      004B95 12 70 79         [24] 5792 	lcall	__gptrget
       004B98 FF               [12] 5793 	mov	r7,a
       004B99 E5 08            [12] 5794 	mov	a,_bp
       004B9B 24 19            [12] 5795 	add	a,#0x19
@@ -5843,13 +5843,13 @@
       004BE2 8A 82            [24] 5843 	mov	dpl,r2
       004BE4 8B 83            [24] 5844 	mov	dph,r3
       004BE6 8C F0            [24] 5845 	mov	b,r4
-      004BE8 12 70 1B         [24] 5846 	lcall	__gptrget
+      004BE8 12 70 79         [24] 5846 	lcall	__gptrget
       004BEB FD               [12] 5847 	mov	r5,a
       004BEC A3               [24] 5848 	inc	dptr
-      004BED 12 70 1B         [24] 5849 	lcall	__gptrget
+      004BED 12 70 79         [24] 5849 	lcall	__gptrget
       004BF0 FE               [12] 5850 	mov	r6,a
       004BF1 A3               [24] 5851 	inc	dptr
-      004BF2 12 70 1B         [24] 5852 	lcall	__gptrget
+      004BF2 12 70 79         [24] 5852 	lcall	__gptrget
       004BF5 FF               [12] 5853 	mov	r7,a
       004BF6 C0 04            [24] 5854 	push	ar4
       004BF8 C0 03            [24] 5855 	push	ar3
@@ -5880,8 +5880,8 @@
       004C25 EE               [12] 5880 	mov	a,r6
       004C26 4F               [12] 5881 	orl	a,r7
       004C27 70 25            [24] 5882 	jnz	00207$
-      004C29 7D E0            [12] 5883 	mov	r5,#___str_10
-      004C2B 7C 88            [12] 5884 	mov	r4,#(___str_10 >> 8)
+      004C29 7D 3E            [12] 5883 	mov	r5,#___str_10
+      004C2B 7C 89            [12] 5884 	mov	r4,#(___str_10 >> 8)
       004C2D 7B 80            [12] 5885 	mov	r3,#0x80
                                    5886 ;	calc.c:51: return;
       004C2F                       5887 00460$:
@@ -5889,7 +5889,7 @@
       004C2F 8D 82            [24] 5889 	mov	dpl,r5
       004C31 8C 83            [24] 5890 	mov	dph,r4
       004C33 8B F0            [24] 5891 	mov	b,r3
-      004C35 12 70 1B         [24] 5892 	lcall	__gptrget
+      004C35 12 70 79         [24] 5892 	lcall	__gptrget
       004C38 FF               [12] 5893 	mov	r7,a
       004C39 70 03            [24] 5894 	jnz	01364$
       004C3B 02 56 65         [24] 5895 	ljmp	00249$
@@ -5919,13 +5919,13 @@
       004C60 8A 82            [24] 5919 	mov	dpl,r2
       004C62 8B 83            [24] 5920 	mov	dph,r3
       004C64 8C F0            [24] 5921 	mov	b,r4
-      004C66 12 70 1B         [24] 5922 	lcall	__gptrget
+      004C66 12 70 79         [24] 5922 	lcall	__gptrget
       004C69 FD               [12] 5923 	mov	r5,a
       004C6A A3               [24] 5924 	inc	dptr
-      004C6B 12 70 1B         [24] 5925 	lcall	__gptrget
+      004C6B 12 70 79         [24] 5925 	lcall	__gptrget
       004C6E FE               [12] 5926 	mov	r6,a
       004C6F A3               [24] 5927 	inc	dptr
-      004C70 12 70 1B         [24] 5928 	lcall	__gptrget
+      004C70 12 70 79         [24] 5928 	lcall	__gptrget
       004C73 FF               [12] 5929 	mov	r7,a
       004C74 C0 04            [24] 5930 	push	ar4
       004C76 C0 03            [24] 5931 	push	ar3
@@ -5960,13 +5960,13 @@
       004CA7 8A 82            [24] 5960 	mov	dpl,r2
       004CA9 8B 83            [24] 5961 	mov	dph,r3
       004CAB 8C F0            [24] 5962 	mov	b,r4
-      004CAD 12 70 1B         [24] 5963 	lcall	__gptrget
+      004CAD 12 70 79         [24] 5963 	lcall	__gptrget
       004CB0 FD               [12] 5964 	mov	r5,a
       004CB1 A3               [24] 5965 	inc	dptr
-      004CB2 12 70 1B         [24] 5966 	lcall	__gptrget
+      004CB2 12 70 79         [24] 5966 	lcall	__gptrget
       004CB5 FE               [12] 5967 	mov	r6,a
       004CB6 A3               [24] 5968 	inc	dptr
-      004CB7 12 70 1B         [24] 5969 	lcall	__gptrget
+      004CB7 12 70 79         [24] 5969 	lcall	__gptrget
       004CBA FF               [12] 5970 	mov	r7,a
       004CBB E5 08            [12] 5971 	mov	a,_bp
       004CBD 24 15            [12] 5972 	add	a,#0x15
@@ -5990,8 +5990,8 @@
       004CDA 24 FC            [12] 5990 	add	a,#0xfc
       004CDC F5 81            [12] 5991 	mov	sp,a
                                    5992 ;	calc.c:280: printstr("\r\nstack underflow\r\n");
-      004CDE 7D E0            [12] 5993 	mov	r5,#___str_10
-      004CE0 7C 88            [12] 5994 	mov	r4,#(___str_10 >> 8)
+      004CDE 7D 3E            [12] 5993 	mov	r5,#___str_10
+      004CE0 7C 89            [12] 5994 	mov	r4,#(___str_10 >> 8)
       004CE2 7B 80            [12] 5995 	mov	r3,#0x80
                                    5996 ;	calc.c:51: return;
       004CE4                       5997 00463$:
@@ -5999,7 +5999,7 @@
       004CE4 8D 82            [24] 5999 	mov	dpl,r5
       004CE6 8C 83            [24] 6000 	mov	dph,r4
       004CE8 8B F0            [24] 6001 	mov	b,r3
-      004CEA 12 70 1B         [24] 6002 	lcall	__gptrget
+      004CEA 12 70 79         [24] 6002 	lcall	__gptrget
       004CED FF               [12] 6003 	mov	r7,a
       004CEE 70 03            [24] 6004 	jnz	01367$
       004CF0 02 56 65         [24] 6005 	ljmp	00249$
@@ -6043,13 +6043,13 @@
       004D1F 8A 82            [24] 6043 	mov	dpl,r2
       004D21 8B 83            [24] 6044 	mov	dph,r3
       004D23 8C F0            [24] 6045 	mov	b,r4
-      004D25 12 70 1B         [24] 6046 	lcall	__gptrget
+      004D25 12 70 79         [24] 6046 	lcall	__gptrget
       004D28 FA               [12] 6047 	mov	r2,a
       004D29 A3               [24] 6048 	inc	dptr
-      004D2A 12 70 1B         [24] 6049 	lcall	__gptrget
+      004D2A 12 70 79         [24] 6049 	lcall	__gptrget
       004D2D FB               [12] 6050 	mov	r3,a
       004D2E A3               [24] 6051 	inc	dptr
-      004D2F 12 70 1B         [24] 6052 	lcall	__gptrget
+      004D2F 12 70 79         [24] 6052 	lcall	__gptrget
       004D32 FC               [12] 6053 	mov	r4,a
       004D33 E5 08            [12] 6054 	mov	a,_bp
       004D35 24 19            [12] 6055 	add	a,#0x19
@@ -6103,13 +6103,13 @@
       004D7C 8A 82            [24] 6103 	mov	dpl,r2
       004D7E 8B 83            [24] 6104 	mov	dph,r3
       004D80 8C F0            [24] 6105 	mov	b,r4
-      004D82 12 70 1B         [24] 6106 	lcall	__gptrget
+      004D82 12 70 79         [24] 6106 	lcall	__gptrget
       004D85 FD               [12] 6107 	mov	r5,a
       004D86 A3               [24] 6108 	inc	dptr
-      004D87 12 70 1B         [24] 6109 	lcall	__gptrget
+      004D87 12 70 79         [24] 6109 	lcall	__gptrget
       004D8A FE               [12] 6110 	mov	r6,a
       004D8B A3               [24] 6111 	inc	dptr
-      004D8C 12 70 1B         [24] 6112 	lcall	__gptrget
+      004D8C 12 70 79         [24] 6112 	lcall	__gptrget
       004D8F FF               [12] 6113 	mov	r7,a
       004D90 C0 04            [24] 6114 	push	ar4
       004D92 C0 03            [24] 6115 	push	ar3
@@ -6140,8 +6140,8 @@
       004DBF EE               [12] 6140 	mov	a,r6
       004DC0 4F               [12] 6141 	orl	a,r7
       004DC1 70 25            [24] 6142 	jnz	00214$
-      004DC3 7D E0            [12] 6143 	mov	r5,#___str_10
-      004DC5 7C 88            [12] 6144 	mov	r4,#(___str_10 >> 8)
+      004DC3 7D 3E            [12] 6143 	mov	r5,#___str_10
+      004DC5 7C 89            [12] 6144 	mov	r4,#(___str_10 >> 8)
       004DC7 7B 80            [12] 6145 	mov	r3,#0x80
                                    6146 ;	calc.c:51: return;
       004DC9                       6147 00466$:
@@ -6149,7 +6149,7 @@
       004DC9 8D 82            [24] 6149 	mov	dpl,r5
       004DCB 8C 83            [24] 6150 	mov	dph,r4
       004DCD 8B F0            [24] 6151 	mov	b,r3
-      004DCF 12 70 1B         [24] 6152 	lcall	__gptrget
+      004DCF 12 70 79         [24] 6152 	lcall	__gptrget
       004DD2 FF               [12] 6153 	mov	r7,a
       004DD3 70 03            [24] 6154 	jnz	01370$
       004DD5 02 56 65         [24] 6155 	ljmp	00249$
@@ -6179,13 +6179,13 @@
       004DFA 8A 82            [24] 6179 	mov	dpl,r2
       004DFC 8B 83            [24] 6180 	mov	dph,r3
       004DFE 8C F0            [24] 6181 	mov	b,r4
-      004E00 12 70 1B         [24] 6182 	lcall	__gptrget
+      004E00 12 70 79         [24] 6182 	lcall	__gptrget
       004E03 FD               [12] 6183 	mov	r5,a
       004E04 A3               [24] 6184 	inc	dptr
-      004E05 12 70 1B         [24] 6185 	lcall	__gptrget
+      004E05 12 70 79         [24] 6185 	lcall	__gptrget
       004E08 FE               [12] 6186 	mov	r6,a
       004E09 A3               [24] 6187 	inc	dptr
-      004E0A 12 70 1B         [24] 6188 	lcall	__gptrget
+      004E0A 12 70 79         [24] 6188 	lcall	__gptrget
       004E0D FF               [12] 6189 	mov	r7,a
       004E0E C0 04            [24] 6190 	push	ar4
       004E10 C0 03            [24] 6191 	push	ar3
@@ -6220,13 +6220,13 @@
       004E41 8A 82            [24] 6220 	mov	dpl,r2
       004E43 8B 83            [24] 6221 	mov	dph,r3
       004E45 8C F0            [24] 6222 	mov	b,r4
-      004E47 12 70 1B         [24] 6223 	lcall	__gptrget
+      004E47 12 70 79         [24] 6223 	lcall	__gptrget
       004E4A FD               [12] 6224 	mov	r5,a
       004E4B A3               [24] 6225 	inc	dptr
-      004E4C 12 70 1B         [24] 6226 	lcall	__gptrget
+      004E4C 12 70 79         [24] 6226 	lcall	__gptrget
       004E4F FE               [12] 6227 	mov	r6,a
       004E50 A3               [24] 6228 	inc	dptr
-      004E51 12 70 1B         [24] 6229 	lcall	__gptrget
+      004E51 12 70 79         [24] 6229 	lcall	__gptrget
       004E54 FF               [12] 6230 	mov	r7,a
       004E55 E5 08            [12] 6231 	mov	a,_bp
       004E57 24 15            [12] 6232 	add	a,#0x15
@@ -6250,8 +6250,8 @@
       004E74 24 FC            [12] 6250 	add	a,#0xfc
       004E76 F5 81            [12] 6251 	mov	sp,a
                                    6252 ;	calc.c:290: printstr("\r\nstack underflow\r\n");
-      004E78 7D E0            [12] 6253 	mov	r5,#___str_10
-      004E7A 7C 88            [12] 6254 	mov	r4,#(___str_10 >> 8)
+      004E78 7D 3E            [12] 6253 	mov	r5,#___str_10
+      004E7A 7C 89            [12] 6254 	mov	r4,#(___str_10 >> 8)
       004E7C 7B 80            [12] 6255 	mov	r3,#0x80
                                    6256 ;	calc.c:51: return;
       004E7E                       6257 00469$:
@@ -6259,7 +6259,7 @@
       004E7E 8D 82            [24] 6259 	mov	dpl,r5
       004E80 8C 83            [24] 6260 	mov	dph,r4
       004E82 8B F0            [24] 6261 	mov	b,r3
-      004E84 12 70 1B         [24] 6262 	lcall	__gptrget
+      004E84 12 70 79         [24] 6262 	lcall	__gptrget
       004E87 FF               [12] 6263 	mov	r7,a
       004E88 70 03            [24] 6264 	jnz	01373$
       004E8A 02 56 65         [24] 6265 	ljmp	00249$
@@ -6303,13 +6303,13 @@
       004EB9 8A 82            [24] 6303 	mov	dpl,r2
       004EBB 8B 83            [24] 6304 	mov	dph,r3
       004EBD 8C F0            [24] 6305 	mov	b,r4
-      004EBF 12 70 1B         [24] 6306 	lcall	__gptrget
+      004EBF 12 70 79         [24] 6306 	lcall	__gptrget
       004EC2 FA               [12] 6307 	mov	r2,a
       004EC3 A3               [24] 6308 	inc	dptr
-      004EC4 12 70 1B         [24] 6309 	lcall	__gptrget
+      004EC4 12 70 79         [24] 6309 	lcall	__gptrget
       004EC7 FB               [12] 6310 	mov	r3,a
       004EC8 A3               [24] 6311 	inc	dptr
-      004EC9 12 70 1B         [24] 6312 	lcall	__gptrget
+      004EC9 12 70 79         [24] 6312 	lcall	__gptrget
       004ECC FC               [12] 6313 	mov	r4,a
       004ECD E5 08            [12] 6314 	mov	a,_bp
       004ECF 24 19            [12] 6315 	add	a,#0x19
@@ -6363,13 +6363,13 @@
       004F16 8A 82            [24] 6363 	mov	dpl,r2
       004F18 8B 83            [24] 6364 	mov	dph,r3
       004F1A 8C F0            [24] 6365 	mov	b,r4
-      004F1C 12 70 1B         [24] 6366 	lcall	__gptrget
+      004F1C 12 70 79         [24] 6366 	lcall	__gptrget
       004F1F FD               [12] 6367 	mov	r5,a
       004F20 A3               [24] 6368 	inc	dptr
-      004F21 12 70 1B         [24] 6369 	lcall	__gptrget
+      004F21 12 70 79         [24] 6369 	lcall	__gptrget
       004F24 FE               [12] 6370 	mov	r6,a
       004F25 A3               [24] 6371 	inc	dptr
-      004F26 12 70 1B         [24] 6372 	lcall	__gptrget
+      004F26 12 70 79         [24] 6372 	lcall	__gptrget
       004F29 FF               [12] 6373 	mov	r7,a
       004F2A C0 04            [24] 6374 	push	ar4
       004F2C C0 03            [24] 6375 	push	ar3
@@ -6400,8 +6400,8 @@
       004F59 EE               [12] 6400 	mov	a,r6
       004F5A 4F               [12] 6401 	orl	a,r7
       004F5B 70 25            [24] 6402 	jnz	00221$
-      004F5D 7D E0            [12] 6403 	mov	r5,#___str_10
-      004F5F 7C 88            [12] 6404 	mov	r4,#(___str_10 >> 8)
+      004F5D 7D 3E            [12] 6403 	mov	r5,#___str_10
+      004F5F 7C 89            [12] 6404 	mov	r4,#(___str_10 >> 8)
       004F61 7B 80            [12] 6405 	mov	r3,#0x80
                                    6406 ;	calc.c:51: return;
       004F63                       6407 00472$:
@@ -6409,7 +6409,7 @@
       004F63 8D 82            [24] 6409 	mov	dpl,r5
       004F65 8C 83            [24] 6410 	mov	dph,r4
       004F67 8B F0            [24] 6411 	mov	b,r3
-      004F69 12 70 1B         [24] 6412 	lcall	__gptrget
+      004F69 12 70 79         [24] 6412 	lcall	__gptrget
       004F6C FF               [12] 6413 	mov	r7,a
       004F6D 70 03            [24] 6414 	jnz	01376$
       004F6F 02 56 65         [24] 6415 	ljmp	00249$
@@ -6439,13 +6439,13 @@
       004F94 8A 82            [24] 6439 	mov	dpl,r2
       004F96 8B 83            [24] 6440 	mov	dph,r3
       004F98 8C F0            [24] 6441 	mov	b,r4
-      004F9A 12 70 1B         [24] 6442 	lcall	__gptrget
+      004F9A 12 70 79         [24] 6442 	lcall	__gptrget
       004F9D FD               [12] 6443 	mov	r5,a
       004F9E A3               [24] 6444 	inc	dptr
-      004F9F 12 70 1B         [24] 6445 	lcall	__gptrget
+      004F9F 12 70 79         [24] 6445 	lcall	__gptrget
       004FA2 FE               [12] 6446 	mov	r6,a
       004FA3 A3               [24] 6447 	inc	dptr
-      004FA4 12 70 1B         [24] 6448 	lcall	__gptrget
+      004FA4 12 70 79         [24] 6448 	lcall	__gptrget
       004FA7 FF               [12] 6449 	mov	r7,a
       004FA8 C0 04            [24] 6450 	push	ar4
       004FAA C0 03            [24] 6451 	push	ar3
@@ -6480,13 +6480,13 @@
       004FDB 8A 82            [24] 6480 	mov	dpl,r2
       004FDD 8B 83            [24] 6481 	mov	dph,r3
       004FDF 8C F0            [24] 6482 	mov	b,r4
-      004FE1 12 70 1B         [24] 6483 	lcall	__gptrget
+      004FE1 12 70 79         [24] 6483 	lcall	__gptrget
       004FE4 FD               [12] 6484 	mov	r5,a
       004FE5 A3               [24] 6485 	inc	dptr
-      004FE6 12 70 1B         [24] 6486 	lcall	__gptrget
+      004FE6 12 70 79         [24] 6486 	lcall	__gptrget
       004FE9 FE               [12] 6487 	mov	r6,a
       004FEA A3               [24] 6488 	inc	dptr
-      004FEB 12 70 1B         [24] 6489 	lcall	__gptrget
+      004FEB 12 70 79         [24] 6489 	lcall	__gptrget
       004FEE FF               [12] 6490 	mov	r7,a
       004FEF E5 08            [12] 6491 	mov	a,_bp
       004FF1 24 15            [12] 6492 	add	a,#0x15
@@ -6510,8 +6510,8 @@
       00500E 24 FC            [12] 6510 	add	a,#0xfc
       005010 F5 81            [12] 6511 	mov	sp,a
                                    6512 ;	calc.c:300: printstr("\r\nstack underflow\r\n");
-      005012 7D E0            [12] 6513 	mov	r5,#___str_10
-      005014 7C 88            [12] 6514 	mov	r4,#(___str_10 >> 8)
+      005012 7D 3E            [12] 6513 	mov	r5,#___str_10
+      005014 7C 89            [12] 6514 	mov	r4,#(___str_10 >> 8)
       005016 7B 80            [12] 6515 	mov	r3,#0x80
                                    6516 ;	calc.c:51: return;
       005018                       6517 00475$:
@@ -6519,7 +6519,7 @@
       005018 8D 82            [24] 6519 	mov	dpl,r5
       00501A 8C 83            [24] 6520 	mov	dph,r4
       00501C 8B F0            [24] 6521 	mov	b,r3
-      00501E 12 70 1B         [24] 6522 	lcall	__gptrget
+      00501E 12 70 79         [24] 6522 	lcall	__gptrget
       005021 FF               [12] 6523 	mov	r7,a
       005022 70 03            [24] 6524 	jnz	01379$
       005024 02 56 65         [24] 6525 	ljmp	00249$
@@ -6563,13 +6563,13 @@
       005053 8A 82            [24] 6563 	mov	dpl,r2
       005055 8B 83            [24] 6564 	mov	dph,r3
       005057 8C F0            [24] 6565 	mov	b,r4
-      005059 12 70 1B         [24] 6566 	lcall	__gptrget
+      005059 12 70 79         [24] 6566 	lcall	__gptrget
       00505C FA               [12] 6567 	mov	r2,a
       00505D A3               [24] 6568 	inc	dptr
-      00505E 12 70 1B         [24] 6569 	lcall	__gptrget
+      00505E 12 70 79         [24] 6569 	lcall	__gptrget
       005061 FB               [12] 6570 	mov	r3,a
       005062 A3               [24] 6571 	inc	dptr
-      005063 12 70 1B         [24] 6572 	lcall	__gptrget
+      005063 12 70 79         [24] 6572 	lcall	__gptrget
       005066 FC               [12] 6573 	mov	r4,a
       005067 E5 08            [12] 6574 	mov	a,_bp
       005069 24 19            [12] 6575 	add	a,#0x19
@@ -6628,13 +6628,13 @@
       0050B6 86 83            [24] 6628 	mov	dph,@r0
       0050B8 08               [12] 6629 	inc	r0
       0050B9 86 F0            [24] 6630 	mov	b,@r0
-      0050BB 12 70 1B         [24] 6631 	lcall	__gptrget
+      0050BB 12 70 79         [24] 6631 	lcall	__gptrget
       0050BE FD               [12] 6632 	mov	r5,a
       0050BF A3               [24] 6633 	inc	dptr
-      0050C0 12 70 1B         [24] 6634 	lcall	__gptrget
+      0050C0 12 70 79         [24] 6634 	lcall	__gptrget
       0050C3 FE               [12] 6635 	mov	r6,a
       0050C4 A3               [24] 6636 	inc	dptr
-      0050C5 12 70 1B         [24] 6637 	lcall	__gptrget
+      0050C5 12 70 79         [24] 6637 	lcall	__gptrget
       0050C8 FF               [12] 6638 	mov	r7,a
       0050C9 C0 04            [24] 6639 	push	ar4
       0050CB C0 03            [24] 6640 	push	ar3
@@ -6651,8 +6651,8 @@
       0050E2 EE               [12] 6651 	mov	a,r6
       0050E3 4F               [12] 6652 	orl	a,r7
       0050E4 70 25            [24] 6653 	jnz	00228$
-      0050E6 7D E0            [12] 6654 	mov	r5,#___str_10
-      0050E8 7C 88            [12] 6655 	mov	r4,#(___str_10 >> 8)
+      0050E6 7D 3E            [12] 6654 	mov	r5,#___str_10
+      0050E8 7C 89            [12] 6655 	mov	r4,#(___str_10 >> 8)
       0050EA 7B 80            [12] 6656 	mov	r3,#0x80
                                    6657 ;	calc.c:51: return;
       0050EC                       6658 00478$:
@@ -6660,7 +6660,7 @@
       0050EC 8D 82            [24] 6660 	mov	dpl,r5
       0050EE 8C 83            [24] 6661 	mov	dph,r4
       0050F0 8B F0            [24] 6662 	mov	b,r3
-      0050F2 12 70 1B         [24] 6663 	lcall	__gptrget
+      0050F2 12 70 79         [24] 6663 	lcall	__gptrget
       0050F5 FF               [12] 6664 	mov	r7,a
       0050F6 70 03            [24] 6665 	jnz	01382$
       0050F8 02 56 65         [24] 6666 	ljmp	00249$
@@ -6689,13 +6689,13 @@
       00511C 86 83            [24] 6689 	mov	dph,@r0
       00511E 08               [12] 6690 	inc	r0
       00511F 86 F0            [24] 6691 	mov	b,@r0
-      005121 12 70 1B         [24] 6692 	lcall	__gptrget
+      005121 12 70 79         [24] 6692 	lcall	__gptrget
       005124 FD               [12] 6693 	mov	r5,a
       005125 A3               [24] 6694 	inc	dptr
-      005126 12 70 1B         [24] 6695 	lcall	__gptrget
+      005126 12 70 79         [24] 6695 	lcall	__gptrget
       005129 FE               [12] 6696 	mov	r6,a
       00512A A3               [24] 6697 	inc	dptr
-      00512B 12 70 1B         [24] 6698 	lcall	__gptrget
+      00512B 12 70 79         [24] 6698 	lcall	__gptrget
       00512E FF               [12] 6699 	mov	r7,a
       00512F C0 04            [24] 6700 	push	ar4
       005131 C0 03            [24] 6701 	push	ar3
@@ -6721,13 +6721,13 @@
       005154 86 83            [24] 6721 	mov	dph,@r0
       005156 08               [12] 6722 	inc	r0
       005157 86 F0            [24] 6723 	mov	b,@r0
-      005159 12 70 1B         [24] 6724 	lcall	__gptrget
+      005159 12 70 79         [24] 6724 	lcall	__gptrget
       00515C FD               [12] 6725 	mov	r5,a
       00515D A3               [24] 6726 	inc	dptr
-      00515E 12 70 1B         [24] 6727 	lcall	__gptrget
+      00515E 12 70 79         [24] 6727 	lcall	__gptrget
       005161 FE               [12] 6728 	mov	r6,a
       005162 A3               [24] 6729 	inc	dptr
-      005163 12 70 1B         [24] 6730 	lcall	__gptrget
+      005163 12 70 79         [24] 6730 	lcall	__gptrget
       005166 FF               [12] 6731 	mov	r7,a
       005167 E5 08            [12] 6732 	mov	a,_bp
       005169 24 15            [12] 6733 	add	a,#0x15
@@ -6751,8 +6751,8 @@
       005186 24 FC            [12] 6751 	add	a,#0xfc
       005188 F5 81            [12] 6752 	mov	sp,a
                                    6753 ;	calc.c:310: printstr("\r\nstack underflow\r\n");
-      00518A 7D E0            [12] 6754 	mov	r5,#___str_10
-      00518C 7C 88            [12] 6755 	mov	r4,#(___str_10 >> 8)
+      00518A 7D 3E            [12] 6754 	mov	r5,#___str_10
+      00518C 7C 89            [12] 6755 	mov	r4,#(___str_10 >> 8)
       00518E 7B 80            [12] 6756 	mov	r3,#0x80
                                    6757 ;	calc.c:51: return;
       005190                       6758 00481$:
@@ -6760,7 +6760,7 @@
       005190 8D 82            [24] 6760 	mov	dpl,r5
       005192 8C 83            [24] 6761 	mov	dph,r4
       005194 8B F0            [24] 6762 	mov	b,r3
-      005196 12 70 1B         [24] 6763 	lcall	__gptrget
+      005196 12 70 79         [24] 6763 	lcall	__gptrget
       005199 FF               [12] 6764 	mov	r7,a
       00519A 70 03            [24] 6765 	jnz	01385$
       00519C 02 56 65         [24] 6766 	ljmp	00249$
@@ -6829,13 +6829,13 @@
       0051F7 86 83            [24] 6829 	mov	dph,@r0
       0051F9 08               [12] 6830 	inc	r0
       0051FA 86 F0            [24] 6831 	mov	b,@r0
-      0051FC 12 70 1B         [24] 6832 	lcall	__gptrget
+      0051FC 12 70 79         [24] 6832 	lcall	__gptrget
       0051FF FD               [12] 6833 	mov	r5,a
       005200 A3               [24] 6834 	inc	dptr
-      005201 12 70 1B         [24] 6835 	lcall	__gptrget
+      005201 12 70 79         [24] 6835 	lcall	__gptrget
       005204 FE               [12] 6836 	mov	r6,a
       005205 A3               [24] 6837 	inc	dptr
-      005206 12 70 1B         [24] 6838 	lcall	__gptrget
+      005206 12 70 79         [24] 6838 	lcall	__gptrget
       005209 FF               [12] 6839 	mov	r7,a
       00520A E5 08            [12] 6840 	mov	a,_bp
       00520C 24 19            [12] 6841 	add	a,#0x19
@@ -6889,13 +6889,13 @@
       005253 8A 82            [24] 6889 	mov	dpl,r2
       005255 8B 83            [24] 6890 	mov	dph,r3
       005257 8C F0            [24] 6891 	mov	b,r4
-      005259 12 70 1B         [24] 6892 	lcall	__gptrget
+      005259 12 70 79         [24] 6892 	lcall	__gptrget
       00525C FD               [12] 6893 	mov	r5,a
       00525D A3               [24] 6894 	inc	dptr
-      00525E 12 70 1B         [24] 6895 	lcall	__gptrget
+      00525E 12 70 79         [24] 6895 	lcall	__gptrget
       005261 FE               [12] 6896 	mov	r6,a
       005262 A3               [24] 6897 	inc	dptr
-      005263 12 70 1B         [24] 6898 	lcall	__gptrget
+      005263 12 70 79         [24] 6898 	lcall	__gptrget
       005266 FF               [12] 6899 	mov	r7,a
       005267 C0 04            [24] 6900 	push	ar4
       005269 C0 03            [24] 6901 	push	ar3
@@ -6926,8 +6926,8 @@
       005296 EE               [12] 6926 	mov	a,r6
       005297 4F               [12] 6927 	orl	a,r7
       005298 70 25            [24] 6928 	jnz	00235$
-      00529A 7D E0            [12] 6929 	mov	r5,#___str_10
-      00529C 7C 88            [12] 6930 	mov	r4,#(___str_10 >> 8)
+      00529A 7D 3E            [12] 6929 	mov	r5,#___str_10
+      00529C 7C 89            [12] 6930 	mov	r4,#(___str_10 >> 8)
       00529E 7B 80            [12] 6931 	mov	r3,#0x80
                                    6932 ;	calc.c:51: return;
       0052A0                       6933 00484$:
@@ -6935,7 +6935,7 @@
       0052A0 8D 82            [24] 6935 	mov	dpl,r5
       0052A2 8C 83            [24] 6936 	mov	dph,r4
       0052A4 8B F0            [24] 6937 	mov	b,r3
-      0052A6 12 70 1B         [24] 6938 	lcall	__gptrget
+      0052A6 12 70 79         [24] 6938 	lcall	__gptrget
       0052A9 FF               [12] 6939 	mov	r7,a
       0052AA 70 03            [24] 6940 	jnz	01390$
       0052AC 02 56 65         [24] 6941 	ljmp	00249$
@@ -6965,13 +6965,13 @@
       0052D1 8A 82            [24] 6965 	mov	dpl,r2
       0052D3 8B 83            [24] 6966 	mov	dph,r3
       0052D5 8C F0            [24] 6967 	mov	b,r4
-      0052D7 12 70 1B         [24] 6968 	lcall	__gptrget
+      0052D7 12 70 79         [24] 6968 	lcall	__gptrget
       0052DA FD               [12] 6969 	mov	r5,a
       0052DB A3               [24] 6970 	inc	dptr
-      0052DC 12 70 1B         [24] 6971 	lcall	__gptrget
+      0052DC 12 70 79         [24] 6971 	lcall	__gptrget
       0052DF FE               [12] 6972 	mov	r6,a
       0052E0 A3               [24] 6973 	inc	dptr
-      0052E1 12 70 1B         [24] 6974 	lcall	__gptrget
+      0052E1 12 70 79         [24] 6974 	lcall	__gptrget
       0052E4 FF               [12] 6975 	mov	r7,a
       0052E5 C0 04            [24] 6976 	push	ar4
       0052E7 C0 03            [24] 6977 	push	ar3
@@ -7006,13 +7006,13 @@
       005318 8A 82            [24] 7006 	mov	dpl,r2
       00531A 8B 83            [24] 7007 	mov	dph,r3
       00531C 8C F0            [24] 7008 	mov	b,r4
-      00531E 12 70 1B         [24] 7009 	lcall	__gptrget
+      00531E 12 70 79         [24] 7009 	lcall	__gptrget
       005321 FD               [12] 7010 	mov	r5,a
       005322 A3               [24] 7011 	inc	dptr
-      005323 12 70 1B         [24] 7012 	lcall	__gptrget
+      005323 12 70 79         [24] 7012 	lcall	__gptrget
       005326 FE               [12] 7013 	mov	r6,a
       005327 A3               [24] 7014 	inc	dptr
-      005328 12 70 1B         [24] 7015 	lcall	__gptrget
+      005328 12 70 79         [24] 7015 	lcall	__gptrget
       00532B FF               [12] 7016 	mov	r7,a
       00532C E5 08            [12] 7017 	mov	a,_bp
       00532E 24 15            [12] 7018 	add	a,#0x15
@@ -7036,8 +7036,8 @@
       00534B 24 FC            [12] 7036 	add	a,#0xfc
       00534D F5 81            [12] 7037 	mov	sp,a
                                    7038 ;	calc.c:320: printstr("\r\nstack underflow\r\n");
-      00534F 7D E0            [12] 7039 	mov	r5,#___str_10
-      005351 7C 88            [12] 7040 	mov	r4,#(___str_10 >> 8)
+      00534F 7D 3E            [12] 7039 	mov	r5,#___str_10
+      005351 7C 89            [12] 7040 	mov	r4,#(___str_10 >> 8)
       005353 7B 80            [12] 7041 	mov	r3,#0x80
                                    7042 ;	calc.c:51: return;
       005355                       7043 00487$:
@@ -7045,7 +7045,7 @@
       005355 8D 82            [24] 7045 	mov	dpl,r5
       005357 8C 83            [24] 7046 	mov	dph,r4
       005359 8B F0            [24] 7047 	mov	b,r3
-      00535B 12 70 1B         [24] 7048 	lcall	__gptrget
+      00535B 12 70 79         [24] 7048 	lcall	__gptrget
       00535E FF               [12] 7049 	mov	r7,a
       00535F 70 03            [24] 7050 	jnz	01393$
       005361 02 56 65         [24] 7051 	ljmp	00249$
@@ -7107,13 +7107,13 @@
       0053AA 8A 82            [24] 7107 	mov	dpl,r2
       0053AC 8B 83            [24] 7108 	mov	dph,r3
       0053AE 8C F0            [24] 7109 	mov	b,r4
-      0053B0 12 70 1B         [24] 7110 	lcall	__gptrget
+      0053B0 12 70 79         [24] 7110 	lcall	__gptrget
       0053B3 FA               [12] 7111 	mov	r2,a
       0053B4 A3               [24] 7112 	inc	dptr
-      0053B5 12 70 1B         [24] 7113 	lcall	__gptrget
+      0053B5 12 70 79         [24] 7113 	lcall	__gptrget
       0053B8 FB               [12] 7114 	mov	r3,a
       0053B9 A3               [24] 7115 	inc	dptr
-      0053BA 12 70 1B         [24] 7116 	lcall	__gptrget
+      0053BA 12 70 79         [24] 7116 	lcall	__gptrget
       0053BD FC               [12] 7117 	mov	r4,a
       0053BE E5 08            [12] 7118 	mov	a,_bp
       0053C0 24 19            [12] 7119 	add	a,#0x19
@@ -7172,13 +7172,13 @@
       00540D 86 83            [24] 7172 	mov	dph,@r0
       00540F 08               [12] 7173 	inc	r0
       005410 86 F0            [24] 7174 	mov	b,@r0
-      005412 12 70 1B         [24] 7175 	lcall	__gptrget
+      005412 12 70 79         [24] 7175 	lcall	__gptrget
       005415 FD               [12] 7176 	mov	r5,a
       005416 A3               [24] 7177 	inc	dptr
-      005417 12 70 1B         [24] 7178 	lcall	__gptrget
+      005417 12 70 79         [24] 7178 	lcall	__gptrget
       00541A FE               [12] 7179 	mov	r6,a
       00541B A3               [24] 7180 	inc	dptr
-      00541C 12 70 1B         [24] 7181 	lcall	__gptrget
+      00541C 12 70 79         [24] 7181 	lcall	__gptrget
       00541F FF               [12] 7182 	mov	r7,a
       005420 C0 04            [24] 7183 	push	ar4
       005422 C0 03            [24] 7184 	push	ar3
@@ -7195,8 +7195,8 @@
       005439 EE               [12] 7195 	mov	a,r6
       00543A 4F               [12] 7196 	orl	a,r7
       00543B 70 25            [24] 7197 	jnz	00242$
-      00543D 7D E0            [12] 7198 	mov	r5,#___str_10
-      00543F 7C 88            [12] 7199 	mov	r4,#(___str_10 >> 8)
+      00543D 7D 3E            [12] 7198 	mov	r5,#___str_10
+      00543F 7C 89            [12] 7199 	mov	r4,#(___str_10 >> 8)
       005441 7B 80            [12] 7200 	mov	r3,#0x80
                                    7201 ;	calc.c:51: return;
       005443                       7202 00490$:
@@ -7204,7 +7204,7 @@
       005443 8D 82            [24] 7204 	mov	dpl,r5
       005445 8C 83            [24] 7205 	mov	dph,r4
       005447 8B F0            [24] 7206 	mov	b,r3
-      005449 12 70 1B         [24] 7207 	lcall	__gptrget
+      005449 12 70 79         [24] 7207 	lcall	__gptrget
       00544C FF               [12] 7208 	mov	r7,a
       00544D 70 03            [24] 7209 	jnz	01398$
       00544F 02 56 65         [24] 7210 	ljmp	00249$
@@ -7233,13 +7233,13 @@
       005473 86 83            [24] 7233 	mov	dph,@r0
       005475 08               [12] 7234 	inc	r0
       005476 86 F0            [24] 7235 	mov	b,@r0
-      005478 12 70 1B         [24] 7236 	lcall	__gptrget
+      005478 12 70 79         [24] 7236 	lcall	__gptrget
       00547B FD               [12] 7237 	mov	r5,a
       00547C A3               [24] 7238 	inc	dptr
-      00547D 12 70 1B         [24] 7239 	lcall	__gptrget
+      00547D 12 70 79         [24] 7239 	lcall	__gptrget
       005480 FE               [12] 7240 	mov	r6,a
       005481 A3               [24] 7241 	inc	dptr
-      005482 12 70 1B         [24] 7242 	lcall	__gptrget
+      005482 12 70 79         [24] 7242 	lcall	__gptrget
       005485 FF               [12] 7243 	mov	r7,a
       005486 C0 04            [24] 7244 	push	ar4
       005488 C0 03            [24] 7245 	push	ar3
@@ -7265,13 +7265,13 @@
       0054AB 86 83            [24] 7265 	mov	dph,@r0
       0054AD 08               [12] 7266 	inc	r0
       0054AE 86 F0            [24] 7267 	mov	b,@r0
-      0054B0 12 70 1B         [24] 7268 	lcall	__gptrget
+      0054B0 12 70 79         [24] 7268 	lcall	__gptrget
       0054B3 FD               [12] 7269 	mov	r5,a
       0054B4 A3               [24] 7270 	inc	dptr
-      0054B5 12 70 1B         [24] 7271 	lcall	__gptrget
+      0054B5 12 70 79         [24] 7271 	lcall	__gptrget
       0054B8 FE               [12] 7272 	mov	r6,a
       0054B9 A3               [24] 7273 	inc	dptr
-      0054BA 12 70 1B         [24] 7274 	lcall	__gptrget
+      0054BA 12 70 79         [24] 7274 	lcall	__gptrget
       0054BD FF               [12] 7275 	mov	r7,a
       0054BE E5 08            [12] 7276 	mov	a,_bp
       0054C0 24 15            [12] 7277 	add	a,#0x15
@@ -7295,8 +7295,8 @@
       0054DD 24 FC            [12] 7295 	add	a,#0xfc
       0054DF F5 81            [12] 7296 	mov	sp,a
                                    7297 ;	calc.c:330: printstr("\r\nstack underflow\r\n");
-      0054E1 7D E0            [12] 7298 	mov	r5,#___str_10
-      0054E3 7C 88            [12] 7299 	mov	r4,#(___str_10 >> 8)
+      0054E1 7D 3E            [12] 7298 	mov	r5,#___str_10
+      0054E3 7C 89            [12] 7299 	mov	r4,#(___str_10 >> 8)
       0054E5 7B 80            [12] 7300 	mov	r3,#0x80
                                    7301 ;	calc.c:51: return;
       0054E7                       7302 00493$:
@@ -7304,7 +7304,7 @@
       0054E7 8D 82            [24] 7304 	mov	dpl,r5
       0054E9 8C 83            [24] 7305 	mov	dph,r4
       0054EB 8B F0            [24] 7306 	mov	b,r3
-      0054ED 12 70 1B         [24] 7307 	lcall	__gptrget
+      0054ED 12 70 79         [24] 7307 	lcall	__gptrget
       0054F0 FF               [12] 7308 	mov	r7,a
       0054F1 70 03            [24] 7309 	jnz	01401$
       0054F3 02 56 65         [24] 7310 	ljmp	00249$
@@ -7374,13 +7374,13 @@
       00554E 86 83            [24] 7374 	mov	dph,@r0
       005550 08               [12] 7375 	inc	r0
       005551 86 F0            [24] 7376 	mov	b,@r0
-      005553 12 70 1B         [24] 7377 	lcall	__gptrget
+      005553 12 70 79         [24] 7377 	lcall	__gptrget
       005556 FD               [12] 7378 	mov	r5,a
       005557 A3               [24] 7379 	inc	dptr
-      005558 12 70 1B         [24] 7380 	lcall	__gptrget
+      005558 12 70 79         [24] 7380 	lcall	__gptrget
       00555B FE               [12] 7381 	mov	r6,a
       00555C A3               [24] 7382 	inc	dptr
-      00555D 12 70 1B         [24] 7383 	lcall	__gptrget
+      00555D 12 70 79         [24] 7383 	lcall	__gptrget
       005560 FF               [12] 7384 	mov	r7,a
       005561 E5 08            [12] 7385 	mov	a,_bp
       005563 24 19            [12] 7386 	add	a,#0x19
@@ -7434,13 +7434,13 @@
       0055AA 8A 82            [24] 7434 	mov	dpl,r2
       0055AC 8B 83            [24] 7435 	mov	dph,r3
       0055AE 8C F0            [24] 7436 	mov	b,r4
-      0055B0 12 70 1B         [24] 7437 	lcall	__gptrget
+      0055B0 12 70 79         [24] 7437 	lcall	__gptrget
       0055B3 FD               [12] 7438 	mov	r5,a
       0055B4 A3               [24] 7439 	inc	dptr
-      0055B5 12 70 1B         [24] 7440 	lcall	__gptrget
+      0055B5 12 70 79         [24] 7440 	lcall	__gptrget
       0055B8 FE               [12] 7441 	mov	r6,a
       0055B9 A3               [24] 7442 	inc	dptr
-      0055BA 12 70 1B         [24] 7443 	lcall	__gptrget
+      0055BA 12 70 79         [24] 7443 	lcall	__gptrget
       0055BD FF               [12] 7444 	mov	r7,a
       0055BE C0 04            [24] 7445 	push	ar4
       0055C0 C0 03            [24] 7446 	push	ar3
@@ -7471,8 +7471,8 @@
       0055ED EE               [12] 7471 	mov	a,r6
       0055EE 4F               [12] 7472 	orl	a,r7
       0055EF 70 22            [24] 7473 	jnz	00246$
-      0055F1 7D E0            [12] 7474 	mov	r5,#___str_10
-      0055F3 7C 88            [12] 7475 	mov	r4,#(___str_10 >> 8)
+      0055F1 7D 3E            [12] 7474 	mov	r5,#___str_10
+      0055F3 7C 89            [12] 7475 	mov	r4,#(___str_10 >> 8)
       0055F5 7B 80            [12] 7476 	mov	r3,#0x80
                                    7477 ;	calc.c:51: return;
       0055F7                       7478 00496$:
@@ -7480,7 +7480,7 @@
       0055F7 8D 82            [24] 7480 	mov	dpl,r5
       0055F9 8C 83            [24] 7481 	mov	dph,r4
       0055FB 8B F0            [24] 7482 	mov	b,r3
-      0055FD 12 70 1B         [24] 7483 	lcall	__gptrget
+      0055FD 12 70 79         [24] 7483 	lcall	__gptrget
       005600 FF               [12] 7484 	mov	r7,a
       005601 60 62            [24] 7485 	jz	00249$
       005603 7E 00            [12] 7486 	mov	r6,#0x00
@@ -7516,13 +7516,13 @@
       005627 8A 82            [24] 7516 	mov	dpl,r2
       005629 8B 83            [24] 7517 	mov	dph,r3
       00562B 8C F0            [24] 7518 	mov	b,r4
-      00562D 12 70 1B         [24] 7519 	lcall	__gptrget
+      00562D 12 70 79         [24] 7519 	lcall	__gptrget
       005630 FA               [12] 7520 	mov	r2,a
       005631 A3               [24] 7521 	inc	dptr
-      005632 12 70 1B         [24] 7522 	lcall	__gptrget
+      005632 12 70 79         [24] 7522 	lcall	__gptrget
       005635 FB               [12] 7523 	mov	r3,a
       005636 A3               [24] 7524 	inc	dptr
-      005637 12 70 1B         [24] 7525 	lcall	__gptrget
+      005637 12 70 79         [24] 7525 	lcall	__gptrget
       00563A FC               [12] 7526 	mov	r4,a
       00563B E5 08            [12] 7527 	mov	a,_bp
       00563D 24 15            [12] 7528 	add	a,#0x15
@@ -7611,7 +7611,7 @@
       00569E 8E 83            [24] 7611 	mov	dph,r6
       0056A0 8F F0            [24] 7612 	mov	b,r7
       0056A2 E4               [12] 7613 	clr	a
-      0056A3 12 6B A0         [24] 7614 	lcall	__gptrput
+      0056A3 12 6B FE         [24] 7614 	lcall	__gptrput
                                    7615 ;	calc.c:356: if (!stack_push(ctx->ps, ctx->acc)) printstr("\r\nstack overflow\r\n");
       0056A6 74 02            [12] 7616 	mov	a,#0x02
       0056A8 2A               [12] 7617 	add	a,r2
@@ -7625,18 +7625,18 @@
       0056B3 8E F0            [24] 7625 	mov	b,r6
       0056B5 A8 08            [24] 7626 	mov	r0,_bp
       0056B7 08               [12] 7627 	inc	r0
-      0056B8 12 70 1B         [24] 7628 	lcall	__gptrget
+      0056B8 12 70 79         [24] 7628 	lcall	__gptrget
       0056BB F6               [12] 7629 	mov	@r0,a
       0056BC A3               [24] 7630 	inc	dptr
-      0056BD 12 70 1B         [24] 7631 	lcall	__gptrget
+      0056BD 12 70 79         [24] 7631 	lcall	__gptrget
       0056C0 08               [12] 7632 	inc	r0
       0056C1 F6               [12] 7633 	mov	@r0,a
       0056C2 A3               [24] 7634 	inc	dptr
-      0056C3 12 70 1B         [24] 7635 	lcall	__gptrget
+      0056C3 12 70 79         [24] 7635 	lcall	__gptrget
       0056C6 08               [12] 7636 	inc	r0
       0056C7 F6               [12] 7637 	mov	@r0,a
       0056C8 A3               [24] 7638 	inc	dptr
-      0056C9 12 70 1B         [24] 7639 	lcall	__gptrget
+      0056C9 12 70 79         [24] 7639 	lcall	__gptrget
       0056CC 08               [12] 7640 	inc	r0
       0056CD F6               [12] 7641 	mov	@r0,a
       0056CE 74 13            [12] 7642 	mov	a,#0x13
@@ -7649,13 +7649,13 @@
       0056D8 8A 82            [24] 7649 	mov	dpl,r2
       0056DA 8B 83            [24] 7650 	mov	dph,r3
       0056DC 8F F0            [24] 7651 	mov	b,r7
-      0056DE 12 70 1B         [24] 7652 	lcall	__gptrget
+      0056DE 12 70 79         [24] 7652 	lcall	__gptrget
       0056E1 FA               [12] 7653 	mov	r2,a
       0056E2 A3               [24] 7654 	inc	dptr
-      0056E3 12 70 1B         [24] 7655 	lcall	__gptrget
+      0056E3 12 70 79         [24] 7655 	lcall	__gptrget
       0056E6 FB               [12] 7656 	mov	r3,a
       0056E7 A3               [24] 7657 	inc	dptr
-      0056E8 12 70 1B         [24] 7658 	lcall	__gptrget
+      0056E8 12 70 79         [24] 7658 	lcall	__gptrget
       0056EB FF               [12] 7659 	mov	r7,a
       0056EC A8 08            [24] 7660 	mov	r0,_bp
       0056EE 08               [12] 7661 	inc	r0
@@ -7682,7 +7682,7 @@
       005711 EE               [12] 7682 	mov	a,r6
       005712 4F               [12] 7683 	orl	a,r7
       005713 70 22            [24] 7684 	jnz	00102$
-      005715 7D 2F            [12] 7685 	mov	r5,#___str_13
+      005715 7D 8D            [12] 7685 	mov	r5,#___str_13
       005717 7E 89            [12] 7686 	mov	r6,#(___str_13 >> 8)
       005719 7F 80            [12] 7687 	mov	r7,#0x80
                                    7688 ;	calc.c:51: return;
@@ -7691,7 +7691,7 @@
       00571B 8D 82            [24] 7691 	mov	dpl,r5
       00571D 8E 83            [24] 7692 	mov	dph,r6
       00571F 8F F0            [24] 7693 	mov	b,r7
-      005721 12 70 1B         [24] 7694 	lcall	__gptrget
+      005721 12 70 79         [24] 7694 	lcall	__gptrget
       005724 FC               [12] 7695 	mov	r4,a
       005725 60 10            [24] 7696 	jz	00102$
       005727 7B 00            [12] 7697 	mov	r3,#0x00
@@ -7723,10 +7723,10 @@
       00574D 8A 82            [24] 7723 	mov	dpl,r2
       00574F 8B 83            [24] 7724 	mov	dph,r3
       005751 8C F0            [24] 7725 	mov	b,r4
-      005753 12 70 1B         [24] 7726 	lcall	__gptrget
+      005753 12 70 79         [24] 7726 	lcall	__gptrget
       005756 FA               [12] 7727 	mov	r2,a
       005757 A3               [24] 7728 	inc	dptr
-      005758 12 70 1B         [24] 7729 	lcall	__gptrget
+      005758 12 70 79         [24] 7729 	lcall	__gptrget
       00575B FB               [12] 7730 	mov	r3,a
       00575C BA 02 29         [24] 7731 	cjne	r2,#0x02,00104$
       00575F BB 00 26         [24] 7732 	cjne	r3,#0x00,00104$
@@ -7794,10 +7794,10 @@
       0057B0 8A 82            [24] 7794 	mov	dpl,r2
       0057B2 8B 83            [24] 7795 	mov	dph,r3
       0057B4 8C F0            [24] 7796 	mov	b,r4
-      0057B6 12 70 1B         [24] 7797 	lcall	__gptrget
+      0057B6 12 70 79         [24] 7797 	lcall	__gptrget
       0057B9 FA               [12] 7798 	mov	r2,a
       0057BA A3               [24] 7799 	inc	dptr
-      0057BB 12 70 1B         [24] 7800 	lcall	__gptrget
+      0057BB 12 70 79         [24] 7800 	lcall	__gptrget
       0057BE FB               [12] 7801 	mov	r3,a
       0057BF BA 07 16         [24] 7802 	cjne	r2,#0x07,00102$
       0057C2 BB 00 13         [24] 7803 	cjne	r3,#0x00,00102$
@@ -7812,7 +7812,7 @@
       0057D0 8B 83            [24] 7812 	mov	dph,r3
       0057D2 8C F0            [24] 7813 	mov	b,r4
       0057D4 E4               [12] 7814 	clr	a
-      0057D5 12 6B A0         [24] 7815 	lcall	__gptrput
+      0057D5 12 6B FE         [24] 7815 	lcall	__gptrput
       0057D8                       7816 00102$:
                                    7817 ;	calc.c:366: ctx->acc = 0l;
       0057D8 74 02            [12] 7818 	mov	a,#0x02
@@ -7825,13 +7825,13 @@
       0057E1 8E 83            [24] 7825 	mov	dph,r6
       0057E3 8F F0            [24] 7826 	mov	b,r7
       0057E5 E4               [12] 7827 	clr	a
-      0057E6 12 6B A0         [24] 7828 	lcall	__gptrput
+      0057E6 12 6B FE         [24] 7828 	lcall	__gptrput
       0057E9 A3               [24] 7829 	inc	dptr
-      0057EA 12 6B A0         [24] 7830 	lcall	__gptrput
+      0057EA 12 6B FE         [24] 7830 	lcall	__gptrput
       0057ED A3               [24] 7831 	inc	dptr
-      0057EE 12 6B A0         [24] 7832 	lcall	__gptrput
+      0057EE 12 6B FE         [24] 7832 	lcall	__gptrput
       0057F1 A3               [24] 7833 	inc	dptr
-      0057F2 12 6B A0         [24] 7834 	lcall	__gptrput
+      0057F2 12 6B FE         [24] 7834 	lcall	__gptrput
                                    7835 ;	calc.c:368: return 1;
       0057F5 90 00 01         [24] 7836 	mov	dptr,#0x0001
                                    7837 ;	calc.c:369: }
@@ -7866,7 +7866,7 @@
       00580F 8A 82            [24] 7866 	mov	dpl,r2
       005811 8B 83            [24] 7867 	mov	dph,r3
       005813 8C F0            [24] 7868 	mov	b,r4
-      005815 12 70 1B         [24] 7869 	lcall	__gptrget
+      005815 12 70 79         [24] 7869 	lcall	__gptrget
       005818 FC               [12] 7870 	mov	r4,a
       005819 BC 48 02         [24] 7871 	cjne	r4,#0x48,00124$
       00581C 80 0F            [24] 7872 	sjmp	00101$
@@ -7886,10 +7886,10 @@
       00582F 8E 83            [24] 7886 	mov	dph,r6
       005831 8F F0            [24] 7887 	mov	b,r7
       005833 74 10            [12] 7888 	mov	a,#0x10
-      005835 12 6B A0         [24] 7889 	lcall	__gptrput
+      005835 12 6B FE         [24] 7889 	lcall	__gptrput
       005838 A3               [24] 7890 	inc	dptr
       005839 E4               [12] 7891 	clr	a
-      00583A 12 6B A0         [24] 7892 	lcall	__gptrput
+      00583A 12 6B FE         [24] 7892 	lcall	__gptrput
                                    7893 ;	calc.c:379: break;
                                    7894 ;	calc.c:380: case 'h':
       00583D 80 34            [24] 7895 	sjmp	00105$
@@ -7899,10 +7899,10 @@
       005841 8E 83            [24] 7899 	mov	dph,r6
       005843 8F F0            [24] 7900 	mov	b,r7
       005845 74 0A            [12] 7901 	mov	a,#0x0a
-      005847 12 6B A0         [24] 7902 	lcall	__gptrput
+      005847 12 6B FE         [24] 7902 	lcall	__gptrput
       00584A A3               [24] 7903 	inc	dptr
       00584B E4               [12] 7904 	clr	a
-      00584C 12 6B A0         [24] 7905 	lcall	__gptrput
+      00584C 12 6B FE         [24] 7905 	lcall	__gptrput
                                    7906 ;	calc.c:382: break;
                                    7907 ;	calc.c:383: case 'O':
       00584F 80 22            [24] 7908 	sjmp	00105$
@@ -7912,10 +7912,10 @@
       005853 8E 83            [24] 7912 	mov	dph,r6
       005855 8F F0            [24] 7913 	mov	b,r7
       005857 74 08            [12] 7914 	mov	a,#0x08
-      005859 12 6B A0         [24] 7915 	lcall	__gptrput
+      005859 12 6B FE         [24] 7915 	lcall	__gptrput
       00585C A3               [24] 7916 	inc	dptr
       00585D E4               [12] 7917 	clr	a
-      00585E 12 6B A0         [24] 7918 	lcall	__gptrput
+      00585E 12 6B FE         [24] 7918 	lcall	__gptrput
                                    7919 ;	calc.c:385: break;
                                    7920 ;	calc.c:386: case 'o':
       005861 80 10            [24] 7921 	sjmp	00105$
@@ -7925,10 +7925,10 @@
       005865 8E 83            [24] 7925 	mov	dph,r6
       005867 8F F0            [24] 7926 	mov	b,r7
       005869 74 02            [12] 7927 	mov	a,#0x02
-      00586B 12 6B A0         [24] 7928 	lcall	__gptrput
+      00586B 12 6B FE         [24] 7928 	lcall	__gptrput
       00586E A3               [24] 7929 	inc	dptr
       00586F E4               [12] 7930 	clr	a
-      005870 12 6B A0         [24] 7931 	lcall	__gptrput
+      005870 12 6B FE         [24] 7931 	lcall	__gptrput
                                    7932 ;	calc.c:389: }
       005873                       7933 00105$:
                                    7934 ;	calc.c:391: return 1;
@@ -7941,3495 +7941,3554 @@
                                    7941 ;------------------------------------------------------------
                                    7942 ;delta                     Allocated to stack - _bp -5
                                    7943 ;_ctx                      Allocated to registers r5 r6 r7 
-                                   7944 ;ctx                       Allocated to stack - _bp +7
-                                   7945 ;vals                      Allocated to stack - _bp +12
-                                   7946 ;n                         Allocated to stack - _bp +10
+                                   7944 ;ctx                       Allocated to stack - _bp +9
+                                   7945 ;vals                      Allocated to stack - _bp +14
+                                   7946 ;n                         Allocated to stack - _bp +12
                                    7947 ;__1310720127              Allocated to registers 
-                                   7948 ;d                         Allocated to stack - _bp +20
-                                   7949 ;mask                      Allocated to stack - _bp +24
-                                   7950 ;__1310720129              Allocated to registers 
-                                   7951 ;s                         Allocated to registers r2 r3 r4 
-                                   7952 ;__1966080131              Allocated to registers 
-                                   7953 ;d                         Allocated to stack - _bp +20
-                                   7954 ;mask                      Allocated to stack - _bp +24
-                                   7955 ;__1310720133              Allocated to registers 
-                                   7956 ;s                         Allocated to registers r2 r3 r4 
-                                   7957 ;__1966080135              Allocated to registers 
-                                   7958 ;d                         Allocated to stack - _bp +20
-                                   7959 ;mask                      Allocated to stack - _bp +24
-                                   7960 ;__1310720137              Allocated to registers 
-                                   7961 ;s                         Allocated to registers r2 r3 r4 
+                                   7948 ;s                         Allocated to registers r5 r6 r7 
+                                   7949 ;__1966080129              Allocated to registers 
+                                   7950 ;d                         Allocated to stack - _bp +22
+                                   7951 ;mask                      Allocated to stack - _bp +26
+                                   7952 ;__1310720131              Allocated to registers 
+                                   7953 ;s                         Allocated to stack - _bp +22
+                                   7954 ;__1966080133              Allocated to registers 
+                                   7955 ;d                         Allocated to stack - _bp +22
+                                   7956 ;mask                      Allocated to stack - _bp +26
+                                   7957 ;__1310720135              Allocated to registers 
+                                   7958 ;s                         Allocated to registers r5 r6 r7 
+                                   7959 ;__1966080137              Allocated to registers 
+                                   7960 ;d                         Allocated to stack - _bp +22
+                                   7961 ;mask                      Allocated to stack - _bp +26
                                    7962 ;__1310720139              Allocated to registers 
                                    7963 ;s                         Allocated to registers r3 r4 r5 
                                    7964 ;__1966080141              Allocated to registers 
-                                   7965 ;d                         Allocated to stack - _bp +20
-                                   7966 ;mask                      Allocated to stack - _bp +24
+                                   7965 ;d                         Allocated to stack - _bp +22
+                                   7966 ;mask                      Allocated to stack - _bp +26
                                    7967 ;__1310720143              Allocated to registers 
                                    7968 ;s                         Allocated to registers r5 r6 r7 
                                    7969 ;__1966080145              Allocated to registers 
-                                   7970 ;d                         Allocated to stack - _bp +20
-                                   7971 ;mask                      Allocated to stack - _bp +24
+                                   7970 ;d                         Allocated to stack - _bp +22
+                                   7971 ;mask                      Allocated to stack - _bp +26
                                    7972 ;__1310720147              Allocated to registers 
                                    7973 ;s                         Allocated to registers r5 r6 r7 
                                    7974 ;sloc0                     Allocated to stack - _bp +1
                                    7975 ;sloc1                     Allocated to stack - _bp +4
-                                   7976 ;------------------------------------------------------------
-                                   7977 ;	calc.c:394: static int status(void *_ctx, delta_t *delta) __reentrant {
-                                   7978 ;	-----------------------------------------
-                                   7979 ;	 function status
-                                   7980 ;	-----------------------------------------
-      005879                       7981 _status:
-      005879 C0 08            [24] 7982 	push	_bp
-      00587B E5 81            [12] 7983 	mov	a,sp
-      00587D F5 08            [12] 7984 	mov	_bp,a
-      00587F 24 1B            [12] 7985 	add	a,#0x1b
-      005881 F5 81            [12] 7986 	mov	sp,a
-      005883 AD 82            [24] 7987 	mov	r5,dpl
-      005885 AE 83            [24] 7988 	mov	r6,dph
-      005887 AF F0            [24] 7989 	mov	r7,b
-                                   7990 ;	calc.c:395: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
-      005889 E5 08            [12] 7991 	mov	a,_bp
-      00588B 24 07            [12] 7992 	add	a,#0x07
-      00588D F8               [12] 7993 	mov	r0,a
-      00588E A6 05            [24] 7994 	mov	@r0,ar5
-      005890 08               [12] 7995 	inc	r0
-      005891 A6 06            [24] 7996 	mov	@r0,ar6
-      005893 08               [12] 7997 	inc	r0
-      005894 A6 07            [24] 7998 	mov	@r0,ar7
-                                   7999 ;	calc.c:401: printf("\r\nbase = %d, ", ctx->base);
-      005896 E5 08            [12] 8000 	mov	a,_bp
-      005898 24 07            [12] 8001 	add	a,#0x07
-      00589A F8               [12] 8002 	mov	r0,a
-      00589B 86 82            [24] 8003 	mov	dpl,@r0
-      00589D 08               [12] 8004 	inc	r0
-      00589E 86 83            [24] 8005 	mov	dph,@r0
-      0058A0 08               [12] 8006 	inc	r0
-      0058A1 86 F0            [24] 8007 	mov	b,@r0
-      0058A3 12 70 1B         [24] 8008 	lcall	__gptrget
-      0058A6 FB               [12] 8009 	mov	r3,a
-      0058A7 A3               [24] 8010 	inc	dptr
-      0058A8 12 70 1B         [24] 8011 	lcall	__gptrget
-      0058AB FC               [12] 8012 	mov	r4,a
-      0058AC C0 03            [24] 8013 	push	ar3
-      0058AE C0 04            [24] 8014 	push	ar4
-      0058B0 74 57            [12] 8015 	mov	a,#___str_15
-      0058B2 C0 E0            [24] 8016 	push	acc
-      0058B4 74 89            [12] 8017 	mov	a,#(___str_15 >> 8)
-      0058B6 C0 E0            [24] 8018 	push	acc
-      0058B8 74 80            [12] 8019 	mov	a,#0x80
-      0058BA C0 E0            [24] 8020 	push	acc
-      0058BC 12 6F E2         [24] 8021 	lcall	_printf
-      0058BF E5 81            [12] 8022 	mov	a,sp
-      0058C1 24 FB            [12] 8023 	add	a,#0xfb
-      0058C3 F5 81            [12] 8024 	mov	sp,a
-                                   8025 ;	calc.c:402: printf("acc = %ld / ", ctx->acc);
-      0058C5 E5 08            [12] 8026 	mov	a,_bp
-      0058C7 24 07            [12] 8027 	add	a,#0x07
-      0058C9 F8               [12] 8028 	mov	r0,a
-      0058CA A9 08            [24] 8029 	mov	r1,_bp
-      0058CC 09               [12] 8030 	inc	r1
-      0058CD 74 02            [12] 8031 	mov	a,#0x02
-      0058CF 26               [12] 8032 	add	a,@r0
-      0058D0 F7               [12] 8033 	mov	@r1,a
-      0058D1 E4               [12] 8034 	clr	a
-      0058D2 08               [12] 8035 	inc	r0
-      0058D3 36               [12] 8036 	addc	a,@r0
-      0058D4 09               [12] 8037 	inc	r1
-      0058D5 F7               [12] 8038 	mov	@r1,a
-      0058D6 08               [12] 8039 	inc	r0
-      0058D7 09               [12] 8040 	inc	r1
-      0058D8 E6               [12] 8041 	mov	a,@r0
-      0058D9 F7               [12] 8042 	mov	@r1,a
-      0058DA A8 08            [24] 8043 	mov	r0,_bp
-      0058DC 08               [12] 8044 	inc	r0
-      0058DD 86 82            [24] 8045 	mov	dpl,@r0
-      0058DF 08               [12] 8046 	inc	r0
-      0058E0 86 83            [24] 8047 	mov	dph,@r0
-      0058E2 08               [12] 8048 	inc	r0
-      0058E3 86 F0            [24] 8049 	mov	b,@r0
-      0058E5 12 70 1B         [24] 8050 	lcall	__gptrget
-      0058E8 FC               [12] 8051 	mov	r4,a
-      0058E9 A3               [24] 8052 	inc	dptr
-      0058EA 12 70 1B         [24] 8053 	lcall	__gptrget
-      0058ED FD               [12] 8054 	mov	r5,a
-      0058EE A3               [24] 8055 	inc	dptr
-      0058EF 12 70 1B         [24] 8056 	lcall	__gptrget
-      0058F2 FE               [12] 8057 	mov	r6,a
-      0058F3 A3               [24] 8058 	inc	dptr
-      0058F4 12 70 1B         [24] 8059 	lcall	__gptrget
-      0058F7 FF               [12] 8060 	mov	r7,a
-      0058F8 C0 04            [24] 8061 	push	ar4
-      0058FA C0 05            [24] 8062 	push	ar5
-      0058FC C0 06            [24] 8063 	push	ar6
-      0058FE C0 07            [24] 8064 	push	ar7
-      005900 74 65            [12] 8065 	mov	a,#___str_16
-      005902 C0 E0            [24] 8066 	push	acc
-      005904 74 89            [12] 8067 	mov	a,#(___str_16 >> 8)
-      005906 C0 E0            [24] 8068 	push	acc
-      005908 74 80            [12] 8069 	mov	a,#0x80
-      00590A C0 E0            [24] 8070 	push	acc
-      00590C 12 6F E2         [24] 8071 	lcall	_printf
-      00590F E5 81            [12] 8072 	mov	a,sp
-      005911 24 F9            [12] 8073 	add	a,#0xf9
-      005913 F5 81            [12] 8074 	mov	sp,a
-                                   8075 ;	calc.c:403: printf("%08lx / ", ctx->acc);
-      005915 A8 08            [24] 8076 	mov	r0,_bp
-      005917 08               [12] 8077 	inc	r0
-      005918 86 82            [24] 8078 	mov	dpl,@r0
-      00591A 08               [12] 8079 	inc	r0
-      00591B 86 83            [24] 8080 	mov	dph,@r0
-      00591D 08               [12] 8081 	inc	r0
-      00591E 86 F0            [24] 8082 	mov	b,@r0
-      005920 12 70 1B         [24] 8083 	lcall	__gptrget
-      005923 FC               [12] 8084 	mov	r4,a
-      005924 A3               [24] 8085 	inc	dptr
-      005925 12 70 1B         [24] 8086 	lcall	__gptrget
-      005928 FD               [12] 8087 	mov	r5,a
-      005929 A3               [24] 8088 	inc	dptr
-      00592A 12 70 1B         [24] 8089 	lcall	__gptrget
-      00592D FE               [12] 8090 	mov	r6,a
-      00592E A3               [24] 8091 	inc	dptr
-      00592F 12 70 1B         [24] 8092 	lcall	__gptrget
-      005932 FF               [12] 8093 	mov	r7,a
-      005933 C0 04            [24] 8094 	push	ar4
-      005935 C0 05            [24] 8095 	push	ar5
-      005937 C0 06            [24] 8096 	push	ar6
-      005939 C0 07            [24] 8097 	push	ar7
-      00593B 74 C3            [12] 8098 	mov	a,#___str_4
-      00593D C0 E0            [24] 8099 	push	acc
-      00593F 74 88            [12] 8100 	mov	a,#(___str_4 >> 8)
-      005941 C0 E0            [24] 8101 	push	acc
-      005943 74 80            [12] 8102 	mov	a,#0x80
-      005945 C0 E0            [24] 8103 	push	acc
-      005947 12 6F E2         [24] 8104 	lcall	_printf
-      00594A E5 81            [12] 8105 	mov	a,sp
-      00594C 24 F9            [12] 8106 	add	a,#0xf9
-      00594E F5 81            [12] 8107 	mov	sp,a
-                                   8108 ;	calc.c:404: printbin(ctx->acc);
-      005950 A8 08            [24] 8109 	mov	r0,_bp
-      005952 08               [12] 8110 	inc	r0
-      005953 86 82            [24] 8111 	mov	dpl,@r0
-      005955 08               [12] 8112 	inc	r0
-      005956 86 83            [24] 8113 	mov	dph,@r0
-      005958 08               [12] 8114 	inc	r0
-      005959 86 F0            [24] 8115 	mov	b,@r0
-      00595B E5 08            [12] 8116 	mov	a,_bp
-      00595D 24 14            [12] 8117 	add	a,#0x14
-      00595F F9               [12] 8118 	mov	r1,a
-      005960 12 70 1B         [24] 8119 	lcall	__gptrget
-      005963 F7               [12] 8120 	mov	@r1,a
-      005964 A3               [24] 8121 	inc	dptr
-      005965 12 70 1B         [24] 8122 	lcall	__gptrget
-      005968 09               [12] 8123 	inc	r1
-      005969 F7               [12] 8124 	mov	@r1,a
-      00596A A3               [24] 8125 	inc	dptr
-      00596B 12 70 1B         [24] 8126 	lcall	__gptrget
-      00596E 09               [12] 8127 	inc	r1
-      00596F F7               [12] 8128 	mov	@r1,a
-      005970 A3               [24] 8129 	inc	dptr
-      005971 12 70 1B         [24] 8130 	lcall	__gptrget
-      005974 09               [12] 8131 	inc	r1
-      005975 F7               [12] 8132 	mov	@r1,a
-                                   8133 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
-      005976 E5 08            [12] 8134 	mov	a,_bp
-      005978 24 18            [12] 8135 	add	a,#0x18
-      00597A F8               [12] 8136 	mov	r0,a
-      00597B E4               [12] 8137 	clr	a
-      00597C F6               [12] 8138 	mov	@r0,a
-      00597D 08               [12] 8139 	inc	r0
-      00597E F6               [12] 8140 	mov	@r0,a
-      00597F 08               [12] 8141 	inc	r0
-      005980 F6               [12] 8142 	mov	@r0,a
-      005981 08               [12] 8143 	inc	r0
-      005982 76 80            [12] 8144 	mov	@r0,#0x80
-      005984                       8145 00131$:
-                                   8146 ;	calc.c:58: (void)putchar((d & mask) ? (int)'1' : (int)'0');
-      005984 E5 08            [12] 8147 	mov	a,_bp
-      005986 24 14            [12] 8148 	add	a,#0x14
-      005988 F8               [12] 8149 	mov	r0,a
-      005989 86 04            [24] 8150 	mov	ar4,@r0
-      00598B 08               [12] 8151 	inc	r0
-      00598C 86 05            [24] 8152 	mov	ar5,@r0
-      00598E 08               [12] 8153 	inc	r0
-      00598F 86 06            [24] 8154 	mov	ar6,@r0
-      005991 08               [12] 8155 	inc	r0
-      005992 86 07            [24] 8156 	mov	ar7,@r0
-      005994 E5 08            [12] 8157 	mov	a,_bp
-      005996 24 18            [12] 8158 	add	a,#0x18
-      005998 F8               [12] 8159 	mov	r0,a
-      005999 E6               [12] 8160 	mov	a,@r0
-      00599A 52 04            [12] 8161 	anl	ar4,a
-      00599C 08               [12] 8162 	inc	r0
-      00599D E6               [12] 8163 	mov	a,@r0
-      00599E 52 05            [12] 8164 	anl	ar5,a
-      0059A0 08               [12] 8165 	inc	r0
-      0059A1 E6               [12] 8166 	mov	a,@r0
-      0059A2 52 06            [12] 8167 	anl	ar6,a
-      0059A4 08               [12] 8168 	inc	r0
-      0059A5 E6               [12] 8169 	mov	a,@r0
-      0059A6 52 07            [12] 8170 	anl	ar7,a
-      0059A8 EC               [12] 8171 	mov	a,r4
-      0059A9 4D               [12] 8172 	orl	a,r5
-      0059AA 4E               [12] 8173 	orl	a,r6
-      0059AB 4F               [12] 8174 	orl	a,r7
-      0059AC 60 06            [24] 8175 	jz	00161$
-      0059AE 7E 31            [12] 8176 	mov	r6,#0x31
-      0059B0 7F 00            [12] 8177 	mov	r7,#0x00
-      0059B2 80 04            [24] 8178 	sjmp	00162$
-      0059B4                       8179 00161$:
-      0059B4 7E 30            [12] 8180 	mov	r6,#0x30
-      0059B6 7F 00            [12] 8181 	mov	r7,#0x00
-      0059B8                       8182 00162$:
-      0059B8 8E 82            [24] 8183 	mov	dpl,r6
-      0059BA 8F 83            [24] 8184 	mov	dph,r7
-      0059BC 12 2C 1F         [24] 8185 	lcall	_putchar
-                                   8186 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
-      0059BF E5 08            [12] 8187 	mov	a,_bp
-      0059C1 24 18            [12] 8188 	add	a,#0x18
-      0059C3 F8               [12] 8189 	mov	r0,a
-      0059C4 08               [12] 8190 	inc	r0
-      0059C5 08               [12] 8191 	inc	r0
-      0059C6 08               [12] 8192 	inc	r0
-      0059C7 E6               [12] 8193 	mov	a,@r0
-      0059C8 C3               [12] 8194 	clr	c
-      0059C9 13               [12] 8195 	rrc	a
-      0059CA F6               [12] 8196 	mov	@r0,a
-      0059CB 18               [12] 8197 	dec	r0
-      0059CC E6               [12] 8198 	mov	a,@r0
-      0059CD 13               [12] 8199 	rrc	a
-      0059CE F6               [12] 8200 	mov	@r0,a
-      0059CF 18               [12] 8201 	dec	r0
-      0059D0 E6               [12] 8202 	mov	a,@r0
-      0059D1 13               [12] 8203 	rrc	a
-      0059D2 F6               [12] 8204 	mov	@r0,a
-      0059D3 18               [12] 8205 	dec	r0
-      0059D4 E6               [12] 8206 	mov	a,@r0
-      0059D5 13               [12] 8207 	rrc	a
-      0059D6 F6               [12] 8208 	mov	@r0,a
-      0059D7 E5 08            [12] 8209 	mov	a,_bp
-      0059D9 24 18            [12] 8210 	add	a,#0x18
-      0059DB F8               [12] 8211 	mov	r0,a
-      0059DC E6               [12] 8212 	mov	a,@r0
-      0059DD 08               [12] 8213 	inc	r0
-      0059DE 46               [12] 8214 	orl	a,@r0
-      0059DF 08               [12] 8215 	inc	r0
-      0059E0 46               [12] 8216 	orl	a,@r0
-      0059E1 08               [12] 8217 	inc	r0
-      0059E2 46               [12] 8218 	orl	a,@r0
-      0059E3 70 9F            [24] 8219 	jnz	00131$
-                                   8220 ;	calc.c:405: printf(", acc_valid = %d\r\n", (int)ctx->acc_valid);
-      0059E5 E5 08            [12] 8221 	mov	a,_bp
-      0059E7 24 07            [12] 8222 	add	a,#0x07
-      0059E9 F8               [12] 8223 	mov	r0,a
-      0059EA 74 06            [12] 8224 	mov	a,#0x06
-      0059EC 26               [12] 8225 	add	a,@r0
-      0059ED FD               [12] 8226 	mov	r5,a
-      0059EE E4               [12] 8227 	clr	a
-      0059EF 08               [12] 8228 	inc	r0
-      0059F0 36               [12] 8229 	addc	a,@r0
-      0059F1 FE               [12] 8230 	mov	r6,a
-      0059F2 08               [12] 8231 	inc	r0
-      0059F3 86 07            [24] 8232 	mov	ar7,@r0
-      0059F5 8D 82            [24] 8233 	mov	dpl,r5
-      0059F7 8E 83            [24] 8234 	mov	dph,r6
-      0059F9 8F F0            [24] 8235 	mov	b,r7
-      0059FB 12 70 1B         [24] 8236 	lcall	__gptrget
-      0059FE FD               [12] 8237 	mov	r5,a
-      0059FF 7F 00            [12] 8238 	mov	r7,#0x00
-      005A01 C0 05            [24] 8239 	push	ar5
-      005A03 C0 07            [24] 8240 	push	ar7
-      005A05 74 72            [12] 8241 	mov	a,#___str_17
-      005A07 C0 E0            [24] 8242 	push	acc
-      005A09 74 89            [12] 8243 	mov	a,#(___str_17 >> 8)
-      005A0B C0 E0            [24] 8244 	push	acc
-      005A0D 74 80            [12] 8245 	mov	a,#0x80
-      005A0F C0 E0            [24] 8246 	push	acc
-      005A11 12 6F E2         [24] 8247 	lcall	_printf
-      005A14 E5 81            [12] 8248 	mov	a,sp
-      005A16 24 FB            [12] 8249 	add	a,#0xfb
-      005A18 F5 81            [12] 8250 	mov	sp,a
-                                   8251 ;	calc.c:406: printf("primary = %p, secondary = %p\r\n", ctx->ps, ctx->ss);
-      005A1A E5 08            [12] 8252 	mov	a,_bp
-      005A1C 24 07            [12] 8253 	add	a,#0x07
-      005A1E F8               [12] 8254 	mov	r0,a
-      005A1F 74 16            [12] 8255 	mov	a,#0x16
-      005A21 26               [12] 8256 	add	a,@r0
-      005A22 FD               [12] 8257 	mov	r5,a
-      005A23 74 40            [12] 8258 	mov	a,#0x40
-      005A25 08               [12] 8259 	inc	r0
-      005A26 36               [12] 8260 	addc	a,@r0
-      005A27 FE               [12] 8261 	mov	r6,a
-      005A28 08               [12] 8262 	inc	r0
-      005A29 86 07            [24] 8263 	mov	ar7,@r0
-      005A2B 8D 82            [24] 8264 	mov	dpl,r5
-      005A2D 8E 83            [24] 8265 	mov	dph,r6
-      005A2F 8F F0            [24] 8266 	mov	b,r7
-      005A31 A8 08            [24] 8267 	mov	r0,_bp
-      005A33 08               [12] 8268 	inc	r0
-      005A34 12 70 1B         [24] 8269 	lcall	__gptrget
-      005A37 F6               [12] 8270 	mov	@r0,a
-      005A38 A3               [24] 8271 	inc	dptr
-      005A39 12 70 1B         [24] 8272 	lcall	__gptrget
-      005A3C 08               [12] 8273 	inc	r0
-      005A3D F6               [12] 8274 	mov	@r0,a
-      005A3E A3               [24] 8275 	inc	dptr
-      005A3F 12 70 1B         [24] 8276 	lcall	__gptrget
-      005A42 08               [12] 8277 	inc	r0
-      005A43 F6               [12] 8278 	mov	@r0,a
-      005A44 E5 08            [12] 8279 	mov	a,_bp
-      005A46 24 07            [12] 8280 	add	a,#0x07
-      005A48 F8               [12] 8281 	mov	r0,a
-      005A49 E5 08            [12] 8282 	mov	a,_bp
-      005A4B 24 04            [12] 8283 	add	a,#0x04
-      005A4D F9               [12] 8284 	mov	r1,a
-      005A4E 74 13            [12] 8285 	mov	a,#0x13
-      005A50 26               [12] 8286 	add	a,@r0
-      005A51 F7               [12] 8287 	mov	@r1,a
-      005A52 74 40            [12] 8288 	mov	a,#0x40
-      005A54 08               [12] 8289 	inc	r0
-      005A55 36               [12] 8290 	addc	a,@r0
-      005A56 09               [12] 8291 	inc	r1
-      005A57 F7               [12] 8292 	mov	@r1,a
-      005A58 08               [12] 8293 	inc	r0
-      005A59 09               [12] 8294 	inc	r1
-      005A5A E6               [12] 8295 	mov	a,@r0
-      005A5B F7               [12] 8296 	mov	@r1,a
-      005A5C E5 08            [12] 8297 	mov	a,_bp
-      005A5E 24 04            [12] 8298 	add	a,#0x04
-      005A60 F8               [12] 8299 	mov	r0,a
-      005A61 86 82            [24] 8300 	mov	dpl,@r0
-      005A63 08               [12] 8301 	inc	r0
-      005A64 86 83            [24] 8302 	mov	dph,@r0
-      005A66 08               [12] 8303 	inc	r0
-      005A67 86 F0            [24] 8304 	mov	b,@r0
-      005A69 12 70 1B         [24] 8305 	lcall	__gptrget
-      005A6C FA               [12] 8306 	mov	r2,a
-      005A6D A3               [24] 8307 	inc	dptr
-      005A6E 12 70 1B         [24] 8308 	lcall	__gptrget
-      005A71 FB               [12] 8309 	mov	r3,a
-      005A72 A3               [24] 8310 	inc	dptr
-      005A73 12 70 1B         [24] 8311 	lcall	__gptrget
-      005A76 FC               [12] 8312 	mov	r4,a
-      005A77 C0 07            [24] 8313 	push	ar7
-      005A79 C0 06            [24] 8314 	push	ar6
-      005A7B C0 05            [24] 8315 	push	ar5
-      005A7D A8 08            [24] 8316 	mov	r0,_bp
-      005A7F 08               [12] 8317 	inc	r0
-      005A80 E6               [12] 8318 	mov	a,@r0
-      005A81 C0 E0            [24] 8319 	push	acc
-      005A83 08               [12] 8320 	inc	r0
-      005A84 E6               [12] 8321 	mov	a,@r0
-      005A85 C0 E0            [24] 8322 	push	acc
-      005A87 08               [12] 8323 	inc	r0
-      005A88 E6               [12] 8324 	mov	a,@r0
-      005A89 C0 E0            [24] 8325 	push	acc
-      005A8B C0 02            [24] 8326 	push	ar2
-      005A8D C0 03            [24] 8327 	push	ar3
-      005A8F C0 04            [24] 8328 	push	ar4
-      005A91 74 85            [12] 8329 	mov	a,#___str_18
-      005A93 C0 E0            [24] 8330 	push	acc
-      005A95 74 89            [12] 8331 	mov	a,#(___str_18 >> 8)
-      005A97 C0 E0            [24] 8332 	push	acc
-      005A99 74 80            [12] 8333 	mov	a,#0x80
-      005A9B C0 E0            [24] 8334 	push	acc
-      005A9D 12 6F E2         [24] 8335 	lcall	_printf
-      005AA0 E5 81            [12] 8336 	mov	a,sp
-      005AA2 24 F7            [12] 8337 	add	a,#0xf7
-      005AA4 F5 81            [12] 8338 	mov	sp,a
-                                   8339 ;	calc.c:408: n = stack_peek2(ctx->ps, vals);
-      005AA6 E5 08            [12] 8340 	mov	a,_bp
-      005AA8 24 0C            [12] 8341 	add	a,#0x0c
-      005AAA F9               [12] 8342 	mov	r1,a
-      005AAB A8 08            [24] 8343 	mov	r0,_bp
-      005AAD 08               [12] 8344 	inc	r0
-      005AAE A6 01            [24] 8345 	mov	@r0,ar1
-      005AB0 08               [12] 8346 	inc	r0
-      005AB1 76 00            [12] 8347 	mov	@r0,#0x00
-      005AB3 08               [12] 8348 	inc	r0
-      005AB4 76 40            [12] 8349 	mov	@r0,#0x40
-      005AB6 E5 08            [12] 8350 	mov	a,_bp
-      005AB8 24 04            [12] 8351 	add	a,#0x04
-      005ABA F8               [12] 8352 	mov	r0,a
-      005ABB 86 82            [24] 8353 	mov	dpl,@r0
-      005ABD 08               [12] 8354 	inc	r0
-      005ABE 86 83            [24] 8355 	mov	dph,@r0
-      005AC0 08               [12] 8356 	inc	r0
-      005AC1 86 F0            [24] 8357 	mov	b,@r0
-      005AC3 12 70 1B         [24] 8358 	lcall	__gptrget
-      005AC6 FA               [12] 8359 	mov	r2,a
-      005AC7 A3               [24] 8360 	inc	dptr
-      005AC8 12 70 1B         [24] 8361 	lcall	__gptrget
-      005ACB FB               [12] 8362 	mov	r3,a
-      005ACC A3               [24] 8363 	inc	dptr
-      005ACD 12 70 1B         [24] 8364 	lcall	__gptrget
-      005AD0 FC               [12] 8365 	mov	r4,a
-      005AD1 C0 01            [24] 8366 	push	ar1
-      005AD3 A8 08            [24] 8367 	mov	r0,_bp
-      005AD5 08               [12] 8368 	inc	r0
-      005AD6 E6               [12] 8369 	mov	a,@r0
-      005AD7 C0 E0            [24] 8370 	push	acc
-      005AD9 08               [12] 8371 	inc	r0
-      005ADA E6               [12] 8372 	mov	a,@r0
-      005ADB C0 E0            [24] 8373 	push	acc
-      005ADD 08               [12] 8374 	inc	r0
-      005ADE E6               [12] 8375 	mov	a,@r0
-      005ADF C0 E0            [24] 8376 	push	acc
-      005AE1 8A 82            [24] 8377 	mov	dpl,r2
-      005AE3 8B 83            [24] 8378 	mov	dph,r3
-      005AE5 8C F0            [24] 8379 	mov	b,r4
-      005AE7 12 29 73         [24] 8380 	lcall	_stack_peek2
-      005AEA C8               [12] 8381 	xch	a,r0
-      005AEB E5 08            [12] 8382 	mov	a,_bp
-      005AED 24 04            [12] 8383 	add	a,#0x04
-      005AEF C8               [12] 8384 	xch	a,r0
-      005AF0 A6 82            [24] 8385 	mov	@r0,dpl
-      005AF2 08               [12] 8386 	inc	r0
-      005AF3 A6 83            [24] 8387 	mov	@r0,dph
-      005AF5 15 81            [12] 8388 	dec	sp
-      005AF7 15 81            [12] 8389 	dec	sp
-      005AF9 15 81            [12] 8390 	dec	sp
-      005AFB D0 01            [24] 8391 	pop	ar1
-      005AFD D0 05            [24] 8392 	pop	ar5
-      005AFF D0 06            [24] 8393 	pop	ar6
-      005B01 D0 07            [24] 8394 	pop	ar7
-                                   8395 ;	calc.c:409: printstr("PSTOP1 = ");
-      005B03 7A A4            [12] 8396 	mov	r2,#___str_19
-      005B05 7B 89            [12] 8397 	mov	r3,#(___str_19 >> 8)
-      005B07 7C 80            [12] 8398 	mov	r4,#0x80
-                                   8399 ;	calc.c:51: return;
-      005B09                       8400 00134$:
-                                   8401 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      005B09 8A 82            [24] 8402 	mov	dpl,r2
-      005B0B 8B 83            [24] 8403 	mov	dph,r3
-      005B0D 8C F0            [24] 8404 	mov	b,r4
-      005B0F A8 08            [24] 8405 	mov	r0,_bp
-      005B11 08               [12] 8406 	inc	r0
-      005B12 12 70 1B         [24] 8407 	lcall	__gptrget
-      005B15 F6               [12] 8408 	mov	@r0,a
-      005B16 A8 08            [24] 8409 	mov	r0,_bp
-      005B18 08               [12] 8410 	inc	r0
-      005B19 E6               [12] 8411 	mov	a,@r0
-      005B1A 60 21            [24] 8412 	jz	00112$
-      005B1C C0 05            [24] 8413 	push	ar5
-      005B1E C0 06            [24] 8414 	push	ar6
-      005B20 C0 07            [24] 8415 	push	ar7
-      005B22 A8 08            [24] 8416 	mov	r0,_bp
-      005B24 08               [12] 8417 	inc	r0
-      005B25 86 06            [24] 8418 	mov	ar6,@r0
-      005B27 7F 00            [12] 8419 	mov	r7,#0x00
-      005B29 8E 82            [24] 8420 	mov	dpl,r6
-      005B2B 8F 83            [24] 8421 	mov	dph,r7
-      005B2D 12 2C 1F         [24] 8422 	lcall	_putchar
-      005B30 0A               [12] 8423 	inc	r2
-      005B31 BA 00 01         [24] 8424 	cjne	r2,#0x00,00315$
-      005B34 0B               [12] 8425 	inc	r3
-      005B35                       8426 00315$:
-      005B35 D0 07            [24] 8427 	pop	ar7
-      005B37 D0 06            [24] 8428 	pop	ar6
-      005B39 D0 05            [24] 8429 	pop	ar5
-                                   8430 ;	calc.c:409: printstr("PSTOP1 = ");
-      005B3B 80 CC            [24] 8431 	sjmp	00134$
-      005B3D                       8432 00112$:
-                                   8433 ;	calc.c:410: if (n > 0) {
-      005B3D E5 08            [12] 8434 	mov	a,_bp
-      005B3F 24 04            [12] 8435 	add	a,#0x04
-      005B41 F8               [12] 8436 	mov	r0,a
-      005B42 C3               [12] 8437 	clr	c
-      005B43 E4               [12] 8438 	clr	a
-      005B44 96               [12] 8439 	subb	a,@r0
-      005B45 74 80            [12] 8440 	mov	a,#(0x00 ^ 0x80)
-      005B47 08               [12] 8441 	inc	r0
-      005B48 86 F0            [24] 8442 	mov	b,@r0
-      005B4A 63 F0 80         [24] 8443 	xrl	b,#0x80
-      005B4D 95 F0            [12] 8444 	subb	a,b
-      005B4F 40 03            [24] 8445 	jc	00316$
-      005B51 02 5C 74         [24] 8446 	ljmp	00102$
-      005B54                       8447 00316$:
-                                   8448 ;	calc.c:411: printf("% 11ld / ", vals[1]);
-      005B54 C0 05            [24] 8449 	push	ar5
-      005B56 C0 06            [24] 8450 	push	ar6
-      005B58 C0 07            [24] 8451 	push	ar7
-      005B5A 74 04            [12] 8452 	mov	a,#0x04
-      005B5C 29               [12] 8453 	add	a,r1
-      005B5D F8               [12] 8454 	mov	r0,a
-      005B5E 86 02            [24] 8455 	mov	ar2,@r0
-      005B60 08               [12] 8456 	inc	r0
-      005B61 86 03            [24] 8457 	mov	ar3,@r0
-      005B63 08               [12] 8458 	inc	r0
-      005B64 86 04            [24] 8459 	mov	ar4,@r0
-      005B66 08               [12] 8460 	inc	r0
-      005B67 86 07            [24] 8461 	mov	ar7,@r0
-      005B69 18               [12] 8462 	dec	r0
-      005B6A 18               [12] 8463 	dec	r0
-      005B6B 18               [12] 8464 	dec	r0
-      005B6C C0 07            [24] 8465 	push	ar7
-      005B6E C0 06            [24] 8466 	push	ar6
-      005B70 C0 05            [24] 8467 	push	ar5
-      005B72 C0 01            [24] 8468 	push	ar1
-      005B74 C0 00            [24] 8469 	push	ar0
-      005B76 C0 02            [24] 8470 	push	ar2
-      005B78 C0 03            [24] 8471 	push	ar3
-      005B7A C0 04            [24] 8472 	push	ar4
-      005B7C C0 07            [24] 8473 	push	ar7
-      005B7E 74 B9            [12] 8474 	mov	a,#___str_3
-      005B80 C0 E0            [24] 8475 	push	acc
-      005B82 74 88            [12] 8476 	mov	a,#(___str_3 >> 8)
-      005B84 C0 E0            [24] 8477 	push	acc
-      005B86 74 80            [12] 8478 	mov	a,#0x80
-      005B88 C0 E0            [24] 8479 	push	acc
-      005B8A 12 6F E2         [24] 8480 	lcall	_printf
-      005B8D E5 81            [12] 8481 	mov	a,sp
-      005B8F 24 F9            [12] 8482 	add	a,#0xf9
-      005B91 F5 81            [12] 8483 	mov	sp,a
-      005B93 D0 00            [24] 8484 	pop	ar0
-      005B95 D0 01            [24] 8485 	pop	ar1
-      005B97 D0 05            [24] 8486 	pop	ar5
-      005B99 D0 06            [24] 8487 	pop	ar6
-      005B9B D0 07            [24] 8488 	pop	ar7
-                                   8489 ;	calc.c:412: printf("%08lx / ", vals[1]);
-      005B9D 86 04            [24] 8490 	mov	ar4,@r0
-      005B9F 08               [12] 8491 	inc	r0
-      005BA0 86 05            [24] 8492 	mov	ar5,@r0
-      005BA2 08               [12] 8493 	inc	r0
-      005BA3 86 06            [24] 8494 	mov	ar6,@r0
-      005BA5 08               [12] 8495 	inc	r0
-      005BA6 86 07            [24] 8496 	mov	ar7,@r0
-      005BA8 18               [12] 8497 	dec	r0
-      005BA9 18               [12] 8498 	dec	r0
-      005BAA 18               [12] 8499 	dec	r0
-      005BAB C0 07            [24] 8500 	push	ar7
-      005BAD C0 06            [24] 8501 	push	ar6
-      005BAF C0 05            [24] 8502 	push	ar5
-      005BB1 C0 01            [24] 8503 	push	ar1
-      005BB3 C0 00            [24] 8504 	push	ar0
-      005BB5 C0 04            [24] 8505 	push	ar4
-      005BB7 C0 05            [24] 8506 	push	ar5
-      005BB9 C0 06            [24] 8507 	push	ar6
-      005BBB C0 07            [24] 8508 	push	ar7
-      005BBD 74 C3            [12] 8509 	mov	a,#___str_4
-      005BBF C0 E0            [24] 8510 	push	acc
-      005BC1 74 88            [12] 8511 	mov	a,#(___str_4 >> 8)
-      005BC3 C0 E0            [24] 8512 	push	acc
-      005BC5 74 80            [12] 8513 	mov	a,#0x80
-      005BC7 C0 E0            [24] 8514 	push	acc
-      005BC9 12 6F E2         [24] 8515 	lcall	_printf
-      005BCC E5 81            [12] 8516 	mov	a,sp
-      005BCE 24 F9            [12] 8517 	add	a,#0xf9
-      005BD0 F5 81            [12] 8518 	mov	sp,a
-      005BD2 D0 00            [24] 8519 	pop	ar0
-      005BD4 D0 01            [24] 8520 	pop	ar1
-      005BD6 D0 05            [24] 8521 	pop	ar5
-      005BD8 D0 06            [24] 8522 	pop	ar6
-      005BDA D0 07            [24] 8523 	pop	ar7
-                                   8524 ;	calc.c:413: printbin(vals[1]);
-      005BDC C0 01            [24] 8525 	push	ar1
-      005BDE E5 08            [12] 8526 	mov	a,_bp
-      005BE0 24 14            [12] 8527 	add	a,#0x14
-      005BE2 F9               [12] 8528 	mov	r1,a
-      005BE3 E6               [12] 8529 	mov	a,@r0
-      005BE4 F7               [12] 8530 	mov	@r1,a
-      005BE5 08               [12] 8531 	inc	r0
-      005BE6 E6               [12] 8532 	mov	a,@r0
-      005BE7 09               [12] 8533 	inc	r1
-      005BE8 F7               [12] 8534 	mov	@r1,a
-      005BE9 08               [12] 8535 	inc	r0
-      005BEA E6               [12] 8536 	mov	a,@r0
-      005BEB 09               [12] 8537 	inc	r1
-      005BEC F7               [12] 8538 	mov	@r1,a
-      005BED 08               [12] 8539 	inc	r0
-      005BEE E6               [12] 8540 	mov	a,@r0
-      005BEF 09               [12] 8541 	inc	r1
-      005BF0 F7               [12] 8542 	mov	@r1,a
-      005BF1 D0 01            [24] 8543 	pop	ar1
-                                   8544 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
-      005BF3 E5 08            [12] 8545 	mov	a,_bp
-      005BF5 24 18            [12] 8546 	add	a,#0x18
-      005BF7 F8               [12] 8547 	mov	r0,a
-      005BF8 E4               [12] 8548 	clr	a
-      005BF9 F6               [12] 8549 	mov	@r0,a
-      005BFA 08               [12] 8550 	inc	r0
-      005BFB F6               [12] 8551 	mov	@r0,a
-      005BFC 08               [12] 8552 	inc	r0
-      005BFD F6               [12] 8553 	mov	@r0,a
-      005BFE 08               [12] 8554 	inc	r0
-      005BFF 76 80            [12] 8555 	mov	@r0,#0x80
-                                   8556 ;	calc.c:438: return 1;
-      005C01 D0 07            [24] 8557 	pop	ar7
-      005C03 D0 06            [24] 8558 	pop	ar6
-      005C05 D0 05            [24] 8559 	pop	ar5
-                                   8560 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
-      005C07                       8561 00136$:
-                                   8562 ;	calc.c:58: (void)putchar((d & mask) ? (int)'1' : (int)'0');
-      005C07 C0 05            [24] 8563 	push	ar5
-      005C09 C0 06            [24] 8564 	push	ar6
-      005C0B C0 07            [24] 8565 	push	ar7
-      005C0D E5 08            [12] 8566 	mov	a,_bp
-      005C0F 24 14            [12] 8567 	add	a,#0x14
-      005C11 F8               [12] 8568 	mov	r0,a
-      005C12 86 02            [24] 8569 	mov	ar2,@r0
-      005C14 08               [12] 8570 	inc	r0
-      005C15 86 03            [24] 8571 	mov	ar3,@r0
-      005C17 08               [12] 8572 	inc	r0
-      005C18 86 04            [24] 8573 	mov	ar4,@r0
-      005C1A 08               [12] 8574 	inc	r0
-      005C1B 86 07            [24] 8575 	mov	ar7,@r0
-      005C1D E5 08            [12] 8576 	mov	a,_bp
-      005C1F 24 18            [12] 8577 	add	a,#0x18
-      005C21 F8               [12] 8578 	mov	r0,a
-      005C22 E6               [12] 8579 	mov	a,@r0
-      005C23 52 02            [12] 8580 	anl	ar2,a
-      005C25 08               [12] 8581 	inc	r0
-      005C26 E6               [12] 8582 	mov	a,@r0
-      005C27 52 03            [12] 8583 	anl	ar3,a
-      005C29 08               [12] 8584 	inc	r0
-      005C2A E6               [12] 8585 	mov	a,@r0
-      005C2B 52 04            [12] 8586 	anl	ar4,a
-      005C2D 08               [12] 8587 	inc	r0
-      005C2E E6               [12] 8588 	mov	a,@r0
-      005C2F 52 07            [12] 8589 	anl	ar7,a
-      005C31 EA               [12] 8590 	mov	a,r2
-      005C32 4B               [12] 8591 	orl	a,r3
-      005C33 4C               [12] 8592 	orl	a,r4
-      005C34 4F               [12] 8593 	orl	a,r7
-      005C35 D0 07            [24] 8594 	pop	ar7
-      005C37 D0 06            [24] 8595 	pop	ar6
-      005C39 D0 05            [24] 8596 	pop	ar5
-      005C3B 60 06            [24] 8597 	jz	00163$
-      005C3D 7B 31            [12] 8598 	mov	r3,#0x31
-      005C3F 7C 00            [12] 8599 	mov	r4,#0x00
-      005C41 80 04            [24] 8600 	sjmp	00164$
-      005C43                       8601 00163$:
-      005C43 7B 30            [12] 8602 	mov	r3,#0x30
-      005C45 7C 00            [12] 8603 	mov	r4,#0x00
-      005C47                       8604 00164$:
-      005C47 8B 82            [24] 8605 	mov	dpl,r3
-      005C49 8C 83            [24] 8606 	mov	dph,r4
-      005C4B 12 2C 1F         [24] 8607 	lcall	_putchar
-                                   8608 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
-      005C4E E5 08            [12] 8609 	mov	a,_bp
-      005C50 24 18            [12] 8610 	add	a,#0x18
-      005C52 F8               [12] 8611 	mov	r0,a
-      005C53 08               [12] 8612 	inc	r0
-      005C54 08               [12] 8613 	inc	r0
-      005C55 08               [12] 8614 	inc	r0
-      005C56 E6               [12] 8615 	mov	a,@r0
-      005C57 C3               [12] 8616 	clr	c
-      005C58 13               [12] 8617 	rrc	a
-      005C59 F6               [12] 8618 	mov	@r0,a
-      005C5A 18               [12] 8619 	dec	r0
-      005C5B E6               [12] 8620 	mov	a,@r0
-      005C5C 13               [12] 8621 	rrc	a
-      005C5D F6               [12] 8622 	mov	@r0,a
-      005C5E 18               [12] 8623 	dec	r0
-      005C5F E6               [12] 8624 	mov	a,@r0
-      005C60 13               [12] 8625 	rrc	a
-      005C61 F6               [12] 8626 	mov	@r0,a
-      005C62 18               [12] 8627 	dec	r0
-      005C63 E6               [12] 8628 	mov	a,@r0
-      005C64 13               [12] 8629 	rrc	a
-      005C65 F6               [12] 8630 	mov	@r0,a
-      005C66 E5 08            [12] 8631 	mov	a,_bp
-      005C68 24 18            [12] 8632 	add	a,#0x18
-      005C6A F8               [12] 8633 	mov	r0,a
-      005C6B E6               [12] 8634 	mov	a,@r0
-      005C6C 08               [12] 8635 	inc	r0
-      005C6D 46               [12] 8636 	orl	a,@r0
-      005C6E 08               [12] 8637 	inc	r0
-      005C6F 46               [12] 8638 	orl	a,@r0
-      005C70 08               [12] 8639 	inc	r0
-      005C71 46               [12] 8640 	orl	a,@r0
-      005C72 70 93            [24] 8641 	jnz	00136$
-                                   8642 ;	calc.c:413: printbin(vals[1]);
-      005C74                       8643 00102$:
-                                   8644 ;	calc.c:415: printstr("\r\nPSTOP0 = ");
-      005C74 7A AE            [12] 8645 	mov	r2,#___str_20
-      005C76 7B 89            [12] 8646 	mov	r3,#(___str_20 >> 8)
-      005C78 7C 80            [12] 8647 	mov	r4,#0x80
-                                   8648 ;	calc.c:51: return;
-      005C7A                       8649 00139$:
-                                   8650 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      005C7A 8A 82            [24] 8651 	mov	dpl,r2
-      005C7C 8B 83            [24] 8652 	mov	dph,r3
-      005C7E 8C F0            [24] 8653 	mov	b,r4
-      005C80 A8 08            [24] 8654 	mov	r0,_bp
-      005C82 08               [12] 8655 	inc	r0
-      005C83 12 70 1B         [24] 8656 	lcall	__gptrget
-      005C86 F6               [12] 8657 	mov	@r0,a
-      005C87 A8 08            [24] 8658 	mov	r0,_bp
-      005C89 08               [12] 8659 	inc	r0
-      005C8A E6               [12] 8660 	mov	a,@r0
-      005C8B 60 21            [24] 8661 	jz	00116$
-      005C8D C0 05            [24] 8662 	push	ar5
-      005C8F C0 06            [24] 8663 	push	ar6
-      005C91 C0 07            [24] 8664 	push	ar7
-      005C93 A8 08            [24] 8665 	mov	r0,_bp
-      005C95 08               [12] 8666 	inc	r0
-      005C96 86 06            [24] 8667 	mov	ar6,@r0
-      005C98 7F 00            [12] 8668 	mov	r7,#0x00
-      005C9A 8E 82            [24] 8669 	mov	dpl,r6
-      005C9C 8F 83            [24] 8670 	mov	dph,r7
-      005C9E 12 2C 1F         [24] 8671 	lcall	_putchar
-      005CA1 0A               [12] 8672 	inc	r2
-      005CA2 BA 00 01         [24] 8673 	cjne	r2,#0x00,00320$
-      005CA5 0B               [12] 8674 	inc	r3
-      005CA6                       8675 00320$:
-      005CA6 D0 07            [24] 8676 	pop	ar7
-      005CA8 D0 06            [24] 8677 	pop	ar6
-      005CAA D0 05            [24] 8678 	pop	ar5
-                                   8679 ;	calc.c:415: printstr("\r\nPSTOP0 = ");
-      005CAC 80 CC            [24] 8680 	sjmp	00139$
-      005CAE                       8681 00116$:
-                                   8682 ;	calc.c:416: if (n > 1) {
-      005CAE E5 08            [12] 8683 	mov	a,_bp
-      005CB0 24 04            [12] 8684 	add	a,#0x04
-      005CB2 F8               [12] 8685 	mov	r0,a
-      005CB3 C3               [12] 8686 	clr	c
-      005CB4 74 01            [12] 8687 	mov	a,#0x01
-      005CB6 96               [12] 8688 	subb	a,@r0
-      005CB7 74 80            [12] 8689 	mov	a,#(0x00 ^ 0x80)
-      005CB9 08               [12] 8690 	inc	r0
-      005CBA 86 F0            [24] 8691 	mov	b,@r0
-      005CBC 63 F0 80         [24] 8692 	xrl	b,#0x80
-      005CBF 95 F0            [12] 8693 	subb	a,b
-      005CC1 40 03            [24] 8694 	jc	00321$
-      005CC3 02 5D D9         [24] 8695 	ljmp	00104$
-      005CC6                       8696 00321$:
-                                   8697 ;	calc.c:417: printf("% 11ld / ", vals[0]);
-      005CC6 C0 05            [24] 8698 	push	ar5
-      005CC8 C0 06            [24] 8699 	push	ar6
-      005CCA C0 07            [24] 8700 	push	ar7
-      005CCC 87 02            [24] 8701 	mov	ar2,@r1
-      005CCE 09               [12] 8702 	inc	r1
-      005CCF 87 03            [24] 8703 	mov	ar3,@r1
-      005CD1 09               [12] 8704 	inc	r1
-      005CD2 87 04            [24] 8705 	mov	ar4,@r1
-      005CD4 09               [12] 8706 	inc	r1
-      005CD5 87 07            [24] 8707 	mov	ar7,@r1
-      005CD7 19               [12] 8708 	dec	r1
-      005CD8 19               [12] 8709 	dec	r1
-      005CD9 19               [12] 8710 	dec	r1
-      005CDA C0 07            [24] 8711 	push	ar7
-      005CDC C0 06            [24] 8712 	push	ar6
-      005CDE C0 05            [24] 8713 	push	ar5
-      005CE0 C0 01            [24] 8714 	push	ar1
-      005CE2 C0 02            [24] 8715 	push	ar2
-      005CE4 C0 03            [24] 8716 	push	ar3
-      005CE6 C0 04            [24] 8717 	push	ar4
-      005CE8 C0 07            [24] 8718 	push	ar7
-      005CEA 74 B9            [12] 8719 	mov	a,#___str_3
-      005CEC C0 E0            [24] 8720 	push	acc
-      005CEE 74 88            [12] 8721 	mov	a,#(___str_3 >> 8)
-      005CF0 C0 E0            [24] 8722 	push	acc
-      005CF2 74 80            [12] 8723 	mov	a,#0x80
-      005CF4 C0 E0            [24] 8724 	push	acc
-      005CF6 12 6F E2         [24] 8725 	lcall	_printf
-      005CF9 E5 81            [12] 8726 	mov	a,sp
-      005CFB 24 F9            [12] 8727 	add	a,#0xf9
-      005CFD F5 81            [12] 8728 	mov	sp,a
-      005CFF D0 01            [24] 8729 	pop	ar1
-      005D01 D0 05            [24] 8730 	pop	ar5
-      005D03 D0 06            [24] 8731 	pop	ar6
-      005D05 D0 07            [24] 8732 	pop	ar7
-                                   8733 ;	calc.c:418: printf("%08lx / ", vals[0]);
-      005D07 87 04            [24] 8734 	mov	ar4,@r1
-      005D09 09               [12] 8735 	inc	r1
-      005D0A 87 05            [24] 8736 	mov	ar5,@r1
-      005D0C 09               [12] 8737 	inc	r1
-      005D0D 87 06            [24] 8738 	mov	ar6,@r1
-      005D0F 09               [12] 8739 	inc	r1
-      005D10 87 07            [24] 8740 	mov	ar7,@r1
-      005D12 19               [12] 8741 	dec	r1
-      005D13 19               [12] 8742 	dec	r1
-      005D14 19               [12] 8743 	dec	r1
-      005D15 C0 07            [24] 8744 	push	ar7
-      005D17 C0 06            [24] 8745 	push	ar6
-      005D19 C0 05            [24] 8746 	push	ar5
-      005D1B C0 01            [24] 8747 	push	ar1
-      005D1D C0 04            [24] 8748 	push	ar4
-      005D1F C0 05            [24] 8749 	push	ar5
-      005D21 C0 06            [24] 8750 	push	ar6
-      005D23 C0 07            [24] 8751 	push	ar7
-      005D25 74 C3            [12] 8752 	mov	a,#___str_4
-      005D27 C0 E0            [24] 8753 	push	acc
-      005D29 74 88            [12] 8754 	mov	a,#(___str_4 >> 8)
-      005D2B C0 E0            [24] 8755 	push	acc
-      005D2D 74 80            [12] 8756 	mov	a,#0x80
-      005D2F C0 E0            [24] 8757 	push	acc
-      005D31 12 6F E2         [24] 8758 	lcall	_printf
-      005D34 E5 81            [12] 8759 	mov	a,sp
-      005D36 24 F9            [12] 8760 	add	a,#0xf9
-      005D38 F5 81            [12] 8761 	mov	sp,a
-      005D3A D0 01            [24] 8762 	pop	ar1
-      005D3C D0 05            [24] 8763 	pop	ar5
-      005D3E D0 06            [24] 8764 	pop	ar6
-      005D40 D0 07            [24] 8765 	pop	ar7
-                                   8766 ;	calc.c:419: printbin(vals[0]);
-      005D42 E5 08            [12] 8767 	mov	a,_bp
-      005D44 24 14            [12] 8768 	add	a,#0x14
-      005D46 F8               [12] 8769 	mov	r0,a
-      005D47 E7               [12] 8770 	mov	a,@r1
-      005D48 F6               [12] 8771 	mov	@r0,a
-      005D49 09               [12] 8772 	inc	r1
-      005D4A E7               [12] 8773 	mov	a,@r1
-      005D4B 08               [12] 8774 	inc	r0
-      005D4C F6               [12] 8775 	mov	@r0,a
-      005D4D 09               [12] 8776 	inc	r1
-      005D4E E7               [12] 8777 	mov	a,@r1
-      005D4F 08               [12] 8778 	inc	r0
-      005D50 F6               [12] 8779 	mov	@r0,a
-      005D51 09               [12] 8780 	inc	r1
-      005D52 E7               [12] 8781 	mov	a,@r1
-      005D53 08               [12] 8782 	inc	r0
-      005D54 F6               [12] 8783 	mov	@r0,a
-      005D55 19               [12] 8784 	dec	r1
-      005D56 19               [12] 8785 	dec	r1
-      005D57 19               [12] 8786 	dec	r1
-                                   8787 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
-      005D58 E5 08            [12] 8788 	mov	a,_bp
-      005D5A 24 18            [12] 8789 	add	a,#0x18
-      005D5C F8               [12] 8790 	mov	r0,a
-      005D5D E4               [12] 8791 	clr	a
-      005D5E F6               [12] 8792 	mov	@r0,a
-      005D5F 08               [12] 8793 	inc	r0
-      005D60 F6               [12] 8794 	mov	@r0,a
-      005D61 08               [12] 8795 	inc	r0
-      005D62 F6               [12] 8796 	mov	@r0,a
-      005D63 08               [12] 8797 	inc	r0
-      005D64 76 80            [12] 8798 	mov	@r0,#0x80
-                                   8799 ;	calc.c:438: return 1;
-      005D66 D0 07            [24] 8800 	pop	ar7
-      005D68 D0 06            [24] 8801 	pop	ar6
-      005D6A D0 05            [24] 8802 	pop	ar5
-                                   8803 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
-      005D6C                       8804 00141$:
-                                   8805 ;	calc.c:58: (void)putchar((d & mask) ? (int)'1' : (int)'0');
-      005D6C C0 05            [24] 8806 	push	ar5
-      005D6E C0 06            [24] 8807 	push	ar6
-      005D70 C0 07            [24] 8808 	push	ar7
-      005D72 E5 08            [12] 8809 	mov	a,_bp
-      005D74 24 14            [12] 8810 	add	a,#0x14
-      005D76 F8               [12] 8811 	mov	r0,a
-      005D77 86 02            [24] 8812 	mov	ar2,@r0
-      005D79 08               [12] 8813 	inc	r0
-      005D7A 86 03            [24] 8814 	mov	ar3,@r0
-      005D7C 08               [12] 8815 	inc	r0
-      005D7D 86 04            [24] 8816 	mov	ar4,@r0
-      005D7F 08               [12] 8817 	inc	r0
-      005D80 86 07            [24] 8818 	mov	ar7,@r0
-      005D82 E5 08            [12] 8819 	mov	a,_bp
-      005D84 24 18            [12] 8820 	add	a,#0x18
-      005D86 F8               [12] 8821 	mov	r0,a
-      005D87 E6               [12] 8822 	mov	a,@r0
-      005D88 52 02            [12] 8823 	anl	ar2,a
-      005D8A 08               [12] 8824 	inc	r0
-      005D8B E6               [12] 8825 	mov	a,@r0
-      005D8C 52 03            [12] 8826 	anl	ar3,a
-      005D8E 08               [12] 8827 	inc	r0
-      005D8F E6               [12] 8828 	mov	a,@r0
-      005D90 52 04            [12] 8829 	anl	ar4,a
-      005D92 08               [12] 8830 	inc	r0
-      005D93 E6               [12] 8831 	mov	a,@r0
-      005D94 52 07            [12] 8832 	anl	ar7,a
-      005D96 EA               [12] 8833 	mov	a,r2
-      005D97 4B               [12] 8834 	orl	a,r3
-      005D98 4C               [12] 8835 	orl	a,r4
-      005D99 4F               [12] 8836 	orl	a,r7
-      005D9A D0 07            [24] 8837 	pop	ar7
-      005D9C D0 06            [24] 8838 	pop	ar6
-      005D9E D0 05            [24] 8839 	pop	ar5
-      005DA0 60 06            [24] 8840 	jz	00165$
-      005DA2 7B 31            [12] 8841 	mov	r3,#0x31
-      005DA4 7C 00            [12] 8842 	mov	r4,#0x00
-      005DA6 80 04            [24] 8843 	sjmp	00166$
-      005DA8                       8844 00165$:
-      005DA8 7B 30            [12] 8845 	mov	r3,#0x30
-      005DAA 7C 00            [12] 8846 	mov	r4,#0x00
-      005DAC                       8847 00166$:
-      005DAC 8B 82            [24] 8848 	mov	dpl,r3
-      005DAE 8C 83            [24] 8849 	mov	dph,r4
-      005DB0 12 2C 1F         [24] 8850 	lcall	_putchar
-                                   8851 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
-      005DB3 E5 08            [12] 8852 	mov	a,_bp
-      005DB5 24 18            [12] 8853 	add	a,#0x18
-      005DB7 F8               [12] 8854 	mov	r0,a
-      005DB8 08               [12] 8855 	inc	r0
-      005DB9 08               [12] 8856 	inc	r0
-      005DBA 08               [12] 8857 	inc	r0
-      005DBB E6               [12] 8858 	mov	a,@r0
-      005DBC C3               [12] 8859 	clr	c
-      005DBD 13               [12] 8860 	rrc	a
-      005DBE F6               [12] 8861 	mov	@r0,a
-      005DBF 18               [12] 8862 	dec	r0
-      005DC0 E6               [12] 8863 	mov	a,@r0
-      005DC1 13               [12] 8864 	rrc	a
-      005DC2 F6               [12] 8865 	mov	@r0,a
-      005DC3 18               [12] 8866 	dec	r0
-      005DC4 E6               [12] 8867 	mov	a,@r0
-      005DC5 13               [12] 8868 	rrc	a
-      005DC6 F6               [12] 8869 	mov	@r0,a
-      005DC7 18               [12] 8870 	dec	r0
-      005DC8 E6               [12] 8871 	mov	a,@r0
-      005DC9 13               [12] 8872 	rrc	a
-      005DCA F6               [12] 8873 	mov	@r0,a
-      005DCB E5 08            [12] 8874 	mov	a,_bp
-      005DCD 24 18            [12] 8875 	add	a,#0x18
-      005DCF F8               [12] 8876 	mov	r0,a
-      005DD0 E6               [12] 8877 	mov	a,@r0
-      005DD1 08               [12] 8878 	inc	r0
-      005DD2 46               [12] 8879 	orl	a,@r0
-      005DD3 08               [12] 8880 	inc	r0
-      005DD4 46               [12] 8881 	orl	a,@r0
-      005DD5 08               [12] 8882 	inc	r0
-      005DD6 46               [12] 8883 	orl	a,@r0
-      005DD7 70 93            [24] 8884 	jnz	00141$
-                                   8885 ;	calc.c:419: printbin(vals[0]);
-      005DD9                       8886 00104$:
-                                   8887 ;	calc.c:421: printstr("\r\n");
-      005DD9 7A CC            [12] 8888 	mov	r2,#___str_5
-      005DDB 7B 88            [12] 8889 	mov	r3,#(___str_5 >> 8)
-      005DDD 7C 80            [12] 8890 	mov	r4,#0x80
-                                   8891 ;	calc.c:51: return;
-      005DDF                       8892 00144$:
-                                   8893 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      005DDF 8A 82            [24] 8894 	mov	dpl,r2
-      005DE1 8B 83            [24] 8895 	mov	dph,r3
-      005DE3 8C F0            [24] 8896 	mov	b,r4
-      005DE5 E5 08            [12] 8897 	mov	a,_bp
-      005DE7 24 04            [12] 8898 	add	a,#0x04
-      005DE9 F8               [12] 8899 	mov	r0,a
-      005DEA 12 70 1B         [24] 8900 	lcall	__gptrget
-      005DED F6               [12] 8901 	mov	@r0,a
-      005DEE E5 08            [12] 8902 	mov	a,_bp
-      005DF0 24 04            [12] 8903 	add	a,#0x04
-      005DF2 F8               [12] 8904 	mov	r0,a
-      005DF3 E6               [12] 8905 	mov	a,@r0
-      005DF4 60 23            [24] 8906 	jz	00120$
-      005DF6 C0 05            [24] 8907 	push	ar5
-      005DF8 C0 06            [24] 8908 	push	ar6
-      005DFA C0 07            [24] 8909 	push	ar7
-      005DFC E5 08            [12] 8910 	mov	a,_bp
-      005DFE 24 04            [12] 8911 	add	a,#0x04
-      005E00 F8               [12] 8912 	mov	r0,a
-      005E01 86 06            [24] 8913 	mov	ar6,@r0
-      005E03 7F 00            [12] 8914 	mov	r7,#0x00
-      005E05 8E 82            [24] 8915 	mov	dpl,r6
-      005E07 8F 83            [24] 8916 	mov	dph,r7
-      005E09 12 2C 1F         [24] 8917 	lcall	_putchar
-      005E0C 0A               [12] 8918 	inc	r2
-      005E0D BA 00 01         [24] 8919 	cjne	r2,#0x00,00325$
-      005E10 0B               [12] 8920 	inc	r3
-      005E11                       8921 00325$:
-      005E11 D0 07            [24] 8922 	pop	ar7
-      005E13 D0 06            [24] 8923 	pop	ar6
-      005E15 D0 05            [24] 8924 	pop	ar5
-                                   8925 ;	calc.c:421: printstr("\r\n");
-      005E17 80 C6            [24] 8926 	sjmp	00144$
-      005E19                       8927 00120$:
-                                   8928 ;	calc.c:423: n = stack_peek2(ctx->ss, vals);
-      005E19 89 04            [24] 8929 	mov	ar4,r1
-      005E1B 7B 00            [12] 8930 	mov	r3,#0x00
-      005E1D 7A 40            [12] 8931 	mov	r2,#0x40
-      005E1F 8D 82            [24] 8932 	mov	dpl,r5
-      005E21 8E 83            [24] 8933 	mov	dph,r6
-      005E23 8F F0            [24] 8934 	mov	b,r7
-      005E25 12 70 1B         [24] 8935 	lcall	__gptrget
-      005E28 FD               [12] 8936 	mov	r5,a
-      005E29 A3               [24] 8937 	inc	dptr
-      005E2A 12 70 1B         [24] 8938 	lcall	__gptrget
-      005E2D FE               [12] 8939 	mov	r6,a
-      005E2E A3               [24] 8940 	inc	dptr
-      005E2F 12 70 1B         [24] 8941 	lcall	__gptrget
-      005E32 FF               [12] 8942 	mov	r7,a
-      005E33 C0 01            [24] 8943 	push	ar1
-      005E35 C0 04            [24] 8944 	push	ar4
-      005E37 C0 03            [24] 8945 	push	ar3
-      005E39 C0 02            [24] 8946 	push	ar2
-      005E3B 8D 82            [24] 8947 	mov	dpl,r5
-      005E3D 8E 83            [24] 8948 	mov	dph,r6
-      005E3F 8F F0            [24] 8949 	mov	b,r7
-      005E41 12 29 73         [24] 8950 	lcall	_stack_peek2
-      005E44 AE 82            [24] 8951 	mov	r6,dpl
-      005E46 AF 83            [24] 8952 	mov	r7,dph
-      005E48 15 81            [12] 8953 	dec	sp
-      005E4A 15 81            [12] 8954 	dec	sp
-      005E4C 15 81            [12] 8955 	dec	sp
-      005E4E D0 01            [24] 8956 	pop	ar1
-      005E50 E5 08            [12] 8957 	mov	a,_bp
-      005E52 24 0A            [12] 8958 	add	a,#0x0a
-      005E54 F8               [12] 8959 	mov	r0,a
-      005E55 A6 06            [24] 8960 	mov	@r0,ar6
-      005E57 08               [12] 8961 	inc	r0
-      005E58 A6 07            [24] 8962 	mov	@r0,ar7
-                                   8963 ;	calc.c:424: printstr("SSTOP1 = ");
-      005E5A 7B BA            [12] 8964 	mov	r3,#___str_21
-      005E5C 7C 89            [12] 8965 	mov	r4,#(___str_21 >> 8)
-      005E5E 7D 80            [12] 8966 	mov	r5,#0x80
-                                   8967 ;	calc.c:51: return;
-      005E60                       8968 00147$:
-                                   8969 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      005E60 8B 82            [24] 8970 	mov	dpl,r3
-      005E62 8C 83            [24] 8971 	mov	dph,r4
-      005E64 8D F0            [24] 8972 	mov	b,r5
-      005E66 12 70 1B         [24] 8973 	lcall	__gptrget
-      005E69 FA               [12] 8974 	mov	r2,a
-      005E6A 60 10            [24] 8975 	jz	00122$
-      005E6C 7F 00            [12] 8976 	mov	r7,#0x00
-      005E6E 8A 82            [24] 8977 	mov	dpl,r2
-      005E70 8F 83            [24] 8978 	mov	dph,r7
-      005E72 12 2C 1F         [24] 8979 	lcall	_putchar
-      005E75 0B               [12] 8980 	inc	r3
-                                   8981 ;	calc.c:424: printstr("SSTOP1 = ");
-      005E76 BB 00 E7         [24] 8982 	cjne	r3,#0x00,00147$
-      005E79 0C               [12] 8983 	inc	r4
-      005E7A 80 E4            [24] 8984 	sjmp	00147$
-      005E7C                       8985 00122$:
-                                   8986 ;	calc.c:425: if (n > 0) {
-      005E7C E5 08            [12] 8987 	mov	a,_bp
-      005E7E 24 0A            [12] 8988 	add	a,#0x0a
-      005E80 F8               [12] 8989 	mov	r0,a
-      005E81 C3               [12] 8990 	clr	c
-      005E82 E4               [12] 8991 	clr	a
-      005E83 96               [12] 8992 	subb	a,@r0
-      005E84 74 80            [12] 8993 	mov	a,#(0x00 ^ 0x80)
-      005E86 08               [12] 8994 	inc	r0
-      005E87 86 F0            [24] 8995 	mov	b,@r0
-      005E89 63 F0 80         [24] 8996 	xrl	b,#0x80
-      005E8C 95 F0            [12] 8997 	subb	a,b
-      005E8E 40 03            [24] 8998 	jc	00328$
-      005E90 02 5F 7F         [24] 8999 	ljmp	00106$
-      005E93                       9000 00328$:
-                                   9001 ;	calc.c:426: printf("% 11ld / ", vals[1]);
-      005E93 74 04            [12] 9002 	mov	a,#0x04
-      005E95 29               [12] 9003 	add	a,r1
-      005E96 F8               [12] 9004 	mov	r0,a
-      005E97 86 02            [24] 9005 	mov	ar2,@r0
-      005E99 08               [12] 9006 	inc	r0
-      005E9A 86 03            [24] 9007 	mov	ar3,@r0
-      005E9C 08               [12] 9008 	inc	r0
-      005E9D 86 04            [24] 9009 	mov	ar4,@r0
-      005E9F 08               [12] 9010 	inc	r0
-      005EA0 86 05            [24] 9011 	mov	ar5,@r0
-      005EA2 18               [12] 9012 	dec	r0
-      005EA3 18               [12] 9013 	dec	r0
-      005EA4 18               [12] 9014 	dec	r0
-      005EA5 C0 01            [24] 9015 	push	ar1
-      005EA7 C0 00            [24] 9016 	push	ar0
-      005EA9 C0 02            [24] 9017 	push	ar2
-      005EAB C0 03            [24] 9018 	push	ar3
-      005EAD C0 04            [24] 9019 	push	ar4
-      005EAF C0 05            [24] 9020 	push	ar5
-      005EB1 74 B9            [12] 9021 	mov	a,#___str_3
-      005EB3 C0 E0            [24] 9022 	push	acc
-      005EB5 74 88            [12] 9023 	mov	a,#(___str_3 >> 8)
-      005EB7 C0 E0            [24] 9024 	push	acc
-      005EB9 74 80            [12] 9025 	mov	a,#0x80
-      005EBB C0 E0            [24] 9026 	push	acc
-      005EBD 12 6F E2         [24] 9027 	lcall	_printf
-      005EC0 E5 81            [12] 9028 	mov	a,sp
-      005EC2 24 F9            [12] 9029 	add	a,#0xf9
-      005EC4 F5 81            [12] 9030 	mov	sp,a
-      005EC6 D0 00            [24] 9031 	pop	ar0
-                                   9032 ;	calc.c:427: printf("%08lx / ", vals[1]);
-      005EC8 86 02            [24] 9033 	mov	ar2,@r0
-      005ECA 08               [12] 9034 	inc	r0
-      005ECB 86 03            [24] 9035 	mov	ar3,@r0
-      005ECD 08               [12] 9036 	inc	r0
-      005ECE 86 04            [24] 9037 	mov	ar4,@r0
-      005ED0 08               [12] 9038 	inc	r0
-      005ED1 86 05            [24] 9039 	mov	ar5,@r0
-      005ED3 18               [12] 9040 	dec	r0
-      005ED4 18               [12] 9041 	dec	r0
-      005ED5 18               [12] 9042 	dec	r0
-      005ED6 C0 00            [24] 9043 	push	ar0
-      005ED8 C0 02            [24] 9044 	push	ar2
-      005EDA C0 03            [24] 9045 	push	ar3
-      005EDC C0 04            [24] 9046 	push	ar4
-      005EDE C0 05            [24] 9047 	push	ar5
-      005EE0 74 C3            [12] 9048 	mov	a,#___str_4
-      005EE2 C0 E0            [24] 9049 	push	acc
-      005EE4 74 88            [12] 9050 	mov	a,#(___str_4 >> 8)
-      005EE6 C0 E0            [24] 9051 	push	acc
-      005EE8 74 80            [12] 9052 	mov	a,#0x80
-      005EEA C0 E0            [24] 9053 	push	acc
-      005EEC 12 6F E2         [24] 9054 	lcall	_printf
-      005EEF E5 81            [12] 9055 	mov	a,sp
-      005EF1 24 F9            [12] 9056 	add	a,#0xf9
-      005EF3 F5 81            [12] 9057 	mov	sp,a
-      005EF5 D0 00            [24] 9058 	pop	ar0
-                                   9059 ;	calc.c:428: printbin(vals[1]);
-      005EF7 E5 08            [12] 9060 	mov	a,_bp
-      005EF9 24 14            [12] 9061 	add	a,#0x14
-      005EFB F9               [12] 9062 	mov	r1,a
-      005EFC E6               [12] 9063 	mov	a,@r0
-      005EFD F7               [12] 9064 	mov	@r1,a
-      005EFE 08               [12] 9065 	inc	r0
-      005EFF E6               [12] 9066 	mov	a,@r0
-      005F00 09               [12] 9067 	inc	r1
-      005F01 F7               [12] 9068 	mov	@r1,a
-      005F02 08               [12] 9069 	inc	r0
-      005F03 E6               [12] 9070 	mov	a,@r0
-      005F04 09               [12] 9071 	inc	r1
-      005F05 F7               [12] 9072 	mov	@r1,a
-      005F06 08               [12] 9073 	inc	r0
-      005F07 E6               [12] 9074 	mov	a,@r0
-      005F08 09               [12] 9075 	inc	r1
-      005F09 F7               [12] 9076 	mov	@r1,a
-      005F0A D0 01            [24] 9077 	pop	ar1
-                                   9078 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
-      005F0C E5 08            [12] 9079 	mov	a,_bp
-      005F0E 24 18            [12] 9080 	add	a,#0x18
-      005F10 F8               [12] 9081 	mov	r0,a
-      005F11 E4               [12] 9082 	clr	a
-      005F12 F6               [12] 9083 	mov	@r0,a
-      005F13 08               [12] 9084 	inc	r0
-      005F14 F6               [12] 9085 	mov	@r0,a
-      005F15 08               [12] 9086 	inc	r0
-      005F16 F6               [12] 9087 	mov	@r0,a
-      005F17 08               [12] 9088 	inc	r0
-      005F18 76 80            [12] 9089 	mov	@r0,#0x80
-      005F1A                       9090 00149$:
-                                   9091 ;	calc.c:58: (void)putchar((d & mask) ? (int)'1' : (int)'0');
-      005F1A C0 01            [24] 9092 	push	ar1
-      005F1C E5 08            [12] 9093 	mov	a,_bp
-      005F1E 24 14            [12] 9094 	add	a,#0x14
-      005F20 F8               [12] 9095 	mov	r0,a
-      005F21 86 02            [24] 9096 	mov	ar2,@r0
-      005F23 08               [12] 9097 	inc	r0
-      005F24 86 03            [24] 9098 	mov	ar3,@r0
-      005F26 08               [12] 9099 	inc	r0
-      005F27 86 05            [24] 9100 	mov	ar5,@r0
-      005F29 08               [12] 9101 	inc	r0
-      005F2A 86 07            [24] 9102 	mov	ar7,@r0
-      005F2C E5 08            [12] 9103 	mov	a,_bp
-      005F2E 24 18            [12] 9104 	add	a,#0x18
-      005F30 F8               [12] 9105 	mov	r0,a
-      005F31 E6               [12] 9106 	mov	a,@r0
-      005F32 52 02            [12] 9107 	anl	ar2,a
-      005F34 08               [12] 9108 	inc	r0
-      005F35 E6               [12] 9109 	mov	a,@r0
-      005F36 52 03            [12] 9110 	anl	ar3,a
-      005F38 08               [12] 9111 	inc	r0
-      005F39 E6               [12] 9112 	mov	a,@r0
-      005F3A 52 05            [12] 9113 	anl	ar5,a
-      005F3C 08               [12] 9114 	inc	r0
-      005F3D E6               [12] 9115 	mov	a,@r0
-      005F3E 52 07            [12] 9116 	anl	ar7,a
-      005F40 D0 01            [24] 9117 	pop	ar1
-      005F42 EA               [12] 9118 	mov	a,r2
-      005F43 4B               [12] 9119 	orl	a,r3
-      005F44 4D               [12] 9120 	orl	a,r5
-      005F45 4F               [12] 9121 	orl	a,r7
-      005F46 60 06            [24] 9122 	jz	00167$
-      005F48 7E 31            [12] 9123 	mov	r6,#0x31
-      005F4A 7F 00            [12] 9124 	mov	r7,#0x00
-      005F4C 80 04            [24] 9125 	sjmp	00168$
-      005F4E                       9126 00167$:
-      005F4E 7E 30            [12] 9127 	mov	r6,#0x30
-      005F50 7F 00            [12] 9128 	mov	r7,#0x00
-      005F52                       9129 00168$:
-      005F52 8E 82            [24] 9130 	mov	dpl,r6
-      005F54 8F 83            [24] 9131 	mov	dph,r7
-      005F56 12 2C 1F         [24] 9132 	lcall	_putchar
-                                   9133 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
-      005F59 E5 08            [12] 9134 	mov	a,_bp
-      005F5B 24 18            [12] 9135 	add	a,#0x18
-      005F5D F8               [12] 9136 	mov	r0,a
-      005F5E 08               [12] 9137 	inc	r0
-      005F5F 08               [12] 9138 	inc	r0
-      005F60 08               [12] 9139 	inc	r0
-      005F61 E6               [12] 9140 	mov	a,@r0
-      005F62 C3               [12] 9141 	clr	c
-      005F63 13               [12] 9142 	rrc	a
-      005F64 F6               [12] 9143 	mov	@r0,a
-      005F65 18               [12] 9144 	dec	r0
-      005F66 E6               [12] 9145 	mov	a,@r0
-      005F67 13               [12] 9146 	rrc	a
-      005F68 F6               [12] 9147 	mov	@r0,a
-      005F69 18               [12] 9148 	dec	r0
-      005F6A E6               [12] 9149 	mov	a,@r0
-      005F6B 13               [12] 9150 	rrc	a
-      005F6C F6               [12] 9151 	mov	@r0,a
-      005F6D 18               [12] 9152 	dec	r0
-      005F6E E6               [12] 9153 	mov	a,@r0
-      005F6F 13               [12] 9154 	rrc	a
-      005F70 F6               [12] 9155 	mov	@r0,a
-      005F71 E5 08            [12] 9156 	mov	a,_bp
-      005F73 24 18            [12] 9157 	add	a,#0x18
-      005F75 F8               [12] 9158 	mov	r0,a
-      005F76 E6               [12] 9159 	mov	a,@r0
-      005F77 08               [12] 9160 	inc	r0
-      005F78 46               [12] 9161 	orl	a,@r0
-      005F79 08               [12] 9162 	inc	r0
-      005F7A 46               [12] 9163 	orl	a,@r0
-      005F7B 08               [12] 9164 	inc	r0
-      005F7C 46               [12] 9165 	orl	a,@r0
-      005F7D 70 9B            [24] 9166 	jnz	00149$
-                                   9167 ;	calc.c:428: printbin(vals[1]);
-      005F7F                       9168 00106$:
-                                   9169 ;	calc.c:430: printstr("\r\nSSTOP0 = ");
-      005F7F 7D C4            [12] 9170 	mov	r5,#___str_22
-      005F81 7E 89            [12] 9171 	mov	r6,#(___str_22 >> 8)
-      005F83 7F 80            [12] 9172 	mov	r7,#0x80
-                                   9173 ;	calc.c:51: return;
-      005F85                       9174 00152$:
-                                   9175 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      005F85 8D 82            [24] 9176 	mov	dpl,r5
-      005F87 8E 83            [24] 9177 	mov	dph,r6
-      005F89 8F F0            [24] 9178 	mov	b,r7
-      005F8B 12 70 1B         [24] 9179 	lcall	__gptrget
-      005F8E FC               [12] 9180 	mov	r4,a
-      005F8F 60 10            [24] 9181 	jz	00126$
-      005F91 7B 00            [12] 9182 	mov	r3,#0x00
-      005F93 8C 82            [24] 9183 	mov	dpl,r4
-      005F95 8B 83            [24] 9184 	mov	dph,r3
-      005F97 12 2C 1F         [24] 9185 	lcall	_putchar
-      005F9A 0D               [12] 9186 	inc	r5
-                                   9187 ;	calc.c:430: printstr("\r\nSSTOP0 = ");
-      005F9B BD 00 E7         [24] 9188 	cjne	r5,#0x00,00152$
-      005F9E 0E               [12] 9189 	inc	r6
-      005F9F 80 E4            [24] 9190 	sjmp	00152$
-      005FA1                       9191 00126$:
-                                   9192 ;	calc.c:431: if (n > 1) {
-      005FA1 E5 08            [12] 9193 	mov	a,_bp
-      005FA3 24 0A            [12] 9194 	add	a,#0x0a
-      005FA5 F8               [12] 9195 	mov	r0,a
-      005FA6 C3               [12] 9196 	clr	c
-      005FA7 74 01            [12] 9197 	mov	a,#0x01
-      005FA9 96               [12] 9198 	subb	a,@r0
-      005FAA 74 80            [12] 9199 	mov	a,#(0x00 ^ 0x80)
-      005FAC 08               [12] 9200 	inc	r0
-      005FAD 86 F0            [24] 9201 	mov	b,@r0
-      005FAF 63 F0 80         [24] 9202 	xrl	b,#0x80
-      005FB2 95 F0            [12] 9203 	subb	a,b
-      005FB4 40 03            [24] 9204 	jc	00333$
-      005FB6 02 60 99         [24] 9205 	ljmp	00108$
-      005FB9                       9206 00333$:
-                                   9207 ;	calc.c:432: printf("% 11ld / ", vals[0]);
-      005FB9 87 04            [24] 9208 	mov	ar4,@r1
-      005FBB 09               [12] 9209 	inc	r1
-      005FBC 87 05            [24] 9210 	mov	ar5,@r1
-      005FBE 09               [12] 9211 	inc	r1
-      005FBF 87 06            [24] 9212 	mov	ar6,@r1
-      005FC1 09               [12] 9213 	inc	r1
-      005FC2 87 07            [24] 9214 	mov	ar7,@r1
-      005FC4 19               [12] 9215 	dec	r1
-      005FC5 19               [12] 9216 	dec	r1
-      005FC6 19               [12] 9217 	dec	r1
-      005FC7 C0 01            [24] 9218 	push	ar1
-      005FC9 C0 04            [24] 9219 	push	ar4
-      005FCB C0 05            [24] 9220 	push	ar5
-      005FCD C0 06            [24] 9221 	push	ar6
-      005FCF C0 07            [24] 9222 	push	ar7
-      005FD1 74 B9            [12] 9223 	mov	a,#___str_3
-      005FD3 C0 E0            [24] 9224 	push	acc
-      005FD5 74 88            [12] 9225 	mov	a,#(___str_3 >> 8)
-      005FD7 C0 E0            [24] 9226 	push	acc
-      005FD9 74 80            [12] 9227 	mov	a,#0x80
-      005FDB C0 E0            [24] 9228 	push	acc
-      005FDD 12 6F E2         [24] 9229 	lcall	_printf
-      005FE0 E5 81            [12] 9230 	mov	a,sp
-      005FE2 24 F9            [12] 9231 	add	a,#0xf9
-      005FE4 F5 81            [12] 9232 	mov	sp,a
-      005FE6 D0 01            [24] 9233 	pop	ar1
-                                   9234 ;	calc.c:433: printf("%08lx / ", vals[0]);
-      005FE8 87 04            [24] 9235 	mov	ar4,@r1
-      005FEA 09               [12] 9236 	inc	r1
-      005FEB 87 05            [24] 9237 	mov	ar5,@r1
-      005FED 09               [12] 9238 	inc	r1
-      005FEE 87 06            [24] 9239 	mov	ar6,@r1
-      005FF0 09               [12] 9240 	inc	r1
-      005FF1 87 07            [24] 9241 	mov	ar7,@r1
-      005FF3 19               [12] 9242 	dec	r1
-      005FF4 19               [12] 9243 	dec	r1
-      005FF5 19               [12] 9244 	dec	r1
-      005FF6 C0 01            [24] 9245 	push	ar1
-      005FF8 C0 04            [24] 9246 	push	ar4
-      005FFA C0 05            [24] 9247 	push	ar5
-      005FFC C0 06            [24] 9248 	push	ar6
-      005FFE C0 07            [24] 9249 	push	ar7
-      006000 74 C3            [12] 9250 	mov	a,#___str_4
-      006002 C0 E0            [24] 9251 	push	acc
-      006004 74 88            [12] 9252 	mov	a,#(___str_4 >> 8)
-      006006 C0 E0            [24] 9253 	push	acc
-      006008 74 80            [12] 9254 	mov	a,#0x80
-      00600A C0 E0            [24] 9255 	push	acc
-      00600C 12 6F E2         [24] 9256 	lcall	_printf
-      00600F E5 81            [12] 9257 	mov	a,sp
-      006011 24 F9            [12] 9258 	add	a,#0xf9
-      006013 F5 81            [12] 9259 	mov	sp,a
-      006015 D0 01            [24] 9260 	pop	ar1
-                                   9261 ;	calc.c:434: printbin(vals[0]);
-      006017 E5 08            [12] 9262 	mov	a,_bp
-      006019 24 14            [12] 9263 	add	a,#0x14
-      00601B F8               [12] 9264 	mov	r0,a
-      00601C E7               [12] 9265 	mov	a,@r1
-      00601D F6               [12] 9266 	mov	@r0,a
-      00601E 09               [12] 9267 	inc	r1
-      00601F E7               [12] 9268 	mov	a,@r1
-      006020 08               [12] 9269 	inc	r0
-      006021 F6               [12] 9270 	mov	@r0,a
-      006022 09               [12] 9271 	inc	r1
-      006023 E7               [12] 9272 	mov	a,@r1
-      006024 08               [12] 9273 	inc	r0
-      006025 F6               [12] 9274 	mov	@r0,a
-      006026 09               [12] 9275 	inc	r1
-      006027 E7               [12] 9276 	mov	a,@r1
-      006028 08               [12] 9277 	inc	r0
-      006029 F6               [12] 9278 	mov	@r0,a
-                                   9279 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
-      00602A E5 08            [12] 9280 	mov	a,_bp
-      00602C 24 18            [12] 9281 	add	a,#0x18
-      00602E F8               [12] 9282 	mov	r0,a
-      00602F E4               [12] 9283 	clr	a
-      006030 F6               [12] 9284 	mov	@r0,a
-      006031 08               [12] 9285 	inc	r0
-      006032 F6               [12] 9286 	mov	@r0,a
-      006033 08               [12] 9287 	inc	r0
-      006034 F6               [12] 9288 	mov	@r0,a
-      006035 08               [12] 9289 	inc	r0
-      006036 76 80            [12] 9290 	mov	@r0,#0x80
-      006038                       9291 00154$:
-                                   9292 ;	calc.c:58: (void)putchar((d & mask) ? (int)'1' : (int)'0');
-      006038 E5 08            [12] 9293 	mov	a,_bp
-      00603A 24 14            [12] 9294 	add	a,#0x14
-      00603C F8               [12] 9295 	mov	r0,a
-      00603D 86 04            [24] 9296 	mov	ar4,@r0
-      00603F 08               [12] 9297 	inc	r0
-      006040 86 05            [24] 9298 	mov	ar5,@r0
-      006042 08               [12] 9299 	inc	r0
-      006043 86 06            [24] 9300 	mov	ar6,@r0
-      006045 08               [12] 9301 	inc	r0
-      006046 86 07            [24] 9302 	mov	ar7,@r0
-      006048 E5 08            [12] 9303 	mov	a,_bp
-      00604A 24 18            [12] 9304 	add	a,#0x18
-      00604C F8               [12] 9305 	mov	r0,a
-      00604D E6               [12] 9306 	mov	a,@r0
-      00604E 52 04            [12] 9307 	anl	ar4,a
-      006050 08               [12] 9308 	inc	r0
-      006051 E6               [12] 9309 	mov	a,@r0
-      006052 52 05            [12] 9310 	anl	ar5,a
-      006054 08               [12] 9311 	inc	r0
-      006055 E6               [12] 9312 	mov	a,@r0
-      006056 52 06            [12] 9313 	anl	ar6,a
-      006058 08               [12] 9314 	inc	r0
-      006059 E6               [12] 9315 	mov	a,@r0
-      00605A 52 07            [12] 9316 	anl	ar7,a
-      00605C EC               [12] 9317 	mov	a,r4
-      00605D 4D               [12] 9318 	orl	a,r5
-      00605E 4E               [12] 9319 	orl	a,r6
-      00605F 4F               [12] 9320 	orl	a,r7
-      006060 60 06            [24] 9321 	jz	00169$
-      006062 7E 31            [12] 9322 	mov	r6,#0x31
-      006064 7F 00            [12] 9323 	mov	r7,#0x00
-      006066 80 04            [24] 9324 	sjmp	00170$
-      006068                       9325 00169$:
-      006068 7E 30            [12] 9326 	mov	r6,#0x30
-      00606A 7F 00            [12] 9327 	mov	r7,#0x00
-      00606C                       9328 00170$:
-      00606C 8E 82            [24] 9329 	mov	dpl,r6
-      00606E 8F 83            [24] 9330 	mov	dph,r7
-      006070 12 2C 1F         [24] 9331 	lcall	_putchar
-                                   9332 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
-      006073 E5 08            [12] 9333 	mov	a,_bp
-      006075 24 18            [12] 9334 	add	a,#0x18
-      006077 F8               [12] 9335 	mov	r0,a
-      006078 08               [12] 9336 	inc	r0
-      006079 08               [12] 9337 	inc	r0
-      00607A 08               [12] 9338 	inc	r0
-      00607B E6               [12] 9339 	mov	a,@r0
-      00607C C3               [12] 9340 	clr	c
-      00607D 13               [12] 9341 	rrc	a
-      00607E F6               [12] 9342 	mov	@r0,a
-      00607F 18               [12] 9343 	dec	r0
-      006080 E6               [12] 9344 	mov	a,@r0
-      006081 13               [12] 9345 	rrc	a
-      006082 F6               [12] 9346 	mov	@r0,a
-      006083 18               [12] 9347 	dec	r0
-      006084 E6               [12] 9348 	mov	a,@r0
-      006085 13               [12] 9349 	rrc	a
-      006086 F6               [12] 9350 	mov	@r0,a
-      006087 18               [12] 9351 	dec	r0
-      006088 E6               [12] 9352 	mov	a,@r0
-      006089 13               [12] 9353 	rrc	a
-      00608A F6               [12] 9354 	mov	@r0,a
-      00608B E5 08            [12] 9355 	mov	a,_bp
-      00608D 24 18            [12] 9356 	add	a,#0x18
-      00608F F8               [12] 9357 	mov	r0,a
-      006090 E6               [12] 9358 	mov	a,@r0
-      006091 08               [12] 9359 	inc	r0
-      006092 46               [12] 9360 	orl	a,@r0
-      006093 08               [12] 9361 	inc	r0
-      006094 46               [12] 9362 	orl	a,@r0
-      006095 08               [12] 9363 	inc	r0
-      006096 46               [12] 9364 	orl	a,@r0
-      006097 70 9F            [24] 9365 	jnz	00154$
-                                   9366 ;	calc.c:434: printbin(vals[0]);
-      006099                       9367 00108$:
-                                   9368 ;	calc.c:436: printstr("\r\n");
-      006099 7D CC            [12] 9369 	mov	r5,#___str_5
-      00609B 7E 88            [12] 9370 	mov	r6,#(___str_5 >> 8)
-      00609D 7F 80            [12] 9371 	mov	r7,#0x80
-                                   9372 ;	calc.c:51: return;
-      00609F                       9373 00157$:
-                                   9374 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      00609F 8D 82            [24] 9375 	mov	dpl,r5
-      0060A1 8E 83            [24] 9376 	mov	dph,r6
-      0060A3 8F F0            [24] 9377 	mov	b,r7
-      0060A5 12 70 1B         [24] 9378 	lcall	__gptrget
-      0060A8 FC               [12] 9379 	mov	r4,a
-      0060A9 60 10            [24] 9380 	jz	00130$
-      0060AB 7B 00            [12] 9381 	mov	r3,#0x00
-      0060AD 8C 82            [24] 9382 	mov	dpl,r4
-      0060AF 8B 83            [24] 9383 	mov	dph,r3
-      0060B1 12 2C 1F         [24] 9384 	lcall	_putchar
-      0060B4 0D               [12] 9385 	inc	r5
-                                   9386 ;	calc.c:436: printstr("\r\n");
-      0060B5 BD 00 E7         [24] 9387 	cjne	r5,#0x00,00157$
-      0060B8 0E               [12] 9388 	inc	r6
-      0060B9 80 E4            [24] 9389 	sjmp	00157$
-      0060BB                       9390 00130$:
-                                   9391 ;	calc.c:438: return 1;
-      0060BB 90 00 01         [24] 9392 	mov	dptr,#0x0001
-                                   9393 ;	calc.c:439: }
-      0060BE 85 08 81         [24] 9394 	mov	sp,_bp
-      0060C1 D0 08            [24] 9395 	pop	_bp
-      0060C3 22               [24] 9396 	ret
-                                   9397 ;------------------------------------------------------------
-                                   9398 ;Allocation info for local variables in function 'help'
-                                   9399 ;------------------------------------------------------------
-                                   9400 ;delta                     Allocated to stack - _bp -5
-                                   9401 ;_ctx                      Allocated to registers 
-                                   9402 ;__1310720149              Allocated to registers 
-                                   9403 ;s                         Allocated to registers r5 r6 r7 
-                                   9404 ;__1310720151              Allocated to registers 
-                                   9405 ;s                         Allocated to registers r5 r6 r7 
-                                   9406 ;__1310720153              Allocated to registers 
-                                   9407 ;s                         Allocated to registers r5 r6 r7 
-                                   9408 ;__1310720155              Allocated to registers 
-                                   9409 ;s                         Allocated to registers r5 r6 r7 
-                                   9410 ;__1310720157              Allocated to registers 
-                                   9411 ;s                         Allocated to registers r5 r6 r7 
-                                   9412 ;__1310720159              Allocated to registers 
-                                   9413 ;s                         Allocated to registers r5 r6 r7 
-                                   9414 ;__1310720161              Allocated to registers 
-                                   9415 ;s                         Allocated to registers r5 r6 r7 
-                                   9416 ;__1310720163              Allocated to registers 
-                                   9417 ;s                         Allocated to registers r5 r6 r7 
-                                   9418 ;__1310720165              Allocated to registers 
-                                   9419 ;s                         Allocated to registers r5 r6 r7 
-                                   9420 ;__1310720167              Allocated to registers 
-                                   9421 ;s                         Allocated to registers r5 r6 r7 
-                                   9422 ;__1310720169              Allocated to registers 
-                                   9423 ;s                         Allocated to registers r5 r6 r7 
-                                   9424 ;__1310720171              Allocated to registers 
-                                   9425 ;s                         Allocated to registers r5 r6 r7 
-                                   9426 ;__1310720173              Allocated to registers 
-                                   9427 ;s                         Allocated to registers r5 r6 r7 
-                                   9428 ;__1310720175              Allocated to registers 
-                                   9429 ;s                         Allocated to registers r5 r6 r7 
-                                   9430 ;__1310720177              Allocated to registers 
-                                   9431 ;s                         Allocated to registers r5 r6 r7 
-                                   9432 ;__1310720179              Allocated to registers 
-                                   9433 ;s                         Allocated to registers r5 r6 r7 
-                                   9434 ;__1310720181              Allocated to registers 
-                                   9435 ;s                         Allocated to registers r5 r6 r7 
-                                   9436 ;__1310720183              Allocated to registers 
-                                   9437 ;s                         Allocated to registers r5 r6 r7 
-                                   9438 ;__1310720185              Allocated to registers 
-                                   9439 ;s                         Allocated to registers r5 r6 r7 
-                                   9440 ;__1310720187              Allocated to registers 
-                                   9441 ;s                         Allocated to registers r5 r6 r7 
-                                   9442 ;__1310720189              Allocated to registers 
-                                   9443 ;s                         Allocated to registers r5 r6 r7 
-                                   9444 ;__1310720191              Allocated to registers 
-                                   9445 ;s                         Allocated to registers r5 r6 r7 
-                                   9446 ;__1310720193              Allocated to registers 
-                                   9447 ;s                         Allocated to registers r5 r6 r7 
-                                   9448 ;__1310720195              Allocated to registers 
-                                   9449 ;s                         Allocated to registers r5 r6 r7 
-                                   9450 ;__1310720197              Allocated to registers 
-                                   9451 ;s                         Allocated to registers r5 r6 r7 
-                                   9452 ;__1310720199              Allocated to registers 
-                                   9453 ;s                         Allocated to registers r5 r6 r7 
-                                   9454 ;__1310720201              Allocated to registers 
-                                   9455 ;s                         Allocated to registers r5 r6 r7 
-                                   9456 ;__1310720203              Allocated to registers 
-                                   9457 ;s                         Allocated to registers r5 r6 r7 
-                                   9458 ;__1310720205              Allocated to registers 
-                                   9459 ;s                         Allocated to registers r5 r6 r7 
-                                   9460 ;__1310720207              Allocated to registers 
-                                   9461 ;s                         Allocated to registers r5 r6 r7 
-                                   9462 ;__1310720209              Allocated to registers 
+                                   7976 ;sloc2                     Allocated to stack - _bp +7
+                                   7977 ;------------------------------------------------------------
+                                   7978 ;	calc.c:394: static int status(void *_ctx, delta_t *delta) __reentrant {
+                                   7979 ;	-----------------------------------------
+                                   7980 ;	 function status
+                                   7981 ;	-----------------------------------------
+      005879                       7982 _status:
+      005879 C0 08            [24] 7983 	push	_bp
+      00587B E5 81            [12] 7984 	mov	a,sp
+      00587D F5 08            [12] 7985 	mov	_bp,a
+      00587F 24 1D            [12] 7986 	add	a,#0x1d
+      005881 F5 81            [12] 7987 	mov	sp,a
+      005883 AD 82            [24] 7988 	mov	r5,dpl
+      005885 AE 83            [24] 7989 	mov	r6,dph
+      005887 AF F0            [24] 7990 	mov	r7,b
+                                   7991 ;	calc.c:395: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
+      005889 E5 08            [12] 7992 	mov	a,_bp
+      00588B 24 09            [12] 7993 	add	a,#0x09
+      00588D F8               [12] 7994 	mov	r0,a
+      00588E A6 05            [24] 7995 	mov	@r0,ar5
+      005890 08               [12] 7996 	inc	r0
+      005891 A6 06            [24] 7997 	mov	@r0,ar6
+      005893 08               [12] 7998 	inc	r0
+      005894 A6 07            [24] 7999 	mov	@r0,ar7
+                                   8000 ;	calc.c:401: printf("\r\nprimary = %p, secondary = %p\r\n", ctx->ps, ctx->ss);
+      005896 E5 08            [12] 8001 	mov	a,_bp
+      005898 24 09            [12] 8002 	add	a,#0x09
+      00589A F8               [12] 8003 	mov	r0,a
+      00589B 74 16            [12] 8004 	mov	a,#0x16
+      00589D 26               [12] 8005 	add	a,@r0
+      00589E FA               [12] 8006 	mov	r2,a
+      00589F 74 40            [12] 8007 	mov	a,#0x40
+      0058A1 08               [12] 8008 	inc	r0
+      0058A2 36               [12] 8009 	addc	a,@r0
+      0058A3 FB               [12] 8010 	mov	r3,a
+      0058A4 08               [12] 8011 	inc	r0
+      0058A5 86 04            [24] 8012 	mov	ar4,@r0
+      0058A7 8A 82            [24] 8013 	mov	dpl,r2
+      0058A9 8B 83            [24] 8014 	mov	dph,r3
+      0058AB 8C F0            [24] 8015 	mov	b,r4
+      0058AD E5 08            [12] 8016 	mov	a,_bp
+      0058AF 24 04            [12] 8017 	add	a,#0x04
+      0058B1 F8               [12] 8018 	mov	r0,a
+      0058B2 12 70 79         [24] 8019 	lcall	__gptrget
+      0058B5 F6               [12] 8020 	mov	@r0,a
+      0058B6 A3               [24] 8021 	inc	dptr
+      0058B7 12 70 79         [24] 8022 	lcall	__gptrget
+      0058BA 08               [12] 8023 	inc	r0
+      0058BB F6               [12] 8024 	mov	@r0,a
+      0058BC A3               [24] 8025 	inc	dptr
+      0058BD 12 70 79         [24] 8026 	lcall	__gptrget
+      0058C0 08               [12] 8027 	inc	r0
+      0058C1 F6               [12] 8028 	mov	@r0,a
+      0058C2 E5 08            [12] 8029 	mov	a,_bp
+      0058C4 24 09            [12] 8030 	add	a,#0x09
+      0058C6 F8               [12] 8031 	mov	r0,a
+      0058C7 A9 08            [24] 8032 	mov	r1,_bp
+      0058C9 09               [12] 8033 	inc	r1
+      0058CA 74 13            [12] 8034 	mov	a,#0x13
+      0058CC 26               [12] 8035 	add	a,@r0
+      0058CD F7               [12] 8036 	mov	@r1,a
+      0058CE 74 40            [12] 8037 	mov	a,#0x40
+      0058D0 08               [12] 8038 	inc	r0
+      0058D1 36               [12] 8039 	addc	a,@r0
+      0058D2 09               [12] 8040 	inc	r1
+      0058D3 F7               [12] 8041 	mov	@r1,a
+      0058D4 08               [12] 8042 	inc	r0
+      0058D5 09               [12] 8043 	inc	r1
+      0058D6 E6               [12] 8044 	mov	a,@r0
+      0058D7 F7               [12] 8045 	mov	@r1,a
+      0058D8 A8 08            [24] 8046 	mov	r0,_bp
+      0058DA 08               [12] 8047 	inc	r0
+      0058DB 86 82            [24] 8048 	mov	dpl,@r0
+      0058DD 08               [12] 8049 	inc	r0
+      0058DE 86 83            [24] 8050 	mov	dph,@r0
+      0058E0 08               [12] 8051 	inc	r0
+      0058E1 86 F0            [24] 8052 	mov	b,@r0
+      0058E3 12 70 79         [24] 8053 	lcall	__gptrget
+      0058E6 FD               [12] 8054 	mov	r5,a
+      0058E7 A3               [24] 8055 	inc	dptr
+      0058E8 12 70 79         [24] 8056 	lcall	__gptrget
+      0058EB FE               [12] 8057 	mov	r6,a
+      0058EC A3               [24] 8058 	inc	dptr
+      0058ED 12 70 79         [24] 8059 	lcall	__gptrget
+      0058F0 FF               [12] 8060 	mov	r7,a
+      0058F1 C0 04            [24] 8061 	push	ar4
+      0058F3 C0 03            [24] 8062 	push	ar3
+      0058F5 C0 02            [24] 8063 	push	ar2
+      0058F7 E5 08            [12] 8064 	mov	a,_bp
+      0058F9 24 04            [12] 8065 	add	a,#0x04
+      0058FB F8               [12] 8066 	mov	r0,a
+      0058FC E6               [12] 8067 	mov	a,@r0
+      0058FD C0 E0            [24] 8068 	push	acc
+      0058FF 08               [12] 8069 	inc	r0
+      005900 E6               [12] 8070 	mov	a,@r0
+      005901 C0 E0            [24] 8071 	push	acc
+      005903 08               [12] 8072 	inc	r0
+      005904 E6               [12] 8073 	mov	a,@r0
+      005905 C0 E0            [24] 8074 	push	acc
+      005907 C0 05            [24] 8075 	push	ar5
+      005909 C0 06            [24] 8076 	push	ar6
+      00590B C0 07            [24] 8077 	push	ar7
+      00590D 74 B5            [12] 8078 	mov	a,#___str_15
+      00590F C0 E0            [24] 8079 	push	acc
+      005911 74 89            [12] 8080 	mov	a,#(___str_15 >> 8)
+      005913 C0 E0            [24] 8081 	push	acc
+      005915 74 80            [12] 8082 	mov	a,#0x80
+      005917 C0 E0            [24] 8083 	push	acc
+      005919 12 70 40         [24] 8084 	lcall	_printf
+      00591C E5 81            [12] 8085 	mov	a,sp
+      00591E 24 F7            [12] 8086 	add	a,#0xf7
+      005920 F5 81            [12] 8087 	mov	sp,a
+                                   8088 ;	calc.c:402: printf("acc_valid = %d, base = %d\r\n", (int)ctx->acc_valid, ctx->base);
+      005922 E5 08            [12] 8089 	mov	a,_bp
+      005924 24 09            [12] 8090 	add	a,#0x09
+      005926 F8               [12] 8091 	mov	r0,a
+      005927 86 82            [24] 8092 	mov	dpl,@r0
+      005929 08               [12] 8093 	inc	r0
+      00592A 86 83            [24] 8094 	mov	dph,@r0
+      00592C 08               [12] 8095 	inc	r0
+      00592D 86 F0            [24] 8096 	mov	b,@r0
+      00592F E5 08            [12] 8097 	mov	a,_bp
+      005931 24 07            [12] 8098 	add	a,#0x07
+      005933 F9               [12] 8099 	mov	r1,a
+      005934 12 70 79         [24] 8100 	lcall	__gptrget
+      005937 F7               [12] 8101 	mov	@r1,a
+      005938 A3               [24] 8102 	inc	dptr
+      005939 12 70 79         [24] 8103 	lcall	__gptrget
+      00593C 09               [12] 8104 	inc	r1
+      00593D F7               [12] 8105 	mov	@r1,a
+      00593E E5 08            [12] 8106 	mov	a,_bp
+      005940 24 09            [12] 8107 	add	a,#0x09
+      005942 F8               [12] 8108 	mov	r0,a
+      005943 E5 08            [12] 8109 	mov	a,_bp
+      005945 24 04            [12] 8110 	add	a,#0x04
+      005947 F9               [12] 8111 	mov	r1,a
+      005948 74 06            [12] 8112 	mov	a,#0x06
+      00594A 26               [12] 8113 	add	a,@r0
+      00594B F7               [12] 8114 	mov	@r1,a
+      00594C E4               [12] 8115 	clr	a
+      00594D 08               [12] 8116 	inc	r0
+      00594E 36               [12] 8117 	addc	a,@r0
+      00594F 09               [12] 8118 	inc	r1
+      005950 F7               [12] 8119 	mov	@r1,a
+      005951 08               [12] 8120 	inc	r0
+      005952 09               [12] 8121 	inc	r1
+      005953 E6               [12] 8122 	mov	a,@r0
+      005954 F7               [12] 8123 	mov	@r1,a
+      005955 E5 08            [12] 8124 	mov	a,_bp
+      005957 24 04            [12] 8125 	add	a,#0x04
+      005959 F8               [12] 8126 	mov	r0,a
+      00595A 86 82            [24] 8127 	mov	dpl,@r0
+      00595C 08               [12] 8128 	inc	r0
+      00595D 86 83            [24] 8129 	mov	dph,@r0
+      00595F 08               [12] 8130 	inc	r0
+      005960 86 F0            [24] 8131 	mov	b,@r0
+      005962 12 70 79         [24] 8132 	lcall	__gptrget
+      005965 FD               [12] 8133 	mov	r5,a
+      005966 7F 00            [12] 8134 	mov	r7,#0x00
+      005968 E5 08            [12] 8135 	mov	a,_bp
+      00596A 24 07            [12] 8136 	add	a,#0x07
+      00596C F8               [12] 8137 	mov	r0,a
+      00596D E6               [12] 8138 	mov	a,@r0
+      00596E C0 E0            [24] 8139 	push	acc
+      005970 08               [12] 8140 	inc	r0
+      005971 E6               [12] 8141 	mov	a,@r0
+      005972 C0 E0            [24] 8142 	push	acc
+      005974 C0 05            [24] 8143 	push	ar5
+      005976 C0 07            [24] 8144 	push	ar7
+      005978 74 D6            [12] 8145 	mov	a,#___str_16
+      00597A C0 E0            [24] 8146 	push	acc
+      00597C 74 89            [12] 8147 	mov	a,#(___str_16 >> 8)
+      00597E C0 E0            [24] 8148 	push	acc
+      005980 74 80            [12] 8149 	mov	a,#0x80
+      005982 C0 E0            [24] 8150 	push	acc
+      005984 12 70 40         [24] 8151 	lcall	_printf
+      005987 E5 81            [12] 8152 	mov	a,sp
+      005989 24 F9            [12] 8153 	add	a,#0xf9
+      00598B F5 81            [12] 8154 	mov	sp,a
+      00598D D0 02            [24] 8155 	pop	ar2
+      00598F D0 03            [24] 8156 	pop	ar3
+      005991 D0 04            [24] 8157 	pop	ar4
+                                   8158 ;	calc.c:404: printstr("acc    = ");
+      005993 7D F2            [12] 8159 	mov	r5,#___str_17
+      005995 7E 89            [12] 8160 	mov	r6,#(___str_17 >> 8)
+      005997 7F 80            [12] 8161 	mov	r7,#0x80
+                                   8162 ;	calc.c:51: return;
+      005999                       8163 00134$:
+                                   8164 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      005999 8D 82            [24] 8165 	mov	dpl,r5
+      00599B 8E 83            [24] 8166 	mov	dph,r6
+      00599D 8F F0            [24] 8167 	mov	b,r7
+      00599F E5 08            [12] 8168 	mov	a,_bp
+      0059A1 24 07            [12] 8169 	add	a,#0x07
+      0059A3 F8               [12] 8170 	mov	r0,a
+      0059A4 12 70 79         [24] 8171 	lcall	__gptrget
+      0059A7 F6               [12] 8172 	mov	@r0,a
+      0059A8 E5 08            [12] 8173 	mov	a,_bp
+      0059AA 24 07            [12] 8174 	add	a,#0x07
+      0059AC F8               [12] 8175 	mov	r0,a
+      0059AD E6               [12] 8176 	mov	a,@r0
+      0059AE 60 23            [24] 8177 	jz	00112$
+      0059B0 C0 02            [24] 8178 	push	ar2
+      0059B2 C0 03            [24] 8179 	push	ar3
+      0059B4 C0 04            [24] 8180 	push	ar4
+      0059B6 E5 08            [12] 8181 	mov	a,_bp
+      0059B8 24 07            [12] 8182 	add	a,#0x07
+      0059BA F8               [12] 8183 	mov	r0,a
+      0059BB 86 03            [24] 8184 	mov	ar3,@r0
+      0059BD 7C 00            [12] 8185 	mov	r4,#0x00
+      0059BF 8B 82            [24] 8186 	mov	dpl,r3
+      0059C1 8C 83            [24] 8187 	mov	dph,r4
+      0059C3 12 2C 1F         [24] 8188 	lcall	_putchar
+      0059C6 0D               [12] 8189 	inc	r5
+      0059C7 BD 00 01         [24] 8190 	cjne	r5,#0x00,00315$
+      0059CA 0E               [12] 8191 	inc	r6
+      0059CB                       8192 00315$:
+      0059CB D0 04            [24] 8193 	pop	ar4
+      0059CD D0 03            [24] 8194 	pop	ar3
+      0059CF D0 02            [24] 8195 	pop	ar2
+                                   8196 ;	calc.c:404: printstr("acc    = ");
+      0059D1 80 C6            [24] 8197 	sjmp	00134$
+      0059D3                       8198 00112$:
+                                   8199 ;	calc.c:405: if (ctx->acc_valid) {
+      0059D3 E5 08            [12] 8200 	mov	a,_bp
+      0059D5 24 04            [12] 8201 	add	a,#0x04
+      0059D7 F8               [12] 8202 	mov	r0,a
+      0059D8 86 82            [24] 8203 	mov	dpl,@r0
+      0059DA 08               [12] 8204 	inc	r0
+      0059DB 86 83            [24] 8205 	mov	dph,@r0
+      0059DD 08               [12] 8206 	inc	r0
+      0059DE 86 F0            [24] 8207 	mov	b,@r0
+      0059E0 12 70 79         [24] 8208 	lcall	__gptrget
+      0059E3 70 03            [24] 8209 	jnz	00316$
+      0059E5 02 5B 40         [24] 8210 	ljmp	00102$
+      0059E8                       8211 00316$:
+                                   8212 ;	calc.c:406: printf("% 11ld / ", ctx->acc);
+      0059E8 C0 02            [24] 8213 	push	ar2
+      0059EA C0 03            [24] 8214 	push	ar3
+      0059EC C0 04            [24] 8215 	push	ar4
+      0059EE E5 08            [12] 8216 	mov	a,_bp
+      0059F0 24 09            [12] 8217 	add	a,#0x09
+      0059F2 F8               [12] 8218 	mov	r0,a
+      0059F3 E5 08            [12] 8219 	mov	a,_bp
+      0059F5 24 04            [12] 8220 	add	a,#0x04
+      0059F7 F9               [12] 8221 	mov	r1,a
+      0059F8 74 02            [12] 8222 	mov	a,#0x02
+      0059FA 26               [12] 8223 	add	a,@r0
+      0059FB F7               [12] 8224 	mov	@r1,a
+      0059FC E4               [12] 8225 	clr	a
+      0059FD 08               [12] 8226 	inc	r0
+      0059FE 36               [12] 8227 	addc	a,@r0
+      0059FF 09               [12] 8228 	inc	r1
+      005A00 F7               [12] 8229 	mov	@r1,a
+      005A01 08               [12] 8230 	inc	r0
+      005A02 09               [12] 8231 	inc	r1
+      005A03 E6               [12] 8232 	mov	a,@r0
+      005A04 F7               [12] 8233 	mov	@r1,a
+      005A05 E5 08            [12] 8234 	mov	a,_bp
+      005A07 24 04            [12] 8235 	add	a,#0x04
+      005A09 F8               [12] 8236 	mov	r0,a
+      005A0A 86 82            [24] 8237 	mov	dpl,@r0
+      005A0C 08               [12] 8238 	inc	r0
+      005A0D 86 83            [24] 8239 	mov	dph,@r0
+      005A0F 08               [12] 8240 	inc	r0
+      005A10 86 F0            [24] 8241 	mov	b,@r0
+      005A12 12 70 79         [24] 8242 	lcall	__gptrget
+      005A15 FA               [12] 8243 	mov	r2,a
+      005A16 A3               [24] 8244 	inc	dptr
+      005A17 12 70 79         [24] 8245 	lcall	__gptrget
+      005A1A FB               [12] 8246 	mov	r3,a
+      005A1B A3               [24] 8247 	inc	dptr
+      005A1C 12 70 79         [24] 8248 	lcall	__gptrget
+      005A1F FC               [12] 8249 	mov	r4,a
+      005A20 A3               [24] 8250 	inc	dptr
+      005A21 12 70 79         [24] 8251 	lcall	__gptrget
+      005A24 FF               [12] 8252 	mov	r7,a
+      005A25 C0 04            [24] 8253 	push	ar4
+      005A27 C0 03            [24] 8254 	push	ar3
+      005A29 C0 02            [24] 8255 	push	ar2
+      005A2B C0 02            [24] 8256 	push	ar2
+      005A2D C0 03            [24] 8257 	push	ar3
+      005A2F C0 04            [24] 8258 	push	ar4
+      005A31 C0 07            [24] 8259 	push	ar7
+      005A33 74 17            [12] 8260 	mov	a,#___str_3
+      005A35 C0 E0            [24] 8261 	push	acc
+      005A37 74 89            [12] 8262 	mov	a,#(___str_3 >> 8)
+      005A39 C0 E0            [24] 8263 	push	acc
+      005A3B 74 80            [12] 8264 	mov	a,#0x80
+      005A3D C0 E0            [24] 8265 	push	acc
+      005A3F 12 70 40         [24] 8266 	lcall	_printf
+      005A42 E5 81            [12] 8267 	mov	a,sp
+      005A44 24 F9            [12] 8268 	add	a,#0xf9
+      005A46 F5 81            [12] 8269 	mov	sp,a
+      005A48 D0 02            [24] 8270 	pop	ar2
+      005A4A D0 03            [24] 8271 	pop	ar3
+      005A4C D0 04            [24] 8272 	pop	ar4
+                                   8273 ;	calc.c:407: printf("%08lx / ", ctx->acc);
+      005A4E E5 08            [12] 8274 	mov	a,_bp
+      005A50 24 04            [12] 8275 	add	a,#0x04
+      005A52 F8               [12] 8276 	mov	r0,a
+      005A53 86 82            [24] 8277 	mov	dpl,@r0
+      005A55 08               [12] 8278 	inc	r0
+      005A56 86 83            [24] 8279 	mov	dph,@r0
+      005A58 08               [12] 8280 	inc	r0
+      005A59 86 F0            [24] 8281 	mov	b,@r0
+      005A5B 12 70 79         [24] 8282 	lcall	__gptrget
+      005A5E FC               [12] 8283 	mov	r4,a
+      005A5F A3               [24] 8284 	inc	dptr
+      005A60 12 70 79         [24] 8285 	lcall	__gptrget
+      005A63 FD               [12] 8286 	mov	r5,a
+      005A64 A3               [24] 8287 	inc	dptr
+      005A65 12 70 79         [24] 8288 	lcall	__gptrget
+      005A68 FE               [12] 8289 	mov	r6,a
+      005A69 A3               [24] 8290 	inc	dptr
+      005A6A 12 70 79         [24] 8291 	lcall	__gptrget
+      005A6D FF               [12] 8292 	mov	r7,a
+      005A6E C0 04            [24] 8293 	push	ar4
+      005A70 C0 03            [24] 8294 	push	ar3
+      005A72 C0 02            [24] 8295 	push	ar2
+      005A74 C0 04            [24] 8296 	push	ar4
+      005A76 C0 05            [24] 8297 	push	ar5
+      005A78 C0 06            [24] 8298 	push	ar6
+      005A7A C0 07            [24] 8299 	push	ar7
+      005A7C 74 21            [12] 8300 	mov	a,#___str_4
+      005A7E C0 E0            [24] 8301 	push	acc
+      005A80 74 89            [12] 8302 	mov	a,#(___str_4 >> 8)
+      005A82 C0 E0            [24] 8303 	push	acc
+      005A84 74 80            [12] 8304 	mov	a,#0x80
+      005A86 C0 E0            [24] 8305 	push	acc
+      005A88 12 70 40         [24] 8306 	lcall	_printf
+      005A8B E5 81            [12] 8307 	mov	a,sp
+      005A8D 24 F9            [12] 8308 	add	a,#0xf9
+      005A8F F5 81            [12] 8309 	mov	sp,a
+      005A91 D0 02            [24] 8310 	pop	ar2
+      005A93 D0 03            [24] 8311 	pop	ar3
+      005A95 D0 04            [24] 8312 	pop	ar4
+                                   8313 ;	calc.c:408: printbin(ctx->acc);
+      005A97 E5 08            [12] 8314 	mov	a,_bp
+      005A99 24 04            [12] 8315 	add	a,#0x04
+      005A9B F8               [12] 8316 	mov	r0,a
+      005A9C 86 82            [24] 8317 	mov	dpl,@r0
+      005A9E 08               [12] 8318 	inc	r0
+      005A9F 86 83            [24] 8319 	mov	dph,@r0
+      005AA1 08               [12] 8320 	inc	r0
+      005AA2 86 F0            [24] 8321 	mov	b,@r0
+      005AA4 E5 08            [12] 8322 	mov	a,_bp
+      005AA6 24 16            [12] 8323 	add	a,#0x16
+      005AA8 F9               [12] 8324 	mov	r1,a
+      005AA9 12 70 79         [24] 8325 	lcall	__gptrget
+      005AAC F7               [12] 8326 	mov	@r1,a
+      005AAD A3               [24] 8327 	inc	dptr
+      005AAE 12 70 79         [24] 8328 	lcall	__gptrget
+      005AB1 09               [12] 8329 	inc	r1
+      005AB2 F7               [12] 8330 	mov	@r1,a
+      005AB3 A3               [24] 8331 	inc	dptr
+      005AB4 12 70 79         [24] 8332 	lcall	__gptrget
+      005AB7 09               [12] 8333 	inc	r1
+      005AB8 F7               [12] 8334 	mov	@r1,a
+      005AB9 A3               [24] 8335 	inc	dptr
+      005ABA 12 70 79         [24] 8336 	lcall	__gptrget
+      005ABD 09               [12] 8337 	inc	r1
+      005ABE F7               [12] 8338 	mov	@r1,a
+                                   8339 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      005ABF E5 08            [12] 8340 	mov	a,_bp
+      005AC1 24 1A            [12] 8341 	add	a,#0x1a
+      005AC3 F8               [12] 8342 	mov	r0,a
+      005AC4 E4               [12] 8343 	clr	a
+      005AC5 F6               [12] 8344 	mov	@r0,a
+      005AC6 08               [12] 8345 	inc	r0
+      005AC7 F6               [12] 8346 	mov	@r0,a
+      005AC8 08               [12] 8347 	inc	r0
+      005AC9 F6               [12] 8348 	mov	@r0,a
+      005ACA 08               [12] 8349 	inc	r0
+      005ACB 76 80            [12] 8350 	mov	@r0,#0x80
+                                   8351 ;	calc.c:440: return 1;
+      005ACD D0 04            [24] 8352 	pop	ar4
+      005ACF D0 03            [24] 8353 	pop	ar3
+      005AD1 D0 02            [24] 8354 	pop	ar2
+                                   8355 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      005AD3                       8356 00136$:
+                                   8357 ;	calc.c:58: (void)putchar((d & mask) ? (int)'1' : (int)'0');
+      005AD3 C0 02            [24] 8358 	push	ar2
+      005AD5 C0 03            [24] 8359 	push	ar3
+      005AD7 C0 04            [24] 8360 	push	ar4
+      005AD9 E5 08            [12] 8361 	mov	a,_bp
+      005ADB 24 16            [12] 8362 	add	a,#0x16
+      005ADD F8               [12] 8363 	mov	r0,a
+      005ADE 86 04            [24] 8364 	mov	ar4,@r0
+      005AE0 08               [12] 8365 	inc	r0
+      005AE1 86 05            [24] 8366 	mov	ar5,@r0
+      005AE3 08               [12] 8367 	inc	r0
+      005AE4 86 06            [24] 8368 	mov	ar6,@r0
+      005AE6 08               [12] 8369 	inc	r0
+      005AE7 86 07            [24] 8370 	mov	ar7,@r0
+      005AE9 E5 08            [12] 8371 	mov	a,_bp
+      005AEB 24 1A            [12] 8372 	add	a,#0x1a
+      005AED F8               [12] 8373 	mov	r0,a
+      005AEE E6               [12] 8374 	mov	a,@r0
+      005AEF 52 04            [12] 8375 	anl	ar4,a
+      005AF1 08               [12] 8376 	inc	r0
+      005AF2 E6               [12] 8377 	mov	a,@r0
+      005AF3 52 05            [12] 8378 	anl	ar5,a
+      005AF5 08               [12] 8379 	inc	r0
+      005AF6 E6               [12] 8380 	mov	a,@r0
+      005AF7 52 06            [12] 8381 	anl	ar6,a
+      005AF9 08               [12] 8382 	inc	r0
+      005AFA E6               [12] 8383 	mov	a,@r0
+      005AFB 52 07            [12] 8384 	anl	ar7,a
+      005AFD EC               [12] 8385 	mov	a,r4
+      005AFE 4D               [12] 8386 	orl	a,r5
+      005AFF 4E               [12] 8387 	orl	a,r6
+      005B00 4F               [12] 8388 	orl	a,r7
+      005B01 D0 04            [24] 8389 	pop	ar4
+      005B03 D0 03            [24] 8390 	pop	ar3
+      005B05 D0 02            [24] 8391 	pop	ar2
+      005B07 60 06            [24] 8392 	jz	00163$
+      005B09 7E 31            [12] 8393 	mov	r6,#0x31
+      005B0B 7F 00            [12] 8394 	mov	r7,#0x00
+      005B0D 80 04            [24] 8395 	sjmp	00164$
+      005B0F                       8396 00163$:
+      005B0F 7E 30            [12] 8397 	mov	r6,#0x30
+      005B11 7F 00            [12] 8398 	mov	r7,#0x00
+      005B13                       8399 00164$:
+      005B13 8E 82            [24] 8400 	mov	dpl,r6
+      005B15 8F 83            [24] 8401 	mov	dph,r7
+      005B17 12 2C 1F         [24] 8402 	lcall	_putchar
+                                   8403 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      005B1A E5 08            [12] 8404 	mov	a,_bp
+      005B1C 24 1A            [12] 8405 	add	a,#0x1a
+      005B1E F8               [12] 8406 	mov	r0,a
+      005B1F 08               [12] 8407 	inc	r0
+      005B20 08               [12] 8408 	inc	r0
+      005B21 08               [12] 8409 	inc	r0
+      005B22 E6               [12] 8410 	mov	a,@r0
+      005B23 C3               [12] 8411 	clr	c
+      005B24 13               [12] 8412 	rrc	a
+      005B25 F6               [12] 8413 	mov	@r0,a
+      005B26 18               [12] 8414 	dec	r0
+      005B27 E6               [12] 8415 	mov	a,@r0
+      005B28 13               [12] 8416 	rrc	a
+      005B29 F6               [12] 8417 	mov	@r0,a
+      005B2A 18               [12] 8418 	dec	r0
+      005B2B E6               [12] 8419 	mov	a,@r0
+      005B2C 13               [12] 8420 	rrc	a
+      005B2D F6               [12] 8421 	mov	@r0,a
+      005B2E 18               [12] 8422 	dec	r0
+      005B2F E6               [12] 8423 	mov	a,@r0
+      005B30 13               [12] 8424 	rrc	a
+      005B31 F6               [12] 8425 	mov	@r0,a
+      005B32 E5 08            [12] 8426 	mov	a,_bp
+      005B34 24 1A            [12] 8427 	add	a,#0x1a
+      005B36 F8               [12] 8428 	mov	r0,a
+      005B37 E6               [12] 8429 	mov	a,@r0
+      005B38 08               [12] 8430 	inc	r0
+      005B39 46               [12] 8431 	orl	a,@r0
+      005B3A 08               [12] 8432 	inc	r0
+      005B3B 46               [12] 8433 	orl	a,@r0
+      005B3C 08               [12] 8434 	inc	r0
+      005B3D 46               [12] 8435 	orl	a,@r0
+      005B3E 70 93            [24] 8436 	jnz	00136$
+                                   8437 ;	calc.c:408: printbin(ctx->acc);
+      005B40                       8438 00102$:
+                                   8439 ;	calc.c:411: n = stack_peek2(ctx->ps, vals);
+      005B40 C0 02            [24] 8440 	push	ar2
+      005B42 C0 03            [24] 8441 	push	ar3
+      005B44 C0 04            [24] 8442 	push	ar4
+      005B46 E5 08            [12] 8443 	mov	a,_bp
+      005B48 24 0E            [12] 8444 	add	a,#0x0e
+      005B4A F9               [12] 8445 	mov	r1,a
+      005B4B FD               [12] 8446 	mov	r5,a
+      005B4C 7E 00            [12] 8447 	mov	r6,#0x00
+      005B4E 7F 40            [12] 8448 	mov	r7,#0x40
+      005B50 A8 08            [24] 8449 	mov	r0,_bp
+      005B52 08               [12] 8450 	inc	r0
+      005B53 86 82            [24] 8451 	mov	dpl,@r0
+      005B55 08               [12] 8452 	inc	r0
+      005B56 86 83            [24] 8453 	mov	dph,@r0
+      005B58 08               [12] 8454 	inc	r0
+      005B59 86 F0            [24] 8455 	mov	b,@r0
+      005B5B 12 70 79         [24] 8456 	lcall	__gptrget
+      005B5E FA               [12] 8457 	mov	r2,a
+      005B5F A3               [24] 8458 	inc	dptr
+      005B60 12 70 79         [24] 8459 	lcall	__gptrget
+      005B63 FB               [12] 8460 	mov	r3,a
+      005B64 A3               [24] 8461 	inc	dptr
+      005B65 12 70 79         [24] 8462 	lcall	__gptrget
+      005B68 FC               [12] 8463 	mov	r4,a
+      005B69 C0 04            [24] 8464 	push	ar4
+      005B6B C0 03            [24] 8465 	push	ar3
+      005B6D C0 02            [24] 8466 	push	ar2
+      005B6F C0 01            [24] 8467 	push	ar1
+      005B71 C0 05            [24] 8468 	push	ar5
+      005B73 C0 06            [24] 8469 	push	ar6
+      005B75 C0 07            [24] 8470 	push	ar7
+      005B77 8A 82            [24] 8471 	mov	dpl,r2
+      005B79 8B 83            [24] 8472 	mov	dph,r3
+      005B7B 8C F0            [24] 8473 	mov	b,r4
+      005B7D 12 29 73         [24] 8474 	lcall	_stack_peek2
+      005B80 C8               [12] 8475 	xch	a,r0
+      005B81 E5 08            [12] 8476 	mov	a,_bp
+      005B83 24 07            [12] 8477 	add	a,#0x07
+      005B85 C8               [12] 8478 	xch	a,r0
+      005B86 A6 82            [24] 8479 	mov	@r0,dpl
+      005B88 08               [12] 8480 	inc	r0
+      005B89 A6 83            [24] 8481 	mov	@r0,dph
+      005B8B 15 81            [12] 8482 	dec	sp
+      005B8D 15 81            [12] 8483 	dec	sp
+      005B8F 15 81            [12] 8484 	dec	sp
+      005B91 D0 01            [24] 8485 	pop	ar1
+      005B93 D0 02            [24] 8486 	pop	ar2
+      005B95 D0 03            [24] 8487 	pop	ar3
+      005B97 D0 04            [24] 8488 	pop	ar4
+                                   8489 ;	calc.c:412: printstr("\r\nPSTOP1 = ");
+      005B99 E5 08            [12] 8490 	mov	a,_bp
+      005B9B 24 16            [12] 8491 	add	a,#0x16
+      005B9D F8               [12] 8492 	mov	r0,a
+      005B9E 76 FC            [12] 8493 	mov	@r0,#___str_18
+      005BA0 08               [12] 8494 	inc	r0
+      005BA1 76 89            [12] 8495 	mov	@r0,#(___str_18 >> 8)
+      005BA3 08               [12] 8496 	inc	r0
+      005BA4 76 80            [12] 8497 	mov	@r0,#0x80
+                                   8498 ;	calc.c:440: return 1;
+      005BA6 D0 04            [24] 8499 	pop	ar4
+      005BA8 D0 03            [24] 8500 	pop	ar3
+      005BAA D0 02            [24] 8501 	pop	ar2
+                                   8502 ;	calc.c:51: return;
+      005BAC                       8503 00139$:
+                                   8504 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      005BAC E5 08            [12] 8505 	mov	a,_bp
+      005BAE 24 16            [12] 8506 	add	a,#0x16
+      005BB0 F8               [12] 8507 	mov	r0,a
+      005BB1 86 82            [24] 8508 	mov	dpl,@r0
+      005BB3 08               [12] 8509 	inc	r0
+      005BB4 86 83            [24] 8510 	mov	dph,@r0
+      005BB6 08               [12] 8511 	inc	r0
+      005BB7 86 F0            [24] 8512 	mov	b,@r0
+      005BB9 12 70 79         [24] 8513 	lcall	__gptrget
+      005BBC FF               [12] 8514 	mov	r7,a
+      005BBD 60 16            [24] 8515 	jz	00116$
+      005BBF 7E 00            [12] 8516 	mov	r6,#0x00
+      005BC1 8F 82            [24] 8517 	mov	dpl,r7
+      005BC3 8E 83            [24] 8518 	mov	dph,r6
+      005BC5 12 2C 1F         [24] 8519 	lcall	_putchar
+      005BC8 E5 08            [12] 8520 	mov	a,_bp
+      005BCA 24 16            [12] 8521 	add	a,#0x16
+      005BCC F8               [12] 8522 	mov	r0,a
+      005BCD 06               [12] 8523 	inc	@r0
+      005BCE B6 00 02         [24] 8524 	cjne	@r0,#0x00,00320$
+      005BD1 08               [12] 8525 	inc	r0
+      005BD2 06               [12] 8526 	inc	@r0
+      005BD3                       8527 00320$:
+                                   8528 ;	calc.c:412: printstr("\r\nPSTOP1 = ");
+      005BD3 80 D7            [24] 8529 	sjmp	00139$
+      005BD5                       8530 00116$:
+                                   8531 ;	calc.c:413: if (n > 0) {
+      005BD5 E5 08            [12] 8532 	mov	a,_bp
+      005BD7 24 07            [12] 8533 	add	a,#0x07
+      005BD9 F8               [12] 8534 	mov	r0,a
+      005BDA C3               [12] 8535 	clr	c
+      005BDB E4               [12] 8536 	clr	a
+      005BDC 96               [12] 8537 	subb	a,@r0
+      005BDD 74 80            [12] 8538 	mov	a,#(0x00 ^ 0x80)
+      005BDF 08               [12] 8539 	inc	r0
+      005BE0 86 F0            [24] 8540 	mov	b,@r0
+      005BE2 63 F0 80         [24] 8541 	xrl	b,#0x80
+      005BE5 95 F0            [12] 8542 	subb	a,b
+      005BE7 40 03            [24] 8543 	jc	00321$
+      005BE9 02 5D 0C         [24] 8544 	ljmp	00104$
+      005BEC                       8545 00321$:
+                                   8546 ;	calc.c:414: printf("% 11ld / ", vals[1]);
+      005BEC C0 02            [24] 8547 	push	ar2
+      005BEE C0 03            [24] 8548 	push	ar3
+      005BF0 C0 04            [24] 8549 	push	ar4
+      005BF2 74 04            [12] 8550 	mov	a,#0x04
+      005BF4 29               [12] 8551 	add	a,r1
+      005BF5 F8               [12] 8552 	mov	r0,a
+      005BF6 86 04            [24] 8553 	mov	ar4,@r0
+      005BF8 08               [12] 8554 	inc	r0
+      005BF9 86 05            [24] 8555 	mov	ar5,@r0
+      005BFB 08               [12] 8556 	inc	r0
+      005BFC 86 06            [24] 8557 	mov	ar6,@r0
+      005BFE 08               [12] 8558 	inc	r0
+      005BFF 86 07            [24] 8559 	mov	ar7,@r0
+      005C01 18               [12] 8560 	dec	r0
+      005C02 18               [12] 8561 	dec	r0
+      005C03 18               [12] 8562 	dec	r0
+      005C04 C0 04            [24] 8563 	push	ar4
+      005C06 C0 03            [24] 8564 	push	ar3
+      005C08 C0 02            [24] 8565 	push	ar2
+      005C0A C0 01            [24] 8566 	push	ar1
+      005C0C C0 00            [24] 8567 	push	ar0
+      005C0E C0 04            [24] 8568 	push	ar4
+      005C10 C0 05            [24] 8569 	push	ar5
+      005C12 C0 06            [24] 8570 	push	ar6
+      005C14 C0 07            [24] 8571 	push	ar7
+      005C16 74 17            [12] 8572 	mov	a,#___str_3
+      005C18 C0 E0            [24] 8573 	push	acc
+      005C1A 74 89            [12] 8574 	mov	a,#(___str_3 >> 8)
+      005C1C C0 E0            [24] 8575 	push	acc
+      005C1E 74 80            [12] 8576 	mov	a,#0x80
+      005C20 C0 E0            [24] 8577 	push	acc
+      005C22 12 70 40         [24] 8578 	lcall	_printf
+      005C25 E5 81            [12] 8579 	mov	a,sp
+      005C27 24 F9            [12] 8580 	add	a,#0xf9
+      005C29 F5 81            [12] 8581 	mov	sp,a
+      005C2B D0 00            [24] 8582 	pop	ar0
+      005C2D D0 01            [24] 8583 	pop	ar1
+      005C2F D0 02            [24] 8584 	pop	ar2
+      005C31 D0 03            [24] 8585 	pop	ar3
+      005C33 D0 04            [24] 8586 	pop	ar4
+                                   8587 ;	calc.c:415: printf("%08lx / ", vals[1]);
+      005C35 86 04            [24] 8588 	mov	ar4,@r0
+      005C37 08               [12] 8589 	inc	r0
+      005C38 86 05            [24] 8590 	mov	ar5,@r0
+      005C3A 08               [12] 8591 	inc	r0
+      005C3B 86 06            [24] 8592 	mov	ar6,@r0
+      005C3D 08               [12] 8593 	inc	r0
+      005C3E 86 07            [24] 8594 	mov	ar7,@r0
+      005C40 18               [12] 8595 	dec	r0
+      005C41 18               [12] 8596 	dec	r0
+      005C42 18               [12] 8597 	dec	r0
+      005C43 C0 04            [24] 8598 	push	ar4
+      005C45 C0 03            [24] 8599 	push	ar3
+      005C47 C0 02            [24] 8600 	push	ar2
+      005C49 C0 01            [24] 8601 	push	ar1
+      005C4B C0 00            [24] 8602 	push	ar0
+      005C4D C0 04            [24] 8603 	push	ar4
+      005C4F C0 05            [24] 8604 	push	ar5
+      005C51 C0 06            [24] 8605 	push	ar6
+      005C53 C0 07            [24] 8606 	push	ar7
+      005C55 74 21            [12] 8607 	mov	a,#___str_4
+      005C57 C0 E0            [24] 8608 	push	acc
+      005C59 74 89            [12] 8609 	mov	a,#(___str_4 >> 8)
+      005C5B C0 E0            [24] 8610 	push	acc
+      005C5D 74 80            [12] 8611 	mov	a,#0x80
+      005C5F C0 E0            [24] 8612 	push	acc
+      005C61 12 70 40         [24] 8613 	lcall	_printf
+      005C64 E5 81            [12] 8614 	mov	a,sp
+      005C66 24 F9            [12] 8615 	add	a,#0xf9
+      005C68 F5 81            [12] 8616 	mov	sp,a
+      005C6A D0 00            [24] 8617 	pop	ar0
+      005C6C D0 01            [24] 8618 	pop	ar1
+      005C6E D0 02            [24] 8619 	pop	ar2
+      005C70 D0 03            [24] 8620 	pop	ar3
+      005C72 D0 04            [24] 8621 	pop	ar4
+                                   8622 ;	calc.c:416: printbin(vals[1]);
+      005C74 C0 01            [24] 8623 	push	ar1
+      005C76 E5 08            [12] 8624 	mov	a,_bp
+      005C78 24 16            [12] 8625 	add	a,#0x16
+      005C7A F9               [12] 8626 	mov	r1,a
+      005C7B E6               [12] 8627 	mov	a,@r0
+      005C7C F7               [12] 8628 	mov	@r1,a
+      005C7D 08               [12] 8629 	inc	r0
+      005C7E E6               [12] 8630 	mov	a,@r0
+      005C7F 09               [12] 8631 	inc	r1
+      005C80 F7               [12] 8632 	mov	@r1,a
+      005C81 08               [12] 8633 	inc	r0
+      005C82 E6               [12] 8634 	mov	a,@r0
+      005C83 09               [12] 8635 	inc	r1
+      005C84 F7               [12] 8636 	mov	@r1,a
+      005C85 08               [12] 8637 	inc	r0
+      005C86 E6               [12] 8638 	mov	a,@r0
+      005C87 09               [12] 8639 	inc	r1
+      005C88 F7               [12] 8640 	mov	@r1,a
+      005C89 D0 01            [24] 8641 	pop	ar1
+                                   8642 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      005C8B E5 08            [12] 8643 	mov	a,_bp
+      005C8D 24 1A            [12] 8644 	add	a,#0x1a
+      005C8F F8               [12] 8645 	mov	r0,a
+      005C90 E4               [12] 8646 	clr	a
+      005C91 F6               [12] 8647 	mov	@r0,a
+      005C92 08               [12] 8648 	inc	r0
+      005C93 F6               [12] 8649 	mov	@r0,a
+      005C94 08               [12] 8650 	inc	r0
+      005C95 F6               [12] 8651 	mov	@r0,a
+      005C96 08               [12] 8652 	inc	r0
+      005C97 76 80            [12] 8653 	mov	@r0,#0x80
+                                   8654 ;	calc.c:440: return 1;
+      005C99 D0 04            [24] 8655 	pop	ar4
+      005C9B D0 03            [24] 8656 	pop	ar3
+      005C9D D0 02            [24] 8657 	pop	ar2
+                                   8658 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      005C9F                       8659 00141$:
+                                   8660 ;	calc.c:58: (void)putchar((d & mask) ? (int)'1' : (int)'0');
+      005C9F C0 02            [24] 8661 	push	ar2
+      005CA1 C0 03            [24] 8662 	push	ar3
+      005CA3 C0 04            [24] 8663 	push	ar4
+      005CA5 E5 08            [12] 8664 	mov	a,_bp
+      005CA7 24 16            [12] 8665 	add	a,#0x16
+      005CA9 F8               [12] 8666 	mov	r0,a
+      005CAA 86 04            [24] 8667 	mov	ar4,@r0
+      005CAC 08               [12] 8668 	inc	r0
+      005CAD 86 05            [24] 8669 	mov	ar5,@r0
+      005CAF 08               [12] 8670 	inc	r0
+      005CB0 86 06            [24] 8671 	mov	ar6,@r0
+      005CB2 08               [12] 8672 	inc	r0
+      005CB3 86 07            [24] 8673 	mov	ar7,@r0
+      005CB5 E5 08            [12] 8674 	mov	a,_bp
+      005CB7 24 1A            [12] 8675 	add	a,#0x1a
+      005CB9 F8               [12] 8676 	mov	r0,a
+      005CBA E6               [12] 8677 	mov	a,@r0
+      005CBB 52 04            [12] 8678 	anl	ar4,a
+      005CBD 08               [12] 8679 	inc	r0
+      005CBE E6               [12] 8680 	mov	a,@r0
+      005CBF 52 05            [12] 8681 	anl	ar5,a
+      005CC1 08               [12] 8682 	inc	r0
+      005CC2 E6               [12] 8683 	mov	a,@r0
+      005CC3 52 06            [12] 8684 	anl	ar6,a
+      005CC5 08               [12] 8685 	inc	r0
+      005CC6 E6               [12] 8686 	mov	a,@r0
+      005CC7 52 07            [12] 8687 	anl	ar7,a
+      005CC9 EC               [12] 8688 	mov	a,r4
+      005CCA 4D               [12] 8689 	orl	a,r5
+      005CCB 4E               [12] 8690 	orl	a,r6
+      005CCC 4F               [12] 8691 	orl	a,r7
+      005CCD D0 04            [24] 8692 	pop	ar4
+      005CCF D0 03            [24] 8693 	pop	ar3
+      005CD1 D0 02            [24] 8694 	pop	ar2
+      005CD3 60 06            [24] 8695 	jz	00165$
+      005CD5 7E 31            [12] 8696 	mov	r6,#0x31
+      005CD7 7F 00            [12] 8697 	mov	r7,#0x00
+      005CD9 80 04            [24] 8698 	sjmp	00166$
+      005CDB                       8699 00165$:
+      005CDB 7E 30            [12] 8700 	mov	r6,#0x30
+      005CDD 7F 00            [12] 8701 	mov	r7,#0x00
+      005CDF                       8702 00166$:
+      005CDF 8E 82            [24] 8703 	mov	dpl,r6
+      005CE1 8F 83            [24] 8704 	mov	dph,r7
+      005CE3 12 2C 1F         [24] 8705 	lcall	_putchar
+                                   8706 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      005CE6 E5 08            [12] 8707 	mov	a,_bp
+      005CE8 24 1A            [12] 8708 	add	a,#0x1a
+      005CEA F8               [12] 8709 	mov	r0,a
+      005CEB 08               [12] 8710 	inc	r0
+      005CEC 08               [12] 8711 	inc	r0
+      005CED 08               [12] 8712 	inc	r0
+      005CEE E6               [12] 8713 	mov	a,@r0
+      005CEF C3               [12] 8714 	clr	c
+      005CF0 13               [12] 8715 	rrc	a
+      005CF1 F6               [12] 8716 	mov	@r0,a
+      005CF2 18               [12] 8717 	dec	r0
+      005CF3 E6               [12] 8718 	mov	a,@r0
+      005CF4 13               [12] 8719 	rrc	a
+      005CF5 F6               [12] 8720 	mov	@r0,a
+      005CF6 18               [12] 8721 	dec	r0
+      005CF7 E6               [12] 8722 	mov	a,@r0
+      005CF8 13               [12] 8723 	rrc	a
+      005CF9 F6               [12] 8724 	mov	@r0,a
+      005CFA 18               [12] 8725 	dec	r0
+      005CFB E6               [12] 8726 	mov	a,@r0
+      005CFC 13               [12] 8727 	rrc	a
+      005CFD F6               [12] 8728 	mov	@r0,a
+      005CFE E5 08            [12] 8729 	mov	a,_bp
+      005D00 24 1A            [12] 8730 	add	a,#0x1a
+      005D02 F8               [12] 8731 	mov	r0,a
+      005D03 E6               [12] 8732 	mov	a,@r0
+      005D04 08               [12] 8733 	inc	r0
+      005D05 46               [12] 8734 	orl	a,@r0
+      005D06 08               [12] 8735 	inc	r0
+      005D07 46               [12] 8736 	orl	a,@r0
+      005D08 08               [12] 8737 	inc	r0
+      005D09 46               [12] 8738 	orl	a,@r0
+      005D0A 70 93            [24] 8739 	jnz	00141$
+                                   8740 ;	calc.c:416: printbin(vals[1]);
+      005D0C                       8741 00104$:
+                                   8742 ;	calc.c:418: printstr("\r\nPSTOP0 = ");
+      005D0C 7D 08            [12] 8743 	mov	r5,#___str_19
+      005D0E 7E 8A            [12] 8744 	mov	r6,#(___str_19 >> 8)
+      005D10 7F 80            [12] 8745 	mov	r7,#0x80
+                                   8746 ;	calc.c:51: return;
+      005D12                       8747 00144$:
+                                   8748 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      005D12 8D 82            [24] 8749 	mov	dpl,r5
+      005D14 8E 83            [24] 8750 	mov	dph,r6
+      005D16 8F F0            [24] 8751 	mov	b,r7
+      005D18 E5 08            [12] 8752 	mov	a,_bp
+      005D1A 24 04            [12] 8753 	add	a,#0x04
+      005D1C F8               [12] 8754 	mov	r0,a
+      005D1D 12 70 79         [24] 8755 	lcall	__gptrget
+      005D20 F6               [12] 8756 	mov	@r0,a
+      005D21 E5 08            [12] 8757 	mov	a,_bp
+      005D23 24 04            [12] 8758 	add	a,#0x04
+      005D25 F8               [12] 8759 	mov	r0,a
+      005D26 E6               [12] 8760 	mov	a,@r0
+      005D27 60 23            [24] 8761 	jz	00120$
+      005D29 C0 02            [24] 8762 	push	ar2
+      005D2B C0 03            [24] 8763 	push	ar3
+      005D2D C0 04            [24] 8764 	push	ar4
+      005D2F E5 08            [12] 8765 	mov	a,_bp
+      005D31 24 04            [12] 8766 	add	a,#0x04
+      005D33 F8               [12] 8767 	mov	r0,a
+      005D34 86 03            [24] 8768 	mov	ar3,@r0
+      005D36 7C 00            [12] 8769 	mov	r4,#0x00
+      005D38 8B 82            [24] 8770 	mov	dpl,r3
+      005D3A 8C 83            [24] 8771 	mov	dph,r4
+      005D3C 12 2C 1F         [24] 8772 	lcall	_putchar
+      005D3F 0D               [12] 8773 	inc	r5
+      005D40 BD 00 01         [24] 8774 	cjne	r5,#0x00,00325$
+      005D43 0E               [12] 8775 	inc	r6
+      005D44                       8776 00325$:
+      005D44 D0 04            [24] 8777 	pop	ar4
+      005D46 D0 03            [24] 8778 	pop	ar3
+      005D48 D0 02            [24] 8779 	pop	ar2
+                                   8780 ;	calc.c:418: printstr("\r\nPSTOP0 = ");
+      005D4A 80 C6            [24] 8781 	sjmp	00144$
+      005D4C                       8782 00120$:
+                                   8783 ;	calc.c:419: if (n > 1) {
+      005D4C E5 08            [12] 8784 	mov	a,_bp
+      005D4E 24 07            [12] 8785 	add	a,#0x07
+      005D50 F8               [12] 8786 	mov	r0,a
+      005D51 C3               [12] 8787 	clr	c
+      005D52 74 01            [12] 8788 	mov	a,#0x01
+      005D54 96               [12] 8789 	subb	a,@r0
+      005D55 74 80            [12] 8790 	mov	a,#(0x00 ^ 0x80)
+      005D57 08               [12] 8791 	inc	r0
+      005D58 86 F0            [24] 8792 	mov	b,@r0
+      005D5A 63 F0 80         [24] 8793 	xrl	b,#0x80
+      005D5D 95 F0            [12] 8794 	subb	a,b
+      005D5F 40 03            [24] 8795 	jc	00326$
+      005D61 02 5E 77         [24] 8796 	ljmp	00106$
+      005D64                       8797 00326$:
+                                   8798 ;	calc.c:420: printf("% 11ld / ", vals[0]);
+      005D64 C0 02            [24] 8799 	push	ar2
+      005D66 C0 03            [24] 8800 	push	ar3
+      005D68 C0 04            [24] 8801 	push	ar4
+      005D6A 87 04            [24] 8802 	mov	ar4,@r1
+      005D6C 09               [12] 8803 	inc	r1
+      005D6D 87 05            [24] 8804 	mov	ar5,@r1
+      005D6F 09               [12] 8805 	inc	r1
+      005D70 87 06            [24] 8806 	mov	ar6,@r1
+      005D72 09               [12] 8807 	inc	r1
+      005D73 87 07            [24] 8808 	mov	ar7,@r1
+      005D75 19               [12] 8809 	dec	r1
+      005D76 19               [12] 8810 	dec	r1
+      005D77 19               [12] 8811 	dec	r1
+      005D78 C0 04            [24] 8812 	push	ar4
+      005D7A C0 03            [24] 8813 	push	ar3
+      005D7C C0 02            [24] 8814 	push	ar2
+      005D7E C0 01            [24] 8815 	push	ar1
+      005D80 C0 04            [24] 8816 	push	ar4
+      005D82 C0 05            [24] 8817 	push	ar5
+      005D84 C0 06            [24] 8818 	push	ar6
+      005D86 C0 07            [24] 8819 	push	ar7
+      005D88 74 17            [12] 8820 	mov	a,#___str_3
+      005D8A C0 E0            [24] 8821 	push	acc
+      005D8C 74 89            [12] 8822 	mov	a,#(___str_3 >> 8)
+      005D8E C0 E0            [24] 8823 	push	acc
+      005D90 74 80            [12] 8824 	mov	a,#0x80
+      005D92 C0 E0            [24] 8825 	push	acc
+      005D94 12 70 40         [24] 8826 	lcall	_printf
+      005D97 E5 81            [12] 8827 	mov	a,sp
+      005D99 24 F9            [12] 8828 	add	a,#0xf9
+      005D9B F5 81            [12] 8829 	mov	sp,a
+      005D9D D0 01            [24] 8830 	pop	ar1
+      005D9F D0 02            [24] 8831 	pop	ar2
+      005DA1 D0 03            [24] 8832 	pop	ar3
+      005DA3 D0 04            [24] 8833 	pop	ar4
+                                   8834 ;	calc.c:421: printf("%08lx / ", vals[0]);
+      005DA5 87 04            [24] 8835 	mov	ar4,@r1
+      005DA7 09               [12] 8836 	inc	r1
+      005DA8 87 05            [24] 8837 	mov	ar5,@r1
+      005DAA 09               [12] 8838 	inc	r1
+      005DAB 87 06            [24] 8839 	mov	ar6,@r1
+      005DAD 09               [12] 8840 	inc	r1
+      005DAE 87 07            [24] 8841 	mov	ar7,@r1
+      005DB0 19               [12] 8842 	dec	r1
+      005DB1 19               [12] 8843 	dec	r1
+      005DB2 19               [12] 8844 	dec	r1
+      005DB3 C0 04            [24] 8845 	push	ar4
+      005DB5 C0 03            [24] 8846 	push	ar3
+      005DB7 C0 02            [24] 8847 	push	ar2
+      005DB9 C0 01            [24] 8848 	push	ar1
+      005DBB C0 04            [24] 8849 	push	ar4
+      005DBD C0 05            [24] 8850 	push	ar5
+      005DBF C0 06            [24] 8851 	push	ar6
+      005DC1 C0 07            [24] 8852 	push	ar7
+      005DC3 74 21            [12] 8853 	mov	a,#___str_4
+      005DC5 C0 E0            [24] 8854 	push	acc
+      005DC7 74 89            [12] 8855 	mov	a,#(___str_4 >> 8)
+      005DC9 C0 E0            [24] 8856 	push	acc
+      005DCB 74 80            [12] 8857 	mov	a,#0x80
+      005DCD C0 E0            [24] 8858 	push	acc
+      005DCF 12 70 40         [24] 8859 	lcall	_printf
+      005DD2 E5 81            [12] 8860 	mov	a,sp
+      005DD4 24 F9            [12] 8861 	add	a,#0xf9
+      005DD6 F5 81            [12] 8862 	mov	sp,a
+      005DD8 D0 01            [24] 8863 	pop	ar1
+      005DDA D0 02            [24] 8864 	pop	ar2
+      005DDC D0 03            [24] 8865 	pop	ar3
+      005DDE D0 04            [24] 8866 	pop	ar4
+                                   8867 ;	calc.c:422: printbin(vals[0]);
+      005DE0 E5 08            [12] 8868 	mov	a,_bp
+      005DE2 24 16            [12] 8869 	add	a,#0x16
+      005DE4 F8               [12] 8870 	mov	r0,a
+      005DE5 E7               [12] 8871 	mov	a,@r1
+      005DE6 F6               [12] 8872 	mov	@r0,a
+      005DE7 09               [12] 8873 	inc	r1
+      005DE8 E7               [12] 8874 	mov	a,@r1
+      005DE9 08               [12] 8875 	inc	r0
+      005DEA F6               [12] 8876 	mov	@r0,a
+      005DEB 09               [12] 8877 	inc	r1
+      005DEC E7               [12] 8878 	mov	a,@r1
+      005DED 08               [12] 8879 	inc	r0
+      005DEE F6               [12] 8880 	mov	@r0,a
+      005DEF 09               [12] 8881 	inc	r1
+      005DF0 E7               [12] 8882 	mov	a,@r1
+      005DF1 08               [12] 8883 	inc	r0
+      005DF2 F6               [12] 8884 	mov	@r0,a
+      005DF3 19               [12] 8885 	dec	r1
+      005DF4 19               [12] 8886 	dec	r1
+      005DF5 19               [12] 8887 	dec	r1
+                                   8888 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      005DF6 E5 08            [12] 8889 	mov	a,_bp
+      005DF8 24 1A            [12] 8890 	add	a,#0x1a
+      005DFA F8               [12] 8891 	mov	r0,a
+      005DFB E4               [12] 8892 	clr	a
+      005DFC F6               [12] 8893 	mov	@r0,a
+      005DFD 08               [12] 8894 	inc	r0
+      005DFE F6               [12] 8895 	mov	@r0,a
+      005DFF 08               [12] 8896 	inc	r0
+      005E00 F6               [12] 8897 	mov	@r0,a
+      005E01 08               [12] 8898 	inc	r0
+      005E02 76 80            [12] 8899 	mov	@r0,#0x80
+                                   8900 ;	calc.c:440: return 1;
+      005E04 D0 04            [24] 8901 	pop	ar4
+      005E06 D0 03            [24] 8902 	pop	ar3
+      005E08 D0 02            [24] 8903 	pop	ar2
+                                   8904 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      005E0A                       8905 00146$:
+                                   8906 ;	calc.c:58: (void)putchar((d & mask) ? (int)'1' : (int)'0');
+      005E0A C0 02            [24] 8907 	push	ar2
+      005E0C C0 03            [24] 8908 	push	ar3
+      005E0E C0 04            [24] 8909 	push	ar4
+      005E10 E5 08            [12] 8910 	mov	a,_bp
+      005E12 24 16            [12] 8911 	add	a,#0x16
+      005E14 F8               [12] 8912 	mov	r0,a
+      005E15 86 04            [24] 8913 	mov	ar4,@r0
+      005E17 08               [12] 8914 	inc	r0
+      005E18 86 05            [24] 8915 	mov	ar5,@r0
+      005E1A 08               [12] 8916 	inc	r0
+      005E1B 86 06            [24] 8917 	mov	ar6,@r0
+      005E1D 08               [12] 8918 	inc	r0
+      005E1E 86 07            [24] 8919 	mov	ar7,@r0
+      005E20 E5 08            [12] 8920 	mov	a,_bp
+      005E22 24 1A            [12] 8921 	add	a,#0x1a
+      005E24 F8               [12] 8922 	mov	r0,a
+      005E25 E6               [12] 8923 	mov	a,@r0
+      005E26 52 04            [12] 8924 	anl	ar4,a
+      005E28 08               [12] 8925 	inc	r0
+      005E29 E6               [12] 8926 	mov	a,@r0
+      005E2A 52 05            [12] 8927 	anl	ar5,a
+      005E2C 08               [12] 8928 	inc	r0
+      005E2D E6               [12] 8929 	mov	a,@r0
+      005E2E 52 06            [12] 8930 	anl	ar6,a
+      005E30 08               [12] 8931 	inc	r0
+      005E31 E6               [12] 8932 	mov	a,@r0
+      005E32 52 07            [12] 8933 	anl	ar7,a
+      005E34 EC               [12] 8934 	mov	a,r4
+      005E35 4D               [12] 8935 	orl	a,r5
+      005E36 4E               [12] 8936 	orl	a,r6
+      005E37 4F               [12] 8937 	orl	a,r7
+      005E38 D0 04            [24] 8938 	pop	ar4
+      005E3A D0 03            [24] 8939 	pop	ar3
+      005E3C D0 02            [24] 8940 	pop	ar2
+      005E3E 60 06            [24] 8941 	jz	00167$
+      005E40 7E 31            [12] 8942 	mov	r6,#0x31
+      005E42 7F 00            [12] 8943 	mov	r7,#0x00
+      005E44 80 04            [24] 8944 	sjmp	00168$
+      005E46                       8945 00167$:
+      005E46 7E 30            [12] 8946 	mov	r6,#0x30
+      005E48 7F 00            [12] 8947 	mov	r7,#0x00
+      005E4A                       8948 00168$:
+      005E4A 8E 82            [24] 8949 	mov	dpl,r6
+      005E4C 8F 83            [24] 8950 	mov	dph,r7
+      005E4E 12 2C 1F         [24] 8951 	lcall	_putchar
+                                   8952 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      005E51 E5 08            [12] 8953 	mov	a,_bp
+      005E53 24 1A            [12] 8954 	add	a,#0x1a
+      005E55 F8               [12] 8955 	mov	r0,a
+      005E56 08               [12] 8956 	inc	r0
+      005E57 08               [12] 8957 	inc	r0
+      005E58 08               [12] 8958 	inc	r0
+      005E59 E6               [12] 8959 	mov	a,@r0
+      005E5A C3               [12] 8960 	clr	c
+      005E5B 13               [12] 8961 	rrc	a
+      005E5C F6               [12] 8962 	mov	@r0,a
+      005E5D 18               [12] 8963 	dec	r0
+      005E5E E6               [12] 8964 	mov	a,@r0
+      005E5F 13               [12] 8965 	rrc	a
+      005E60 F6               [12] 8966 	mov	@r0,a
+      005E61 18               [12] 8967 	dec	r0
+      005E62 E6               [12] 8968 	mov	a,@r0
+      005E63 13               [12] 8969 	rrc	a
+      005E64 F6               [12] 8970 	mov	@r0,a
+      005E65 18               [12] 8971 	dec	r0
+      005E66 E6               [12] 8972 	mov	a,@r0
+      005E67 13               [12] 8973 	rrc	a
+      005E68 F6               [12] 8974 	mov	@r0,a
+      005E69 E5 08            [12] 8975 	mov	a,_bp
+      005E6B 24 1A            [12] 8976 	add	a,#0x1a
+      005E6D F8               [12] 8977 	mov	r0,a
+      005E6E E6               [12] 8978 	mov	a,@r0
+      005E6F 08               [12] 8979 	inc	r0
+      005E70 46               [12] 8980 	orl	a,@r0
+      005E71 08               [12] 8981 	inc	r0
+      005E72 46               [12] 8982 	orl	a,@r0
+      005E73 08               [12] 8983 	inc	r0
+      005E74 46               [12] 8984 	orl	a,@r0
+      005E75 70 93            [24] 8985 	jnz	00146$
+                                   8986 ;	calc.c:422: printbin(vals[0]);
+      005E77                       8987 00106$:
+                                   8988 ;	calc.c:425: n = stack_peek2(ctx->ss, vals);
+      005E77 89 07            [24] 8989 	mov	ar7,r1
+      005E79 7E 00            [12] 8990 	mov	r6,#0x00
+      005E7B 7D 40            [12] 8991 	mov	r5,#0x40
+      005E7D 8A 82            [24] 8992 	mov	dpl,r2
+      005E7F 8B 83            [24] 8993 	mov	dph,r3
+      005E81 8C F0            [24] 8994 	mov	b,r4
+      005E83 12 70 79         [24] 8995 	lcall	__gptrget
+      005E86 FA               [12] 8996 	mov	r2,a
+      005E87 A3               [24] 8997 	inc	dptr
+      005E88 12 70 79         [24] 8998 	lcall	__gptrget
+      005E8B FB               [12] 8999 	mov	r3,a
+      005E8C A3               [24] 9000 	inc	dptr
+      005E8D 12 70 79         [24] 9001 	lcall	__gptrget
+      005E90 FC               [12] 9002 	mov	r4,a
+      005E91 C0 01            [24] 9003 	push	ar1
+      005E93 C0 07            [24] 9004 	push	ar7
+      005E95 C0 06            [24] 9005 	push	ar6
+      005E97 C0 05            [24] 9006 	push	ar5
+      005E99 8A 82            [24] 9007 	mov	dpl,r2
+      005E9B 8B 83            [24] 9008 	mov	dph,r3
+      005E9D 8C F0            [24] 9009 	mov	b,r4
+      005E9F 12 29 73         [24] 9010 	lcall	_stack_peek2
+      005EA2 AE 82            [24] 9011 	mov	r6,dpl
+      005EA4 AF 83            [24] 9012 	mov	r7,dph
+      005EA6 15 81            [12] 9013 	dec	sp
+      005EA8 15 81            [12] 9014 	dec	sp
+      005EAA 15 81            [12] 9015 	dec	sp
+      005EAC D0 01            [24] 9016 	pop	ar1
+      005EAE E5 08            [12] 9017 	mov	a,_bp
+      005EB0 24 0C            [12] 9018 	add	a,#0x0c
+      005EB2 F8               [12] 9019 	mov	r0,a
+      005EB3 A6 06            [24] 9020 	mov	@r0,ar6
+      005EB5 08               [12] 9021 	inc	r0
+      005EB6 A6 07            [24] 9022 	mov	@r0,ar7
+                                   9023 ;	calc.c:426: printstr("\r\nSSTOP1 = ");
+      005EB8 7B 14            [12] 9024 	mov	r3,#___str_20
+      005EBA 7C 8A            [12] 9025 	mov	r4,#(___str_20 >> 8)
+      005EBC 7D 80            [12] 9026 	mov	r5,#0x80
+                                   9027 ;	calc.c:51: return;
+      005EBE                       9028 00149$:
+                                   9029 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      005EBE 8B 82            [24] 9030 	mov	dpl,r3
+      005EC0 8C 83            [24] 9031 	mov	dph,r4
+      005EC2 8D F0            [24] 9032 	mov	b,r5
+      005EC4 12 70 79         [24] 9033 	lcall	__gptrget
+      005EC7 FA               [12] 9034 	mov	r2,a
+      005EC8 60 10            [24] 9035 	jz	00124$
+      005ECA 7F 00            [12] 9036 	mov	r7,#0x00
+      005ECC 8A 82            [24] 9037 	mov	dpl,r2
+      005ECE 8F 83            [24] 9038 	mov	dph,r7
+      005ED0 12 2C 1F         [24] 9039 	lcall	_putchar
+      005ED3 0B               [12] 9040 	inc	r3
+                                   9041 ;	calc.c:426: printstr("\r\nSSTOP1 = ");
+      005ED4 BB 00 E7         [24] 9042 	cjne	r3,#0x00,00149$
+      005ED7 0C               [12] 9043 	inc	r4
+      005ED8 80 E4            [24] 9044 	sjmp	00149$
+      005EDA                       9045 00124$:
+                                   9046 ;	calc.c:427: if (n > 0) {
+      005EDA E5 08            [12] 9047 	mov	a,_bp
+      005EDC 24 0C            [12] 9048 	add	a,#0x0c
+      005EDE F8               [12] 9049 	mov	r0,a
+      005EDF C3               [12] 9050 	clr	c
+      005EE0 E4               [12] 9051 	clr	a
+      005EE1 96               [12] 9052 	subb	a,@r0
+      005EE2 74 80            [12] 9053 	mov	a,#(0x00 ^ 0x80)
+      005EE4 08               [12] 9054 	inc	r0
+      005EE5 86 F0            [24] 9055 	mov	b,@r0
+      005EE7 63 F0 80         [24] 9056 	xrl	b,#0x80
+      005EEA 95 F0            [12] 9057 	subb	a,b
+      005EEC 40 03            [24] 9058 	jc	00331$
+      005EEE 02 5F DD         [24] 9059 	ljmp	00108$
+      005EF1                       9060 00331$:
+                                   9061 ;	calc.c:428: printf("% 11ld / ", vals[1]);
+      005EF1 74 04            [12] 9062 	mov	a,#0x04
+      005EF3 29               [12] 9063 	add	a,r1
+      005EF4 F8               [12] 9064 	mov	r0,a
+      005EF5 86 02            [24] 9065 	mov	ar2,@r0
+      005EF7 08               [12] 9066 	inc	r0
+      005EF8 86 03            [24] 9067 	mov	ar3,@r0
+      005EFA 08               [12] 9068 	inc	r0
+      005EFB 86 04            [24] 9069 	mov	ar4,@r0
+      005EFD 08               [12] 9070 	inc	r0
+      005EFE 86 05            [24] 9071 	mov	ar5,@r0
+      005F00 18               [12] 9072 	dec	r0
+      005F01 18               [12] 9073 	dec	r0
+      005F02 18               [12] 9074 	dec	r0
+      005F03 C0 01            [24] 9075 	push	ar1
+      005F05 C0 00            [24] 9076 	push	ar0
+      005F07 C0 02            [24] 9077 	push	ar2
+      005F09 C0 03            [24] 9078 	push	ar3
+      005F0B C0 04            [24] 9079 	push	ar4
+      005F0D C0 05            [24] 9080 	push	ar5
+      005F0F 74 17            [12] 9081 	mov	a,#___str_3
+      005F11 C0 E0            [24] 9082 	push	acc
+      005F13 74 89            [12] 9083 	mov	a,#(___str_3 >> 8)
+      005F15 C0 E0            [24] 9084 	push	acc
+      005F17 74 80            [12] 9085 	mov	a,#0x80
+      005F19 C0 E0            [24] 9086 	push	acc
+      005F1B 12 70 40         [24] 9087 	lcall	_printf
+      005F1E E5 81            [12] 9088 	mov	a,sp
+      005F20 24 F9            [12] 9089 	add	a,#0xf9
+      005F22 F5 81            [12] 9090 	mov	sp,a
+      005F24 D0 00            [24] 9091 	pop	ar0
+                                   9092 ;	calc.c:429: printf("%08lx / ", vals[1]);
+      005F26 86 02            [24] 9093 	mov	ar2,@r0
+      005F28 08               [12] 9094 	inc	r0
+      005F29 86 03            [24] 9095 	mov	ar3,@r0
+      005F2B 08               [12] 9096 	inc	r0
+      005F2C 86 04            [24] 9097 	mov	ar4,@r0
+      005F2E 08               [12] 9098 	inc	r0
+      005F2F 86 05            [24] 9099 	mov	ar5,@r0
+      005F31 18               [12] 9100 	dec	r0
+      005F32 18               [12] 9101 	dec	r0
+      005F33 18               [12] 9102 	dec	r0
+      005F34 C0 00            [24] 9103 	push	ar0
+      005F36 C0 02            [24] 9104 	push	ar2
+      005F38 C0 03            [24] 9105 	push	ar3
+      005F3A C0 04            [24] 9106 	push	ar4
+      005F3C C0 05            [24] 9107 	push	ar5
+      005F3E 74 21            [12] 9108 	mov	a,#___str_4
+      005F40 C0 E0            [24] 9109 	push	acc
+      005F42 74 89            [12] 9110 	mov	a,#(___str_4 >> 8)
+      005F44 C0 E0            [24] 9111 	push	acc
+      005F46 74 80            [12] 9112 	mov	a,#0x80
+      005F48 C0 E0            [24] 9113 	push	acc
+      005F4A 12 70 40         [24] 9114 	lcall	_printf
+      005F4D E5 81            [12] 9115 	mov	a,sp
+      005F4F 24 F9            [12] 9116 	add	a,#0xf9
+      005F51 F5 81            [12] 9117 	mov	sp,a
+      005F53 D0 00            [24] 9118 	pop	ar0
+                                   9119 ;	calc.c:430: printbin(vals[1]);
+      005F55 E5 08            [12] 9120 	mov	a,_bp
+      005F57 24 16            [12] 9121 	add	a,#0x16
+      005F59 F9               [12] 9122 	mov	r1,a
+      005F5A E6               [12] 9123 	mov	a,@r0
+      005F5B F7               [12] 9124 	mov	@r1,a
+      005F5C 08               [12] 9125 	inc	r0
+      005F5D E6               [12] 9126 	mov	a,@r0
+      005F5E 09               [12] 9127 	inc	r1
+      005F5F F7               [12] 9128 	mov	@r1,a
+      005F60 08               [12] 9129 	inc	r0
+      005F61 E6               [12] 9130 	mov	a,@r0
+      005F62 09               [12] 9131 	inc	r1
+      005F63 F7               [12] 9132 	mov	@r1,a
+      005F64 08               [12] 9133 	inc	r0
+      005F65 E6               [12] 9134 	mov	a,@r0
+      005F66 09               [12] 9135 	inc	r1
+      005F67 F7               [12] 9136 	mov	@r1,a
+      005F68 D0 01            [24] 9137 	pop	ar1
+                                   9138 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      005F6A E5 08            [12] 9139 	mov	a,_bp
+      005F6C 24 1A            [12] 9140 	add	a,#0x1a
+      005F6E F8               [12] 9141 	mov	r0,a
+      005F6F E4               [12] 9142 	clr	a
+      005F70 F6               [12] 9143 	mov	@r0,a
+      005F71 08               [12] 9144 	inc	r0
+      005F72 F6               [12] 9145 	mov	@r0,a
+      005F73 08               [12] 9146 	inc	r0
+      005F74 F6               [12] 9147 	mov	@r0,a
+      005F75 08               [12] 9148 	inc	r0
+      005F76 76 80            [12] 9149 	mov	@r0,#0x80
+      005F78                       9150 00151$:
+                                   9151 ;	calc.c:58: (void)putchar((d & mask) ? (int)'1' : (int)'0');
+      005F78 C0 01            [24] 9152 	push	ar1
+      005F7A E5 08            [12] 9153 	mov	a,_bp
+      005F7C 24 16            [12] 9154 	add	a,#0x16
+      005F7E F8               [12] 9155 	mov	r0,a
+      005F7F 86 02            [24] 9156 	mov	ar2,@r0
+      005F81 08               [12] 9157 	inc	r0
+      005F82 86 03            [24] 9158 	mov	ar3,@r0
+      005F84 08               [12] 9159 	inc	r0
+      005F85 86 05            [24] 9160 	mov	ar5,@r0
+      005F87 08               [12] 9161 	inc	r0
+      005F88 86 07            [24] 9162 	mov	ar7,@r0
+      005F8A E5 08            [12] 9163 	mov	a,_bp
+      005F8C 24 1A            [12] 9164 	add	a,#0x1a
+      005F8E F8               [12] 9165 	mov	r0,a
+      005F8F E6               [12] 9166 	mov	a,@r0
+      005F90 52 02            [12] 9167 	anl	ar2,a
+      005F92 08               [12] 9168 	inc	r0
+      005F93 E6               [12] 9169 	mov	a,@r0
+      005F94 52 03            [12] 9170 	anl	ar3,a
+      005F96 08               [12] 9171 	inc	r0
+      005F97 E6               [12] 9172 	mov	a,@r0
+      005F98 52 05            [12] 9173 	anl	ar5,a
+      005F9A 08               [12] 9174 	inc	r0
+      005F9B E6               [12] 9175 	mov	a,@r0
+      005F9C 52 07            [12] 9176 	anl	ar7,a
+      005F9E D0 01            [24] 9177 	pop	ar1
+      005FA0 EA               [12] 9178 	mov	a,r2
+      005FA1 4B               [12] 9179 	orl	a,r3
+      005FA2 4D               [12] 9180 	orl	a,r5
+      005FA3 4F               [12] 9181 	orl	a,r7
+      005FA4 60 06            [24] 9182 	jz	00169$
+      005FA6 7E 31            [12] 9183 	mov	r6,#0x31
+      005FA8 7F 00            [12] 9184 	mov	r7,#0x00
+      005FAA 80 04            [24] 9185 	sjmp	00170$
+      005FAC                       9186 00169$:
+      005FAC 7E 30            [12] 9187 	mov	r6,#0x30
+      005FAE 7F 00            [12] 9188 	mov	r7,#0x00
+      005FB0                       9189 00170$:
+      005FB0 8E 82            [24] 9190 	mov	dpl,r6
+      005FB2 8F 83            [24] 9191 	mov	dph,r7
+      005FB4 12 2C 1F         [24] 9192 	lcall	_putchar
+                                   9193 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      005FB7 E5 08            [12] 9194 	mov	a,_bp
+      005FB9 24 1A            [12] 9195 	add	a,#0x1a
+      005FBB F8               [12] 9196 	mov	r0,a
+      005FBC 08               [12] 9197 	inc	r0
+      005FBD 08               [12] 9198 	inc	r0
+      005FBE 08               [12] 9199 	inc	r0
+      005FBF E6               [12] 9200 	mov	a,@r0
+      005FC0 C3               [12] 9201 	clr	c
+      005FC1 13               [12] 9202 	rrc	a
+      005FC2 F6               [12] 9203 	mov	@r0,a
+      005FC3 18               [12] 9204 	dec	r0
+      005FC4 E6               [12] 9205 	mov	a,@r0
+      005FC5 13               [12] 9206 	rrc	a
+      005FC6 F6               [12] 9207 	mov	@r0,a
+      005FC7 18               [12] 9208 	dec	r0
+      005FC8 E6               [12] 9209 	mov	a,@r0
+      005FC9 13               [12] 9210 	rrc	a
+      005FCA F6               [12] 9211 	mov	@r0,a
+      005FCB 18               [12] 9212 	dec	r0
+      005FCC E6               [12] 9213 	mov	a,@r0
+      005FCD 13               [12] 9214 	rrc	a
+      005FCE F6               [12] 9215 	mov	@r0,a
+      005FCF E5 08            [12] 9216 	mov	a,_bp
+      005FD1 24 1A            [12] 9217 	add	a,#0x1a
+      005FD3 F8               [12] 9218 	mov	r0,a
+      005FD4 E6               [12] 9219 	mov	a,@r0
+      005FD5 08               [12] 9220 	inc	r0
+      005FD6 46               [12] 9221 	orl	a,@r0
+      005FD7 08               [12] 9222 	inc	r0
+      005FD8 46               [12] 9223 	orl	a,@r0
+      005FD9 08               [12] 9224 	inc	r0
+      005FDA 46               [12] 9225 	orl	a,@r0
+      005FDB 70 9B            [24] 9226 	jnz	00151$
+                                   9227 ;	calc.c:430: printbin(vals[1]);
+      005FDD                       9228 00108$:
+                                   9229 ;	calc.c:432: printstr("\r\nSSTOP0 = ");
+      005FDD 7D 20            [12] 9230 	mov	r5,#___str_21
+      005FDF 7E 8A            [12] 9231 	mov	r6,#(___str_21 >> 8)
+      005FE1 7F 80            [12] 9232 	mov	r7,#0x80
+                                   9233 ;	calc.c:51: return;
+      005FE3                       9234 00154$:
+                                   9235 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      005FE3 8D 82            [24] 9236 	mov	dpl,r5
+      005FE5 8E 83            [24] 9237 	mov	dph,r6
+      005FE7 8F F0            [24] 9238 	mov	b,r7
+      005FE9 12 70 79         [24] 9239 	lcall	__gptrget
+      005FEC FC               [12] 9240 	mov	r4,a
+      005FED 60 10            [24] 9241 	jz	00128$
+      005FEF 7B 00            [12] 9242 	mov	r3,#0x00
+      005FF1 8C 82            [24] 9243 	mov	dpl,r4
+      005FF3 8B 83            [24] 9244 	mov	dph,r3
+      005FF5 12 2C 1F         [24] 9245 	lcall	_putchar
+      005FF8 0D               [12] 9246 	inc	r5
+                                   9247 ;	calc.c:432: printstr("\r\nSSTOP0 = ");
+      005FF9 BD 00 E7         [24] 9248 	cjne	r5,#0x00,00154$
+      005FFC 0E               [12] 9249 	inc	r6
+      005FFD 80 E4            [24] 9250 	sjmp	00154$
+      005FFF                       9251 00128$:
+                                   9252 ;	calc.c:433: if (n > 1) {
+      005FFF E5 08            [12] 9253 	mov	a,_bp
+      006001 24 0C            [12] 9254 	add	a,#0x0c
+      006003 F8               [12] 9255 	mov	r0,a
+      006004 C3               [12] 9256 	clr	c
+      006005 74 01            [12] 9257 	mov	a,#0x01
+      006007 96               [12] 9258 	subb	a,@r0
+      006008 74 80            [12] 9259 	mov	a,#(0x00 ^ 0x80)
+      00600A 08               [12] 9260 	inc	r0
+      00600B 86 F0            [24] 9261 	mov	b,@r0
+      00600D 63 F0 80         [24] 9262 	xrl	b,#0x80
+      006010 95 F0            [12] 9263 	subb	a,b
+      006012 40 03            [24] 9264 	jc	00336$
+      006014 02 60 F7         [24] 9265 	ljmp	00110$
+      006017                       9266 00336$:
+                                   9267 ;	calc.c:434: printf("% 11ld / ", vals[0]);
+      006017 87 04            [24] 9268 	mov	ar4,@r1
+      006019 09               [12] 9269 	inc	r1
+      00601A 87 05            [24] 9270 	mov	ar5,@r1
+      00601C 09               [12] 9271 	inc	r1
+      00601D 87 06            [24] 9272 	mov	ar6,@r1
+      00601F 09               [12] 9273 	inc	r1
+      006020 87 07            [24] 9274 	mov	ar7,@r1
+      006022 19               [12] 9275 	dec	r1
+      006023 19               [12] 9276 	dec	r1
+      006024 19               [12] 9277 	dec	r1
+      006025 C0 01            [24] 9278 	push	ar1
+      006027 C0 04            [24] 9279 	push	ar4
+      006029 C0 05            [24] 9280 	push	ar5
+      00602B C0 06            [24] 9281 	push	ar6
+      00602D C0 07            [24] 9282 	push	ar7
+      00602F 74 17            [12] 9283 	mov	a,#___str_3
+      006031 C0 E0            [24] 9284 	push	acc
+      006033 74 89            [12] 9285 	mov	a,#(___str_3 >> 8)
+      006035 C0 E0            [24] 9286 	push	acc
+      006037 74 80            [12] 9287 	mov	a,#0x80
+      006039 C0 E0            [24] 9288 	push	acc
+      00603B 12 70 40         [24] 9289 	lcall	_printf
+      00603E E5 81            [12] 9290 	mov	a,sp
+      006040 24 F9            [12] 9291 	add	a,#0xf9
+      006042 F5 81            [12] 9292 	mov	sp,a
+      006044 D0 01            [24] 9293 	pop	ar1
+                                   9294 ;	calc.c:435: printf("%08lx / ", vals[0]);
+      006046 87 04            [24] 9295 	mov	ar4,@r1
+      006048 09               [12] 9296 	inc	r1
+      006049 87 05            [24] 9297 	mov	ar5,@r1
+      00604B 09               [12] 9298 	inc	r1
+      00604C 87 06            [24] 9299 	mov	ar6,@r1
+      00604E 09               [12] 9300 	inc	r1
+      00604F 87 07            [24] 9301 	mov	ar7,@r1
+      006051 19               [12] 9302 	dec	r1
+      006052 19               [12] 9303 	dec	r1
+      006053 19               [12] 9304 	dec	r1
+      006054 C0 01            [24] 9305 	push	ar1
+      006056 C0 04            [24] 9306 	push	ar4
+      006058 C0 05            [24] 9307 	push	ar5
+      00605A C0 06            [24] 9308 	push	ar6
+      00605C C0 07            [24] 9309 	push	ar7
+      00605E 74 21            [12] 9310 	mov	a,#___str_4
+      006060 C0 E0            [24] 9311 	push	acc
+      006062 74 89            [12] 9312 	mov	a,#(___str_4 >> 8)
+      006064 C0 E0            [24] 9313 	push	acc
+      006066 74 80            [12] 9314 	mov	a,#0x80
+      006068 C0 E0            [24] 9315 	push	acc
+      00606A 12 70 40         [24] 9316 	lcall	_printf
+      00606D E5 81            [12] 9317 	mov	a,sp
+      00606F 24 F9            [12] 9318 	add	a,#0xf9
+      006071 F5 81            [12] 9319 	mov	sp,a
+      006073 D0 01            [24] 9320 	pop	ar1
+                                   9321 ;	calc.c:436: printbin(vals[0]);
+      006075 E5 08            [12] 9322 	mov	a,_bp
+      006077 24 16            [12] 9323 	add	a,#0x16
+      006079 F8               [12] 9324 	mov	r0,a
+      00607A E7               [12] 9325 	mov	a,@r1
+      00607B F6               [12] 9326 	mov	@r0,a
+      00607C 09               [12] 9327 	inc	r1
+      00607D E7               [12] 9328 	mov	a,@r1
+      00607E 08               [12] 9329 	inc	r0
+      00607F F6               [12] 9330 	mov	@r0,a
+      006080 09               [12] 9331 	inc	r1
+      006081 E7               [12] 9332 	mov	a,@r1
+      006082 08               [12] 9333 	inc	r0
+      006083 F6               [12] 9334 	mov	@r0,a
+      006084 09               [12] 9335 	inc	r1
+      006085 E7               [12] 9336 	mov	a,@r1
+      006086 08               [12] 9337 	inc	r0
+      006087 F6               [12] 9338 	mov	@r0,a
+                                   9339 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      006088 E5 08            [12] 9340 	mov	a,_bp
+      00608A 24 1A            [12] 9341 	add	a,#0x1a
+      00608C F8               [12] 9342 	mov	r0,a
+      00608D E4               [12] 9343 	clr	a
+      00608E F6               [12] 9344 	mov	@r0,a
+      00608F 08               [12] 9345 	inc	r0
+      006090 F6               [12] 9346 	mov	@r0,a
+      006091 08               [12] 9347 	inc	r0
+      006092 F6               [12] 9348 	mov	@r0,a
+      006093 08               [12] 9349 	inc	r0
+      006094 76 80            [12] 9350 	mov	@r0,#0x80
+      006096                       9351 00156$:
+                                   9352 ;	calc.c:58: (void)putchar((d & mask) ? (int)'1' : (int)'0');
+      006096 E5 08            [12] 9353 	mov	a,_bp
+      006098 24 16            [12] 9354 	add	a,#0x16
+      00609A F8               [12] 9355 	mov	r0,a
+      00609B 86 04            [24] 9356 	mov	ar4,@r0
+      00609D 08               [12] 9357 	inc	r0
+      00609E 86 05            [24] 9358 	mov	ar5,@r0
+      0060A0 08               [12] 9359 	inc	r0
+      0060A1 86 06            [24] 9360 	mov	ar6,@r0
+      0060A3 08               [12] 9361 	inc	r0
+      0060A4 86 07            [24] 9362 	mov	ar7,@r0
+      0060A6 E5 08            [12] 9363 	mov	a,_bp
+      0060A8 24 1A            [12] 9364 	add	a,#0x1a
+      0060AA F8               [12] 9365 	mov	r0,a
+      0060AB E6               [12] 9366 	mov	a,@r0
+      0060AC 52 04            [12] 9367 	anl	ar4,a
+      0060AE 08               [12] 9368 	inc	r0
+      0060AF E6               [12] 9369 	mov	a,@r0
+      0060B0 52 05            [12] 9370 	anl	ar5,a
+      0060B2 08               [12] 9371 	inc	r0
+      0060B3 E6               [12] 9372 	mov	a,@r0
+      0060B4 52 06            [12] 9373 	anl	ar6,a
+      0060B6 08               [12] 9374 	inc	r0
+      0060B7 E6               [12] 9375 	mov	a,@r0
+      0060B8 52 07            [12] 9376 	anl	ar7,a
+      0060BA EC               [12] 9377 	mov	a,r4
+      0060BB 4D               [12] 9378 	orl	a,r5
+      0060BC 4E               [12] 9379 	orl	a,r6
+      0060BD 4F               [12] 9380 	orl	a,r7
+      0060BE 60 06            [24] 9381 	jz	00171$
+      0060C0 7E 31            [12] 9382 	mov	r6,#0x31
+      0060C2 7F 00            [12] 9383 	mov	r7,#0x00
+      0060C4 80 04            [24] 9384 	sjmp	00172$
+      0060C6                       9385 00171$:
+      0060C6 7E 30            [12] 9386 	mov	r6,#0x30
+      0060C8 7F 00            [12] 9387 	mov	r7,#0x00
+      0060CA                       9388 00172$:
+      0060CA 8E 82            [24] 9389 	mov	dpl,r6
+      0060CC 8F 83            [24] 9390 	mov	dph,r7
+      0060CE 12 2C 1F         [24] 9391 	lcall	_putchar
+                                   9392 ;	calc.c:57: for (mask = 0x80000000lu; mask; mask >>= 1)
+      0060D1 E5 08            [12] 9393 	mov	a,_bp
+      0060D3 24 1A            [12] 9394 	add	a,#0x1a
+      0060D5 F8               [12] 9395 	mov	r0,a
+      0060D6 08               [12] 9396 	inc	r0
+      0060D7 08               [12] 9397 	inc	r0
+      0060D8 08               [12] 9398 	inc	r0
+      0060D9 E6               [12] 9399 	mov	a,@r0
+      0060DA C3               [12] 9400 	clr	c
+      0060DB 13               [12] 9401 	rrc	a
+      0060DC F6               [12] 9402 	mov	@r0,a
+      0060DD 18               [12] 9403 	dec	r0
+      0060DE E6               [12] 9404 	mov	a,@r0
+      0060DF 13               [12] 9405 	rrc	a
+      0060E0 F6               [12] 9406 	mov	@r0,a
+      0060E1 18               [12] 9407 	dec	r0
+      0060E2 E6               [12] 9408 	mov	a,@r0
+      0060E3 13               [12] 9409 	rrc	a
+      0060E4 F6               [12] 9410 	mov	@r0,a
+      0060E5 18               [12] 9411 	dec	r0
+      0060E6 E6               [12] 9412 	mov	a,@r0
+      0060E7 13               [12] 9413 	rrc	a
+      0060E8 F6               [12] 9414 	mov	@r0,a
+      0060E9 E5 08            [12] 9415 	mov	a,_bp
+      0060EB 24 1A            [12] 9416 	add	a,#0x1a
+      0060ED F8               [12] 9417 	mov	r0,a
+      0060EE E6               [12] 9418 	mov	a,@r0
+      0060EF 08               [12] 9419 	inc	r0
+      0060F0 46               [12] 9420 	orl	a,@r0
+      0060F1 08               [12] 9421 	inc	r0
+      0060F2 46               [12] 9422 	orl	a,@r0
+      0060F3 08               [12] 9423 	inc	r0
+      0060F4 46               [12] 9424 	orl	a,@r0
+      0060F5 70 9F            [24] 9425 	jnz	00156$
+                                   9426 ;	calc.c:436: printbin(vals[0]);
+      0060F7                       9427 00110$:
+                                   9428 ;	calc.c:438: printstr("\r\n");
+      0060F7 7D 2A            [12] 9429 	mov	r5,#___str_5
+      0060F9 7E 89            [12] 9430 	mov	r6,#(___str_5 >> 8)
+      0060FB 7F 80            [12] 9431 	mov	r7,#0x80
+                                   9432 ;	calc.c:51: return;
+      0060FD                       9433 00159$:
+                                   9434 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0060FD 8D 82            [24] 9435 	mov	dpl,r5
+      0060FF 8E 83            [24] 9436 	mov	dph,r6
+      006101 8F F0            [24] 9437 	mov	b,r7
+      006103 12 70 79         [24] 9438 	lcall	__gptrget
+      006106 FC               [12] 9439 	mov	r4,a
+      006107 60 10            [24] 9440 	jz	00132$
+      006109 7B 00            [12] 9441 	mov	r3,#0x00
+      00610B 8C 82            [24] 9442 	mov	dpl,r4
+      00610D 8B 83            [24] 9443 	mov	dph,r3
+      00610F 12 2C 1F         [24] 9444 	lcall	_putchar
+      006112 0D               [12] 9445 	inc	r5
+                                   9446 ;	calc.c:438: printstr("\r\n");
+      006113 BD 00 E7         [24] 9447 	cjne	r5,#0x00,00159$
+      006116 0E               [12] 9448 	inc	r6
+      006117 80 E4            [24] 9449 	sjmp	00159$
+      006119                       9450 00132$:
+                                   9451 ;	calc.c:440: return 1;
+      006119 90 00 01         [24] 9452 	mov	dptr,#0x0001
+                                   9453 ;	calc.c:441: }
+      00611C 85 08 81         [24] 9454 	mov	sp,_bp
+      00611F D0 08            [24] 9455 	pop	_bp
+      006121 22               [24] 9456 	ret
+                                   9457 ;------------------------------------------------------------
+                                   9458 ;Allocation info for local variables in function 'help'
+                                   9459 ;------------------------------------------------------------
+                                   9460 ;delta                     Allocated to stack - _bp -5
+                                   9461 ;_ctx                      Allocated to registers 
+                                   9462 ;__1310720149              Allocated to registers 
                                    9463 ;s                         Allocated to registers r5 r6 r7 
-                                   9464 ;------------------------------------------------------------
-                                   9465 ;	calc.c:441: static int help(void *_ctx, delta_t *delta) __reentrant {
-                                   9466 ;	-----------------------------------------
-                                   9467 ;	 function help
-                                   9468 ;	-----------------------------------------
-      0060C4                       9469 _help:
-      0060C4 C0 08            [24] 9470 	push	_bp
-      0060C6 85 81 08         [24] 9471 	mov	_bp,sp
-                                   9472 ;	calc.c:445: printstr("\r\nHhOo\tbase 16 10 8 2\r\n");
-      0060C9 7D D0            [12] 9473 	mov	r5,#___str_23
-      0060CB 7E 89            [12] 9474 	mov	r6,#(___str_23 >> 8)
-      0060CD 7F 80            [12] 9475 	mov	r7,#0x80
-                                   9476 ;	calc.c:51: return;
-      0060CF                       9477 00164$:
-                                   9478 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0060CF 8D 82            [24] 9479 	mov	dpl,r5
-      0060D1 8E 83            [24] 9480 	mov	dph,r6
-      0060D3 8F F0            [24] 9481 	mov	b,r7
-      0060D5 12 70 1B         [24] 9482 	lcall	__gptrget
-      0060D8 FC               [12] 9483 	mov	r4,a
-      0060D9 60 10            [24] 9484 	jz	00102$
-      0060DB 7B 00            [12] 9485 	mov	r3,#0x00
-      0060DD 8C 82            [24] 9486 	mov	dpl,r4
-      0060DF 8B 83            [24] 9487 	mov	dph,r3
-      0060E1 12 2C 1F         [24] 9488 	lcall	_putchar
-      0060E4 0D               [12] 9489 	inc	r5
-                                   9490 ;	calc.c:445: printstr("\r\nHhOo\tbase 16 10 8 2\r\n");
-      0060E5 BD 00 E7         [24] 9491 	cjne	r5,#0x00,00164$
-      0060E8 0E               [12] 9492 	inc	r6
-      0060E9 80 E4            [24] 9493 	sjmp	00164$
-      0060EB                       9494 00102$:
-                                   9495 ;	calc.c:446: printstr("p\tpeek top\r\n");
-      0060EB 7D E8            [12] 9496 	mov	r5,#___str_24
-      0060ED 7E 89            [12] 9497 	mov	r6,#(___str_24 >> 8)
-      0060EF 7F 80            [12] 9498 	mov	r7,#0x80
-                                   9499 ;	calc.c:51: return;
-      0060F1                       9500 00167$:
-                                   9501 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0060F1 8D 82            [24] 9502 	mov	dpl,r5
-      0060F3 8E 83            [24] 9503 	mov	dph,r6
-      0060F5 8F F0            [24] 9504 	mov	b,r7
-      0060F7 12 70 1B         [24] 9505 	lcall	__gptrget
-      0060FA FC               [12] 9506 	mov	r4,a
-      0060FB 60 10            [24] 9507 	jz	00104$
-      0060FD 7B 00            [12] 9508 	mov	r3,#0x00
-      0060FF 8C 82            [24] 9509 	mov	dpl,r4
-      006101 8B 83            [24] 9510 	mov	dph,r3
-      006103 12 2C 1F         [24] 9511 	lcall	_putchar
-      006106 0D               [12] 9512 	inc	r5
-                                   9513 ;	calc.c:446: printstr("p\tpeek top\r\n");
-      006107 BD 00 E7         [24] 9514 	cjne	r5,#0x00,00167$
-      00610A 0E               [12] 9515 	inc	r6
-      00610B 80 E4            [24] 9516 	sjmp	00167$
-      00610D                       9517 00104$:
-                                   9518 ;	calc.c:447: printstr("P\tprint stack\r\n");
-      00610D 7D F5            [12] 9519 	mov	r5,#___str_25
-      00610F 7E 89            [12] 9520 	mov	r6,#(___str_25 >> 8)
-      006111 7F 80            [12] 9521 	mov	r7,#0x80
-                                   9522 ;	calc.c:51: return;
-      006113                       9523 00170$:
-                                   9524 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006113 8D 82            [24] 9525 	mov	dpl,r5
-      006115 8E 83            [24] 9526 	mov	dph,r6
-      006117 8F F0            [24] 9527 	mov	b,r7
-      006119 12 70 1B         [24] 9528 	lcall	__gptrget
-      00611C FC               [12] 9529 	mov	r4,a
-      00611D 60 10            [24] 9530 	jz	00106$
-      00611F 7B 00            [12] 9531 	mov	r3,#0x00
-      006121 8C 82            [24] 9532 	mov	dpl,r4
-      006123 8B 83            [24] 9533 	mov	dph,r3
-      006125 12 2C 1F         [24] 9534 	lcall	_putchar
-      006128 0D               [12] 9535 	inc	r5
-                                   9536 ;	calc.c:447: printstr("P\tprint stack\r\n");
-      006129 BD 00 E7         [24] 9537 	cjne	r5,#0x00,00170$
-      00612C 0E               [12] 9538 	inc	r6
-      00612D 80 E4            [24] 9539 	sjmp	00170$
-      00612F                       9540 00106$:
-                                   9541 ;	calc.c:448: printstr("v.\tpop top\r\n");
-      00612F 7D 05            [12] 9542 	mov	r5,#___str_26
-      006131 7E 8A            [12] 9543 	mov	r6,#(___str_26 >> 8)
-      006133 7F 80            [12] 9544 	mov	r7,#0x80
-                                   9545 ;	calc.c:51: return;
-      006135                       9546 00173$:
-                                   9547 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006135 8D 82            [24] 9548 	mov	dpl,r5
-      006137 8E 83            [24] 9549 	mov	dph,r6
-      006139 8F F0            [24] 9550 	mov	b,r7
-      00613B 12 70 1B         [24] 9551 	lcall	__gptrget
-      00613E FC               [12] 9552 	mov	r4,a
-      00613F 60 10            [24] 9553 	jz	00108$
-      006141 7B 00            [12] 9554 	mov	r3,#0x00
-      006143 8C 82            [24] 9555 	mov	dpl,r4
-      006145 8B 83            [24] 9556 	mov	dph,r3
-      006147 12 2C 1F         [24] 9557 	lcall	_putchar
-      00614A 0D               [12] 9558 	inc	r5
-                                   9559 ;	calc.c:448: printstr("v.\tpop top\r\n");
-      00614B BD 00 E7         [24] 9560 	cjne	r5,#0x00,00173$
-      00614E 0E               [12] 9561 	inc	r6
-      00614F 80 E4            [24] 9562 	sjmp	00173$
-      006151                       9563 00108$:
-                                   9564 ;	calc.c:449: printstr("V\tpop all\r\n");
-      006151 7D 12            [12] 9565 	mov	r5,#___str_27
-      006153 7E 8A            [12] 9566 	mov	r6,#(___str_27 >> 8)
-      006155 7F 80            [12] 9567 	mov	r7,#0x80
-                                   9568 ;	calc.c:51: return;
-      006157                       9569 00176$:
-                                   9570 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006157 8D 82            [24] 9571 	mov	dpl,r5
-      006159 8E 83            [24] 9572 	mov	dph,r6
-      00615B 8F F0            [24] 9573 	mov	b,r7
-      00615D 12 70 1B         [24] 9574 	lcall	__gptrget
-      006160 FC               [12] 9575 	mov	r4,a
-      006161 60 10            [24] 9576 	jz	00110$
-      006163 7B 00            [12] 9577 	mov	r3,#0x00
-      006165 8C 82            [24] 9578 	mov	dpl,r4
-      006167 8B 83            [24] 9579 	mov	dph,r3
-      006169 12 2C 1F         [24] 9580 	lcall	_putchar
-      00616C 0D               [12] 9581 	inc	r5
-                                   9582 ;	calc.c:449: printstr("V\tpop all\r\n");
-      00616D BD 00 E7         [24] 9583 	cjne	r5,#0x00,00176$
-      006170 0E               [12] 9584 	inc	r6
-      006171 80 E4            [24] 9585 	sjmp	00176$
-      006173                       9586 00110$:
-                                   9587 ;	calc.c:450: printstr("i\treset acc\r\n");
-      006173 7D 1E            [12] 9588 	mov	r5,#___str_28
-      006175 7E 8A            [12] 9589 	mov	r6,#(___str_28 >> 8)
-      006177 7F 80            [12] 9590 	mov	r7,#0x80
-                                   9591 ;	calc.c:51: return;
-      006179                       9592 00179$:
-                                   9593 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006179 8D 82            [24] 9594 	mov	dpl,r5
-      00617B 8E 83            [24] 9595 	mov	dph,r6
-      00617D 8F F0            [24] 9596 	mov	b,r7
-      00617F 12 70 1B         [24] 9597 	lcall	__gptrget
-      006182 FC               [12] 9598 	mov	r4,a
-      006183 60 10            [24] 9599 	jz	00112$
-      006185 7B 00            [12] 9600 	mov	r3,#0x00
-      006187 8C 82            [24] 9601 	mov	dpl,r4
-      006189 8B 83            [24] 9602 	mov	dph,r3
-      00618B 12 2C 1F         [24] 9603 	lcall	_putchar
-      00618E 0D               [12] 9604 	inc	r5
-                                   9605 ;	calc.c:450: printstr("i\treset acc\r\n");
-      00618F BD 00 E7         [24] 9606 	cjne	r5,#0x00,00179$
-      006192 0E               [12] 9607 	inc	r6
-      006193 80 E4            [24] 9608 	sjmp	00179$
-      006195                       9609 00112$:
-                                   9610 ;	calc.c:451: printstr("I\treset and discard acc\r\n");
-      006195 7D 2C            [12] 9611 	mov	r5,#___str_29
-      006197 7E 8A            [12] 9612 	mov	r6,#(___str_29 >> 8)
-      006199 7F 80            [12] 9613 	mov	r7,#0x80
-                                   9614 ;	calc.c:51: return;
-      00619B                       9615 00182$:
-                                   9616 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      00619B 8D 82            [24] 9617 	mov	dpl,r5
-      00619D 8E 83            [24] 9618 	mov	dph,r6
-      00619F 8F F0            [24] 9619 	mov	b,r7
-      0061A1 12 70 1B         [24] 9620 	lcall	__gptrget
-      0061A4 FC               [12] 9621 	mov	r4,a
-      0061A5 60 10            [24] 9622 	jz	00114$
-      0061A7 7B 00            [12] 9623 	mov	r3,#0x00
-      0061A9 8C 82            [24] 9624 	mov	dpl,r4
-      0061AB 8B 83            [24] 9625 	mov	dph,r3
-      0061AD 12 2C 1F         [24] 9626 	lcall	_putchar
-      0061B0 0D               [12] 9627 	inc	r5
-                                   9628 ;	calc.c:451: printstr("I\treset and discard acc\r\n");
-      0061B1 BD 00 E7         [24] 9629 	cjne	r5,#0x00,00182$
-      0061B4 0E               [12] 9630 	inc	r6
-      0061B5 80 E4            [24] 9631 	sjmp	00182$
-      0061B7                       9632 00114$:
-                                   9633 ;	calc.c:452: printstr("x\texchange top 2\r\n");
-      0061B7 7D 46            [12] 9634 	mov	r5,#___str_30
-      0061B9 7E 8A            [12] 9635 	mov	r6,#(___str_30 >> 8)
-      0061BB 7F 80            [12] 9636 	mov	r7,#0x80
-                                   9637 ;	calc.c:51: return;
-      0061BD                       9638 00185$:
-                                   9639 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0061BD 8D 82            [24] 9640 	mov	dpl,r5
-      0061BF 8E 83            [24] 9641 	mov	dph,r6
-      0061C1 8F F0            [24] 9642 	mov	b,r7
-      0061C3 12 70 1B         [24] 9643 	lcall	__gptrget
-      0061C6 FC               [12] 9644 	mov	r4,a
-      0061C7 60 10            [24] 9645 	jz	00116$
-      0061C9 7B 00            [12] 9646 	mov	r3,#0x00
-      0061CB 8C 82            [24] 9647 	mov	dpl,r4
-      0061CD 8B 83            [24] 9648 	mov	dph,r3
-      0061CF 12 2C 1F         [24] 9649 	lcall	_putchar
-      0061D2 0D               [12] 9650 	inc	r5
-                                   9651 ;	calc.c:452: printstr("x\texchange top 2\r\n");
-      0061D3 BD 00 E7         [24] 9652 	cjne	r5,#0x00,00185$
-      0061D6 0E               [12] 9653 	inc	r6
-      0061D7 80 E4            [24] 9654 	sjmp	00185$
-      0061D9                       9655 00116$:
-                                   9656 ;	calc.c:453: printstr("X\texchange stacks primary <-> secondary\r\n");
-      0061D9 7D 59            [12] 9657 	mov	r5,#___str_31
-      0061DB 7E 8A            [12] 9658 	mov	r6,#(___str_31 >> 8)
-      0061DD 7F 80            [12] 9659 	mov	r7,#0x80
-                                   9660 ;	calc.c:51: return;
-      0061DF                       9661 00188$:
-                                   9662 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0061DF 8D 82            [24] 9663 	mov	dpl,r5
-      0061E1 8E 83            [24] 9664 	mov	dph,r6
-      0061E3 8F F0            [24] 9665 	mov	b,r7
-      0061E5 12 70 1B         [24] 9666 	lcall	__gptrget
-      0061E8 FC               [12] 9667 	mov	r4,a
-      0061E9 60 10            [24] 9668 	jz	00118$
-      0061EB 7B 00            [12] 9669 	mov	r3,#0x00
-      0061ED 8C 82            [24] 9670 	mov	dpl,r4
-      0061EF 8B 83            [24] 9671 	mov	dph,r3
-      0061F1 12 2C 1F         [24] 9672 	lcall	_putchar
-      0061F4 0D               [12] 9673 	inc	r5
-                                   9674 ;	calc.c:453: printstr("X\texchange stacks primary <-> secondary\r\n");
-      0061F5 BD 00 E7         [24] 9675 	cjne	r5,#0x00,00188$
-      0061F8 0E               [12] 9676 	inc	r6
-      0061F9 80 E4            [24] 9677 	sjmp	00188$
-      0061FB                       9678 00118$:
-                                   9679 ;	calc.c:454: printstr("T\texchange tops primary <-> secondary\r\n");
-      0061FB 7D 83            [12] 9680 	mov	r5,#___str_32
-      0061FD 7E 8A            [12] 9681 	mov	r6,#(___str_32 >> 8)
-      0061FF 7F 80            [12] 9682 	mov	r7,#0x80
-                                   9683 ;	calc.c:51: return;
-      006201                       9684 00191$:
-                                   9685 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006201 8D 82            [24] 9686 	mov	dpl,r5
-      006203 8E 83            [24] 9687 	mov	dph,r6
-      006205 8F F0            [24] 9688 	mov	b,r7
-      006207 12 70 1B         [24] 9689 	lcall	__gptrget
-      00620A FC               [12] 9690 	mov	r4,a
-      00620B 60 10            [24] 9691 	jz	00120$
-      00620D 7B 00            [12] 9692 	mov	r3,#0x00
-      00620F 8C 82            [24] 9693 	mov	dpl,r4
-      006211 8B 83            [24] 9694 	mov	dph,r3
-      006213 12 2C 1F         [24] 9695 	lcall	_putchar
-      006216 0D               [12] 9696 	inc	r5
-                                   9697 ;	calc.c:454: printstr("T\texchange tops primary <-> secondary\r\n");
-      006217 BD 00 E7         [24] 9698 	cjne	r5,#0x00,00191$
-      00621A 0E               [12] 9699 	inc	r6
-      00621B 80 E4            [24] 9700 	sjmp	00191$
-      00621D                       9701 00120$:
-                                   9702 ;	calc.c:455: printstr("U\tcopy top secondary -> primary\r\n");
-      00621D 7D AB            [12] 9703 	mov	r5,#___str_33
-      00621F 7E 8A            [12] 9704 	mov	r6,#(___str_33 >> 8)
-      006221 7F 80            [12] 9705 	mov	r7,#0x80
-                                   9706 ;	calc.c:51: return;
-      006223                       9707 00194$:
-                                   9708 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006223 8D 82            [24] 9709 	mov	dpl,r5
-      006225 8E 83            [24] 9710 	mov	dph,r6
-      006227 8F F0            [24] 9711 	mov	b,r7
-      006229 12 70 1B         [24] 9712 	lcall	__gptrget
-      00622C FC               [12] 9713 	mov	r4,a
-      00622D 60 10            [24] 9714 	jz	00122$
-      00622F 7B 00            [12] 9715 	mov	r3,#0x00
-      006231 8C 82            [24] 9716 	mov	dpl,r4
-      006233 8B 83            [24] 9717 	mov	dph,r3
-      006235 12 2C 1F         [24] 9718 	lcall	_putchar
-      006238 0D               [12] 9719 	inc	r5
-                                   9720 ;	calc.c:455: printstr("U\tcopy top secondary -> primary\r\n");
-      006239 BD 00 E7         [24] 9721 	cjne	r5,#0x00,00194$
-      00623C 0E               [12] 9722 	inc	r6
-      00623D 80 E4            [24] 9723 	sjmp	00194$
-      00623F                       9724 00122$:
-                                   9725 ;	calc.c:456: printstr("u\tcopy top primary -> secondary\r\n");
-      00623F 7D CD            [12] 9726 	mov	r5,#___str_34
-      006241 7E 8A            [12] 9727 	mov	r6,#(___str_34 >> 8)
-      006243 7F 80            [12] 9728 	mov	r7,#0x80
-                                   9729 ;	calc.c:51: return;
-      006245                       9730 00197$:
-                                   9731 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006245 8D 82            [24] 9732 	mov	dpl,r5
-      006247 8E 83            [24] 9733 	mov	dph,r6
-      006249 8F F0            [24] 9734 	mov	b,r7
-      00624B 12 70 1B         [24] 9735 	lcall	__gptrget
-      00624E FC               [12] 9736 	mov	r4,a
-      00624F 60 10            [24] 9737 	jz	00124$
-      006251 7B 00            [12] 9738 	mov	r3,#0x00
-      006253 8C 82            [24] 9739 	mov	dpl,r4
-      006255 8B 83            [24] 9740 	mov	dph,r3
-      006257 12 2C 1F         [24] 9741 	lcall	_putchar
-      00625A 0D               [12] 9742 	inc	r5
-                                   9743 ;	calc.c:456: printstr("u\tcopy top primary -> secondary\r\n");
-      00625B BD 00 E7         [24] 9744 	cjne	r5,#0x00,00197$
-      00625E 0E               [12] 9745 	inc	r6
-      00625F 80 E4            [24] 9746 	sjmp	00197$
-      006261                       9747 00124$:
-                                   9748 ;	calc.c:457: printstr("M\tmove top secondary -> primary\r\n");
-      006261 7D EF            [12] 9749 	mov	r5,#___str_35
-      006263 7E 8A            [12] 9750 	mov	r6,#(___str_35 >> 8)
-      006265 7F 80            [12] 9751 	mov	r7,#0x80
-                                   9752 ;	calc.c:51: return;
-      006267                       9753 00200$:
-                                   9754 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006267 8D 82            [24] 9755 	mov	dpl,r5
-      006269 8E 83            [24] 9756 	mov	dph,r6
-      00626B 8F F0            [24] 9757 	mov	b,r7
-      00626D 12 70 1B         [24] 9758 	lcall	__gptrget
-      006270 FC               [12] 9759 	mov	r4,a
-      006271 60 10            [24] 9760 	jz	00126$
-      006273 7B 00            [12] 9761 	mov	r3,#0x00
-      006275 8C 82            [24] 9762 	mov	dpl,r4
-      006277 8B 83            [24] 9763 	mov	dph,r3
-      006279 12 2C 1F         [24] 9764 	lcall	_putchar
-      00627C 0D               [12] 9765 	inc	r5
-                                   9766 ;	calc.c:457: printstr("M\tmove top secondary -> primary\r\n");
-      00627D BD 00 E7         [24] 9767 	cjne	r5,#0x00,00200$
-      006280 0E               [12] 9768 	inc	r6
-      006281 80 E4            [24] 9769 	sjmp	00200$
-      006283                       9770 00126$:
-                                   9771 ;	calc.c:458: printstr("m\tmove top primary -> secondary\r\n");
-      006283 7D 11            [12] 9772 	mov	r5,#___str_36
-      006285 7E 8B            [12] 9773 	mov	r6,#(___str_36 >> 8)
-      006287 7F 80            [12] 9774 	mov	r7,#0x80
-                                   9775 ;	calc.c:51: return;
-      006289                       9776 00203$:
-                                   9777 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006289 8D 82            [24] 9778 	mov	dpl,r5
-      00628B 8E 83            [24] 9779 	mov	dph,r6
-      00628D 8F F0            [24] 9780 	mov	b,r7
-      00628F 12 70 1B         [24] 9781 	lcall	__gptrget
-      006292 FC               [12] 9782 	mov	r4,a
-      006293 60 10            [24] 9783 	jz	00128$
-      006295 7B 00            [12] 9784 	mov	r3,#0x00
-      006297 8C 82            [24] 9785 	mov	dpl,r4
-      006299 8B 83            [24] 9786 	mov	dph,r3
-      00629B 12 2C 1F         [24] 9787 	lcall	_putchar
-      00629E 0D               [12] 9788 	inc	r5
-                                   9789 ;	calc.c:458: printstr("m\tmove top primary -> secondary\r\n");
-      00629F BD 00 E7         [24] 9790 	cjne	r5,#0x00,00203$
-      0062A2 0E               [12] 9791 	inc	r6
-      0062A3 80 E4            [24] 9792 	sjmp	00203$
-      0062A5                       9793 00128$:
-                                   9794 ;	calc.c:459: printstr("+\tadd top 2\r\n");
-      0062A5 7D 33            [12] 9795 	mov	r5,#___str_37
-      0062A7 7E 8B            [12] 9796 	mov	r6,#(___str_37 >> 8)
-      0062A9 7F 80            [12] 9797 	mov	r7,#0x80
-                                   9798 ;	calc.c:51: return;
-      0062AB                       9799 00206$:
-                                   9800 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0062AB 8D 82            [24] 9801 	mov	dpl,r5
-      0062AD 8E 83            [24] 9802 	mov	dph,r6
-      0062AF 8F F0            [24] 9803 	mov	b,r7
-      0062B1 12 70 1B         [24] 9804 	lcall	__gptrget
-      0062B4 FC               [12] 9805 	mov	r4,a
-      0062B5 60 10            [24] 9806 	jz	00130$
-      0062B7 7B 00            [12] 9807 	mov	r3,#0x00
-      0062B9 8C 82            [24] 9808 	mov	dpl,r4
-      0062BB 8B 83            [24] 9809 	mov	dph,r3
-      0062BD 12 2C 1F         [24] 9810 	lcall	_putchar
-      0062C0 0D               [12] 9811 	inc	r5
-                                   9812 ;	calc.c:459: printstr("+\tadd top 2\r\n");
-      0062C1 BD 00 E7         [24] 9813 	cjne	r5,#0x00,00206$
-      0062C4 0E               [12] 9814 	inc	r6
-      0062C5 80 E4            [24] 9815 	sjmp	00206$
-      0062C7                       9816 00130$:
-                                   9817 ;	calc.c:460: printstr("-\tsubtract top 2\r\n");
-      0062C7 7D 41            [12] 9818 	mov	r5,#___str_38
-      0062C9 7E 8B            [12] 9819 	mov	r6,#(___str_38 >> 8)
-      0062CB 7F 80            [12] 9820 	mov	r7,#0x80
-                                   9821 ;	calc.c:51: return;
-      0062CD                       9822 00209$:
-                                   9823 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0062CD 8D 82            [24] 9824 	mov	dpl,r5
-      0062CF 8E 83            [24] 9825 	mov	dph,r6
-      0062D1 8F F0            [24] 9826 	mov	b,r7
-      0062D3 12 70 1B         [24] 9827 	lcall	__gptrget
-      0062D6 FC               [12] 9828 	mov	r4,a
-      0062D7 60 10            [24] 9829 	jz	00132$
-      0062D9 7B 00            [12] 9830 	mov	r3,#0x00
-      0062DB 8C 82            [24] 9831 	mov	dpl,r4
-      0062DD 8B 83            [24] 9832 	mov	dph,r3
-      0062DF 12 2C 1F         [24] 9833 	lcall	_putchar
-      0062E2 0D               [12] 9834 	inc	r5
-                                   9835 ;	calc.c:460: printstr("-\tsubtract top 2\r\n");
-      0062E3 BD 00 E7         [24] 9836 	cjne	r5,#0x00,00209$
-      0062E6 0E               [12] 9837 	inc	r6
-      0062E7 80 E4            [24] 9838 	sjmp	00209$
-      0062E9                       9839 00132$:
-                                   9840 ;	calc.c:461: printstr("*\tmultiply top 2\r\n");
-      0062E9 7D 54            [12] 9841 	mov	r5,#___str_39
-      0062EB 7E 8B            [12] 9842 	mov	r6,#(___str_39 >> 8)
-      0062ED 7F 80            [12] 9843 	mov	r7,#0x80
-                                   9844 ;	calc.c:51: return;
-      0062EF                       9845 00212$:
-                                   9846 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0062EF 8D 82            [24] 9847 	mov	dpl,r5
-      0062F1 8E 83            [24] 9848 	mov	dph,r6
-      0062F3 8F F0            [24] 9849 	mov	b,r7
-      0062F5 12 70 1B         [24] 9850 	lcall	__gptrget
-      0062F8 FC               [12] 9851 	mov	r4,a
-      0062F9 60 10            [24] 9852 	jz	00134$
-      0062FB 7B 00            [12] 9853 	mov	r3,#0x00
-      0062FD 8C 82            [24] 9854 	mov	dpl,r4
-      0062FF 8B 83            [24] 9855 	mov	dph,r3
-      006301 12 2C 1F         [24] 9856 	lcall	_putchar
-      006304 0D               [12] 9857 	inc	r5
-                                   9858 ;	calc.c:461: printstr("*\tmultiply top 2\r\n");
-      006305 BD 00 E7         [24] 9859 	cjne	r5,#0x00,00212$
-      006308 0E               [12] 9860 	inc	r6
-      006309 80 E4            [24] 9861 	sjmp	00212$
-      00630B                       9862 00134$:
-                                   9863 ;	calc.c:462: printstr("/\tdivide top 2\r\n");
-      00630B 7D 67            [12] 9864 	mov	r5,#___str_40
-      00630D 7E 8B            [12] 9865 	mov	r6,#(___str_40 >> 8)
-      00630F 7F 80            [12] 9866 	mov	r7,#0x80
-                                   9867 ;	calc.c:51: return;
-      006311                       9868 00215$:
-                                   9869 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006311 8D 82            [24] 9870 	mov	dpl,r5
-      006313 8E 83            [24] 9871 	mov	dph,r6
-      006315 8F F0            [24] 9872 	mov	b,r7
-      006317 12 70 1B         [24] 9873 	lcall	__gptrget
-      00631A FC               [12] 9874 	mov	r4,a
-      00631B 60 10            [24] 9875 	jz	00136$
-      00631D 7B 00            [12] 9876 	mov	r3,#0x00
-      00631F 8C 82            [24] 9877 	mov	dpl,r4
-      006321 8B 83            [24] 9878 	mov	dph,r3
-      006323 12 2C 1F         [24] 9879 	lcall	_putchar
-      006326 0D               [12] 9880 	inc	r5
-                                   9881 ;	calc.c:462: printstr("/\tdivide top 2\r\n");
-      006327 BD 00 E7         [24] 9882 	cjne	r5,#0x00,00215$
-      00632A 0E               [12] 9883 	inc	r6
-      00632B 80 E4            [24] 9884 	sjmp	00215$
-      00632D                       9885 00136$:
-                                   9886 ;	calc.c:463: printstr("\\\tdivide top 2 unsigned\r\n");	
-      00632D 7D 78            [12] 9887 	mov	r5,#___str_41
-      00632F 7E 8B            [12] 9888 	mov	r6,#(___str_41 >> 8)
-      006331 7F 80            [12] 9889 	mov	r7,#0x80
-                                   9890 ;	calc.c:51: return;
-      006333                       9891 00218$:
-                                   9892 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006333 8D 82            [24] 9893 	mov	dpl,r5
-      006335 8E 83            [24] 9894 	mov	dph,r6
-      006337 8F F0            [24] 9895 	mov	b,r7
-      006339 12 70 1B         [24] 9896 	lcall	__gptrget
-      00633C FC               [12] 9897 	mov	r4,a
-      00633D 60 10            [24] 9898 	jz	00138$
-      00633F 7B 00            [12] 9899 	mov	r3,#0x00
-      006341 8C 82            [24] 9900 	mov	dpl,r4
-      006343 8B 83            [24] 9901 	mov	dph,r3
-      006345 12 2C 1F         [24] 9902 	lcall	_putchar
-      006348 0D               [12] 9903 	inc	r5
-                                   9904 ;	calc.c:463: printstr("\\\tdivide top 2 unsigned\r\n");	
-      006349 BD 00 E7         [24] 9905 	cjne	r5,#0x00,00218$
-      00634C 0E               [12] 9906 	inc	r6
-      00634D 80 E4            [24] 9907 	sjmp	00218$
-      00634F                       9908 00138$:
-                                   9909 ;	calc.c:464: printstr("%\tmodulus top 2\r\n");
-      00634F 7D 92            [12] 9910 	mov	r5,#___str_42
-      006351 7E 8B            [12] 9911 	mov	r6,#(___str_42 >> 8)
-      006353 7F 80            [12] 9912 	mov	r7,#0x80
-                                   9913 ;	calc.c:51: return;
-      006355                       9914 00221$:
-                                   9915 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006355 8D 82            [24] 9916 	mov	dpl,r5
-      006357 8E 83            [24] 9917 	mov	dph,r6
-      006359 8F F0            [24] 9918 	mov	b,r7
-      00635B 12 70 1B         [24] 9919 	lcall	__gptrget
-      00635E FC               [12] 9920 	mov	r4,a
-      00635F 60 10            [24] 9921 	jz	00140$
-      006361 7B 00            [12] 9922 	mov	r3,#0x00
-      006363 8C 82            [24] 9923 	mov	dpl,r4
-      006365 8B 83            [24] 9924 	mov	dph,r3
-      006367 12 2C 1F         [24] 9925 	lcall	_putchar
-      00636A 0D               [12] 9926 	inc	r5
-                                   9927 ;	calc.c:464: printstr("%\tmodulus top 2\r\n");
-      00636B BD 00 E7         [24] 9928 	cjne	r5,#0x00,00221$
-      00636E 0E               [12] 9929 	inc	r6
-      00636F 80 E4            [24] 9930 	sjmp	00221$
-      006371                       9931 00140$:
-                                   9932 ;	calc.c:465: printstr("#\tmodulus top 2 unsigned\r\n");
-      006371 7D A4            [12] 9933 	mov	r5,#___str_43
-      006373 7E 8B            [12] 9934 	mov	r6,#(___str_43 >> 8)
-      006375 7F 80            [12] 9935 	mov	r7,#0x80
-                                   9936 ;	calc.c:51: return;
-      006377                       9937 00224$:
-                                   9938 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006377 8D 82            [24] 9939 	mov	dpl,r5
-      006379 8E 83            [24] 9940 	mov	dph,r6
-      00637B 8F F0            [24] 9941 	mov	b,r7
-      00637D 12 70 1B         [24] 9942 	lcall	__gptrget
-      006380 FC               [12] 9943 	mov	r4,a
-      006381 60 10            [24] 9944 	jz	00142$
-      006383 7B 00            [12] 9945 	mov	r3,#0x00
-      006385 8C 82            [24] 9946 	mov	dpl,r4
-      006387 8B 83            [24] 9947 	mov	dph,r3
-      006389 12 2C 1F         [24] 9948 	lcall	_putchar
-      00638C 0D               [12] 9949 	inc	r5
-                                   9950 ;	calc.c:465: printstr("#\tmodulus top 2 unsigned\r\n");
-      00638D BD 00 E7         [24] 9951 	cjne	r5,#0x00,00224$
-      006390 0E               [12] 9952 	inc	r6
-      006391 80 E4            [24] 9953 	sjmp	00224$
-      006393                       9954 00142$:
-                                   9955 ;	calc.c:466: printstr("&\tand top 2\r\n");
-      006393 7D BF            [12] 9956 	mov	r5,#___str_44
-      006395 7E 8B            [12] 9957 	mov	r6,#(___str_44 >> 8)
-      006397 7F 80            [12] 9958 	mov	r7,#0x80
-                                   9959 ;	calc.c:51: return;
-      006399                       9960 00227$:
-                                   9961 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006399 8D 82            [24] 9962 	mov	dpl,r5
-      00639B 8E 83            [24] 9963 	mov	dph,r6
-      00639D 8F F0            [24] 9964 	mov	b,r7
-      00639F 12 70 1B         [24] 9965 	lcall	__gptrget
-      0063A2 FC               [12] 9966 	mov	r4,a
-      0063A3 60 10            [24] 9967 	jz	00144$
-      0063A5 7B 00            [12] 9968 	mov	r3,#0x00
-      0063A7 8C 82            [24] 9969 	mov	dpl,r4
-      0063A9 8B 83            [24] 9970 	mov	dph,r3
-      0063AB 12 2C 1F         [24] 9971 	lcall	_putchar
-      0063AE 0D               [12] 9972 	inc	r5
-                                   9973 ;	calc.c:466: printstr("&\tand top 2\r\n");
-      0063AF BD 00 E7         [24] 9974 	cjne	r5,#0x00,00227$
-      0063B2 0E               [12] 9975 	inc	r6
-      0063B3 80 E4            [24] 9976 	sjmp	00227$
-      0063B5                       9977 00144$:
-                                   9978 ;	calc.c:467: printstr("|\tor top 2\r\n");
-      0063B5 7D CD            [12] 9979 	mov	r5,#___str_45
-      0063B7 7E 8B            [12] 9980 	mov	r6,#(___str_45 >> 8)
-      0063B9 7F 80            [12] 9981 	mov	r7,#0x80
-                                   9982 ;	calc.c:51: return;
-      0063BB                       9983 00230$:
-                                   9984 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0063BB 8D 82            [24] 9985 	mov	dpl,r5
-      0063BD 8E 83            [24] 9986 	mov	dph,r6
-      0063BF 8F F0            [24] 9987 	mov	b,r7
-      0063C1 12 70 1B         [24] 9988 	lcall	__gptrget
-      0063C4 FC               [12] 9989 	mov	r4,a
-      0063C5 60 10            [24] 9990 	jz	00146$
-      0063C7 7B 00            [12] 9991 	mov	r3,#0x00
-      0063C9 8C 82            [24] 9992 	mov	dpl,r4
-      0063CB 8B 83            [24] 9993 	mov	dph,r3
-      0063CD 12 2C 1F         [24] 9994 	lcall	_putchar
-      0063D0 0D               [12] 9995 	inc	r5
-                                   9996 ;	calc.c:467: printstr("|\tor top 2\r\n");
-      0063D1 BD 00 E7         [24] 9997 	cjne	r5,#0x00,00230$
-      0063D4 0E               [12] 9998 	inc	r6
-      0063D5 80 E4            [24] 9999 	sjmp	00230$
-      0063D7                      10000 00146$:
-                                  10001 ;	calc.c:468: printstr("^\txor top 2\r\n");
-      0063D7 7D DA            [12]10002 	mov	r5,#___str_46
-      0063D9 7E 8B            [12]10003 	mov	r6,#(___str_46 >> 8)
-      0063DB 7F 80            [12]10004 	mov	r7,#0x80
-                                  10005 ;	calc.c:51: return;
-      0063DD                      10006 00233$:
-                                  10007 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0063DD 8D 82            [24]10008 	mov	dpl,r5
-      0063DF 8E 83            [24]10009 	mov	dph,r6
-      0063E1 8F F0            [24]10010 	mov	b,r7
-      0063E3 12 70 1B         [24]10011 	lcall	__gptrget
-      0063E6 FC               [12]10012 	mov	r4,a
-      0063E7 60 10            [24]10013 	jz	00148$
-      0063E9 7B 00            [12]10014 	mov	r3,#0x00
-      0063EB 8C 82            [24]10015 	mov	dpl,r4
-      0063ED 8B 83            [24]10016 	mov	dph,r3
-      0063EF 12 2C 1F         [24]10017 	lcall	_putchar
-      0063F2 0D               [12]10018 	inc	r5
-                                  10019 ;	calc.c:468: printstr("^\txor top 2\r\n");
-      0063F3 BD 00 E7         [24]10020 	cjne	r5,#0x00,00233$
-      0063F6 0E               [12]10021 	inc	r6
-      0063F7 80 E4            [24]10022 	sjmp	00233$
-      0063F9                      10023 00148$:
-                                  10024 ;	calc.c:469: printstr(">\tshift right top 2\r\n");
-      0063F9 7D E8            [12]10025 	mov	r5,#___str_47
-      0063FB 7E 8B            [12]10026 	mov	r6,#(___str_47 >> 8)
-      0063FD 7F 80            [12]10027 	mov	r7,#0x80
-                                  10028 ;	calc.c:51: return;
-      0063FF                      10029 00236$:
-                                  10030 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0063FF 8D 82            [24]10031 	mov	dpl,r5
-      006401 8E 83            [24]10032 	mov	dph,r6
-      006403 8F F0            [24]10033 	mov	b,r7
-      006405 12 70 1B         [24]10034 	lcall	__gptrget
-      006408 FC               [12]10035 	mov	r4,a
-      006409 60 10            [24]10036 	jz	00150$
-      00640B 7B 00            [12]10037 	mov	r3,#0x00
-      00640D 8C 82            [24]10038 	mov	dpl,r4
-      00640F 8B 83            [24]10039 	mov	dph,r3
-      006411 12 2C 1F         [24]10040 	lcall	_putchar
-      006414 0D               [12]10041 	inc	r5
-                                  10042 ;	calc.c:469: printstr(">\tshift right top 2\r\n");
-      006415 BD 00 E7         [24]10043 	cjne	r5,#0x00,00236$
-      006418 0E               [12]10044 	inc	r6
-      006419 80 E4            [24]10045 	sjmp	00236$
-      00641B                      10046 00150$:
-                                  10047 ;	calc.c:470: printstr("]\tarithmetic shift right top 2\r\n");
-      00641B 7D FE            [12]10048 	mov	r5,#___str_48
-      00641D 7E 8B            [12]10049 	mov	r6,#(___str_48 >> 8)
-      00641F 7F 80            [12]10050 	mov	r7,#0x80
-                                  10051 ;	calc.c:51: return;
-      006421                      10052 00239$:
-                                  10053 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006421 8D 82            [24]10054 	mov	dpl,r5
-      006423 8E 83            [24]10055 	mov	dph,r6
-      006425 8F F0            [24]10056 	mov	b,r7
-      006427 12 70 1B         [24]10057 	lcall	__gptrget
-      00642A FC               [12]10058 	mov	r4,a
-      00642B 60 10            [24]10059 	jz	00152$
-      00642D 7B 00            [12]10060 	mov	r3,#0x00
-      00642F 8C 82            [24]10061 	mov	dpl,r4
-      006431 8B 83            [24]10062 	mov	dph,r3
-      006433 12 2C 1F         [24]10063 	lcall	_putchar
-      006436 0D               [12]10064 	inc	r5
-                                  10065 ;	calc.c:470: printstr("]\tarithmetic shift right top 2\r\n");
-      006437 BD 00 E7         [24]10066 	cjne	r5,#0x00,00239$
-      00643A 0E               [12]10067 	inc	r6
-      00643B 80 E4            [24]10068 	sjmp	00239$
-      00643D                      10069 00152$:
-                                  10070 ;	calc.c:471: printstr("<\tshift left top 2\r\n");
-      00643D 7D 1F            [12]10071 	mov	r5,#___str_49
-      00643F 7E 8C            [12]10072 	mov	r6,#(___str_49 >> 8)
-      006441 7F 80            [12]10073 	mov	r7,#0x80
-                                  10074 ;	calc.c:51: return;
-      006443                      10075 00242$:
-                                  10076 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006443 8D 82            [24]10077 	mov	dpl,r5
-      006445 8E 83            [24]10078 	mov	dph,r6
-      006447 8F F0            [24]10079 	mov	b,r7
-      006449 12 70 1B         [24]10080 	lcall	__gptrget
-      00644C FC               [12]10081 	mov	r4,a
-      00644D 60 10            [24]10082 	jz	00154$
-      00644F 7B 00            [12]10083 	mov	r3,#0x00
-      006451 8C 82            [24]10084 	mov	dpl,r4
-      006453 8B 83            [24]10085 	mov	dph,r3
-      006455 12 2C 1F         [24]10086 	lcall	_putchar
-      006458 0D               [12]10087 	inc	r5
-                                  10088 ;	calc.c:471: printstr("<\tshift left top 2\r\n");
-      006459 BD 00 E7         [24]10089 	cjne	r5,#0x00,00242$
-      00645C 0E               [12]10090 	inc	r6
-      00645D 80 E4            [24]10091 	sjmp	00242$
-      00645F                      10092 00154$:
-                                  10093 ;	calc.c:472: printstr("~\tbitwise not top\r\n");
-      00645F 7D 34            [12]10094 	mov	r5,#___str_50
-      006461 7E 8C            [12]10095 	mov	r6,#(___str_50 >> 8)
-      006463 7F 80            [12]10096 	mov	r7,#0x80
-                                  10097 ;	calc.c:51: return;
-      006465                      10098 00245$:
-                                  10099 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006465 8D 82            [24]10100 	mov	dpl,r5
-      006467 8E 83            [24]10101 	mov	dph,r6
-      006469 8F F0            [24]10102 	mov	b,r7
-      00646B 12 70 1B         [24]10103 	lcall	__gptrget
-      00646E FC               [12]10104 	mov	r4,a
-      00646F 60 10            [24]10105 	jz	00156$
-      006471 7B 00            [12]10106 	mov	r3,#0x00
-      006473 8C 82            [24]10107 	mov	dpl,r4
-      006475 8B 83            [24]10108 	mov	dph,r3
-      006477 12 2C 1F         [24]10109 	lcall	_putchar
-      00647A 0D               [12]10110 	inc	r5
-                                  10111 ;	calc.c:472: printstr("~\tbitwise not top\r\n");
-      00647B BD 00 E7         [24]10112 	cjne	r5,#0x00,00245$
-      00647E 0E               [12]10113 	inc	r6
-      00647F 80 E4            [24]10114 	sjmp	00245$
-      006481                      10115 00156$:
-                                  10116 ;	calc.c:473: printstr("s\tstatus\r\n");
-      006481 7D 48            [12]10117 	mov	r5,#___str_51
-      006483 7E 8C            [12]10118 	mov	r6,#(___str_51 >> 8)
-      006485 7F 80            [12]10119 	mov	r7,#0x80
-                                  10120 ;	calc.c:51: return;
-      006487                      10121 00248$:
-                                  10122 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      006487 8D 82            [24]10123 	mov	dpl,r5
-      006489 8E 83            [24]10124 	mov	dph,r6
-      00648B 8F F0            [24]10125 	mov	b,r7
-      00648D 12 70 1B         [24]10126 	lcall	__gptrget
-      006490 FC               [12]10127 	mov	r4,a
-      006491 60 10            [24]10128 	jz	00158$
-      006493 7B 00            [12]10129 	mov	r3,#0x00
-      006495 8C 82            [24]10130 	mov	dpl,r4
-      006497 8B 83            [24]10131 	mov	dph,r3
-      006499 12 2C 1F         [24]10132 	lcall	_putchar
-      00649C 0D               [12]10133 	inc	r5
-                                  10134 ;	calc.c:473: printstr("s\tstatus\r\n");
-      00649D BD 00 E7         [24]10135 	cjne	r5,#0x00,00248$
-      0064A0 0E               [12]10136 	inc	r6
-      0064A1 80 E4            [24]10137 	sjmp	00248$
-      0064A3                      10138 00158$:
-                                  10139 ;	calc.c:474: printstr("?\thelp\r\n");
-      0064A3 7D 53            [12]10140 	mov	r5,#___str_52
-      0064A5 7E 8C            [12]10141 	mov	r6,#(___str_52 >> 8)
-      0064A7 7F 80            [12]10142 	mov	r7,#0x80
-                                  10143 ;	calc.c:51: return;
-      0064A9                      10144 00251$:
-                                  10145 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0064A9 8D 82            [24]10146 	mov	dpl,r5
-      0064AB 8E 83            [24]10147 	mov	dph,r6
-      0064AD 8F F0            [24]10148 	mov	b,r7
-      0064AF 12 70 1B         [24]10149 	lcall	__gptrget
-      0064B2 FC               [12]10150 	mov	r4,a
-      0064B3 60 10            [24]10151 	jz	00160$
-      0064B5 7B 00            [12]10152 	mov	r3,#0x00
-      0064B7 8C 82            [24]10153 	mov	dpl,r4
-      0064B9 8B 83            [24]10154 	mov	dph,r3
-      0064BB 12 2C 1F         [24]10155 	lcall	_putchar
-      0064BE 0D               [12]10156 	inc	r5
-                                  10157 ;	calc.c:474: printstr("?\thelp\r\n");
-      0064BF BD 00 E7         [24]10158 	cjne	r5,#0x00,00251$
-      0064C2 0E               [12]10159 	inc	r6
-      0064C3 80 E4            [24]10160 	sjmp	00251$
-      0064C5                      10161 00160$:
-                                  10162 ;	calc.c:475: printstr("q\tquit\r\n");
-      0064C5 7D 5C            [12]10163 	mov	r5,#___str_53
-      0064C7 7E 8C            [12]10164 	mov	r6,#(___str_53 >> 8)
-      0064C9 7F 80            [12]10165 	mov	r7,#0x80
-                                  10166 ;	calc.c:51: return;
-      0064CB                      10167 00254$:
-                                  10168 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0064CB 8D 82            [24]10169 	mov	dpl,r5
-      0064CD 8E 83            [24]10170 	mov	dph,r6
-      0064CF 8F F0            [24]10171 	mov	b,r7
-      0064D1 12 70 1B         [24]10172 	lcall	__gptrget
-      0064D4 FC               [12]10173 	mov	r4,a
-      0064D5 60 10            [24]10174 	jz	00162$
-      0064D7 7B 00            [12]10175 	mov	r3,#0x00
-      0064D9 8C 82            [24]10176 	mov	dpl,r4
-      0064DB 8B 83            [24]10177 	mov	dph,r3
-      0064DD 12 2C 1F         [24]10178 	lcall	_putchar
-      0064E0 0D               [12]10179 	inc	r5
-                                  10180 ;	calc.c:475: printstr("q\tquit\r\n");
-      0064E1 BD 00 E7         [24]10181 	cjne	r5,#0x00,00254$
-      0064E4 0E               [12]10182 	inc	r6
-      0064E5 80 E4            [24]10183 	sjmp	00254$
-      0064E7                      10184 00162$:
-                                  10185 ;	calc.c:477: return 1;
-      0064E7 90 00 01         [24]10186 	mov	dptr,#0x0001
-                                  10187 ;	calc.c:478: }
-      0064EA D0 08            [24]10188 	pop	_bp
-      0064EC 22               [24]10189 	ret
-                                  10190 ;------------------------------------------------------------
-                                  10191 ;Allocation info for local variables in function 'main'
-                                  10192 ;------------------------------------------------------------
-                                  10193 ;input                     Allocated to registers r6 r7 
-                                  10194 ;__1966080211              Allocated to registers 
-                                  10195 ;s                         Allocated to registers r2 r3 r4 
-                                  10196 ;__1310720213              Allocated to registers 
-                                  10197 ;s                         Allocated to registers r5 r6 r7 
-                                  10198 ;sloc0                     Allocated to stack - _bp +1
-                                  10199 ;------------------------------------------------------------
-                                  10200 ;	calc.c:508: void main(void) {
-                                  10201 ;	-----------------------------------------
-                                  10202 ;	 function main
-                                  10203 ;	-----------------------------------------
-      0064ED                      10204 _main:
-      0064ED C0 08            [24]10205 	push	_bp
-      0064EF 85 81 08         [24]10206 	mov	_bp,sp
-      0064F2 05 81            [12]10207 	inc	sp
-                                  10208 ;	calc.c:511: c.base = 10;
-      0064F4 90 90 0C         [24]10209 	mov	dptr,#_c
-      0064F7 74 0A            [12]10210 	mov	a,#0x0a
-      0064F9 F0               [24]10211 	movx	@dptr,a
-      0064FA E4               [12]10212 	clr	a
-      0064FB A3               [24]10213 	inc	dptr
-      0064FC F0               [24]10214 	movx	@dptr,a
-                                  10215 ;	calc.c:512: c.acc = 0l;
-      0064FD 90 90 0E         [24]10216 	mov	dptr,#(_c + 0x0002)
-      006500 F0               [24]10217 	movx	@dptr,a
-      006501 A3               [24]10218 	inc	dptr
-      006502 F0               [24]10219 	movx	@dptr,a
-      006503 A3               [24]10220 	inc	dptr
-      006504 F0               [24]10221 	movx	@dptr,a
-      006505 A3               [24]10222 	inc	dptr
-      006506 F0               [24]10223 	movx	@dptr,a
-                                  10224 ;	calc.c:513: c.acc_valid = (char)0;
-      006507 90 90 12         [24]10225 	mov	dptr,#(_c + 0x0006)
-      00650A F0               [24]10226 	movx	@dptr,a
-                                  10227 ;	calc.c:514: c.digit[0] = c.digit[1] = '\0';
-      00650B 90 90 14         [24]10228 	mov	dptr,#(_c + 0x0008)
-      00650E F0               [24]10229 	movx	@dptr,a
-      00650F 90 90 13         [24]10230 	mov	dptr,#(_c + 0x0007)
-      006512 F0               [24]10231 	movx	@dptr,a
-                                  10232 ;	calc.c:516: c.ps = &c.s0;
-      006513 90 D0 1F         [24]10233 	mov	dptr,#(_c + 0x4013)
-      006516 74 15            [12]10234 	mov	a,#(_c + 0x0009)
-      006518 F0               [24]10235 	movx	@dptr,a
-      006519 74 90            [12]10236 	mov	a,#((_c + 0x0009) >> 8)
-      00651B A3               [24]10237 	inc	dptr
-      00651C F0               [24]10238 	movx	@dptr,a
-      00651D E4               [12]10239 	clr	a
-      00651E A3               [24]10240 	inc	dptr
-      00651F F0               [24]10241 	movx	@dptr,a
-                                  10242 ;	calc.c:517: c.ss = &c.s1;
-      006520 90 D0 22         [24]10243 	mov	dptr,#(_c + 0x4016)
-      006523 74 1A            [12]10244 	mov	a,#(_c + 0x200e)
-      006525 F0               [24]10245 	movx	@dptr,a
-      006526 74 B0            [12]10246 	mov	a,#((_c + 0x200e) >> 8)
-      006528 A3               [24]10247 	inc	dptr
-      006529 F0               [24]10248 	movx	@dptr,a
-      00652A E4               [12]10249 	clr	a
-      00652B A3               [24]10250 	inc	dptr
-      00652C F0               [24]10251 	movx	@dptr,a
-                                  10252 ;	calc.c:518: stack_init(c.ps);
-      00652D 90 90 15         [24]10253 	mov	dptr,#(_c + 0x0009)
-      006530 75 F0 00         [24]10254 	mov	b,#0x00
-      006533 12 26 80         [24]10255 	lcall	_stack_init
-                                  10256 ;	calc.c:519: stack_init(c.ss);
-      006536 90 D0 22         [24]10257 	mov	dptr,#(_c + 0x4016)
-      006539 E0               [24]10258 	movx	a,@dptr
-      00653A FD               [12]10259 	mov	r5,a
-      00653B A3               [24]10260 	inc	dptr
-      00653C E0               [24]10261 	movx	a,@dptr
-      00653D FE               [12]10262 	mov	r6,a
-      00653E A3               [24]10263 	inc	dptr
-      00653F E0               [24]10264 	movx	a,@dptr
-      006540 FF               [12]10265 	mov	r7,a
-      006541 8D 82            [24]10266 	mov	dpl,r5
-      006543 8E 83            [24]10267 	mov	dph,r6
-      006545 8F F0            [24]10268 	mov	b,r7
-      006547 12 26 80         [24]10269 	lcall	_stack_init
-                                  10270 ;	calc.c:521: state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
-      00654A 74 0C            [12]10271 	mov	a,#_c
-      00654C C0 E0            [24]10272 	push	acc
-      00654E 74 90            [12]10273 	mov	a,#(_c >> 8)
-      006550 C0 E0            [24]10274 	push	acc
-      006552 E4               [12]10275 	clr	a
-      006553 C0 E0            [24]10276 	push	acc
-      006555 74 27            [12]10277 	mov	a,#_deltas
-      006557 C0 E0            [24]10278 	push	acc
-      006559 74 D0            [12]10279 	mov	a,#(_deltas >> 8)
-      00655B C0 E0            [24]10280 	push	acc
-      00655D E4               [12]10281 	clr	a
-      00655E C0 E0            [24]10282 	push	acc
-      006560 C0 E0            [24]10283 	push	acc
-      006562 74 80            [12]10284 	mov	a,#0x80
-      006564 C0 E0            [24]10285 	push	acc
-      006566 74 03            [12]10286 	mov	a,#0x03
-      006568 C0 E0            [24]10287 	push	acc
-      00656A E4               [12]10288 	clr	a
-      00656B C0 E0            [24]10289 	push	acc
-      00656D C0 E0            [24]10290 	push	acc
-      00656F C0 E0            [24]10291 	push	acc
-      006571 90 90 00         [24]10292 	mov	dptr,#_s
-      006574 75 F0 00         [24]10293 	mov	b,#0x00
-      006577 12 20 90         [24]10294 	lcall	_state_init
-      00657A E5 81            [12]10295 	mov	a,sp
-      00657C 24 F4            [12]10296 	add	a,#0xf4
-      00657E F5 81            [12]10297 	mov	sp,a
-                                  10298 ;	calc.c:523: (void)status(&c, deltas);
-      006580 74 27            [12]10299 	mov	a,#_deltas
-      006582 C0 E0            [24]10300 	push	acc
-      006584 74 D0            [12]10301 	mov	a,#(_deltas >> 8)
-      006586 C0 E0            [24]10302 	push	acc
-      006588 E4               [12]10303 	clr	a
-      006589 C0 E0            [24]10304 	push	acc
-      00658B 90 90 0C         [24]10305 	mov	dptr,#_c
-      00658E 75 F0 00         [24]10306 	mov	b,#0x00
-      006591 12 58 79         [24]10307 	lcall	_status
-      006594 15 81            [12]10308 	dec	sp
-      006596 15 81            [12]10309 	dec	sp
-      006598 15 81            [12]10310 	dec	sp
-                                  10311 ;	calc.c:525: while (1) {
-      00659A                      10312 00192$:
-                                  10313 ;	calc.c:526: input = getchar();
-      00659A 12 2C 24         [24]10314 	lcall	_getchar
-      00659D AE 82            [24]10315 	mov	r6,dpl
-      00659F AF 83            [24]10316 	mov	r7,dph
-                                  10317 ;	calc.c:527: if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
-      0065A1 8E 05            [24]10318 	mov	ar5,r6
-      0065A3 BD 0D 02         [24]10319 	cjne	r5,#0x0d,00400$
-      0065A6 80 03            [24]10320 	sjmp	00101$
-      0065A8                      10321 00400$:
-      0065A8 BD 0A 36         [24]10322 	cjne	r5,#0x0a,00102$
-      0065AB                      10323 00101$:
-      0065AB 7A CC            [12]10324 	mov	r2,#___str_5
-      0065AD 7B 88            [12]10325 	mov	r3,#(___str_5 >> 8)
-      0065AF 7C 80            [12]10326 	mov	r4,#0x80
-                                  10327 ;	calc.c:51: return;
-      0065B1                      10328 00199$:
-                                  10329 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0065B1 8A 82            [24]10330 	mov	dpl,r2
-      0065B3 8B 83            [24]10331 	mov	dph,r3
-      0065B5 8C F0            [24]10332 	mov	b,r4
-      0065B7 A8 08            [24]10333 	mov	r0,_bp
-      0065B9 08               [12]10334 	inc	r0
-      0065BA 12 70 1B         [24]10335 	lcall	__gptrget
-      0065BD F6               [12]10336 	mov	@r0,a
-      0065BE A8 08            [24]10337 	mov	r0,_bp
-      0065C0 08               [12]10338 	inc	r0
-      0065C1 E6               [12]10339 	mov	a,@r0
-      0065C2 60 24            [24]10340 	jz	00103$
-      0065C4 C0 06            [24]10341 	push	ar6
-      0065C6 C0 07            [24]10342 	push	ar7
-      0065C8 A8 08            [24]10343 	mov	r0,_bp
-      0065CA 08               [12]10344 	inc	r0
-      0065CB 86 06            [24]10345 	mov	ar6,@r0
-      0065CD 7F 00            [12]10346 	mov	r7,#0x00
-      0065CF 8E 82            [24]10347 	mov	dpl,r6
-      0065D1 8F 83            [24]10348 	mov	dph,r7
-      0065D3 12 2C 1F         [24]10349 	lcall	_putchar
-      0065D6 0A               [12]10350 	inc	r2
-      0065D7 BA 00 01         [24]10351 	cjne	r2,#0x00,00404$
-      0065DA 0B               [12]10352 	inc	r3
-      0065DB                      10353 00404$:
-      0065DB D0 07            [24]10354 	pop	ar7
-      0065DD D0 06            [24]10355 	pop	ar6
-                                  10356 ;	calc.c:527: if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
-      0065DF 80 D0            [24]10357 	sjmp	00199$
-      0065E1                      10358 00102$:
-                                  10359 ;	calc.c:528: else (void)putchar(input);
-      0065E1 8E 82            [24]10360 	mov	dpl,r6
-      0065E3 8F 83            [24]10361 	mov	dph,r7
-      0065E5 12 2C 1F         [24]10362 	lcall	_putchar
-      0065E8                      10363 00103$:
-                                  10364 ;	calc.c:529: c.digit[0] = (char)input;
-      0065E8 90 90 13         [24]10365 	mov	dptr,#(_c + 0x0007)
-      0065EB ED               [12]10366 	mov	a,r5
-      0065EC F0               [24]10367 	movx	@dptr,a
-                                  10368 ;	calc.c:531: if ((char)input == 'q') {
-      0065ED BD 71 29         [24]10369 	cjne	r5,#0x71,00189$
-                                  10370 ;	calc.c:532: if (state_exec(&s, EVENT_TERM) <= 0) break;
-      0065F0 74 08            [12]10371 	mov	a,#0x08
-      0065F2 C0 E0            [24]10372 	push	acc
-      0065F4 E4               [12]10373 	clr	a
-      0065F5 C0 E0            [24]10374 	push	acc
-      0065F7 90 90 00         [24]10375 	mov	dptr,#_s
-      0065FA 75 F0 00         [24]10376 	mov	b,#0x00
-      0065FD 12 21 46         [24]10377 	lcall	_state_exec
-      006600 AB 82            [24]10378 	mov	r3,dpl
-      006602 AC 83            [24]10379 	mov	r4,dph
-      006604 15 81            [12]10380 	dec	sp
-      006606 15 81            [12]10381 	dec	sp
-      006608 C3               [12]10382 	clr	c
-      006609 E4               [12]10383 	clr	a
-      00660A 9B               [12]10384 	subb	a,r3
-      00660B 74 80            [12]10385 	mov	a,#(0x00 ^ 0x80)
-      00660D 8C F0            [24]10386 	mov	b,r4
-      00660F 63 F0 80         [24]10387 	xrl	b,#0x80
-      006612 95 F0            [12]10388 	subb	a,b
-      006614 40 84            [24]10389 	jc	00192$
-      006616 02 68 C8         [24]10390 	ljmp	00193$
-      006619                      10391 00189$:
-                                  10392 ;	calc.c:533: } else if ((char)input == 's') {
-      006619 BD 73 2C         [24]10393 	cjne	r5,#0x73,00186$
-                                  10394 ;	calc.c:534: if (state_exec(&s, EVENT_STATUS) <= 0) break;
-      00661C 74 03            [12]10395 	mov	a,#0x03
-      00661E C0 E0            [24]10396 	push	acc
-      006620 E4               [12]10397 	clr	a
-      006621 C0 E0            [24]10398 	push	acc
-      006623 90 90 00         [24]10399 	mov	dptr,#_s
-      006626 75 F0 00         [24]10400 	mov	b,#0x00
-      006629 12 21 46         [24]10401 	lcall	_state_exec
-      00662C AB 82            [24]10402 	mov	r3,dpl
-      00662E AC 83            [24]10403 	mov	r4,dph
-      006630 15 81            [12]10404 	dec	sp
-      006632 15 81            [12]10405 	dec	sp
-      006634 C3               [12]10406 	clr	c
-      006635 E4               [12]10407 	clr	a
-      006636 9B               [12]10408 	subb	a,r3
-      006637 74 80            [12]10409 	mov	a,#(0x00 ^ 0x80)
-      006639 8C F0            [24]10410 	mov	b,r4
-      00663B 63 F0 80         [24]10411 	xrl	b,#0x80
-      00663E 95 F0            [12]10412 	subb	a,b
-      006640 50 03            [24]10413 	jnc	00410$
-      006642 02 65 9A         [24]10414 	ljmp	00192$
-      006645                      10415 00410$:
-      006645 02 68 C8         [24]10416 	ljmp	00193$
-      006648                      10417 00186$:
-                                  10418 ;	calc.c:535: } else if ((char)input == '?') {
-      006648 BD 3F 2C         [24]10419 	cjne	r5,#0x3f,00183$
-                                  10420 ;	calc.c:536: if (state_exec(&s, EVENT_HELP) <= 0) break;
-      00664B 74 04            [12]10421 	mov	a,#0x04
-      00664D C0 E0            [24]10422 	push	acc
-      00664F E4               [12]10423 	clr	a
-      006650 C0 E0            [24]10424 	push	acc
-      006652 90 90 00         [24]10425 	mov	dptr,#_s
-      006655 75 F0 00         [24]10426 	mov	b,#0x00
-      006658 12 21 46         [24]10427 	lcall	_state_exec
-      00665B AB 82            [24]10428 	mov	r3,dpl
-      00665D AC 83            [24]10429 	mov	r4,dph
-      00665F 15 81            [12]10430 	dec	sp
-      006661 15 81            [12]10431 	dec	sp
-      006663 C3               [12]10432 	clr	c
-      006664 E4               [12]10433 	clr	a
-      006665 9B               [12]10434 	subb	a,r3
-      006666 74 80            [12]10435 	mov	a,#(0x00 ^ 0x80)
-      006668 8C F0            [24]10436 	mov	b,r4
-      00666A 63 F0 80         [24]10437 	xrl	b,#0x80
-      00666D 95 F0            [12]10438 	subb	a,b
-      00666F 50 03            [24]10439 	jnc	00413$
-      006671 02 65 9A         [24]10440 	ljmp	00192$
-      006674                      10441 00413$:
-      006674 02 68 C8         [24]10442 	ljmp	00193$
-      006677                      10443 00183$:
-                                  10444 ;	calc.c:537: } else if ((char)input == 'i') {
-      006677 BD 69 2C         [24]10445 	cjne	r5,#0x69,00180$
-                                  10446 ;	calc.c:538: if (state_exec(&s, EVENT_RSTA_i) <= 0) break;
-      00667A 74 06            [12]10447 	mov	a,#0x06
-      00667C C0 E0            [24]10448 	push	acc
-      00667E E4               [12]10449 	clr	a
-      00667F C0 E0            [24]10450 	push	acc
-      006681 90 90 00         [24]10451 	mov	dptr,#_s
-      006684 75 F0 00         [24]10452 	mov	b,#0x00
-      006687 12 21 46         [24]10453 	lcall	_state_exec
-      00668A AB 82            [24]10454 	mov	r3,dpl
-      00668C AC 83            [24]10455 	mov	r4,dph
-      00668E 15 81            [12]10456 	dec	sp
-      006690 15 81            [12]10457 	dec	sp
-      006692 C3               [12]10458 	clr	c
-      006693 E4               [12]10459 	clr	a
-      006694 9B               [12]10460 	subb	a,r3
-      006695 74 80            [12]10461 	mov	a,#(0x00 ^ 0x80)
-      006697 8C F0            [24]10462 	mov	b,r4
-      006699 63 F0 80         [24]10463 	xrl	b,#0x80
-      00669C 95 F0            [12]10464 	subb	a,b
-      00669E 50 03            [24]10465 	jnc	00416$
-      0066A0 02 65 9A         [24]10466 	ljmp	00192$
-      0066A3                      10467 00416$:
-      0066A3 02 68 C8         [24]10468 	ljmp	00193$
-      0066A6                      10469 00180$:
-                                  10470 ;	calc.c:539: } else if ((char)input == 'I') {
-      0066A6 BD 49 2C         [24]10471 	cjne	r5,#0x49,00177$
-                                  10472 ;	calc.c:540: if (state_exec(&s, EVENT_RSTA_I) <= 0) break;
-      0066A9 74 07            [12]10473 	mov	a,#0x07
-      0066AB C0 E0            [24]10474 	push	acc
-      0066AD E4               [12]10475 	clr	a
-      0066AE C0 E0            [24]10476 	push	acc
-      0066B0 90 90 00         [24]10477 	mov	dptr,#_s
-      0066B3 75 F0 00         [24]10478 	mov	b,#0x00
-      0066B6 12 21 46         [24]10479 	lcall	_state_exec
-      0066B9 AB 82            [24]10480 	mov	r3,dpl
-      0066BB AC 83            [24]10481 	mov	r4,dph
-      0066BD 15 81            [12]10482 	dec	sp
-      0066BF 15 81            [12]10483 	dec	sp
-      0066C1 C3               [12]10484 	clr	c
-      0066C2 E4               [12]10485 	clr	a
-      0066C3 9B               [12]10486 	subb	a,r3
-      0066C4 74 80            [12]10487 	mov	a,#(0x00 ^ 0x80)
-      0066C6 8C F0            [24]10488 	mov	b,r4
-      0066C8 63 F0 80         [24]10489 	xrl	b,#0x80
-      0066CB 95 F0            [12]10490 	subb	a,b
-      0066CD 50 03            [24]10491 	jnc	00419$
-      0066CF 02 65 9A         [24]10492 	ljmp	00192$
-      0066D2                      10493 00419$:
-      0066D2 02 68 C8         [24]10494 	ljmp	00193$
-      0066D5                      10495 00177$:
-                                  10496 ;	calc.c:542: ((char)input == 'h') || ((char)input == 'H') ||
-      0066D5 BD 68 02         [24]10497 	cjne	r5,#0x68,00420$
-      0066D8 80 0D            [24]10498 	sjmp	00170$
-      0066DA                      10499 00420$:
-      0066DA BD 48 02         [24]10500 	cjne	r5,#0x48,00421$
-      0066DD 80 08            [24]10501 	sjmp	00170$
-      0066DF                      10502 00421$:
-                                  10503 ;	calc.c:543: ((char)input == 'o') || ((char)input == 'O')
-      0066DF BD 6F 02         [24]10504 	cjne	r5,#0x6f,00422$
-      0066E2 80 03            [24]10505 	sjmp	00170$
-      0066E4                      10506 00422$:
-      0066E4 BD 4F 2C         [24]10507 	cjne	r5,#0x4f,00171$
-      0066E7                      10508 00170$:
-                                  10509 ;	calc.c:545: if (state_exec(&s, EVENT_BASE) <= 0) break;
-      0066E7 74 05            [12]10510 	mov	a,#0x05
-      0066E9 C0 E0            [24]10511 	push	acc
-      0066EB E4               [12]10512 	clr	a
-      0066EC C0 E0            [24]10513 	push	acc
-      0066EE 90 90 00         [24]10514 	mov	dptr,#_s
-      0066F1 75 F0 00         [24]10515 	mov	b,#0x00
-      0066F4 12 21 46         [24]10516 	lcall	_state_exec
-      0066F7 AB 82            [24]10517 	mov	r3,dpl
-      0066F9 AC 83            [24]10518 	mov	r4,dph
-      0066FB 15 81            [12]10519 	dec	sp
-      0066FD 15 81            [12]10520 	dec	sp
-      0066FF C3               [12]10521 	clr	c
-      006700 E4               [12]10522 	clr	a
-      006701 9B               [12]10523 	subb	a,r3
-      006702 74 80            [12]10524 	mov	a,#(0x00 ^ 0x80)
-      006704 8C F0            [24]10525 	mov	b,r4
-      006706 63 F0 80         [24]10526 	xrl	b,#0x80
-      006709 95 F0            [12]10527 	subb	a,b
-      00670B 50 03            [24]10528 	jnc	00425$
-      00670D 02 65 9A         [24]10529 	ljmp	00192$
-      006710                      10530 00425$:
-      006710 02 68 C8         [24]10531 	ljmp	00193$
-      006713                      10532 00171$:
-                                  10533 ;	calc.c:546: } else if (isxdigit(input)) {
-      006713 8E 82            [24]10534 	mov	dpl,r6
-      006715 8F 83            [24]10535 	mov	dph,r7
-      006717 C0 05            [24]10536 	push	ar5
-      006719 12 68 F2         [24]10537 	lcall	_isxdigit
-      00671C E5 82            [12]10538 	mov	a,dpl
-      00671E 85 83 F0         [24]10539 	mov	b,dph
-      006721 D0 05            [24]10540 	pop	ar5
-      006723 45 F0            [12]10541 	orl	a,b
-      006725 60 2C            [24]10542 	jz	00168$
-                                  10543 ;	calc.c:547: if (state_exec(&s, EVENT_DIGIT) <= 0) break;
-      006727 74 01            [12]10544 	mov	a,#0x01
-      006729 C0 E0            [24]10545 	push	acc
-      00672B E4               [12]10546 	clr	a
-      00672C C0 E0            [24]10547 	push	acc
-      00672E 90 90 00         [24]10548 	mov	dptr,#_s
-      006731 75 F0 00         [24]10549 	mov	b,#0x00
-      006734 12 21 46         [24]10550 	lcall	_state_exec
-      006737 AE 82            [24]10551 	mov	r6,dpl
-      006739 AF 83            [24]10552 	mov	r7,dph
-      00673B 15 81            [12]10553 	dec	sp
-      00673D 15 81            [12]10554 	dec	sp
-      00673F C3               [12]10555 	clr	c
-      006740 E4               [12]10556 	clr	a
-      006741 9E               [12]10557 	subb	a,r6
-      006742 74 80            [12]10558 	mov	a,#(0x00 ^ 0x80)
-      006744 8F F0            [24]10559 	mov	b,r7
-      006746 63 F0 80         [24]10560 	xrl	b,#0x80
-      006749 95 F0            [12]10561 	subb	a,b
-      00674B 50 03            [24]10562 	jnc	00427$
-      00674D 02 65 9A         [24]10563 	ljmp	00192$
-      006750                      10564 00427$:
-      006750 02 68 C8         [24]10565 	ljmp	00193$
-      006753                      10566 00168$:
-                                  10567 ;	calc.c:549: ((char)input == 'p') || ((char)input == 'P') ||
-      006753 BD 70 02         [24]10568 	cjne	r5,#0x70,00428$
-      006756 80 17            [24]10569 	sjmp	00159$
-      006758                      10570 00428$:
-      006758 BD 50 02         [24]10571 	cjne	r5,#0x50,00429$
-      00675B 80 12            [24]10572 	sjmp	00159$
-      00675D                      10573 00429$:
-                                  10574 ;	calc.c:550: ((char)input == 'v') || ((char)input == 'V') ||
-      00675D BD 76 02         [24]10575 	cjne	r5,#0x76,00430$
-      006760 80 0D            [24]10576 	sjmp	00159$
-      006762                      10577 00430$:
-      006762 BD 56 02         [24]10578 	cjne	r5,#0x56,00431$
-      006765 80 08            [24]10579 	sjmp	00159$
-      006767                      10580 00431$:
-                                  10581 ;	calc.c:551: ((char)input == '.') ||
-      006767 BD 2E 02         [24]10582 	cjne	r5,#0x2e,00432$
-      00676A 80 03            [24]10583 	sjmp	00159$
-      00676C                      10584 00432$:
-                                  10585 ;	calc.c:552: ((char)input == 'x')
-      00676C BD 78 2C         [24]10586 	cjne	r5,#0x78,00160$
-      00676F                      10587 00159$:
-                                  10588 ;	calc.c:554: if (state_exec(&s, EVENT_OP) <= 0) break;
-      00676F 74 02            [12]10589 	mov	a,#0x02
-      006771 C0 E0            [24]10590 	push	acc
-      006773 E4               [12]10591 	clr	a
-      006774 C0 E0            [24]10592 	push	acc
-      006776 90 90 00         [24]10593 	mov	dptr,#_s
-      006779 75 F0 00         [24]10594 	mov	b,#0x00
-      00677C 12 21 46         [24]10595 	lcall	_state_exec
-      00677F AE 82            [24]10596 	mov	r6,dpl
-      006781 AF 83            [24]10597 	mov	r7,dph
-      006783 15 81            [12]10598 	dec	sp
-      006785 15 81            [12]10599 	dec	sp
-      006787 C3               [12]10600 	clr	c
-      006788 E4               [12]10601 	clr	a
-      006789 9E               [12]10602 	subb	a,r6
-      00678A 74 80            [12]10603 	mov	a,#(0x00 ^ 0x80)
-      00678C 8F F0            [24]10604 	mov	b,r7
-      00678E 63 F0 80         [24]10605 	xrl	b,#0x80
-      006791 95 F0            [12]10606 	subb	a,b
-      006793 50 03            [24]10607 	jnc	00435$
-      006795 02 65 9A         [24]10608 	ljmp	00192$
-      006798                      10609 00435$:
-      006798 02 68 C8         [24]10610 	ljmp	00193$
-      00679B                      10611 00160$:
-                                  10612 ;	calc.c:556: ((char)input == 'X') || ((char)input == 'T') ||
-      00679B BD 58 02         [24]10613 	cjne	r5,#0x58,00436$
-      00679E 80 17            [24]10614 	sjmp	00151$
-      0067A0                      10615 00436$:
-      0067A0 BD 54 02         [24]10616 	cjne	r5,#0x54,00437$
-      0067A3 80 12            [24]10617 	sjmp	00151$
-      0067A5                      10618 00437$:
-                                  10619 ;	calc.c:557: ((char)input == 'm') || ((char)input == 'M') ||
-      0067A5 BD 6D 02         [24]10620 	cjne	r5,#0x6d,00438$
-      0067A8 80 0D            [24]10621 	sjmp	00151$
-      0067AA                      10622 00438$:
-      0067AA BD 4D 02         [24]10623 	cjne	r5,#0x4d,00439$
-      0067AD 80 08            [24]10624 	sjmp	00151$
-      0067AF                      10625 00439$:
-                                  10626 ;	calc.c:558: ((char)input == 'u') || ((char)input == 'U')
-      0067AF BD 75 02         [24]10627 	cjne	r5,#0x75,00440$
-      0067B2 80 03            [24]10628 	sjmp	00151$
-      0067B4                      10629 00440$:
-      0067B4 BD 55 2C         [24]10630 	cjne	r5,#0x55,00152$
-      0067B7                      10631 00151$:
-                                  10632 ;	calc.c:560: if (state_exec(&s, EVENT_OP) <= 0) break;
-      0067B7 74 02            [12]10633 	mov	a,#0x02
-      0067B9 C0 E0            [24]10634 	push	acc
-      0067BB E4               [12]10635 	clr	a
-      0067BC C0 E0            [24]10636 	push	acc
-      0067BE 90 90 00         [24]10637 	mov	dptr,#_s
-      0067C1 75 F0 00         [24]10638 	mov	b,#0x00
-      0067C4 12 21 46         [24]10639 	lcall	_state_exec
-      0067C7 AE 82            [24]10640 	mov	r6,dpl
-      0067C9 AF 83            [24]10641 	mov	r7,dph
-      0067CB 15 81            [12]10642 	dec	sp
-      0067CD 15 81            [12]10643 	dec	sp
-      0067CF C3               [12]10644 	clr	c
-      0067D0 E4               [12]10645 	clr	a
-      0067D1 9E               [12]10646 	subb	a,r6
-      0067D2 74 80            [12]10647 	mov	a,#(0x00 ^ 0x80)
-      0067D4 8F F0            [24]10648 	mov	b,r7
-      0067D6 63 F0 80         [24]10649 	xrl	b,#0x80
-      0067D9 95 F0            [12]10650 	subb	a,b
-      0067DB 50 03            [24]10651 	jnc	00443$
-      0067DD 02 65 9A         [24]10652 	ljmp	00192$
-      0067E0                      10653 00443$:
-      0067E0 02 68 C8         [24]10654 	ljmp	00193$
-      0067E3                      10655 00152$:
-                                  10656 ;	calc.c:562: ((char)input == '+') || ((char)input == '-')
-      0067E3 BD 2B 02         [24]10657 	cjne	r5,#0x2b,00444$
-      0067E6 80 03            [24]10658 	sjmp	00147$
-      0067E8                      10659 00444$:
-      0067E8 BD 2D 2C         [24]10660 	cjne	r5,#0x2d,00148$
-      0067EB                      10661 00147$:
-                                  10662 ;	calc.c:564: if (state_exec(&s, EVENT_OP) <= 0) break;
-      0067EB 74 02            [12]10663 	mov	a,#0x02
-      0067ED C0 E0            [24]10664 	push	acc
-      0067EF E4               [12]10665 	clr	a
-      0067F0 C0 E0            [24]10666 	push	acc
-      0067F2 90 90 00         [24]10667 	mov	dptr,#_s
-      0067F5 75 F0 00         [24]10668 	mov	b,#0x00
-      0067F8 12 21 46         [24]10669 	lcall	_state_exec
-      0067FB AE 82            [24]10670 	mov	r6,dpl
-      0067FD AF 83            [24]10671 	mov	r7,dph
-      0067FF 15 81            [12]10672 	dec	sp
-      006801 15 81            [12]10673 	dec	sp
-      006803 C3               [12]10674 	clr	c
-      006804 E4               [12]10675 	clr	a
-      006805 9E               [12]10676 	subb	a,r6
-      006806 74 80            [12]10677 	mov	a,#(0x00 ^ 0x80)
-      006808 8F F0            [24]10678 	mov	b,r7
-      00680A 63 F0 80         [24]10679 	xrl	b,#0x80
-      00680D 95 F0            [12]10680 	subb	a,b
-      00680F 50 03            [24]10681 	jnc	00447$
-      006811 02 65 9A         [24]10682 	ljmp	00192$
-      006814                      10683 00447$:
-      006814 02 68 C8         [24]10684 	ljmp	00193$
-      006817                      10685 00148$:
-                                  10686 ;	calc.c:566: ((char)input == '*') ||
-      006817 BD 2A 02         [24]10687 	cjne	r5,#0x2a,00448$
-      00681A 80 12            [24]10688 	sjmp	00140$
-      00681C                      10689 00448$:
-                                  10690 ;	calc.c:567: ((char)input == '/') || ((char)input == '\\') ||
-      00681C BD 2F 02         [24]10691 	cjne	r5,#0x2f,00449$
-      00681F 80 0D            [24]10692 	sjmp	00140$
-      006821                      10693 00449$:
-      006821 BD 5C 02         [24]10694 	cjne	r5,#0x5c,00450$
-      006824 80 08            [24]10695 	sjmp	00140$
-      006826                      10696 00450$:
-                                  10697 ;	calc.c:568: ((char)input == '%') || ((char)input == '#')
-      006826 BD 25 02         [24]10698 	cjne	r5,#0x25,00451$
-      006829 80 03            [24]10699 	sjmp	00140$
-      00682B                      10700 00451$:
-      00682B BD 23 29         [24]10701 	cjne	r5,#0x23,00141$
-      00682E                      10702 00140$:
-                                  10703 ;	calc.c:570: if (state_exec(&s, EVENT_OP) <= 0) break;
-      00682E 74 02            [12]10704 	mov	a,#0x02
-      006830 C0 E0            [24]10705 	push	acc
-      006832 E4               [12]10706 	clr	a
-      006833 C0 E0            [24]10707 	push	acc
-      006835 90 90 00         [24]10708 	mov	dptr,#_s
-      006838 75 F0 00         [24]10709 	mov	b,#0x00
-      00683B 12 21 46         [24]10710 	lcall	_state_exec
-      00683E AE 82            [24]10711 	mov	r6,dpl
-      006840 AF 83            [24]10712 	mov	r7,dph
-      006842 15 81            [12]10713 	dec	sp
-      006844 15 81            [12]10714 	dec	sp
-      006846 C3               [12]10715 	clr	c
-      006847 E4               [12]10716 	clr	a
-      006848 9E               [12]10717 	subb	a,r6
-      006849 74 80            [12]10718 	mov	a,#(0x00 ^ 0x80)
-      00684B 8F F0            [24]10719 	mov	b,r7
-      00684D 63 F0 80         [24]10720 	xrl	b,#0x80
-      006850 95 F0            [12]10721 	subb	a,b
-      006852 50 74            [24]10722 	jnc	00193$
-      006854 02 65 9A         [24]10723 	ljmp	00192$
-      006857                      10724 00141$:
-                                  10725 ;	calc.c:572: ((char)input == '&') ||
-      006857 BD 26 02         [24]10726 	cjne	r5,#0x26,00455$
-      00685A 80 1C            [24]10727 	sjmp	00131$
-      00685C                      10728 00455$:
-                                  10729 ;	calc.c:573: ((char)input == '|') || ((char)input == '^') ||
-      00685C BD 7C 02         [24]10730 	cjne	r5,#0x7c,00456$
-      00685F 80 17            [24]10731 	sjmp	00131$
-      006861                      10732 00456$:
-      006861 BD 5E 02         [24]10733 	cjne	r5,#0x5e,00457$
-      006864 80 12            [24]10734 	sjmp	00131$
-      006866                      10735 00457$:
-                                  10736 ;	calc.c:574: ((char)input == '~') ||
-      006866 BD 7E 02         [24]10737 	cjne	r5,#0x7e,00458$
-      006869 80 0D            [24]10738 	sjmp	00131$
-      00686B                      10739 00458$:
-                                  10740 ;	calc.c:575: ((char)input == '>') || ((char)input == ']') ||
-      00686B BD 3E 02         [24]10741 	cjne	r5,#0x3e,00459$
-      00686E 80 08            [24]10742 	sjmp	00131$
-      006870                      10743 00459$:
-      006870 BD 5D 02         [24]10744 	cjne	r5,#0x5d,00460$
-      006873 80 03            [24]10745 	sjmp	00131$
-      006875                      10746 00460$:
-                                  10747 ;	calc.c:576: ((char)input == '<')
-      006875 BD 3C 29         [24]10748 	cjne	r5,#0x3c,00132$
-      006878                      10749 00131$:
-                                  10750 ;	calc.c:578: if (state_exec(&s, EVENT_OP) <= 0) break;
-      006878 74 02            [12]10751 	mov	a,#0x02
-      00687A C0 E0            [24]10752 	push	acc
-      00687C E4               [12]10753 	clr	a
-      00687D C0 E0            [24]10754 	push	acc
-      00687F 90 90 00         [24]10755 	mov	dptr,#_s
-      006882 75 F0 00         [24]10756 	mov	b,#0x00
-      006885 12 21 46         [24]10757 	lcall	_state_exec
-      006888 AE 82            [24]10758 	mov	r6,dpl
-      00688A AF 83            [24]10759 	mov	r7,dph
-      00688C 15 81            [12]10760 	dec	sp
-      00688E 15 81            [12]10761 	dec	sp
-      006890 C3               [12]10762 	clr	c
-      006891 E4               [12]10763 	clr	a
-      006892 9E               [12]10764 	subb	a,r6
-      006893 74 80            [12]10765 	mov	a,#(0x00 ^ 0x80)
-      006895 8F F0            [24]10766 	mov	b,r7
-      006897 63 F0 80         [24]10767 	xrl	b,#0x80
-      00689A 95 F0            [12]10768 	subb	a,b
-      00689C 50 2A            [24]10769 	jnc	00193$
-      00689E 02 65 9A         [24]10770 	ljmp	00192$
-      0068A1                      10771 00132$:
-                                  10772 ;	calc.c:580: if (state_exec(&s, EVENT_DELIM) <= 0) break;
-      0068A1 E4               [12]10773 	clr	a
-      0068A2 C0 E0            [24]10774 	push	acc
-      0068A4 C0 E0            [24]10775 	push	acc
-      0068A6 90 90 00         [24]10776 	mov	dptr,#_s
-      0068A9 75 F0 00         [24]10777 	mov	b,#0x00
-      0068AC 12 21 46         [24]10778 	lcall	_state_exec
-      0068AF AE 82            [24]10779 	mov	r6,dpl
-      0068B1 AF 83            [24]10780 	mov	r7,dph
-      0068B3 15 81            [12]10781 	dec	sp
-      0068B5 15 81            [12]10782 	dec	sp
-      0068B7 C3               [12]10783 	clr	c
-      0068B8 E4               [12]10784 	clr	a
-      0068B9 9E               [12]10785 	subb	a,r6
-      0068BA 74 80            [12]10786 	mov	a,#(0x00 ^ 0x80)
-      0068BC 8F F0            [24]10787 	mov	b,r7
-      0068BE 63 F0 80         [24]10788 	xrl	b,#0x80
-      0068C1 95 F0            [12]10789 	subb	a,b
-      0068C3 50 03            [24]10790 	jnc	00464$
-      0068C5 02 65 9A         [24]10791 	ljmp	00192$
-      0068C8                      10792 00464$:
-      0068C8                      10793 00193$:
-                                  10794 ;	calc.c:584: printstr("TERM\r\n");
-      0068C8 7D 65            [12]10795 	mov	r5,#___str_54
-      0068CA 7E 8C            [12]10796 	mov	r6,#(___str_54 >> 8)
-      0068CC 7F 80            [12]10797 	mov	r7,#0x80
-                                  10798 ;	calc.c:51: return;
-      0068CE                      10799 00202$:
-                                  10800 ;	calc.c:49: for (; *s; s++) putchar(*s);
-      0068CE 8D 82            [24]10801 	mov	dpl,r5
-      0068D0 8E 83            [24]10802 	mov	dph,r6
-      0068D2 8F F0            [24]10803 	mov	b,r7
-      0068D4 12 70 1B         [24]10804 	lcall	__gptrget
-      0068D7 FC               [12]10805 	mov	r4,a
-      0068D8 60 10            [24]10806 	jz	00197$
-      0068DA 7B 00            [12]10807 	mov	r3,#0x00
-      0068DC 8C 82            [24]10808 	mov	dpl,r4
-      0068DE 8B 83            [24]10809 	mov	dph,r3
-      0068E0 12 2C 1F         [24]10810 	lcall	_putchar
-      0068E3 0D               [12]10811 	inc	r5
-                                  10812 ;	calc.c:584: printstr("TERM\r\n");
-      0068E4 BD 00 E7         [24]10813 	cjne	r5,#0x00,00202$
-      0068E7 0E               [12]10814 	inc	r6
-      0068E8 80 E4            [24]10815 	sjmp	00202$
-      0068EA                      10816 00197$:
-                                  10817 ;	calc.c:586: PCON |= 2;
-      0068EA 43 87 02         [24]10818 	orl	_PCON,#0x02
-                                  10819 ;	calc.c:588: return;
-                                  10820 ;	calc.c:589: }
-      0068ED 15 81            [12]10821 	dec	sp
-      0068EF D0 08            [24]10822 	pop	_bp
-      0068F1 22               [24]10823 	ret
-                                  10824 	.area CSEG    (CODE)
-                                  10825 	.area CONST   (CODE)
-                                  10826 	.area CONST   (CODE)
-      00889C                      10827 ___str_0:
-      00889C 0D                   10828 	.db 0x0d
-      00889D 0A                   10829 	.db 0x0a
-      00889E 50 53                10830 	.ascii "PS"
-      0088A0 0D                   10831 	.db 0x0d
-      0088A1 0A                   10832 	.db 0x0a
-      0088A2 00                   10833 	.db 0x00
-                                  10834 	.area CSEG    (CODE)
-                                  10835 	.area CONST   (CODE)
-      0088A3                      10836 ___str_1:
-      0088A3 73 74 61 63 6B 20 75 10837 	.ascii "stack underflow"
-             6E 64 65 72 66 6C 6F
-             77
-      0088B2 0D                   10838 	.db 0x0d
-      0088B3 0A                   10839 	.db 0x0a
-      0088B4 00                   10840 	.db 0x00
-                                  10841 	.area CSEG    (CODE)
-                                  10842 	.area CONST   (CODE)
-      0088B5                      10843 ___str_2:
-      0088B5 56 41 20             10844 	.ascii "VA "
-      0088B8 00                   10845 	.db 0x00
-                                  10846 	.area CSEG    (CODE)
-                                  10847 	.area CONST   (CODE)
-      0088B9                      10848 ___str_3:
-      0088B9 25 20 31 31 6C 64 20 10849 	.ascii "% 11ld / "
-             2F 20
-      0088C2 00                   10850 	.db 0x00
-                                  10851 	.area CSEG    (CODE)
-                                  10852 	.area CONST   (CODE)
-      0088C3                      10853 ___str_4:
-      0088C3 25 30 38 6C 78 20 2F 10854 	.ascii "%08lx / "
-             20
-      0088CB 00                   10855 	.db 0x00
-                                  10856 	.area CSEG    (CODE)
-                                  10857 	.area CONST   (CODE)
-      0088CC                      10858 ___str_5:
-      0088CC 0D                   10859 	.db 0x0d
-      0088CD 0A                   10860 	.db 0x0a
-      0088CE 00                   10861 	.db 0x00
-                                  10862 	.area CSEG    (CODE)
-                                  10863 	.area CONST   (CODE)
-      0088CF                      10864 ___str_6:
-      0088CF 53 53                10865 	.ascii "SS"
-      0088D1 0D                   10866 	.db 0x0d
-      0088D2 0A                   10867 	.db 0x0a
-      0088D3 00                   10868 	.db 0x00
-                                  10869 	.area CSEG    (CODE)
-                                  10870 	.area CONST   (CODE)
-      0088D4                      10871 ___str_7:
-      0088D4 50 41 20             10872 	.ascii "PA "
-      0088D7 00                   10873 	.db 0x00
-                                  10874 	.area CSEG    (CODE)
-                                  10875 	.area CONST   (CODE)
-      0088D8                      10876 ___str_8:
-      0088D8 50 54 20             10877 	.ascii "PT "
-      0088DB 00                   10878 	.db 0x00
-                                  10879 	.area CSEG    (CODE)
-                                  10880 	.area CONST   (CODE)
-      0088DC                      10881 ___str_9:
-      0088DC 56 54 20             10882 	.ascii "VT "
-      0088DF 00                   10883 	.db 0x00
+                                   9464 ;__1310720151              Allocated to registers 
+                                   9465 ;s                         Allocated to registers r5 r6 r7 
+                                   9466 ;__1310720153              Allocated to registers 
+                                   9467 ;s                         Allocated to registers r5 r6 r7 
+                                   9468 ;__1310720155              Allocated to registers 
+                                   9469 ;s                         Allocated to registers r5 r6 r7 
+                                   9470 ;__1310720157              Allocated to registers 
+                                   9471 ;s                         Allocated to registers r5 r6 r7 
+                                   9472 ;__1310720159              Allocated to registers 
+                                   9473 ;s                         Allocated to registers r5 r6 r7 
+                                   9474 ;__1310720161              Allocated to registers 
+                                   9475 ;s                         Allocated to registers r5 r6 r7 
+                                   9476 ;__1310720163              Allocated to registers 
+                                   9477 ;s                         Allocated to registers r5 r6 r7 
+                                   9478 ;__1310720165              Allocated to registers 
+                                   9479 ;s                         Allocated to registers r5 r6 r7 
+                                   9480 ;__1310720167              Allocated to registers 
+                                   9481 ;s                         Allocated to registers r5 r6 r7 
+                                   9482 ;__1310720169              Allocated to registers 
+                                   9483 ;s                         Allocated to registers r5 r6 r7 
+                                   9484 ;__1310720171              Allocated to registers 
+                                   9485 ;s                         Allocated to registers r5 r6 r7 
+                                   9486 ;__1310720173              Allocated to registers 
+                                   9487 ;s                         Allocated to registers r5 r6 r7 
+                                   9488 ;__1310720175              Allocated to registers 
+                                   9489 ;s                         Allocated to registers r5 r6 r7 
+                                   9490 ;__1310720177              Allocated to registers 
+                                   9491 ;s                         Allocated to registers r5 r6 r7 
+                                   9492 ;__1310720179              Allocated to registers 
+                                   9493 ;s                         Allocated to registers r5 r6 r7 
+                                   9494 ;__1310720181              Allocated to registers 
+                                   9495 ;s                         Allocated to registers r5 r6 r7 
+                                   9496 ;__1310720183              Allocated to registers 
+                                   9497 ;s                         Allocated to registers r5 r6 r7 
+                                   9498 ;__1310720185              Allocated to registers 
+                                   9499 ;s                         Allocated to registers r5 r6 r7 
+                                   9500 ;__1310720187              Allocated to registers 
+                                   9501 ;s                         Allocated to registers r5 r6 r7 
+                                   9502 ;__1310720189              Allocated to registers 
+                                   9503 ;s                         Allocated to registers r5 r6 r7 
+                                   9504 ;__1310720191              Allocated to registers 
+                                   9505 ;s                         Allocated to registers r5 r6 r7 
+                                   9506 ;__1310720193              Allocated to registers 
+                                   9507 ;s                         Allocated to registers r5 r6 r7 
+                                   9508 ;__1310720195              Allocated to registers 
+                                   9509 ;s                         Allocated to registers r5 r6 r7 
+                                   9510 ;__1310720197              Allocated to registers 
+                                   9511 ;s                         Allocated to registers r5 r6 r7 
+                                   9512 ;__1310720199              Allocated to registers 
+                                   9513 ;s                         Allocated to registers r5 r6 r7 
+                                   9514 ;__1310720201              Allocated to registers 
+                                   9515 ;s                         Allocated to registers r5 r6 r7 
+                                   9516 ;__1310720203              Allocated to registers 
+                                   9517 ;s                         Allocated to registers r5 r6 r7 
+                                   9518 ;__1310720205              Allocated to registers 
+                                   9519 ;s                         Allocated to registers r5 r6 r7 
+                                   9520 ;__1310720207              Allocated to registers 
+                                   9521 ;s                         Allocated to registers r5 r6 r7 
+                                   9522 ;__1310720209              Allocated to registers 
+                                   9523 ;s                         Allocated to registers r5 r6 r7 
+                                   9524 ;------------------------------------------------------------
+                                   9525 ;	calc.c:443: static int help(void *_ctx, delta_t *delta) __reentrant {
+                                   9526 ;	-----------------------------------------
+                                   9527 ;	 function help
+                                   9528 ;	-----------------------------------------
+      006122                       9529 _help:
+      006122 C0 08            [24] 9530 	push	_bp
+      006124 85 81 08         [24] 9531 	mov	_bp,sp
+                                   9532 ;	calc.c:447: printstr("\r\nHhOo\tbase 16 10 8 2\r\n");
+      006127 7D 2C            [12] 9533 	mov	r5,#___str_22
+      006129 7E 8A            [12] 9534 	mov	r6,#(___str_22 >> 8)
+      00612B 7F 80            [12] 9535 	mov	r7,#0x80
+                                   9536 ;	calc.c:51: return;
+      00612D                       9537 00164$:
+                                   9538 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00612D 8D 82            [24] 9539 	mov	dpl,r5
+      00612F 8E 83            [24] 9540 	mov	dph,r6
+      006131 8F F0            [24] 9541 	mov	b,r7
+      006133 12 70 79         [24] 9542 	lcall	__gptrget
+      006136 FC               [12] 9543 	mov	r4,a
+      006137 60 10            [24] 9544 	jz	00102$
+      006139 7B 00            [12] 9545 	mov	r3,#0x00
+      00613B 8C 82            [24] 9546 	mov	dpl,r4
+      00613D 8B 83            [24] 9547 	mov	dph,r3
+      00613F 12 2C 1F         [24] 9548 	lcall	_putchar
+      006142 0D               [12] 9549 	inc	r5
+                                   9550 ;	calc.c:447: printstr("\r\nHhOo\tbase 16 10 8 2\r\n");
+      006143 BD 00 E7         [24] 9551 	cjne	r5,#0x00,00164$
+      006146 0E               [12] 9552 	inc	r6
+      006147 80 E4            [24] 9553 	sjmp	00164$
+      006149                       9554 00102$:
+                                   9555 ;	calc.c:448: printstr("p\tpeek top\r\n");
+      006149 7D 44            [12] 9556 	mov	r5,#___str_23
+      00614B 7E 8A            [12] 9557 	mov	r6,#(___str_23 >> 8)
+      00614D 7F 80            [12] 9558 	mov	r7,#0x80
+                                   9559 ;	calc.c:51: return;
+      00614F                       9560 00167$:
+                                   9561 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00614F 8D 82            [24] 9562 	mov	dpl,r5
+      006151 8E 83            [24] 9563 	mov	dph,r6
+      006153 8F F0            [24] 9564 	mov	b,r7
+      006155 12 70 79         [24] 9565 	lcall	__gptrget
+      006158 FC               [12] 9566 	mov	r4,a
+      006159 60 10            [24] 9567 	jz	00104$
+      00615B 7B 00            [12] 9568 	mov	r3,#0x00
+      00615D 8C 82            [24] 9569 	mov	dpl,r4
+      00615F 8B 83            [24] 9570 	mov	dph,r3
+      006161 12 2C 1F         [24] 9571 	lcall	_putchar
+      006164 0D               [12] 9572 	inc	r5
+                                   9573 ;	calc.c:448: printstr("p\tpeek top\r\n");
+      006165 BD 00 E7         [24] 9574 	cjne	r5,#0x00,00167$
+      006168 0E               [12] 9575 	inc	r6
+      006169 80 E4            [24] 9576 	sjmp	00167$
+      00616B                       9577 00104$:
+                                   9578 ;	calc.c:449: printstr("P\tprint stack\r\n");
+      00616B 7D 51            [12] 9579 	mov	r5,#___str_24
+      00616D 7E 8A            [12] 9580 	mov	r6,#(___str_24 >> 8)
+      00616F 7F 80            [12] 9581 	mov	r7,#0x80
+                                   9582 ;	calc.c:51: return;
+      006171                       9583 00170$:
+                                   9584 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      006171 8D 82            [24] 9585 	mov	dpl,r5
+      006173 8E 83            [24] 9586 	mov	dph,r6
+      006175 8F F0            [24] 9587 	mov	b,r7
+      006177 12 70 79         [24] 9588 	lcall	__gptrget
+      00617A FC               [12] 9589 	mov	r4,a
+      00617B 60 10            [24] 9590 	jz	00106$
+      00617D 7B 00            [12] 9591 	mov	r3,#0x00
+      00617F 8C 82            [24] 9592 	mov	dpl,r4
+      006181 8B 83            [24] 9593 	mov	dph,r3
+      006183 12 2C 1F         [24] 9594 	lcall	_putchar
+      006186 0D               [12] 9595 	inc	r5
+                                   9596 ;	calc.c:449: printstr("P\tprint stack\r\n");
+      006187 BD 00 E7         [24] 9597 	cjne	r5,#0x00,00170$
+      00618A 0E               [12] 9598 	inc	r6
+      00618B 80 E4            [24] 9599 	sjmp	00170$
+      00618D                       9600 00106$:
+                                   9601 ;	calc.c:450: printstr("v.\tpop top\r\n");
+      00618D 7D 61            [12] 9602 	mov	r5,#___str_25
+      00618F 7E 8A            [12] 9603 	mov	r6,#(___str_25 >> 8)
+      006191 7F 80            [12] 9604 	mov	r7,#0x80
+                                   9605 ;	calc.c:51: return;
+      006193                       9606 00173$:
+                                   9607 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      006193 8D 82            [24] 9608 	mov	dpl,r5
+      006195 8E 83            [24] 9609 	mov	dph,r6
+      006197 8F F0            [24] 9610 	mov	b,r7
+      006199 12 70 79         [24] 9611 	lcall	__gptrget
+      00619C FC               [12] 9612 	mov	r4,a
+      00619D 60 10            [24] 9613 	jz	00108$
+      00619F 7B 00            [12] 9614 	mov	r3,#0x00
+      0061A1 8C 82            [24] 9615 	mov	dpl,r4
+      0061A3 8B 83            [24] 9616 	mov	dph,r3
+      0061A5 12 2C 1F         [24] 9617 	lcall	_putchar
+      0061A8 0D               [12] 9618 	inc	r5
+                                   9619 ;	calc.c:450: printstr("v.\tpop top\r\n");
+      0061A9 BD 00 E7         [24] 9620 	cjne	r5,#0x00,00173$
+      0061AC 0E               [12] 9621 	inc	r6
+      0061AD 80 E4            [24] 9622 	sjmp	00173$
+      0061AF                       9623 00108$:
+                                   9624 ;	calc.c:451: printstr("V\tpop all\r\n");
+      0061AF 7D 6E            [12] 9625 	mov	r5,#___str_26
+      0061B1 7E 8A            [12] 9626 	mov	r6,#(___str_26 >> 8)
+      0061B3 7F 80            [12] 9627 	mov	r7,#0x80
+                                   9628 ;	calc.c:51: return;
+      0061B5                       9629 00176$:
+                                   9630 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0061B5 8D 82            [24] 9631 	mov	dpl,r5
+      0061B7 8E 83            [24] 9632 	mov	dph,r6
+      0061B9 8F F0            [24] 9633 	mov	b,r7
+      0061BB 12 70 79         [24] 9634 	lcall	__gptrget
+      0061BE FC               [12] 9635 	mov	r4,a
+      0061BF 60 10            [24] 9636 	jz	00110$
+      0061C1 7B 00            [12] 9637 	mov	r3,#0x00
+      0061C3 8C 82            [24] 9638 	mov	dpl,r4
+      0061C5 8B 83            [24] 9639 	mov	dph,r3
+      0061C7 12 2C 1F         [24] 9640 	lcall	_putchar
+      0061CA 0D               [12] 9641 	inc	r5
+                                   9642 ;	calc.c:451: printstr("V\tpop all\r\n");
+      0061CB BD 00 E7         [24] 9643 	cjne	r5,#0x00,00176$
+      0061CE 0E               [12] 9644 	inc	r6
+      0061CF 80 E4            [24] 9645 	sjmp	00176$
+      0061D1                       9646 00110$:
+                                   9647 ;	calc.c:452: printstr("i\treset acc\r\n");
+      0061D1 7D 7A            [12] 9648 	mov	r5,#___str_27
+      0061D3 7E 8A            [12] 9649 	mov	r6,#(___str_27 >> 8)
+      0061D5 7F 80            [12] 9650 	mov	r7,#0x80
+                                   9651 ;	calc.c:51: return;
+      0061D7                       9652 00179$:
+                                   9653 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0061D7 8D 82            [24] 9654 	mov	dpl,r5
+      0061D9 8E 83            [24] 9655 	mov	dph,r6
+      0061DB 8F F0            [24] 9656 	mov	b,r7
+      0061DD 12 70 79         [24] 9657 	lcall	__gptrget
+      0061E0 FC               [12] 9658 	mov	r4,a
+      0061E1 60 10            [24] 9659 	jz	00112$
+      0061E3 7B 00            [12] 9660 	mov	r3,#0x00
+      0061E5 8C 82            [24] 9661 	mov	dpl,r4
+      0061E7 8B 83            [24] 9662 	mov	dph,r3
+      0061E9 12 2C 1F         [24] 9663 	lcall	_putchar
+      0061EC 0D               [12] 9664 	inc	r5
+                                   9665 ;	calc.c:452: printstr("i\treset acc\r\n");
+      0061ED BD 00 E7         [24] 9666 	cjne	r5,#0x00,00179$
+      0061F0 0E               [12] 9667 	inc	r6
+      0061F1 80 E4            [24] 9668 	sjmp	00179$
+      0061F3                       9669 00112$:
+                                   9670 ;	calc.c:453: printstr("I\treset and discard acc\r\n");
+      0061F3 7D 88            [12] 9671 	mov	r5,#___str_28
+      0061F5 7E 8A            [12] 9672 	mov	r6,#(___str_28 >> 8)
+      0061F7 7F 80            [12] 9673 	mov	r7,#0x80
+                                   9674 ;	calc.c:51: return;
+      0061F9                       9675 00182$:
+                                   9676 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0061F9 8D 82            [24] 9677 	mov	dpl,r5
+      0061FB 8E 83            [24] 9678 	mov	dph,r6
+      0061FD 8F F0            [24] 9679 	mov	b,r7
+      0061FF 12 70 79         [24] 9680 	lcall	__gptrget
+      006202 FC               [12] 9681 	mov	r4,a
+      006203 60 10            [24] 9682 	jz	00114$
+      006205 7B 00            [12] 9683 	mov	r3,#0x00
+      006207 8C 82            [24] 9684 	mov	dpl,r4
+      006209 8B 83            [24] 9685 	mov	dph,r3
+      00620B 12 2C 1F         [24] 9686 	lcall	_putchar
+      00620E 0D               [12] 9687 	inc	r5
+                                   9688 ;	calc.c:453: printstr("I\treset and discard acc\r\n");
+      00620F BD 00 E7         [24] 9689 	cjne	r5,#0x00,00182$
+      006212 0E               [12] 9690 	inc	r6
+      006213 80 E4            [24] 9691 	sjmp	00182$
+      006215                       9692 00114$:
+                                   9693 ;	calc.c:454: printstr("x\texchange top 2\r\n");
+      006215 7D A2            [12] 9694 	mov	r5,#___str_29
+      006217 7E 8A            [12] 9695 	mov	r6,#(___str_29 >> 8)
+      006219 7F 80            [12] 9696 	mov	r7,#0x80
+                                   9697 ;	calc.c:51: return;
+      00621B                       9698 00185$:
+                                   9699 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00621B 8D 82            [24] 9700 	mov	dpl,r5
+      00621D 8E 83            [24] 9701 	mov	dph,r6
+      00621F 8F F0            [24] 9702 	mov	b,r7
+      006221 12 70 79         [24] 9703 	lcall	__gptrget
+      006224 FC               [12] 9704 	mov	r4,a
+      006225 60 10            [24] 9705 	jz	00116$
+      006227 7B 00            [12] 9706 	mov	r3,#0x00
+      006229 8C 82            [24] 9707 	mov	dpl,r4
+      00622B 8B 83            [24] 9708 	mov	dph,r3
+      00622D 12 2C 1F         [24] 9709 	lcall	_putchar
+      006230 0D               [12] 9710 	inc	r5
+                                   9711 ;	calc.c:454: printstr("x\texchange top 2\r\n");
+      006231 BD 00 E7         [24] 9712 	cjne	r5,#0x00,00185$
+      006234 0E               [12] 9713 	inc	r6
+      006235 80 E4            [24] 9714 	sjmp	00185$
+      006237                       9715 00116$:
+                                   9716 ;	calc.c:455: printstr("X\texchange stacks primary <-> secondary\r\n");
+      006237 7D B5            [12] 9717 	mov	r5,#___str_30
+      006239 7E 8A            [12] 9718 	mov	r6,#(___str_30 >> 8)
+      00623B 7F 80            [12] 9719 	mov	r7,#0x80
+                                   9720 ;	calc.c:51: return;
+      00623D                       9721 00188$:
+                                   9722 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00623D 8D 82            [24] 9723 	mov	dpl,r5
+      00623F 8E 83            [24] 9724 	mov	dph,r6
+      006241 8F F0            [24] 9725 	mov	b,r7
+      006243 12 70 79         [24] 9726 	lcall	__gptrget
+      006246 FC               [12] 9727 	mov	r4,a
+      006247 60 10            [24] 9728 	jz	00118$
+      006249 7B 00            [12] 9729 	mov	r3,#0x00
+      00624B 8C 82            [24] 9730 	mov	dpl,r4
+      00624D 8B 83            [24] 9731 	mov	dph,r3
+      00624F 12 2C 1F         [24] 9732 	lcall	_putchar
+      006252 0D               [12] 9733 	inc	r5
+                                   9734 ;	calc.c:455: printstr("X\texchange stacks primary <-> secondary\r\n");
+      006253 BD 00 E7         [24] 9735 	cjne	r5,#0x00,00188$
+      006256 0E               [12] 9736 	inc	r6
+      006257 80 E4            [24] 9737 	sjmp	00188$
+      006259                       9738 00118$:
+                                   9739 ;	calc.c:456: printstr("T\texchange tops primary <-> secondary\r\n");
+      006259 7D DF            [12] 9740 	mov	r5,#___str_31
+      00625B 7E 8A            [12] 9741 	mov	r6,#(___str_31 >> 8)
+      00625D 7F 80            [12] 9742 	mov	r7,#0x80
+                                   9743 ;	calc.c:51: return;
+      00625F                       9744 00191$:
+                                   9745 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00625F 8D 82            [24] 9746 	mov	dpl,r5
+      006261 8E 83            [24] 9747 	mov	dph,r6
+      006263 8F F0            [24] 9748 	mov	b,r7
+      006265 12 70 79         [24] 9749 	lcall	__gptrget
+      006268 FC               [12] 9750 	mov	r4,a
+      006269 60 10            [24] 9751 	jz	00120$
+      00626B 7B 00            [12] 9752 	mov	r3,#0x00
+      00626D 8C 82            [24] 9753 	mov	dpl,r4
+      00626F 8B 83            [24] 9754 	mov	dph,r3
+      006271 12 2C 1F         [24] 9755 	lcall	_putchar
+      006274 0D               [12] 9756 	inc	r5
+                                   9757 ;	calc.c:456: printstr("T\texchange tops primary <-> secondary\r\n");
+      006275 BD 00 E7         [24] 9758 	cjne	r5,#0x00,00191$
+      006278 0E               [12] 9759 	inc	r6
+      006279 80 E4            [24] 9760 	sjmp	00191$
+      00627B                       9761 00120$:
+                                   9762 ;	calc.c:457: printstr("U\tcopy top secondary -> primary\r\n");
+      00627B 7D 07            [12] 9763 	mov	r5,#___str_32
+      00627D 7E 8B            [12] 9764 	mov	r6,#(___str_32 >> 8)
+      00627F 7F 80            [12] 9765 	mov	r7,#0x80
+                                   9766 ;	calc.c:51: return;
+      006281                       9767 00194$:
+                                   9768 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      006281 8D 82            [24] 9769 	mov	dpl,r5
+      006283 8E 83            [24] 9770 	mov	dph,r6
+      006285 8F F0            [24] 9771 	mov	b,r7
+      006287 12 70 79         [24] 9772 	lcall	__gptrget
+      00628A FC               [12] 9773 	mov	r4,a
+      00628B 60 10            [24] 9774 	jz	00122$
+      00628D 7B 00            [12] 9775 	mov	r3,#0x00
+      00628F 8C 82            [24] 9776 	mov	dpl,r4
+      006291 8B 83            [24] 9777 	mov	dph,r3
+      006293 12 2C 1F         [24] 9778 	lcall	_putchar
+      006296 0D               [12] 9779 	inc	r5
+                                   9780 ;	calc.c:457: printstr("U\tcopy top secondary -> primary\r\n");
+      006297 BD 00 E7         [24] 9781 	cjne	r5,#0x00,00194$
+      00629A 0E               [12] 9782 	inc	r6
+      00629B 80 E4            [24] 9783 	sjmp	00194$
+      00629D                       9784 00122$:
+                                   9785 ;	calc.c:458: printstr("u\tcopy top primary -> secondary\r\n");
+      00629D 7D 29            [12] 9786 	mov	r5,#___str_33
+      00629F 7E 8B            [12] 9787 	mov	r6,#(___str_33 >> 8)
+      0062A1 7F 80            [12] 9788 	mov	r7,#0x80
+                                   9789 ;	calc.c:51: return;
+      0062A3                       9790 00197$:
+                                   9791 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0062A3 8D 82            [24] 9792 	mov	dpl,r5
+      0062A5 8E 83            [24] 9793 	mov	dph,r6
+      0062A7 8F F0            [24] 9794 	mov	b,r7
+      0062A9 12 70 79         [24] 9795 	lcall	__gptrget
+      0062AC FC               [12] 9796 	mov	r4,a
+      0062AD 60 10            [24] 9797 	jz	00124$
+      0062AF 7B 00            [12] 9798 	mov	r3,#0x00
+      0062B1 8C 82            [24] 9799 	mov	dpl,r4
+      0062B3 8B 83            [24] 9800 	mov	dph,r3
+      0062B5 12 2C 1F         [24] 9801 	lcall	_putchar
+      0062B8 0D               [12] 9802 	inc	r5
+                                   9803 ;	calc.c:458: printstr("u\tcopy top primary -> secondary\r\n");
+      0062B9 BD 00 E7         [24] 9804 	cjne	r5,#0x00,00197$
+      0062BC 0E               [12] 9805 	inc	r6
+      0062BD 80 E4            [24] 9806 	sjmp	00197$
+      0062BF                       9807 00124$:
+                                   9808 ;	calc.c:459: printstr("M\tmove top secondary -> primary\r\n");
+      0062BF 7D 4B            [12] 9809 	mov	r5,#___str_34
+      0062C1 7E 8B            [12] 9810 	mov	r6,#(___str_34 >> 8)
+      0062C3 7F 80            [12] 9811 	mov	r7,#0x80
+                                   9812 ;	calc.c:51: return;
+      0062C5                       9813 00200$:
+                                   9814 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0062C5 8D 82            [24] 9815 	mov	dpl,r5
+      0062C7 8E 83            [24] 9816 	mov	dph,r6
+      0062C9 8F F0            [24] 9817 	mov	b,r7
+      0062CB 12 70 79         [24] 9818 	lcall	__gptrget
+      0062CE FC               [12] 9819 	mov	r4,a
+      0062CF 60 10            [24] 9820 	jz	00126$
+      0062D1 7B 00            [12] 9821 	mov	r3,#0x00
+      0062D3 8C 82            [24] 9822 	mov	dpl,r4
+      0062D5 8B 83            [24] 9823 	mov	dph,r3
+      0062D7 12 2C 1F         [24] 9824 	lcall	_putchar
+      0062DA 0D               [12] 9825 	inc	r5
+                                   9826 ;	calc.c:459: printstr("M\tmove top secondary -> primary\r\n");
+      0062DB BD 00 E7         [24] 9827 	cjne	r5,#0x00,00200$
+      0062DE 0E               [12] 9828 	inc	r6
+      0062DF 80 E4            [24] 9829 	sjmp	00200$
+      0062E1                       9830 00126$:
+                                   9831 ;	calc.c:460: printstr("m\tmove top primary -> secondary\r\n");
+      0062E1 7D 6D            [12] 9832 	mov	r5,#___str_35
+      0062E3 7E 8B            [12] 9833 	mov	r6,#(___str_35 >> 8)
+      0062E5 7F 80            [12] 9834 	mov	r7,#0x80
+                                   9835 ;	calc.c:51: return;
+      0062E7                       9836 00203$:
+                                   9837 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0062E7 8D 82            [24] 9838 	mov	dpl,r5
+      0062E9 8E 83            [24] 9839 	mov	dph,r6
+      0062EB 8F F0            [24] 9840 	mov	b,r7
+      0062ED 12 70 79         [24] 9841 	lcall	__gptrget
+      0062F0 FC               [12] 9842 	mov	r4,a
+      0062F1 60 10            [24] 9843 	jz	00128$
+      0062F3 7B 00            [12] 9844 	mov	r3,#0x00
+      0062F5 8C 82            [24] 9845 	mov	dpl,r4
+      0062F7 8B 83            [24] 9846 	mov	dph,r3
+      0062F9 12 2C 1F         [24] 9847 	lcall	_putchar
+      0062FC 0D               [12] 9848 	inc	r5
+                                   9849 ;	calc.c:460: printstr("m\tmove top primary -> secondary\r\n");
+      0062FD BD 00 E7         [24] 9850 	cjne	r5,#0x00,00203$
+      006300 0E               [12] 9851 	inc	r6
+      006301 80 E4            [24] 9852 	sjmp	00203$
+      006303                       9853 00128$:
+                                   9854 ;	calc.c:461: printstr("+\tadd top 2\r\n");
+      006303 7D 8F            [12] 9855 	mov	r5,#___str_36
+      006305 7E 8B            [12] 9856 	mov	r6,#(___str_36 >> 8)
+      006307 7F 80            [12] 9857 	mov	r7,#0x80
+                                   9858 ;	calc.c:51: return;
+      006309                       9859 00206$:
+                                   9860 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      006309 8D 82            [24] 9861 	mov	dpl,r5
+      00630B 8E 83            [24] 9862 	mov	dph,r6
+      00630D 8F F0            [24] 9863 	mov	b,r7
+      00630F 12 70 79         [24] 9864 	lcall	__gptrget
+      006312 FC               [12] 9865 	mov	r4,a
+      006313 60 10            [24] 9866 	jz	00130$
+      006315 7B 00            [12] 9867 	mov	r3,#0x00
+      006317 8C 82            [24] 9868 	mov	dpl,r4
+      006319 8B 83            [24] 9869 	mov	dph,r3
+      00631B 12 2C 1F         [24] 9870 	lcall	_putchar
+      00631E 0D               [12] 9871 	inc	r5
+                                   9872 ;	calc.c:461: printstr("+\tadd top 2\r\n");
+      00631F BD 00 E7         [24] 9873 	cjne	r5,#0x00,00206$
+      006322 0E               [12] 9874 	inc	r6
+      006323 80 E4            [24] 9875 	sjmp	00206$
+      006325                       9876 00130$:
+                                   9877 ;	calc.c:462: printstr("-\tsubtract top 2\r\n");
+      006325 7D 9D            [12] 9878 	mov	r5,#___str_37
+      006327 7E 8B            [12] 9879 	mov	r6,#(___str_37 >> 8)
+      006329 7F 80            [12] 9880 	mov	r7,#0x80
+                                   9881 ;	calc.c:51: return;
+      00632B                       9882 00209$:
+                                   9883 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00632B 8D 82            [24] 9884 	mov	dpl,r5
+      00632D 8E 83            [24] 9885 	mov	dph,r6
+      00632F 8F F0            [24] 9886 	mov	b,r7
+      006331 12 70 79         [24] 9887 	lcall	__gptrget
+      006334 FC               [12] 9888 	mov	r4,a
+      006335 60 10            [24] 9889 	jz	00132$
+      006337 7B 00            [12] 9890 	mov	r3,#0x00
+      006339 8C 82            [24] 9891 	mov	dpl,r4
+      00633B 8B 83            [24] 9892 	mov	dph,r3
+      00633D 12 2C 1F         [24] 9893 	lcall	_putchar
+      006340 0D               [12] 9894 	inc	r5
+                                   9895 ;	calc.c:462: printstr("-\tsubtract top 2\r\n");
+      006341 BD 00 E7         [24] 9896 	cjne	r5,#0x00,00209$
+      006344 0E               [12] 9897 	inc	r6
+      006345 80 E4            [24] 9898 	sjmp	00209$
+      006347                       9899 00132$:
+                                   9900 ;	calc.c:463: printstr("*\tmultiply top 2\r\n");
+      006347 7D B0            [12] 9901 	mov	r5,#___str_38
+      006349 7E 8B            [12] 9902 	mov	r6,#(___str_38 >> 8)
+      00634B 7F 80            [12] 9903 	mov	r7,#0x80
+                                   9904 ;	calc.c:51: return;
+      00634D                       9905 00212$:
+                                   9906 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00634D 8D 82            [24] 9907 	mov	dpl,r5
+      00634F 8E 83            [24] 9908 	mov	dph,r6
+      006351 8F F0            [24] 9909 	mov	b,r7
+      006353 12 70 79         [24] 9910 	lcall	__gptrget
+      006356 FC               [12] 9911 	mov	r4,a
+      006357 60 10            [24] 9912 	jz	00134$
+      006359 7B 00            [12] 9913 	mov	r3,#0x00
+      00635B 8C 82            [24] 9914 	mov	dpl,r4
+      00635D 8B 83            [24] 9915 	mov	dph,r3
+      00635F 12 2C 1F         [24] 9916 	lcall	_putchar
+      006362 0D               [12] 9917 	inc	r5
+                                   9918 ;	calc.c:463: printstr("*\tmultiply top 2\r\n");
+      006363 BD 00 E7         [24] 9919 	cjne	r5,#0x00,00212$
+      006366 0E               [12] 9920 	inc	r6
+      006367 80 E4            [24] 9921 	sjmp	00212$
+      006369                       9922 00134$:
+                                   9923 ;	calc.c:464: printstr("/\tdivide top 2\r\n");
+      006369 7D C3            [12] 9924 	mov	r5,#___str_39
+      00636B 7E 8B            [12] 9925 	mov	r6,#(___str_39 >> 8)
+      00636D 7F 80            [12] 9926 	mov	r7,#0x80
+                                   9927 ;	calc.c:51: return;
+      00636F                       9928 00215$:
+                                   9929 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00636F 8D 82            [24] 9930 	mov	dpl,r5
+      006371 8E 83            [24] 9931 	mov	dph,r6
+      006373 8F F0            [24] 9932 	mov	b,r7
+      006375 12 70 79         [24] 9933 	lcall	__gptrget
+      006378 FC               [12] 9934 	mov	r4,a
+      006379 60 10            [24] 9935 	jz	00136$
+      00637B 7B 00            [12] 9936 	mov	r3,#0x00
+      00637D 8C 82            [24] 9937 	mov	dpl,r4
+      00637F 8B 83            [24] 9938 	mov	dph,r3
+      006381 12 2C 1F         [24] 9939 	lcall	_putchar
+      006384 0D               [12] 9940 	inc	r5
+                                   9941 ;	calc.c:464: printstr("/\tdivide top 2\r\n");
+      006385 BD 00 E7         [24] 9942 	cjne	r5,#0x00,00215$
+      006388 0E               [12] 9943 	inc	r6
+      006389 80 E4            [24] 9944 	sjmp	00215$
+      00638B                       9945 00136$:
+                                   9946 ;	calc.c:465: printstr("\\\tdivide top 2 unsigned\r\n");	
+      00638B 7D D4            [12] 9947 	mov	r5,#___str_40
+      00638D 7E 8B            [12] 9948 	mov	r6,#(___str_40 >> 8)
+      00638F 7F 80            [12] 9949 	mov	r7,#0x80
+                                   9950 ;	calc.c:51: return;
+      006391                       9951 00218$:
+                                   9952 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      006391 8D 82            [24] 9953 	mov	dpl,r5
+      006393 8E 83            [24] 9954 	mov	dph,r6
+      006395 8F F0            [24] 9955 	mov	b,r7
+      006397 12 70 79         [24] 9956 	lcall	__gptrget
+      00639A FC               [12] 9957 	mov	r4,a
+      00639B 60 10            [24] 9958 	jz	00138$
+      00639D 7B 00            [12] 9959 	mov	r3,#0x00
+      00639F 8C 82            [24] 9960 	mov	dpl,r4
+      0063A1 8B 83            [24] 9961 	mov	dph,r3
+      0063A3 12 2C 1F         [24] 9962 	lcall	_putchar
+      0063A6 0D               [12] 9963 	inc	r5
+                                   9964 ;	calc.c:465: printstr("\\\tdivide top 2 unsigned\r\n");	
+      0063A7 BD 00 E7         [24] 9965 	cjne	r5,#0x00,00218$
+      0063AA 0E               [12] 9966 	inc	r6
+      0063AB 80 E4            [24] 9967 	sjmp	00218$
+      0063AD                       9968 00138$:
+                                   9969 ;	calc.c:466: printstr("%\tmodulus top 2\r\n");
+      0063AD 7D EE            [12] 9970 	mov	r5,#___str_41
+      0063AF 7E 8B            [12] 9971 	mov	r6,#(___str_41 >> 8)
+      0063B1 7F 80            [12] 9972 	mov	r7,#0x80
+                                   9973 ;	calc.c:51: return;
+      0063B3                       9974 00221$:
+                                   9975 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0063B3 8D 82            [24] 9976 	mov	dpl,r5
+      0063B5 8E 83            [24] 9977 	mov	dph,r6
+      0063B7 8F F0            [24] 9978 	mov	b,r7
+      0063B9 12 70 79         [24] 9979 	lcall	__gptrget
+      0063BC FC               [12] 9980 	mov	r4,a
+      0063BD 60 10            [24] 9981 	jz	00140$
+      0063BF 7B 00            [12] 9982 	mov	r3,#0x00
+      0063C1 8C 82            [24] 9983 	mov	dpl,r4
+      0063C3 8B 83            [24] 9984 	mov	dph,r3
+      0063C5 12 2C 1F         [24] 9985 	lcall	_putchar
+      0063C8 0D               [12] 9986 	inc	r5
+                                   9987 ;	calc.c:466: printstr("%\tmodulus top 2\r\n");
+      0063C9 BD 00 E7         [24] 9988 	cjne	r5,#0x00,00221$
+      0063CC 0E               [12] 9989 	inc	r6
+      0063CD 80 E4            [24] 9990 	sjmp	00221$
+      0063CF                       9991 00140$:
+                                   9992 ;	calc.c:467: printstr("#\tmodulus top 2 unsigned\r\n");
+      0063CF 7D 00            [12] 9993 	mov	r5,#___str_42
+      0063D1 7E 8C            [12] 9994 	mov	r6,#(___str_42 >> 8)
+      0063D3 7F 80            [12] 9995 	mov	r7,#0x80
+                                   9996 ;	calc.c:51: return;
+      0063D5                       9997 00224$:
+                                   9998 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0063D5 8D 82            [24] 9999 	mov	dpl,r5
+      0063D7 8E 83            [24]10000 	mov	dph,r6
+      0063D9 8F F0            [24]10001 	mov	b,r7
+      0063DB 12 70 79         [24]10002 	lcall	__gptrget
+      0063DE FC               [12]10003 	mov	r4,a
+      0063DF 60 10            [24]10004 	jz	00142$
+      0063E1 7B 00            [12]10005 	mov	r3,#0x00
+      0063E3 8C 82            [24]10006 	mov	dpl,r4
+      0063E5 8B 83            [24]10007 	mov	dph,r3
+      0063E7 12 2C 1F         [24]10008 	lcall	_putchar
+      0063EA 0D               [12]10009 	inc	r5
+                                  10010 ;	calc.c:467: printstr("#\tmodulus top 2 unsigned\r\n");
+      0063EB BD 00 E7         [24]10011 	cjne	r5,#0x00,00224$
+      0063EE 0E               [12]10012 	inc	r6
+      0063EF 80 E4            [24]10013 	sjmp	00224$
+      0063F1                      10014 00142$:
+                                  10015 ;	calc.c:468: printstr("&\tand top 2\r\n");
+      0063F1 7D 1B            [12]10016 	mov	r5,#___str_43
+      0063F3 7E 8C            [12]10017 	mov	r6,#(___str_43 >> 8)
+      0063F5 7F 80            [12]10018 	mov	r7,#0x80
+                                  10019 ;	calc.c:51: return;
+      0063F7                      10020 00227$:
+                                  10021 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0063F7 8D 82            [24]10022 	mov	dpl,r5
+      0063F9 8E 83            [24]10023 	mov	dph,r6
+      0063FB 8F F0            [24]10024 	mov	b,r7
+      0063FD 12 70 79         [24]10025 	lcall	__gptrget
+      006400 FC               [12]10026 	mov	r4,a
+      006401 60 10            [24]10027 	jz	00144$
+      006403 7B 00            [12]10028 	mov	r3,#0x00
+      006405 8C 82            [24]10029 	mov	dpl,r4
+      006407 8B 83            [24]10030 	mov	dph,r3
+      006409 12 2C 1F         [24]10031 	lcall	_putchar
+      00640C 0D               [12]10032 	inc	r5
+                                  10033 ;	calc.c:468: printstr("&\tand top 2\r\n");
+      00640D BD 00 E7         [24]10034 	cjne	r5,#0x00,00227$
+      006410 0E               [12]10035 	inc	r6
+      006411 80 E4            [24]10036 	sjmp	00227$
+      006413                      10037 00144$:
+                                  10038 ;	calc.c:469: printstr("|\tor top 2\r\n");
+      006413 7D 29            [12]10039 	mov	r5,#___str_44
+      006415 7E 8C            [12]10040 	mov	r6,#(___str_44 >> 8)
+      006417 7F 80            [12]10041 	mov	r7,#0x80
+                                  10042 ;	calc.c:51: return;
+      006419                      10043 00230$:
+                                  10044 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      006419 8D 82            [24]10045 	mov	dpl,r5
+      00641B 8E 83            [24]10046 	mov	dph,r6
+      00641D 8F F0            [24]10047 	mov	b,r7
+      00641F 12 70 79         [24]10048 	lcall	__gptrget
+      006422 FC               [12]10049 	mov	r4,a
+      006423 60 10            [24]10050 	jz	00146$
+      006425 7B 00            [12]10051 	mov	r3,#0x00
+      006427 8C 82            [24]10052 	mov	dpl,r4
+      006429 8B 83            [24]10053 	mov	dph,r3
+      00642B 12 2C 1F         [24]10054 	lcall	_putchar
+      00642E 0D               [12]10055 	inc	r5
+                                  10056 ;	calc.c:469: printstr("|\tor top 2\r\n");
+      00642F BD 00 E7         [24]10057 	cjne	r5,#0x00,00230$
+      006432 0E               [12]10058 	inc	r6
+      006433 80 E4            [24]10059 	sjmp	00230$
+      006435                      10060 00146$:
+                                  10061 ;	calc.c:470: printstr("^\txor top 2\r\n");
+      006435 7D 36            [12]10062 	mov	r5,#___str_45
+      006437 7E 8C            [12]10063 	mov	r6,#(___str_45 >> 8)
+      006439 7F 80            [12]10064 	mov	r7,#0x80
+                                  10065 ;	calc.c:51: return;
+      00643B                      10066 00233$:
+                                  10067 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00643B 8D 82            [24]10068 	mov	dpl,r5
+      00643D 8E 83            [24]10069 	mov	dph,r6
+      00643F 8F F0            [24]10070 	mov	b,r7
+      006441 12 70 79         [24]10071 	lcall	__gptrget
+      006444 FC               [12]10072 	mov	r4,a
+      006445 60 10            [24]10073 	jz	00148$
+      006447 7B 00            [12]10074 	mov	r3,#0x00
+      006449 8C 82            [24]10075 	mov	dpl,r4
+      00644B 8B 83            [24]10076 	mov	dph,r3
+      00644D 12 2C 1F         [24]10077 	lcall	_putchar
+      006450 0D               [12]10078 	inc	r5
+                                  10079 ;	calc.c:470: printstr("^\txor top 2\r\n");
+      006451 BD 00 E7         [24]10080 	cjne	r5,#0x00,00233$
+      006454 0E               [12]10081 	inc	r6
+      006455 80 E4            [24]10082 	sjmp	00233$
+      006457                      10083 00148$:
+                                  10084 ;	calc.c:471: printstr(">\tshift right top 2\r\n");
+      006457 7D 44            [12]10085 	mov	r5,#___str_46
+      006459 7E 8C            [12]10086 	mov	r6,#(___str_46 >> 8)
+      00645B 7F 80            [12]10087 	mov	r7,#0x80
+                                  10088 ;	calc.c:51: return;
+      00645D                      10089 00236$:
+                                  10090 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00645D 8D 82            [24]10091 	mov	dpl,r5
+      00645F 8E 83            [24]10092 	mov	dph,r6
+      006461 8F F0            [24]10093 	mov	b,r7
+      006463 12 70 79         [24]10094 	lcall	__gptrget
+      006466 FC               [12]10095 	mov	r4,a
+      006467 60 10            [24]10096 	jz	00150$
+      006469 7B 00            [12]10097 	mov	r3,#0x00
+      00646B 8C 82            [24]10098 	mov	dpl,r4
+      00646D 8B 83            [24]10099 	mov	dph,r3
+      00646F 12 2C 1F         [24]10100 	lcall	_putchar
+      006472 0D               [12]10101 	inc	r5
+                                  10102 ;	calc.c:471: printstr(">\tshift right top 2\r\n");
+      006473 BD 00 E7         [24]10103 	cjne	r5,#0x00,00236$
+      006476 0E               [12]10104 	inc	r6
+      006477 80 E4            [24]10105 	sjmp	00236$
+      006479                      10106 00150$:
+                                  10107 ;	calc.c:472: printstr("]\tarithmetic shift right top 2\r\n");
+      006479 7D 5A            [12]10108 	mov	r5,#___str_47
+      00647B 7E 8C            [12]10109 	mov	r6,#(___str_47 >> 8)
+      00647D 7F 80            [12]10110 	mov	r7,#0x80
+                                  10111 ;	calc.c:51: return;
+      00647F                      10112 00239$:
+                                  10113 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00647F 8D 82            [24]10114 	mov	dpl,r5
+      006481 8E 83            [24]10115 	mov	dph,r6
+      006483 8F F0            [24]10116 	mov	b,r7
+      006485 12 70 79         [24]10117 	lcall	__gptrget
+      006488 FC               [12]10118 	mov	r4,a
+      006489 60 10            [24]10119 	jz	00152$
+      00648B 7B 00            [12]10120 	mov	r3,#0x00
+      00648D 8C 82            [24]10121 	mov	dpl,r4
+      00648F 8B 83            [24]10122 	mov	dph,r3
+      006491 12 2C 1F         [24]10123 	lcall	_putchar
+      006494 0D               [12]10124 	inc	r5
+                                  10125 ;	calc.c:472: printstr("]\tarithmetic shift right top 2\r\n");
+      006495 BD 00 E7         [24]10126 	cjne	r5,#0x00,00239$
+      006498 0E               [12]10127 	inc	r6
+      006499 80 E4            [24]10128 	sjmp	00239$
+      00649B                      10129 00152$:
+                                  10130 ;	calc.c:473: printstr("<\tshift left top 2\r\n");
+      00649B 7D 7B            [12]10131 	mov	r5,#___str_48
+      00649D 7E 8C            [12]10132 	mov	r6,#(___str_48 >> 8)
+      00649F 7F 80            [12]10133 	mov	r7,#0x80
+                                  10134 ;	calc.c:51: return;
+      0064A1                      10135 00242$:
+                                  10136 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0064A1 8D 82            [24]10137 	mov	dpl,r5
+      0064A3 8E 83            [24]10138 	mov	dph,r6
+      0064A5 8F F0            [24]10139 	mov	b,r7
+      0064A7 12 70 79         [24]10140 	lcall	__gptrget
+      0064AA FC               [12]10141 	mov	r4,a
+      0064AB 60 10            [24]10142 	jz	00154$
+      0064AD 7B 00            [12]10143 	mov	r3,#0x00
+      0064AF 8C 82            [24]10144 	mov	dpl,r4
+      0064B1 8B 83            [24]10145 	mov	dph,r3
+      0064B3 12 2C 1F         [24]10146 	lcall	_putchar
+      0064B6 0D               [12]10147 	inc	r5
+                                  10148 ;	calc.c:473: printstr("<\tshift left top 2\r\n");
+      0064B7 BD 00 E7         [24]10149 	cjne	r5,#0x00,00242$
+      0064BA 0E               [12]10150 	inc	r6
+      0064BB 80 E4            [24]10151 	sjmp	00242$
+      0064BD                      10152 00154$:
+                                  10153 ;	calc.c:474: printstr("~\tbitwise not top\r\n");
+      0064BD 7D 90            [12]10154 	mov	r5,#___str_49
+      0064BF 7E 8C            [12]10155 	mov	r6,#(___str_49 >> 8)
+      0064C1 7F 80            [12]10156 	mov	r7,#0x80
+                                  10157 ;	calc.c:51: return;
+      0064C3                      10158 00245$:
+                                  10159 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0064C3 8D 82            [24]10160 	mov	dpl,r5
+      0064C5 8E 83            [24]10161 	mov	dph,r6
+      0064C7 8F F0            [24]10162 	mov	b,r7
+      0064C9 12 70 79         [24]10163 	lcall	__gptrget
+      0064CC FC               [12]10164 	mov	r4,a
+      0064CD 60 10            [24]10165 	jz	00156$
+      0064CF 7B 00            [12]10166 	mov	r3,#0x00
+      0064D1 8C 82            [24]10167 	mov	dpl,r4
+      0064D3 8B 83            [24]10168 	mov	dph,r3
+      0064D5 12 2C 1F         [24]10169 	lcall	_putchar
+      0064D8 0D               [12]10170 	inc	r5
+                                  10171 ;	calc.c:474: printstr("~\tbitwise not top\r\n");
+      0064D9 BD 00 E7         [24]10172 	cjne	r5,#0x00,00245$
+      0064DC 0E               [12]10173 	inc	r6
+      0064DD 80 E4            [24]10174 	sjmp	00245$
+      0064DF                      10175 00156$:
+                                  10176 ;	calc.c:475: printstr("s\tstatus\r\n");
+      0064DF 7D A4            [12]10177 	mov	r5,#___str_50
+      0064E1 7E 8C            [12]10178 	mov	r6,#(___str_50 >> 8)
+      0064E3 7F 80            [12]10179 	mov	r7,#0x80
+                                  10180 ;	calc.c:51: return;
+      0064E5                      10181 00248$:
+                                  10182 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      0064E5 8D 82            [24]10183 	mov	dpl,r5
+      0064E7 8E 83            [24]10184 	mov	dph,r6
+      0064E9 8F F0            [24]10185 	mov	b,r7
+      0064EB 12 70 79         [24]10186 	lcall	__gptrget
+      0064EE FC               [12]10187 	mov	r4,a
+      0064EF 60 10            [24]10188 	jz	00158$
+      0064F1 7B 00            [12]10189 	mov	r3,#0x00
+      0064F3 8C 82            [24]10190 	mov	dpl,r4
+      0064F5 8B 83            [24]10191 	mov	dph,r3
+      0064F7 12 2C 1F         [24]10192 	lcall	_putchar
+      0064FA 0D               [12]10193 	inc	r5
+                                  10194 ;	calc.c:475: printstr("s\tstatus\r\n");
+      0064FB BD 00 E7         [24]10195 	cjne	r5,#0x00,00248$
+      0064FE 0E               [12]10196 	inc	r6
+      0064FF 80 E4            [24]10197 	sjmp	00248$
+      006501                      10198 00158$:
+                                  10199 ;	calc.c:476: printstr("?\thelp\r\n");
+      006501 7D AF            [12]10200 	mov	r5,#___str_51
+      006503 7E 8C            [12]10201 	mov	r6,#(___str_51 >> 8)
+      006505 7F 80            [12]10202 	mov	r7,#0x80
+                                  10203 ;	calc.c:51: return;
+      006507                      10204 00251$:
+                                  10205 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      006507 8D 82            [24]10206 	mov	dpl,r5
+      006509 8E 83            [24]10207 	mov	dph,r6
+      00650B 8F F0            [24]10208 	mov	b,r7
+      00650D 12 70 79         [24]10209 	lcall	__gptrget
+      006510 FC               [12]10210 	mov	r4,a
+      006511 60 10            [24]10211 	jz	00160$
+      006513 7B 00            [12]10212 	mov	r3,#0x00
+      006515 8C 82            [24]10213 	mov	dpl,r4
+      006517 8B 83            [24]10214 	mov	dph,r3
+      006519 12 2C 1F         [24]10215 	lcall	_putchar
+      00651C 0D               [12]10216 	inc	r5
+                                  10217 ;	calc.c:476: printstr("?\thelp\r\n");
+      00651D BD 00 E7         [24]10218 	cjne	r5,#0x00,00251$
+      006520 0E               [12]10219 	inc	r6
+      006521 80 E4            [24]10220 	sjmp	00251$
+      006523                      10221 00160$:
+                                  10222 ;	calc.c:477: printstr("q\tquit\r\n");
+      006523 7D B8            [12]10223 	mov	r5,#___str_52
+      006525 7E 8C            [12]10224 	mov	r6,#(___str_52 >> 8)
+      006527 7F 80            [12]10225 	mov	r7,#0x80
+                                  10226 ;	calc.c:51: return;
+      006529                      10227 00254$:
+                                  10228 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      006529 8D 82            [24]10229 	mov	dpl,r5
+      00652B 8E 83            [24]10230 	mov	dph,r6
+      00652D 8F F0            [24]10231 	mov	b,r7
+      00652F 12 70 79         [24]10232 	lcall	__gptrget
+      006532 FC               [12]10233 	mov	r4,a
+      006533 60 10            [24]10234 	jz	00162$
+      006535 7B 00            [12]10235 	mov	r3,#0x00
+      006537 8C 82            [24]10236 	mov	dpl,r4
+      006539 8B 83            [24]10237 	mov	dph,r3
+      00653B 12 2C 1F         [24]10238 	lcall	_putchar
+      00653E 0D               [12]10239 	inc	r5
+                                  10240 ;	calc.c:477: printstr("q\tquit\r\n");
+      00653F BD 00 E7         [24]10241 	cjne	r5,#0x00,00254$
+      006542 0E               [12]10242 	inc	r6
+      006543 80 E4            [24]10243 	sjmp	00254$
+      006545                      10244 00162$:
+                                  10245 ;	calc.c:479: return 1;
+      006545 90 00 01         [24]10246 	mov	dptr,#0x0001
+                                  10247 ;	calc.c:480: }
+      006548 D0 08            [24]10248 	pop	_bp
+      00654A 22               [24]10249 	ret
+                                  10250 ;------------------------------------------------------------
+                                  10251 ;Allocation info for local variables in function 'main'
+                                  10252 ;------------------------------------------------------------
+                                  10253 ;input                     Allocated to registers r6 r7 
+                                  10254 ;__1966080211              Allocated to registers 
+                                  10255 ;s                         Allocated to registers r2 r3 r4 
+                                  10256 ;__1310720213              Allocated to registers 
+                                  10257 ;s                         Allocated to registers r5 r6 r7 
+                                  10258 ;sloc0                     Allocated to stack - _bp +1
+                                  10259 ;------------------------------------------------------------
+                                  10260 ;	calc.c:510: void main(void) {
+                                  10261 ;	-----------------------------------------
+                                  10262 ;	 function main
+                                  10263 ;	-----------------------------------------
+      00654B                      10264 _main:
+      00654B C0 08            [24]10265 	push	_bp
+      00654D 85 81 08         [24]10266 	mov	_bp,sp
+      006550 05 81            [12]10267 	inc	sp
+                                  10268 ;	calc.c:513: c.base = 10;
+      006552 90 90 0C         [24]10269 	mov	dptr,#_c
+      006555 74 0A            [12]10270 	mov	a,#0x0a
+      006557 F0               [24]10271 	movx	@dptr,a
+      006558 E4               [12]10272 	clr	a
+      006559 A3               [24]10273 	inc	dptr
+      00655A F0               [24]10274 	movx	@dptr,a
+                                  10275 ;	calc.c:514: c.acc = 0l;
+      00655B 90 90 0E         [24]10276 	mov	dptr,#(_c + 0x0002)
+      00655E F0               [24]10277 	movx	@dptr,a
+      00655F A3               [24]10278 	inc	dptr
+      006560 F0               [24]10279 	movx	@dptr,a
+      006561 A3               [24]10280 	inc	dptr
+      006562 F0               [24]10281 	movx	@dptr,a
+      006563 A3               [24]10282 	inc	dptr
+      006564 F0               [24]10283 	movx	@dptr,a
+                                  10284 ;	calc.c:515: c.acc_valid = (char)0;
+      006565 90 90 12         [24]10285 	mov	dptr,#(_c + 0x0006)
+      006568 F0               [24]10286 	movx	@dptr,a
+                                  10287 ;	calc.c:516: c.digit[0] = c.digit[1] = '\0';
+      006569 90 90 14         [24]10288 	mov	dptr,#(_c + 0x0008)
+      00656C F0               [24]10289 	movx	@dptr,a
+      00656D 90 90 13         [24]10290 	mov	dptr,#(_c + 0x0007)
+      006570 F0               [24]10291 	movx	@dptr,a
+                                  10292 ;	calc.c:518: c.ps = &c.s0;
+      006571 90 D0 1F         [24]10293 	mov	dptr,#(_c + 0x4013)
+      006574 74 15            [12]10294 	mov	a,#(_c + 0x0009)
+      006576 F0               [24]10295 	movx	@dptr,a
+      006577 74 90            [12]10296 	mov	a,#((_c + 0x0009) >> 8)
+      006579 A3               [24]10297 	inc	dptr
+      00657A F0               [24]10298 	movx	@dptr,a
+      00657B E4               [12]10299 	clr	a
+      00657C A3               [24]10300 	inc	dptr
+      00657D F0               [24]10301 	movx	@dptr,a
+                                  10302 ;	calc.c:519: c.ss = &c.s1;
+      00657E 90 D0 22         [24]10303 	mov	dptr,#(_c + 0x4016)
+      006581 74 1A            [12]10304 	mov	a,#(_c + 0x200e)
+      006583 F0               [24]10305 	movx	@dptr,a
+      006584 74 B0            [12]10306 	mov	a,#((_c + 0x200e) >> 8)
+      006586 A3               [24]10307 	inc	dptr
+      006587 F0               [24]10308 	movx	@dptr,a
+      006588 E4               [12]10309 	clr	a
+      006589 A3               [24]10310 	inc	dptr
+      00658A F0               [24]10311 	movx	@dptr,a
+                                  10312 ;	calc.c:520: stack_init(c.ps);
+      00658B 90 90 15         [24]10313 	mov	dptr,#(_c + 0x0009)
+      00658E 75 F0 00         [24]10314 	mov	b,#0x00
+      006591 12 26 80         [24]10315 	lcall	_stack_init
+                                  10316 ;	calc.c:521: stack_init(c.ss);
+      006594 90 D0 22         [24]10317 	mov	dptr,#(_c + 0x4016)
+      006597 E0               [24]10318 	movx	a,@dptr
+      006598 FD               [12]10319 	mov	r5,a
+      006599 A3               [24]10320 	inc	dptr
+      00659A E0               [24]10321 	movx	a,@dptr
+      00659B FE               [12]10322 	mov	r6,a
+      00659C A3               [24]10323 	inc	dptr
+      00659D E0               [24]10324 	movx	a,@dptr
+      00659E FF               [12]10325 	mov	r7,a
+      00659F 8D 82            [24]10326 	mov	dpl,r5
+      0065A1 8E 83            [24]10327 	mov	dph,r6
+      0065A3 8F F0            [24]10328 	mov	b,r7
+      0065A5 12 26 80         [24]10329 	lcall	_stack_init
+                                  10330 ;	calc.c:523: state_init(&s, STATE_START, STATE_FINAL, UNDEF, deltas, &c);
+      0065A8 74 0C            [12]10331 	mov	a,#_c
+      0065AA C0 E0            [24]10332 	push	acc
+      0065AC 74 90            [12]10333 	mov	a,#(_c >> 8)
+      0065AE C0 E0            [24]10334 	push	acc
+      0065B0 E4               [12]10335 	clr	a
+      0065B1 C0 E0            [24]10336 	push	acc
+      0065B3 74 27            [12]10337 	mov	a,#_deltas
+      0065B5 C0 E0            [24]10338 	push	acc
+      0065B7 74 D0            [12]10339 	mov	a,#(_deltas >> 8)
+      0065B9 C0 E0            [24]10340 	push	acc
+      0065BB E4               [12]10341 	clr	a
+      0065BC C0 E0            [24]10342 	push	acc
+      0065BE C0 E0            [24]10343 	push	acc
+      0065C0 74 80            [12]10344 	mov	a,#0x80
+      0065C2 C0 E0            [24]10345 	push	acc
+      0065C4 74 03            [12]10346 	mov	a,#0x03
+      0065C6 C0 E0            [24]10347 	push	acc
+      0065C8 E4               [12]10348 	clr	a
+      0065C9 C0 E0            [24]10349 	push	acc
+      0065CB C0 E0            [24]10350 	push	acc
+      0065CD C0 E0            [24]10351 	push	acc
+      0065CF 90 90 00         [24]10352 	mov	dptr,#_s
+      0065D2 75 F0 00         [24]10353 	mov	b,#0x00
+      0065D5 12 20 90         [24]10354 	lcall	_state_init
+      0065D8 E5 81            [12]10355 	mov	a,sp
+      0065DA 24 F4            [12]10356 	add	a,#0xf4
+      0065DC F5 81            [12]10357 	mov	sp,a
+                                  10358 ;	calc.c:525: (void)status(&c, deltas);
+      0065DE 74 27            [12]10359 	mov	a,#_deltas
+      0065E0 C0 E0            [24]10360 	push	acc
+      0065E2 74 D0            [12]10361 	mov	a,#(_deltas >> 8)
+      0065E4 C0 E0            [24]10362 	push	acc
+      0065E6 E4               [12]10363 	clr	a
+      0065E7 C0 E0            [24]10364 	push	acc
+      0065E9 90 90 0C         [24]10365 	mov	dptr,#_c
+      0065EC 75 F0 00         [24]10366 	mov	b,#0x00
+      0065EF 12 58 79         [24]10367 	lcall	_status
+      0065F2 15 81            [12]10368 	dec	sp
+      0065F4 15 81            [12]10369 	dec	sp
+      0065F6 15 81            [12]10370 	dec	sp
+                                  10371 ;	calc.c:527: while (1) {
+      0065F8                      10372 00192$:
+                                  10373 ;	calc.c:528: input = getchar();
+      0065F8 12 2C 24         [24]10374 	lcall	_getchar
+      0065FB AE 82            [24]10375 	mov	r6,dpl
+      0065FD AF 83            [24]10376 	mov	r7,dph
+                                  10377 ;	calc.c:529: if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
+      0065FF 8E 05            [24]10378 	mov	ar5,r6
+      006601 BD 0D 02         [24]10379 	cjne	r5,#0x0d,00400$
+      006604 80 03            [24]10380 	sjmp	00101$
+      006606                      10381 00400$:
+      006606 BD 0A 36         [24]10382 	cjne	r5,#0x0a,00102$
+      006609                      10383 00101$:
+      006609 7A 2A            [12]10384 	mov	r2,#___str_5
+      00660B 7B 89            [12]10385 	mov	r3,#(___str_5 >> 8)
+      00660D 7C 80            [12]10386 	mov	r4,#0x80
+                                  10387 ;	calc.c:51: return;
+      00660F                      10388 00199$:
+                                  10389 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00660F 8A 82            [24]10390 	mov	dpl,r2
+      006611 8B 83            [24]10391 	mov	dph,r3
+      006613 8C F0            [24]10392 	mov	b,r4
+      006615 A8 08            [24]10393 	mov	r0,_bp
+      006617 08               [12]10394 	inc	r0
+      006618 12 70 79         [24]10395 	lcall	__gptrget
+      00661B F6               [12]10396 	mov	@r0,a
+      00661C A8 08            [24]10397 	mov	r0,_bp
+      00661E 08               [12]10398 	inc	r0
+      00661F E6               [12]10399 	mov	a,@r0
+      006620 60 24            [24]10400 	jz	00103$
+      006622 C0 06            [24]10401 	push	ar6
+      006624 C0 07            [24]10402 	push	ar7
+      006626 A8 08            [24]10403 	mov	r0,_bp
+      006628 08               [12]10404 	inc	r0
+      006629 86 06            [24]10405 	mov	ar6,@r0
+      00662B 7F 00            [12]10406 	mov	r7,#0x00
+      00662D 8E 82            [24]10407 	mov	dpl,r6
+      00662F 8F 83            [24]10408 	mov	dph,r7
+      006631 12 2C 1F         [24]10409 	lcall	_putchar
+      006634 0A               [12]10410 	inc	r2
+      006635 BA 00 01         [24]10411 	cjne	r2,#0x00,00404$
+      006638 0B               [12]10412 	inc	r3
+      006639                      10413 00404$:
+      006639 D0 07            [24]10414 	pop	ar7
+      00663B D0 06            [24]10415 	pop	ar6
+                                  10416 ;	calc.c:529: if (((char)input == '\r') || ((char)input == '\n')) printstr("\r\n");
+      00663D 80 D0            [24]10417 	sjmp	00199$
+      00663F                      10418 00102$:
+                                  10419 ;	calc.c:530: else (void)putchar(input);
+      00663F 8E 82            [24]10420 	mov	dpl,r6
+      006641 8F 83            [24]10421 	mov	dph,r7
+      006643 12 2C 1F         [24]10422 	lcall	_putchar
+      006646                      10423 00103$:
+                                  10424 ;	calc.c:531: c.digit[0] = (char)input;
+      006646 90 90 13         [24]10425 	mov	dptr,#(_c + 0x0007)
+      006649 ED               [12]10426 	mov	a,r5
+      00664A F0               [24]10427 	movx	@dptr,a
+                                  10428 ;	calc.c:533: if ((char)input == 'q') {
+      00664B BD 71 29         [24]10429 	cjne	r5,#0x71,00189$
+                                  10430 ;	calc.c:534: if (state_exec(&s, EVENT_TERM) <= 0) break;
+      00664E 74 08            [12]10431 	mov	a,#0x08
+      006650 C0 E0            [24]10432 	push	acc
+      006652 E4               [12]10433 	clr	a
+      006653 C0 E0            [24]10434 	push	acc
+      006655 90 90 00         [24]10435 	mov	dptr,#_s
+      006658 75 F0 00         [24]10436 	mov	b,#0x00
+      00665B 12 21 46         [24]10437 	lcall	_state_exec
+      00665E AB 82            [24]10438 	mov	r3,dpl
+      006660 AC 83            [24]10439 	mov	r4,dph
+      006662 15 81            [12]10440 	dec	sp
+      006664 15 81            [12]10441 	dec	sp
+      006666 C3               [12]10442 	clr	c
+      006667 E4               [12]10443 	clr	a
+      006668 9B               [12]10444 	subb	a,r3
+      006669 74 80            [12]10445 	mov	a,#(0x00 ^ 0x80)
+      00666B 8C F0            [24]10446 	mov	b,r4
+      00666D 63 F0 80         [24]10447 	xrl	b,#0x80
+      006670 95 F0            [12]10448 	subb	a,b
+      006672 40 84            [24]10449 	jc	00192$
+      006674 02 69 26         [24]10450 	ljmp	00193$
+      006677                      10451 00189$:
+                                  10452 ;	calc.c:535: } else if ((char)input == 's') {
+      006677 BD 73 2C         [24]10453 	cjne	r5,#0x73,00186$
+                                  10454 ;	calc.c:536: if (state_exec(&s, EVENT_STATUS) <= 0) break;
+      00667A 74 03            [12]10455 	mov	a,#0x03
+      00667C C0 E0            [24]10456 	push	acc
+      00667E E4               [12]10457 	clr	a
+      00667F C0 E0            [24]10458 	push	acc
+      006681 90 90 00         [24]10459 	mov	dptr,#_s
+      006684 75 F0 00         [24]10460 	mov	b,#0x00
+      006687 12 21 46         [24]10461 	lcall	_state_exec
+      00668A AB 82            [24]10462 	mov	r3,dpl
+      00668C AC 83            [24]10463 	mov	r4,dph
+      00668E 15 81            [12]10464 	dec	sp
+      006690 15 81            [12]10465 	dec	sp
+      006692 C3               [12]10466 	clr	c
+      006693 E4               [12]10467 	clr	a
+      006694 9B               [12]10468 	subb	a,r3
+      006695 74 80            [12]10469 	mov	a,#(0x00 ^ 0x80)
+      006697 8C F0            [24]10470 	mov	b,r4
+      006699 63 F0 80         [24]10471 	xrl	b,#0x80
+      00669C 95 F0            [12]10472 	subb	a,b
+      00669E 50 03            [24]10473 	jnc	00410$
+      0066A0 02 65 F8         [24]10474 	ljmp	00192$
+      0066A3                      10475 00410$:
+      0066A3 02 69 26         [24]10476 	ljmp	00193$
+      0066A6                      10477 00186$:
+                                  10478 ;	calc.c:537: } else if ((char)input == '?') {
+      0066A6 BD 3F 2C         [24]10479 	cjne	r5,#0x3f,00183$
+                                  10480 ;	calc.c:538: if (state_exec(&s, EVENT_HELP) <= 0) break;
+      0066A9 74 04            [12]10481 	mov	a,#0x04
+      0066AB C0 E0            [24]10482 	push	acc
+      0066AD E4               [12]10483 	clr	a
+      0066AE C0 E0            [24]10484 	push	acc
+      0066B0 90 90 00         [24]10485 	mov	dptr,#_s
+      0066B3 75 F0 00         [24]10486 	mov	b,#0x00
+      0066B6 12 21 46         [24]10487 	lcall	_state_exec
+      0066B9 AB 82            [24]10488 	mov	r3,dpl
+      0066BB AC 83            [24]10489 	mov	r4,dph
+      0066BD 15 81            [12]10490 	dec	sp
+      0066BF 15 81            [12]10491 	dec	sp
+      0066C1 C3               [12]10492 	clr	c
+      0066C2 E4               [12]10493 	clr	a
+      0066C3 9B               [12]10494 	subb	a,r3
+      0066C4 74 80            [12]10495 	mov	a,#(0x00 ^ 0x80)
+      0066C6 8C F0            [24]10496 	mov	b,r4
+      0066C8 63 F0 80         [24]10497 	xrl	b,#0x80
+      0066CB 95 F0            [12]10498 	subb	a,b
+      0066CD 50 03            [24]10499 	jnc	00413$
+      0066CF 02 65 F8         [24]10500 	ljmp	00192$
+      0066D2                      10501 00413$:
+      0066D2 02 69 26         [24]10502 	ljmp	00193$
+      0066D5                      10503 00183$:
+                                  10504 ;	calc.c:539: } else if ((char)input == 'i') {
+      0066D5 BD 69 2C         [24]10505 	cjne	r5,#0x69,00180$
+                                  10506 ;	calc.c:540: if (state_exec(&s, EVENT_RSTA_i) <= 0) break;
+      0066D8 74 06            [12]10507 	mov	a,#0x06
+      0066DA C0 E0            [24]10508 	push	acc
+      0066DC E4               [12]10509 	clr	a
+      0066DD C0 E0            [24]10510 	push	acc
+      0066DF 90 90 00         [24]10511 	mov	dptr,#_s
+      0066E2 75 F0 00         [24]10512 	mov	b,#0x00
+      0066E5 12 21 46         [24]10513 	lcall	_state_exec
+      0066E8 AB 82            [24]10514 	mov	r3,dpl
+      0066EA AC 83            [24]10515 	mov	r4,dph
+      0066EC 15 81            [12]10516 	dec	sp
+      0066EE 15 81            [12]10517 	dec	sp
+      0066F0 C3               [12]10518 	clr	c
+      0066F1 E4               [12]10519 	clr	a
+      0066F2 9B               [12]10520 	subb	a,r3
+      0066F3 74 80            [12]10521 	mov	a,#(0x00 ^ 0x80)
+      0066F5 8C F0            [24]10522 	mov	b,r4
+      0066F7 63 F0 80         [24]10523 	xrl	b,#0x80
+      0066FA 95 F0            [12]10524 	subb	a,b
+      0066FC 50 03            [24]10525 	jnc	00416$
+      0066FE 02 65 F8         [24]10526 	ljmp	00192$
+      006701                      10527 00416$:
+      006701 02 69 26         [24]10528 	ljmp	00193$
+      006704                      10529 00180$:
+                                  10530 ;	calc.c:541: } else if ((char)input == 'I') {
+      006704 BD 49 2C         [24]10531 	cjne	r5,#0x49,00177$
+                                  10532 ;	calc.c:542: if (state_exec(&s, EVENT_RSTA_I) <= 0) break;
+      006707 74 07            [12]10533 	mov	a,#0x07
+      006709 C0 E0            [24]10534 	push	acc
+      00670B E4               [12]10535 	clr	a
+      00670C C0 E0            [24]10536 	push	acc
+      00670E 90 90 00         [24]10537 	mov	dptr,#_s
+      006711 75 F0 00         [24]10538 	mov	b,#0x00
+      006714 12 21 46         [24]10539 	lcall	_state_exec
+      006717 AB 82            [24]10540 	mov	r3,dpl
+      006719 AC 83            [24]10541 	mov	r4,dph
+      00671B 15 81            [12]10542 	dec	sp
+      00671D 15 81            [12]10543 	dec	sp
+      00671F C3               [12]10544 	clr	c
+      006720 E4               [12]10545 	clr	a
+      006721 9B               [12]10546 	subb	a,r3
+      006722 74 80            [12]10547 	mov	a,#(0x00 ^ 0x80)
+      006724 8C F0            [24]10548 	mov	b,r4
+      006726 63 F0 80         [24]10549 	xrl	b,#0x80
+      006729 95 F0            [12]10550 	subb	a,b
+      00672B 50 03            [24]10551 	jnc	00419$
+      00672D 02 65 F8         [24]10552 	ljmp	00192$
+      006730                      10553 00419$:
+      006730 02 69 26         [24]10554 	ljmp	00193$
+      006733                      10555 00177$:
+                                  10556 ;	calc.c:544: ((char)input == 'h') || ((char)input == 'H') ||
+      006733 BD 68 02         [24]10557 	cjne	r5,#0x68,00420$
+      006736 80 0D            [24]10558 	sjmp	00170$
+      006738                      10559 00420$:
+      006738 BD 48 02         [24]10560 	cjne	r5,#0x48,00421$
+      00673B 80 08            [24]10561 	sjmp	00170$
+      00673D                      10562 00421$:
+                                  10563 ;	calc.c:545: ((char)input == 'o') || ((char)input == 'O')
+      00673D BD 6F 02         [24]10564 	cjne	r5,#0x6f,00422$
+      006740 80 03            [24]10565 	sjmp	00170$
+      006742                      10566 00422$:
+      006742 BD 4F 2C         [24]10567 	cjne	r5,#0x4f,00171$
+      006745                      10568 00170$:
+                                  10569 ;	calc.c:547: if (state_exec(&s, EVENT_BASE) <= 0) break;
+      006745 74 05            [12]10570 	mov	a,#0x05
+      006747 C0 E0            [24]10571 	push	acc
+      006749 E4               [12]10572 	clr	a
+      00674A C0 E0            [24]10573 	push	acc
+      00674C 90 90 00         [24]10574 	mov	dptr,#_s
+      00674F 75 F0 00         [24]10575 	mov	b,#0x00
+      006752 12 21 46         [24]10576 	lcall	_state_exec
+      006755 AB 82            [24]10577 	mov	r3,dpl
+      006757 AC 83            [24]10578 	mov	r4,dph
+      006759 15 81            [12]10579 	dec	sp
+      00675B 15 81            [12]10580 	dec	sp
+      00675D C3               [12]10581 	clr	c
+      00675E E4               [12]10582 	clr	a
+      00675F 9B               [12]10583 	subb	a,r3
+      006760 74 80            [12]10584 	mov	a,#(0x00 ^ 0x80)
+      006762 8C F0            [24]10585 	mov	b,r4
+      006764 63 F0 80         [24]10586 	xrl	b,#0x80
+      006767 95 F0            [12]10587 	subb	a,b
+      006769 50 03            [24]10588 	jnc	00425$
+      00676B 02 65 F8         [24]10589 	ljmp	00192$
+      00676E                      10590 00425$:
+      00676E 02 69 26         [24]10591 	ljmp	00193$
+      006771                      10592 00171$:
+                                  10593 ;	calc.c:548: } else if (isxdigit(input)) {
+      006771 8E 82            [24]10594 	mov	dpl,r6
+      006773 8F 83            [24]10595 	mov	dph,r7
+      006775 C0 05            [24]10596 	push	ar5
+      006777 12 69 50         [24]10597 	lcall	_isxdigit
+      00677A E5 82            [12]10598 	mov	a,dpl
+      00677C 85 83 F0         [24]10599 	mov	b,dph
+      00677F D0 05            [24]10600 	pop	ar5
+      006781 45 F0            [12]10601 	orl	a,b
+      006783 60 2C            [24]10602 	jz	00168$
+                                  10603 ;	calc.c:549: if (state_exec(&s, EVENT_DIGIT) <= 0) break;
+      006785 74 01            [12]10604 	mov	a,#0x01
+      006787 C0 E0            [24]10605 	push	acc
+      006789 E4               [12]10606 	clr	a
+      00678A C0 E0            [24]10607 	push	acc
+      00678C 90 90 00         [24]10608 	mov	dptr,#_s
+      00678F 75 F0 00         [24]10609 	mov	b,#0x00
+      006792 12 21 46         [24]10610 	lcall	_state_exec
+      006795 AE 82            [24]10611 	mov	r6,dpl
+      006797 AF 83            [24]10612 	mov	r7,dph
+      006799 15 81            [12]10613 	dec	sp
+      00679B 15 81            [12]10614 	dec	sp
+      00679D C3               [12]10615 	clr	c
+      00679E E4               [12]10616 	clr	a
+      00679F 9E               [12]10617 	subb	a,r6
+      0067A0 74 80            [12]10618 	mov	a,#(0x00 ^ 0x80)
+      0067A2 8F F0            [24]10619 	mov	b,r7
+      0067A4 63 F0 80         [24]10620 	xrl	b,#0x80
+      0067A7 95 F0            [12]10621 	subb	a,b
+      0067A9 50 03            [24]10622 	jnc	00427$
+      0067AB 02 65 F8         [24]10623 	ljmp	00192$
+      0067AE                      10624 00427$:
+      0067AE 02 69 26         [24]10625 	ljmp	00193$
+      0067B1                      10626 00168$:
+                                  10627 ;	calc.c:551: ((char)input == 'p') || ((char)input == 'P') ||
+      0067B1 BD 70 02         [24]10628 	cjne	r5,#0x70,00428$
+      0067B4 80 17            [24]10629 	sjmp	00159$
+      0067B6                      10630 00428$:
+      0067B6 BD 50 02         [24]10631 	cjne	r5,#0x50,00429$
+      0067B9 80 12            [24]10632 	sjmp	00159$
+      0067BB                      10633 00429$:
+                                  10634 ;	calc.c:552: ((char)input == 'v') || ((char)input == 'V') ||
+      0067BB BD 76 02         [24]10635 	cjne	r5,#0x76,00430$
+      0067BE 80 0D            [24]10636 	sjmp	00159$
+      0067C0                      10637 00430$:
+      0067C0 BD 56 02         [24]10638 	cjne	r5,#0x56,00431$
+      0067C3 80 08            [24]10639 	sjmp	00159$
+      0067C5                      10640 00431$:
+                                  10641 ;	calc.c:553: ((char)input == '.') ||
+      0067C5 BD 2E 02         [24]10642 	cjne	r5,#0x2e,00432$
+      0067C8 80 03            [24]10643 	sjmp	00159$
+      0067CA                      10644 00432$:
+                                  10645 ;	calc.c:554: ((char)input == 'x')
+      0067CA BD 78 2C         [24]10646 	cjne	r5,#0x78,00160$
+      0067CD                      10647 00159$:
+                                  10648 ;	calc.c:556: if (state_exec(&s, EVENT_OP) <= 0) break;
+      0067CD 74 02            [12]10649 	mov	a,#0x02
+      0067CF C0 E0            [24]10650 	push	acc
+      0067D1 E4               [12]10651 	clr	a
+      0067D2 C0 E0            [24]10652 	push	acc
+      0067D4 90 90 00         [24]10653 	mov	dptr,#_s
+      0067D7 75 F0 00         [24]10654 	mov	b,#0x00
+      0067DA 12 21 46         [24]10655 	lcall	_state_exec
+      0067DD AE 82            [24]10656 	mov	r6,dpl
+      0067DF AF 83            [24]10657 	mov	r7,dph
+      0067E1 15 81            [12]10658 	dec	sp
+      0067E3 15 81            [12]10659 	dec	sp
+      0067E5 C3               [12]10660 	clr	c
+      0067E6 E4               [12]10661 	clr	a
+      0067E7 9E               [12]10662 	subb	a,r6
+      0067E8 74 80            [12]10663 	mov	a,#(0x00 ^ 0x80)
+      0067EA 8F F0            [24]10664 	mov	b,r7
+      0067EC 63 F0 80         [24]10665 	xrl	b,#0x80
+      0067EF 95 F0            [12]10666 	subb	a,b
+      0067F1 50 03            [24]10667 	jnc	00435$
+      0067F3 02 65 F8         [24]10668 	ljmp	00192$
+      0067F6                      10669 00435$:
+      0067F6 02 69 26         [24]10670 	ljmp	00193$
+      0067F9                      10671 00160$:
+                                  10672 ;	calc.c:558: ((char)input == 'X') || ((char)input == 'T') ||
+      0067F9 BD 58 02         [24]10673 	cjne	r5,#0x58,00436$
+      0067FC 80 17            [24]10674 	sjmp	00151$
+      0067FE                      10675 00436$:
+      0067FE BD 54 02         [24]10676 	cjne	r5,#0x54,00437$
+      006801 80 12            [24]10677 	sjmp	00151$
+      006803                      10678 00437$:
+                                  10679 ;	calc.c:559: ((char)input == 'm') || ((char)input == 'M') ||
+      006803 BD 6D 02         [24]10680 	cjne	r5,#0x6d,00438$
+      006806 80 0D            [24]10681 	sjmp	00151$
+      006808                      10682 00438$:
+      006808 BD 4D 02         [24]10683 	cjne	r5,#0x4d,00439$
+      00680B 80 08            [24]10684 	sjmp	00151$
+      00680D                      10685 00439$:
+                                  10686 ;	calc.c:560: ((char)input == 'u') || ((char)input == 'U')
+      00680D BD 75 02         [24]10687 	cjne	r5,#0x75,00440$
+      006810 80 03            [24]10688 	sjmp	00151$
+      006812                      10689 00440$:
+      006812 BD 55 2C         [24]10690 	cjne	r5,#0x55,00152$
+      006815                      10691 00151$:
+                                  10692 ;	calc.c:562: if (state_exec(&s, EVENT_OP) <= 0) break;
+      006815 74 02            [12]10693 	mov	a,#0x02
+      006817 C0 E0            [24]10694 	push	acc
+      006819 E4               [12]10695 	clr	a
+      00681A C0 E0            [24]10696 	push	acc
+      00681C 90 90 00         [24]10697 	mov	dptr,#_s
+      00681F 75 F0 00         [24]10698 	mov	b,#0x00
+      006822 12 21 46         [24]10699 	lcall	_state_exec
+      006825 AE 82            [24]10700 	mov	r6,dpl
+      006827 AF 83            [24]10701 	mov	r7,dph
+      006829 15 81            [12]10702 	dec	sp
+      00682B 15 81            [12]10703 	dec	sp
+      00682D C3               [12]10704 	clr	c
+      00682E E4               [12]10705 	clr	a
+      00682F 9E               [12]10706 	subb	a,r6
+      006830 74 80            [12]10707 	mov	a,#(0x00 ^ 0x80)
+      006832 8F F0            [24]10708 	mov	b,r7
+      006834 63 F0 80         [24]10709 	xrl	b,#0x80
+      006837 95 F0            [12]10710 	subb	a,b
+      006839 50 03            [24]10711 	jnc	00443$
+      00683B 02 65 F8         [24]10712 	ljmp	00192$
+      00683E                      10713 00443$:
+      00683E 02 69 26         [24]10714 	ljmp	00193$
+      006841                      10715 00152$:
+                                  10716 ;	calc.c:564: ((char)input == '+') || ((char)input == '-')
+      006841 BD 2B 02         [24]10717 	cjne	r5,#0x2b,00444$
+      006844 80 03            [24]10718 	sjmp	00147$
+      006846                      10719 00444$:
+      006846 BD 2D 2C         [24]10720 	cjne	r5,#0x2d,00148$
+      006849                      10721 00147$:
+                                  10722 ;	calc.c:566: if (state_exec(&s, EVENT_OP) <= 0) break;
+      006849 74 02            [12]10723 	mov	a,#0x02
+      00684B C0 E0            [24]10724 	push	acc
+      00684D E4               [12]10725 	clr	a
+      00684E C0 E0            [24]10726 	push	acc
+      006850 90 90 00         [24]10727 	mov	dptr,#_s
+      006853 75 F0 00         [24]10728 	mov	b,#0x00
+      006856 12 21 46         [24]10729 	lcall	_state_exec
+      006859 AE 82            [24]10730 	mov	r6,dpl
+      00685B AF 83            [24]10731 	mov	r7,dph
+      00685D 15 81            [12]10732 	dec	sp
+      00685F 15 81            [12]10733 	dec	sp
+      006861 C3               [12]10734 	clr	c
+      006862 E4               [12]10735 	clr	a
+      006863 9E               [12]10736 	subb	a,r6
+      006864 74 80            [12]10737 	mov	a,#(0x00 ^ 0x80)
+      006866 8F F0            [24]10738 	mov	b,r7
+      006868 63 F0 80         [24]10739 	xrl	b,#0x80
+      00686B 95 F0            [12]10740 	subb	a,b
+      00686D 50 03            [24]10741 	jnc	00447$
+      00686F 02 65 F8         [24]10742 	ljmp	00192$
+      006872                      10743 00447$:
+      006872 02 69 26         [24]10744 	ljmp	00193$
+      006875                      10745 00148$:
+                                  10746 ;	calc.c:568: ((char)input == '*') ||
+      006875 BD 2A 02         [24]10747 	cjne	r5,#0x2a,00448$
+      006878 80 12            [24]10748 	sjmp	00140$
+      00687A                      10749 00448$:
+                                  10750 ;	calc.c:569: ((char)input == '/') || ((char)input == '\\') ||
+      00687A BD 2F 02         [24]10751 	cjne	r5,#0x2f,00449$
+      00687D 80 0D            [24]10752 	sjmp	00140$
+      00687F                      10753 00449$:
+      00687F BD 5C 02         [24]10754 	cjne	r5,#0x5c,00450$
+      006882 80 08            [24]10755 	sjmp	00140$
+      006884                      10756 00450$:
+                                  10757 ;	calc.c:570: ((char)input == '%') || ((char)input == '#')
+      006884 BD 25 02         [24]10758 	cjne	r5,#0x25,00451$
+      006887 80 03            [24]10759 	sjmp	00140$
+      006889                      10760 00451$:
+      006889 BD 23 29         [24]10761 	cjne	r5,#0x23,00141$
+      00688C                      10762 00140$:
+                                  10763 ;	calc.c:572: if (state_exec(&s, EVENT_OP) <= 0) break;
+      00688C 74 02            [12]10764 	mov	a,#0x02
+      00688E C0 E0            [24]10765 	push	acc
+      006890 E4               [12]10766 	clr	a
+      006891 C0 E0            [24]10767 	push	acc
+      006893 90 90 00         [24]10768 	mov	dptr,#_s
+      006896 75 F0 00         [24]10769 	mov	b,#0x00
+      006899 12 21 46         [24]10770 	lcall	_state_exec
+      00689C AE 82            [24]10771 	mov	r6,dpl
+      00689E AF 83            [24]10772 	mov	r7,dph
+      0068A0 15 81            [12]10773 	dec	sp
+      0068A2 15 81            [12]10774 	dec	sp
+      0068A4 C3               [12]10775 	clr	c
+      0068A5 E4               [12]10776 	clr	a
+      0068A6 9E               [12]10777 	subb	a,r6
+      0068A7 74 80            [12]10778 	mov	a,#(0x00 ^ 0x80)
+      0068A9 8F F0            [24]10779 	mov	b,r7
+      0068AB 63 F0 80         [24]10780 	xrl	b,#0x80
+      0068AE 95 F0            [12]10781 	subb	a,b
+      0068B0 50 74            [24]10782 	jnc	00193$
+      0068B2 02 65 F8         [24]10783 	ljmp	00192$
+      0068B5                      10784 00141$:
+                                  10785 ;	calc.c:574: ((char)input == '&') ||
+      0068B5 BD 26 02         [24]10786 	cjne	r5,#0x26,00455$
+      0068B8 80 1C            [24]10787 	sjmp	00131$
+      0068BA                      10788 00455$:
+                                  10789 ;	calc.c:575: ((char)input == '|') || ((char)input == '^') ||
+      0068BA BD 7C 02         [24]10790 	cjne	r5,#0x7c,00456$
+      0068BD 80 17            [24]10791 	sjmp	00131$
+      0068BF                      10792 00456$:
+      0068BF BD 5E 02         [24]10793 	cjne	r5,#0x5e,00457$
+      0068C2 80 12            [24]10794 	sjmp	00131$
+      0068C4                      10795 00457$:
+                                  10796 ;	calc.c:576: ((char)input == '~') ||
+      0068C4 BD 7E 02         [24]10797 	cjne	r5,#0x7e,00458$
+      0068C7 80 0D            [24]10798 	sjmp	00131$
+      0068C9                      10799 00458$:
+                                  10800 ;	calc.c:577: ((char)input == '>') || ((char)input == ']') ||
+      0068C9 BD 3E 02         [24]10801 	cjne	r5,#0x3e,00459$
+      0068CC 80 08            [24]10802 	sjmp	00131$
+      0068CE                      10803 00459$:
+      0068CE BD 5D 02         [24]10804 	cjne	r5,#0x5d,00460$
+      0068D1 80 03            [24]10805 	sjmp	00131$
+      0068D3                      10806 00460$:
+                                  10807 ;	calc.c:578: ((char)input == '<')
+      0068D3 BD 3C 29         [24]10808 	cjne	r5,#0x3c,00132$
+      0068D6                      10809 00131$:
+                                  10810 ;	calc.c:580: if (state_exec(&s, EVENT_OP) <= 0) break;
+      0068D6 74 02            [12]10811 	mov	a,#0x02
+      0068D8 C0 E0            [24]10812 	push	acc
+      0068DA E4               [12]10813 	clr	a
+      0068DB C0 E0            [24]10814 	push	acc
+      0068DD 90 90 00         [24]10815 	mov	dptr,#_s
+      0068E0 75 F0 00         [24]10816 	mov	b,#0x00
+      0068E3 12 21 46         [24]10817 	lcall	_state_exec
+      0068E6 AE 82            [24]10818 	mov	r6,dpl
+      0068E8 AF 83            [24]10819 	mov	r7,dph
+      0068EA 15 81            [12]10820 	dec	sp
+      0068EC 15 81            [12]10821 	dec	sp
+      0068EE C3               [12]10822 	clr	c
+      0068EF E4               [12]10823 	clr	a
+      0068F0 9E               [12]10824 	subb	a,r6
+      0068F1 74 80            [12]10825 	mov	a,#(0x00 ^ 0x80)
+      0068F3 8F F0            [24]10826 	mov	b,r7
+      0068F5 63 F0 80         [24]10827 	xrl	b,#0x80
+      0068F8 95 F0            [12]10828 	subb	a,b
+      0068FA 50 2A            [24]10829 	jnc	00193$
+      0068FC 02 65 F8         [24]10830 	ljmp	00192$
+      0068FF                      10831 00132$:
+                                  10832 ;	calc.c:582: if (state_exec(&s, EVENT_DELIM) <= 0) break;
+      0068FF E4               [12]10833 	clr	a
+      006900 C0 E0            [24]10834 	push	acc
+      006902 C0 E0            [24]10835 	push	acc
+      006904 90 90 00         [24]10836 	mov	dptr,#_s
+      006907 75 F0 00         [24]10837 	mov	b,#0x00
+      00690A 12 21 46         [24]10838 	lcall	_state_exec
+      00690D AE 82            [24]10839 	mov	r6,dpl
+      00690F AF 83            [24]10840 	mov	r7,dph
+      006911 15 81            [12]10841 	dec	sp
+      006913 15 81            [12]10842 	dec	sp
+      006915 C3               [12]10843 	clr	c
+      006916 E4               [12]10844 	clr	a
+      006917 9E               [12]10845 	subb	a,r6
+      006918 74 80            [12]10846 	mov	a,#(0x00 ^ 0x80)
+      00691A 8F F0            [24]10847 	mov	b,r7
+      00691C 63 F0 80         [24]10848 	xrl	b,#0x80
+      00691F 95 F0            [12]10849 	subb	a,b
+      006921 50 03            [24]10850 	jnc	00464$
+      006923 02 65 F8         [24]10851 	ljmp	00192$
+      006926                      10852 00464$:
+      006926                      10853 00193$:
+                                  10854 ;	calc.c:586: printstr("TERM\r\n");
+      006926 7D C1            [12]10855 	mov	r5,#___str_53
+      006928 7E 8C            [12]10856 	mov	r6,#(___str_53 >> 8)
+      00692A 7F 80            [12]10857 	mov	r7,#0x80
+                                  10858 ;	calc.c:51: return;
+      00692C                      10859 00202$:
+                                  10860 ;	calc.c:49: for (; *s; s++) putchar(*s);
+      00692C 8D 82            [24]10861 	mov	dpl,r5
+      00692E 8E 83            [24]10862 	mov	dph,r6
+      006930 8F F0            [24]10863 	mov	b,r7
+      006932 12 70 79         [24]10864 	lcall	__gptrget
+      006935 FC               [12]10865 	mov	r4,a
+      006936 60 10            [24]10866 	jz	00197$
+      006938 7B 00            [12]10867 	mov	r3,#0x00
+      00693A 8C 82            [24]10868 	mov	dpl,r4
+      00693C 8B 83            [24]10869 	mov	dph,r3
+      00693E 12 2C 1F         [24]10870 	lcall	_putchar
+      006941 0D               [12]10871 	inc	r5
+                                  10872 ;	calc.c:586: printstr("TERM\r\n");
+      006942 BD 00 E7         [24]10873 	cjne	r5,#0x00,00202$
+      006945 0E               [12]10874 	inc	r6
+      006946 80 E4            [24]10875 	sjmp	00202$
+      006948                      10876 00197$:
+                                  10877 ;	calc.c:588: PCON |= 2;
+      006948 43 87 02         [24]10878 	orl	_PCON,#0x02
+                                  10879 ;	calc.c:590: return;
+                                  10880 ;	calc.c:591: }
+      00694B 15 81            [12]10881 	dec	sp
+      00694D D0 08            [24]10882 	pop	_bp
+      00694F 22               [24]10883 	ret
                                   10884 	.area CSEG    (CODE)
                                   10885 	.area CONST   (CODE)
-      0088E0                      10886 ___str_10:
-      0088E0 0D                   10887 	.db 0x0d
-      0088E1 0A                   10888 	.db 0x0a
-      0088E2 73 74 61 63 6B 20 75 10889 	.ascii "stack underflow"
+                                  10886 	.area CONST   (CODE)
+      0088FA                      10887 ___str_0:
+      0088FA 0D                   10888 	.db 0x0d
+      0088FB 0A                   10889 	.db 0x0a
+      0088FC 50 53                10890 	.ascii "PS"
+      0088FE 0D                   10891 	.db 0x0d
+      0088FF 0A                   10892 	.db 0x0a
+      008900 00                   10893 	.db 0x00
+                                  10894 	.area CSEG    (CODE)
+                                  10895 	.area CONST   (CODE)
+      008901                      10896 ___str_1:
+      008901 73 74 61 63 6B 20 75 10897 	.ascii "stack underflow"
              6E 64 65 72 66 6C 6F
              77
-      0088F1 0D                   10890 	.db 0x0d
-      0088F2 0A                   10891 	.db 0x0a
-      0088F3 00                   10892 	.db 0x00
-                                  10893 	.area CSEG    (CODE)
-                                  10894 	.area CONST   (CODE)
-      0088F4                      10895 ___str_11:
-      0088F4 0D                   10896 	.db 0x0d
-      0088F5 0A                   10897 	.db 0x0a
-      0088F6 73 65 63 6F 6E 64 61 10898 	.ascii "secondary stack overflow"
+      008910 0D                   10898 	.db 0x0d
+      008911 0A                   10899 	.db 0x0a
+      008912 00                   10900 	.db 0x00
+                                  10901 	.area CSEG    (CODE)
+                                  10902 	.area CONST   (CODE)
+      008913                      10903 ___str_2:
+      008913 56 41 20             10904 	.ascii "VA "
+      008916 00                   10905 	.db 0x00
+                                  10906 	.area CSEG    (CODE)
+                                  10907 	.area CONST   (CODE)
+      008917                      10908 ___str_3:
+      008917 25 20 31 31 6C 64 20 10909 	.ascii "% 11ld / "
+             2F 20
+      008920 00                   10910 	.db 0x00
+                                  10911 	.area CSEG    (CODE)
+                                  10912 	.area CONST   (CODE)
+      008921                      10913 ___str_4:
+      008921 25 30 38 6C 78 20 2F 10914 	.ascii "%08lx / "
+             20
+      008929 00                   10915 	.db 0x00
+                                  10916 	.area CSEG    (CODE)
+                                  10917 	.area CONST   (CODE)
+      00892A                      10918 ___str_5:
+      00892A 0D                   10919 	.db 0x0d
+      00892B 0A                   10920 	.db 0x0a
+      00892C 00                   10921 	.db 0x00
+                                  10922 	.area CSEG    (CODE)
+                                  10923 	.area CONST   (CODE)
+      00892D                      10924 ___str_6:
+      00892D 53 53                10925 	.ascii "SS"
+      00892F 0D                   10926 	.db 0x0d
+      008930 0A                   10927 	.db 0x0a
+      008931 00                   10928 	.db 0x00
+                                  10929 	.area CSEG    (CODE)
+                                  10930 	.area CONST   (CODE)
+      008932                      10931 ___str_7:
+      008932 50 41 20             10932 	.ascii "PA "
+      008935 00                   10933 	.db 0x00
+                                  10934 	.area CSEG    (CODE)
+                                  10935 	.area CONST   (CODE)
+      008936                      10936 ___str_8:
+      008936 50 54 20             10937 	.ascii "PT "
+      008939 00                   10938 	.db 0x00
+                                  10939 	.area CSEG    (CODE)
+                                  10940 	.area CONST   (CODE)
+      00893A                      10941 ___str_9:
+      00893A 56 54 20             10942 	.ascii "VT "
+      00893D 00                   10943 	.db 0x00
+                                  10944 	.area CSEG    (CODE)
+                                  10945 	.area CONST   (CODE)
+      00893E                      10946 ___str_10:
+      00893E 0D                   10947 	.db 0x0d
+      00893F 0A                   10948 	.db 0x0a
+      008940 73 74 61 63 6B 20 75 10949 	.ascii "stack underflow"
+             6E 64 65 72 66 6C 6F
+             77
+      00894F 0D                   10950 	.db 0x0d
+      008950 0A                   10951 	.db 0x0a
+      008951 00                   10952 	.db 0x00
+                                  10953 	.area CSEG    (CODE)
+                                  10954 	.area CONST   (CODE)
+      008952                      10955 ___str_11:
+      008952 0D                   10956 	.db 0x0d
+      008953 0A                   10957 	.db 0x0a
+      008954 73 65 63 6F 6E 64 61 10958 	.ascii "secondary stack overflow"
              72 79 20 73 74 61 63
              6B 20 6F 76 65 72 66
              6C 6F 77
-      00890E 0D                   10899 	.db 0x0d
-      00890F 0A                   10900 	.db 0x0a
-      008910 00                   10901 	.db 0x00
-                                  10902 	.area CSEG    (CODE)
-                                  10903 	.area CONST   (CODE)
-      008911                      10904 ___str_12:
-      008911 0D                   10905 	.db 0x0d
-      008912 0A                   10906 	.db 0x0a
-      008913 73 65 63 6F 6E 64 61 10907 	.ascii "secondary stack underflow"
+      00896C 0D                   10959 	.db 0x0d
+      00896D 0A                   10960 	.db 0x0a
+      00896E 00                   10961 	.db 0x00
+                                  10962 	.area CSEG    (CODE)
+                                  10963 	.area CONST   (CODE)
+      00896F                      10964 ___str_12:
+      00896F 0D                   10965 	.db 0x0d
+      008970 0A                   10966 	.db 0x0a
+      008971 73 65 63 6F 6E 64 61 10967 	.ascii "secondary stack underflow"
              72 79 20 73 74 61 63
              6B 20 75 6E 64 65 72
              66 6C 6F 77
-      00892C 0D                   10908 	.db 0x0d
-      00892D 0A                   10909 	.db 0x0a
-      00892E 00                   10910 	.db 0x00
-                                  10911 	.area CSEG    (CODE)
-                                  10912 	.area CONST   (CODE)
-      00892F                      10913 ___str_13:
-      00892F 0D                   10914 	.db 0x0d
-      008930 0A                   10915 	.db 0x0a
-      008931 73 74 61 63 6B 20 6F 10916 	.ascii "stack overflow"
+      00898A 0D                   10968 	.db 0x0d
+      00898B 0A                   10969 	.db 0x0a
+      00898C 00                   10970 	.db 0x00
+                                  10971 	.area CSEG    (CODE)
+                                  10972 	.area CONST   (CODE)
+      00898D                      10973 ___str_13:
+      00898D 0D                   10974 	.db 0x0d
+      00898E 0A                   10975 	.db 0x0a
+      00898F 73 74 61 63 6B 20 6F 10976 	.ascii "stack overflow"
              76 65 72 66 6C 6F 77
-      00893F 0D                   10917 	.db 0x0d
-      008940 0A                   10918 	.db 0x0a
-      008941 00                   10919 	.db 0x00
-                                  10920 	.area CSEG    (CODE)
-                                  10921 	.area CONST   (CODE)
-      008942                      10922 ___str_14:
-      008942 0D                   10923 	.db 0x0d
-      008943 0A                   10924 	.db 0x0a
-      008944 64 69 76 69 73 69 6F 10925 	.ascii "division by zero"
+      00899D 0D                   10977 	.db 0x0d
+      00899E 0A                   10978 	.db 0x0a
+      00899F 00                   10979 	.db 0x00
+                                  10980 	.area CSEG    (CODE)
+                                  10981 	.area CONST   (CODE)
+      0089A0                      10982 ___str_14:
+      0089A0 0D                   10983 	.db 0x0d
+      0089A1 0A                   10984 	.db 0x0a
+      0089A2 64 69 76 69 73 69 6F 10985 	.ascii "division by zero"
              6E 20 62 79 20 7A 65
              72 6F
-      008954 0D                   10926 	.db 0x0d
-      008955 0A                   10927 	.db 0x0a
-      008956 00                   10928 	.db 0x00
-                                  10929 	.area CSEG    (CODE)
-                                  10930 	.area CONST   (CODE)
-      008957                      10931 ___str_15:
-      008957 0D                   10932 	.db 0x0d
-      008958 0A                   10933 	.db 0x0a
-      008959 62 61 73 65 20 3D 20 10934 	.ascii "base = %d, "
-             25 64 2C 20
-      008964 00                   10935 	.db 0x00
-                                  10936 	.area CSEG    (CODE)
-                                  10937 	.area CONST   (CODE)
-      008965                      10938 ___str_16:
-      008965 61 63 63 20 3D 20 25 10939 	.ascii "acc = %ld / "
-             6C 64 20 2F 20
-      008971 00                   10940 	.db 0x00
-                                  10941 	.area CSEG    (CODE)
-                                  10942 	.area CONST   (CODE)
-      008972                      10943 ___str_17:
-      008972 2C 20 61 63 63 5F 76 10944 	.ascii ", acc_valid = %d"
-             61 6C 69 64 20 3D 20
-             25 64
-      008982 0D                   10945 	.db 0x0d
-      008983 0A                   10946 	.db 0x0a
-      008984 00                   10947 	.db 0x00
-                                  10948 	.area CSEG    (CODE)
-                                  10949 	.area CONST   (CODE)
-      008985                      10950 ___str_18:
-      008985 70 72 69 6D 61 72 79 10951 	.ascii "primary = %p, secondary = %p"
+      0089B2 0D                   10986 	.db 0x0d
+      0089B3 0A                   10987 	.db 0x0a
+      0089B4 00                   10988 	.db 0x00
+                                  10989 	.area CSEG    (CODE)
+                                  10990 	.area CONST   (CODE)
+      0089B5                      10991 ___str_15:
+      0089B5 0D                   10992 	.db 0x0d
+      0089B6 0A                   10993 	.db 0x0a
+      0089B7 70 72 69 6D 61 72 79 10994 	.ascii "primary = %p, secondary = %p"
              20 3D 20 25 70 2C 20
              73 65 63 6F 6E 64 61
              72 79 20 3D 20 25 70
-      0089A1 0D                   10952 	.db 0x0d
-      0089A2 0A                   10953 	.db 0x0a
-      0089A3 00                   10954 	.db 0x00
-                                  10955 	.area CSEG    (CODE)
-                                  10956 	.area CONST   (CODE)
-      0089A4                      10957 ___str_19:
-      0089A4 50 53 54 4F 50 31 20 10958 	.ascii "PSTOP1 = "
+      0089D3 0D                   10995 	.db 0x0d
+      0089D4 0A                   10996 	.db 0x0a
+      0089D5 00                   10997 	.db 0x00
+                                  10998 	.area CSEG    (CODE)
+                                  10999 	.area CONST   (CODE)
+      0089D6                      11000 ___str_16:
+      0089D6 61 63 63 5F 76 61 6C 11001 	.ascii "acc_valid = %d, base = %d"
+             69 64 20 3D 20 25 64
+             2C 20 62 61 73 65 20
+             3D 20 25 64
+      0089EF 0D                   11002 	.db 0x0d
+      0089F0 0A                   11003 	.db 0x0a
+      0089F1 00                   11004 	.db 0x00
+                                  11005 	.area CSEG    (CODE)
+                                  11006 	.area CONST   (CODE)
+      0089F2                      11007 ___str_17:
+      0089F2 61 63 63 20 20 20 20 11008 	.ascii "acc    = "
              3D 20
-      0089AD 00                   10959 	.db 0x00
-                                  10960 	.area CSEG    (CODE)
-                                  10961 	.area CONST   (CODE)
-      0089AE                      10962 ___str_20:
-      0089AE 0D                   10963 	.db 0x0d
-      0089AF 0A                   10964 	.db 0x0a
-      0089B0 50 53 54 4F 50 30 20 10965 	.ascii "PSTOP0 = "
+      0089FB 00                   11009 	.db 0x00
+                                  11010 	.area CSEG    (CODE)
+                                  11011 	.area CONST   (CODE)
+      0089FC                      11012 ___str_18:
+      0089FC 0D                   11013 	.db 0x0d
+      0089FD 0A                   11014 	.db 0x0a
+      0089FE 50 53 54 4F 50 31 20 11015 	.ascii "PSTOP1 = "
              3D 20
-      0089B9 00                   10966 	.db 0x00
-                                  10967 	.area CSEG    (CODE)
-                                  10968 	.area CONST   (CODE)
-      0089BA                      10969 ___str_21:
-      0089BA 53 53 54 4F 50 31 20 10970 	.ascii "SSTOP1 = "
-             3D 20
-      0089C3 00                   10971 	.db 0x00
-                                  10972 	.area CSEG    (CODE)
-                                  10973 	.area CONST   (CODE)
-      0089C4                      10974 ___str_22:
-      0089C4 0D                   10975 	.db 0x0d
-      0089C5 0A                   10976 	.db 0x0a
-      0089C6 53 53 54 4F 50 30 20 10977 	.ascii "SSTOP0 = "
-             3D 20
-      0089CF 00                   10978 	.db 0x00
-                                  10979 	.area CSEG    (CODE)
-                                  10980 	.area CONST   (CODE)
-      0089D0                      10981 ___str_23:
-      0089D0 0D                   10982 	.db 0x0d
-      0089D1 0A                   10983 	.db 0x0a
-      0089D2 48 68 4F 6F          10984 	.ascii "HhOo"
-      0089D6 09                   10985 	.db 0x09
-      0089D7 62 61 73 65 20 31 36 10986 	.ascii "base 16 10 8 2"
-             20 31 30 20 38 20 32
-      0089E5 0D                   10987 	.db 0x0d
-      0089E6 0A                   10988 	.db 0x0a
-      0089E7 00                   10989 	.db 0x00
-                                  10990 	.area CSEG    (CODE)
-                                  10991 	.area CONST   (CODE)
-      0089E8                      10992 ___str_24:
-      0089E8 70                   10993 	.ascii "p"
-      0089E9 09                   10994 	.db 0x09
-      0089EA 70 65 65 6B 20 74 6F 10995 	.ascii "peek top"
-             70
-      0089F2 0D                   10996 	.db 0x0d
-      0089F3 0A                   10997 	.db 0x0a
-      0089F4 00                   10998 	.db 0x00
-                                  10999 	.area CSEG    (CODE)
-                                  11000 	.area CONST   (CODE)
-      0089F5                      11001 ___str_25:
-      0089F5 50                   11002 	.ascii "P"
-      0089F6 09                   11003 	.db 0x09
-      0089F7 70 72 69 6E 74 20 73 11004 	.ascii "print stack"
-             74 61 63 6B
-      008A02 0D                   11005 	.db 0x0d
-      008A03 0A                   11006 	.db 0x0a
-      008A04 00                   11007 	.db 0x00
-                                  11008 	.area CSEG    (CODE)
-                                  11009 	.area CONST   (CODE)
-      008A05                      11010 ___str_26:
-      008A05 76 2E                11011 	.ascii "v."
-      008A07 09                   11012 	.db 0x09
-      008A08 70 6F 70 20 74 6F 70 11013 	.ascii "pop top"
-      008A0F 0D                   11014 	.db 0x0d
-      008A10 0A                   11015 	.db 0x0a
-      008A11 00                   11016 	.db 0x00
+      008A07 00                   11016 	.db 0x00
                                   11017 	.area CSEG    (CODE)
                                   11018 	.area CONST   (CODE)
-      008A12                      11019 ___str_27:
-      008A12 56                   11020 	.ascii "V"
-      008A13 09                   11021 	.db 0x09
-      008A14 70 6F 70 20 61 6C 6C 11022 	.ascii "pop all"
-      008A1B 0D                   11023 	.db 0x0d
-      008A1C 0A                   11024 	.db 0x0a
-      008A1D 00                   11025 	.db 0x00
-                                  11026 	.area CSEG    (CODE)
-                                  11027 	.area CONST   (CODE)
-      008A1E                      11028 ___str_28:
-      008A1E 69                   11029 	.ascii "i"
-      008A1F 09                   11030 	.db 0x09
-      008A20 72 65 73 65 74 20 61 11031 	.ascii "reset acc"
+      008A08                      11019 ___str_19:
+      008A08 0D                   11020 	.db 0x0d
+      008A09 0A                   11021 	.db 0x0a
+      008A0A 50 53 54 4F 50 30 20 11022 	.ascii "PSTOP0 = "
+             3D 20
+      008A13 00                   11023 	.db 0x00
+                                  11024 	.area CSEG    (CODE)
+                                  11025 	.area CONST   (CODE)
+      008A14                      11026 ___str_20:
+      008A14 0D                   11027 	.db 0x0d
+      008A15 0A                   11028 	.db 0x0a
+      008A16 53 53 54 4F 50 31 20 11029 	.ascii "SSTOP1 = "
+             3D 20
+      008A1F 00                   11030 	.db 0x00
+                                  11031 	.area CSEG    (CODE)
+                                  11032 	.area CONST   (CODE)
+      008A20                      11033 ___str_21:
+      008A20 0D                   11034 	.db 0x0d
+      008A21 0A                   11035 	.db 0x0a
+      008A22 53 53 54 4F 50 30 20 11036 	.ascii "SSTOP0 = "
+             3D 20
+      008A2B 00                   11037 	.db 0x00
+                                  11038 	.area CSEG    (CODE)
+                                  11039 	.area CONST   (CODE)
+      008A2C                      11040 ___str_22:
+      008A2C 0D                   11041 	.db 0x0d
+      008A2D 0A                   11042 	.db 0x0a
+      008A2E 48 68 4F 6F          11043 	.ascii "HhOo"
+      008A32 09                   11044 	.db 0x09
+      008A33 62 61 73 65 20 31 36 11045 	.ascii "base 16 10 8 2"
+             20 31 30 20 38 20 32
+      008A41 0D                   11046 	.db 0x0d
+      008A42 0A                   11047 	.db 0x0a
+      008A43 00                   11048 	.db 0x00
+                                  11049 	.area CSEG    (CODE)
+                                  11050 	.area CONST   (CODE)
+      008A44                      11051 ___str_23:
+      008A44 70                   11052 	.ascii "p"
+      008A45 09                   11053 	.db 0x09
+      008A46 70 65 65 6B 20 74 6F 11054 	.ascii "peek top"
+             70
+      008A4E 0D                   11055 	.db 0x0d
+      008A4F 0A                   11056 	.db 0x0a
+      008A50 00                   11057 	.db 0x00
+                                  11058 	.area CSEG    (CODE)
+                                  11059 	.area CONST   (CODE)
+      008A51                      11060 ___str_24:
+      008A51 50                   11061 	.ascii "P"
+      008A52 09                   11062 	.db 0x09
+      008A53 70 72 69 6E 74 20 73 11063 	.ascii "print stack"
+             74 61 63 6B
+      008A5E 0D                   11064 	.db 0x0d
+      008A5F 0A                   11065 	.db 0x0a
+      008A60 00                   11066 	.db 0x00
+                                  11067 	.area CSEG    (CODE)
+                                  11068 	.area CONST   (CODE)
+      008A61                      11069 ___str_25:
+      008A61 76 2E                11070 	.ascii "v."
+      008A63 09                   11071 	.db 0x09
+      008A64 70 6F 70 20 74 6F 70 11072 	.ascii "pop top"
+      008A6B 0D                   11073 	.db 0x0d
+      008A6C 0A                   11074 	.db 0x0a
+      008A6D 00                   11075 	.db 0x00
+                                  11076 	.area CSEG    (CODE)
+                                  11077 	.area CONST   (CODE)
+      008A6E                      11078 ___str_26:
+      008A6E 56                   11079 	.ascii "V"
+      008A6F 09                   11080 	.db 0x09
+      008A70 70 6F 70 20 61 6C 6C 11081 	.ascii "pop all"
+      008A77 0D                   11082 	.db 0x0d
+      008A78 0A                   11083 	.db 0x0a
+      008A79 00                   11084 	.db 0x00
+                                  11085 	.area CSEG    (CODE)
+                                  11086 	.area CONST   (CODE)
+      008A7A                      11087 ___str_27:
+      008A7A 69                   11088 	.ascii "i"
+      008A7B 09                   11089 	.db 0x09
+      008A7C 72 65 73 65 74 20 61 11090 	.ascii "reset acc"
              63 63
-      008A29 0D                   11032 	.db 0x0d
-      008A2A 0A                   11033 	.db 0x0a
-      008A2B 00                   11034 	.db 0x00
-                                  11035 	.area CSEG    (CODE)
-                                  11036 	.area CONST   (CODE)
-      008A2C                      11037 ___str_29:
-      008A2C 49                   11038 	.ascii "I"
-      008A2D 09                   11039 	.db 0x09
-      008A2E 72 65 73 65 74 20 61 11040 	.ascii "reset and discard acc"
+      008A85 0D                   11091 	.db 0x0d
+      008A86 0A                   11092 	.db 0x0a
+      008A87 00                   11093 	.db 0x00
+                                  11094 	.area CSEG    (CODE)
+                                  11095 	.area CONST   (CODE)
+      008A88                      11096 ___str_28:
+      008A88 49                   11097 	.ascii "I"
+      008A89 09                   11098 	.db 0x09
+      008A8A 72 65 73 65 74 20 61 11099 	.ascii "reset and discard acc"
              6E 64 20 64 69 73 63
              61 72 64 20 61 63 63
-      008A43 0D                   11041 	.db 0x0d
-      008A44 0A                   11042 	.db 0x0a
-      008A45 00                   11043 	.db 0x00
-                                  11044 	.area CSEG    (CODE)
-                                  11045 	.area CONST   (CODE)
-      008A46                      11046 ___str_30:
-      008A46 78                   11047 	.ascii "x"
-      008A47 09                   11048 	.db 0x09
-      008A48 65 78 63 68 61 6E 67 11049 	.ascii "exchange top 2"
+      008A9F 0D                   11100 	.db 0x0d
+      008AA0 0A                   11101 	.db 0x0a
+      008AA1 00                   11102 	.db 0x00
+                                  11103 	.area CSEG    (CODE)
+                                  11104 	.area CONST   (CODE)
+      008AA2                      11105 ___str_29:
+      008AA2 78                   11106 	.ascii "x"
+      008AA3 09                   11107 	.db 0x09
+      008AA4 65 78 63 68 61 6E 67 11108 	.ascii "exchange top 2"
              65 20 74 6F 70 20 32
-      008A56 0D                   11050 	.db 0x0d
-      008A57 0A                   11051 	.db 0x0a
-      008A58 00                   11052 	.db 0x00
-                                  11053 	.area CSEG    (CODE)
-                                  11054 	.area CONST   (CODE)
-      008A59                      11055 ___str_31:
-      008A59 58                   11056 	.ascii "X"
-      008A5A 09                   11057 	.db 0x09
-      008A5B 65 78 63 68 61 6E 67 11058 	.ascii "exchange stacks primary <-> secondary"
+      008AB2 0D                   11109 	.db 0x0d
+      008AB3 0A                   11110 	.db 0x0a
+      008AB4 00                   11111 	.db 0x00
+                                  11112 	.area CSEG    (CODE)
+                                  11113 	.area CONST   (CODE)
+      008AB5                      11114 ___str_30:
+      008AB5 58                   11115 	.ascii "X"
+      008AB6 09                   11116 	.db 0x09
+      008AB7 65 78 63 68 61 6E 67 11117 	.ascii "exchange stacks primary <-> secondary"
              65 20 73 74 61 63 6B
              73 20 70 72 69 6D 61
              72 79 20 3C 2D 3E 20
              73 65 63 6F 6E 64 61
              72 79
-      008A80 0D                   11059 	.db 0x0d
-      008A81 0A                   11060 	.db 0x0a
-      008A82 00                   11061 	.db 0x00
-                                  11062 	.area CSEG    (CODE)
-                                  11063 	.area CONST   (CODE)
-      008A83                      11064 ___str_32:
-      008A83 54                   11065 	.ascii "T"
-      008A84 09                   11066 	.db 0x09
-      008A85 65 78 63 68 61 6E 67 11067 	.ascii "exchange tops primary <-> secondary"
+      008ADC 0D                   11118 	.db 0x0d
+      008ADD 0A                   11119 	.db 0x0a
+      008ADE 00                   11120 	.db 0x00
+                                  11121 	.area CSEG    (CODE)
+                                  11122 	.area CONST   (CODE)
+      008ADF                      11123 ___str_31:
+      008ADF 54                   11124 	.ascii "T"
+      008AE0 09                   11125 	.db 0x09
+      008AE1 65 78 63 68 61 6E 67 11126 	.ascii "exchange tops primary <-> secondary"
              65 20 74 6F 70 73 20
              70 72 69 6D 61 72 79
              20 3C 2D 3E 20 73 65
              63 6F 6E 64 61 72 79
-      008AA8 0D                   11068 	.db 0x0d
-      008AA9 0A                   11069 	.db 0x0a
-      008AAA 00                   11070 	.db 0x00
-                                  11071 	.area CSEG    (CODE)
-                                  11072 	.area CONST   (CODE)
-      008AAB                      11073 ___str_33:
-      008AAB 55                   11074 	.ascii "U"
-      008AAC 09                   11075 	.db 0x09
-      008AAD 63 6F 70 79 20 74 6F 11076 	.ascii "copy top secondary -> primary"
+      008B04 0D                   11127 	.db 0x0d
+      008B05 0A                   11128 	.db 0x0a
+      008B06 00                   11129 	.db 0x00
+                                  11130 	.area CSEG    (CODE)
+                                  11131 	.area CONST   (CODE)
+      008B07                      11132 ___str_32:
+      008B07 55                   11133 	.ascii "U"
+      008B08 09                   11134 	.db 0x09
+      008B09 63 6F 70 79 20 74 6F 11135 	.ascii "copy top secondary -> primary"
              70 20 73 65 63 6F 6E
              64 61 72 79 20 2D 3E
              20 70 72 69 6D 61 72
              79
-      008ACA 0D                   11077 	.db 0x0d
-      008ACB 0A                   11078 	.db 0x0a
-      008ACC 00                   11079 	.db 0x00
-                                  11080 	.area CSEG    (CODE)
-                                  11081 	.area CONST   (CODE)
-      008ACD                      11082 ___str_34:
-      008ACD 75                   11083 	.ascii "u"
-      008ACE 09                   11084 	.db 0x09
-      008ACF 63 6F 70 79 20 74 6F 11085 	.ascii "copy top primary -> secondary"
+      008B26 0D                   11136 	.db 0x0d
+      008B27 0A                   11137 	.db 0x0a
+      008B28 00                   11138 	.db 0x00
+                                  11139 	.area CSEG    (CODE)
+                                  11140 	.area CONST   (CODE)
+      008B29                      11141 ___str_33:
+      008B29 75                   11142 	.ascii "u"
+      008B2A 09                   11143 	.db 0x09
+      008B2B 63 6F 70 79 20 74 6F 11144 	.ascii "copy top primary -> secondary"
              70 20 70 72 69 6D 61
              72 79 20 2D 3E 20 73
              65 63 6F 6E 64 61 72
              79
-      008AEC 0D                   11086 	.db 0x0d
-      008AED 0A                   11087 	.db 0x0a
-      008AEE 00                   11088 	.db 0x00
-                                  11089 	.area CSEG    (CODE)
-                                  11090 	.area CONST   (CODE)
-      008AEF                      11091 ___str_35:
-      008AEF 4D                   11092 	.ascii "M"
-      008AF0 09                   11093 	.db 0x09
-      008AF1 6D 6F 76 65 20 74 6F 11094 	.ascii "move top secondary -> primary"
+      008B48 0D                   11145 	.db 0x0d
+      008B49 0A                   11146 	.db 0x0a
+      008B4A 00                   11147 	.db 0x00
+                                  11148 	.area CSEG    (CODE)
+                                  11149 	.area CONST   (CODE)
+      008B4B                      11150 ___str_34:
+      008B4B 4D                   11151 	.ascii "M"
+      008B4C 09                   11152 	.db 0x09
+      008B4D 6D 6F 76 65 20 74 6F 11153 	.ascii "move top secondary -> primary"
              70 20 73 65 63 6F 6E
              64 61 72 79 20 2D 3E
              20 70 72 69 6D 61 72
              79
-      008B0E 0D                   11095 	.db 0x0d
-      008B0F 0A                   11096 	.db 0x0a
-      008B10 00                   11097 	.db 0x00
-                                  11098 	.area CSEG    (CODE)
-                                  11099 	.area CONST   (CODE)
-      008B11                      11100 ___str_36:
-      008B11 6D                   11101 	.ascii "m"
-      008B12 09                   11102 	.db 0x09
-      008B13 6D 6F 76 65 20 74 6F 11103 	.ascii "move top primary -> secondary"
+      008B6A 0D                   11154 	.db 0x0d
+      008B6B 0A                   11155 	.db 0x0a
+      008B6C 00                   11156 	.db 0x00
+                                  11157 	.area CSEG    (CODE)
+                                  11158 	.area CONST   (CODE)
+      008B6D                      11159 ___str_35:
+      008B6D 6D                   11160 	.ascii "m"
+      008B6E 09                   11161 	.db 0x09
+      008B6F 6D 6F 76 65 20 74 6F 11162 	.ascii "move top primary -> secondary"
              70 20 70 72 69 6D 61
              72 79 20 2D 3E 20 73
              65 63 6F 6E 64 61 72
              79
-      008B30 0D                   11104 	.db 0x0d
-      008B31 0A                   11105 	.db 0x0a
-      008B32 00                   11106 	.db 0x00
-                                  11107 	.area CSEG    (CODE)
-                                  11108 	.area CONST   (CODE)
-      008B33                      11109 ___str_37:
-      008B33 2B                   11110 	.ascii "+"
-      008B34 09                   11111 	.db 0x09
-      008B35 61 64 64 20 74 6F 70 11112 	.ascii "add top 2"
+      008B8C 0D                   11163 	.db 0x0d
+      008B8D 0A                   11164 	.db 0x0a
+      008B8E 00                   11165 	.db 0x00
+                                  11166 	.area CSEG    (CODE)
+                                  11167 	.area CONST   (CODE)
+      008B8F                      11168 ___str_36:
+      008B8F 2B                   11169 	.ascii "+"
+      008B90 09                   11170 	.db 0x09
+      008B91 61 64 64 20 74 6F 70 11171 	.ascii "add top 2"
              20 32
-      008B3E 0D                   11113 	.db 0x0d
-      008B3F 0A                   11114 	.db 0x0a
-      008B40 00                   11115 	.db 0x00
-                                  11116 	.area CSEG    (CODE)
-                                  11117 	.area CONST   (CODE)
-      008B41                      11118 ___str_38:
-      008B41 2D                   11119 	.ascii "-"
-      008B42 09                   11120 	.db 0x09
-      008B43 73 75 62 74 72 61 63 11121 	.ascii "subtract top 2"
+      008B9A 0D                   11172 	.db 0x0d
+      008B9B 0A                   11173 	.db 0x0a
+      008B9C 00                   11174 	.db 0x00
+                                  11175 	.area CSEG    (CODE)
+                                  11176 	.area CONST   (CODE)
+      008B9D                      11177 ___str_37:
+      008B9D 2D                   11178 	.ascii "-"
+      008B9E 09                   11179 	.db 0x09
+      008B9F 73 75 62 74 72 61 63 11180 	.ascii "subtract top 2"
              74 20 74 6F 70 20 32
-      008B51 0D                   11122 	.db 0x0d
-      008B52 0A                   11123 	.db 0x0a
-      008B53 00                   11124 	.db 0x00
-                                  11125 	.area CSEG    (CODE)
-                                  11126 	.area CONST   (CODE)
-      008B54                      11127 ___str_39:
-      008B54 2A                   11128 	.ascii "*"
-      008B55 09                   11129 	.db 0x09
-      008B56 6D 75 6C 74 69 70 6C 11130 	.ascii "multiply top 2"
+      008BAD 0D                   11181 	.db 0x0d
+      008BAE 0A                   11182 	.db 0x0a
+      008BAF 00                   11183 	.db 0x00
+                                  11184 	.area CSEG    (CODE)
+                                  11185 	.area CONST   (CODE)
+      008BB0                      11186 ___str_38:
+      008BB0 2A                   11187 	.ascii "*"
+      008BB1 09                   11188 	.db 0x09
+      008BB2 6D 75 6C 74 69 70 6C 11189 	.ascii "multiply top 2"
              79 20 74 6F 70 20 32
-      008B64 0D                   11131 	.db 0x0d
-      008B65 0A                   11132 	.db 0x0a
-      008B66 00                   11133 	.db 0x00
-                                  11134 	.area CSEG    (CODE)
-                                  11135 	.area CONST   (CODE)
-      008B67                      11136 ___str_40:
-      008B67 2F                   11137 	.ascii "/"
-      008B68 09                   11138 	.db 0x09
-      008B69 64 69 76 69 64 65 20 11139 	.ascii "divide top 2"
+      008BC0 0D                   11190 	.db 0x0d
+      008BC1 0A                   11191 	.db 0x0a
+      008BC2 00                   11192 	.db 0x00
+                                  11193 	.area CSEG    (CODE)
+                                  11194 	.area CONST   (CODE)
+      008BC3                      11195 ___str_39:
+      008BC3 2F                   11196 	.ascii "/"
+      008BC4 09                   11197 	.db 0x09
+      008BC5 64 69 76 69 64 65 20 11198 	.ascii "divide top 2"
              74 6F 70 20 32
-      008B75 0D                   11140 	.db 0x0d
-      008B76 0A                   11141 	.db 0x0a
-      008B77 00                   11142 	.db 0x00
-                                  11143 	.area CSEG    (CODE)
-                                  11144 	.area CONST   (CODE)
-      008B78                      11145 ___str_41:
-      008B78 5C                   11146 	.db 0x5c
-      008B79 09                   11147 	.db 0x09
-      008B7A 64 69 76 69 64 65 20 11148 	.ascii "divide top 2 unsigned"
+      008BD1 0D                   11199 	.db 0x0d
+      008BD2 0A                   11200 	.db 0x0a
+      008BD3 00                   11201 	.db 0x00
+                                  11202 	.area CSEG    (CODE)
+                                  11203 	.area CONST   (CODE)
+      008BD4                      11204 ___str_40:
+      008BD4 5C                   11205 	.db 0x5c
+      008BD5 09                   11206 	.db 0x09
+      008BD6 64 69 76 69 64 65 20 11207 	.ascii "divide top 2 unsigned"
              74 6F 70 20 32 20 75
              6E 73 69 67 6E 65 64
-      008B8F 0D                   11149 	.db 0x0d
-      008B90 0A                   11150 	.db 0x0a
-      008B91 00                   11151 	.db 0x00
-                                  11152 	.area CSEG    (CODE)
-                                  11153 	.area CONST   (CODE)
-      008B92                      11154 ___str_42:
-      008B92 25                   11155 	.ascii "%"
-      008B93 09                   11156 	.db 0x09
-      008B94 6D 6F 64 75 6C 75 73 11157 	.ascii "modulus top 2"
+      008BEB 0D                   11208 	.db 0x0d
+      008BEC 0A                   11209 	.db 0x0a
+      008BED 00                   11210 	.db 0x00
+                                  11211 	.area CSEG    (CODE)
+                                  11212 	.area CONST   (CODE)
+      008BEE                      11213 ___str_41:
+      008BEE 25                   11214 	.ascii "%"
+      008BEF 09                   11215 	.db 0x09
+      008BF0 6D 6F 64 75 6C 75 73 11216 	.ascii "modulus top 2"
              20 74 6F 70 20 32
-      008BA1 0D                   11158 	.db 0x0d
-      008BA2 0A                   11159 	.db 0x0a
-      008BA3 00                   11160 	.db 0x00
-                                  11161 	.area CSEG    (CODE)
-                                  11162 	.area CONST   (CODE)
-      008BA4                      11163 ___str_43:
-      008BA4 23                   11164 	.ascii "#"
-      008BA5 09                   11165 	.db 0x09
-      008BA6 6D 6F 64 75 6C 75 73 11166 	.ascii "modulus top 2 unsigned"
+      008BFD 0D                   11217 	.db 0x0d
+      008BFE 0A                   11218 	.db 0x0a
+      008BFF 00                   11219 	.db 0x00
+                                  11220 	.area CSEG    (CODE)
+                                  11221 	.area CONST   (CODE)
+      008C00                      11222 ___str_42:
+      008C00 23                   11223 	.ascii "#"
+      008C01 09                   11224 	.db 0x09
+      008C02 6D 6F 64 75 6C 75 73 11225 	.ascii "modulus top 2 unsigned"
              20 74 6F 70 20 32 20
              75 6E 73 69 67 6E 65
              64
-      008BBC 0D                   11167 	.db 0x0d
-      008BBD 0A                   11168 	.db 0x0a
-      008BBE 00                   11169 	.db 0x00
-                                  11170 	.area CSEG    (CODE)
-                                  11171 	.area CONST   (CODE)
-      008BBF                      11172 ___str_44:
-      008BBF 26                   11173 	.ascii "&"
-      008BC0 09                   11174 	.db 0x09
-      008BC1 61 6E 64 20 74 6F 70 11175 	.ascii "and top 2"
+      008C18 0D                   11226 	.db 0x0d
+      008C19 0A                   11227 	.db 0x0a
+      008C1A 00                   11228 	.db 0x00
+                                  11229 	.area CSEG    (CODE)
+                                  11230 	.area CONST   (CODE)
+      008C1B                      11231 ___str_43:
+      008C1B 26                   11232 	.ascii "&"
+      008C1C 09                   11233 	.db 0x09
+      008C1D 61 6E 64 20 74 6F 70 11234 	.ascii "and top 2"
              20 32
-      008BCA 0D                   11176 	.db 0x0d
-      008BCB 0A                   11177 	.db 0x0a
-      008BCC 00                   11178 	.db 0x00
-                                  11179 	.area CSEG    (CODE)
-                                  11180 	.area CONST   (CODE)
-      008BCD                      11181 ___str_45:
-      008BCD 7C                   11182 	.ascii "|"
-      008BCE 09                   11183 	.db 0x09
-      008BCF 6F 72 20 74 6F 70 20 11184 	.ascii "or top 2"
+      008C26 0D                   11235 	.db 0x0d
+      008C27 0A                   11236 	.db 0x0a
+      008C28 00                   11237 	.db 0x00
+                                  11238 	.area CSEG    (CODE)
+                                  11239 	.area CONST   (CODE)
+      008C29                      11240 ___str_44:
+      008C29 7C                   11241 	.ascii "|"
+      008C2A 09                   11242 	.db 0x09
+      008C2B 6F 72 20 74 6F 70 20 11243 	.ascii "or top 2"
              32
-      008BD7 0D                   11185 	.db 0x0d
-      008BD8 0A                   11186 	.db 0x0a
-      008BD9 00                   11187 	.db 0x00
-                                  11188 	.area CSEG    (CODE)
-                                  11189 	.area CONST   (CODE)
-      008BDA                      11190 ___str_46:
-      008BDA 5E                   11191 	.ascii "^"
-      008BDB 09                   11192 	.db 0x09
-      008BDC 78 6F 72 20 74 6F 70 11193 	.ascii "xor top 2"
+      008C33 0D                   11244 	.db 0x0d
+      008C34 0A                   11245 	.db 0x0a
+      008C35 00                   11246 	.db 0x00
+                                  11247 	.area CSEG    (CODE)
+                                  11248 	.area CONST   (CODE)
+      008C36                      11249 ___str_45:
+      008C36 5E                   11250 	.ascii "^"
+      008C37 09                   11251 	.db 0x09
+      008C38 78 6F 72 20 74 6F 70 11252 	.ascii "xor top 2"
              20 32
-      008BE5 0D                   11194 	.db 0x0d
-      008BE6 0A                   11195 	.db 0x0a
-      008BE7 00                   11196 	.db 0x00
-                                  11197 	.area CSEG    (CODE)
-                                  11198 	.area CONST   (CODE)
-      008BE8                      11199 ___str_47:
-      008BE8 3E                   11200 	.ascii ">"
-      008BE9 09                   11201 	.db 0x09
-      008BEA 73 68 69 66 74 20 72 11202 	.ascii "shift right top 2"
+      008C41 0D                   11253 	.db 0x0d
+      008C42 0A                   11254 	.db 0x0a
+      008C43 00                   11255 	.db 0x00
+                                  11256 	.area CSEG    (CODE)
+                                  11257 	.area CONST   (CODE)
+      008C44                      11258 ___str_46:
+      008C44 3E                   11259 	.ascii ">"
+      008C45 09                   11260 	.db 0x09
+      008C46 73 68 69 66 74 20 72 11261 	.ascii "shift right top 2"
              69 67 68 74 20 74 6F
              70 20 32
-      008BFB 0D                   11203 	.db 0x0d
-      008BFC 0A                   11204 	.db 0x0a
-      008BFD 00                   11205 	.db 0x00
-                                  11206 	.area CSEG    (CODE)
-                                  11207 	.area CONST   (CODE)
-      008BFE                      11208 ___str_48:
-      008BFE 5D                   11209 	.ascii "]"
-      008BFF 09                   11210 	.db 0x09
-      008C00 61 72 69 74 68 6D 65 11211 	.ascii "arithmetic shift right top 2"
+      008C57 0D                   11262 	.db 0x0d
+      008C58 0A                   11263 	.db 0x0a
+      008C59 00                   11264 	.db 0x00
+                                  11265 	.area CSEG    (CODE)
+                                  11266 	.area CONST   (CODE)
+      008C5A                      11267 ___str_47:
+      008C5A 5D                   11268 	.ascii "]"
+      008C5B 09                   11269 	.db 0x09
+      008C5C 61 72 69 74 68 6D 65 11270 	.ascii "arithmetic shift right top 2"
              74 69 63 20 73 68 69
              66 74 20 72 69 67 68
              74 20 74 6F 70 20 32
-      008C1C 0D                   11212 	.db 0x0d
-      008C1D 0A                   11213 	.db 0x0a
-      008C1E 00                   11214 	.db 0x00
-                                  11215 	.area CSEG    (CODE)
-                                  11216 	.area CONST   (CODE)
-      008C1F                      11217 ___str_49:
-      008C1F 3C                   11218 	.ascii "<"
-      008C20 09                   11219 	.db 0x09
-      008C21 73 68 69 66 74 20 6C 11220 	.ascii "shift left top 2"
+      008C78 0D                   11271 	.db 0x0d
+      008C79 0A                   11272 	.db 0x0a
+      008C7A 00                   11273 	.db 0x00
+                                  11274 	.area CSEG    (CODE)
+                                  11275 	.area CONST   (CODE)
+      008C7B                      11276 ___str_48:
+      008C7B 3C                   11277 	.ascii "<"
+      008C7C 09                   11278 	.db 0x09
+      008C7D 73 68 69 66 74 20 6C 11279 	.ascii "shift left top 2"
              65 66 74 20 74 6F 70
              20 32
-      008C31 0D                   11221 	.db 0x0d
-      008C32 0A                   11222 	.db 0x0a
-      008C33 00                   11223 	.db 0x00
-                                  11224 	.area CSEG    (CODE)
-                                  11225 	.area CONST   (CODE)
-      008C34                      11226 ___str_50:
-      008C34 7E                   11227 	.ascii "~"
-      008C35 09                   11228 	.db 0x09
-      008C36 62 69 74 77 69 73 65 11229 	.ascii "bitwise not top"
+      008C8D 0D                   11280 	.db 0x0d
+      008C8E 0A                   11281 	.db 0x0a
+      008C8F 00                   11282 	.db 0x00
+                                  11283 	.area CSEG    (CODE)
+                                  11284 	.area CONST   (CODE)
+      008C90                      11285 ___str_49:
+      008C90 7E                   11286 	.ascii "~"
+      008C91 09                   11287 	.db 0x09
+      008C92 62 69 74 77 69 73 65 11288 	.ascii "bitwise not top"
              20 6E 6F 74 20 74 6F
              70
-      008C45 0D                   11230 	.db 0x0d
-      008C46 0A                   11231 	.db 0x0a
-      008C47 00                   11232 	.db 0x00
-                                  11233 	.area CSEG    (CODE)
-                                  11234 	.area CONST   (CODE)
-      008C48                      11235 ___str_51:
-      008C48 73                   11236 	.ascii "s"
-      008C49 09                   11237 	.db 0x09
-      008C4A 73 74 61 74 75 73    11238 	.ascii "status"
-      008C50 0D                   11239 	.db 0x0d
-      008C51 0A                   11240 	.db 0x0a
-      008C52 00                   11241 	.db 0x00
-                                  11242 	.area CSEG    (CODE)
-                                  11243 	.area CONST   (CODE)
-      008C53                      11244 ___str_52:
-      008C53 3F                   11245 	.ascii "?"
-      008C54 09                   11246 	.db 0x09
-      008C55 68 65 6C 70          11247 	.ascii "help"
-      008C59 0D                   11248 	.db 0x0d
-      008C5A 0A                   11249 	.db 0x0a
-      008C5B 00                   11250 	.db 0x00
-                                  11251 	.area CSEG    (CODE)
-                                  11252 	.area CONST   (CODE)
-      008C5C                      11253 ___str_53:
-      008C5C 71                   11254 	.ascii "q"
-      008C5D 09                   11255 	.db 0x09
-      008C5E 71 75 69 74          11256 	.ascii "quit"
-      008C62 0D                   11257 	.db 0x0d
-      008C63 0A                   11258 	.db 0x0a
-      008C64 00                   11259 	.db 0x00
-                                  11260 	.area CSEG    (CODE)
-                                  11261 	.area CONST   (CODE)
-      008C65                      11262 ___str_54:
-      008C65 54 45 52 4D          11263 	.ascii "TERM"
-      008C69 0D                   11264 	.db 0x0d
-      008C6A 0A                   11265 	.db 0x0a
-      008C6B 00                   11266 	.db 0x00
-                                  11267 	.area CSEG    (CODE)
-                                  11268 	.area XINIT   (CODE)
-      008C7D                      11269 __xinit__deltas:
-      008C7D 00 00                11270 	.byte #0x00, #0x00	;  0
-      008C7F 00 00                11271 	.byte #0x00, #0x00	;  0
-      008C81 00 00                11272 	.byte #0x00, #0x00	;  0
-      008C83 00 00                11273 	.byte #0x00,#0x00
-      008C85 00 00                11274 	.byte #0x00,#0x00
-      008C87 00 00                11275 	.byte #0x00, #0x00	;  0
-      008C89 01 00                11276 	.byte #0x01, #0x00	;  1
-      008C8B 02 00                11277 	.byte #0x02, #0x00	;  2
-      008C8D 00 00                11278 	.byte #0x00,#0x00
-      008C8F 41 2C                11279 	.byte _accumulate, (_accumulate >> 8)
-      008C91 00 00                11280 	.byte #0x00, #0x00	;  0
-      008C93 02 00                11281 	.byte #0x02, #0x00	;  2
-      008C95 01 00                11282 	.byte #0x01, #0x00	;  1
-      008C97 00 00                11283 	.byte #0x00,#0x00
-      008C99 E0 33                11284 	.byte _operator, (_operator >> 8)
-      008C9B 01 00                11285 	.byte #0x01, #0x00	;  1
-      008C9D 00 00                11286 	.byte #0x00, #0x00	;  0
-      008C9F 00 00                11287 	.byte #0x00, #0x00	;  0
-      008CA1 00 00                11288 	.byte #0x00,#0x00
-      008CA3 00 00                11289 	.byte #0x00,#0x00
-      008CA5 01 00                11290 	.byte #0x01, #0x00	;  1
-      008CA7 02 00                11291 	.byte #0x02, #0x00	;  2
-      008CA9 01 00                11292 	.byte #0x01, #0x00	;  1
-      008CAB 00 00                11293 	.byte #0x00,#0x00
-      008CAD E0 33                11294 	.byte _operator, (_operator >> 8)
-      008CAF 01 00                11295 	.byte #0x01, #0x00	;  1
-      008CB1 01 00                11296 	.byte #0x01, #0x00	;  1
-      008CB3 02 00                11297 	.byte #0x02, #0x00	;  2
-      008CB5 00 00                11298 	.byte #0x00,#0x00
-      008CB7 41 2C                11299 	.byte _accumulate, (_accumulate >> 8)
-      008CB9 02 00                11300 	.byte #0x02, #0x00	;  2
-      008CBB 00 00                11301 	.byte #0x00, #0x00	;  0
-      008CBD 00 00                11302 	.byte #0x00, #0x00	;  0
-      008CBF 00 00                11303 	.byte #0x00,#0x00
-      008CC1 6E 56                11304 	.byte _push_acc, (_push_acc >> 8)
-      008CC3 02 00                11305 	.byte #0x02, #0x00	;  2
-      008CC5 07 00                11306 	.byte #0x07, #0x00	;  7
-      008CC7 00 00                11307 	.byte #0x00, #0x00	;  0
-      008CC9 00 00                11308 	.byte #0x00,#0x00
-      008CCB 91 57                11309 	.byte _reset_acc, (_reset_acc >> 8)
-      008CCD 02 00                11310 	.byte #0x02, #0x00	;  2
-      008CCF 01 00                11311 	.byte #0x01, #0x00	;  1
-      008CD1 02 00                11312 	.byte #0x02, #0x00	;  2
-      008CD3 00 00                11313 	.byte #0x00,#0x00
-      008CD5 41 2C                11314 	.byte _accumulate, (_accumulate >> 8)
-      008CD7 02 00                11315 	.byte #0x02, #0x00	;  2
-      008CD9 02 00                11316 	.byte #0x02, #0x00	;  2
-      008CDB 01 00                11317 	.byte #0x01, #0x00	;  1
-      008CDD 00 00                11318 	.byte #0x00,#0x00
-      008CDF 6E 56                11319 	.byte _push_acc, (_push_acc >> 8)
-      008CE1 FF 7F                11320 	.byte #0xff, #0x7f	;  32767
-      008CE3 06 00                11321 	.byte #0x06, #0x00	;  6
-      008CE5 FF 7F                11322 	.byte #0xff, #0x7f	;  32767
-      008CE7 00 00                11323 	.byte #0x00,#0x00
-      008CE9 91 57                11324 	.byte _reset_acc, (_reset_acc >> 8)
-      008CEB FF 7F                11325 	.byte #0xff, #0x7f	;  32767
-      008CED 07 00                11326 	.byte #0x07, #0x00	;  7
-      008CEF FF 7F                11327 	.byte #0xff, #0x7f	;  32767
-      008CF1 00 00                11328 	.byte #0x00,#0x00
-      008CF3 00 00                11329 	.byte #0x00,#0x00
-      008CF5 FF 7F                11330 	.byte #0xff, #0x7f	;  32767
-      008CF7 05 00                11331 	.byte #0x05, #0x00	;  5
-      008CF9 FF 7F                11332 	.byte #0xff, #0x7f	;  32767
-      008CFB 00 00                11333 	.byte #0x00,#0x00
-      008CFD FB 57                11334 	.byte _reset_base, (_reset_base >> 8)
-      008CFF FF 7F                11335 	.byte #0xff, #0x7f	;  32767
-      008D01 03 00                11336 	.byte #0x03, #0x00	;  3
-      008D03 FF 7F                11337 	.byte #0xff, #0x7f	;  32767
-      008D05 00 00                11338 	.byte #0x00,#0x00
-      008D07 79 58                11339 	.byte _status, (_status >> 8)
-      008D09 FF 7F                11340 	.byte #0xff, #0x7f	;  32767
-      008D0B 04 00                11341 	.byte #0x04, #0x00	;  4
-      008D0D FF 7F                11342 	.byte #0xff, #0x7f	;  32767
-      008D0F 00 00                11343 	.byte #0x00,#0x00
-      008D11 C4 60                11344 	.byte _help, (_help >> 8)
-      008D13 FF 7F                11345 	.byte #0xff, #0x7f	;  32767
-      008D15 08 00                11346 	.byte #0x08, #0x00	;  8
-      008D17 03 00                11347 	.byte #0x03, #0x00	;  3
-      008D19 00 00                11348 	.byte #0x00,#0x00
-      008D1B B2 2D                11349 	.byte _dump_pop, (_dump_pop >> 8)
-      008D1D 00 80                11350 	.byte #0x00, #0x80	; -32768
-      008D1F 00 80                11351 	.byte #0x00, #0x80	; -32768
-      008D21 00 80                11352 	.byte #0x00, #0x80	; -32768
-      008D23 00 00                11353 	.byte #0x00,#0x00
-      008D25 00 00                11354 	.byte #0x00,#0x00
-                                  11355 	.area CABS    (ABS,CODE)
+      008CA1 0D                   11289 	.db 0x0d
+      008CA2 0A                   11290 	.db 0x0a
+      008CA3 00                   11291 	.db 0x00
+                                  11292 	.area CSEG    (CODE)
+                                  11293 	.area CONST   (CODE)
+      008CA4                      11294 ___str_50:
+      008CA4 73                   11295 	.ascii "s"
+      008CA5 09                   11296 	.db 0x09
+      008CA6 73 74 61 74 75 73    11297 	.ascii "status"
+      008CAC 0D                   11298 	.db 0x0d
+      008CAD 0A                   11299 	.db 0x0a
+      008CAE 00                   11300 	.db 0x00
+                                  11301 	.area CSEG    (CODE)
+                                  11302 	.area CONST   (CODE)
+      008CAF                      11303 ___str_51:
+      008CAF 3F                   11304 	.ascii "?"
+      008CB0 09                   11305 	.db 0x09
+      008CB1 68 65 6C 70          11306 	.ascii "help"
+      008CB5 0D                   11307 	.db 0x0d
+      008CB6 0A                   11308 	.db 0x0a
+      008CB7 00                   11309 	.db 0x00
+                                  11310 	.area CSEG    (CODE)
+                                  11311 	.area CONST   (CODE)
+      008CB8                      11312 ___str_52:
+      008CB8 71                   11313 	.ascii "q"
+      008CB9 09                   11314 	.db 0x09
+      008CBA 71 75 69 74          11315 	.ascii "quit"
+      008CBE 0D                   11316 	.db 0x0d
+      008CBF 0A                   11317 	.db 0x0a
+      008CC0 00                   11318 	.db 0x00
+                                  11319 	.area CSEG    (CODE)
+                                  11320 	.area CONST   (CODE)
+      008CC1                      11321 ___str_53:
+      008CC1 54 45 52 4D          11322 	.ascii "TERM"
+      008CC5 0D                   11323 	.db 0x0d
+      008CC6 0A                   11324 	.db 0x0a
+      008CC7 00                   11325 	.db 0x00
+                                  11326 	.area CSEG    (CODE)
+                                  11327 	.area XINIT   (CODE)
+      008CD9                      11328 __xinit__deltas:
+      008CD9 00 00                11329 	.byte #0x00, #0x00	;  0
+      008CDB 00 00                11330 	.byte #0x00, #0x00	;  0
+      008CDD 00 00                11331 	.byte #0x00, #0x00	;  0
+      008CDF 00 00                11332 	.byte #0x00,#0x00
+      008CE1 00 00                11333 	.byte #0x00,#0x00
+      008CE3 00 00                11334 	.byte #0x00, #0x00	;  0
+      008CE5 01 00                11335 	.byte #0x01, #0x00	;  1
+      008CE7 02 00                11336 	.byte #0x02, #0x00	;  2
+      008CE9 00 00                11337 	.byte #0x00,#0x00
+      008CEB 41 2C                11338 	.byte _accumulate, (_accumulate >> 8)
+      008CED 00 00                11339 	.byte #0x00, #0x00	;  0
+      008CEF 02 00                11340 	.byte #0x02, #0x00	;  2
+      008CF1 01 00                11341 	.byte #0x01, #0x00	;  1
+      008CF3 00 00                11342 	.byte #0x00,#0x00
+      008CF5 E0 33                11343 	.byte _operator, (_operator >> 8)
+      008CF7 01 00                11344 	.byte #0x01, #0x00	;  1
+      008CF9 00 00                11345 	.byte #0x00, #0x00	;  0
+      008CFB 00 00                11346 	.byte #0x00, #0x00	;  0
+      008CFD 00 00                11347 	.byte #0x00,#0x00
+      008CFF 00 00                11348 	.byte #0x00,#0x00
+      008D01 01 00                11349 	.byte #0x01, #0x00	;  1
+      008D03 02 00                11350 	.byte #0x02, #0x00	;  2
+      008D05 01 00                11351 	.byte #0x01, #0x00	;  1
+      008D07 00 00                11352 	.byte #0x00,#0x00
+      008D09 E0 33                11353 	.byte _operator, (_operator >> 8)
+      008D0B 01 00                11354 	.byte #0x01, #0x00	;  1
+      008D0D 01 00                11355 	.byte #0x01, #0x00	;  1
+      008D0F 02 00                11356 	.byte #0x02, #0x00	;  2
+      008D11 00 00                11357 	.byte #0x00,#0x00
+      008D13 41 2C                11358 	.byte _accumulate, (_accumulate >> 8)
+      008D15 02 00                11359 	.byte #0x02, #0x00	;  2
+      008D17 00 00                11360 	.byte #0x00, #0x00	;  0
+      008D19 00 00                11361 	.byte #0x00, #0x00	;  0
+      008D1B 00 00                11362 	.byte #0x00,#0x00
+      008D1D 6E 56                11363 	.byte _push_acc, (_push_acc >> 8)
+      008D1F 02 00                11364 	.byte #0x02, #0x00	;  2
+      008D21 07 00                11365 	.byte #0x07, #0x00	;  7
+      008D23 00 00                11366 	.byte #0x00, #0x00	;  0
+      008D25 00 00                11367 	.byte #0x00,#0x00
+      008D27 91 57                11368 	.byte _reset_acc, (_reset_acc >> 8)
+      008D29 02 00                11369 	.byte #0x02, #0x00	;  2
+      008D2B 01 00                11370 	.byte #0x01, #0x00	;  1
+      008D2D 02 00                11371 	.byte #0x02, #0x00	;  2
+      008D2F 00 00                11372 	.byte #0x00,#0x00
+      008D31 41 2C                11373 	.byte _accumulate, (_accumulate >> 8)
+      008D33 02 00                11374 	.byte #0x02, #0x00	;  2
+      008D35 02 00                11375 	.byte #0x02, #0x00	;  2
+      008D37 01 00                11376 	.byte #0x01, #0x00	;  1
+      008D39 00 00                11377 	.byte #0x00,#0x00
+      008D3B 6E 56                11378 	.byte _push_acc, (_push_acc >> 8)
+      008D3D FF 7F                11379 	.byte #0xff, #0x7f	;  32767
+      008D3F 06 00                11380 	.byte #0x06, #0x00	;  6
+      008D41 FF 7F                11381 	.byte #0xff, #0x7f	;  32767
+      008D43 00 00                11382 	.byte #0x00,#0x00
+      008D45 91 57                11383 	.byte _reset_acc, (_reset_acc >> 8)
+      008D47 FF 7F                11384 	.byte #0xff, #0x7f	;  32767
+      008D49 07 00                11385 	.byte #0x07, #0x00	;  7
+      008D4B FF 7F                11386 	.byte #0xff, #0x7f	;  32767
+      008D4D 00 00                11387 	.byte #0x00,#0x00
+      008D4F 00 00                11388 	.byte #0x00,#0x00
+      008D51 FF 7F                11389 	.byte #0xff, #0x7f	;  32767
+      008D53 05 00                11390 	.byte #0x05, #0x00	;  5
+      008D55 FF 7F                11391 	.byte #0xff, #0x7f	;  32767
+      008D57 00 00                11392 	.byte #0x00,#0x00
+      008D59 FB 57                11393 	.byte _reset_base, (_reset_base >> 8)
+      008D5B FF 7F                11394 	.byte #0xff, #0x7f	;  32767
+      008D5D 03 00                11395 	.byte #0x03, #0x00	;  3
+      008D5F FF 7F                11396 	.byte #0xff, #0x7f	;  32767
+      008D61 00 00                11397 	.byte #0x00,#0x00
+      008D63 79 58                11398 	.byte _status, (_status >> 8)
+      008D65 FF 7F                11399 	.byte #0xff, #0x7f	;  32767
+      008D67 04 00                11400 	.byte #0x04, #0x00	;  4
+      008D69 FF 7F                11401 	.byte #0xff, #0x7f	;  32767
+      008D6B 00 00                11402 	.byte #0x00,#0x00
+      008D6D 22 61                11403 	.byte _help, (_help >> 8)
+      008D6F FF 7F                11404 	.byte #0xff, #0x7f	;  32767
+      008D71 08 00                11405 	.byte #0x08, #0x00	;  8
+      008D73 03 00                11406 	.byte #0x03, #0x00	;  3
+      008D75 00 00                11407 	.byte #0x00,#0x00
+      008D77 B2 2D                11408 	.byte _dump_pop, (_dump_pop >> 8)
+      008D79 00 80                11409 	.byte #0x00, #0x80	; -32768
+      008D7B 00 80                11410 	.byte #0x00, #0x80	; -32768
+      008D7D 00 80                11411 	.byte #0x00, #0x80	; -32768
+      008D7F 00 00                11412 	.byte #0x00,#0x00
+      008D81 00 00                11413 	.byte #0x00,#0x00
+                                  11414 	.area CABS    (ABS,CODE)
