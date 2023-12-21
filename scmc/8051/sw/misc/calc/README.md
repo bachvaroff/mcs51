@@ -1,9 +1,16 @@
+primary = X:0x9015, secondary = X:0xb01a
+acc_valid = 0, base = 10
+acc    = 
+PSTOP1 = 
+PSTOP0 = 
+SSTOP1 = 
+SSTOP0 = 
 10 8<2|8<254|8<220|uMuM32 21-m1M<1-uM~mmM|xM&xP
 PA   167968767 / 0a02ffff / 00001010000000101111111111111111
 PA   167966720 / 0a02f800 / 00001010000000101111100000000000
 PA   167968476 / 0a02fedc / 00001010000000101111111011011100
 s
-primary = X:0xb01a, secondary = X:0x9015
+primary = X:0x9015, secondary = X:0xb01a
 acc_valid = 0, base = 10
 acc    = 
 PSTOP1 =   167968767 / 0a02ffff / 00001010000000101111111111111111
