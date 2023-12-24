@@ -396,8 +396,7 @@ static int status(void *_ctx, delta_t *delta) __reentrant {
 	
 	(void)delta;
 	
-	printf("\r\nPS = %p, SS = %p, ", ctx->ps, ctx->ss);
-	printf("acc_valid = %d, base = %d\r\n", (int)ctx->acc_valid, ctx->base);
+	printf("\r\nPS = %p, SS = %p, base = %d\r\n", ctx->ps, ctx->ss, ctx->base);
 	
 	printstr("ACC\t");
 	if (ctx->acc_valid) printall(ctx->acc);
