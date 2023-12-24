@@ -61,8 +61,9 @@ inline void printbin(long d) {
 }
 
 inline void printall(long d) {
-	printf("% 11ld\t", d);
 	printf("%08lx\t", d);
+	printf("% 11ld\t", d);
+	printf("%011lo\t", d);
 	printbin(d);
 	
 	return;

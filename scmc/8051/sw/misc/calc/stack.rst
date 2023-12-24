@@ -114,7 +114,7 @@
       002682 AE 83            [24]  114 	mov	r6,dph
       002684 AF F0            [24]  115 	mov	r7,b
       002686 E4               [12]  116 	clr	a
-      002687 12 6B 3D         [24]  117 	lcall	__gptrput
+      002687 12 6D 03         [24]  117 	lcall	__gptrput
                                     118 ;	stack.c:6: s->N = SIZE;
       00268A 04               [12]  119 	inc	a
       00268B 2D               [12]  120 	add	a,r5
@@ -127,10 +127,10 @@
       002695 8B 83            [24]  127 	mov	dph,r3
       002697 8C F0            [24]  128 	mov	b,r4
       002699 E4               [12]  129 	clr	a
-      00269A 12 6B 3D         [24]  130 	lcall	__gptrput
+      00269A 12 6D 03         [24]  130 	lcall	__gptrput
       00269D A3               [24]  131 	inc	dptr
       00269E 74 08            [12]  132 	mov	a,#0x08
-      0026A0 12 6B 3D         [24]  133 	lcall	__gptrput
+      0026A0 12 6D 03         [24]  133 	lcall	__gptrput
                                     134 ;	stack.c:7: s->p = -1;
       0026A3 74 03            [12]  135 	mov	a,#0x03
       0026A5 2D               [12]  136 	add	a,r5
@@ -142,11 +142,11 @@
       0026AD 8E 83            [24]  142 	mov	dph,r6
       0026AF 8F F0            [24]  143 	mov	b,r7
       0026B1 74 FF            [12]  144 	mov	a,#0xff
-      0026B3 12 6B 3D         [24]  145 	lcall	__gptrput
+      0026B3 12 6D 03         [24]  145 	lcall	__gptrput
       0026B6 A3               [24]  146 	inc	dptr
                                     147 ;	stack.c:9: return;
                                     148 ;	stack.c:10: }
-      0026B7 02 6B 3D         [24]  149 	ljmp	__gptrput
+      0026B7 02 6D 03         [24]  149 	ljmp	__gptrput
                                     150 ;------------------------------------------------------------
                                     151 ;Allocation info for local variables in function 'stack_push'
                                     152 ;------------------------------------------------------------
@@ -184,10 +184,10 @@
       0026DE E5 08            [12]  184 	mov	a,_bp
       0026E0 24 04            [12]  185 	add	a,#0x04
       0026E2 F8               [12]  186 	mov	r0,a
-      0026E3 12 6F B8         [24]  187 	lcall	__gptrget
+      0026E3 12 71 7E         [24]  187 	lcall	__gptrget
       0026E6 F6               [12]  188 	mov	@r0,a
       0026E7 A3               [24]  189 	inc	dptr
-      0026E8 12 6F B8         [24]  190 	lcall	__gptrget
+      0026E8 12 71 7E         [24]  190 	lcall	__gptrget
       0026EB 08               [12]  191 	inc	r0
       0026EC F6               [12]  192 	mov	@r0,a
       0026ED A8 08            [24]  193 	mov	r0,_bp
@@ -204,10 +204,10 @@
       0026FC 8D 82            [24]  204 	mov	dpl,r5
       0026FE 8E 83            [24]  205 	mov	dph,r6
       002700 8F F0            [24]  206 	mov	b,r7
-      002702 12 6F B8         [24]  207 	lcall	__gptrget
+      002702 12 71 7E         [24]  207 	lcall	__gptrget
       002705 FD               [12]  208 	mov	r5,a
       002706 A3               [24]  209 	inc	dptr
-      002707 12 6F B8         [24]  210 	lcall	__gptrget
+      002707 12 71 7E         [24]  210 	lcall	__gptrget
       00270A FE               [12]  211 	mov	r6,a
       00270B 1D               [12]  212 	dec	r5
       00270C BD FF 01         [24]  213 	cjne	r5,#0xff,00109$
@@ -237,15 +237,15 @@
       002730 08               [12]  237 	inc	r0
       002731 86 F0            [24]  238 	mov	b,@r0
       002733 74 01            [12]  239 	mov	a,#0x01
-      002735 12 6B 3D         [24]  240 	lcall	__gptrput
+      002735 12 6D 03         [24]  240 	lcall	__gptrput
                                     241 ;	stack.c:15: s->p++;
       002738 8A 82            [24]  242 	mov	dpl,r2
       00273A 8B 83            [24]  243 	mov	dph,r3
       00273C 8C F0            [24]  244 	mov	b,r4
-      00273E 12 6F B8         [24]  245 	lcall	__gptrget
+      00273E 12 71 7E         [24]  245 	lcall	__gptrget
       002741 FE               [12]  246 	mov	r6,a
       002742 A3               [24]  247 	inc	dptr
-      002743 12 6F B8         [24]  248 	lcall	__gptrget
+      002743 12 71 7E         [24]  248 	lcall	__gptrget
       002746 FF               [12]  249 	mov	r7,a
       002747 0E               [12]  250 	inc	r6
       002748 BE 00 01         [24]  251 	cjne	r6,#0x00,00112$
@@ -255,10 +255,10 @@
       00274E 8B 83            [24]  255 	mov	dph,r3
       002750 8C F0            [24]  256 	mov	b,r4
       002752 EE               [12]  257 	mov	a,r6
-      002753 12 6B 3D         [24]  258 	lcall	__gptrput
+      002753 12 6D 03         [24]  258 	lcall	__gptrput
       002756 A3               [24]  259 	inc	dptr
       002757 EF               [12]  260 	mov	a,r7
-      002758 12 6B 3D         [24]  261 	lcall	__gptrput
+      002758 12 6D 03         [24]  261 	lcall	__gptrput
                                     262 ;	stack.c:16: s->data[s->p] = val;
       00275B A8 08            [24]  263 	mov	r0,_bp
       00275D 08               [12]  264 	inc	r0
@@ -296,19 +296,19 @@
       002783 24 FA            [12]  296 	add	a,#0xfa
       002785 F8               [12]  297 	mov	r0,a
       002786 E6               [12]  298 	mov	a,@r0
-      002787 12 6B 3D         [24]  299 	lcall	__gptrput
+      002787 12 6D 03         [24]  299 	lcall	__gptrput
       00278A A3               [24]  300 	inc	dptr
       00278B 08               [12]  301 	inc	r0
       00278C E6               [12]  302 	mov	a,@r0
-      00278D 12 6B 3D         [24]  303 	lcall	__gptrput
+      00278D 12 6D 03         [24]  303 	lcall	__gptrput
       002790 A3               [24]  304 	inc	dptr
       002791 08               [12]  305 	inc	r0
       002792 E6               [12]  306 	mov	a,@r0
-      002793 12 6B 3D         [24]  307 	lcall	__gptrput
+      002793 12 6D 03         [24]  307 	lcall	__gptrput
       002796 A3               [24]  308 	inc	dptr
       002797 08               [12]  309 	inc	r0
       002798 E6               [12]  310 	mov	a,@r0
-      002799 12 6B 3D         [24]  311 	lcall	__gptrput
+      002799 12 6D 03         [24]  311 	lcall	__gptrput
                                     312 ;	stack.c:17: s->spin = 0;
       00279C A8 08            [24]  313 	mov	r0,_bp
       00279E 08               [12]  314 	inc	r0
@@ -318,7 +318,7 @@
       0027A4 08               [12]  318 	inc	r0
       0027A5 86 F0            [24]  319 	mov	b,@r0
       0027A7 E4               [12]  320 	clr	a
-      0027A8 12 6B 3D         [24]  321 	lcall	__gptrput
+      0027A8 12 6D 03         [24]  321 	lcall	__gptrput
                                     322 ;	stack.c:18: return 1;
       0027AB 90 00 01         [24]  323 	mov	dptr,#0x0001
       0027AE                        324 00103$:
@@ -374,10 +374,10 @@
       0027E3 86 83            [24]  374 	mov	dph,@r0
       0027E5 08               [12]  375 	inc	r0
       0027E6 86 F0            [24]  376 	mov	b,@r0
-      0027E8 12 6F B8         [24]  377 	lcall	__gptrget
+      0027E8 12 71 7E         [24]  377 	lcall	__gptrget
       0027EB FE               [12]  378 	mov	r6,a
       0027EC A3               [24]  379 	inc	dptr
-      0027ED 12 6F B8         [24]  380 	lcall	__gptrget
+      0027ED 12 71 7E         [24]  380 	lcall	__gptrget
       0027F0 FF               [12]  381 	mov	r7,a
       0027F1 30 E7 06         [24]  382 	jnb	acc.7,00102$
       0027F4 90 00 00         [24]  383 	mov	dptr,#0x0000
@@ -392,7 +392,7 @@
       002802 08               [12]  392 	inc	r0
       002803 86 F0            [24]  393 	mov	b,@r0
       002805 74 01            [12]  394 	mov	a,#0x01
-      002807 12 6B 3D         [24]  395 	lcall	__gptrput
+      002807 12 6D 03         [24]  395 	lcall	__gptrput
                                     396 ;	stack.c:24: *val = s->data[s->p];
       00280A E5 08            [12]  397 	mov	a,_bp
       00280C 24 FB            [12]  398 	add	a,#0xfb
@@ -429,10 +429,10 @@
       002834 86 83            [24]  429 	mov	dph,@r0
       002836 08               [12]  430 	inc	r0
       002837 86 F0            [24]  431 	mov	b,@r0
-      002839 12 6F B8         [24]  432 	lcall	__gptrget
+      002839 12 71 7E         [24]  432 	lcall	__gptrget
       00283C FF               [12]  433 	mov	r7,a
       00283D A3               [24]  434 	inc	dptr
-      00283E 12 6F B8         [24]  435 	lcall	__gptrget
+      00283E 12 71 7E         [24]  435 	lcall	__gptrget
       002841 FE               [12]  436 	mov	r6,a
       002842 EF               [12]  437 	mov	a,r7
       002843 2F               [12]  438 	add	a,r7
@@ -456,16 +456,16 @@
       002856 8D 82            [24]  456 	mov	dpl,r5
       002858 8E 83            [24]  457 	mov	dph,r6
       00285A 8F F0            [24]  458 	mov	b,r7
-      00285C 12 6F B8         [24]  459 	lcall	__gptrget
+      00285C 12 71 7E         [24]  459 	lcall	__gptrget
       00285F FD               [12]  460 	mov	r5,a
       002860 A3               [24]  461 	inc	dptr
-      002861 12 6F B8         [24]  462 	lcall	__gptrget
+      002861 12 71 7E         [24]  462 	lcall	__gptrget
       002864 FE               [12]  463 	mov	r6,a
       002865 A3               [24]  464 	inc	dptr
-      002866 12 6F B8         [24]  465 	lcall	__gptrget
+      002866 12 71 7E         [24]  465 	lcall	__gptrget
       002869 FC               [12]  466 	mov	r4,a
       00286A A3               [24]  467 	inc	dptr
-      00286B 12 6F B8         [24]  468 	lcall	__gptrget
+      00286B 12 71 7E         [24]  468 	lcall	__gptrget
       00286E FF               [12]  469 	mov	r7,a
       00286F E5 08            [12]  470 	mov	a,_bp
       002871 24 04            [12]  471 	add	a,#0x04
@@ -476,16 +476,16 @@
       002879 08               [12]  476 	inc	r0
       00287A 86 F0            [24]  477 	mov	b,@r0
       00287C ED               [12]  478 	mov	a,r5
-      00287D 12 6B 3D         [24]  479 	lcall	__gptrput
+      00287D 12 6D 03         [24]  479 	lcall	__gptrput
       002880 A3               [24]  480 	inc	dptr
       002881 EE               [12]  481 	mov	a,r6
-      002882 12 6B 3D         [24]  482 	lcall	__gptrput
+      002882 12 6D 03         [24]  482 	lcall	__gptrput
       002885 A3               [24]  483 	inc	dptr
       002886 EC               [12]  484 	mov	a,r4
-      002887 12 6B 3D         [24]  485 	lcall	__gptrput
+      002887 12 6D 03         [24]  485 	lcall	__gptrput
       00288A A3               [24]  486 	inc	dptr
       00288B EF               [12]  487 	mov	a,r7
-      00288C 12 6B 3D         [24]  488 	lcall	__gptrput
+      00288C 12 6D 03         [24]  488 	lcall	__gptrput
                                     489 ;	stack.c:25: s->p--;
       00288F E5 08            [12]  490 	mov	a,_bp
       002891 24 07            [12]  491 	add	a,#0x07
@@ -495,10 +495,10 @@
       002897 86 83            [24]  495 	mov	dph,@r0
       002899 08               [12]  496 	inc	r0
       00289A 86 F0            [24]  497 	mov	b,@r0
-      00289C 12 6F B8         [24]  498 	lcall	__gptrget
+      00289C 12 71 7E         [24]  498 	lcall	__gptrget
       00289F FE               [12]  499 	mov	r6,a
       0028A0 A3               [24]  500 	inc	dptr
-      0028A1 12 6F B8         [24]  501 	lcall	__gptrget
+      0028A1 12 71 7E         [24]  501 	lcall	__gptrget
       0028A4 FF               [12]  502 	mov	r7,a
       0028A5 1E               [12]  503 	dec	r6
       0028A6 BE FF 01         [24]  504 	cjne	r6,#0xff,00110$
@@ -513,10 +513,10 @@
       0028B4 08               [12]  513 	inc	r0
       0028B5 86 F0            [24]  514 	mov	b,@r0
       0028B7 EE               [12]  515 	mov	a,r6
-      0028B8 12 6B 3D         [24]  516 	lcall	__gptrput
+      0028B8 12 6D 03         [24]  516 	lcall	__gptrput
       0028BB A3               [24]  517 	inc	dptr
       0028BC EF               [12]  518 	mov	a,r7
-      0028BD 12 6B 3D         [24]  519 	lcall	__gptrput
+      0028BD 12 6D 03         [24]  519 	lcall	__gptrput
                                     520 ;	stack.c:26: s->spin = 0;
       0028C0 A8 08            [24]  521 	mov	r0,_bp
       0028C2 08               [12]  522 	inc	r0
@@ -526,7 +526,7 @@
       0028C8 08               [12]  526 	inc	r0
       0028C9 86 F0            [24]  527 	mov	b,@r0
       0028CB E4               [12]  528 	clr	a
-      0028CC 12 6B 3D         [24]  529 	lcall	__gptrput
+      0028CC 12 6D 03         [24]  529 	lcall	__gptrput
                                     530 ;	stack.c:27: return 1;
       0028CF 90 00 01         [24]  531 	mov	dptr,#0x0001
       0028D2                        532 00103$:
@@ -565,10 +565,10 @@
       0028F3 8B 82            [24]  565 	mov	dpl,r3
       0028F5 8A 83            [24]  566 	mov	dph,r2
       0028F7 8C F0            [24]  567 	mov	b,r4
-      0028F9 12 6F B8         [24]  568 	lcall	__gptrget
+      0028F9 12 71 7E         [24]  568 	lcall	__gptrget
       0028FC FB               [12]  569 	mov	r3,a
       0028FD A3               [24]  570 	inc	dptr
-      0028FE 12 6F B8         [24]  571 	lcall	__gptrget
+      0028FE 12 71 7E         [24]  571 	lcall	__gptrget
       002901 FC               [12]  572 	mov	r4,a
       002902 30 E7 05         [24]  573 	jnb	acc.7,00102$
       002905 90 00 00         [24]  574 	mov	dptr,#0x0000
@@ -615,16 +615,16 @@
       002933 8D 82            [24]  615 	mov	dpl,r5
       002935 8E 83            [24]  616 	mov	dph,r6
       002937 8F F0            [24]  617 	mov	b,r7
-      002939 12 6F B8         [24]  618 	lcall	__gptrget
+      002939 12 71 7E         [24]  618 	lcall	__gptrget
       00293C FD               [12]  619 	mov	r5,a
       00293D A3               [24]  620 	inc	dptr
-      00293E 12 6F B8         [24]  621 	lcall	__gptrget
+      00293E 12 71 7E         [24]  621 	lcall	__gptrget
       002941 FE               [12]  622 	mov	r6,a
       002942 A3               [24]  623 	inc	dptr
-      002943 12 6F B8         [24]  624 	lcall	__gptrget
+      002943 12 71 7E         [24]  624 	lcall	__gptrget
       002946 FF               [12]  625 	mov	r7,a
       002947 A3               [24]  626 	inc	dptr
-      002948 12 6F B8         [24]  627 	lcall	__gptrget
+      002948 12 71 7E         [24]  627 	lcall	__gptrget
       00294B FC               [12]  628 	mov	r4,a
       00294C A8 08            [24]  629 	mov	r0,_bp
       00294E 08               [12]  630 	inc	r0
@@ -634,16 +634,16 @@
       002954 08               [12]  634 	inc	r0
       002955 86 F0            [24]  635 	mov	b,@r0
       002957 ED               [12]  636 	mov	a,r5
-      002958 12 6B 3D         [24]  637 	lcall	__gptrput
+      002958 12 6D 03         [24]  637 	lcall	__gptrput
       00295B A3               [24]  638 	inc	dptr
       00295C EE               [12]  639 	mov	a,r6
-      00295D 12 6B 3D         [24]  640 	lcall	__gptrput
+      00295D 12 6D 03         [24]  640 	lcall	__gptrput
       002960 A3               [24]  641 	inc	dptr
       002961 EF               [12]  642 	mov	a,r7
-      002962 12 6B 3D         [24]  643 	lcall	__gptrput
+      002962 12 6D 03         [24]  643 	lcall	__gptrput
       002965 A3               [24]  644 	inc	dptr
       002966 EC               [12]  645 	mov	a,r4
-      002967 12 6B 3D         [24]  646 	lcall	__gptrput
+      002967 12 6D 03         [24]  646 	lcall	__gptrput
                                     647 ;	stack.c:33: return 1;
       00296A 90 00 01         [24]  648 	mov	dptr,#0x0001
       00296D                        649 00103$:
@@ -723,13 +723,13 @@
       0029BC 08               [12]  723 	inc	r0
       0029BD 86 F0            [24]  724 	mov	b,@r0
       0029BF E4               [12]  725 	clr	a
-      0029C0 12 6B 3D         [24]  726 	lcall	__gptrput
+      0029C0 12 6D 03         [24]  726 	lcall	__gptrput
       0029C3 A3               [24]  727 	inc	dptr
-      0029C4 12 6B 3D         [24]  728 	lcall	__gptrput
+      0029C4 12 6D 03         [24]  728 	lcall	__gptrput
       0029C7 A3               [24]  729 	inc	dptr
-      0029C8 12 6B 3D         [24]  730 	lcall	__gptrput
+      0029C8 12 6D 03         [24]  730 	lcall	__gptrput
       0029CB A3               [24]  731 	inc	dptr
-      0029CC 12 6B 3D         [24]  732 	lcall	__gptrput
+      0029CC 12 6D 03         [24]  732 	lcall	__gptrput
       0029CF E5 08            [12]  733 	mov	a,_bp
       0029D1 24 0A            [12]  734 	add	a,#0x0a
       0029D3 F8               [12]  735 	mov	r0,a
@@ -739,13 +739,13 @@
       0029D9 08               [12]  739 	inc	r0
       0029DA 86 F0            [24]  740 	mov	b,@r0
       0029DC E4               [12]  741 	clr	a
-      0029DD 12 6B 3D         [24]  742 	lcall	__gptrput
+      0029DD 12 6D 03         [24]  742 	lcall	__gptrput
       0029E0 A3               [24]  743 	inc	dptr
-      0029E1 12 6B 3D         [24]  744 	lcall	__gptrput
+      0029E1 12 6D 03         [24]  744 	lcall	__gptrput
       0029E4 A3               [24]  745 	inc	dptr
-      0029E5 12 6B 3D         [24]  746 	lcall	__gptrput
+      0029E5 12 6D 03         [24]  746 	lcall	__gptrput
       0029E8 A3               [24]  747 	inc	dptr
-      0029E9 12 6B 3D         [24]  748 	lcall	__gptrput
+      0029E9 12 6D 03         [24]  748 	lcall	__gptrput
                                     749 ;	stack.c:42: if (s->spin) goto out; /* if called from ISR */
       0029EC A8 08            [24]  750 	mov	r0,_bp
       0029EE 08               [12]  751 	inc	r0
@@ -754,7 +754,7 @@
       0029F2 86 83            [24]  754 	mov	dph,@r0
       0029F4 08               [12]  755 	inc	r0
       0029F5 86 F0            [24]  756 	mov	b,@r0
-      0029F7 12 6F B8         [24]  757 	lcall	__gptrget
+      0029F7 12 71 7E         [24]  757 	lcall	__gptrget
       0029FA 60 03            [24]  758 	jz	00122$
       0029FC 02 2B 24         [24]  759 	ljmp	00107$
       0029FF                        760 00122$:
@@ -784,10 +784,10 @@
       002A1D 86 83            [24]  784 	mov	dph,@r0
       002A1F 08               [12]  785 	inc	r0
       002A20 86 F0            [24]  786 	mov	b,@r0
-      002A22 12 6F B8         [24]  787 	lcall	__gptrget
+      002A22 12 71 7E         [24]  787 	lcall	__gptrget
       002A25 FE               [12]  788 	mov	r6,a
       002A26 A3               [24]  789 	inc	dptr
-      002A27 12 6F B8         [24]  790 	lcall	__gptrget
+      002A27 12 71 7E         [24]  790 	lcall	__gptrget
       002A2A FF               [12]  791 	mov	r7,a
       002A2B 30 E7 03         [24]  792 	jnb	acc.7,00123$
       002A2E 02 2B 24         [24]  793 	ljmp	00107$
@@ -825,16 +825,16 @@
       002A51 8A 82            [24]  825 	mov	dpl,r2
       002A53 8B 83            [24]  826 	mov	dph,r3
       002A55 8C F0            [24]  827 	mov	b,r4
-      002A57 12 6F B8         [24]  828 	lcall	__gptrget
+      002A57 12 71 7E         [24]  828 	lcall	__gptrget
       002A5A FA               [12]  829 	mov	r2,a
       002A5B A3               [24]  830 	inc	dptr
-      002A5C 12 6F B8         [24]  831 	lcall	__gptrget
+      002A5C 12 71 7E         [24]  831 	lcall	__gptrget
       002A5F FB               [12]  832 	mov	r3,a
       002A60 A3               [24]  833 	inc	dptr
-      002A61 12 6F B8         [24]  834 	lcall	__gptrget
+      002A61 12 71 7E         [24]  834 	lcall	__gptrget
       002A64 FC               [12]  835 	mov	r4,a
       002A65 A3               [24]  836 	inc	dptr
-      002A66 12 6F B8         [24]  837 	lcall	__gptrget
+      002A66 12 71 7E         [24]  837 	lcall	__gptrget
       002A69 FF               [12]  838 	mov	r7,a
       002A6A E5 08            [12]  839 	mov	a,_bp
       002A6C 24 04            [12]  840 	add	a,#0x04
@@ -845,16 +845,16 @@
       002A74 08               [12]  845 	inc	r0
       002A75 86 F0            [24]  846 	mov	b,@r0
       002A77 EA               [12]  847 	mov	a,r2
-      002A78 12 6B 3D         [24]  848 	lcall	__gptrput
+      002A78 12 6D 03         [24]  848 	lcall	__gptrput
       002A7B A3               [24]  849 	inc	dptr
       002A7C EB               [12]  850 	mov	a,r3
-      002A7D 12 6B 3D         [24]  851 	lcall	__gptrput
+      002A7D 12 6D 03         [24]  851 	lcall	__gptrput
       002A80 A3               [24]  852 	inc	dptr
       002A81 EC               [12]  853 	mov	a,r4
-      002A82 12 6B 3D         [24]  854 	lcall	__gptrput
+      002A82 12 6D 03         [24]  854 	lcall	__gptrput
       002A85 A3               [24]  855 	inc	dptr
       002A86 EF               [12]  856 	mov	a,r7
-      002A87 12 6B 3D         [24]  857 	lcall	__gptrput
+      002A87 12 6D 03         [24]  857 	lcall	__gptrput
                                     858 ;	stack.c:46: nvals++;
       002A8A 7D 01            [12]  859 	mov	r5,#0x01
       002A8C 7C 00            [12]  860 	mov	r4,#0x00
@@ -867,10 +867,10 @@
       002A96 86 83            [24]  867 	mov	dph,@r0
       002A98 08               [12]  868 	inc	r0
       002A99 86 F0            [24]  869 	mov	b,@r0
-      002A9B 12 6F B8         [24]  870 	lcall	__gptrget
+      002A9B 12 71 7E         [24]  870 	lcall	__gptrget
       002A9E FB               [12]  871 	mov	r3,a
       002A9F A3               [24]  872 	inc	dptr
-      002AA0 12 6F B8         [24]  873 	lcall	__gptrget
+      002AA0 12 71 7E         [24]  873 	lcall	__gptrget
       002AA3 FA               [12]  874 	mov	r2,a
       002AA4 EB               [12]  875 	mov	a,r3
       002AA5 24 FF            [12]  876 	add	a,#0xff
@@ -930,16 +930,16 @@
       002AE7 8E 82            [24]  930 	mov	dpl,r6
       002AE9 8D 83            [24]  931 	mov	dph,r5
       002AEB 8F F0            [24]  932 	mov	b,r7
-      002AED 12 6F B8         [24]  933 	lcall	__gptrget
+      002AED 12 71 7E         [24]  933 	lcall	__gptrget
       002AF0 FE               [12]  934 	mov	r6,a
       002AF1 A3               [24]  935 	inc	dptr
-      002AF2 12 6F B8         [24]  936 	lcall	__gptrget
+      002AF2 12 71 7E         [24]  936 	lcall	__gptrget
       002AF5 FD               [12]  937 	mov	r5,a
       002AF6 A3               [24]  938 	inc	dptr
-      002AF7 12 6F B8         [24]  939 	lcall	__gptrget
+      002AF7 12 71 7E         [24]  939 	lcall	__gptrget
       002AFA FC               [12]  940 	mov	r4,a
       002AFB A3               [24]  941 	inc	dptr
-      002AFC 12 6F B8         [24]  942 	lcall	__gptrget
+      002AFC 12 71 7E         [24]  942 	lcall	__gptrget
       002AFF FF               [12]  943 	mov	r7,a
       002B00 E5 08            [12]  944 	mov	a,_bp
       002B02 24 0A            [12]  945 	add	a,#0x0a
@@ -950,16 +950,16 @@
       002B0A 08               [12]  950 	inc	r0
       002B0B 86 F0            [24]  951 	mov	b,@r0
       002B0D EE               [12]  952 	mov	a,r6
-      002B0E 12 6B 3D         [24]  953 	lcall	__gptrput
+      002B0E 12 6D 03         [24]  953 	lcall	__gptrput
       002B11 A3               [24]  954 	inc	dptr
       002B12 ED               [12]  955 	mov	a,r5
-      002B13 12 6B 3D         [24]  956 	lcall	__gptrput
+      002B13 12 6D 03         [24]  956 	lcall	__gptrput
       002B16 A3               [24]  957 	inc	dptr
       002B17 EC               [12]  958 	mov	a,r4
-      002B18 12 6B 3D         [24]  959 	lcall	__gptrput
+      002B18 12 6D 03         [24]  959 	lcall	__gptrput
       002B1B A3               [24]  960 	inc	dptr
       002B1C EF               [12]  961 	mov	a,r7
-      002B1D 12 6B 3D         [24]  962 	lcall	__gptrput
+      002B1D 12 6D 03         [24]  962 	lcall	__gptrput
                                     963 ;	stack.c:50: nvals++;
       002B20 7D 02            [12]  964 	mov	r5,#0x02
       002B22 7C 00            [12]  965 	mov	r4,#0x00
@@ -1010,10 +1010,10 @@
       002B4E 8B 82            [24] 1010 	mov	dpl,r3
       002B50 8A 83            [24] 1011 	mov	dph,r2
       002B52 8C F0            [24] 1012 	mov	b,r4
-      002B54 12 6F B8         [24] 1013 	lcall	__gptrget
+      002B54 12 71 7E         [24] 1013 	lcall	__gptrget
       002B57 FB               [12] 1014 	mov	r3,a
       002B58 A3               [24] 1015 	inc	dptr
-      002B59 12 6F B8         [24] 1016 	lcall	__gptrget
+      002B59 12 71 7E         [24] 1016 	lcall	__gptrget
       002B5C FC               [12] 1017 	mov	r4,a
       002B5D 30 E7 06         [24] 1018 	jnb	acc.7,00102$
       002B60 90 00 00         [24] 1019 	mov	dptr,#0x0000
@@ -1074,16 +1074,16 @@
       002BA5 8D 82            [24] 1074 	mov	dpl,r5
       002BA7 8C 83            [24] 1075 	mov	dph,r4
       002BA9 8E F0            [24] 1076 	mov	b,r6
-      002BAB 12 6F B8         [24] 1077 	lcall	__gptrget
+      002BAB 12 71 7E         [24] 1077 	lcall	__gptrget
       002BAE FD               [12] 1078 	mov	r5,a
       002BAF A3               [24] 1079 	inc	dptr
-      002BB0 12 6F B8         [24] 1080 	lcall	__gptrget
+      002BB0 12 71 7E         [24] 1080 	lcall	__gptrget
       002BB3 FC               [12] 1081 	mov	r4,a
       002BB4 A3               [24] 1082 	inc	dptr
-      002BB5 12 6F B8         [24] 1083 	lcall	__gptrget
+      002BB5 12 71 7E         [24] 1083 	lcall	__gptrget
       002BB8 FE               [12] 1084 	mov	r6,a
       002BB9 A3               [24] 1085 	inc	dptr
-      002BBA 12 6F B8         [24] 1086 	lcall	__gptrget
+      002BBA 12 71 7E         [24] 1086 	lcall	__gptrget
       002BBD FB               [12] 1087 	mov	r3,a
       002BBE C0 04            [24] 1088 	push	ar4
       002BC0 C0 03            [24] 1089 	push	ar3
