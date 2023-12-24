@@ -95,7 +95,7 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 	if (!r) {
 		if (delta->event != EVENT_TERM) printstr("stack underflow\r\n");
 	} else while (r > 0) {
-		printstr("PSVA\t");
+		printstr("PSPA\t");
 		printall(d);
 		printstr("\r\n");
 		r = stack_pop(ctx->ps, &d);
@@ -104,7 +104,7 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 	if (delta->event == EVENT_TERM) {
 		printstr("\r\n");
 		for (r = stack_pop(ctx->ss, &d); r > 0; r = stack_pop(ctx->ss, &d)) {
-			printstr("SSVA\t");
+			printstr("SSPA\t");
 			printall(d);
 			printstr("\r\n");
 		}
@@ -116,7 +116,7 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 static int dump_peek(void *_ctx, long d) __reentrant {
 	(void)_ctx;
 	
-	printstr("PSPA\t");
+	printstr("PSVA\t");
 	printall(d);
 	printstr("\r\n");
 	
@@ -129,23 +129,9 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 	long d0, d1;
 	
 	switch (ctx->digit[0]) {
-	case 'p':
-		printstr("\r\n");
-		if (!stack_peek(ctx->ps, &d0)) printstr("stack underflow\r\n");
-		else {
-			printstr("PSPTOP\t");
-			printall(d0);
-			printstr("\r\n");
-		}
-		break;
-	case 'P':
-		printstr("\r\n");
-		if (!stack_iter_peek(ctx->ps, dump_peek, ctx)) printstr("stack underflow\r\n");
-		break;
-	case '.':
 	case 'v':
 		printstr("\r\n");
-		if (!stack_pop(ctx->ps, &d0)) printstr("stack underflow\r\n");
+		if (!stack_peek(ctx->ps, &d0)) printstr("stack underflow\r\n");
 		else {
 			printstr("PSVTOP\t");
 			printall(d0);
@@ -153,6 +139,20 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		}
 		break;
 	case 'V':
+		printstr("\r\n");
+		if (!stack_iter_peek(ctx->ps, dump_peek, ctx)) printstr("stack underflow\r\n");
+		break;
+	case '.':
+	case 'p':
+		printstr("\r\n");
+		if (!stack_pop(ctx->ps, &d0)) printstr("stack underflow\r\n");
+		else {
+			printstr("PSPTOP\t");
+			printall(d0);
+			printstr("\r\n");
+		}
+		break;
+	case 'P':
 		printstr("\r\n");
 		(void)dump_pop(_ctx, delta);
 		break;
@@ -423,10 +423,10 @@ static int help(void *_ctx, delta_t *delta) __reentrant {
 	(void)delta;
 	
 	printstr("\r\nHhOo\tbase 16 10 8 2\r\n");
-	printstr("p\tpeek top\r\n");
-	printstr("P\tprint stack\r\n");
-	printstr("v.\tpop top\r\n");
-	printstr("V\tpop all\r\n");
+	printstr("p.\tpop top\r\n");
+	printstr("P\tpop stack\r\n");
+	printstr("v\tpeek top\r\n");
+	printstr("V\tpeek stack\r\n");
 	printstr("i\treset acc\r\n");
 	printstr("I\treset and discard acc\r\n");
 	printstr("x\texchange top 2\r\n");
