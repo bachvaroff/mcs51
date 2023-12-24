@@ -82,12 +82,12 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 	long d;
 	int r;
 	
-	if (delta->event == EVENT_TERM) printstr("\r\nPS\r\n");
+	if (delta->event == EVENT_TERM) printstr("\r\n");
 	r = stack_pop(ctx->ps, &d);
 	if (!r) {
 		if (delta->event != EVENT_TERM) printstr("stack underflow\r\n");
 	} else while (r > 0) {
-		printstr("VA ");
+		printstr("PSVA     = ");
 		printf("% 11ld / ", d);
 		printf("%08lx / ", d);
 		printbin(d);
@@ -96,9 +96,9 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 	}
 	
 	if (delta->event == EVENT_TERM) {
-		printstr("SS\r\n");
+		printstr("\r\n");
 		for (r = stack_pop(ctx->ss, &d); r > 0; r = stack_pop(ctx->ss, &d)) {
-			printstr("VA ");
+			printstr("SSVA     = ");
 			printf("% 11ld / ", d);
 			printf("%08lx / ", d);
 			printbin(d);
@@ -112,7 +112,7 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 static int dump_peek(void *_ctx, long d) __reentrant {
 	(void)_ctx;
 	
-	printstr("PA ");
+	printstr("PSPA     = ");
 	printf("% 11ld / ", d);
 	printf("%08lx / ", d);
 	printbin(d);
@@ -131,7 +131,7 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		printstr("\r\n");
 		if (!stack_peek(ctx->ps, &d0)) printstr("stack underflow\r\n");
 		else {
-			printstr("PT ");
+			printstr("PSPTOP   = ");
 			printf("% 11ld / ", d0);
 			printf("%08lx / ", d0);
 			printbin(d0);
@@ -147,7 +147,7 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		printstr("\r\n");
 		if (!stack_pop(ctx->ps, &d0)) printstr("stack underflow\r\n");
 		else {
-			printstr("VT ");
+			printstr("PSVTOP   = ");
 			printf("% 11ld / ", d0);
 			printf("%08lx / ", d0);
 			printbin(d0);
@@ -398,10 +398,10 @@ static int status(void *_ctx, delta_t *delta) __reentrant {
 	
 	(void)delta;
 	
-	printf("\r\nprimary = %p, secondary = %p\r\n", ctx->ps, ctx->ss);
+	printf("\r\nPS = %p, SS = %p, ", ctx->ps, ctx->ss);
 	printf("acc_valid = %d, base = %d\r\n", (int)ctx->acc_valid, ctx->base);
 	
-	printstr("acc    = ");
+	printstr("ACC      = ");
 	if (ctx->acc_valid) {
 		printf("% 11ld / ", ctx->acc);
 		printf("%08lx / ", ctx->acc);
@@ -409,13 +409,13 @@ static int status(void *_ctx, delta_t *delta) __reentrant {
 	}
 	
 	n = stack_peek2(ctx->ps, vals);
-	printstr("\r\nPSTOP1 = ");
+	printstr("\r\nPSTOP1   = ");
 	if (n > 0) {
 		printf("% 11ld / ", vals[1]);
 		printf("%08lx / ", vals[1]);
 		printbin(vals[1]);
 	}
-	printstr("\r\nPSTOP0 = ");
+	printstr("\r\nPSTOP0   = ");
 	if (n > 1) {
 		printf("% 11ld / ", vals[0]);
 		printf("%08lx / ", vals[0]);
@@ -423,13 +423,13 @@ static int status(void *_ctx, delta_t *delta) __reentrant {
 	}
 	
 	n = stack_peek2(ctx->ss, vals);
-	printstr("\r\nSSTOP1 = ");
+	printstr("\r\nSSTOP1   = ");
 	if (n > 0) {
 		printf("% 11ld / ", vals[1]);
 		printf("%08lx / ", vals[1]);
 		printbin(vals[1]);
 	}
-	printstr("\r\nSSTOP0 = ");
+	printstr("\r\nSSTOP0   = ");
 	if (n > 1) {
 		printf("% 11ld / ", vals[0]);
 		printf("%08lx / ", vals[0]);
