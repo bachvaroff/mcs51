@@ -60,6 +60,14 @@ inline void printbin(long d) {
 	return;
 }
 
+inline void printall(long d) {
+	printf("% 11ld\t", d);
+	printf("%08lx\t", d);
+	printbin(d);
+	
+	return;
+}
+
 static int accumulate(void *_ctx, delta_t *delta) __reentrant {
 	calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
 	long d;
@@ -87,10 +95,8 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 	if (!r) {
 		if (delta->event != EVENT_TERM) printstr("stack underflow\r\n");
 	} else while (r > 0) {
-		printstr("PSVA     = ");
-		printf("% 11ld / ", d);
-		printf("%08lx / ", d);
-		printbin(d);
+		printstr("PSVA\t");
+		printall(d);
 		printstr("\r\n");
 		r = stack_pop(ctx->ps, &d);
 	}
@@ -98,10 +104,8 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 	if (delta->event == EVENT_TERM) {
 		printstr("\r\n");
 		for (r = stack_pop(ctx->ss, &d); r > 0; r = stack_pop(ctx->ss, &d)) {
-			printstr("SSVA     = ");
-			printf("% 11ld / ", d);
-			printf("%08lx / ", d);
-			printbin(d);
+			printstr("SSVA\t");
+			printall(d);
 			printstr("\r\n");
 		}
 	}
@@ -112,10 +116,8 @@ static int dump_pop(void *_ctx, delta_t *delta) __reentrant {
 static int dump_peek(void *_ctx, long d) __reentrant {
 	(void)_ctx;
 	
-	printstr("PSPA     = ");
-	printf("% 11ld / ", d);
-	printf("%08lx / ", d);
-	printbin(d);
+	printstr("PSPA\t");
+	printall(d);
 	printstr("\r\n");
 	
 	return 1;
@@ -131,10 +133,8 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		printstr("\r\n");
 		if (!stack_peek(ctx->ps, &d0)) printstr("stack underflow\r\n");
 		else {
-			printstr("PSPTOP   = ");
-			printf("% 11ld / ", d0);
-			printf("%08lx / ", d0);
-			printbin(d0);
+			printstr("PSPTOP\t");
+			printall(d0);
 			printstr("\r\n");
 		}
 		break;
@@ -147,10 +147,8 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		printstr("\r\n");
 		if (!stack_pop(ctx->ps, &d0)) printstr("stack underflow\r\n");
 		else {
-			printstr("PSVTOP   = ");
-			printf("% 11ld / ", d0);
-			printf("%08lx / ", d0);
-			printbin(d0);
+			printstr("PSVTOP\t");
+			printall(d0);
 			printstr("\r\n");
 		}
 		break;
@@ -309,7 +307,7 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
-			d1 = (unsigned long)d1 >> ((unsigned long)d0 & 0x0000001flu);
+			d1 = (unsigned long)d1 >> d0;
 			(void)stack_push(ctx->ps, d1);
 		}
 		break;
@@ -319,7 +317,7 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
-			d1 >>= ((unsigned long)d0 & 0x0000001flu);
+			d1 >>= d0;
 			(void)stack_push(ctx->ps, d1);
 		}
 		break;
@@ -329,7 +327,7 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 			(void)stack_push(ctx->ps, d0);
 			printstr("\r\nstack underflow\r\n");
 		} else {
-			d1 <<= ((unsigned long)d0 & 0x0000001flu);
+			d1 <<= d0;
 			(void)stack_push(ctx->ps, d1);
 		}
 		break;
@@ -401,40 +399,20 @@ static int status(void *_ctx, delta_t *delta) __reentrant {
 	printf("\r\nPS = %p, SS = %p, ", ctx->ps, ctx->ss);
 	printf("acc_valid = %d, base = %d\r\n", (int)ctx->acc_valid, ctx->base);
 	
-	printstr("ACC      = ");
-	if (ctx->acc_valid) {
-		printf("% 11ld / ", ctx->acc);
-		printf("%08lx / ", ctx->acc);
-		printbin(ctx->acc);
-	}
+	printstr("ACC\t");
+	if (ctx->acc_valid) printall(ctx->acc);
 	
 	n = stack_peek2(ctx->ps, vals);
-	printstr("\r\nPSTOP1   = ");
-	if (n > 0) {
-		printf("% 11ld / ", vals[1]);
-		printf("%08lx / ", vals[1]);
-		printbin(vals[1]);
-	}
-	printstr("\r\nPSTOP0   = ");
-	if (n > 1) {
-		printf("% 11ld / ", vals[0]);
-		printf("%08lx / ", vals[0]);
-		printbin(vals[0]);
-	}
+	printstr("\r\nPSTOP1\t");
+	if (n > 0) printall(vals[1]);
+	printstr("\r\nPSTOP0\t");
+	if (n > 1) printall(vals[0]);
 	
 	n = stack_peek2(ctx->ss, vals);
-	printstr("\r\nSSTOP1   = ");
-	if (n > 0) {
-		printf("% 11ld / ", vals[1]);
-		printf("%08lx / ", vals[1]);
-		printbin(vals[1]);
-	}
-	printstr("\r\nSSTOP0   = ");
-	if (n > 1) {
-		printf("% 11ld / ", vals[0]);
-		printf("%08lx / ", vals[0]);
-		printbin(vals[0]);
-	}
+	printstr("\r\nSSTOP1\t");
+	if (n > 0) printall(vals[1]);
+	printstr("\r\nSSTOP0\t");
+	if (n > 1) printall(vals[0]);
 	printstr("\r\n");
 	
 	return 1;
