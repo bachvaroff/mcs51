@@ -13,6 +13,8 @@
 #define pm2_entry_cout 0x0030
 #define pm2_entry_cin 0x0032
 
+__idata char giant;
+
 int putchar(int c) __naked {
 	(void)c;
 	__asm
@@ -487,6 +489,8 @@ static calc_ctx_t c;
 
 void main(void) {
 	int input;
+	
+	giant = 0;
 	
 	c.base = 10;
 	c.acc = 0l;

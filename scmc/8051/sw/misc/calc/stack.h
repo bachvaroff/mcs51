@@ -7,7 +7,6 @@
 #define SIZE 2048
 
 typedef struct stack {
-	char spin;
 	long data[SIZE];
 	int N, p;
 } stack_t;

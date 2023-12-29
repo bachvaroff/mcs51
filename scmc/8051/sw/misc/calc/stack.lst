@@ -96,7 +96,7 @@
                                      96 ;------------------------------------------------------------
                                      97 ;s                         Allocated to registers r5 r6 r7 
                                      98 ;------------------------------------------------------------
-                                     99 ;	stack.c:4: void stack_init(stack_t *s) __reentrant {
+                                     99 ;	stack.c:6: void stack_init(stack_t *s) __reentrant {
                                     100 ;	-----------------------------------------
                                     101 ;	 function stack_init
                                     102 ;	-----------------------------------------
@@ -109,1045 +109,923 @@
                            000002   109 	ar2 = 0x02
                            000001   110 	ar1 = 0x01
                            000000   111 	ar0 = 0x00
-                                    112 ;	stack.c:5: s->spin = 0;
-      000000 AD 82            [24]  113 	mov	r5,dpl
-      000002 AE 83            [24]  114 	mov	r6,dph
-      000004 AF F0            [24]  115 	mov	r7,b
-      000006 E4               [12]  116 	clr	a
-      000007 12r00r00         [24]  117 	lcall	__gptrput
-                                    118 ;	stack.c:6: s->N = SIZE;
-      00000A 04               [12]  119 	inc	a
-      00000B 2D               [12]  120 	add	a,r5
-      00000C FA               [12]  121 	mov	r2,a
-      00000D 74 20            [12]  122 	mov	a,#0x20
-      00000F 3E               [12]  123 	addc	a,r6
-      000010 FB               [12]  124 	mov	r3,a
-      000011 8F 04            [24]  125 	mov	ar4,r7
-      000013 8A 82            [24]  126 	mov	dpl,r2
-      000015 8B 83            [24]  127 	mov	dph,r3
-      000017 8C F0            [24]  128 	mov	b,r4
-      000019 E4               [12]  129 	clr	a
-      00001A 12r00r00         [24]  130 	lcall	__gptrput
-      00001D A3               [24]  131 	inc	dptr
-      00001E 74 08            [12]  132 	mov	a,#0x08
-      000020 12r00r00         [24]  133 	lcall	__gptrput
-                                    134 ;	stack.c:7: s->p = -1;
-      000023 74 03            [12]  135 	mov	a,#0x03
-      000025 2D               [12]  136 	add	a,r5
-      000026 FD               [12]  137 	mov	r5,a
-      000027 74 20            [12]  138 	mov	a,#0x20
-      000029 3E               [12]  139 	addc	a,r6
-      00002A FE               [12]  140 	mov	r6,a
-      00002B 8D 82            [24]  141 	mov	dpl,r5
-      00002D 8E 83            [24]  142 	mov	dph,r6
-      00002F 8F F0            [24]  143 	mov	b,r7
-      000031 74 FF            [12]  144 	mov	a,#0xff
-      000033 12r00r00         [24]  145 	lcall	__gptrput
-      000036 A3               [24]  146 	inc	dptr
-                                    147 ;	stack.c:9: return;
-                                    148 ;	stack.c:10: }
-      000037 02r00r00         [24]  149 	ljmp	__gptrput
-                                    150 ;------------------------------------------------------------
-                                    151 ;Allocation info for local variables in function 'stack_push'
-                                    152 ;------------------------------------------------------------
-                                    153 ;val                       Allocated to stack - _bp -6
-                                    154 ;s                         Allocated to stack - _bp +1
-                                    155 ;sloc0                     Allocated to stack - _bp +4
-                                    156 ;------------------------------------------------------------
-                                    157 ;	stack.c:12: int stack_push(stack_t *s, long val) __reentrant {
-                                    158 ;	-----------------------------------------
-                                    159 ;	 function stack_push
-                                    160 ;	-----------------------------------------
-      00003A                        161 _stack_push:
-      00003A C0*00            [24]  162 	push	_bp
-      00003C 85 81*00         [24]  163 	mov	_bp,sp
-      00003F C0 82            [24]  164 	push	dpl
-      000041 C0 83            [24]  165 	push	dph
-      000043 C0 F0            [24]  166 	push	b
-      000045 05 81            [12]  167 	inc	sp
-      000047 05 81            [12]  168 	inc	sp
-                                    169 ;	stack.c:13: if (s->p == (s->N - 1)) return 0;
-      000049 A8*00            [24]  170 	mov	r0,_bp
-      00004B 08               [12]  171 	inc	r0
-      00004C 74 03            [12]  172 	mov	a,#0x03
-      00004E 26               [12]  173 	add	a,@r0
-      00004F FA               [12]  174 	mov	r2,a
-      000050 74 20            [12]  175 	mov	a,#0x20
-      000052 08               [12]  176 	inc	r0
-      000053 36               [12]  177 	addc	a,@r0
-      000054 FB               [12]  178 	mov	r3,a
-      000055 08               [12]  179 	inc	r0
-      000056 86 04            [24]  180 	mov	ar4,@r0
-      000058 8A 82            [24]  181 	mov	dpl,r2
-      00005A 8B 83            [24]  182 	mov	dph,r3
-      00005C 8C F0            [24]  183 	mov	b,r4
-      00005E E5*00            [12]  184 	mov	a,_bp
-      000060 24 04            [12]  185 	add	a,#0x04
-      000062 F8               [12]  186 	mov	r0,a
-      000063 12r00r00         [24]  187 	lcall	__gptrget
-      000066 F6               [12]  188 	mov	@r0,a
-      000067 A3               [24]  189 	inc	dptr
-      000068 12r00r00         [24]  190 	lcall	__gptrget
-      00006B 08               [12]  191 	inc	r0
-      00006C F6               [12]  192 	mov	@r0,a
-      00006D A8*00            [24]  193 	mov	r0,_bp
-      00006F 08               [12]  194 	inc	r0
-      000070 74 01            [12]  195 	mov	a,#0x01
-      000072 26               [12]  196 	add	a,@r0
-      000073 FD               [12]  197 	mov	r5,a
-      000074 74 20            [12]  198 	mov	a,#0x20
-      000076 08               [12]  199 	inc	r0
-      000077 36               [12]  200 	addc	a,@r0
-      000078 FE               [12]  201 	mov	r6,a
-      000079 08               [12]  202 	inc	r0
-      00007A 86 07            [24]  203 	mov	ar7,@r0
-      00007C 8D 82            [24]  204 	mov	dpl,r5
-      00007E 8E 83            [24]  205 	mov	dph,r6
-      000080 8F F0            [24]  206 	mov	b,r7
-      000082 12r00r00         [24]  207 	lcall	__gptrget
-      000085 FD               [12]  208 	mov	r5,a
-      000086 A3               [24]  209 	inc	dptr
-      000087 12r00r00         [24]  210 	lcall	__gptrget
-      00008A FE               [12]  211 	mov	r6,a
-      00008B 1D               [12]  212 	dec	r5
-      00008C BD FF 01         [24]  213 	cjne	r5,#0xff,00109$
-      00008F 1E               [12]  214 	dec	r6
-      000090                        215 00109$:
-      000090 E5*00            [12]  216 	mov	a,_bp
-      000092 24 04            [12]  217 	add	a,#0x04
-      000094 F8               [12]  218 	mov	r0,a
-      000095 E6               [12]  219 	mov	a,@r0
-      000096 B5 05 07         [24]  220 	cjne	a,ar5,00110$
-      000099 08               [12]  221 	inc	r0
-      00009A E6               [12]  222 	mov	a,@r0
-      00009B B5 06 02         [24]  223 	cjne	a,ar6,00110$
-      00009E 80 02            [24]  224 	sjmp	00111$
-      0000A0                        225 00110$:
-      0000A0 80 06            [24]  226 	sjmp	00102$
-      0000A2                        227 00111$:
-      0000A2 90 00 00         [24]  228 	mov	dptr,#0x0000
-      0000A5 02r01r2E         [24]  229 	ljmp	00103$
-      0000A8                        230 00102$:
-                                    231 ;	stack.c:14: s->spin = 1;
-      0000A8 A8*00            [24]  232 	mov	r0,_bp
-      0000AA 08               [12]  233 	inc	r0
-      0000AB 86 82            [24]  234 	mov	dpl,@r0
-      0000AD 08               [12]  235 	inc	r0
-      0000AE 86 83            [24]  236 	mov	dph,@r0
-      0000B0 08               [12]  237 	inc	r0
-      0000B1 86 F0            [24]  238 	mov	b,@r0
-      0000B3 74 01            [12]  239 	mov	a,#0x01
-      0000B5 12r00r00         [24]  240 	lcall	__gptrput
-                                    241 ;	stack.c:15: s->p++;
-      0000B8 8A 82            [24]  242 	mov	dpl,r2
-      0000BA 8B 83            [24]  243 	mov	dph,r3
-      0000BC 8C F0            [24]  244 	mov	b,r4
-      0000BE 12r00r00         [24]  245 	lcall	__gptrget
-      0000C1 FE               [12]  246 	mov	r6,a
-      0000C2 A3               [24]  247 	inc	dptr
-      0000C3 12r00r00         [24]  248 	lcall	__gptrget
-      0000C6 FF               [12]  249 	mov	r7,a
-      0000C7 0E               [12]  250 	inc	r6
-      0000C8 BE 00 01         [24]  251 	cjne	r6,#0x00,00112$
-      0000CB 0F               [12]  252 	inc	r7
-      0000CC                        253 00112$:
-      0000CC 8A 82            [24]  254 	mov	dpl,r2
-      0000CE 8B 83            [24]  255 	mov	dph,r3
-      0000D0 8C F0            [24]  256 	mov	b,r4
-      0000D2 EE               [12]  257 	mov	a,r6
-      0000D3 12r00r00         [24]  258 	lcall	__gptrput
-      0000D6 A3               [24]  259 	inc	dptr
-      0000D7 EF               [12]  260 	mov	a,r7
-      0000D8 12r00r00         [24]  261 	lcall	__gptrput
-                                    262 ;	stack.c:16: s->data[s->p] = val;
-      0000DB A8*00            [24]  263 	mov	r0,_bp
-      0000DD 08               [12]  264 	inc	r0
-      0000DE 74 01            [12]  265 	mov	a,#0x01
-      0000E0 26               [12]  266 	add	a,@r0
-      0000E1 FB               [12]  267 	mov	r3,a
-      0000E2 E4               [12]  268 	clr	a
-      0000E3 08               [12]  269 	inc	r0
-      0000E4 36               [12]  270 	addc	a,@r0
-      0000E5 FC               [12]  271 	mov	r4,a
-      0000E6 08               [12]  272 	inc	r0
-      0000E7 86 05            [24]  273 	mov	ar5,@r0
-      0000E9 EE               [12]  274 	mov	a,r6
-      0000EA 2E               [12]  275 	add	a,r6
-      0000EB FE               [12]  276 	mov	r6,a
-      0000EC EF               [12]  277 	mov	a,r7
-      0000ED 33               [12]  278 	rlc	a
-      0000EE FF               [12]  279 	mov	r7,a
-      0000EF EE               [12]  280 	mov	a,r6
-      0000F0 2E               [12]  281 	add	a,r6
-      0000F1 FE               [12]  282 	mov	r6,a
-      0000F2 EF               [12]  283 	mov	a,r7
-      0000F3 33               [12]  284 	rlc	a
-      0000F4 FF               [12]  285 	mov	r7,a
-      0000F5 EE               [12]  286 	mov	a,r6
-      0000F6 2B               [12]  287 	add	a,r3
-      0000F7 FB               [12]  288 	mov	r3,a
-      0000F8 EF               [12]  289 	mov	a,r7
-      0000F9 3C               [12]  290 	addc	a,r4
-      0000FA FC               [12]  291 	mov	r4,a
-      0000FB 8B 82            [24]  292 	mov	dpl,r3
-      0000FD 8C 83            [24]  293 	mov	dph,r4
-      0000FF 8D F0            [24]  294 	mov	b,r5
-      000101 E5*00            [12]  295 	mov	a,_bp
-      000103 24 FA            [12]  296 	add	a,#0xfa
-      000105 F8               [12]  297 	mov	r0,a
-      000106 E6               [12]  298 	mov	a,@r0
-      000107 12r00r00         [24]  299 	lcall	__gptrput
-      00010A A3               [24]  300 	inc	dptr
-      00010B 08               [12]  301 	inc	r0
-      00010C E6               [12]  302 	mov	a,@r0
-      00010D 12r00r00         [24]  303 	lcall	__gptrput
-      000110 A3               [24]  304 	inc	dptr
-      000111 08               [12]  305 	inc	r0
-      000112 E6               [12]  306 	mov	a,@r0
-      000113 12r00r00         [24]  307 	lcall	__gptrput
-      000116 A3               [24]  308 	inc	dptr
-      000117 08               [12]  309 	inc	r0
-      000118 E6               [12]  310 	mov	a,@r0
-      000119 12r00r00         [24]  311 	lcall	__gptrput
-                                    312 ;	stack.c:17: s->spin = 0;
-      00011C A8*00            [24]  313 	mov	r0,_bp
-      00011E 08               [12]  314 	inc	r0
-      00011F 86 82            [24]  315 	mov	dpl,@r0
-      000121 08               [12]  316 	inc	r0
-      000122 86 83            [24]  317 	mov	dph,@r0
-      000124 08               [12]  318 	inc	r0
-      000125 86 F0            [24]  319 	mov	b,@r0
-      000127 E4               [12]  320 	clr	a
-      000128 12r00r00         [24]  321 	lcall	__gptrput
-                                    322 ;	stack.c:18: return 1;
-      00012B 90 00 01         [24]  323 	mov	dptr,#0x0001
-      00012E                        324 00103$:
-                                    325 ;	stack.c:19: }
-      00012E 85*00 81         [24]  326 	mov	sp,_bp
-      000131 D0*00            [24]  327 	pop	_bp
-      000133 22               [24]  328 	ret
-                                    329 ;------------------------------------------------------------
-                                    330 ;Allocation info for local variables in function 'stack_pop'
-                                    331 ;------------------------------------------------------------
-                                    332 ;val                       Allocated to stack - _bp -5
-                                    333 ;s                         Allocated to stack - _bp +1
-                                    334 ;sloc0                     Allocated to stack - _bp +4
-                                    335 ;sloc1                     Allocated to stack - _bp +7
-                                    336 ;sloc2                     Allocated to stack - _bp +7
-                                    337 ;------------------------------------------------------------
-                                    338 ;	stack.c:21: int stack_pop(stack_t *s, long *val) __reentrant {
-                                    339 ;	-----------------------------------------
-                                    340 ;	 function stack_pop
-                                    341 ;	-----------------------------------------
-      000134                        342 _stack_pop:
-      000134 C0*00            [24]  343 	push	_bp
-      000136 85 81*00         [24]  344 	mov	_bp,sp
-      000139 C0 82            [24]  345 	push	dpl
-      00013B C0 83            [24]  346 	push	dph
-      00013D C0 F0            [24]  347 	push	b
-      00013F E5 81            [12]  348 	mov	a,sp
-      000141 24 06            [12]  349 	add	a,#0x06
-      000143 F5 81            [12]  350 	mov	sp,a
-                                    351 ;	stack.c:22: if (s->p < 0) return 0;
-      000145 A8*00            [24]  352 	mov	r0,_bp
-      000147 08               [12]  353 	inc	r0
-      000148 E5*00            [12]  354 	mov	a,_bp
-      00014A 24 07            [12]  355 	add	a,#0x07
-      00014C F9               [12]  356 	mov	r1,a
-      00014D 74 03            [12]  357 	mov	a,#0x03
-      00014F 26               [12]  358 	add	a,@r0
-      000150 F7               [12]  359 	mov	@r1,a
-      000151 74 20            [12]  360 	mov	a,#0x20
-      000153 08               [12]  361 	inc	r0
-      000154 36               [12]  362 	addc	a,@r0
-      000155 09               [12]  363 	inc	r1
-      000156 F7               [12]  364 	mov	@r1,a
-      000157 08               [12]  365 	inc	r0
-      000158 09               [12]  366 	inc	r1
-      000159 E6               [12]  367 	mov	a,@r0
-      00015A F7               [12]  368 	mov	@r1,a
-      00015B E5*00            [12]  369 	mov	a,_bp
-      00015D 24 07            [12]  370 	add	a,#0x07
-      00015F F8               [12]  371 	mov	r0,a
-      000160 86 82            [24]  372 	mov	dpl,@r0
-      000162 08               [12]  373 	inc	r0
-      000163 86 83            [24]  374 	mov	dph,@r0
-      000165 08               [12]  375 	inc	r0
-      000166 86 F0            [24]  376 	mov	b,@r0
-      000168 12r00r00         [24]  377 	lcall	__gptrget
-      00016B FE               [12]  378 	mov	r6,a
-      00016C A3               [24]  379 	inc	dptr
-      00016D 12r00r00         [24]  380 	lcall	__gptrget
-      000170 FF               [12]  381 	mov	r7,a
-      000171 30 E7 06         [24]  382 	jnb	acc.7,00102$
-      000174 90 00 00         [24]  383 	mov	dptr,#0x0000
-      000177 02r02r52         [24]  384 	ljmp	00103$
-      00017A                        385 00102$:
-                                    386 ;	stack.c:23: s->spin = 1;
-      00017A A8*00            [24]  387 	mov	r0,_bp
-      00017C 08               [12]  388 	inc	r0
-      00017D 86 82            [24]  389 	mov	dpl,@r0
-      00017F 08               [12]  390 	inc	r0
-      000180 86 83            [24]  391 	mov	dph,@r0
-      000182 08               [12]  392 	inc	r0
-      000183 86 F0            [24]  393 	mov	b,@r0
-      000185 74 01            [12]  394 	mov	a,#0x01
-      000187 12r00r00         [24]  395 	lcall	__gptrput
-                                    396 ;	stack.c:24: *val = s->data[s->p];
-      00018A E5*00            [12]  397 	mov	a,_bp
-      00018C 24 FB            [12]  398 	add	a,#0xfb
-      00018E F8               [12]  399 	mov	r0,a
-      00018F E5*00            [12]  400 	mov	a,_bp
-      000191 24 04            [12]  401 	add	a,#0x04
-      000193 F9               [12]  402 	mov	r1,a
-      000194 E6               [12]  403 	mov	a,@r0
-      000195 F7               [12]  404 	mov	@r1,a
-      000196 08               [12]  405 	inc	r0
-      000197 09               [12]  406 	inc	r1
-      000198 E6               [12]  407 	mov	a,@r0
-      000199 F7               [12]  408 	mov	@r1,a
-      00019A 08               [12]  409 	inc	r0
-      00019B 09               [12]  410 	inc	r1
-      00019C E6               [12]  411 	mov	a,@r0
-      00019D F7               [12]  412 	mov	@r1,a
-      00019E A8*00            [24]  413 	mov	r0,_bp
-      0001A0 08               [12]  414 	inc	r0
-      0001A1 74 01            [12]  415 	mov	a,#0x01
-      0001A3 26               [12]  416 	add	a,@r0
-      0001A4 FD               [12]  417 	mov	r5,a
-      0001A5 E4               [12]  418 	clr	a
-      0001A6 08               [12]  419 	inc	r0
-      0001A7 36               [12]  420 	addc	a,@r0
-      0001A8 FC               [12]  421 	mov	r4,a
-      0001A9 08               [12]  422 	inc	r0
-      0001AA 86 03            [24]  423 	mov	ar3,@r0
-      0001AC E5*00            [12]  424 	mov	a,_bp
-      0001AE 24 07            [12]  425 	add	a,#0x07
-      0001B0 F8               [12]  426 	mov	r0,a
-      0001B1 86 82            [24]  427 	mov	dpl,@r0
-      0001B3 08               [12]  428 	inc	r0
-      0001B4 86 83            [24]  429 	mov	dph,@r0
-      0001B6 08               [12]  430 	inc	r0
-      0001B7 86 F0            [24]  431 	mov	b,@r0
-      0001B9 12r00r00         [24]  432 	lcall	__gptrget
-      0001BC FF               [12]  433 	mov	r7,a
-      0001BD A3               [24]  434 	inc	dptr
-      0001BE 12r00r00         [24]  435 	lcall	__gptrget
-      0001C1 FE               [12]  436 	mov	r6,a
-      0001C2 EF               [12]  437 	mov	a,r7
-      0001C3 2F               [12]  438 	add	a,r7
-      0001C4 FF               [12]  439 	mov	r7,a
-      0001C5 EE               [12]  440 	mov	a,r6
-      0001C6 33               [12]  441 	rlc	a
-      0001C7 FE               [12]  442 	mov	r6,a
-      0001C8 EF               [12]  443 	mov	a,r7
-      0001C9 2F               [12]  444 	add	a,r7
-      0001CA FF               [12]  445 	mov	r7,a
-      0001CB EE               [12]  446 	mov	a,r6
-      0001CC 33               [12]  447 	rlc	a
-      0001CD FE               [12]  448 	mov	r6,a
-      0001CE EF               [12]  449 	mov	a,r7
-      0001CF 2D               [12]  450 	add	a,r5
-      0001D0 FD               [12]  451 	mov	r5,a
-      0001D1 EE               [12]  452 	mov	a,r6
-      0001D2 3C               [12]  453 	addc	a,r4
-      0001D3 FE               [12]  454 	mov	r6,a
-      0001D4 8B 07            [24]  455 	mov	ar7,r3
-      0001D6 8D 82            [24]  456 	mov	dpl,r5
-      0001D8 8E 83            [24]  457 	mov	dph,r6
-      0001DA 8F F0            [24]  458 	mov	b,r7
-      0001DC 12r00r00         [24]  459 	lcall	__gptrget
-      0001DF FD               [12]  460 	mov	r5,a
-      0001E0 A3               [24]  461 	inc	dptr
-      0001E1 12r00r00         [24]  462 	lcall	__gptrget
-      0001E4 FE               [12]  463 	mov	r6,a
-      0001E5 A3               [24]  464 	inc	dptr
-      0001E6 12r00r00         [24]  465 	lcall	__gptrget
-      0001E9 FC               [12]  466 	mov	r4,a
-      0001EA A3               [24]  467 	inc	dptr
-      0001EB 12r00r00         [24]  468 	lcall	__gptrget
-      0001EE FF               [12]  469 	mov	r7,a
-      0001EF E5*00            [12]  470 	mov	a,_bp
-      0001F1 24 04            [12]  471 	add	a,#0x04
-      0001F3 F8               [12]  472 	mov	r0,a
-      0001F4 86 82            [24]  473 	mov	dpl,@r0
-      0001F6 08               [12]  474 	inc	r0
-      0001F7 86 83            [24]  475 	mov	dph,@r0
-      0001F9 08               [12]  476 	inc	r0
-      0001FA 86 F0            [24]  477 	mov	b,@r0
-      0001FC ED               [12]  478 	mov	a,r5
-      0001FD 12r00r00         [24]  479 	lcall	__gptrput
-      000200 A3               [24]  480 	inc	dptr
-      000201 EE               [12]  481 	mov	a,r6
-      000202 12r00r00         [24]  482 	lcall	__gptrput
-      000205 A3               [24]  483 	inc	dptr
-      000206 EC               [12]  484 	mov	a,r4
-      000207 12r00r00         [24]  485 	lcall	__gptrput
-      00020A A3               [24]  486 	inc	dptr
-      00020B EF               [12]  487 	mov	a,r7
-      00020C 12r00r00         [24]  488 	lcall	__gptrput
-                                    489 ;	stack.c:25: s->p--;
-      00020F E5*00            [12]  490 	mov	a,_bp
-      000211 24 07            [12]  491 	add	a,#0x07
-      000213 F8               [12]  492 	mov	r0,a
-      000214 86 82            [24]  493 	mov	dpl,@r0
-      000216 08               [12]  494 	inc	r0
-      000217 86 83            [24]  495 	mov	dph,@r0
-      000219 08               [12]  496 	inc	r0
-      00021A 86 F0            [24]  497 	mov	b,@r0
-      00021C 12r00r00         [24]  498 	lcall	__gptrget
-      00021F FE               [12]  499 	mov	r6,a
-      000220 A3               [24]  500 	inc	dptr
-      000221 12r00r00         [24]  501 	lcall	__gptrget
-      000224 FF               [12]  502 	mov	r7,a
-      000225 1E               [12]  503 	dec	r6
-      000226 BE FF 01         [24]  504 	cjne	r6,#0xff,00110$
-      000229 1F               [12]  505 	dec	r7
-      00022A                        506 00110$:
-      00022A E5*00            [12]  507 	mov	a,_bp
-      00022C 24 07            [12]  508 	add	a,#0x07
-      00022E F8               [12]  509 	mov	r0,a
-      00022F 86 82            [24]  510 	mov	dpl,@r0
-      000231 08               [12]  511 	inc	r0
-      000232 86 83            [24]  512 	mov	dph,@r0
-      000234 08               [12]  513 	inc	r0
-      000235 86 F0            [24]  514 	mov	b,@r0
-      000237 EE               [12]  515 	mov	a,r6
-      000238 12r00r00         [24]  516 	lcall	__gptrput
-      00023B A3               [24]  517 	inc	dptr
-      00023C EF               [12]  518 	mov	a,r7
-      00023D 12r00r00         [24]  519 	lcall	__gptrput
-                                    520 ;	stack.c:26: s->spin = 0;
-      000240 A8*00            [24]  521 	mov	r0,_bp
-      000242 08               [12]  522 	inc	r0
-      000243 86 82            [24]  523 	mov	dpl,@r0
-      000245 08               [12]  524 	inc	r0
-      000246 86 83            [24]  525 	mov	dph,@r0
-      000248 08               [12]  526 	inc	r0
-      000249 86 F0            [24]  527 	mov	b,@r0
-      00024B E4               [12]  528 	clr	a
-      00024C 12r00r00         [24]  529 	lcall	__gptrput
-                                    530 ;	stack.c:27: return 1;
-      00024F 90 00 01         [24]  531 	mov	dptr,#0x0001
-      000252                        532 00103$:
-                                    533 ;	stack.c:28: }
-      000252 85*00 81         [24]  534 	mov	sp,_bp
-      000255 D0*00            [24]  535 	pop	_bp
-      000257 22               [24]  536 	ret
-                                    537 ;------------------------------------------------------------
-                                    538 ;Allocation info for local variables in function 'stack_peek'
-                                    539 ;------------------------------------------------------------
-                                    540 ;val                       Allocated to stack - _bp -5
-                                    541 ;s                         Allocated to registers r5 r6 r7 
-                                    542 ;sloc0                     Allocated to stack - _bp +1
-                                    543 ;------------------------------------------------------------
-                                    544 ;	stack.c:30: int stack_peek(stack_t *s, long *val) __reentrant {
-                                    545 ;	-----------------------------------------
-                                    546 ;	 function stack_peek
-                                    547 ;	-----------------------------------------
-      000258                        548 _stack_peek:
-      000258 C0*00            [24]  549 	push	_bp
-      00025A 85 81*00         [24]  550 	mov	_bp,sp
-      00025D 05 81            [12]  551 	inc	sp
-      00025F 05 81            [12]  552 	inc	sp
-      000261 05 81            [12]  553 	inc	sp
-      000263 AD 82            [24]  554 	mov	r5,dpl
-      000265 AE 83            [24]  555 	mov	r6,dph
-      000267 AF F0            [24]  556 	mov	r7,b
-                                    557 ;	stack.c:31: if (s->p < 0) return 0;
-      000269 74 03            [12]  558 	mov	a,#0x03
-      00026B 2D               [12]  559 	add	a,r5
-      00026C FB               [12]  560 	mov	r3,a
-      00026D 74 20            [12]  561 	mov	a,#0x20
-      00026F 3E               [12]  562 	addc	a,r6
-      000270 FA               [12]  563 	mov	r2,a
-      000271 8F 04            [24]  564 	mov	ar4,r7
-      000273 8B 82            [24]  565 	mov	dpl,r3
-      000275 8A 83            [24]  566 	mov	dph,r2
-      000277 8C F0            [24]  567 	mov	b,r4
-      000279 12r00r00         [24]  568 	lcall	__gptrget
-      00027C FB               [12]  569 	mov	r3,a
-      00027D A3               [24]  570 	inc	dptr
-      00027E 12r00r00         [24]  571 	lcall	__gptrget
-      000281 FC               [12]  572 	mov	r4,a
-      000282 30 E7 05         [24]  573 	jnb	acc.7,00102$
-      000285 90 00 00         [24]  574 	mov	dptr,#0x0000
-      000288 80 63            [24]  575 	sjmp	00103$
-      00028A                        576 00102$:
-                                    577 ;	stack.c:32: *val = s->data[s->p];
-      00028A E5*00            [12]  578 	mov	a,_bp
-      00028C 24 FB            [12]  579 	add	a,#0xfb
-      00028E F8               [12]  580 	mov	r0,a
-      00028F A9*00            [24]  581 	mov	r1,_bp
-      000291 09               [12]  582 	inc	r1
-      000292 E6               [12]  583 	mov	a,@r0
-      000293 F7               [12]  584 	mov	@r1,a
-      000294 08               [12]  585 	inc	r0
-      000295 09               [12]  586 	inc	r1
-      000296 E6               [12]  587 	mov	a,@r0
-      000297 F7               [12]  588 	mov	@r1,a
-      000298 08               [12]  589 	inc	r0
-      000299 09               [12]  590 	inc	r1
-      00029A E6               [12]  591 	mov	a,@r0
-      00029B F7               [12]  592 	mov	@r1,a
-      00029C 0D               [12]  593 	inc	r5
-      00029D BD 00 01         [24]  594 	cjne	r5,#0x00,00110$
-      0002A0 0E               [12]  595 	inc	r6
-      0002A1                        596 00110$:
-      0002A1 EB               [12]  597 	mov	a,r3
-      0002A2 2B               [12]  598 	add	a,r3
-      0002A3 FB               [12]  599 	mov	r3,a
-      0002A4 EC               [12]  600 	mov	a,r4
-      0002A5 33               [12]  601 	rlc	a
-      0002A6 FC               [12]  602 	mov	r4,a
-      0002A7 EB               [12]  603 	mov	a,r3
-      0002A8 2B               [12]  604 	add	a,r3
-      0002A9 FB               [12]  605 	mov	r3,a
-      0002AA EC               [12]  606 	mov	a,r4
-      0002AB 33               [12]  607 	rlc	a
-      0002AC FC               [12]  608 	mov	r4,a
-      0002AD EB               [12]  609 	mov	a,r3
-      0002AE 2D               [12]  610 	add	a,r5
-      0002AF FD               [12]  611 	mov	r5,a
-      0002B0 EC               [12]  612 	mov	a,r4
-      0002B1 3E               [12]  613 	addc	a,r6
-      0002B2 FE               [12]  614 	mov	r6,a
-      0002B3 8D 82            [24]  615 	mov	dpl,r5
-      0002B5 8E 83            [24]  616 	mov	dph,r6
-      0002B7 8F F0            [24]  617 	mov	b,r7
-      0002B9 12r00r00         [24]  618 	lcall	__gptrget
-      0002BC FD               [12]  619 	mov	r5,a
-      0002BD A3               [24]  620 	inc	dptr
-      0002BE 12r00r00         [24]  621 	lcall	__gptrget
-      0002C1 FE               [12]  622 	mov	r6,a
-      0002C2 A3               [24]  623 	inc	dptr
-      0002C3 12r00r00         [24]  624 	lcall	__gptrget
-      0002C6 FF               [12]  625 	mov	r7,a
-      0002C7 A3               [24]  626 	inc	dptr
-      0002C8 12r00r00         [24]  627 	lcall	__gptrget
-      0002CB FC               [12]  628 	mov	r4,a
-      0002CC A8*00            [24]  629 	mov	r0,_bp
-      0002CE 08               [12]  630 	inc	r0
-      0002CF 86 82            [24]  631 	mov	dpl,@r0
-      0002D1 08               [12]  632 	inc	r0
-      0002D2 86 83            [24]  633 	mov	dph,@r0
-      0002D4 08               [12]  634 	inc	r0
-      0002D5 86 F0            [24]  635 	mov	b,@r0
-      0002D7 ED               [12]  636 	mov	a,r5
-      0002D8 12r00r00         [24]  637 	lcall	__gptrput
-      0002DB A3               [24]  638 	inc	dptr
-      0002DC EE               [12]  639 	mov	a,r6
-      0002DD 12r00r00         [24]  640 	lcall	__gptrput
-      0002E0 A3               [24]  641 	inc	dptr
-      0002E1 EF               [12]  642 	mov	a,r7
-      0002E2 12r00r00         [24]  643 	lcall	__gptrput
-      0002E5 A3               [24]  644 	inc	dptr
-      0002E6 EC               [12]  645 	mov	a,r4
-      0002E7 12r00r00         [24]  646 	lcall	__gptrput
-                                    647 ;	stack.c:33: return 1;
-      0002EA 90 00 01         [24]  648 	mov	dptr,#0x0001
-      0002ED                        649 00103$:
-                                    650 ;	stack.c:34: }
-      0002ED 85*00 81         [24]  651 	mov	sp,_bp
-      0002F0 D0*00            [24]  652 	pop	_bp
-      0002F2 22               [24]  653 	ret
-                                    654 ;------------------------------------------------------------
-                                    655 ;Allocation info for local variables in function 'stack_peek2'
-                                    656 ;------------------------------------------------------------
-                                    657 ;vals                      Allocated to stack - _bp -5
-                                    658 ;s                         Allocated to stack - _bp +1
-                                    659 ;nvals                     Allocated to registers r5 r4 
-                                    660 ;sloc0                     Allocated to stack - _bp +4
-                                    661 ;sloc1                     Allocated to stack - _bp +7
-                                    662 ;sloc2                     Allocated to stack - _bp +12
-                                    663 ;sloc3                     Allocated to stack - _bp +10
-                                    664 ;------------------------------------------------------------
-                                    665 ;	stack.c:36: int stack_peek2(stack_t *s, long *vals) __reentrant {
-                                    666 ;	-----------------------------------------
-                                    667 ;	 function stack_peek2
-                                    668 ;	-----------------------------------------
-      0002F3                        669 _stack_peek2:
-      0002F3 C0*00            [24]  670 	push	_bp
-      0002F5 85 81*00         [24]  671 	mov	_bp,sp
-      0002F8 C0 82            [24]  672 	push	dpl
-      0002FA C0 83            [24]  673 	push	dph
-      0002FC C0 F0            [24]  674 	push	b
-      0002FE E5 81            [12]  675 	mov	a,sp
-      000300 24 09            [12]  676 	add	a,#0x09
-      000302 F5 81            [12]  677 	mov	sp,a
-                                    678 ;	stack.c:39: nvals = 0;
-                                    679 ;	stack.c:40: vals[0] = vals[1] = 0l;
-      000304 E4               [12]  680 	clr	a
-      000305 FD               [12]  681 	mov	r5,a
-      000306 FC               [12]  682 	mov	r4,a
-      000307 E5*00            [12]  683 	mov	a,_bp
-      000309 24 FB            [12]  684 	add	a,#0xfb
-      00030B F8               [12]  685 	mov	r0,a
-      00030C E5*00            [12]  686 	mov	a,_bp
-      00030E 24 0A            [12]  687 	add	a,#0x0a
-      000310 F9               [12]  688 	mov	r1,a
-      000311 E6               [12]  689 	mov	a,@r0
-      000312 F7               [12]  690 	mov	@r1,a
-      000313 08               [12]  691 	inc	r0
-      000314 09               [12]  692 	inc	r1
-      000315 E6               [12]  693 	mov	a,@r0
-      000316 F7               [12]  694 	mov	@r1,a
-      000317 08               [12]  695 	inc	r0
-      000318 09               [12]  696 	inc	r1
-      000319 E6               [12]  697 	mov	a,@r0
-      00031A F7               [12]  698 	mov	@r1,a
-      00031B E5*00            [12]  699 	mov	a,_bp
-      00031D 24 0A            [12]  700 	add	a,#0x0a
-      00031F F8               [12]  701 	mov	r0,a
-      000320 E5*00            [12]  702 	mov	a,_bp
-      000322 24 04            [12]  703 	add	a,#0x04
-      000324 F9               [12]  704 	mov	r1,a
-      000325 74 04            [12]  705 	mov	a,#0x04
-      000327 26               [12]  706 	add	a,@r0
-      000328 F7               [12]  707 	mov	@r1,a
-      000329 E4               [12]  708 	clr	a
-      00032A 08               [12]  709 	inc	r0
-      00032B 36               [12]  710 	addc	a,@r0
-      00032C 09               [12]  711 	inc	r1
-      00032D F7               [12]  712 	mov	@r1,a
-      00032E 08               [12]  713 	inc	r0
-      00032F 09               [12]  714 	inc	r1
-      000330 E6               [12]  715 	mov	a,@r0
-      000331 F7               [12]  716 	mov	@r1,a
-      000332 E5*00            [12]  717 	mov	a,_bp
-      000334 24 04            [12]  718 	add	a,#0x04
-      000336 F8               [12]  719 	mov	r0,a
-      000337 86 82            [24]  720 	mov	dpl,@r0
-      000339 08               [12]  721 	inc	r0
-      00033A 86 83            [24]  722 	mov	dph,@r0
-      00033C 08               [12]  723 	inc	r0
-      00033D 86 F0            [24]  724 	mov	b,@r0
-      00033F E4               [12]  725 	clr	a
-      000340 12r00r00         [24]  726 	lcall	__gptrput
-      000343 A3               [24]  727 	inc	dptr
-      000344 12r00r00         [24]  728 	lcall	__gptrput
-      000347 A3               [24]  729 	inc	dptr
-      000348 12r00r00         [24]  730 	lcall	__gptrput
-      00034B A3               [24]  731 	inc	dptr
-      00034C 12r00r00         [24]  732 	lcall	__gptrput
-      00034F E5*00            [12]  733 	mov	a,_bp
-      000351 24 0A            [12]  734 	add	a,#0x0a
-      000353 F8               [12]  735 	mov	r0,a
-      000354 86 82            [24]  736 	mov	dpl,@r0
-      000356 08               [12]  737 	inc	r0
-      000357 86 83            [24]  738 	mov	dph,@r0
-      000359 08               [12]  739 	inc	r0
-      00035A 86 F0            [24]  740 	mov	b,@r0
-      00035C E4               [12]  741 	clr	a
-      00035D 12r00r00         [24]  742 	lcall	__gptrput
-      000360 A3               [24]  743 	inc	dptr
-      000361 12r00r00         [24]  744 	lcall	__gptrput
-      000364 A3               [24]  745 	inc	dptr
-      000365 12r00r00         [24]  746 	lcall	__gptrput
-      000368 A3               [24]  747 	inc	dptr
-      000369 12r00r00         [24]  748 	lcall	__gptrput
-                                    749 ;	stack.c:42: if (s->spin) goto out; /* if called from ISR */
-      00036C A8*00            [24]  750 	mov	r0,_bp
-      00036E 08               [12]  751 	inc	r0
-      00036F 86 82            [24]  752 	mov	dpl,@r0
-      000371 08               [12]  753 	inc	r0
-      000372 86 83            [24]  754 	mov	dph,@r0
-      000374 08               [12]  755 	inc	r0
-      000375 86 F0            [24]  756 	mov	b,@r0
-      000377 12r00r00         [24]  757 	lcall	__gptrget
-      00037A 60 03            [24]  758 	jz	00122$
-      00037C 02r04rA4         [24]  759 	ljmp	00107$
-      00037F                        760 00122$:
-                                    761 ;	stack.c:44: if (s->p < 0) goto out;
-      00037F A8*00            [24]  762 	mov	r0,_bp
-      000381 08               [12]  763 	inc	r0
-      000382 E5*00            [12]  764 	mov	a,_bp
-      000384 24 07            [12]  765 	add	a,#0x07
-      000386 F9               [12]  766 	mov	r1,a
-      000387 74 03            [12]  767 	mov	a,#0x03
-      000389 26               [12]  768 	add	a,@r0
-      00038A F7               [12]  769 	mov	@r1,a
-      00038B 74 20            [12]  770 	mov	a,#0x20
-      00038D 08               [12]  771 	inc	r0
-      00038E 36               [12]  772 	addc	a,@r0
-      00038F 09               [12]  773 	inc	r1
-      000390 F7               [12]  774 	mov	@r1,a
-      000391 08               [12]  775 	inc	r0
-      000392 09               [12]  776 	inc	r1
-      000393 E6               [12]  777 	mov	a,@r0
-      000394 F7               [12]  778 	mov	@r1,a
-      000395 E5*00            [12]  779 	mov	a,_bp
-      000397 24 07            [12]  780 	add	a,#0x07
-      000399 F8               [12]  781 	mov	r0,a
-      00039A 86 82            [24]  782 	mov	dpl,@r0
-      00039C 08               [12]  783 	inc	r0
-      00039D 86 83            [24]  784 	mov	dph,@r0
-      00039F 08               [12]  785 	inc	r0
-      0003A0 86 F0            [24]  786 	mov	b,@r0
-      0003A2 12r00r00         [24]  787 	lcall	__gptrget
-      0003A5 FE               [12]  788 	mov	r6,a
-      0003A6 A3               [24]  789 	inc	dptr
-      0003A7 12r00r00         [24]  790 	lcall	__gptrget
-      0003AA FF               [12]  791 	mov	r7,a
-      0003AB 30 E7 03         [24]  792 	jnb	acc.7,00123$
-      0003AE 02r04rA4         [24]  793 	ljmp	00107$
-      0003B1                        794 00123$:
-                                    795 ;	stack.c:45: vals[1] = s->data[s->p];
-      0003B1 A8*00            [24]  796 	mov	r0,_bp
-      0003B3 08               [12]  797 	inc	r0
-      0003B4 74 01            [12]  798 	mov	a,#0x01
-      0003B6 26               [12]  799 	add	a,@r0
-      0003B7 FA               [12]  800 	mov	r2,a
-      0003B8 E4               [12]  801 	clr	a
-      0003B9 08               [12]  802 	inc	r0
-      0003BA 36               [12]  803 	addc	a,@r0
-      0003BB FB               [12]  804 	mov	r3,a
-      0003BC 08               [12]  805 	inc	r0
-      0003BD 86 04            [24]  806 	mov	ar4,@r0
-      0003BF EE               [12]  807 	mov	a,r6
-      0003C0 2E               [12]  808 	add	a,r6
-      0003C1 FE               [12]  809 	mov	r6,a
-      0003C2 EF               [12]  810 	mov	a,r7
-      0003C3 33               [12]  811 	rlc	a
-      0003C4 FF               [12]  812 	mov	r7,a
-      0003C5 EE               [12]  813 	mov	a,r6
-      0003C6 2E               [12]  814 	add	a,r6
-      0003C7 FE               [12]  815 	mov	r6,a
-      0003C8 EF               [12]  816 	mov	a,r7
-      0003C9 33               [12]  817 	rlc	a
-      0003CA FF               [12]  818 	mov	r7,a
-      0003CB EE               [12]  819 	mov	a,r6
-      0003CC 2A               [12]  820 	add	a,r2
-      0003CD FA               [12]  821 	mov	r2,a
-      0003CE EF               [12]  822 	mov	a,r7
-      0003CF 3B               [12]  823 	addc	a,r3
-      0003D0 FB               [12]  824 	mov	r3,a
-      0003D1 8A 82            [24]  825 	mov	dpl,r2
-      0003D3 8B 83            [24]  826 	mov	dph,r3
-      0003D5 8C F0            [24]  827 	mov	b,r4
-      0003D7 12r00r00         [24]  828 	lcall	__gptrget
-      0003DA FA               [12]  829 	mov	r2,a
-      0003DB A3               [24]  830 	inc	dptr
-      0003DC 12r00r00         [24]  831 	lcall	__gptrget
-      0003DF FB               [12]  832 	mov	r3,a
-      0003E0 A3               [24]  833 	inc	dptr
-      0003E1 12r00r00         [24]  834 	lcall	__gptrget
-      0003E4 FC               [12]  835 	mov	r4,a
-      0003E5 A3               [24]  836 	inc	dptr
-      0003E6 12r00r00         [24]  837 	lcall	__gptrget
-      0003E9 FF               [12]  838 	mov	r7,a
-      0003EA E5*00            [12]  839 	mov	a,_bp
-      0003EC 24 04            [12]  840 	add	a,#0x04
-      0003EE F8               [12]  841 	mov	r0,a
-      0003EF 86 82            [24]  842 	mov	dpl,@r0
-      0003F1 08               [12]  843 	inc	r0
-      0003F2 86 83            [24]  844 	mov	dph,@r0
-      0003F4 08               [12]  845 	inc	r0
-      0003F5 86 F0            [24]  846 	mov	b,@r0
-      0003F7 EA               [12]  847 	mov	a,r2
-      0003F8 12r00r00         [24]  848 	lcall	__gptrput
-      0003FB A3               [24]  849 	inc	dptr
-      0003FC EB               [12]  850 	mov	a,r3
-      0003FD 12r00r00         [24]  851 	lcall	__gptrput
-      000400 A3               [24]  852 	inc	dptr
-      000401 EC               [12]  853 	mov	a,r4
-      000402 12r00r00         [24]  854 	lcall	__gptrput
-      000405 A3               [24]  855 	inc	dptr
-      000406 EF               [12]  856 	mov	a,r7
-      000407 12r00r00         [24]  857 	lcall	__gptrput
-                                    858 ;	stack.c:46: nvals++;
-      00040A 7D 01            [12]  859 	mov	r5,#0x01
-      00040C 7C 00            [12]  860 	mov	r4,#0x00
-                                    861 ;	stack.c:48: if ((s->p - 1) < 0) goto out;
-      00040E E5*00            [12]  862 	mov	a,_bp
-      000410 24 07            [12]  863 	add	a,#0x07
-      000412 F8               [12]  864 	mov	r0,a
-      000413 86 82            [24]  865 	mov	dpl,@r0
-      000415 08               [12]  866 	inc	r0
-      000416 86 83            [24]  867 	mov	dph,@r0
-      000418 08               [12]  868 	inc	r0
-      000419 86 F0            [24]  869 	mov	b,@r0
-      00041B 12r00r00         [24]  870 	lcall	__gptrget
-      00041E FB               [12]  871 	mov	r3,a
-      00041F A3               [24]  872 	inc	dptr
-      000420 12r00r00         [24]  873 	lcall	__gptrget
-      000423 FA               [12]  874 	mov	r2,a
-      000424 EB               [12]  875 	mov	a,r3
-      000425 24 FF            [12]  876 	add	a,#0xff
-      000427 FE               [12]  877 	mov	r6,a
-      000428 EA               [12]  878 	mov	a,r2
-      000429 34 FF            [12]  879 	addc	a,#0xff
-      00042B FF               [12]  880 	mov	r7,a
-      00042C 20 E7 75         [24]  881 	jb	acc.7,00107$
-                                    882 ;	stack.c:49: vals[0] = s->data[s->p - 1];
-      00042F A8*00            [24]  883 	mov	r0,_bp
-      000431 08               [12]  884 	inc	r0
-      000432 E5*00            [12]  885 	mov	a,_bp
-      000434 24 07            [12]  886 	add	a,#0x07
-      000436 F9               [12]  887 	mov	r1,a
-      000437 74 01            [12]  888 	mov	a,#0x01
-      000439 26               [12]  889 	add	a,@r0
-      00043A F7               [12]  890 	mov	@r1,a
-      00043B E4               [12]  891 	clr	a
-      00043C 08               [12]  892 	inc	r0
-      00043D 36               [12]  893 	addc	a,@r0
-      00043E 09               [12]  894 	inc	r1
-      00043F F7               [12]  895 	mov	@r1,a
-      000440 08               [12]  896 	inc	r0
-      000441 09               [12]  897 	inc	r1
-      000442 E6               [12]  898 	mov	a,@r0
-      000443 F7               [12]  899 	mov	@r1,a
-      000444 EB               [12]  900 	mov	a,r3
-      000445 24 FF            [12]  901 	add	a,#0xff
-      000447 FE               [12]  902 	mov	r6,a
-      000448 EA               [12]  903 	mov	a,r2
-      000449 34 FF            [12]  904 	addc	a,#0xff
-      00044B FF               [12]  905 	mov	r7,a
-      00044C EE               [12]  906 	mov	a,r6
-      00044D 2E               [12]  907 	add	a,r6
-      00044E FE               [12]  908 	mov	r6,a
-      00044F EF               [12]  909 	mov	a,r7
-      000450 33               [12]  910 	rlc	a
-      000451 FF               [12]  911 	mov	r7,a
-      000452 EE               [12]  912 	mov	a,r6
-      000453 2E               [12]  913 	add	a,r6
-      000454 FE               [12]  914 	mov	r6,a
-      000455 EF               [12]  915 	mov	a,r7
-      000456 33               [12]  916 	rlc	a
-      000457 FF               [12]  917 	mov	r7,a
-      000458 E5*00            [12]  918 	mov	a,_bp
-      00045A 24 07            [12]  919 	add	a,#0x07
-      00045C F8               [12]  920 	mov	r0,a
-      00045D EE               [12]  921 	mov	a,r6
-      00045E 26               [12]  922 	add	a,@r0
-      00045F FE               [12]  923 	mov	r6,a
-      000460 EF               [12]  924 	mov	a,r7
-      000461 08               [12]  925 	inc	r0
-      000462 36               [12]  926 	addc	a,@r0
-      000463 FD               [12]  927 	mov	r5,a
-      000464 08               [12]  928 	inc	r0
-      000465 86 07            [24]  929 	mov	ar7,@r0
-      000467 8E 82            [24]  930 	mov	dpl,r6
-      000469 8D 83            [24]  931 	mov	dph,r5
-      00046B 8F F0            [24]  932 	mov	b,r7
-      00046D 12r00r00         [24]  933 	lcall	__gptrget
-      000470 FE               [12]  934 	mov	r6,a
-      000471 A3               [24]  935 	inc	dptr
-      000472 12r00r00         [24]  936 	lcall	__gptrget
-      000475 FD               [12]  937 	mov	r5,a
-      000476 A3               [24]  938 	inc	dptr
-      000477 12r00r00         [24]  939 	lcall	__gptrget
-      00047A FC               [12]  940 	mov	r4,a
-      00047B A3               [24]  941 	inc	dptr
-      00047C 12r00r00         [24]  942 	lcall	__gptrget
-      00047F FF               [12]  943 	mov	r7,a
-      000480 E5*00            [12]  944 	mov	a,_bp
-      000482 24 0A            [12]  945 	add	a,#0x0a
-      000484 F8               [12]  946 	mov	r0,a
-      000485 86 82            [24]  947 	mov	dpl,@r0
-      000487 08               [12]  948 	inc	r0
-      000488 86 83            [24]  949 	mov	dph,@r0
-      00048A 08               [12]  950 	inc	r0
-      00048B 86 F0            [24]  951 	mov	b,@r0
-      00048D EE               [12]  952 	mov	a,r6
-      00048E 12r00r00         [24]  953 	lcall	__gptrput
-      000491 A3               [24]  954 	inc	dptr
-      000492 ED               [12]  955 	mov	a,r5
-      000493 12r00r00         [24]  956 	lcall	__gptrput
-      000496 A3               [24]  957 	inc	dptr
-      000497 EC               [12]  958 	mov	a,r4
-      000498 12r00r00         [24]  959 	lcall	__gptrput
-      00049B A3               [24]  960 	inc	dptr
-      00049C EF               [12]  961 	mov	a,r7
-      00049D 12r00r00         [24]  962 	lcall	__gptrput
-                                    963 ;	stack.c:50: nvals++;
-      0004A0 7D 02            [12]  964 	mov	r5,#0x02
-      0004A2 7C 00            [12]  965 	mov	r4,#0x00
-                                    966 ;	stack.c:52: out:
-      0004A4                        967 00107$:
-                                    968 ;	stack.c:53: return nvals;
-      0004A4 8D 82            [24]  969 	mov	dpl,r5
-      0004A6 8C 83            [24]  970 	mov	dph,r4
-                                    971 ;	stack.c:54: }
-      0004A8 85*00 81         [24]  972 	mov	sp,_bp
-      0004AB D0*00            [24]  973 	pop	_bp
-      0004AD 22               [24]  974 	ret
-                                    975 ;------------------------------------------------------------
-                                    976 ;Allocation info for local variables in function 'stack_iter_peek'
-                                    977 ;------------------------------------------------------------
-                                    978 ;iter                      Allocated to stack - _bp -4
-                                    979 ;_ctx                      Allocated to stack - _bp -7
-                                    980 ;s                         Allocated to stack - _bp +1
-                                    981 ;j                         Allocated to registers 
-                                    982 ;r                         Allocated to registers r2 r7 
-                                    983 ;sloc0                     Allocated to stack - _bp +4
-                                    984 ;------------------------------------------------------------
-                                    985 ;	stack.c:56: int stack_iter_peek(stack_t *s, stack_iter_t iter, void *_ctx) __reentrant {
-                                    986 ;	-----------------------------------------
-                                    987 ;	 function stack_iter_peek
-                                    988 ;	-----------------------------------------
-      0004AE                        989 _stack_iter_peek:
-      0004AE C0*00            [24]  990 	push	_bp
-      0004B0 85 81*00         [24]  991 	mov	_bp,sp
-      0004B3 C0 82            [24]  992 	push	dpl
-      0004B5 C0 83            [24]  993 	push	dph
-      0004B7 C0 F0            [24]  994 	push	b
-      0004B9 05 81            [12]  995 	inc	sp
-      0004BB 05 81            [12]  996 	inc	sp
-      0004BD 05 81            [12]  997 	inc	sp
-                                    998 ;	stack.c:59: if (s->p < 0) return 0;
-      0004BF A8*00            [24]  999 	mov	r0,_bp
-      0004C1 08               [12] 1000 	inc	r0
-      0004C2 74 03            [12] 1001 	mov	a,#0x03
-      0004C4 26               [12] 1002 	add	a,@r0
-      0004C5 FB               [12] 1003 	mov	r3,a
-      0004C6 74 20            [12] 1004 	mov	a,#0x20
-      0004C8 08               [12] 1005 	inc	r0
-      0004C9 36               [12] 1006 	addc	a,@r0
-      0004CA FA               [12] 1007 	mov	r2,a
-      0004CB 08               [12] 1008 	inc	r0
-      0004CC 86 04            [24] 1009 	mov	ar4,@r0
-      0004CE 8B 82            [24] 1010 	mov	dpl,r3
-      0004D0 8A 83            [24] 1011 	mov	dph,r2
-      0004D2 8C F0            [24] 1012 	mov	b,r4
-      0004D4 12r00r00         [24] 1013 	lcall	__gptrget
-      0004D7 FB               [12] 1014 	mov	r3,a
-      0004D8 A3               [24] 1015 	inc	dptr
-      0004D9 12r00r00         [24] 1016 	lcall	__gptrget
-      0004DC FC               [12] 1017 	mov	r4,a
-      0004DD 30 E7 06         [24] 1018 	jnb	acc.7,00102$
-      0004E0 90 00 00         [24] 1019 	mov	dptr,#0x0000
-      0004E3 02r05r99         [24] 1020 	ljmp	00109$
-      0004E6                       1021 00102$:
-                                   1022 ;	stack.c:61: for (j = s->p, r = 0; j >= 0; j--) {
-      0004E6 7A 00            [12] 1023 	mov	r2,#0x00
-      0004E8 7F 00            [12] 1024 	mov	r7,#0x00
-      0004EA A8*00            [24] 1025 	mov	r0,_bp
-      0004EC 08               [12] 1026 	inc	r0
-      0004ED E5*00            [12] 1027 	mov	a,_bp
-      0004EF 24 04            [12] 1028 	add	a,#0x04
-      0004F1 F9               [12] 1029 	mov	r1,a
-      0004F2 74 01            [12] 1030 	mov	a,#0x01
-      0004F4 26               [12] 1031 	add	a,@r0
-      0004F5 F7               [12] 1032 	mov	@r1,a
-      0004F6 E4               [12] 1033 	clr	a
-      0004F7 08               [12] 1034 	inc	r0
-      0004F8 36               [12] 1035 	addc	a,@r0
-      0004F9 09               [12] 1036 	inc	r1
-      0004FA F7               [12] 1037 	mov	@r1,a
-      0004FB 08               [12] 1038 	inc	r0
-      0004FC 09               [12] 1039 	inc	r1
-      0004FD E6               [12] 1040 	mov	a,@r0
-      0004FE F7               [12] 1041 	mov	@r1,a
-      0004FF                       1042 00107$:
-      0004FF EC               [12] 1043 	mov	a,r4
-      000500 30 E7 03         [24] 1044 	jnb	acc.7,00129$
-      000503 02r05r95         [24] 1045 	ljmp	00105$
-      000506                       1046 00129$:
-                                   1047 ;	stack.c:62: r = iter(_ctx, s->data[j]);
-      000506 EB               [12] 1048 	mov	a,r3
-      000507 2B               [12] 1049 	add	a,r3
-      000508 FD               [12] 1050 	mov	r5,a
-      000509 EC               [12] 1051 	mov	a,r4
-      00050A 33               [12] 1052 	rlc	a
-      00050B FE               [12] 1053 	mov	r6,a
-      00050C ED               [12] 1054 	mov	a,r5
-      00050D 2D               [12] 1055 	add	a,r5
-      00050E FD               [12] 1056 	mov	r5,a
-      00050F EE               [12] 1057 	mov	a,r6
-      000510 33               [12] 1058 	rlc	a
-      000511 FE               [12] 1059 	mov	r6,a
-      000512 C0 03            [24] 1060 	push	ar3
-      000514 C0 04            [24] 1061 	push	ar4
-      000516 E5*00            [12] 1062 	mov	a,_bp
-      000518 24 04            [12] 1063 	add	a,#0x04
-      00051A F8               [12] 1064 	mov	r0,a
-      00051B ED               [12] 1065 	mov	a,r5
-      00051C 26               [12] 1066 	add	a,@r0
-      00051D FD               [12] 1067 	mov	r5,a
-      00051E EE               [12] 1068 	mov	a,r6
-      00051F 08               [12] 1069 	inc	r0
-      000520 36               [12] 1070 	addc	a,@r0
-      000521 FC               [12] 1071 	mov	r4,a
-      000522 08               [12] 1072 	inc	r0
-      000523 86 06            [24] 1073 	mov	ar6,@r0
-      000525 8D 82            [24] 1074 	mov	dpl,r5
-      000527 8C 83            [24] 1075 	mov	dph,r4
-      000529 8E F0            [24] 1076 	mov	b,r6
-      00052B 12r00r00         [24] 1077 	lcall	__gptrget
-      00052E FD               [12] 1078 	mov	r5,a
-      00052F A3               [24] 1079 	inc	dptr
-      000530 12r00r00         [24] 1080 	lcall	__gptrget
-      000533 FC               [12] 1081 	mov	r4,a
-      000534 A3               [24] 1082 	inc	dptr
-      000535 12r00r00         [24] 1083 	lcall	__gptrget
-      000538 FE               [12] 1084 	mov	r6,a
-      000539 A3               [24] 1085 	inc	dptr
-      00053A 12r00r00         [24] 1086 	lcall	__gptrget
-      00053D FB               [12] 1087 	mov	r3,a
-      00053E C0 04            [24] 1088 	push	ar4
-      000540 C0 03            [24] 1089 	push	ar3
-      000542 C0 05            [24] 1090 	push	ar5
-      000544 C0 04            [24] 1091 	push	ar4
-      000546 C0 06            [24] 1092 	push	ar6
-      000548 C0 03            [24] 1093 	push	ar3
-      00054A 12r05r4F         [24] 1094 	lcall	00130$
-      00054D 80 1A            [24] 1095 	sjmp	00131$
-      00054F                       1096 00130$:
-      00054F E5*00            [12] 1097 	mov	a,_bp
-      000551 24 FC            [12] 1098 	add	a,#0xfc
-      000553 F8               [12] 1099 	mov	r0,a
-      000554 E6               [12] 1100 	mov	a,@r0
-      000555 C0 E0            [24] 1101 	push	acc
-      000557 08               [12] 1102 	inc	r0
-      000558 E6               [12] 1103 	mov	a,@r0
-      000559 C0 E0            [24] 1104 	push	acc
-      00055B E5*00            [12] 1105 	mov	a,_bp
-      00055D 24 F9            [12] 1106 	add	a,#0xf9
-      00055F F8               [12] 1107 	mov	r0,a
-      000560 86 82            [24] 1108 	mov	dpl,@r0
-      000562 08               [12] 1109 	inc	r0
-      000563 86 83            [24] 1110 	mov	dph,@r0
-      000565 08               [12] 1111 	inc	r0
-      000566 86 F0            [24] 1112 	mov	b,@r0
-      000568 22               [24] 1113 	ret
-      000569                       1114 00131$:
-      000569 AD 82            [24] 1115 	mov	r5,dpl
-      00056B AE 83            [24] 1116 	mov	r6,dph
-      00056D E5 81            [12] 1117 	mov	a,sp
-      00056F 24 FC            [12] 1118 	add	a,#0xfc
-      000571 F5 81            [12] 1119 	mov	sp,a
-      000573 D0 03            [24] 1120 	pop	ar3
-      000575 D0 04            [24] 1121 	pop	ar4
-      000577 8D 02            [24] 1122 	mov	ar2,r5
-      000579 8E 07            [24] 1123 	mov	ar7,r6
-                                   1124 ;	stack.c:63: if (r <= 0) break;
-      00057B C3               [12] 1125 	clr	c
-      00057C E4               [12] 1126 	clr	a
-      00057D 9A               [12] 1127 	subb	a,r2
-      00057E 74 80            [12] 1128 	mov	a,#(0x00 ^ 0x80)
-      000580 8F F0            [24] 1129 	mov	b,r7
-      000582 63 F0 80         [24] 1130 	xrl	b,#0x80
-      000585 95 F0            [12] 1131 	subb	a,b
-      000587 D0 04            [24] 1132 	pop	ar4
-      000589 D0 03            [24] 1133 	pop	ar3
-      00058B 50 08            [24] 1134 	jnc	00105$
-                                   1135 ;	stack.c:61: for (j = s->p, r = 0; j >= 0; j--) {
-      00058D 1B               [12] 1136 	dec	r3
-      00058E BB FF 01         [24] 1137 	cjne	r3,#0xff,00133$
-      000591 1C               [12] 1138 	dec	r4
-      000592                       1139 00133$:
-      000592 02r04rFF         [24] 1140 	ljmp	00107$
-      000595                       1141 00105$:
-                                   1142 ;	stack.c:66: return r;
-      000595 8A 82            [24] 1143 	mov	dpl,r2
-      000597 8F 83            [24] 1144 	mov	dph,r7
-      000599                       1145 00109$:
-                                   1146 ;	stack.c:67: }
-      000599 85*00 81         [24] 1147 	mov	sp,_bp
-      00059C D0*00            [24] 1148 	pop	_bp
-      00059E 22               [24] 1149 	ret
-                                   1150 	.area CSEG    (CODE)
-                                   1151 	.area CONST   (CODE)
-                                   1152 	.area XINIT   (CODE)
-                                   1153 	.area CABS    (ABS,CODE)
+      000000 AD 82            [24]  112 	mov	r5,dpl
+      000002 AE 83            [24]  113 	mov	r6,dph
+      000004 AF F0            [24]  114 	mov	r7,b
+                                    115 ;	stack.c:7: s->N = SIZE;
+      000006 8D 02            [24]  116 	mov	ar2,r5
+      000008 74 20            [12]  117 	mov	a,#0x20
+      00000A 2E               [12]  118 	add	a,r6
+      00000B FB               [12]  119 	mov	r3,a
+      00000C 8F 04            [24]  120 	mov	ar4,r7
+      00000E 8A 82            [24]  121 	mov	dpl,r2
+      000010 8B 83            [24]  122 	mov	dph,r3
+      000012 8C F0            [24]  123 	mov	b,r4
+      000014 E4               [12]  124 	clr	a
+      000015 12r00r00         [24]  125 	lcall	__gptrput
+      000018 A3               [24]  126 	inc	dptr
+      000019 74 08            [12]  127 	mov	a,#0x08
+      00001B 12r00r00         [24]  128 	lcall	__gptrput
+                                    129 ;	stack.c:8: s->p = -1;
+      00001E 74 02            [12]  130 	mov	a,#0x02
+      000020 2D               [12]  131 	add	a,r5
+      000021 FD               [12]  132 	mov	r5,a
+      000022 74 20            [12]  133 	mov	a,#0x20
+      000024 3E               [12]  134 	addc	a,r6
+      000025 FE               [12]  135 	mov	r6,a
+      000026 8D 82            [24]  136 	mov	dpl,r5
+      000028 8E 83            [24]  137 	mov	dph,r6
+      00002A 8F F0            [24]  138 	mov	b,r7
+      00002C 74 FF            [12]  139 	mov	a,#0xff
+      00002E 12r00r00         [24]  140 	lcall	__gptrput
+      000031 A3               [24]  141 	inc	dptr
+                                    142 ;	stack.c:10: return;
+                                    143 ;	stack.c:11: }
+      000032 02r00r00         [24]  144 	ljmp	__gptrput
+                                    145 ;------------------------------------------------------------
+                                    146 ;Allocation info for local variables in function 'stack_push'
+                                    147 ;------------------------------------------------------------
+                                    148 ;val                       Allocated to stack - _bp -6
+                                    149 ;s                         Allocated to stack - _bp +1
+                                    150 ;sloc0                     Allocated to stack - _bp +4
+                                    151 ;------------------------------------------------------------
+                                    152 ;	stack.c:13: int stack_push(stack_t *s, long val) __reentrant {
+                                    153 ;	-----------------------------------------
+                                    154 ;	 function stack_push
+                                    155 ;	-----------------------------------------
+      000035                        156 _stack_push:
+      000035 C0*00            [24]  157 	push	_bp
+      000037 85 81*00         [24]  158 	mov	_bp,sp
+      00003A C0 82            [24]  159 	push	dpl
+      00003C C0 83            [24]  160 	push	dph
+      00003E C0 F0            [24]  161 	push	b
+      000040 05 81            [12]  162 	inc	sp
+      000042 05 81            [12]  163 	inc	sp
+                                    164 ;	stack.c:14: if (s->p == (s->N - 1)) return 0;
+      000044 A8*00            [24]  165 	mov	r0,_bp
+      000046 08               [12]  166 	inc	r0
+      000047 74 02            [12]  167 	mov	a,#0x02
+      000049 26               [12]  168 	add	a,@r0
+      00004A FA               [12]  169 	mov	r2,a
+      00004B 74 20            [12]  170 	mov	a,#0x20
+      00004D 08               [12]  171 	inc	r0
+      00004E 36               [12]  172 	addc	a,@r0
+      00004F FB               [12]  173 	mov	r3,a
+      000050 08               [12]  174 	inc	r0
+      000051 86 04            [24]  175 	mov	ar4,@r0
+      000053 8A 82            [24]  176 	mov	dpl,r2
+      000055 8B 83            [24]  177 	mov	dph,r3
+      000057 8C F0            [24]  178 	mov	b,r4
+      000059 E5*00            [12]  179 	mov	a,_bp
+      00005B 24 04            [12]  180 	add	a,#0x04
+      00005D F8               [12]  181 	mov	r0,a
+      00005E 12r00r00         [24]  182 	lcall	__gptrget
+      000061 F6               [12]  183 	mov	@r0,a
+      000062 A3               [24]  184 	inc	dptr
+      000063 12r00r00         [24]  185 	lcall	__gptrget
+      000066 08               [12]  186 	inc	r0
+      000067 F6               [12]  187 	mov	@r0,a
+      000068 A8*00            [24]  188 	mov	r0,_bp
+      00006A 08               [12]  189 	inc	r0
+      00006B 86 05            [24]  190 	mov	ar5,@r0
+      00006D 74 20            [12]  191 	mov	a,#0x20
+      00006F 08               [12]  192 	inc	r0
+      000070 26               [12]  193 	add	a,@r0
+      000071 FE               [12]  194 	mov	r6,a
+      000072 08               [12]  195 	inc	r0
+      000073 86 07            [24]  196 	mov	ar7,@r0
+      000075 8D 82            [24]  197 	mov	dpl,r5
+      000077 8E 83            [24]  198 	mov	dph,r6
+      000079 8F F0            [24]  199 	mov	b,r7
+      00007B 12r00r00         [24]  200 	lcall	__gptrget
+      00007E FD               [12]  201 	mov	r5,a
+      00007F A3               [24]  202 	inc	dptr
+      000080 12r00r00         [24]  203 	lcall	__gptrget
+      000083 FE               [12]  204 	mov	r6,a
+      000084 1D               [12]  205 	dec	r5
+      000085 BD FF 01         [24]  206 	cjne	r5,#0xff,00109$
+      000088 1E               [12]  207 	dec	r6
+      000089                        208 00109$:
+      000089 E5*00            [12]  209 	mov	a,_bp
+      00008B 24 04            [12]  210 	add	a,#0x04
+      00008D F8               [12]  211 	mov	r0,a
+      00008E E6               [12]  212 	mov	a,@r0
+      00008F B5 05 07         [24]  213 	cjne	a,ar5,00110$
+      000092 08               [12]  214 	inc	r0
+      000093 E6               [12]  215 	mov	a,@r0
+      000094 B5 06 02         [24]  216 	cjne	a,ar6,00110$
+      000097 80 02            [24]  217 	sjmp	00111$
+      000099                        218 00110$:
+      000099 80 05            [24]  219 	sjmp	00102$
+      00009B                        220 00111$:
+      00009B 90 00 00         [24]  221 	mov	dptr,#0x0000
+      00009E 80 5D            [24]  222 	sjmp	00103$
+      0000A0                        223 00102$:
+                                    224 ;	stack.c:17: s->p++;
+      0000A0 E5*00            [12]  225 	mov	a,_bp
+      0000A2 24 04            [12]  226 	add	a,#0x04
+      0000A4 F8               [12]  227 	mov	r0,a
+      0000A5 74 01            [12]  228 	mov	a,#0x01
+      0000A7 26               [12]  229 	add	a,@r0
+      0000A8 FE               [12]  230 	mov	r6,a
+      0000A9 E4               [12]  231 	clr	a
+      0000AA 08               [12]  232 	inc	r0
+      0000AB 36               [12]  233 	addc	a,@r0
+      0000AC FF               [12]  234 	mov	r7,a
+      0000AD 8A 82            [24]  235 	mov	dpl,r2
+      0000AF 8B 83            [24]  236 	mov	dph,r3
+      0000B1 8C F0            [24]  237 	mov	b,r4
+      0000B3 EE               [12]  238 	mov	a,r6
+      0000B4 12r00r00         [24]  239 	lcall	__gptrput
+      0000B7 A3               [24]  240 	inc	dptr
+      0000B8 EF               [12]  241 	mov	a,r7
+      0000B9 12r00r00         [24]  242 	lcall	__gptrput
+                                    243 ;	stack.c:18: s->data[s->p] = val;
+      0000BC EE               [12]  244 	mov	a,r6
+      0000BD 2E               [12]  245 	add	a,r6
+      0000BE FE               [12]  246 	mov	r6,a
+      0000BF EF               [12]  247 	mov	a,r7
+      0000C0 33               [12]  248 	rlc	a
+      0000C1 FF               [12]  249 	mov	r7,a
+      0000C2 EE               [12]  250 	mov	a,r6
+      0000C3 2E               [12]  251 	add	a,r6
+      0000C4 FE               [12]  252 	mov	r6,a
+      0000C5 EF               [12]  253 	mov	a,r7
+      0000C6 33               [12]  254 	rlc	a
+      0000C7 FF               [12]  255 	mov	r7,a
+      0000C8 A8*00            [24]  256 	mov	r0,_bp
+      0000CA 08               [12]  257 	inc	r0
+      0000CB EE               [12]  258 	mov	a,r6
+      0000CC 26               [12]  259 	add	a,@r0
+      0000CD FE               [12]  260 	mov	r6,a
+      0000CE EF               [12]  261 	mov	a,r7
+      0000CF 08               [12]  262 	inc	r0
+      0000D0 36               [12]  263 	addc	a,@r0
+      0000D1 FF               [12]  264 	mov	r7,a
+      0000D2 08               [12]  265 	inc	r0
+      0000D3 86 05            [24]  266 	mov	ar5,@r0
+      0000D5 8E 82            [24]  267 	mov	dpl,r6
+      0000D7 8F 83            [24]  268 	mov	dph,r7
+      0000D9 8D F0            [24]  269 	mov	b,r5
+      0000DB E5*00            [12]  270 	mov	a,_bp
+      0000DD 24 FA            [12]  271 	add	a,#0xfa
+      0000DF F8               [12]  272 	mov	r0,a
+      0000E0 E6               [12]  273 	mov	a,@r0
+      0000E1 12r00r00         [24]  274 	lcall	__gptrput
+      0000E4 A3               [24]  275 	inc	dptr
+      0000E5 08               [12]  276 	inc	r0
+      0000E6 E6               [12]  277 	mov	a,@r0
+      0000E7 12r00r00         [24]  278 	lcall	__gptrput
+      0000EA A3               [24]  279 	inc	dptr
+      0000EB 08               [12]  280 	inc	r0
+      0000EC E6               [12]  281 	mov	a,@r0
+      0000ED 12r00r00         [24]  282 	lcall	__gptrput
+      0000F0 A3               [24]  283 	inc	dptr
+      0000F1 08               [12]  284 	inc	r0
+      0000F2 E6               [12]  285 	mov	a,@r0
+      0000F3 12r00r00         [24]  286 	lcall	__gptrput
+                                    287 ;	stack.c:19: giant = 0;
+      0000F6 78r00            [12]  288 	mov	r0,#_giant
+      0000F8 76 00            [12]  289 	mov	@r0,#0x00
+                                    290 ;	stack.c:21: return 1;
+      0000FA 90 00 01         [24]  291 	mov	dptr,#0x0001
+      0000FD                        292 00103$:
+                                    293 ;	stack.c:22: }
+      0000FD 85*00 81         [24]  294 	mov	sp,_bp
+      000100 D0*00            [24]  295 	pop	_bp
+      000102 22               [24]  296 	ret
+                                    297 ;------------------------------------------------------------
+                                    298 ;Allocation info for local variables in function 'stack_pop'
+                                    299 ;------------------------------------------------------------
+                                    300 ;val                       Allocated to stack - _bp -5
+                                    301 ;s                         Allocated to registers r5 r3 r4 
+                                    302 ;sloc0                     Allocated to stack - _bp +4
+                                    303 ;sloc1                     Allocated to stack - _bp +1
+                                    304 ;sloc2                     Allocated to stack - _bp +4
+                                    305 ;------------------------------------------------------------
+                                    306 ;	stack.c:24: int stack_pop(stack_t *s, long *val) __reentrant {
+                                    307 ;	-----------------------------------------
+                                    308 ;	 function stack_pop
+                                    309 ;	-----------------------------------------
+      000103                        310 _stack_pop:
+      000103 C0*00            [24]  311 	push	_bp
+      000105 E5 81            [12]  312 	mov	a,sp
+      000107 F5*00            [12]  313 	mov	_bp,a
+      000109 24 06            [12]  314 	add	a,#0x06
+      00010B F5 81            [12]  315 	mov	sp,a
+      00010D AD 82            [24]  316 	mov	r5,dpl
+      00010F AB 83            [24]  317 	mov	r3,dph
+      000111 AC F0            [24]  318 	mov	r4,b
+                                    319 ;	stack.c:25: if (s->p < 0) return 0;
+      000113 E5*00            [12]  320 	mov	a,_bp
+      000115 24 04            [12]  321 	add	a,#0x04
+      000117 F8               [12]  322 	mov	r0,a
+      000118 74 02            [12]  323 	mov	a,#0x02
+      00011A 2D               [12]  324 	add	a,r5
+      00011B F6               [12]  325 	mov	@r0,a
+      00011C 74 20            [12]  326 	mov	a,#0x20
+      00011E 3B               [12]  327 	addc	a,r3
+      00011F 08               [12]  328 	inc	r0
+      000120 F6               [12]  329 	mov	@r0,a
+      000121 08               [12]  330 	inc	r0
+      000122 A6 04            [24]  331 	mov	@r0,ar4
+      000124 E5*00            [12]  332 	mov	a,_bp
+      000126 24 04            [12]  333 	add	a,#0x04
+      000128 F8               [12]  334 	mov	r0,a
+      000129 86 82            [24]  335 	mov	dpl,@r0
+      00012B 08               [12]  336 	inc	r0
+      00012C 86 83            [24]  337 	mov	dph,@r0
+      00012E 08               [12]  338 	inc	r0
+      00012F 86 F0            [24]  339 	mov	b,@r0
+      000131 12r00r00         [24]  340 	lcall	__gptrget
+      000134 FF               [12]  341 	mov	r7,a
+      000135 A3               [24]  342 	inc	dptr
+      000136 12r00r00         [24]  343 	lcall	__gptrget
+      000139 FE               [12]  344 	mov	r6,a
+      00013A 30 E7 06         [24]  345 	jnb	acc.7,00102$
+      00013D 90 00 00         [24]  346 	mov	dptr,#0x0000
+      000140 02r01rD8         [24]  347 	ljmp	00103$
+      000143                        348 00102$:
+                                    349 ;	stack.c:28: *val = s->data[s->p];
+      000143 E5*00            [12]  350 	mov	a,_bp
+      000145 24 FB            [12]  351 	add	a,#0xfb
+      000147 F8               [12]  352 	mov	r0,a
+      000148 A9*00            [24]  353 	mov	r1,_bp
+      00014A 09               [12]  354 	inc	r1
+      00014B E6               [12]  355 	mov	a,@r0
+      00014C F7               [12]  356 	mov	@r1,a
+      00014D 08               [12]  357 	inc	r0
+      00014E 09               [12]  358 	inc	r1
+      00014F E6               [12]  359 	mov	a,@r0
+      000150 F7               [12]  360 	mov	@r1,a
+      000151 08               [12]  361 	inc	r0
+      000152 09               [12]  362 	inc	r1
+      000153 E6               [12]  363 	mov	a,@r0
+      000154 F7               [12]  364 	mov	@r1,a
+      000155 EF               [12]  365 	mov	a,r7
+      000156 2F               [12]  366 	add	a,r7
+      000157 FF               [12]  367 	mov	r7,a
+      000158 EE               [12]  368 	mov	a,r6
+      000159 33               [12]  369 	rlc	a
+      00015A FE               [12]  370 	mov	r6,a
+      00015B EF               [12]  371 	mov	a,r7
+      00015C 2F               [12]  372 	add	a,r7
+      00015D FF               [12]  373 	mov	r7,a
+      00015E EE               [12]  374 	mov	a,r6
+      00015F 33               [12]  375 	rlc	a
+      000160 FE               [12]  376 	mov	r6,a
+      000161 EF               [12]  377 	mov	a,r7
+      000162 2D               [12]  378 	add	a,r5
+      000163 FD               [12]  379 	mov	r5,a
+      000164 EE               [12]  380 	mov	a,r6
+      000165 3B               [12]  381 	addc	a,r3
+      000166 FE               [12]  382 	mov	r6,a
+      000167 8C 07            [24]  383 	mov	ar7,r4
+      000169 8D 82            [24]  384 	mov	dpl,r5
+      00016B 8E 83            [24]  385 	mov	dph,r6
+      00016D 8F F0            [24]  386 	mov	b,r7
+      00016F 12r00r00         [24]  387 	lcall	__gptrget
+      000172 FD               [12]  388 	mov	r5,a
+      000173 A3               [24]  389 	inc	dptr
+      000174 12r00r00         [24]  390 	lcall	__gptrget
+      000177 FE               [12]  391 	mov	r6,a
+      000178 A3               [24]  392 	inc	dptr
+      000179 12r00r00         [24]  393 	lcall	__gptrget
+      00017C FC               [12]  394 	mov	r4,a
+      00017D A3               [24]  395 	inc	dptr
+      00017E 12r00r00         [24]  396 	lcall	__gptrget
+      000181 FF               [12]  397 	mov	r7,a
+      000182 A8*00            [24]  398 	mov	r0,_bp
+      000184 08               [12]  399 	inc	r0
+      000185 86 82            [24]  400 	mov	dpl,@r0
+      000187 08               [12]  401 	inc	r0
+      000188 86 83            [24]  402 	mov	dph,@r0
+      00018A 08               [12]  403 	inc	r0
+      00018B 86 F0            [24]  404 	mov	b,@r0
+      00018D ED               [12]  405 	mov	a,r5
+      00018E 12r00r00         [24]  406 	lcall	__gptrput
+      000191 A3               [24]  407 	inc	dptr
+      000192 EE               [12]  408 	mov	a,r6
+      000193 12r00r00         [24]  409 	lcall	__gptrput
+      000196 A3               [24]  410 	inc	dptr
+      000197 EC               [12]  411 	mov	a,r4
+      000198 12r00r00         [24]  412 	lcall	__gptrput
+      00019B A3               [24]  413 	inc	dptr
+      00019C EF               [12]  414 	mov	a,r7
+      00019D 12r00r00         [24]  415 	lcall	__gptrput
+                                    416 ;	stack.c:29: s->p--;
+      0001A0 E5*00            [12]  417 	mov	a,_bp
+      0001A2 24 04            [12]  418 	add	a,#0x04
+      0001A4 F8               [12]  419 	mov	r0,a
+      0001A5 86 82            [24]  420 	mov	dpl,@r0
+      0001A7 08               [12]  421 	inc	r0
+      0001A8 86 83            [24]  422 	mov	dph,@r0
+      0001AA 08               [12]  423 	inc	r0
+      0001AB 86 F0            [24]  424 	mov	b,@r0
+      0001AD 12r00r00         [24]  425 	lcall	__gptrget
+      0001B0 FE               [12]  426 	mov	r6,a
+      0001B1 A3               [24]  427 	inc	dptr
+      0001B2 12r00r00         [24]  428 	lcall	__gptrget
+      0001B5 FF               [12]  429 	mov	r7,a
+      0001B6 1E               [12]  430 	dec	r6
+      0001B7 BE FF 01         [24]  431 	cjne	r6,#0xff,00110$
+      0001BA 1F               [12]  432 	dec	r7
+      0001BB                        433 00110$:
+      0001BB E5*00            [12]  434 	mov	a,_bp
+      0001BD 24 04            [12]  435 	add	a,#0x04
+      0001BF F8               [12]  436 	mov	r0,a
+      0001C0 86 82            [24]  437 	mov	dpl,@r0
+      0001C2 08               [12]  438 	inc	r0
+      0001C3 86 83            [24]  439 	mov	dph,@r0
+      0001C5 08               [12]  440 	inc	r0
+      0001C6 86 F0            [24]  441 	mov	b,@r0
+      0001C8 EE               [12]  442 	mov	a,r6
+      0001C9 12r00r00         [24]  443 	lcall	__gptrput
+      0001CC A3               [24]  444 	inc	dptr
+      0001CD EF               [12]  445 	mov	a,r7
+      0001CE 12r00r00         [24]  446 	lcall	__gptrput
+                                    447 ;	stack.c:30: giant = 0;
+      0001D1 78r00            [12]  448 	mov	r0,#_giant
+      0001D3 76 00            [12]  449 	mov	@r0,#0x00
+                                    450 ;	stack.c:32: return 1;
+      0001D5 90 00 01         [24]  451 	mov	dptr,#0x0001
+      0001D8                        452 00103$:
+                                    453 ;	stack.c:33: }
+      0001D8 85*00 81         [24]  454 	mov	sp,_bp
+      0001DB D0*00            [24]  455 	pop	_bp
+      0001DD 22               [24]  456 	ret
+                                    457 ;------------------------------------------------------------
+                                    458 ;Allocation info for local variables in function 'stack_peek'
+                                    459 ;------------------------------------------------------------
+                                    460 ;val                       Allocated to stack - _bp -5
+                                    461 ;s                         Allocated to registers r7 r6 r5 
+                                    462 ;sloc0                     Allocated to stack - _bp +1
+                                    463 ;------------------------------------------------------------
+                                    464 ;	stack.c:35: int stack_peek(stack_t *s, long *val) __reentrant {
+                                    465 ;	-----------------------------------------
+                                    466 ;	 function stack_peek
+                                    467 ;	-----------------------------------------
+      0001DE                        468 _stack_peek:
+      0001DE C0*00            [24]  469 	push	_bp
+      0001E0 85 81*00         [24]  470 	mov	_bp,sp
+      0001E3 05 81            [12]  471 	inc	sp
+      0001E5 05 81            [12]  472 	inc	sp
+      0001E7 05 81            [12]  473 	inc	sp
+      0001E9 AF 82            [24]  474 	mov	r7,dpl
+      0001EB AE 83            [24]  475 	mov	r6,dph
+      0001ED AD F0            [24]  476 	mov	r5,b
+                                    477 ;	stack.c:36: if (giant) return 0;
+      0001EF 78r00            [12]  478 	mov	r0,#_giant
+      0001F1 E6               [12]  479 	mov	a,@r0
+      0001F2 60 06            [24]  480 	jz	00102$
+      0001F4 90 00 00         [24]  481 	mov	dptr,#0x0000
+      0001F7 02r02r79         [24]  482 	ljmp	00105$
+      0001FA                        483 00102$:
+                                    484 ;	stack.c:38: if (s->p < 0) return 0;
+      0001FA 74 02            [12]  485 	mov	a,#0x02
+      0001FC 2F               [12]  486 	add	a,r7
+      0001FD FB               [12]  487 	mov	r3,a
+      0001FE 74 20            [12]  488 	mov	a,#0x20
+      000200 3E               [12]  489 	addc	a,r6
+      000201 FA               [12]  490 	mov	r2,a
+      000202 8D 04            [24]  491 	mov	ar4,r5
+      000204 8B 82            [24]  492 	mov	dpl,r3
+      000206 8A 83            [24]  493 	mov	dph,r2
+      000208 8C F0            [24]  494 	mov	b,r4
+      00020A 12r00r00         [24]  495 	lcall	__gptrget
+      00020D FB               [12]  496 	mov	r3,a
+      00020E A3               [24]  497 	inc	dptr
+      00020F 12r00r00         [24]  498 	lcall	__gptrget
+      000212 FC               [12]  499 	mov	r4,a
+      000213 30 E7 05         [24]  500 	jnb	acc.7,00104$
+      000216 90 00 00         [24]  501 	mov	dptr,#0x0000
+      000219 80 5E            [24]  502 	sjmp	00105$
+      00021B                        503 00104$:
+                                    504 ;	stack.c:39: *val = s->data[s->p];
+      00021B E5*00            [12]  505 	mov	a,_bp
+      00021D 24 FB            [12]  506 	add	a,#0xfb
+      00021F F8               [12]  507 	mov	r0,a
+      000220 A9*00            [24]  508 	mov	r1,_bp
+      000222 09               [12]  509 	inc	r1
+      000223 E6               [12]  510 	mov	a,@r0
+      000224 F7               [12]  511 	mov	@r1,a
+      000225 08               [12]  512 	inc	r0
+      000226 09               [12]  513 	inc	r1
+      000227 E6               [12]  514 	mov	a,@r0
+      000228 F7               [12]  515 	mov	@r1,a
+      000229 08               [12]  516 	inc	r0
+      00022A 09               [12]  517 	inc	r1
+      00022B E6               [12]  518 	mov	a,@r0
+      00022C F7               [12]  519 	mov	@r1,a
+      00022D EB               [12]  520 	mov	a,r3
+      00022E 2B               [12]  521 	add	a,r3
+      00022F FB               [12]  522 	mov	r3,a
+      000230 EC               [12]  523 	mov	a,r4
+      000231 33               [12]  524 	rlc	a
+      000232 FC               [12]  525 	mov	r4,a
+      000233 EB               [12]  526 	mov	a,r3
+      000234 2B               [12]  527 	add	a,r3
+      000235 FB               [12]  528 	mov	r3,a
+      000236 EC               [12]  529 	mov	a,r4
+      000237 33               [12]  530 	rlc	a
+      000238 FC               [12]  531 	mov	r4,a
+      000239 EB               [12]  532 	mov	a,r3
+      00023A 2F               [12]  533 	add	a,r7
+      00023B FB               [12]  534 	mov	r3,a
+      00023C EC               [12]  535 	mov	a,r4
+      00023D 3E               [12]  536 	addc	a,r6
+      00023E FC               [12]  537 	mov	r4,a
+      00023F 8B 82            [24]  538 	mov	dpl,r3
+      000241 8C 83            [24]  539 	mov	dph,r4
+      000243 8D F0            [24]  540 	mov	b,r5
+      000245 12r00r00         [24]  541 	lcall	__gptrget
+      000248 FB               [12]  542 	mov	r3,a
+      000249 A3               [24]  543 	inc	dptr
+      00024A 12r00r00         [24]  544 	lcall	__gptrget
+      00024D FC               [12]  545 	mov	r4,a
+      00024E A3               [24]  546 	inc	dptr
+      00024F 12r00r00         [24]  547 	lcall	__gptrget
+      000252 FD               [12]  548 	mov	r5,a
+      000253 A3               [24]  549 	inc	dptr
+      000254 12r00r00         [24]  550 	lcall	__gptrget
+      000257 FF               [12]  551 	mov	r7,a
+      000258 A8*00            [24]  552 	mov	r0,_bp
+      00025A 08               [12]  553 	inc	r0
+      00025B 86 82            [24]  554 	mov	dpl,@r0
+      00025D 08               [12]  555 	inc	r0
+      00025E 86 83            [24]  556 	mov	dph,@r0
+      000260 08               [12]  557 	inc	r0
+      000261 86 F0            [24]  558 	mov	b,@r0
+      000263 EB               [12]  559 	mov	a,r3
+      000264 12r00r00         [24]  560 	lcall	__gptrput
+      000267 A3               [24]  561 	inc	dptr
+      000268 EC               [12]  562 	mov	a,r4
+      000269 12r00r00         [24]  563 	lcall	__gptrput
+      00026C A3               [24]  564 	inc	dptr
+      00026D ED               [12]  565 	mov	a,r5
+      00026E 12r00r00         [24]  566 	lcall	__gptrput
+      000271 A3               [24]  567 	inc	dptr
+      000272 EF               [12]  568 	mov	a,r7
+      000273 12r00r00         [24]  569 	lcall	__gptrput
+                                    570 ;	stack.c:41: return 1;
+      000276 90 00 01         [24]  571 	mov	dptr,#0x0001
+      000279                        572 00105$:
+                                    573 ;	stack.c:42: }
+      000279 85*00 81         [24]  574 	mov	sp,_bp
+      00027C D0*00            [24]  575 	pop	_bp
+      00027E 22               [24]  576 	ret
+                                    577 ;------------------------------------------------------------
+                                    578 ;Allocation info for local variables in function 'stack_peek2'
+                                    579 ;------------------------------------------------------------
+                                    580 ;vals                      Allocated to stack - _bp -5
+                                    581 ;s                         Allocated to stack - _bp +1
+                                    582 ;nvals                     Allocated to registers r5 r4 
+                                    583 ;sloc0                     Allocated to stack - _bp +4
+                                    584 ;sloc1                     Allocated to stack - _bp +7
+                                    585 ;sloc2                     Allocated to stack - _bp +12
+                                    586 ;sloc3                     Allocated to stack - _bp +10
+                                    587 ;------------------------------------------------------------
+                                    588 ;	stack.c:44: int stack_peek2(stack_t *s, long *vals) __reentrant {
+                                    589 ;	-----------------------------------------
+                                    590 ;	 function stack_peek2
+                                    591 ;	-----------------------------------------
+      00027F                        592 _stack_peek2:
+      00027F C0*00            [24]  593 	push	_bp
+      000281 85 81*00         [24]  594 	mov	_bp,sp
+      000284 C0 82            [24]  595 	push	dpl
+      000286 C0 83            [24]  596 	push	dph
+      000288 C0 F0            [24]  597 	push	b
+      00028A E5 81            [12]  598 	mov	a,sp
+      00028C 24 09            [12]  599 	add	a,#0x09
+      00028E F5 81            [12]  600 	mov	sp,a
+                                    601 ;	stack.c:47: nvals = 0;
+                                    602 ;	stack.c:48: vals[0] = vals[1] = 0l;
+      000290 E4               [12]  603 	clr	a
+      000291 FD               [12]  604 	mov	r5,a
+      000292 FC               [12]  605 	mov	r4,a
+      000293 E5*00            [12]  606 	mov	a,_bp
+      000295 24 FB            [12]  607 	add	a,#0xfb
+      000297 F8               [12]  608 	mov	r0,a
+      000298 E5*00            [12]  609 	mov	a,_bp
+      00029A 24 0A            [12]  610 	add	a,#0x0a
+      00029C F9               [12]  611 	mov	r1,a
+      00029D E6               [12]  612 	mov	a,@r0
+      00029E F7               [12]  613 	mov	@r1,a
+      00029F 08               [12]  614 	inc	r0
+      0002A0 09               [12]  615 	inc	r1
+      0002A1 E6               [12]  616 	mov	a,@r0
+      0002A2 F7               [12]  617 	mov	@r1,a
+      0002A3 08               [12]  618 	inc	r0
+      0002A4 09               [12]  619 	inc	r1
+      0002A5 E6               [12]  620 	mov	a,@r0
+      0002A6 F7               [12]  621 	mov	@r1,a
+      0002A7 E5*00            [12]  622 	mov	a,_bp
+      0002A9 24 0A            [12]  623 	add	a,#0x0a
+      0002AB F8               [12]  624 	mov	r0,a
+      0002AC E5*00            [12]  625 	mov	a,_bp
+      0002AE 24 04            [12]  626 	add	a,#0x04
+      0002B0 F9               [12]  627 	mov	r1,a
+      0002B1 74 04            [12]  628 	mov	a,#0x04
+      0002B3 26               [12]  629 	add	a,@r0
+      0002B4 F7               [12]  630 	mov	@r1,a
+      0002B5 E4               [12]  631 	clr	a
+      0002B6 08               [12]  632 	inc	r0
+      0002B7 36               [12]  633 	addc	a,@r0
+      0002B8 09               [12]  634 	inc	r1
+      0002B9 F7               [12]  635 	mov	@r1,a
+      0002BA 08               [12]  636 	inc	r0
+      0002BB 09               [12]  637 	inc	r1
+      0002BC E6               [12]  638 	mov	a,@r0
+      0002BD F7               [12]  639 	mov	@r1,a
+      0002BE E5*00            [12]  640 	mov	a,_bp
+      0002C0 24 04            [12]  641 	add	a,#0x04
+      0002C2 F8               [12]  642 	mov	r0,a
+      0002C3 86 82            [24]  643 	mov	dpl,@r0
+      0002C5 08               [12]  644 	inc	r0
+      0002C6 86 83            [24]  645 	mov	dph,@r0
+      0002C8 08               [12]  646 	inc	r0
+      0002C9 86 F0            [24]  647 	mov	b,@r0
+      0002CB E4               [12]  648 	clr	a
+      0002CC 12r00r00         [24]  649 	lcall	__gptrput
+      0002CF A3               [24]  650 	inc	dptr
+      0002D0 12r00r00         [24]  651 	lcall	__gptrput
+      0002D3 A3               [24]  652 	inc	dptr
+      0002D4 12r00r00         [24]  653 	lcall	__gptrput
+      0002D7 A3               [24]  654 	inc	dptr
+      0002D8 12r00r00         [24]  655 	lcall	__gptrput
+      0002DB E5*00            [12]  656 	mov	a,_bp
+      0002DD 24 0A            [12]  657 	add	a,#0x0a
+      0002DF F8               [12]  658 	mov	r0,a
+      0002E0 86 82            [24]  659 	mov	dpl,@r0
+      0002E2 08               [12]  660 	inc	r0
+      0002E3 86 83            [24]  661 	mov	dph,@r0
+      0002E5 08               [12]  662 	inc	r0
+      0002E6 86 F0            [24]  663 	mov	b,@r0
+      0002E8 E4               [12]  664 	clr	a
+      0002E9 12r00r00         [24]  665 	lcall	__gptrput
+      0002EC A3               [24]  666 	inc	dptr
+      0002ED 12r00r00         [24]  667 	lcall	__gptrput
+      0002F0 A3               [24]  668 	inc	dptr
+      0002F1 12r00r00         [24]  669 	lcall	__gptrput
+      0002F4 A3               [24]  670 	inc	dptr
+      0002F5 12r00r00         [24]  671 	lcall	__gptrput
+                                    672 ;	stack.c:50: if (giant) goto out; /* if called from ISR */
+      0002F8 78r00            [12]  673 	mov	r0,#_giant
+      0002FA E6               [12]  674 	mov	a,@r0
+      0002FB 60 03            [24]  675 	jz	00122$
+      0002FD 02r04r07         [24]  676 	ljmp	00107$
+      000300                        677 00122$:
+                                    678 ;	stack.c:52: if (s->p < 0) goto out;
+      000300 A8*00            [24]  679 	mov	r0,_bp
+      000302 08               [12]  680 	inc	r0
+      000303 E5*00            [12]  681 	mov	a,_bp
+      000305 24 07            [12]  682 	add	a,#0x07
+      000307 F9               [12]  683 	mov	r1,a
+      000308 74 02            [12]  684 	mov	a,#0x02
+      00030A 26               [12]  685 	add	a,@r0
+      00030B F7               [12]  686 	mov	@r1,a
+      00030C 74 20            [12]  687 	mov	a,#0x20
+      00030E 08               [12]  688 	inc	r0
+      00030F 36               [12]  689 	addc	a,@r0
+      000310 09               [12]  690 	inc	r1
+      000311 F7               [12]  691 	mov	@r1,a
+      000312 08               [12]  692 	inc	r0
+      000313 09               [12]  693 	inc	r1
+      000314 E6               [12]  694 	mov	a,@r0
+      000315 F7               [12]  695 	mov	@r1,a
+      000316 E5*00            [12]  696 	mov	a,_bp
+      000318 24 07            [12]  697 	add	a,#0x07
+      00031A F8               [12]  698 	mov	r0,a
+      00031B 86 82            [24]  699 	mov	dpl,@r0
+      00031D 08               [12]  700 	inc	r0
+      00031E 86 83            [24]  701 	mov	dph,@r0
+      000320 08               [12]  702 	inc	r0
+      000321 86 F0            [24]  703 	mov	b,@r0
+      000323 12r00r00         [24]  704 	lcall	__gptrget
+      000326 FF               [12]  705 	mov	r7,a
+      000327 A3               [24]  706 	inc	dptr
+      000328 12r00r00         [24]  707 	lcall	__gptrget
+      00032B FE               [12]  708 	mov	r6,a
+      00032C 30 E7 03         [24]  709 	jnb	acc.7,00123$
+      00032F 02r04r07         [24]  710 	ljmp	00107$
+      000332                        711 00123$:
+                                    712 ;	stack.c:53: vals[1] = s->data[s->p];
+      000332 EF               [12]  713 	mov	a,r7
+      000333 2F               [12]  714 	add	a,r7
+      000334 FC               [12]  715 	mov	r4,a
+      000335 EE               [12]  716 	mov	a,r6
+      000336 33               [12]  717 	rlc	a
+      000337 FB               [12]  718 	mov	r3,a
+      000338 EC               [12]  719 	mov	a,r4
+      000339 2C               [12]  720 	add	a,r4
+      00033A FC               [12]  721 	mov	r4,a
+      00033B EB               [12]  722 	mov	a,r3
+      00033C 33               [12]  723 	rlc	a
+      00033D FB               [12]  724 	mov	r3,a
+      00033E A8*00            [24]  725 	mov	r0,_bp
+      000340 08               [12]  726 	inc	r0
+      000341 EC               [12]  727 	mov	a,r4
+      000342 26               [12]  728 	add	a,@r0
+      000343 FA               [12]  729 	mov	r2,a
+      000344 EB               [12]  730 	mov	a,r3
+      000345 08               [12]  731 	inc	r0
+      000346 36               [12]  732 	addc	a,@r0
+      000347 FB               [12]  733 	mov	r3,a
+      000348 08               [12]  734 	inc	r0
+      000349 86 04            [24]  735 	mov	ar4,@r0
+      00034B 8A 82            [24]  736 	mov	dpl,r2
+      00034D 8B 83            [24]  737 	mov	dph,r3
+      00034F 8C F0            [24]  738 	mov	b,r4
+      000351 12r00r00         [24]  739 	lcall	__gptrget
+      000354 FA               [12]  740 	mov	r2,a
+      000355 A3               [24]  741 	inc	dptr
+      000356 12r00r00         [24]  742 	lcall	__gptrget
+      000359 FB               [12]  743 	mov	r3,a
+      00035A A3               [24]  744 	inc	dptr
+      00035B 12r00r00         [24]  745 	lcall	__gptrget
+      00035E FC               [12]  746 	mov	r4,a
+      00035F A3               [24]  747 	inc	dptr
+      000360 12r00r00         [24]  748 	lcall	__gptrget
+      000363 FF               [12]  749 	mov	r7,a
+      000364 E5*00            [12]  750 	mov	a,_bp
+      000366 24 04            [12]  751 	add	a,#0x04
+      000368 F8               [12]  752 	mov	r0,a
+      000369 86 82            [24]  753 	mov	dpl,@r0
+      00036B 08               [12]  754 	inc	r0
+      00036C 86 83            [24]  755 	mov	dph,@r0
+      00036E 08               [12]  756 	inc	r0
+      00036F 86 F0            [24]  757 	mov	b,@r0
+      000371 EA               [12]  758 	mov	a,r2
+      000372 12r00r00         [24]  759 	lcall	__gptrput
+      000375 A3               [24]  760 	inc	dptr
+      000376 EB               [12]  761 	mov	a,r3
+      000377 12r00r00         [24]  762 	lcall	__gptrput
+      00037A A3               [24]  763 	inc	dptr
+      00037B EC               [12]  764 	mov	a,r4
+      00037C 12r00r00         [24]  765 	lcall	__gptrput
+      00037F A3               [24]  766 	inc	dptr
+      000380 EF               [12]  767 	mov	a,r7
+      000381 12r00r00         [24]  768 	lcall	__gptrput
+                                    769 ;	stack.c:54: nvals++;
+      000384 7D 01            [12]  770 	mov	r5,#0x01
+      000386 7C 00            [12]  771 	mov	r4,#0x00
+                                    772 ;	stack.c:56: if ((s->p - 1) < 0) goto out;
+      000388 E5*00            [12]  773 	mov	a,_bp
+      00038A 24 07            [12]  774 	add	a,#0x07
+      00038C F8               [12]  775 	mov	r0,a
+      00038D 86 82            [24]  776 	mov	dpl,@r0
+      00038F 08               [12]  777 	inc	r0
+      000390 86 83            [24]  778 	mov	dph,@r0
+      000392 08               [12]  779 	inc	r0
+      000393 86 F0            [24]  780 	mov	b,@r0
+      000395 12r00r00         [24]  781 	lcall	__gptrget
+      000398 FB               [12]  782 	mov	r3,a
+      000399 A3               [24]  783 	inc	dptr
+      00039A 12r00r00         [24]  784 	lcall	__gptrget
+      00039D FA               [12]  785 	mov	r2,a
+      00039E EB               [12]  786 	mov	a,r3
+      00039F 24 FF            [12]  787 	add	a,#0xff
+      0003A1 FE               [12]  788 	mov	r6,a
+      0003A2 EA               [12]  789 	mov	a,r2
+      0003A3 34 FF            [12]  790 	addc	a,#0xff
+      0003A5 FF               [12]  791 	mov	r7,a
+      0003A6 20 E7 5E         [24]  792 	jb	acc.7,00107$
+                                    793 ;	stack.c:57: vals[0] = s->data[s->p - 1];
+      0003A9 EB               [12]  794 	mov	a,r3
+      0003AA 24 FF            [12]  795 	add	a,#0xff
+      0003AC FE               [12]  796 	mov	r6,a
+      0003AD EA               [12]  797 	mov	a,r2
+      0003AE 34 FF            [12]  798 	addc	a,#0xff
+      0003B0 FF               [12]  799 	mov	r7,a
+      0003B1 EE               [12]  800 	mov	a,r6
+      0003B2 2E               [12]  801 	add	a,r6
+      0003B3 FE               [12]  802 	mov	r6,a
+      0003B4 EF               [12]  803 	mov	a,r7
+      0003B5 33               [12]  804 	rlc	a
+      0003B6 FF               [12]  805 	mov	r7,a
+      0003B7 EE               [12]  806 	mov	a,r6
+      0003B8 2E               [12]  807 	add	a,r6
+      0003B9 FE               [12]  808 	mov	r6,a
+      0003BA EF               [12]  809 	mov	a,r7
+      0003BB 33               [12]  810 	rlc	a
+      0003BC FF               [12]  811 	mov	r7,a
+      0003BD A8*00            [24]  812 	mov	r0,_bp
+      0003BF 08               [12]  813 	inc	r0
+      0003C0 EE               [12]  814 	mov	a,r6
+      0003C1 26               [12]  815 	add	a,@r0
+      0003C2 FE               [12]  816 	mov	r6,a
+      0003C3 EF               [12]  817 	mov	a,r7
+      0003C4 08               [12]  818 	inc	r0
+      0003C5 36               [12]  819 	addc	a,@r0
+      0003C6 FD               [12]  820 	mov	r5,a
+      0003C7 08               [12]  821 	inc	r0
+      0003C8 86 07            [24]  822 	mov	ar7,@r0
+      0003CA 8E 82            [24]  823 	mov	dpl,r6
+      0003CC 8D 83            [24]  824 	mov	dph,r5
+      0003CE 8F F0            [24]  825 	mov	b,r7
+      0003D0 12r00r00         [24]  826 	lcall	__gptrget
+      0003D3 FE               [12]  827 	mov	r6,a
+      0003D4 A3               [24]  828 	inc	dptr
+      0003D5 12r00r00         [24]  829 	lcall	__gptrget
+      0003D8 FD               [12]  830 	mov	r5,a
+      0003D9 A3               [24]  831 	inc	dptr
+      0003DA 12r00r00         [24]  832 	lcall	__gptrget
+      0003DD FC               [12]  833 	mov	r4,a
+      0003DE A3               [24]  834 	inc	dptr
+      0003DF 12r00r00         [24]  835 	lcall	__gptrget
+      0003E2 FF               [12]  836 	mov	r7,a
+      0003E3 E5*00            [12]  837 	mov	a,_bp
+      0003E5 24 0A            [12]  838 	add	a,#0x0a
+      0003E7 F8               [12]  839 	mov	r0,a
+      0003E8 86 82            [24]  840 	mov	dpl,@r0
+      0003EA 08               [12]  841 	inc	r0
+      0003EB 86 83            [24]  842 	mov	dph,@r0
+      0003ED 08               [12]  843 	inc	r0
+      0003EE 86 F0            [24]  844 	mov	b,@r0
+      0003F0 EE               [12]  845 	mov	a,r6
+      0003F1 12r00r00         [24]  846 	lcall	__gptrput
+      0003F4 A3               [24]  847 	inc	dptr
+      0003F5 ED               [12]  848 	mov	a,r5
+      0003F6 12r00r00         [24]  849 	lcall	__gptrput
+      0003F9 A3               [24]  850 	inc	dptr
+      0003FA EC               [12]  851 	mov	a,r4
+      0003FB 12r00r00         [24]  852 	lcall	__gptrput
+      0003FE A3               [24]  853 	inc	dptr
+      0003FF EF               [12]  854 	mov	a,r7
+      000400 12r00r00         [24]  855 	lcall	__gptrput
+                                    856 ;	stack.c:58: nvals++;
+      000403 7D 02            [12]  857 	mov	r5,#0x02
+      000405 7C 00            [12]  858 	mov	r4,#0x00
+                                    859 ;	stack.c:60: out:
+      000407                        860 00107$:
+                                    861 ;	stack.c:61: return nvals;
+      000407 8D 82            [24]  862 	mov	dpl,r5
+      000409 8C 83            [24]  863 	mov	dph,r4
+                                    864 ;	stack.c:62: }
+      00040B 85*00 81         [24]  865 	mov	sp,_bp
+      00040E D0*00            [24]  866 	pop	_bp
+      000410 22               [24]  867 	ret
+                                    868 ;------------------------------------------------------------
+                                    869 ;Allocation info for local variables in function 'stack_iter_peek'
+                                    870 ;------------------------------------------------------------
+                                    871 ;iter                      Allocated to stack - _bp -4
+                                    872 ;_ctx                      Allocated to stack - _bp -7
+                                    873 ;s                         Allocated to stack - _bp +1
+                                    874 ;j                         Allocated to registers 
+                                    875 ;r                         Allocated to registers r2 r7 
+                                    876 ;------------------------------------------------------------
+                                    877 ;	stack.c:64: int stack_iter_peek(stack_t *s, stack_iter_t iter, void *_ctx) __reentrant {
+                                    878 ;	-----------------------------------------
+                                    879 ;	 function stack_iter_peek
+                                    880 ;	-----------------------------------------
+      000411                        881 _stack_iter_peek:
+      000411 C0*00            [24]  882 	push	_bp
+      000413 85 81*00         [24]  883 	mov	_bp,sp
+      000416 C0 82            [24]  884 	push	dpl
+      000418 C0 83            [24]  885 	push	dph
+      00041A C0 F0            [24]  886 	push	b
+                                    887 ;	stack.c:67: if (giant) return 0;
+      00041C 78r00            [12]  888 	mov	r0,#_giant
+      00041E E6               [12]  889 	mov	a,@r0
+      00041F 60 06            [24]  890 	jz	00102$
+      000421 90 00 00         [24]  891 	mov	dptr,#0x0000
+      000424 02r04rEA         [24]  892 	ljmp	00111$
+      000427                        893 00102$:
+                                    894 ;	stack.c:69: if (s->p < 0) return 0;
+      000427 A8*00            [24]  895 	mov	r0,_bp
+      000429 08               [12]  896 	inc	r0
+      00042A 74 02            [12]  897 	mov	a,#0x02
+      00042C 26               [12]  898 	add	a,@r0
+      00042D FB               [12]  899 	mov	r3,a
+      00042E 74 20            [12]  900 	mov	a,#0x20
+      000430 08               [12]  901 	inc	r0
+      000431 36               [12]  902 	addc	a,@r0
+      000432 FA               [12]  903 	mov	r2,a
+      000433 08               [12]  904 	inc	r0
+      000434 86 04            [24]  905 	mov	ar4,@r0
+      000436 8B 82            [24]  906 	mov	dpl,r3
+      000438 8A 83            [24]  907 	mov	dph,r2
+      00043A 8C F0            [24]  908 	mov	b,r4
+      00043C 12r00r00         [24]  909 	lcall	__gptrget
+      00043F FB               [12]  910 	mov	r3,a
+      000440 A3               [24]  911 	inc	dptr
+      000441 12r00r00         [24]  912 	lcall	__gptrget
+      000444 FC               [12]  913 	mov	r4,a
+      000445 30 E7 06         [24]  914 	jnb	acc.7,00104$
+      000448 90 00 00         [24]  915 	mov	dptr,#0x0000
+      00044B 02r04rEA         [24]  916 	ljmp	00111$
+      00044E                        917 00104$:
+                                    918 ;	stack.c:71: for (j = s->p, r = 0; j >= 0; j--) {
+      00044E 7A 00            [12]  919 	mov	r2,#0x00
+      000450 7F 00            [12]  920 	mov	r7,#0x00
+      000452                        921 00109$:
+      000452 EC               [12]  922 	mov	a,r4
+      000453 30 E7 03         [24]  923 	jnb	acc.7,00136$
+      000456 02r04rE6         [24]  924 	ljmp	00107$
+      000459                        925 00136$:
+                                    926 ;	stack.c:72: r = iter(_ctx, s->data[j]);
+      000459 EB               [12]  927 	mov	a,r3
+      00045A 2B               [12]  928 	add	a,r3
+      00045B FD               [12]  929 	mov	r5,a
+      00045C EC               [12]  930 	mov	a,r4
+      00045D 33               [12]  931 	rlc	a
+      00045E FE               [12]  932 	mov	r6,a
+      00045F ED               [12]  933 	mov	a,r5
+      000460 2D               [12]  934 	add	a,r5
+      000461 FD               [12]  935 	mov	r5,a
+      000462 EE               [12]  936 	mov	a,r6
+      000463 33               [12]  937 	rlc	a
+      000464 FE               [12]  938 	mov	r6,a
+      000465 C0 03            [24]  939 	push	ar3
+      000467 C0 04            [24]  940 	push	ar4
+      000469 A8*00            [24]  941 	mov	r0,_bp
+      00046B 08               [12]  942 	inc	r0
+      00046C ED               [12]  943 	mov	a,r5
+      00046D 26               [12]  944 	add	a,@r0
+      00046E FD               [12]  945 	mov	r5,a
+      00046F EE               [12]  946 	mov	a,r6
+      000470 08               [12]  947 	inc	r0
+      000471 36               [12]  948 	addc	a,@r0
+      000472 FC               [12]  949 	mov	r4,a
+      000473 08               [12]  950 	inc	r0
+      000474 86 06            [24]  951 	mov	ar6,@r0
+      000476 8D 82            [24]  952 	mov	dpl,r5
+      000478 8C 83            [24]  953 	mov	dph,r4
+      00047A 8E F0            [24]  954 	mov	b,r6
+      00047C 12r00r00         [24]  955 	lcall	__gptrget
+      00047F FD               [12]  956 	mov	r5,a
+      000480 A3               [24]  957 	inc	dptr
+      000481 12r00r00         [24]  958 	lcall	__gptrget
+      000484 FC               [12]  959 	mov	r4,a
+      000485 A3               [24]  960 	inc	dptr
+      000486 12r00r00         [24]  961 	lcall	__gptrget
+      000489 FE               [12]  962 	mov	r6,a
+      00048A A3               [24]  963 	inc	dptr
+      00048B 12r00r00         [24]  964 	lcall	__gptrget
+      00048E FB               [12]  965 	mov	r3,a
+      00048F C0 04            [24]  966 	push	ar4
+      000491 C0 03            [24]  967 	push	ar3
+      000493 C0 05            [24]  968 	push	ar5
+      000495 C0 04            [24]  969 	push	ar4
+      000497 C0 06            [24]  970 	push	ar6
+      000499 C0 03            [24]  971 	push	ar3
+      00049B 12r04rA0         [24]  972 	lcall	00137$
+      00049E 80 1A            [24]  973 	sjmp	00138$
+      0004A0                        974 00137$:
+      0004A0 E5*00            [12]  975 	mov	a,_bp
+      0004A2 24 FC            [12]  976 	add	a,#0xfc
+      0004A4 F8               [12]  977 	mov	r0,a
+      0004A5 E6               [12]  978 	mov	a,@r0
+      0004A6 C0 E0            [24]  979 	push	acc
+      0004A8 08               [12]  980 	inc	r0
+      0004A9 E6               [12]  981 	mov	a,@r0
+      0004AA C0 E0            [24]  982 	push	acc
+      0004AC E5*00            [12]  983 	mov	a,_bp
+      0004AE 24 F9            [12]  984 	add	a,#0xf9
+      0004B0 F8               [12]  985 	mov	r0,a
+      0004B1 86 82            [24]  986 	mov	dpl,@r0
+      0004B3 08               [12]  987 	inc	r0
+      0004B4 86 83            [24]  988 	mov	dph,@r0
+      0004B6 08               [12]  989 	inc	r0
+      0004B7 86 F0            [24]  990 	mov	b,@r0
+      0004B9 22               [24]  991 	ret
+      0004BA                        992 00138$:
+      0004BA AD 82            [24]  993 	mov	r5,dpl
+      0004BC AE 83            [24]  994 	mov	r6,dph
+      0004BE E5 81            [12]  995 	mov	a,sp
+      0004C0 24 FC            [12]  996 	add	a,#0xfc
+      0004C2 F5 81            [12]  997 	mov	sp,a
+      0004C4 D0 03            [24]  998 	pop	ar3
+      0004C6 D0 04            [24]  999 	pop	ar4
+      0004C8 8D 02            [24] 1000 	mov	ar2,r5
+      0004CA 8E 07            [24] 1001 	mov	ar7,r6
+                                   1002 ;	stack.c:73: if (r <= 0) break;
+      0004CC C3               [12] 1003 	clr	c
+      0004CD E4               [12] 1004 	clr	a
+      0004CE 9A               [12] 1005 	subb	a,r2
+      0004CF 74 80            [12] 1006 	mov	a,#(0x00 ^ 0x80)
+      0004D1 8F F0            [24] 1007 	mov	b,r7
+      0004D3 63 F0 80         [24] 1008 	xrl	b,#0x80
+      0004D6 95 F0            [12] 1009 	subb	a,b
+      0004D8 D0 04            [24] 1010 	pop	ar4
+      0004DA D0 03            [24] 1011 	pop	ar3
+      0004DC 50 08            [24] 1012 	jnc	00107$
+                                   1013 ;	stack.c:71: for (j = s->p, r = 0; j >= 0; j--) {
+      0004DE 1B               [12] 1014 	dec	r3
+      0004DF BB FF 01         [24] 1015 	cjne	r3,#0xff,00140$
+      0004E2 1C               [12] 1016 	dec	r4
+      0004E3                       1017 00140$:
+      0004E3 02r04r52         [24] 1018 	ljmp	00109$
+      0004E6                       1019 00107$:
+                                   1020 ;	stack.c:76: return r;
+      0004E6 8A 82            [24] 1021 	mov	dpl,r2
+      0004E8 8F 83            [24] 1022 	mov	dph,r7
+      0004EA                       1023 00111$:
+                                   1024 ;	stack.c:77: }
+      0004EA 85*00 81         [24] 1025 	mov	sp,_bp
+      0004ED D0*00            [24] 1026 	pop	_bp
+      0004EF 22               [24] 1027 	ret
+                                   1028 	.area CSEG    (CODE)
+                                   1029 	.area CONST   (CODE)
+                                   1030 	.area XINIT   (CODE)
+                                   1031 	.area CABS    (ABS,CODE)
