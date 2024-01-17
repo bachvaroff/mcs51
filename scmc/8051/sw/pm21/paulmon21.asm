@@ -527,9 +527,7 @@ lenstr:
 lenstr1:
 	movx	a, @dptr
 	jz	lenstr2
-	mov	c, acc.7
 	inc	r0
-	Jc	lenstr2
 	inc	dptr
 	sjmp	lenstr1
 lenstr2:
