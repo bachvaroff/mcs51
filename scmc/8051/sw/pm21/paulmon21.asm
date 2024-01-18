@@ -1625,12 +1625,9 @@ bailout:
 	
 ;---------------------------------------------------------;
 
-.equ	initial_l, 0xff
-.equ	initial_h, 0xff
-.equ	final_l, 0x00
-.equ	final_h, 0x00
-.equ	poly_l, 0x21
-.equ	poly_h, 0x10
+.equ	initial, 0xffff
+.equ	final, 0x0000
+.equ	poly, 0x1021
 
 calc_crc16:
 	acall	get_mem
@@ -1642,12 +1639,12 @@ calc_crc16:
 	mov	dpl, r2
 	mov	dph, r3
 		
-	mov	r6, #initial_l
-	mov	r7, #initial_h
+	mov	r6, #(initial & 0xff)
+	mov	r7, #(initial >> 8)
 	acall	init_crc16
 	
-	mov	r6, #poly_l
-	mov	r7, #poly_h
+	mov	r6, #(poly & 0xff)
+	mov	r7, #(poly >> 8)
 calc_loop:
 	movx	a, @dptr
 	lcall	update_crc16
@@ -1657,8 +1654,8 @@ calc_loop:
 	mov	a, r4
 	cjne	a, dpl, calc_skip
 	
-	mov	r6, #final_l
-	mov	r7, #final_h
+	mov	r6, #(final & 0xff)
+	mov	r7, #(final >> 8)
 	acall	finish_crc16
 	
 	mov	dpl, r2

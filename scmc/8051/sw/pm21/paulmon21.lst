@@ -1625,12 +1625,9 @@
                             
                    ;---------------------------------------------------------;
                    
-0798:              .equ     initial_l, 0xff
-0798:              .equ     initial_h, 0xff
-0798:              .equ     final_l, 0x00
-0798:              .equ     final_h, 0x00
-0798:              .equ     poly_l, 0x21
-0798:              .equ     poly_h, 0x10
+0798:              .equ     initial, 0xffff
+0798:              .equ     final, 0x0000
+0798:              .equ     poly, 0x1021
                    
                    calc_crc16:
 0798: D1 F6                 acall   get_mem
@@ -1642,12 +1639,12 @@
 07A2: 8A 82                 mov     dpl, r2
 07A4: 8B 83                 mov     dph, r3
                                     
-07A6: 7E FF                 mov     r6, #initial_l
-07A8: 7F FF                 mov     r7, #initial_h
+07A6: 7E FF                 mov     r6, #(initial & 0xff)
+07A8: 7F FF                 mov     r7, #(initial >> 8)
 07AA: F1 D4                 acall   init_crc16
                             
-07AC: 7E 21                 mov     r6, #poly_l
-07AE: 7F 10                 mov     r7, #poly_h
+07AC: 7E 21                 mov     r6, #(poly & 0xff)
+07AE: 7F 10                 mov     r7, #(poly >> 8)
                    calc_loop:
 07B0: E0                    movx    a, @dptr
 07B1: 12 07 E8              lcall   update_crc16
@@ -1657,8 +1654,8 @@
 07B8: EC                    mov     a, r4
 07B9: B5 82 15              cjne    a, dpl, calc_skip
                             
-07BC: 7E 00                 mov     r6, #final_l
-07BE: 7F 00                 mov     r7, #final_h
+07BC: 7E 00                 mov     r6, #(final & 0xff)
+07BE: 7F 00                 mov     r7, #(final >> 8)
 07C0: F1 DD                 acall   finish_crc16
                             
 07C2: 8A 82                 mov     dpl, r2
