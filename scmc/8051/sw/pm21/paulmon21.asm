@@ -123,11 +123,21 @@
 ;---------------------------------------------------------;
 
 ;---------------------------------------------------------;
+; Common ASCII codes
+.equ	LF, '\n'
+.equ	CR, '\r'
+.equ	ESC, 27
+.equ	SPACE, ' '
+;---------------------------------------------------------;
+
+;---------------------------------------------------------;
 ;							  ;
 ;		     Interrupt Vectors			  ;
-;  (and little bits of code crammed in the empty spaces)  ;
 ;							  ;
 ;---------------------------------------------------------;
+
+; spare the flash by filling the space between vectors
+; with "mov r7, a" / 0xff in binary
 
 ;------ RESET --------------------------------------------;
 .org	base
@@ -137,91 +147,96 @@
 ;------ IE0_VECTOR ---------------------------------------;
 .org	base + 3
 	ljmp	vector + 3
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
 ;------ IE0_VECTOR ---------------------------------------;
-
-r6r7todptr:
-	mov	dpl, r6
-	mov	dph, r7
-	ret
 
 ;------ TF0_VECTOR ---------------------------------------;
 .org	base + 11
 	ljmp	vector + 11
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
 ;------ TF0_VECTOR ---------------------------------------;
-
-dptrtor6r7:
-	mov	r6, dpl
-	mov	r7, dph
-	ret
 
 ;------ IE1_VECTOR ---------------------------------------;
 .org	base + 19
 	ljmp	vector + 19
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
 ;------ IE1_VECTOR ---------------------------------------;
-
-dash:
-	mov	a, #'-'		; seems kinda trivial, but each time
-	ajmp	cout		; this appears in code, it takes 4
-	nop			; bytes, but an acall takes only 2
 
 ;------ TF1_VECTOR ---------------------------------------;
 .org	base + 27
 	ljmp	vector + 27
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
 ;------ TF1_VECTOR ---------------------------------------;
-
-cout_sp:
-	acall	cout
-	ajmp	space
-	nop
 
 ;------ SI0_VECTOR ---------------------------------------;
 .org	base + 35
 	ljmp	vector + 35
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
 ;------ SI0_VECTOR ---------------------------------------;
-
-dash_sp:
-	acall	dash
-	ajmp	space
-	nop
 
 ;------ TF2_VECTOR --- EX2_VECTOR ------------------------;
 .org	base + 43
 	ljmp	vector + 43
+; the jump table follows immediately after the long jump
+; so there's no gap
+;	mov	r7, a
+;	mov	r7, a
+;	mov	r7, a
+;	mov	r7, a
+;	mov	r7, a
 ;------ TF2_VECTOR --- EX2_VECTOR ------------------------;
 
 ;---------------------------------------------------------;
 ;							  ;
 ;	The jump table for user programs to call	  ;
 ;	      subroutines within PAULMON		  ;
+;	   Update paulmon21.equ accordingly		  ;
 ;							  ;
 ;---------------------------------------------------------;
 
-; Update paulmon21.equ accordingly
-
 .org	base + 46
-	ajmp	phex1		; 0x2e
-	ajmp	cout		; 0x30
-	ajmp	cin		; 0x32
-	ajmp	phex		; 0x34
-	ajmp	phex16		; 0x36
-	ajmp	pstr		; 0x38
-	ajmp	ghex		; 0x3a
-	ajmp	ghex16		; 0x3c
-	ajmp	esc		; 0x4e
-	ajmp	upper		; 0x40
-	ljmp	setbaud		; 0x42
-pcstr_h:
-	ljmp	pcstr		; 0x45
-	ajmp	crlf		; 0x48
-	ljmp	lenstr		; 0x4a
-	ljmp	pint8u		; 0x4d
-	ljmp	pint8		; 0x50
-	ljmp	pint16u		; 0x53
-	ljmp	find		; 0x56
-	ajmp	asc2hex		; 0x59
-	ljmp	init_crc16	; 0x5b
-	ljmp	update_crc16	; 0x5e
-	ljmp	finish_crc16	; 0x61
+	ajmp	phex1		; JMP_TABLE 0x2e
+	ajmp	cout		; JMP_TABLE 0x30
+	ajmp	cin		; JMP_TABLE 0x32
+	ajmp	phex		; JMP_TABLE 0x34
+	ajmp	phex16		; JMP_TABLE 0x36
+	ajmp	pstr		; JMP_TABLE 0x38
+	ajmp	ghex		; JMP_TABLE 0x3a
+	ajmp	ghex16		; JMP_TABLE 0x3c
+	ajmp	escape		; JMP_TABLE 0x4e
+	ajmp	upper		; JMP_TABLE 0x40
+	ljmp	setbaud		; JMP_TABLE 0x42
+	ljmp	pcstr		; JMP_TABLE 0x45
+	ajmp	crlf		; JMP_TABLE 0x48
+	ljmp	lenstr		; JMP_TABLE 0x4a
+	ljmp	pint8u		; JMP_TABLE 0x4d
+	ljmp	pint8		; JMP_TABLE 0x50
+	ljmp	pint16u		; JMP_TABLE 0x53
+	ljmp	find		; JMP_TABLE 0x56
+	ajmp	asc2hex		; JMP_TABLE 0x59
+	ljmp	init_crc16	; JMP_TABLE 0x5b
+	ljmp	update_crc16	; JMP_TABLE 0x5e
+	ljmp	finish_crc16	; JMP_TABLE 0x61
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -235,39 +250,63 @@ cin:
 	clr	ri
 	ret
 
-;---------------------------------------------------------;
-
-dspace:
-	acall	space
-space:
-	mov	a, #' '
 cout:
 	jnb	ti, cout
-	clr	ti		; clr ti before the mov to sbuf!
+	clr	ti
 	mov	sbuf, a
 	ret
-
-;---------------------------------------------------------;
-
-; Clearing ti before reading sbuf takes care of the case where
-; interrupts may be enabled... If an interrupt were to happen
-; between those two instructions, the serial port will just
-; wait a while, but in the other order and the character could
-; finish transmitting (during the interrupt routine) and then
-; ti would be cleared and never set again by the hardware, causing
-; the next call to cout to hang forever!
-
-dcrlf:			; print two newlines
-	acall	crlf
-crlf:
-	push	acc		; print one newline
-	mov	a, #13
-	acall	cout
-	mov	a, #10
+	
+sspace:
+	push	acc
+	mov	a, #SPACE
 	acall	cout
 	pop	acc
 	ret
 
+dash:
+	push	acc
+	mov	a, #'-'
+	acall	cout
+	pop	acc
+	ret
+
+crlf:
+	push	acc
+	mov	a, #CR
+	acall	cout
+	mov	a, #LF
+	acall	cout
+	pop	acc
+	ret
+
+cout_sp:
+	acall	cout
+	ajmp	sspace
+
+dash_sp:
+	acall	dash
+	ajmp	sspace
+
+dspace:
+	acall	sspace
+	ajmp	sspace
+
+dcrlf:
+	acall	crlf
+	ajmp	crlf
+
+pcstr:
+	push	acc
+pcstr1:
+	movx	a, @dptr
+	inc	dptr
+	jz	pcstr2
+	acall	cout
+	sjmp	pcstr1
+pcstr2:
+	pop	acc
+	ret
+	
 ;---------------------------------------------------------;
 
 ; get 2 digit hex number from serial port
@@ -280,13 +319,13 @@ ghex8:
 ghex8c:
 	acall	cin	; get first digit
 	acall	upper
-	cjne	a, #27, ghex8f
+	cjne	a, #ESC, ghex8f
 ghex8d:
 	setb	c
 	clr	a
 	ret
 ghex8f:
-	cjne	a, #13, ghex8h
+	cjne	a, #CR, ghex8h
 	setb	psw.5
 	clr	c
 	clr	a
@@ -300,10 +339,10 @@ ghex8h:
 ghex8j:
 	acall	cin	; get second digit
 	acall	upper
-	cjne	a, #27, ghex8k
+	cjne	a, #ESC, ghex8k
 	sjmp	ghex8d
 ghex8k:
-	cjne	a, #13, ghex8m
+	cjne	a, #CR, ghex8m
 	mov	a, r2
 	clr	c
 	ret
@@ -341,7 +380,7 @@ ghex16:
 ghex16c:
 	acall	cin
 	acall	upper
-	cjne	a, #27, ghex16d
+	cjne	a, #ESC, ghex16d
 	setb	c		; handle esc key
 	clr	a
 	mov	dph, a
@@ -361,7 +400,7 @@ ghex16e:
 	inc	r4
 	sjmp	ghex16c
 ghex16g:
-	cjne	a, #13, ghex16i		; return key
+	cjne	a, #CR, ghex16i		; return key
 	mov	dph, r3
 	mov	dpl, r2
 	cjne	r4, #4, ghex16h
@@ -540,16 +579,16 @@ lenstr2:
 ; C=clear if no <ESC>, C=set if <ESC> pressed
 ; buffer is flushed
 
-esc:
+escape:
 	push	acc
 	clr	c
-	jnb	ri, esc2
+	jnb	ri, escape2
 	mov	a, sbuf
-	cjne	a, #27, esc1
+	cjne	a, #ESC, escape1
 	setb	c
-esc1:
+escape1:
 	clr	ri
-esc2:
+escape2:
 	pop	acc
 	ret
 
@@ -560,7 +599,7 @@ menu:
 ; as it may seem, since external code can add to the
 ; prompt, so we've got to find and execute all of 'em.
 	mov	dptr, #prompt1		; give 'em the first part of prompt
-	acall	pcstr_h
+	acall	pcstr
 	mov	a, r7
 	acall	phex
 	mov	a, r6
@@ -602,7 +641,7 @@ menux1:
 	inc	dpl
 	movx	a, @dptr
 	cjne	a, b, menux2	; only run if they want it
-	acall	space
+	acall	sspace
 	mov	dpl, #32
 	acall	pstr		; print command name
 	acall	crlf
@@ -620,95 +659,107 @@ menuxend:
 menui1:
 	cjne	a, #help_key, menui2
 	mov	dptr, #help_cmd2
-	acall	pcstr_h
+	acall	pcstr
 	ajmp	help
 	
 menui2:
 	cjne	a, #dir_key, menui3
 	mov	dptr, #dir_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ajmp	dir
 	
 menui3:
 	cjne	a, #run_key, menui4
 	mov	dptr, #run_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ajmp	run
 	
 menui4:
 	cjne	a, #dnld_key, menui5
 	mov	dptr, #dnld_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ajmp	dnld
 	
 menui5:
 	cjne	a, #upld_key, menui6
 	mov	dptr, #upld_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ajmp	upld
 	
 menui6:
 	cjne	a, #nloc_key, menui7
 	mov	dptr, #nloc_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ajmp	nloc
 	
 menui7:
 	cjne	a, #jump_key, menui8
 	mov	dptr, #jump_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ajmp	jump
 	
 menui8:
 	cjne	a, #dump_key, menui9
 	mov	dptr, #dump_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ajmp	dump
 	
 menui9:
 	cjne	a, #edit_key, menui10
 	mov	dptr, #edit_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ajmp	edit
 	
 menui10:
 	cjne	a, #clrm_key, menui11
 	mov	dptr, #clrm_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ajmp	clrm
 	
 menui11:
 	cjne	a, #intm_key, menui12
 	mov	dptr, #intm_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ljmp	intm
 	
 menui12:
 	cjne	a, #eio77_key, menui13
 	mov	dptr, #eio77_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ljmp	eio77
 	
 menui13:
 	cjne	a, #dio77_key, menui14
 	mov	dptr, #dio77_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ljmp	dio77
 	
 menui14:
 	cjne	a, #crc16_key, menui15
 	mov	dptr, #crc16_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ljmp	calc_crc16
 	
 menui15:
 	cjne	a, #baud_key, menuiend
 	mov	dptr, #baud_cmd
-	acall	pcstr_h
+	acall	pcstr
 	ljmp	reset_baud
 
 menuiend:
 	ajmp	crlf
+
+;---------------------------------------------------------;
+
+r6r7todptr:
+	mov	dpl, r6
+	mov	dph, r7
+	ret
+
+dptrtor6r7:
+	mov	r6, dpl
+	mov	r7, dph
+	ret
 
 ;---------------------------------------------------------;
 
@@ -728,13 +779,13 @@ menuiend:
 
 dnld:
 	mov	dptr, #dnlds1	; "begin sending file <ESC> to abort"		 
-	acall	pcstr_h
+	acall	pcstr
 	acall	dnld_init
 	
 dnld1:
 	; look for begining of line marker ':'
 	acall	cin
-	cjne	a, #27, dnld2	; Test for escape
+	cjne	a, #ESC, dnld2	; Test for escape
 	sjmp	dnld_esc
 
 dnld2:
@@ -819,7 +870,7 @@ dnld_end_3:
 	jnz	dnld_sumerr
 	acall	dnld_dly
 	mov	dptr, #dnlds3	; "download went ok..."
-	acall	pcstr_h
+	acall	pcstr
 	; consume any cr or lf character that may have been
 	; on the end of the last line
 	jnb	ri, dnld_sum
@@ -830,7 +881,7 @@ dnld_esc:
 	; handle esc received in the download stream
 	acall	dnld_dly
 	mov	dptr, #dnlds2	; "download aborted."	 
-	acall	pcstr_h
+	acall	pcstr
 	sjmp	dnld_sum
 
 ; a short delay since most terminal emulation programs
@@ -894,7 +945,7 @@ dnld_ghex:
 dnldgh1:
 	acall	cin
 	acall	upper
-	cjne	a, #27, dnldgh3
+	cjne	a, #ESC, dnldgh3
 dnldgh2:
 	pop	acc
 	pop	acc
@@ -918,7 +969,7 @@ dnldgh6:
 dnldgh7:
 	acall	cin
 	acall	upper
-	cjne	a, #27, dnldgh8
+	cjne	a, #ESC, dnldgh8
 	sjmp	dnldgh2
 dnldgh8:
 	cjne	a, #':', dnldgh9
@@ -952,7 +1003,7 @@ dnld_sum:
 	mov	a, r7
 	push	acc
 	mov	dptr, #dnlds4
-	acall	pcstr_h
+	acall	pcstr
 	mov	r1, #dnld_parm
 	mov	r6, #dnlds5 & 0xff
 	mov	r7, #dnlds5 >> 8
@@ -974,13 +1025,13 @@ dnlder2:
 	djnz	r2, dnlder2
 ; no errors, so we print the nice message
 	mov	dptr, #dnlds13
-	acall	pcstr_h
+	acall	pcstr
 	sjmp	dlnd_sum_done
 
 dnlder3:
 ; there were errors, so now we print 'em
 	mov	dptr, #dnlds7
-	acall	pcstr_h
+	acall	pcstr
 ; but let's not be nasty... only print if necessary
 	mov	r1, #(dnld_parm + 6)
 	mov	r6, #dnlds8 & 0xff
@@ -1009,10 +1060,10 @@ dnld_item:
 	acall	dnld_gp		; error conditions
 	jnc	dnld_i3
 dnld_i2:
-	acall	space
+	acall	sspace
 	lcall	pint16u
 	acall	r6r7todptr
-	acall	pcstr_h
+	acall	pcstr
 dnld_i3:
 	ret
 
@@ -1042,11 +1093,11 @@ dnld0:
 
 jump:
 	mov	dptr, #prompt8
-	acall	pcstr_h
+	acall	pcstr
 	acall	r6r7todptr
 	acall	phex16
 	mov	dptr, #prompt4
-	acall	pcstr_h
+	acall	pcstr
 	acall	ghex16
 	jb	psw.5, jump3
 	jnc	jump2
@@ -1056,7 +1107,7 @@ jump2:
 jump3:
 	acall	crlf
 	mov	dptr, #runs1
-	acall	pcstr_h
+	acall	pcstr
 	acall	r6r7todptr
 
 jump_doit:
@@ -1086,7 +1137,7 @@ dump2:
 	movx	a, @dptr
 	inc	dptr
 	acall	phex		; print each byte in hex
-	acall	space
+	acall	sspace
 	djnz	r3, dump2
 	acall	dspace		; print a couple extra space
 	mov	r3, #16
@@ -1107,7 +1158,7 @@ dump4:
 	djnz	r3, dump3
 	acall	crlf
 	acall	dptrtor6r7
-	acall	esc
+	acall	escape
 	jc	dump5
 	djnz	r2, dump1	; loop back up to print next line
 dump5:
@@ -1119,7 +1170,7 @@ dump5:
 
 edit:
 	mov	dptr, #edits1
-	acall	pcstr_h
+	acall	pcstr
 	acall	r6r7todptr
 edit1:
 	acall	phex16
@@ -1131,7 +1182,7 @@ edit1:
 	movx	a, @dptr
 	acall	phex
 	mov	dptr, #prompt10
-	acall	pcstr_h
+	acall	pcstr
 	acall	ghex
 	jb	psw.5, edit2
 	jc	edit2
@@ -1144,19 +1195,19 @@ edit1:
 	ajmp	edit1
 edit2:
 	mov	dptr, #edits2
-	ajmp	pcstr_h
+	ajmp	pcstr
 
 ;---------------------------------------------------------;
 
 dir:
 	mov	dptr, #prompt9
-	acall	pcstr_h
+	acall	pcstr
 	mov	r0, #21
 dir0a:
-	acall	space
+	acall	sspace
 	djnz	r0, dir0a
 	mov	dptr, #prompt9b
-	acall	pcstr_h
+	acall	pcstr
 
 	mov	dph, #(bmem >> 8)
 dir1:
@@ -1174,14 +1225,14 @@ dir2:
 	clr	c
 	subb	a, r0
 	mov	r0, a
-	mov	a, #' '		; print the right # of spaces
+	mov	a, #SPACE		; print the right # of spaces
 dir3:
 	acall	cout
 	djnz	r0, dir3
 	mov	dpl, #0
 	acall	phex16		; print the memory location
 	mov	r0, #6
-	mov	a, #' '
+	mov	a, #SPACE
 dir4:
 	acall	cout
 	djnz	r0, dir4
@@ -1210,7 +1261,7 @@ dir6:
 	mov	dptr, #type5	; who knows what the hell it is
 
 dir7:
-	acall	pcstr_h		; print out the type
+	acall	pcstr		; print out the type
 	mov	dph, r2		; go back and find the next one
 	acall	crlf
 	mov	a, #(emem >> 8)
@@ -1260,10 +1311,10 @@ run2b:
 run3:
 	cjne	r2, #255, run4	; are there any to run??
 	mov	dptr, #prompt5
-	ajmp	pcstr_h
+	ajmp	pcstr
 run4:
 	mov	dptr, #prompt3	; ask the big question!
-	acall	pcstr_h
+	acall	pcstr
 	mov	a, #'A'
 	acall	cout
 	acall	dash
@@ -1271,9 +1322,9 @@ run4:
 	add	a, r2		; even tell 'em the choices
 	acall	cout
 	mov	dptr, #prompt4
-	acall	pcstr_h
+	acall	pcstr
 	acall	cin
-	cjne	a, #27, run4aa	; they they hit <ESC>
+	cjne	a, #ESC, run4aa	; they they hit <ESC>
 	ajmp	crlf
 run4aa:
 	mov	r3, a
@@ -1323,7 +1374,7 @@ run8:
 
 help:
 	mov	dptr, #help1txt
-	acall	pcstr_h
+	acall	pcstr
 	
 	mov	r4, #help_key
 	mov	dptr, #help_cmd
@@ -1386,7 +1437,7 @@ help:
 	acall	help2
 	
 	mov	dptr, #help2txt
-	acall	pcstr_h
+	acall	pcstr
 	mov	dptr, #bmem
 help3:
 	lcall	find
@@ -1414,7 +1465,7 @@ help2:				; print 11 standard lines
 	mov	a, r4
 	acall	cout_sp
 	acall	dash_sp
-	acall	pcstr_h
+	acall	pcstr
 	ajmp	crlf
 
 ;---------------------------------------------------------;
@@ -1426,13 +1477,13 @@ upld:
 
 	; print out what we'll be doing
 	mov	dptr, #uplds3
-	acall	pcstr_h
+	acall	pcstr
 	mov	a, r3
 	acall	phex
 	mov	a, r2
 	acall	phex
 	mov	 dptr, #uplds4
-	acall	pcstr_h
+	acall	pcstr
 	mov	a, r5
 	acall	phex
 	mov	a, r4
@@ -1447,9 +1498,9 @@ upld:
 	mov	r5, dph
 
 	mov	dptr, #prompt7
-	acall	pcstr_h
+	acall	pcstr
 	acall	cin
-	cjne	a, #27, upld2e
+	cjne	a, #ESC, upld2e
 	ajmp	abort_it
 upld2e:
 	acall	crlf
@@ -1495,7 +1546,7 @@ upld6:
 	inc	a
 	acall	phex		; and finally the checksum
 	acall	crlf
-	acall	esc
+	acall	escape
 	jnc	upld3		; keep working if no esc pressed
 	sjmp	abort_it
 upld7:
@@ -1522,7 +1573,7 @@ upld8:
 get_mem:
 	acall	dcrlf
 	mov	dptr, #beg_str
-	acall	pcstr_h
+	acall	pcstr
 	acall	ghex16
 	jc	pop_it
 	jb	psw.5, pop_it
@@ -1530,7 +1581,7 @@ get_mem:
 	push	dpl
 	acall	crlf
 	mov	dptr, #end_str
-	acall	pcstr_h
+	acall	pcstr
 	acall	ghex16
 	mov	r5, dph
 	mov	r4, dpl
@@ -1549,13 +1600,13 @@ abort_it:
 	acall	crlf
 abort2:
 	mov	dptr, #abort
-	ajmp	pcstr_h
+	ajmp	pcstr
 
 ;---------------------------------------------------------;
 
 nloc:
 	mov	dptr, #prompt6
-	acall	pcstr_h
+	acall	pcstr
 	acall	ghex16
 	jc	abort2
 	jb	psw.5, abort2
@@ -1567,7 +1618,7 @@ nloc:
 clrm:
 	acall	get_mem
 	mov	dptr, #sure
-	acall	pcstr_h
+	acall	pcstr
 	acall	cin
 	acall	cout
 	acall	upper
@@ -1593,7 +1644,7 @@ clrm4:
 reset_baud:
 	acall	dcrlf
 	mov	dptr, #baudprompt
-	acall	pcstr_h
+	acall	pcstr
 	
 	acall	ghex16
 	jc	bailout
@@ -1603,7 +1654,7 @@ reset_baud:
 	
 	acall	crlf
 	mov	dptr, #sure
-	acall	pcstr_h
+	acall	pcstr
 	acall	cin
 	acall	cout
 	acall	upper
@@ -1621,7 +1672,7 @@ bailout_pop:
 bailout:
 	acall	crlf
 	mov	dptr, #abort
-	ajmp	pcstr_h
+	ajmp	pcstr
 	
 ;---------------------------------------------------------;
 
@@ -1641,7 +1692,7 @@ calc_crc16:
 		
 	mov	r6, #(initial & 0xff)
 	mov	r7, #(initial >> 8)
-	acall	init_crc16
+	lcall	init_crc16
 	
 	mov	r6, #(poly & 0xff)
 	mov	r7, #(poly >> 8)
@@ -1656,7 +1707,7 @@ calc_loop:
 	
 	mov	r6, #(final & 0xff)
 	mov	r7, #(final >> 8)
-	acall	finish_crc16
+	lcall	finish_crc16
 	
 	mov	dpl, r2
 	mov	dph, r3
@@ -1664,9 +1715,9 @@ calc_loop:
 	
 	pop	dph
 	pop	dpl
-	acall	dptrtor6r7
+	lcall	dptrtor6r7
 	
-	ajmp	dcrlf
+	ljmp	dcrlf
 	
 calc_skip:
 	inc	dptr
@@ -1751,7 +1802,7 @@ intm2:
 	mov	a, #':'
 	lcall	cout
 intm3:
-	lcall	space
+	lcall	sspace
 	mov	a, @r0
 	lcall	phex
 	inc	r0
@@ -2113,22 +2164,6 @@ pint16y:
 	addc	a, r5
 	mov	r3, a
 	mov	a, r0
-	ret
-
-;---------------------------------------------------------;
-
-; print string
-
-pcstr:
-	push	acc
-pcstr1:
-	movx	a, @dptr
-	inc	dptr
-	jz	pcstr2
-	lcall	cout
-	sjmp	pcstr1
-pcstr2:
-	pop	acc
 	ret
 
 ;---------------------------------------------------------;
