@@ -598,7 +598,7 @@
                    ; first we print out the prompt, which isn't as simple
                    ; as it may seem, since external code can add to the
                    ; prompt, so we've got to find and execute all of 'em.
-01E8: 90 0A 74              mov     dptr, #prompt1          ; give 'em the firs
+01E8: 90 0A 74              mov     dptr, #prompt1  ; give 'em the first part o
 01EB: 11 A3                 acall   pcstr
 01ED: EF                    mov     a, r7
 01EE: 31 8A                 acall   phex
@@ -617,9 +617,9 @@
                    
                    ; push return address onto stack so we can just jump to the 
 0203: 75 F0 E8              mov     b, #(menu & 0xff)       ; we push the retur
-0206: C0 F0                 push    b                       ; to save code late
-0208: 75 F0 01              mov     b, #(menu >> 8)                 ; if bogus 
-020B: C0 F0                 push    b                       ; another prompt.
+0206: C0 F0                 push    b               ; to save code later...
+0208: 75 F0 01              mov     b, #(menu >> 8)         ; if bogus input, j
+020B: C0 F0                 push    b               ; another prompt.
                    
                    ; first we'll look through memory for a program header that 
                    ; it's a user installed command which matches what the user 
@@ -811,13 +811,13 @@
                    
                    dnld3:
                             ; begin taking in the line of data
-                            ; mov   a, #'.'
-                            ; acall         cout
+                   ;        mov     a, #'.'
+                   ;        acall   cout
 0309: 7C 00                 mov     r4, #0          ; r4 will count up checksum
 030B: 71 91                 acall   dnld_ghex
 030D: F8                    mov     r0, a           ; R0 = # of data bytes
-                            ; mov   a, #'.'
-                            ; acall         cout
+                   ;        mov     a, #'.'
+                   ;        acall   cout
 030E: 71 91                 acall   dnld_ghex
 0310: F5 83                 mov     dph, a          ; High byte of load address
 0312: 71 91                 acall   dnld_ghex
@@ -1225,7 +1225,7 @@
 0514: C3                    clr     c
 0515: 98                    subb    a, r0
 0516: F8                    mov     r0, a
-0517: 74 20                 mov     a, #SPACE               ; print the right #
+0517: 74 20                 mov     a, #SPACE       ; print the right # of spac
                    dir3:
 0519: 11 6C                 acall   cout
 051B: D8 FC                 djnz    r0, dir3
@@ -1846,16 +1846,16 @@
 088C: A3                    inc     dptr
 088D: E0                    movx    a, @dptr
 088E: B4 A5 05              cjne    a, #0xa5, find3
-0891: 75 82 00              mov     dpl, #0                         ; found one
+0891: 75 82 00              mov     dpl, #0                 ; found one here!
 0894: D3                    setb    c
 0895: 22                    ret
                    find3:
 0896: 74 DF                 mov     a, #(emem >> 8)
-0898: B5 83 02              cjne    a, dph, find4           ; did we just check
+0898: B5 83 02              cjne    a, dph, find4   ; did we just check the end
 089B: C3                    clr     c
 089C: 22                    ret
                    find4:
-089D: 05 83                 inc     dph                     ; keep on searching
+089D: 05 83                 inc     dph             ; keep on searching
 089F: 80 DA                 sjmp    find
                    
                    ;---------------------------------------------------------;

@@ -598,7 +598,7 @@ menu:
 ; first we print out the prompt, which isn't as simple
 ; as it may seem, since external code can add to the
 ; prompt, so we've got to find and execute all of 'em.
-	mov	dptr, #prompt1		; give 'em the first part of prompt
+	mov	dptr, #prompt1	; give 'em the first part of prompt
 	acall	pcstr
 	mov	a, r7
 	acall	phex
@@ -617,9 +617,9 @@ menu0:
 
 ; push return address onto stack so we can just jump to the program
 	mov	b, #(menu & 0xff)	; we push the return address now,
-	push	b			; to save code later...
-	mov	b, #(menu >> 8)		; if bogus input, just ret for
-	push	b			; another prompt.
+	push	b		; to save code later...
+	mov	b, #(menu >> 8)	; if bogus input, just ret for
+	push	b		; another prompt.
 
 ; first we'll look through memory for a program header that says
 ; it's a user installed command which matches what the user pressed
@@ -811,13 +811,13 @@ dnld2d:
 
 dnld3:
 	; begin taking in the line of data
-	; mov	a, #'.'
-	; acall	cout
+;	mov	a, #'.'
+;	acall	cout
 	mov	r4, #0		; r4 will count up checksum
 	acall	dnld_ghex
 	mov	r0, a		; R0 = # of data bytes
-	; mov	a, #'.'
-	; acall	cout
+;	mov	a, #'.'
+;	acall	cout
 	acall	dnld_ghex
 	mov	dph, a		; High byte of load address
 	acall	dnld_ghex
@@ -1225,7 +1225,7 @@ dir2:
 	clr	c
 	subb	a, r0
 	mov	r0, a
-	mov	a, #SPACE		; print the right # of spaces
+	mov	a, #SPACE	; print the right # of spaces
 dir3:
 	acall	cout
 	djnz	r0, dir3
@@ -1846,16 +1846,16 @@ find:
 	inc	dptr
 	movx	a, @dptr
 	cjne	a, #0xa5, find3
-	mov	dpl, #0			; found one here!
+	mov	dpl, #0		; found one here!
 	setb	c
 	ret
 find3:
 	mov	a, #(emem >> 8)
-	cjne	a, dph, find4		; did we just check the end
+	cjne	a, dph, find4	; did we just check the end
 	clr	c
 	ret
 find4:
-	inc	dph			; keep on searching
+	inc	dph		; keep on searching
 	sjmp	find
 
 ;---------------------------------------------------------;
