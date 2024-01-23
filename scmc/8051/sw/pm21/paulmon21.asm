@@ -250,6 +250,15 @@ cin:
 	clr	ri
 	ret
 
+cinpoll:
+	setb	c
+	jnb	ri, cinp0
+	mov	a, sbuf
+	clr	ri
+	clr	c
+cinp0:
+	ret
+
 cout:
 	jnb	ti, cout
 	clr	ti
