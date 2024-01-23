@@ -15,7 +15,6 @@
 #define pm2_entry_crlf	0x54
 #define pm2_entry_ghex	0x57
 #define pm2_entry_ghex16	0x5a
-#define pm2_entry_escape	0x5d
 #define pm2_entry_asc2hex	0x60
 #define pm2_entry_upper	0x63
 #define pm2_entry_lenstr	0x66

@@ -229,7 +229,6 @@
 	
 	ljmp	ghex		; JMP_TABLE 0x57
 	ljmp	ghex16		; JMP_TABLE 0x5a
-	ljmp	escape		; JMP_TABLE 0x5d
 	
 	ljmp	asc2hex		; JMP_TABLE 0x60
 	ljmp	upper		; JMP_TABLE 0x63
@@ -560,25 +559,6 @@ lenstr1:
 	inc	dptr
 	sjmp	lenstr1
 lenstr2:
-	pop	acc
-	ret
-
-;---------------------------------------------------------;
-
-; checks to see if <ESC> is waiting on serial port
-; C=clear if no <ESC>, C=set if <ESC> pressed
-; buffer is flushed
-
-escape:
-	push	acc
-	clr	c
-	jnb	ri, escape2
-	mov	a, sbuf
-	cjne	a, #ESC, escape1
-	setb	c
-escape1:
-	clr	ri
-escape2:
 	pop	acc
 	ret
 
@@ -1148,8 +1128,13 @@ dump4:
 	djnz	r3, dump3
 	acall	crlf
 	acall	dptrtor6r7
-	acall	escape
-	jc	dump5
+		
+	acall	cinpoll
+	jc	dump4b
+	cjne	a, #ESC, dump4b
+	ajmp	dump5
+	
+dump4b:
 	djnz	r2, dump1	; loop back up to print next line
 dump5:
 	ajmp	crlf
@@ -1536,9 +1521,12 @@ upld6:
 	inc	a
 	acall	phex		; and finally the checksum
 	acall	crlf
-	acall	escape
-	jnc	upld3		; keep working if no esc pressed
+	
+	acall	cinpoll
+	jc	upld3
+	cjne	a, #ESC, upld3
 	sjmp	abort_it
+	
 upld7:
 	mov	a, #':'
 	acall	cout
