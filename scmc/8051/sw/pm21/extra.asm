@@ -12,28 +12,27 @@
 ; http://www.pjrc.com/tech/8051/pm2_docs/index.html
 
 ; monitor functions
-.equ	phex1, 0x2E
-.equ	cout, 0x30
-.equ	cin, 0x32
-.equ	phex, 0x34
-.equ	phex16, 0x36
-.equ	pstr, 0x38
-.equ	ghex, 0x3A
-.equ	ghex16, 0x3C
-.equ	esc, 0x4E
-.equ	upper, 0x40
-.equ	setbaud, 0x42
-.equ	pcstr, 0x45
-.equ	crlf, 0x48
-.equ	lenstr, 0x4A
-.equ	pint8u, 0x4D
-.equ	pint8, 0x50
-.equ	pint16u, 0x53
-.equ	find, 0x56
-.equ	asc2hex, 0x59
-.equ	init_crc16, 0x5B
-.equ	update_crc16, 0x5E
-.equ	finish_crc16, 0x61
+.equ setbaud, 0x33
+.equ cin, 0x36
+.equ cinpoll, 0x39
+.equ cout, 0x3c
+.equ phex, 0x3f
+.equ phex1, 0x42
+.equ phex16, 0x45
+.equ pcstr, 0x48
+.equ pint8u, 0x4b
+.equ pint8, 0x4e
+.equ pint16u, 0x51
+.equ crlf, 0x54
+.equ ghex, 0x57
+.equ ghex16, 0x5a
+.equ asc2hex, 0x60
+.equ upper, 0x63
+.equ lenstr, 0x66
+.equ init_crc16, 0x69
+.equ update_crc16, 0x6c
+.equ finish_crc16, 0x6f
+.equ find, 0x72
 
 .equ	locat, 0x1000		;location for these commands (usually 1000)
 
@@ -332,8 +331,8 @@ pdir2:  clr     a
         clr     c
         subb    a, r3
         jnz     pdir3
-pstr_h:
-	ljmp	pstr
+pcstr_h:
+	ljmp	pcstr
 
 pdir3:  clr     a
         movc    a,@a+dptr
@@ -364,7 +363,7 @@ pbit:
         mov     dpl,a
         jnc     pbit0
         inc     dph
-pbit0:  acall   pstr_h
+pbit0:  acall   pcstr_h
         sjmp    pbit2
 pbit1:  mov     a,r0            ;it's between 20h and 2Fh
         add     a,#20h
@@ -697,7 +696,6 @@ ssrun:
 	;first check to make sure they connect int1 low
 	jnb	p3.3, ssrun2
         mov     dptr, #sserr1	;give error msg if int1 not grounded
-pcstr_h:
 	ljmp	pcstr
 
 ssrun2:	;make sure there's a ljmp at the int1 vector location
@@ -754,7 +752,7 @@ ssrun5:	mov	a, ip		;set to high priority interrupt
 	jb	psw.5, ssrun7
         jnc     ssrun6
         mov     dptr,#abort
-        acall   pstr_h
+        acall   pcstr_h
         ajmp    crlf_h
 ssrun6:	mov	r6, dpl		;where we'll begin executing
 	mov	r7, dph
@@ -762,7 +760,7 @@ ssrun7:	clr	tcon.2		;need low-level triggered int1
 	mov     dptr,#ssmsg     ;tell 'em we're starting
 	acall	pcstr_h
 	mov	dptr,#ssnames
-	acall	pstr_h
+	acall	pcstr_h
 	clr	a
 	mov	sp, #8		;just like after a reset
 	push	acc		;unlike a 8051 start-up, push return addr
@@ -923,7 +921,7 @@ step8:  cjne    a,#'?',step10  ;check '?'
         ajmp    step1
 step10: cjne    a,#'Q',step11  ;check 'Q'=quit and run normal
         mov     dptr, #squit
-        acall   pstr_h
+        acall   pcstr_h
         clr     ie.2
 	acall	chardly
 	mov	8, #0		;force return to 0000
@@ -941,7 +939,7 @@ step14: cjne    a,#'A',step15  ;check 'A'=change acc value
         ajmp    sschacc
 step15: cjne	a,#'.',step20
 	mov	dptr, #ssnames
-	acall	pstr_h
+	acall	pcstr_h
 	ajmp	step1
 
 step20: ajmp    step1
@@ -953,7 +951,7 @@ pequal:        ; prints '='
 
 ssdmp:
         mov     dptr, #ssdmps1
-        acall   pstr_h
+        acall   pcstr_h
         clr     a
         acall   prcolon
         acall   space_h
@@ -983,7 +981,7 @@ ssdmp2: acall   space_h
 
 ssreg:
 	mov	dptr, #sfr2+1
-	acall	pstr_h
+	acall	pcstr_h
         acall   pequal
         mov     a, sp
 	add	a, #252
@@ -1030,7 +1028,7 @@ ssreg:
         acall   crlf_h
         ajmp    step1
 
-psfr:   acall   pstr_h
+psfr:   acall   pcstr_h
         acall   pequal
         mov     a, r0
         ajmp    phexsp
@@ -1043,7 +1041,7 @@ ssskip:
 ssskip2:acall	space_h
 	djnz	r0, ssskip2
         mov     dptr,#sskip1
-        acall   pstr_h
+        acall   pcstr_h
 	mov	a, sp
 	add	a, #249
 	mov	r0, a		;set r0 to point to pc on stack
@@ -1087,7 +1085,7 @@ sschacc:
 	add	a, #251
 	mov	r0, a		;r0 points to acc on stack
         mov     dptr, #chaccs1
-        acall   pstr_h
+        acall   pcstr_h
         lcall   ghex
         jc      chacc2
 	jb	psw.5, chacc2
@@ -1095,7 +1093,7 @@ sschacc:
         acall   crlf_h
         ajmp    step1
 chacc2: mov     dptr, #abort
-        acall   pstr_h
+        acall   pcstr_h
         ajmp    step1
 
 
@@ -1239,7 +1237,7 @@ cmd8:	cjne	a, #3, cmd9		;code memory
 	mov	r4, a
 	acall	cursor_home
 	mov	dptr, #str_code
-	acall	pstr_hh
+	acall	pcstr_hh
 	acall	redraw_data
 	ajmp	main
 cmd9:	cjne	a, #4, cmd10		;data memory
@@ -1248,7 +1246,7 @@ cmd9:	cjne	a, #4, cmd10		;data memory
 	mov	r4, a
 	acall	cursor_home
 	mov	dptr, #str_data
-	acall	pstr_hh
+	acall	pcstr_hh
 	acall	redraw_data
 	ajmp	main
 cmd10:	cjne	a, #7, cmd11		;goto memory loc
@@ -1395,7 +1393,7 @@ cmd_fill_ok:
 	mov	r0, dpl
 	mov	r1, dph
 	mov	dptr, #fill_prompt2
-	acall	pstr_hh
+	acall	pcstr_hh
 	lcall	ghex16
 	jc	cmd_fill_abort
 	jb	psw.5, cmd_fill_abort
@@ -1620,7 +1618,7 @@ space:	mov	a, #' '
 
 redraw:
         mov     dptr, #str_cl		;clear screen
-        acall   pstr_hh
+        acall   pcstr_hh
 	acall	print_title_line
 	acall	crlf_hh
 	acall	print_addr_line
@@ -1832,13 +1830,13 @@ cursor_right:	;acc is # of characters to move right
 
 inverse_on:
 	mov	dptr, #str_so
-	ajmp	pstr_hh
+	ajmp	pcstr_hh
 
 str_so:	.db	esc_char, "[0;7m", 0
 
 inverse_off:
 	mov	dptr, #str_se
-	ajmp	pstr_hh
+	ajmp	pcstr_hh
 
 str_se:	.db	esc_char, "[0m", 0
 
@@ -1854,7 +1852,7 @@ term_esc:
 	
 print_addr_line:
 	mov	dptr, #str_addr
-	acall	pstr_hh
+	acall	pcstr_hh
 	mov	r0, #0
 paddrl: acall	space
 	mov	a, #'+'
@@ -1864,7 +1862,7 @@ paddrl: acall	space
 	inc	r0
 	cjne	r0, #16, paddrl
 	mov	dptr, #str_ascii_equiv
-	ajmp	pstr_hh
+	ajmp	pcstr_hh
 
 
 print_dash_line:
@@ -1880,7 +1878,7 @@ print_title_line:
 	mov	dptr, #str_code
 	sjmp	ptitle3
 ptitle2:mov	dptr, #str_data
-ptitle3:acall	pstr_hh
+ptitle3:acall	pcstr_hh
 	mov	r0, #8
 ptitlel:acall	space
 	djnz	r0, ptitlel
@@ -1911,16 +1909,16 @@ print_commands:
 	jb	acc.2, pcmd_ascii
 	mov	dptr, #str_cmd4
 pcmd_ascii:
-	acall	pstr_hh
+	acall	pcstr_hh
 	mov	dptr, #str_cmd5
-	acall	pstr_hh
+	acall	pcstr_hh
 	sjmp	pcmd_finish
 pcmd_no_edit:
 	mov     dptr, #str_cmd2
-	acall   pstr_hh
+	acall   pcstr_hh
 pcmd_finish:
         mov     dptr, #str_cmd1
-        ajmp    pstr_hh
+        ajmp    pcstr_hh
 
 str_cmd1: .db	"  ^G=Goto  ^C=Code  ^D=Data  ^L=Redraw  ^Q=Quit", 0
 str_cmd2: .db	"^E=Edit",0
@@ -1941,9 +1939,8 @@ str_data: .db	"DATA", 0
 
 cout_hh:ljmp	cout
 phex_hh:ljmp	phex
-pstr_hh:ljmp	pstr
-crlf_hh:ljmp	crlf
 pcstr_hh:ljmp	pcstr
+crlf_hh:ljmp	crlf
 pint_hh:ljmp	pint8
 
 
