@@ -11,7 +11,7 @@
 
 ; http://www.pjrc.com/tech/8051/pm2_docs/index.html
 
-; monitor functions
+; monitor functions ----
 .equ setbaud, 0x33
 .equ cin, 0x36
 .equ cinpoll, 0x39
@@ -33,6 +33,7 @@
 .equ update_crc16, 0x6c
 .equ finish_crc16, 0x6f
 .equ find, 0x72
+; ---- monitor functions
 
 .equ	locat, 0x1000		;location for these commands (usually 1000)
 
