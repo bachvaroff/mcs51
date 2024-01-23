@@ -12,27 +12,27 @@
                    ; http://www.pjrc.com/tech/8051/pm2_docs/index.html
                    
                    ; monitor functions ----
-0000:              .equ setbaud, 0x33
-0000:              .equ cin, 0x36
-0000:              .equ cinpoll, 0x39
-0000:              .equ cout, 0x3c
-0000:              .equ phex, 0x3f
-0000:              .equ phex1, 0x42
-0000:              .equ phex16, 0x45
-0000:              .equ pcstr, 0x48
-0000:              .equ pint8u, 0x4b
-0000:              .equ pint8, 0x4e
-0000:              .equ pint16u, 0x51
-0000:              .equ crlf, 0x54
-0000:              .equ ghex, 0x57
-0000:              .equ ghex16, 0x5a
-0000:              .equ asc2hex, 0x60
-0000:              .equ upper, 0x63
-0000:              .equ lenstr, 0x66
-0000:              .equ init_crc16, 0x69
-0000:              .equ update_crc16, 0x6c
-0000:              .equ finish_crc16, 0x6f
-0000:              .equ find, 0x72
+0000:              .equ setbaud, 0x0033
+0000:              .equ cin, 0x0036
+0000:              .equ cinpoll, 0x0039
+0000:              .equ cout, 0x003c
+0000:              .equ phex, 0x003f
+0000:              .equ phex1, 0x0042
+0000:              .equ phex16, 0x0045
+0000:              .equ pcstr, 0x0048
+0000:              .equ pint8u, 0x004b
+0000:              .equ pint8, 0x004e
+0000:              .equ pint16u, 0x0051
+0000:              .equ crlf, 0x0054
+0000:              .equ ghex, 0x0057
+0000:              .equ ghex16, 0x005a
+0000:              .equ asc2hex, 0x005d
+0000:              .equ upper, 0x0060
+0000:              .equ lenstr, 0x0063
+0000:              .equ init_crc16, 0x0066
+0000:              .equ update_crc16, 0x0069
+0000:              .equ finish_crc16, 0x006c
+0000:              .equ find, 0x006f
                    ; ---- monitor functions
                    
 0000:              .equ     locat, 0x1000           ;location for these command
@@ -975,7 +975,7 @@
                    ;SINGLE STEP
                    
 1579: 12 00 36     step1:  lcall   cin
-157C: 12 00 63             lcall   upper
+157C: 12 00 60             lcall   upper
 157F: B4 0D 02     step2:  cjne    a, #13, step7
 1582: 81 DE                ajmp    done
 1584: B4 20 02     step7:  cjne    a, #' ', step8    ;check space
@@ -1455,8 +1455,8 @@
                    
                    input_hex:
 18EC: E5 F0                 mov     a, b
-18EE: 12 00 63              lcall   upper
-18F1: 12 00 60              lcall   asc2hex
+18EE: 12 00 60              lcall   upper
+18F1: 12 00 5D              lcall   asc2hex
 18F4: 40 E3                 jc      cmd_abort               ;ignore if not hex
 18F6: F8                    mov     r0, a                   ;keep hex value of 
 18F7: 8F 83                mov     dph, r7                  ;load dptr with add
@@ -1499,8 +1499,8 @@
                             ;if we get here, we were actually waiting for the 2
 1924: D0 E0                 pop     acc
 1926: C0 E0                 push    acc
-1928: 12 00 63              lcall   upper
-192B: 12 00 60              lcall   asc2hex
+1928: 12 00 60              lcall   upper
+192B: 12 00 5D              lcall   asc2hex
 192E: 50 EE                 jnc     inck2c          ;proceed normally if it is 
                             ;if we get here, we did not get a hex legal char
 1930: D0 E0                 pop     acc

@@ -213,32 +213,32 @@
 ;---------------------------------------------------------;
 
 .org	base + 51
-	ljmp	setbaud		; JMP_TABLE 0x33
-	ljmp	cin		; JMP_TABLE 0x36
-	ljmp	cinpoll		; JMP_TABLE 0x39
-	ljmp	cout		; JMP_TABLE 0x3c
+	ljmp	setbaud		; JMP_TABLE 0x0033
+	ljmp	cin		; JMP_TABLE 0x0036
+	ljmp	cinpoll		; JMP_TABLE 0x0039
+	ljmp	cout		; JMP_TABLE 0x003c
 	
-	ljmp	phex		; JMP_TABLE 0x3f
-	ljmp	phex1		; JMP_TABLE 0x42
-	ljmp	phex16		; JMP_TABLE 0x45
-	ljmp	pcstr		; JMP_TABLE 0x48
-	ljmp	pint8u		; JMP_TABLE 0x4b
-	ljmp	pint8		; JMP_TABLE 0x4e
-	ljmp	pint16u		; JMP_TABLE 0x51
-	ljmp	crlf		; JMP_TABLE 0x54
+	ljmp	phex		; JMP_TABLE 0x003f
+	ljmp	phex1		; JMP_TABLE 0x0042
+	ljmp	phex16		; JMP_TABLE 0x0045
+	ljmp	pcstr		; JMP_TABLE 0x0048
+	ljmp	pint8u		; JMP_TABLE 0x004b
+	ljmp	pint8		; JMP_TABLE 0x004e
+	ljmp	pint16u		; JMP_TABLE 0x0051
+	ljmp	crlf		; JMP_TABLE 0x0054
 	
-	ljmp	ghex		; JMP_TABLE 0x57
-	ljmp	ghex16		; JMP_TABLE 0x5a
+	ljmp	ghex		; JMP_TABLE 0x0057
+	ljmp	ghex16		; JMP_TABLE 0x005a
 	
-	ljmp	asc2hex		; JMP_TABLE 0x60
-	ljmp	upper		; JMP_TABLE 0x63
-	ljmp	lenstr		; JMP_TABLE 0x66
+	ljmp	asc2hex		; JMP_TABLE 0x005d
+	ljmp	upper		; JMP_TABLE 0x0060
+	ljmp	lenstr		; JMP_TABLE 0x0063
 	
-	ljmp	init_crc16	; JMP_TABLE 0x69
-	ljmp	update_crc16	; JMP_TABLE 0x6c
-	ljmp	finish_crc16	; JMP_TABLE 0x6f
+	ljmp	init_crc16	; JMP_TABLE 0x0066
+	ljmp	update_crc16	; JMP_TABLE 0x0069
+	ljmp	finish_crc16	; JMP_TABLE 0x006c
 	
-	ljmp	find		; JMP_TABLE 0x72
+	ljmp	find		; JMP_TABLE 0x006f
 
 ;---------------------------------------------------------;
 ;							  ;

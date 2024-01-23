@@ -12,27 +12,27 @@
 ; http://www.pjrc.com/tech/8051/pm2_docs/index.html
 
 ; monitor functions ----
-.equ setbaud, 0x33
-.equ cin, 0x36
-.equ cinpoll, 0x39
-.equ cout, 0x3c
-.equ phex, 0x3f
-.equ phex1, 0x42
-.equ phex16, 0x45
-.equ pcstr, 0x48
-.equ pint8u, 0x4b
-.equ pint8, 0x4e
-.equ pint16u, 0x51
-.equ crlf, 0x54
-.equ ghex, 0x57
-.equ ghex16, 0x5a
-.equ asc2hex, 0x60
-.equ upper, 0x63
-.equ lenstr, 0x66
-.equ init_crc16, 0x69
-.equ update_crc16, 0x6c
-.equ finish_crc16, 0x6f
-.equ find, 0x72
+.equ setbaud, 0x0033
+.equ cin, 0x0036
+.equ cinpoll, 0x0039
+.equ cout, 0x003c
+.equ phex, 0x003f
+.equ phex1, 0x0042
+.equ phex16, 0x0045
+.equ pcstr, 0x0048
+.equ pint8u, 0x004b
+.equ pint8, 0x004e
+.equ pint16u, 0x0051
+.equ crlf, 0x0054
+.equ ghex, 0x0057
+.equ ghex16, 0x005a
+.equ asc2hex, 0x005d
+.equ upper, 0x0060
+.equ lenstr, 0x0063
+.equ init_crc16, 0x0066
+.equ update_crc16, 0x0069
+.equ finish_crc16, 0x006c
+.equ find, 0x006f
 ; ---- monitor functions
 
 .equ	locat, 0x1000		;location for these commands (usually 1000)

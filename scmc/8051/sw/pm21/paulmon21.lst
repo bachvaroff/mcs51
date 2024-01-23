@@ -213,32 +213,32 @@
                    ;---------------------------------------------------------;
                    
 0033:              .org     base + 51
-0033: 02 09 7A              ljmp    setbaud                 ; JMP_TABLE 0x33
-0036: 02 00 72              ljmp    cin             ; JMP_TABLE 0x36
-0039: 02 00 7A              ljmp    cinpoll                 ; JMP_TABLE 0x39
-003C: 02 00 84              ljmp    cout            ; JMP_TABLE 0x3c
+0033: 02 09 7A              ljmp    setbaud                 ; JMP_TABLE 0x0033
+0036: 02 00 72              ljmp    cin             ; JMP_TABLE 0x0036
+0039: 02 00 7A              ljmp    cinpoll                 ; JMP_TABLE 0x0039
+003C: 02 00 84              ljmp    cout            ; JMP_TABLE 0x003c
                             
-003F: 02 01 A2              ljmp    phex            ; JMP_TABLE 0x3f
-0042: 02 01 A5              ljmp    phex1           ; JMP_TABLE 0x42
-0045: 02 01 B4              ljmp    phex16          ; JMP_TABLE 0x45
-0048: 02 00 BB              ljmp    pcstr           ; JMP_TABLE 0x48
-004B: 02 09 8F              ljmp    pint8u          ; JMP_TABLE 0x4b
-004E: 02 09 95              ljmp    pint8           ; JMP_TABLE 0x4e
-0051: 02 09 D3              ljmp    pint16u                 ; JMP_TABLE 0x51
-0054: 02 00 9E              ljmp    crlf            ; JMP_TABLE 0x54
+003F: 02 01 A2              ljmp    phex            ; JMP_TABLE 0x003f
+0042: 02 01 A5              ljmp    phex1           ; JMP_TABLE 0x0042
+0045: 02 01 B4              ljmp    phex16          ; JMP_TABLE 0x0045
+0048: 02 00 BB              ljmp    pcstr           ; JMP_TABLE 0x0048
+004B: 02 09 8F              ljmp    pint8u          ; JMP_TABLE 0x004b
+004E: 02 09 95              ljmp    pint8           ; JMP_TABLE 0x004e
+0051: 02 09 D3              ljmp    pint16u                 ; JMP_TABLE 0x0051
+0054: 02 00 9E              ljmp    crlf            ; JMP_TABLE 0x0054
                             
-0057: 02 00 C8              ljmp    ghex            ; JMP_TABLE 0x57
-005A: 02 01 0C              ljmp    ghex16          ; JMP_TABLE 0x5a
+0057: 02 00 C8              ljmp    ghex            ; JMP_TABLE 0x0057
+005A: 02 01 0C              ljmp    ghex16          ; JMP_TABLE 0x005a
                             
-005D: 02 01 88              ljmp    asc2hex                 ; JMP_TABLE 0x60
-0060: 02 01 C1              ljmp    upper           ; JMP_TABLE 0x63
-0063: 02 01 CE              ljmp    lenstr          ; JMP_TABLE 0x66
+005D: 02 01 88              ljmp    asc2hex                 ; JMP_TABLE 0x005d
+0060: 02 01 C1              ljmp    upper           ; JMP_TABLE 0x0060
+0063: 02 01 CE              ljmp    lenstr          ; JMP_TABLE 0x0063
                             
-0066: 02 08 07              ljmp    init_crc16      ; JMP_TABLE 0x69
-0069: 02 08 1B              ljmp    update_crc16    ; JMP_TABLE 0x6c
-006C: 02 08 10              ljmp    finish_crc16    ; JMP_TABLE 0x6f
+0066: 02 08 07              ljmp    init_crc16      ; JMP_TABLE 0x0066
+0069: 02 08 1B              ljmp    update_crc16    ; JMP_TABLE 0x0069
+006C: 02 08 10              ljmp    finish_crc16    ; JMP_TABLE 0x006c
                             
-006F: 02 08 77              ljmp    find            ; JMP_TABLE 0x72
+006F: 02 08 77              ljmp    find            ; JMP_TABLE 0x006f
                    
                    ;---------------------------------------------------------;
                    ;                                                          ;
