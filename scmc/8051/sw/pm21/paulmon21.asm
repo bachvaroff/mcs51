@@ -197,13 +197,11 @@
 ;------ TF2_VECTOR --- EX2_VECTOR ------------------------;
 .org	base + 43
 	ljmp	vector + 43
-; the jump table follows immediately after the long jump
-; so there's no gap
-;	mov	r7, a
-;	mov	r7, a
-;	mov	r7, a
-;	mov	r7, a
-;	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
+	mov	r7, a
 ;------ TF2_VECTOR --- EX2_VECTOR ------------------------;
 
 ;---------------------------------------------------------;
@@ -214,29 +212,34 @@
 ;							  ;
 ;---------------------------------------------------------;
 
-.org	base + 46
-	ajmp	phex1		; JMP_TABLE 0x2e
-	ajmp	cout		; JMP_TABLE 0x30
-	ajmp	cin		; JMP_TABLE 0x32
-	ajmp	phex		; JMP_TABLE 0x34
-	ajmp	phex16		; JMP_TABLE 0x36
-	ajmp	pstr		; JMP_TABLE 0x38
-	ajmp	ghex		; JMP_TABLE 0x3a
-	ajmp	ghex16		; JMP_TABLE 0x3c
-	ajmp	escape		; JMP_TABLE 0x4e
-	ajmp	upper		; JMP_TABLE 0x40
-	ljmp	setbaud		; JMP_TABLE 0x42
-	ljmp	pcstr		; JMP_TABLE 0x45
-	ajmp	crlf		; JMP_TABLE 0x48
-	ljmp	lenstr		; JMP_TABLE 0x4a
-	ljmp	pint8u		; JMP_TABLE 0x4d
-	ljmp	pint8		; JMP_TABLE 0x50
-	ljmp	pint16u		; JMP_TABLE 0x53
-	ljmp	find		; JMP_TABLE 0x56
-	ajmp	asc2hex		; JMP_TABLE 0x59
-	ljmp	init_crc16	; JMP_TABLE 0x5b
-	ljmp	update_crc16	; JMP_TABLE 0x5e
-	ljmp	finish_crc16	; JMP_TABLE 0x61
+.org	base + 51
+	ljmp	setbaud		; JMP_TABLE 0x33
+	ljmp	cin		; JMP_TABLE 0x36
+	ljmp	cinpoll		; JMP_TABLE 0x39
+	ljmp	cout		; JMP_TABLE 0x3c
+	
+	ljmp	phex		; JMP_TABLE 0x3f
+	ljmp	phex1		; JMP_TABLE 0x42
+	ljmp	phex16		; JMP_TABLE 0x45
+	ljmp	pcstr		; JMP_TABLE 0x48
+	ljmp	pint8u		; JMP_TABLE 0x4b
+	ljmp	pint8		; JMP_TABLE 0x4e
+	ljmp	pint16u		; JMP_TABLE 0x51
+	ljmp	crlf		; JMP_TABLE 0x54
+	
+	ljmp	ghex		; JMP_TABLE 0x57
+	ljmp	ghex16		; JMP_TABLE 0x5a
+	ljmp	escape		; JMP_TABLE 0x5d
+	
+	ljmp	asc2hex		; JMP_TABLE 0x60
+	ljmp	upper		; JMP_TABLE 0x63
+	ljmp	lenstr		; JMP_TABLE 0x66
+	
+	ljmp	init_crc16	; JMP_TABLE 0x69
+	ljmp	update_crc16	; JMP_TABLE 0x6c
+	ljmp	finish_crc16	; JMP_TABLE 0x6f
+	
+	ljmp	find		; JMP_TABLE 0x72
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -252,11 +255,11 @@ cin:
 
 cinpoll:
 	setb	c
-	jnb	ri, cinp0
+	jnb	ri, cinpoll1
 	mov	a, sbuf
 	clr	ri
 	clr	c
-cinp0:
+cinpoll1:
 	ret
 
 cout:
@@ -530,28 +533,6 @@ phex16:
 
 ;---------------------------------------------------------;
 
-; a not so well documented feature of pstr is that you can print
-; multiple consecutive strings without needing to reload dptr
-; (which takes 3 bytes of code!)... this is useful for inserting
-; numbers or spaces between strings.
-
-pstr:
-	push	acc
-pstr1:
-	movx	a, @dptr
-	inc	dptr
-	jz	pstr2
-	mov	c, acc.7
-	anl	a, #0x7f
-	acall	cout
-	jc	pstr2
-	sjmp	pstr1
-pstr2:
-	pop	acc
-	ret
-
-;---------------------------------------------------------;
-
 ; converts the ascii code in Acc to uppercase, if it is lowercase
 ; Code efficient (saves 6 byes) upper contributed
 ; by Alexander B. Alexandrov <abalex@cbr.spb.ru>
@@ -614,7 +595,7 @@ menu:
 	mov	a, r6
 	acall	phex
 	mov	dptr, #prompt2
-	acall	pstr
+	acall	pcstr
 
 ; now we're finally past the prompt, so let's get some input
 	acall	cin		; get the input, finally
@@ -652,7 +633,7 @@ menux1:
 	cjne	a, b, menux2	; only run if they want it
 	acall	sspace
 	mov	dpl, #32
-	acall	pstr		; print command name
+	acall	pcstr		; print command name
 	acall	crlf
 	mov	dpl, #64
 	clr	a
@@ -1227,7 +1208,7 @@ dir_end:
 dir2:
 	acall	dspace
 	mov	dpl, #32	; print its name
-	acall	pstr
+	acall	pcstr
 	mov	dpl, #32	; how long is the name
 	acall	lenstr
 	mov	a, #33
@@ -1314,7 +1295,7 @@ run2b:
 	acall	cout_sp
 	acall	dash_sp
 	mov	dpl, #32
-	acall	pstr		; and the command name
+	acall	pcstr		; and the command name
 	acall	crlf
 	ajmp	run2		; and continue doing this
 run3:
@@ -1460,7 +1441,7 @@ help3:
 	acall	cout_sp
 	acall	dash_sp
 	mov	dpl, #32
-	acall	pstr
+	acall	pcstr
 	acall	crlf
 help3a:
 	inc	dph
@@ -2278,7 +2259,7 @@ dnlds13:
 	.db	"No errors detected\r\n\r\n", 0
 	
 runs1:
-	.db	"\r\nrunning program:\r\n\r\n", 0
+	.db	"\r\nRunning program...\r\n\r\n", 0
 	
 uplds3:
 	.db	"\r\n\r\nSending Intel hex file from ", 0
