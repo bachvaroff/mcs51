@@ -1128,15 +1128,12 @@
 049F: DB ED                 djnz    r3, dump3
 04A1: 11 9E                 acall   crlf
 04A3: 51 D1                 acall   dptrtor6r7
-                                    
 04A5: 11 7A                 acall   cinpoll
 04A7: 40 05                 jc      dump4b
 04A9: B4 1B 02              cjne    a, #ESC, dump4b
-04AC: 81 B0                 ajmp    dump5
-                            
+04AC: 01 9E                 ajmp    crlf
                    dump4b:
 04AE: DA C4                 djnz    r2, dump1       ; loop back up to print nex
-                   dump5:
 04B0: 01 9E                 ajmp    crlf
                    
                    ;---------------------------------------------------------;
@@ -1521,12 +1518,10 @@
 0703: 04                    inc     a
 0704: 31 A2                 acall   phex            ; and finally the checksum
 0706: 11 9E                 acall   crlf
-                            
 0708: 11 7A                 acall   cinpoll
 070A: 40 C6                 jc      upld3
 070C: B4 1B C3              cjne    a, #ESC, upld3
 070F: 80 44                 sjmp    abort_it
-                            
                    upld7:
 0711: 74 3A                 mov     a, #':'
 0713: 11 84                 acall   cout

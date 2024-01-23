@@ -1128,15 +1128,12 @@ dump4:
 	djnz	r3, dump3
 	acall	crlf
 	acall	dptrtor6r7
-		
 	acall	cinpoll
 	jc	dump4b
 	cjne	a, #ESC, dump4b
-	ajmp	dump5
-	
+	ajmp	crlf
 dump4b:
 	djnz	r2, dump1	; loop back up to print next line
-dump5:
 	ajmp	crlf
 
 ;---------------------------------------------------------;
@@ -1521,12 +1518,10 @@ upld6:
 	inc	a
 	acall	phex		; and finally the checksum
 	acall	crlf
-	
 	acall	cinpoll
 	jc	upld3
 	cjne	a, #ESC, upld3
 	sjmp	abort_it
-	
 upld7:
 	mov	a, #':'
 	acall	cout
