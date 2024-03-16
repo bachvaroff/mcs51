@@ -1,4 +1,4 @@
-SDCCCFLAGS=--model-large --stack-auto -I.
+SDCCCFLAGS=--model-large --stack-auto -I. -I.. -I../..
 ASLINKFLAGS=--model-large --stack-auto --code-loc 0x2000 --code-size 0x7000 --xram-loc 0x9000
 
 %.rel: %.c

@@ -1,8 +1,8 @@
-0000:              .equ     cin, 0x0032
-0000:              .equ     cout, 0x0030
-0000:              .equ     phex, 0x0034
-0000:              .equ     phex16, 0x0036
-0000:              .equ     nl, 0x0048
+0000:              .equ     cin, 0x0036
+0000:              .equ     cout, 0x003c
+0000:              .equ     phex, 0x003f
+0000:              .equ     phex16, 0x0045
+0000:              .equ     nl, 0x0054
                    
 4000:              .org     0x4000
                    
@@ -30,8 +30,8 @@
 4026: 7E 00                 mov     r6, #0x00
 4028: 7F 20                 mov     r7, #0x20
 402A: 11 38                 acall   test_page
-402C: 12 00 48              lcall   nl
-402F: 12 00 32              lcall   cin
+402C: 12 00 54              lcall   nl
+402F: 12 00 36              lcall   cin
                    ;--------------------------------
 4032: 43 87 02              orl     pcon, #2
 4035: 02 00 00              ljmp    0x0000
@@ -61,21 +61,21 @@
                    
                    ;--------
                    dump:
-404E: 12 00 36              lcall   phex16
+404E: 12 00 45              lcall   phex16
 4051: 74 20                 mov     a, #' '
-4053: 12 00 30              lcall   cout    
+4053: 12 00 3C              lcall   cout    
                    dumpb:
 4056: E0                    movx    a, @dptr
-4057: 12 00 34              lcall   phex
+4057: 12 00 3F              lcall   phex
 405A: A3                    inc     dptr
 405B: E5 82                 mov     a, dpl
 405D: 54 1F                 anl     a, #0x1f
 405F: 70 05                 jnz     print_sp
-4061: 12 00 48              lcall   nl
+4061: 12 00 54              lcall   nl
 4064: 80 07                 sjmp    next
                    print_sp:
 4066: 74 20                 mov     a, #' '
-4068: 12 00 30              lcall   cout
+4068: 12 00 3C              lcall   cout
 406B: 80 E9                 sjmp    dumpb
                    next:
 406D: E5 83                 mov     a, dph

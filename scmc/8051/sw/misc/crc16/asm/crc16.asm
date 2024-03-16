@@ -1,6 +1,6 @@
-.equ	cin, 0x0032
-.equ	phex16, 0x0036
-.equ	nl, 0x0048
+.equ	cin, 0x0036
+.equ	phex16, 0x0045
+.equ	nl, 0x0054
 
 .equ	initial_l, 0xff
 .equ	initial_h, 0xff

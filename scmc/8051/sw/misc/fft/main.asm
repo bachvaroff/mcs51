@@ -389,7 +389,7 @@ __interrupt_vect:
 ;sloc0                     Allocated to stack - _bp +7
 ;R                         Allocated with name '_main_R_65536_74'
 ;------------------------------------------------------------
-;	main.c:41: static volatile __xdata int *R = (__xdata int *)0xfffe;
+;	main.c:39: static volatile __xdata int *R = (__xdata int *)0xfffe;
 	mov	dptr,#_main_R_65536_74
 	mov	a,#0xfe
 	movx	@dptr,a
@@ -415,37 +415,37 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;c                         Allocated to registers 
 ;------------------------------------------------------------
-;	main.c:12: int putchar(int c) __naked {
+;	main.c:10: int putchar(int c) __naked {
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
 _putchar:
 ;	naked function: no prologue.
-;	main.c:17: __endasm;
+;	main.c:15: __endasm;
 	mov	a, dpl
-	ljmp	0x0030
-;	main.c:18: }
+	ljmp	0x003c
+;	main.c:16: }
 ;	naked function: no epilogue.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	main.c:20: int getchar(void) __naked {
+;	main.c:18: int getchar(void) __naked {
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
 _getchar:
 ;	naked function: no prologue.
-;	main.c:26: __endasm;
-	lcall	0x0032
+;	main.c:24: __endasm;
+	lcall	0x0036
 	mov	dpl, a
 	mov	dph, #0
 	ret
-;	main.c:27: }
+;	main.c:25: }
 ;	naked function: no epilogue.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'int0'
 ;------------------------------------------------------------
-;	main.c:31: void int0(void) __interrupt IE0_VECTOR __using 1 {
+;	main.c:29: void int0(void) __interrupt IE0_VECTOR __using 1 {
 ;	-----------------------------------------
 ;	 function int0
 ;	-----------------------------------------
@@ -462,7 +462,7 @@ _int0:
 	push	acc
 	push	psw
 	mov	psw,#0x08
-;	main.c:32: print = !print;
+;	main.c:30: print = !print;
 	mov	r0,#_print
 	mov	a,@r0
 	cjne	a,#0x01,00103$
@@ -472,7 +472,7 @@ _int0:
 	clr	a
 	rlc	a
 	mov	@r0,a
-;	main.c:33: }
+;	main.c:31: }
 	pop	psw
 	pop	acc
 	pop	bits
@@ -489,7 +489,7 @@ _int0:
 ;sloc0                     Allocated to stack - _bp +7
 ;R                         Allocated with name '_main_R_65536_74'
 ;------------------------------------------------------------
-;	main.c:40: void main(void) {
+;	main.c:38: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -507,19 +507,19 @@ _main:
 	mov	_bp,a
 	add	a,#0x04
 	mov	sp,a
-;	main.c:45: print = 1;
+;	main.c:43: print = 1;
 	mov	r0,#_print
 	mov	@r0,#0x01
-;	main.c:47: IT0 = 1;
+;	main.c:45: IT0 = 1;
 ;	assignBit
 	setb	_IT0
-;	main.c:48: EX0 = 1;
+;	main.c:46: EX0 = 1;
 ;	assignBit
 	setb	_EX0
-;	main.c:49: EA = 1;
+;	main.c:47: EA = 1;
 ;	assignBit
 	setb	_EA
-;	main.c:51: srand(*R);
+;	main.c:49: srand(*R);
 	mov	dptr,#_main_R_65536_74
 	movx	a,@dptr
 	mov	r6,a
@@ -536,10 +536,10 @@ _main:
 	mov	dpl,r6
 	mov	dph,r7
 	lcall	_srand
-;	main.c:53: for (i = 0; 1; i++) {
+;	main.c:51: for (i = 0; 1; i++) {
 	mov	r6,#0x00
 	mov	r7,#0x00
-;	main.c:54: for (j = 0; j < (1 << N); j++)
+;	main.c:52: for (j = 0; j < (1 << N); j++)
 00117$:
 	mov	r0,_bp
 	inc	r0
@@ -548,7 +548,7 @@ _main:
 	inc	r0
 	mov	@r0,a
 00106$:
-;	main.c:55: samples[j] = ((rand() & 1) ? -1 : 1) * (int16_t)rand();
+;	main.c:53: samples[j] = ((rand() & 1) ? -1 : 1) * (int16_t)rand();
 	mov	r0,_bp
 	inc	r0
 	mov	a,@r0
@@ -616,7 +616,7 @@ _main:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	main.c:54: for (j = 0; j < (1 << N); j++)
+;	main.c:52: for (j = 0; j < (1 << N); j++)
 	mov	r0,_bp
 	inc	r0
 	inc	@r0
@@ -638,7 +638,7 @@ _main:
 	jnc	00144$
 	ljmp	00106$
 00144$:
-;	main.c:57: printf("DO FFT IFFT %d\r\n", i);
+;	main.c:55: printf("DO FFT IFFT %d\r\n", i);
 	push	ar7
 	push	ar6
 	push	ar6
@@ -653,7 +653,7 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	main.c:59: memcpy(fft, samples, sizeof (samples));
+;	main.c:57: memcpy(fft, samples, sizeof (samples));
 	mov	a,#0x80
 	push	acc
 	clr	a
@@ -670,7 +670,7 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	main.c:60: scale = fix_fftr(fft, N, 0);		
+;	main.c:58: scale = fix_fftr(fft, N, 0);		
 	clr	a
 	push	acc
 	push	acc
@@ -684,7 +684,7 @@ _main:
 	mov	a,sp
 	add	a,#0xfc
 	mov	sp,a
-;	main.c:67: memcpy(ifft, fft, sizeof (fft));
+;	main.c:65: memcpy(ifft, fft, sizeof (fft));
 	mov	a,#0x80
 	push	acc
 	clr	a
@@ -701,7 +701,7 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	main.c:68: scale = fix_fftr(ifft, N, 1);
+;	main.c:66: scale = fix_fftr(ifft, N, 1);
 	mov	a,#0x01
 	push	acc
 	clr	a
@@ -726,13 +726,13 @@ _main:
 	mov	@r0,ar4
 	inc	r0
 	mov	@r0,ar5
-;	main.c:70: if (print)
+;	main.c:68: if (print)
 	mov	r0,#_print
 	mov	a,@r0
 	jnz	00145$
 	ljmp	00104$
 00145$:
-;	main.c:71: for (j = 0; j < (1 << N); j++)
+;	main.c:69: for (j = 0; j < (1 << N); j++)
 	mov	r0,_bp
 	inc	r0
 	clr	a
@@ -740,7 +740,7 @@ _main:
 	inc	r0
 	mov	@r0,a
 00108$:
-;	main.c:73: samples[j], ifft[j] * (1 << scale));
+;	main.c:71: samples[j], ifft[j] * (1 << scale));
 	push	ar6
 	push	ar7
 	mov	r0,_bp
@@ -805,7 +805,7 @@ _main:
 	inc	dptr
 	movx	a,@dptr
 	mov	r7,a
-;	main.c:72: printf("% 8d% 8d\r\n",
+;	main.c:70: printf("% 8d% 8d\r\n",
 	push	ar7
 	push	ar6
 	push	ar4
@@ -824,7 +824,7 @@ _main:
 	mov	sp,a
 	pop	ar6
 	pop	ar7
-;	main.c:71: for (j = 0; j < (1 << N); j++)
+;	main.c:69: for (j = 0; j < (1 << N); j++)
 	mov	r0,_bp
 	inc	r0
 	inc	@r0
@@ -847,7 +847,7 @@ _main:
 	ljmp	00108$
 00149$:
 00104$:
-;	main.c:75: printf("DONE\r\n\r\n");
+;	main.c:73: printf("DONE\r\n\r\n");
 	push	ar7
 	push	ar6
 	mov	a,#___str_2
@@ -862,14 +862,14 @@ _main:
 	dec	sp
 	pop	ar6
 	pop	ar7
-;	main.c:53: for (i = 0; 1; i++) {
+;	main.c:51: for (i = 0; 1; i++) {
 	inc	r6
 	cjne	r6,#0x00,00150$
 	inc	r7
 00150$:
 	ljmp	00117$
-;	main.c:80: return;
-;	main.c:81: }
+;	main.c:78: return;
+;	main.c:79: }
 	mov	sp,_bp
 	pop	_bp
 	ret

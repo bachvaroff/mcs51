@@ -1,6 +1,6 @@
 MAX_ALLOCS_PER_NODE=3000
 SDCC=sdcc
-SDCCFLAGS=--fverbose-asm --std-c99 --max-allocs-per-node $(MAX_ALLOCS_PER_NODE) --opt-code-speed
+SDCCFLAGS=--fverbose-asm --std-c99 --max-allocs-per-node $(MAX_ALLOCS_PER_NODE) --opt-code-speed -I. -I.. -I../.. -I../../..
 
 all: dhrystone.hex
 

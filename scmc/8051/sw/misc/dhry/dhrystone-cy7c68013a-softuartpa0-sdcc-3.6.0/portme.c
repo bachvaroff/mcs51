@@ -2,11 +2,11 @@
    Author: Philipp Klaus Krause */
 
 #include <mcs51/at89x52.h>
+#include "pm21/paulmon21.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 
-#define pm2_entry_cout 0x0030
 int putchar(int c) __naked {
 	(void)c;
 	__asm

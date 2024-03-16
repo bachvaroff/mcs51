@@ -1,8 +1,8 @@
-0000:              .equ     cin, 0x0032
-0000:              .equ     cout, 0x0030
-0000:              .equ     phex, 0x0034
-0000:              .equ     phex16, 0x0036
-0000:              .equ     nl, 0x0048
+0000:              .equ     cin, 0x0036
+0000:              .equ     cout, 0x003c
+0000:              .equ     phex, 0x003f
+0000:              .equ     phex16, 0x0045
+0000:              .equ     nl, 0x0054
                    
 2000:              .org     0x2000
                    
@@ -30,8 +30,8 @@
 2026: 7E 00                 mov     r6, #0x00
 2028: 7F 40                 mov     r7, #0x40
 202A: 31 32                 acall   test_page
-202C: 12 00 48              lcall   nl
-202F: 12 00 32              lcall   cin
+202C: 12 00 54              lcall   nl
+202F: 12 00 36              lcall   cin
                    ;--------------------------------
 2032: C2 93                 clr     p1.3
 2034: 78 55                 mov     r0, #0x55
@@ -55,8 +55,8 @@
 2058: 7E 00                 mov     r6, #0x00
 205A: 7F 60                 mov     r7, #0x60
 205C: 31 32                 acall   test_page
-205E: 12 00 48              lcall   nl
-2061: 12 00 32              lcall   cin
+205E: 12 00 54              lcall   nl
+2061: 12 00 36              lcall   cin
                    ;--------------------------------
 2064: C2 94                 clr     p1.4
 2066: 78 55                 mov     r0, #0x55
@@ -80,8 +80,8 @@
 208A: 7E 00                 mov     r6, #0x00
 208C: 7F 80                 mov     r7, #0x80
 208E: 31 32                 acall   test_page
-2090: 12 00 48              lcall   nl
-2093: 12 00 32              lcall   cin
+2090: 12 00 54              lcall   nl
+2093: 12 00 36              lcall   cin
                    ;--------------------------------
 2096: C2 95                 clr     p1.5
 2098: 78 55                 mov     r0, #0x55
@@ -105,8 +105,8 @@
 20BC: 7E 00                 mov     r6, #0x00
 20BE: 7F A0                 mov     r7, #0xa0
 20C0: 31 32                 acall   test_page
-20C2: 12 00 48              lcall   nl
-20C5: 12 00 32              lcall   cin
+20C2: 12 00 54              lcall   nl
+20C5: 12 00 36              lcall   cin
                    ;--------------------------------
 20C8: C2 96                 clr     p1.6
 20CA: 78 55                 mov     r0, #0x55
@@ -130,8 +130,8 @@
 20EE: 7E 00                 mov     r6, #0x00
 20F0: 7F C0                 mov     r7, #0xc0
 20F2: 31 32                 acall   test_page
-20F4: 12 00 48              lcall   nl
-20F7: 12 00 32              lcall   cin
+20F4: 12 00 54              lcall   nl
+20F7: 12 00 36              lcall   cin
                    ;--------------------------------
 20FA: C2 97                 clr     p1.7
 20FC: 78 55                 mov     r0, #0x55
@@ -155,8 +155,8 @@
 2120: 7E 00                 mov     r6, #0x00
 2122: 7F E0                 mov     r7, #0xe0
 2124: 31 32                 acall   test_page
-2126: 12 00 48              lcall   nl
-2129: 12 00 32              lcall   cin
+2126: 12 00 54              lcall   nl
+2129: 12 00 36              lcall   cin
                    ;--------------------------------
 212C: 43 87 02              orl     pcon, #2
 212F: 02 00 00              ljmp    0x0000
@@ -186,21 +186,21 @@
                    
                    ;--------
                    dump:
-2148: 12 00 36              lcall   phex16
+2148: 12 00 45              lcall   phex16
 214B: 74 20                 mov     a, #' '
-214D: 12 00 30              lcall   cout    
+214D: 12 00 3C              lcall   cout    
                    dumpb:
 2150: E0                    movx    a, @dptr
-2151: 12 00 34              lcall   phex
+2151: 12 00 3F              lcall   phex
 2154: A3                    inc     dptr
 2155: E5 82                 mov     a, dpl
 2157: 54 1F                 anl     a, #0x1f
 2159: 70 05                 jnz     print_sp
-215B: 12 00 48              lcall   nl
+215B: 12 00 54              lcall   nl
 215E: 80 07                 sjmp    next
                    print_sp:
 2160: 74 20                 mov     a, #' '
-2162: 12 00 30              lcall   cout
+2162: 12 00 3C              lcall   cout
 2165: 80 E9                 sjmp    dumpb
                    next:
 2167: E5 83                 mov     a, dph

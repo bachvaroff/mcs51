@@ -1,9 +1,9 @@
-.equ	cin, 0x0032
-.equ	phex16, 0x0036
-.equ	nl, 0x0048
-.equ	icrc16, 0x005e
-.equ	ucrc16, 0x0061
-.equ	fcrc16, 0x0064
+.equ	cin, 0x0036
+.equ	phex16, 0x0045
+.equ	nl, 0x0054
+.equ	icrc16, 0x0066
+.equ	ucrc16, 0x0069
+.equ	fcrc16, 0x006c
 
 .equ	initial_l, 0xff
 .equ	initial_h, 0xff

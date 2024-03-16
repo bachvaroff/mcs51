@@ -413,9 +413,9 @@ Symbol Table
  17 _getchar                                                       000005 GR
  17 _getchar_poll                                                  00000E GR
   7 _giant                                                         000000 GR
- 17 _help                                                          003601 R
+ 17 _help                                                          003608 R
     _isxdigit                                                      ****** GX
- 17 _main                                                          003A2A GR
+ 17 _main                                                          003A31 GR
  17 _operator                                                      0008A4 R
     _printf                                                        ****** GX
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 8.
@@ -425,8 +425,8 @@ Symbol Table
 
  17 _push_acc                                                      002B9E R
  17 _putchar                                                       000000 GR
- 17 _reset_acc                                                     002CBA R
- 17 _reset_base                                                    002D24 R
+ 17 _reset_acc                                                     002CC1 R
+ 17 _reset_base                                                    002D2B R
   B _s                                                             000000 R
     _stack_init                                                    ****** GX
     _stack_iter_peek                                               ****** GX
@@ -436,7 +436,7 @@ Symbol Table
     _stack_push                                                    ****** GX
     _state_exec                                                    ****** GX
     _state_init                                                    ****** GX
- 17 _status                                                        002DA2 R
+ 17 _status                                                        002DA9 R
     _strtol                                                        ****** GX
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -667,7 +667,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size   3E33   flags   20
+  17 CSEG                                       size   3E3A   flags   20
   18 CONST                                      size    3AF   flags   20
   19 XINIT                                      size     AA   flags   20
   1A CABS                                       size      0   flags   28

@@ -403,37 +403,37 @@
                                     403 ;------------------------------------------------------------
                                     404 ;c                         Allocated to registers 
                                     405 ;------------------------------------------------------------
-                                    406 ;	crc16.c:8: int putchar(int c) __naked {
+                                    406 ;	crc16.c:6: int putchar(int c) __naked {
                                     407 ;	-----------------------------------------
                                     408 ;	 function putchar
                                     409 ;	-----------------------------------------
       002065                        410 _putchar:
                                     411 ;	naked function: no prologue.
-                                    412 ;	crc16.c:13: __endasm;
+                                    412 ;	crc16.c:11: __endasm;
       002065 E5 82            [12]  413 	mov	a, dpl
-      002067 02 00 30         [24]  414 	ljmp	0x0030
-                                    415 ;	crc16.c:14: }
+      002067 02 00 3C         [24]  414 	ljmp	0x003c
+                                    415 ;	crc16.c:12: }
                                     416 ;	naked function: no epilogue.
                                     417 ;------------------------------------------------------------
                                     418 ;Allocation info for local variables in function 'getchar'
                                     419 ;------------------------------------------------------------
-                                    420 ;	crc16.c:16: int getchar(void) __naked {
+                                    420 ;	crc16.c:14: int getchar(void) __naked {
                                     421 ;	-----------------------------------------
                                     422 ;	 function getchar
                                     423 ;	-----------------------------------------
       00206A                        424 _getchar:
                                     425 ;	naked function: no prologue.
-                                    426 ;	crc16.c:22: __endasm;
-      00206A 12 00 32         [24]  427 	lcall	0x0032
+                                    426 ;	crc16.c:20: __endasm;
+      00206A 12 00 36         [24]  427 	lcall	0x0036
       00206D F5 82            [12]  428 	mov	dpl, a
       00206F 75 83 00         [24]  429 	mov	dph, #0
       002072 22               [24]  430 	ret
-                                    431 ;	crc16.c:23: }
+                                    431 ;	crc16.c:21: }
                                     432 ;	naked function: no epilogue.
                                     433 ;------------------------------------------------------------
                                     434 ;Allocation info for local variables in function 'int0'
                                     435 ;------------------------------------------------------------
-                                    436 ;	crc16.c:46: void int0(void) __interrupt IE0_VECTOR __using 1 {
+                                    436 ;	crc16.c:44: void int0(void) __interrupt IE0_VECTOR __using 1 {
                                     437 ;	-----------------------------------------
                                     438 ;	 function int0
                                     439 ;	-----------------------------------------
@@ -448,10 +448,10 @@
                            000008   448 	ar0 = 0x08
       002073 C0 D0            [24]  449 	push	psw
       002075 75 D0 08         [24]  450 	mov	psw,#0x08
-                                    451 ;	crc16.c:47: intr = 1u;
+                                    451 ;	crc16.c:45: intr = 1u;
       002078 78 11            [12]  452 	mov	r0,#_intr
       00207A 76 01            [12]  453 	mov	@r0,#0x01
-                                    454 ;	crc16.c:48: }
+                                    454 ;	crc16.c:46: }
       00207C D0 D0            [24]  455 	pop	psw
       00207E 32               [24]  456 	reti
                                     457 ;	eliminated unneeded push/pop dpl
@@ -461,7 +461,7 @@
                                     461 ;------------------------------------------------------------
                                     462 ;Allocation info for local variables in function 'main'
                                     463 ;------------------------------------------------------------
-                                    464 ;	crc16.c:57: void main(void) {
+                                    464 ;	crc16.c:55: void main(void) {
                                     465 ;	-----------------------------------------
                                     466 ;	 function main
                                     467 ;	-----------------------------------------
@@ -474,37 +474,37 @@
                            000002   474 	ar2 = 0x02
                            000001   475 	ar1 = 0x01
                            000000   476 	ar0 = 0x00
-                                    477 ;	crc16.c:58: intr = 0u;
+                                    477 ;	crc16.c:56: intr = 0u;
       00207F 78 11            [12]  478 	mov	r0,#_intr
       002081 76 00            [12]  479 	mov	@r0,#0x00
-                                    480 ;	crc16.c:60: IT0 = 1;
+                                    480 ;	crc16.c:58: IT0 = 1;
                                     481 ;	assignBit
       002083 D2 88            [12]  482 	setb	_IT0
-                                    483 ;	crc16.c:61: EX0 = 1;	
+                                    483 ;	crc16.c:59: EX0 = 1;	
                                     484 ;	assignBit
       002085 D2 A8            [12]  485 	setb	_EX0
-                                    486 ;	crc16.c:62: EA = 1;
+                                    486 ;	crc16.c:60: EA = 1;
                                     487 ;	assignBit
       002087 D2 AF            [12]  488 	setb	_EA
-                                    489 ;	crc16.c:64: while (!intr) {
+                                    489 ;	crc16.c:62: while (!intr) {
       002089                        490 00131$:
       002089 78 11            [12]  491 	mov	r0,#_intr
       00208B E6               [12]  492 	mov	a,@r0
       00208C 60 03            [24]  493 	jz	00210$
       00208E 02 22 EB         [24]  494 	ljmp	00133$
       002091                        495 00210$:
-                                    496 ;	crc16.c:65: base = (pxd_uint8_t)0x0u;
+                                    496 ;	crc16.c:63: base = (pxd_uint8_t)0x0u;
       002091 78 12            [12]  497 	mov	r0,#_base
       002093 E4               [12]  498 	clr	a
       002094 F6               [12]  499 	mov	@r0,a
       002095 08               [12]  500 	inc	r0
       002096 F6               [12]  501 	mov	@r0,a
-                                    502 ;	crc16.c:66: len = TLEN;
+                                    502 ;	crc16.c:64: len = TLEN;
       002097 78 16            [12]  503 	mov	r0,#_len
       002099 76 FF            [12]  504 	mov	@r0,#0xff
       00209B 08               [12]  505 	inc	r0
       00209C 76 FF            [12]  506 	mov	@r0,#0xff
-                                    507 ;	crc16.c:67: printf("COMPLETE base=%p ", base);
+                                    507 ;	crc16.c:65: printf("COMPLETE base=%p ", base);
       00209E 78 12            [12]  508 	mov	r0,#_base
       0020A0 86 05            [24]  509 	mov	ar5,@r0
       0020A2 08               [12]  510 	inc	r0
@@ -523,7 +523,7 @@
       0020BC E5 81            [12]  523 	mov	a,sp
       0020BE 24 FA            [12]  524 	add	a,#0xfa
       0020C0 F5 81            [12]  525 	mov	sp,a
-                                    526 ;	crc16.c:68: printf("len=0x%04x ", len);
+                                    526 ;	crc16.c:66: printf("len=0x%04x ", len);
       0020C2 78 16            [12]  527 	mov	r0,#_len
       0020C4 E6               [12]  528 	mov	a,@r0
       0020C5 C0 E0            [24]  529 	push	acc
@@ -540,12 +540,12 @@
       0020DA E5 81            [12]  540 	mov	a,sp
       0020DC 24 FB            [12]  541 	add	a,#0xfb
       0020DE F5 81            [12]  542 	mov	sp,a
-                                    543 ;	crc16.c:69: CCRCB_INIT(crc);
+                                    543 ;	crc16.c:67: CCRCB_INIT(crc);
       0020E0 78 1A            [12]  544 	mov	r0,#_crc
       0020E2 76 FF            [12]  545 	mov	@r0,#0xff
       0020E4 08               [12]  546 	inc	r0
       0020E5 76 FF            [12]  547 	mov	@r0,#0xff
-                                    548 ;	crc16.c:70: for (off = 0u; off < len; off++)
+                                    548 ;	crc16.c:68: for (off = 0u; off < len; off++)
       0020E7 78 18            [12]  549 	mov	r0,#_off
       0020E9 E4               [12]  550 	clr	a
       0020EA F6               [12]  551 	mov	@r0,a
@@ -562,7 +562,7 @@
       0020F6 09               [12]  562 	inc	r1
       0020F7 97               [12]  563 	subb	a,@r1
       0020F8 50 6F            [24]  564 	jnc	00109$
-                                    565 ;	crc16.c:71: CCRCB(crc, base[off], bitp);
+                                    565 ;	crc16.c:69: CCRCB(crc, base[off], bitp);
       0020FA 78 1C            [12]  566 	mov	r0,#_bitp
       0020FC 76 80            [12]  567 	mov	@r0,#0x80
       0020FE                        568 00134$:
@@ -635,14 +635,14 @@
       00215A 78 1C            [12]  635 	mov	r0,#_bitp
       00215C E6               [12]  636 	mov	a,@r0
       00215D 70 9F            [24]  637 	jnz	00134$
-                                    638 ;	crc16.c:70: for (off = 0u; off < len; off++)
+                                    638 ;	crc16.c:68: for (off = 0u; off < len; off++)
       00215F 78 18            [12]  639 	mov	r0,#_off
       002161 06               [12]  640 	inc	@r0
       002162 B6 00 02         [24]  641 	cjne	@r0,#0x00,00215$
       002165 08               [12]  642 	inc	r0
       002166 06               [12]  643 	inc	@r0
       002167                        644 00215$:
-                                    645 ;	crc16.c:72: CCRCB_FINISH(crc);
+                                    645 ;	crc16.c:70: CCRCB_FINISH(crc);
       002167 80 84            [24]  646 	sjmp	00137$
       002169                        647 00109$:
       002169 78 1A            [12]  648 	mov	r0,#_crc
@@ -653,7 +653,7 @@
       002172 A6 06            [24]  653 	mov	@r0,ar6
       002174 08               [12]  654 	inc	r0
       002175 A6 07            [24]  655 	mov	@r0,ar7
-                                    656 ;	crc16.c:73: printf("CRC16=0x%04x\r\n", crc);
+                                    656 ;	crc16.c:71: printf("CRC16=0x%04x\r\n", crc);
       002177 78 1A            [12]  657 	mov	r0,#_crc
       002179 E6               [12]  658 	mov	a,@r0
       00217A C0 E0            [24]  659 	push	acc
@@ -670,14 +670,14 @@
       00218F E5 81            [12]  670 	mov	a,sp
       002191 24 FB            [12]  671 	add	a,#0xfb
       002193 F5 81            [12]  672 	mov	sp,a
-                                    673 ;	crc16.c:75: len = PLEN;
+                                    673 ;	crc16.c:73: len = PLEN;
       002195 78 16            [12]  674 	mov	r0,#_len
       002197 76 00            [12]  675 	mov	@r0,#0x00
       002199 08               [12]  676 	inc	r0
       00219A 76 20            [12]  677 	mov	@r0,#0x20
-                                    678 ;	crc16.c:76: while (1) {
+                                    678 ;	crc16.c:74: while (1) {
       00219C                        679 00129$:
-                                    680 ;	crc16.c:77: printf("PARTIAL base=%p ", base);
+                                    680 ;	crc16.c:75: printf("PARTIAL base=%p ", base);
       00219C 78 12            [12]  681 	mov	r0,#_base
       00219E 86 05            [24]  682 	mov	ar5,@r0
       0021A0 08               [12]  683 	inc	r0
@@ -696,7 +696,7 @@
       0021BA E5 81            [12]  696 	mov	a,sp
       0021BC 24 FA            [12]  697 	add	a,#0xfa
       0021BE F5 81            [12]  698 	mov	sp,a
-                                    699 ;	crc16.c:78: printf("len=0x%04x ", len);
+                                    699 ;	crc16.c:76: printf("len=0x%04x ", len);
       0021C0 78 16            [12]  700 	mov	r0,#_len
       0021C2 E6               [12]  701 	mov	a,@r0
       0021C3 C0 E0            [24]  702 	push	acc
@@ -713,12 +713,12 @@
       0021D8 E5 81            [12]  713 	mov	a,sp
       0021DA 24 FB            [12]  714 	add	a,#0xfb
       0021DC F5 81            [12]  715 	mov	sp,a
-                                    716 ;	crc16.c:79: CCRCB_INIT(crc);
+                                    716 ;	crc16.c:77: CCRCB_INIT(crc);
       0021DE 78 1A            [12]  717 	mov	r0,#_crc
       0021E0 76 FF            [12]  718 	mov	@r0,#0xff
       0021E2 08               [12]  719 	inc	r0
       0021E3 76 FF            [12]  720 	mov	@r0,#0xff
-                                    721 ;	crc16.c:80: for (off = 0u; off < len; off++)
+                                    721 ;	crc16.c:78: for (off = 0u; off < len; off++)
       0021E5 78 18            [12]  722 	mov	r0,#_off
       0021E7 E4               [12]  723 	clr	a
       0021E8 F6               [12]  724 	mov	@r0,a
@@ -735,7 +735,7 @@
       0021F4 09               [12]  735 	inc	r1
       0021F5 97               [12]  736 	subb	a,@r1
       0021F6 50 6F            [24]  737 	jnc	00120$
-                                    738 ;	crc16.c:81: CCRCB(crc, base[off], bitp);
+                                    738 ;	crc16.c:79: CCRCB(crc, base[off], bitp);
       0021F8 78 1C            [12]  739 	mov	r0,#_bitp
       0021FA 76 80            [12]  740 	mov	@r0,#0x80
       0021FC                        741 00139$:
@@ -808,14 +808,14 @@
       002258 78 1C            [12]  808 	mov	r0,#_bitp
       00225A E6               [12]  809 	mov	a,@r0
       00225B 70 9F            [24]  810 	jnz	00139$
-                                    811 ;	crc16.c:80: for (off = 0u; off < len; off++)
+                                    811 ;	crc16.c:78: for (off = 0u; off < len; off++)
       00225D 78 18            [12]  812 	mov	r0,#_off
       00225F 06               [12]  813 	inc	@r0
       002260 B6 00 02         [24]  814 	cjne	@r0,#0x00,00220$
       002263 08               [12]  815 	inc	r0
       002264 06               [12]  816 	inc	@r0
       002265                        817 00220$:
-                                    818 ;	crc16.c:82: CCRCB_FINISH(crc);
+                                    818 ;	crc16.c:80: CCRCB_FINISH(crc);
       002265 80 84            [24]  819 	sjmp	00142$
       002267                        820 00120$:
       002267 78 1A            [12]  821 	mov	r0,#_crc
@@ -826,7 +826,7 @@
       002270 A6 06            [24]  826 	mov	@r0,ar6
       002272 08               [12]  827 	inc	r0
       002273 A6 07            [24]  828 	mov	@r0,ar7
-                                    829 ;	crc16.c:83: printf("CRC16=0x%04x\r\n", crc);
+                                    829 ;	crc16.c:81: printf("CRC16=0x%04x\r\n", crc);
       002275 78 1A            [12]  830 	mov	r0,#_crc
       002277 E6               [12]  831 	mov	a,@r0
       002278 C0 E0            [24]  832 	push	acc
@@ -843,14 +843,14 @@
       00228D E5 81            [12]  843 	mov	a,sp
       00228F 24 FB            [12]  844 	add	a,#0xfb
       002291 F5 81            [12]  845 	mov	sp,a
-                                    846 ;	crc16.c:85: if (intr) {
+                                    846 ;	crc16.c:83: if (intr) {
       002293 78 11            [12]  847 	mov	r0,#_intr
       002295 E6               [12]  848 	mov	a,@r0
       002296 60 1A            [24]  849 	jz	00124$
-                                    850 ;	crc16.c:86: EA = 0;
+                                    850 ;	crc16.c:84: EA = 0;
                                     851 ;	assignBit
       002298 C2 AF            [12]  852 	clr	_EA
-                                    853 ;	crc16.c:87: printf("interrupted\n");
+                                    853 ;	crc16.c:85: printf("interrupted\n");
       00229A 74 57            [12]  854 	mov	a,#___str_4
       00229C C0 E0            [24]  855 	push	acc
       00229E 74 36            [12]  856 	mov	a,#(___str_4 >> 8)
@@ -861,10 +861,10 @@
       0022A9 15 81            [12]  861 	dec	sp
       0022AB 15 81            [12]  862 	dec	sp
       0022AD 15 81            [12]  863 	dec	sp
-                                    864 ;	crc16.c:88: break;
+                                    864 ;	crc16.c:86: break;
       0022AF 02 20 89         [24]  865 	ljmp	00131$
       0022B2                        866 00124$:
-                                    867 ;	crc16.c:91: t = base + (len >> 1);
+                                    867 ;	crc16.c:89: t = base + (len >> 1);
       0022B2 78 16            [12]  868 	mov	r0,#_len
       0022B4 86 06            [24]  869 	mov	ar6,@r0
       0022B6 08               [12]  870 	inc	r0
@@ -887,7 +887,7 @@
       0022C9 A6 06            [24]  887 	mov	@r0,ar6
       0022CB 08               [12]  888 	inc	r0
       0022CC A6 07            [24]  889 	mov	@r0,ar7
-                                    890 ;	crc16.c:92: if (t < base) break;
+                                    890 ;	crc16.c:90: if (t < base) break;
       0022CE 78 14            [12]  891 	mov	r0,#_t
       0022D0 79 12            [12]  892 	mov	r1,#_base
       0022D2 C3               [12]  893 	clr	c
@@ -900,7 +900,7 @@
       0022D9 50 03            [24]  900 	jnc	00222$
       0022DB 02 20 89         [24]  901 	ljmp	00131$
       0022DE                        902 00222$:
-                                    903 ;	crc16.c:93: else base = t;
+                                    903 ;	crc16.c:91: else base = t;
       0022DE 78 14            [12]  904 	mov	r0,#_t
       0022E0 79 12            [12]  905 	mov	r1,#_base
       0022E2 E6               [12]  906 	mov	a,@r0
@@ -911,10 +911,10 @@
       0022E7 F7               [12]  911 	mov	@r1,a
       0022E8 02 21 9C         [24]  912 	ljmp	00129$
       0022EB                        913 00133$:
-                                    914 ;	crc16.c:97: PCON |= 2;
+                                    914 ;	crc16.c:95: PCON |= 2;
       0022EB 43 87 02         [24]  915 	orl	_PCON,#0x02
-                                    916 ;	crc16.c:99: return;
-                                    917 ;	crc16.c:100: }
+                                    916 ;	crc16.c:97: return;
+                                    917 ;	crc16.c:98: }
       0022EE 22               [24]  918 	ret
                                     919 	.area CSEG    (CODE)
                                     920 	.area CONST   (CODE)

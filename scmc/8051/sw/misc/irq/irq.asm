@@ -376,37 +376,37 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;c                         Allocated to registers 
 ;------------------------------------------------------------
-;	irq.c:7: int putchar(int c) __naked {
+;	irq.c:5: int putchar(int c) __naked {
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
 _putchar:
 ;	naked function: no prologue.
-;	irq.c:12: __endasm;
+;	irq.c:10: __endasm;
 	mov	a, dpl
-	ljmp	0x0030
-;	irq.c:13: }
+	ljmp	0x003c
+;	irq.c:11: }
 ;	naked function: no epilogue.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	irq.c:15: int getchar(void) __naked {
+;	irq.c:13: int getchar(void) __naked {
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
 _getchar:
 ;	naked function: no prologue.
-;	irq.c:21: __endasm;
-	lcall	0x0032
+;	irq.c:19: __endasm;
+	lcall	0x0036
 	mov	dpl, a
 	mov	dph, #0
 	ret
-;	irq.c:22: }
+;	irq.c:20: }
 ;	naked function: no epilogue.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'int0'
 ;------------------------------------------------------------
-;	irq.c:26: void int0(void) __interrupt IE0_VECTOR __using 1 {
+;	irq.c:24: void int0(void) __interrupt IE0_VECTOR __using 1 {
 ;	-----------------------------------------
 ;	 function int0
 ;	-----------------------------------------
@@ -422,13 +422,13 @@ _int0:
 	push	acc
 	push	dpl
 	push	dph
-;	irq.c:27: intr = 0;
+;	irq.c:25: intr = 0;
 	mov	dptr,#_intr
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	irq.c:28: }
+;	irq.c:26: }
 	pop	dph
 	pop	dpl
 	pop	acc
@@ -439,7 +439,7 @@ _int0:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'int1'
 ;------------------------------------------------------------
-;	irq.c:30: void int1(void) __interrupt IE1_VECTOR __using 1 {
+;	irq.c:28: void int1(void) __interrupt IE1_VECTOR __using 1 {
 ;	-----------------------------------------
 ;	 function int1
 ;	-----------------------------------------
@@ -447,14 +447,14 @@ _int1:
 	push	acc
 	push	dpl
 	push	dph
-;	irq.c:31: intr = 1;
+;	irq.c:29: intr = 1;
 	mov	dptr,#_intr
 	mov	a,#0x01
 	movx	@dptr,a
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-;	irq.c:32: }
+;	irq.c:30: }
 	pop	dph
 	pop	dpl
 	pop	acc
@@ -467,7 +467,7 @@ _int1:
 ;------------------------------------------------------------
 ;i                         Allocated to registers r6 r7 
 ;------------------------------------------------------------
-;	irq.c:34: void main(void) {
+;	irq.c:32: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -480,32 +480,32 @@ _main:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	irq.c:37: intr = -1;
+;	irq.c:35: intr = -1;
 	mov	dptr,#_intr
 	mov	a,#0xff
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	irq.c:40: IT0 = 1;
+;	irq.c:38: IT0 = 1;
 ;	assignBit
 	setb	_IT0
-;	irq.c:41: IT1 = 1;
+;	irq.c:39: IT1 = 1;
 ;	assignBit
 	setb	_IT1
-;	irq.c:43: EX0 = 1;
+;	irq.c:41: EX0 = 1;
 ;	assignBit
 	setb	_EX0
-;	irq.c:44: EX1 = 1;
+;	irq.c:42: EX1 = 1;
 ;	assignBit
 	setb	_EX1
-;	irq.c:45: EA = 1;
+;	irq.c:43: EA = 1;
 ;	assignBit
 	setb	_EA
-;	irq.c:47: for (i = 0; ; i++) {
+;	irq.c:45: for (i = 0; ; i++) {
 	mov	r6,#0x00
 	mov	r7,#0x00
 00104$:
-;	irq.c:48: if (intr >= 0) break;
+;	irq.c:46: if (intr >= 0) break;
 	mov	dptr,#_intr
 	movx	a,@dptr
 	mov	r4,a
@@ -513,7 +513,7 @@ _main:
 	movx	a,@dptr
 	mov	r5,a
 	jnb	acc.7,00103$
-;	irq.c:49: printf("working %d...\r\n", i);
+;	irq.c:47: printf("working %d...\r\n", i);
 	push	ar7
 	push	ar6
 	push	ar6
@@ -530,16 +530,16 @@ _main:
 	mov	sp,a
 	pop	ar6
 	pop	ar7
-;	irq.c:47: for (i = 0; ; i++) {
+;	irq.c:45: for (i = 0; ; i++) {
 	inc	r6
 	cjne	r6,#0x00,00104$
 	inc	r7
 	sjmp	00104$
 00103$:
-;	irq.c:52: EA = 0;
+;	irq.c:50: EA = 0;
 ;	assignBit
 	clr	_EA
-;	irq.c:53: printf("got interrupt %d\r\n", intr);
+;	irq.c:51: printf("got interrupt %d\r\n", intr);
 	push	ar4
 	push	ar5
 	mov	a,#___str_1
@@ -552,12 +552,12 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	irq.c:54: (void)getchar();
+;	irq.c:52: (void)getchar();
 	lcall	_getchar
-;	irq.c:56: PCON |= 2;
+;	irq.c:54: PCON |= 2;
 	orl	_PCON,#0x02
-;	irq.c:58: return;
-;	irq.c:59: }
+;	irq.c:56: return;
+;	irq.c:57: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

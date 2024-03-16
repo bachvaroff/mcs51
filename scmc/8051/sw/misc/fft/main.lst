@@ -389,7 +389,7 @@
                                     389 ;sloc0                     Allocated to stack - _bp +7
                                     390 ;R                         Allocated with name '_main_R_65536_74'
                                     391 ;------------------------------------------------------------
-                                    392 ;	main.c:41: static volatile __xdata int *R = (__xdata int *)0xfffe;
+                                    392 ;	main.c:39: static volatile __xdata int *R = (__xdata int *)0xfffe;
       000000 90r01r80         [24]  393 	mov	dptr,#_main_R_65536_74
       000003 74 FE            [12]  394 	mov	a,#0xfe
       000005 F0               [24]  395 	movx	@dptr,a
@@ -415,37 +415,37 @@
                                     415 ;------------------------------------------------------------
                                     416 ;c                         Allocated to registers 
                                     417 ;------------------------------------------------------------
-                                    418 ;	main.c:12: int putchar(int c) __naked {
+                                    418 ;	main.c:10: int putchar(int c) __naked {
                                     419 ;	-----------------------------------------
                                     420 ;	 function putchar
                                     421 ;	-----------------------------------------
       000000                        422 _putchar:
                                     423 ;	naked function: no prologue.
-                                    424 ;	main.c:17: __endasm;
+                                    424 ;	main.c:15: __endasm;
       000000 E5 82            [12]  425 	mov	a, dpl
-      000002 02 00 30         [24]  426 	ljmp	0x0030
-                                    427 ;	main.c:18: }
+      000002 02 00 3C         [24]  426 	ljmp	0x003c
+                                    427 ;	main.c:16: }
                                     428 ;	naked function: no epilogue.
                                     429 ;------------------------------------------------------------
                                     430 ;Allocation info for local variables in function 'getchar'
                                     431 ;------------------------------------------------------------
-                                    432 ;	main.c:20: int getchar(void) __naked {
+                                    432 ;	main.c:18: int getchar(void) __naked {
                                     433 ;	-----------------------------------------
                                     434 ;	 function getchar
                                     435 ;	-----------------------------------------
       000005                        436 _getchar:
                                     437 ;	naked function: no prologue.
-                                    438 ;	main.c:26: __endasm;
-      000005 12 00 32         [24]  439 	lcall	0x0032
+                                    438 ;	main.c:24: __endasm;
+      000005 12 00 36         [24]  439 	lcall	0x0036
       000008 F5 82            [12]  440 	mov	dpl, a
       00000A 75 83 00         [24]  441 	mov	dph, #0
       00000D 22               [24]  442 	ret
-                                    443 ;	main.c:27: }
+                                    443 ;	main.c:25: }
                                     444 ;	naked function: no epilogue.
                                     445 ;------------------------------------------------------------
                                     446 ;Allocation info for local variables in function 'int0'
                                     447 ;------------------------------------------------------------
-                                    448 ;	main.c:31: void int0(void) __interrupt IE0_VECTOR __using 1 {
+                                    448 ;	main.c:29: void int0(void) __interrupt IE0_VECTOR __using 1 {
                                     449 ;	-----------------------------------------
                                     450 ;	 function int0
                                     451 ;	-----------------------------------------
@@ -462,7 +462,7 @@
       000010 C0 E0            [24]  462 	push	acc
       000012 C0 D0            [24]  463 	push	psw
       000014 75 D0 08         [24]  464 	mov	psw,#0x08
-                                    465 ;	main.c:32: print = !print;
+                                    465 ;	main.c:30: print = !print;
       000017 78r00            [12]  466 	mov	r0,#_print
       000019 E6               [12]  467 	mov	a,@r0
       00001A B4 01 00         [24]  468 	cjne	a,#0x01,00103$
@@ -472,7 +472,7 @@
       000021 E4               [12]  472 	clr	a
       000022 33               [12]  473 	rlc	a
       000023 F6               [12]  474 	mov	@r0,a
-                                    475 ;	main.c:33: }
+                                    475 ;	main.c:31: }
       000024 D0 D0            [24]  476 	pop	psw
       000026 D0 E0            [24]  477 	pop	acc
       000028 D0*00            [24]  478 	pop	bits
@@ -489,7 +489,7 @@
                                     489 ;sloc0                     Allocated to stack - _bp +7
                                     490 ;R                         Allocated with name '_main_R_65536_74'
                                     491 ;------------------------------------------------------------
-                                    492 ;	main.c:40: void main(void) {
+                                    492 ;	main.c:38: void main(void) {
                                     493 ;	-----------------------------------------
                                     494 ;	 function main
                                     495 ;	-----------------------------------------
@@ -507,19 +507,19 @@
       00002F F5*00            [12]  507 	mov	_bp,a
       000031 24 04            [12]  508 	add	a,#0x04
       000033 F5 81            [12]  509 	mov	sp,a
-                                    510 ;	main.c:45: print = 1;
+                                    510 ;	main.c:43: print = 1;
       000035 78r00            [12]  511 	mov	r0,#_print
       000037 76 01            [12]  512 	mov	@r0,#0x01
-                                    513 ;	main.c:47: IT0 = 1;
+                                    513 ;	main.c:45: IT0 = 1;
                                     514 ;	assignBit
       000039 D2 88            [12]  515 	setb	_IT0
-                                    516 ;	main.c:48: EX0 = 1;
+                                    516 ;	main.c:46: EX0 = 1;
                                     517 ;	assignBit
       00003B D2 A8            [12]  518 	setb	_EX0
-                                    519 ;	main.c:49: EA = 1;
+                                    519 ;	main.c:47: EA = 1;
                                     520 ;	assignBit
       00003D D2 AF            [12]  521 	setb	_EA
-                                    522 ;	main.c:51: srand(*R);
+                                    522 ;	main.c:49: srand(*R);
       00003F 90r01r80         [24]  523 	mov	dptr,#_main_R_65536_74
       000042 E0               [24]  524 	movx	a,@dptr
       000043 FE               [12]  525 	mov	r6,a
@@ -536,10 +536,10 @@
       000050 8E 82            [24]  536 	mov	dpl,r6
       000052 8F 83            [24]  537 	mov	dph,r7
       000054 12r00r00         [24]  538 	lcall	_srand
-                                    539 ;	main.c:53: for (i = 0; 1; i++) {
+                                    539 ;	main.c:51: for (i = 0; 1; i++) {
       000057 7E 00            [12]  540 	mov	r6,#0x00
       000059 7F 00            [12]  541 	mov	r7,#0x00
-                                    542 ;	main.c:54: for (j = 0; j < (1 << N); j++)
+                                    542 ;	main.c:52: for (j = 0; j < (1 << N); j++)
       00005B                        543 00117$:
       00005B A8*00            [24]  544 	mov	r0,_bp
       00005D 08               [12]  545 	inc	r0
@@ -548,7 +548,7 @@
       000060 08               [12]  548 	inc	r0
       000061 F6               [12]  549 	mov	@r0,a
       000062                        550 00106$:
-                                    551 ;	main.c:55: samples[j] = ((rand() & 1) ? -1 : 1) * (int16_t)rand();
+                                    551 ;	main.c:53: samples[j] = ((rand() & 1) ? -1 : 1) * (int16_t)rand();
       000062 A8*00            [24]  552 	mov	r0,_bp
       000064 08               [12]  553 	inc	r0
       000065 E6               [12]  554 	mov	a,@r0
@@ -616,7 +616,7 @@
       0000D6 EF               [12]  616 	mov	a,r7
       0000D7 A3               [24]  617 	inc	dptr
       0000D8 F0               [24]  618 	movx	@dptr,a
-                                    619 ;	main.c:54: for (j = 0; j < (1 << N); j++)
+                                    619 ;	main.c:52: for (j = 0; j < (1 << N); j++)
       0000D9 A8*00            [24]  620 	mov	r0,_bp
       0000DB 08               [12]  621 	inc	r0
       0000DC 06               [12]  622 	inc	@r0
@@ -638,7 +638,7 @@
       0000F3 50 03            [24]  638 	jnc	00144$
       0000F5 02r00r62         [24]  639 	ljmp	00106$
       0000F8                        640 00144$:
-                                    641 ;	main.c:57: printf("DO FFT IFFT %d\r\n", i);
+                                    641 ;	main.c:55: printf("DO FFT IFFT %d\r\n", i);
       0000F8 C0 07            [24]  642 	push	ar7
       0000FA C0 06            [24]  643 	push	ar6
       0000FC C0 06            [24]  644 	push	ar6
@@ -653,7 +653,7 @@
       00010F E5 81            [12]  653 	mov	a,sp
       000111 24 FB            [12]  654 	add	a,#0xfb
       000113 F5 81            [12]  655 	mov	sp,a
-                                    656 ;	main.c:59: memcpy(fft, samples, sizeof (samples));
+                                    656 ;	main.c:57: memcpy(fft, samples, sizeof (samples));
       000115 74 80            [12]  657 	mov	a,#0x80
       000117 C0 E0            [24]  658 	push	acc
       000119 E4               [12]  659 	clr	a
@@ -670,7 +670,7 @@
       000130 E5 81            [12]  670 	mov	a,sp
       000132 24 FB            [12]  671 	add	a,#0xfb
       000134 F5 81            [12]  672 	mov	sp,a
-                                    673 ;	main.c:60: scale = fix_fftr(fft, N, 0);		
+                                    673 ;	main.c:58: scale = fix_fftr(fft, N, 0);		
       000136 E4               [12]  674 	clr	a
       000137 C0 E0            [24]  675 	push	acc
       000139 C0 E0            [24]  676 	push	acc
@@ -684,7 +684,7 @@
       00014B E5 81            [12]  684 	mov	a,sp
       00014D 24 FC            [12]  685 	add	a,#0xfc
       00014F F5 81            [12]  686 	mov	sp,a
-                                    687 ;	main.c:67: memcpy(ifft, fft, sizeof (fft));
+                                    687 ;	main.c:65: memcpy(ifft, fft, sizeof (fft));
       000151 74 80            [12]  688 	mov	a,#0x80
       000153 C0 E0            [24]  689 	push	acc
       000155 E4               [12]  690 	clr	a
@@ -701,7 +701,7 @@
       00016C E5 81            [12]  701 	mov	a,sp
       00016E 24 FB            [12]  702 	add	a,#0xfb
       000170 F5 81            [12]  703 	mov	sp,a
-                                    704 ;	main.c:68: scale = fix_fftr(ifft, N, 1);
+                                    704 ;	main.c:66: scale = fix_fftr(ifft, N, 1);
       000172 74 01            [12]  705 	mov	a,#0x01
       000174 C0 E0            [24]  706 	push	acc
       000176 E4               [12]  707 	clr	a
@@ -726,13 +726,13 @@
       00019C A6 04            [24]  726 	mov	@r0,ar4
       00019E 08               [12]  727 	inc	r0
       00019F A6 05            [24]  728 	mov	@r0,ar5
-                                    729 ;	main.c:70: if (print)
+                                    729 ;	main.c:68: if (print)
       0001A1 78r00            [12]  730 	mov	r0,#_print
       0001A3 E6               [12]  731 	mov	a,@r0
       0001A4 70 03            [24]  732 	jnz	00145$
       0001A6 02r02r56         [24]  733 	ljmp	00104$
       0001A9                        734 00145$:
-                                    735 ;	main.c:71: for (j = 0; j < (1 << N); j++)
+                                    735 ;	main.c:69: for (j = 0; j < (1 << N); j++)
       0001A9 A8*00            [24]  736 	mov	r0,_bp
       0001AB 08               [12]  737 	inc	r0
       0001AC E4               [12]  738 	clr	a
@@ -740,7 +740,7 @@
       0001AE 08               [12]  740 	inc	r0
       0001AF F6               [12]  741 	mov	@r0,a
       0001B0                        742 00108$:
-                                    743 ;	main.c:73: samples[j], ifft[j] * (1 << scale));
+                                    743 ;	main.c:71: samples[j], ifft[j] * (1 << scale));
       0001B0 C0 06            [24]  744 	push	ar6
       0001B2 C0 07            [24]  745 	push	ar7
       0001B4 A8*00            [24]  746 	mov	r0,_bp
@@ -805,7 +805,7 @@
       00020F A3               [24]  805 	inc	dptr
       000210 E0               [24]  806 	movx	a,@dptr
       000211 FF               [12]  807 	mov	r7,a
-                                    808 ;	main.c:72: printf("% 8d% 8d\r\n",
+                                    808 ;	main.c:70: printf("% 8d% 8d\r\n",
       000212 C0 07            [24]  809 	push	ar7
       000214 C0 06            [24]  810 	push	ar6
       000216 C0 04            [24]  811 	push	ar4
@@ -824,7 +824,7 @@
       000231 F5 81            [12]  824 	mov	sp,a
       000233 D0 06            [24]  825 	pop	ar6
       000235 D0 07            [24]  826 	pop	ar7
-                                    827 ;	main.c:71: for (j = 0; j < (1 << N); j++)
+                                    827 ;	main.c:69: for (j = 0; j < (1 << N); j++)
       000237 A8*00            [24]  828 	mov	r0,_bp
       000239 08               [12]  829 	inc	r0
       00023A 06               [12]  830 	inc	@r0
@@ -847,7 +847,7 @@
       000253 02r01rB0         [24]  847 	ljmp	00108$
       000256                        848 00149$:
       000256                        849 00104$:
-                                    850 ;	main.c:75: printf("DONE\r\n\r\n");
+                                    850 ;	main.c:73: printf("DONE\r\n\r\n");
       000256 C0 07            [24]  851 	push	ar7
       000258 C0 06            [24]  852 	push	ar6
       00025A 74r1C            [12]  853 	mov	a,#___str_2
@@ -862,14 +862,14 @@
       00026D 15 81            [12]  862 	dec	sp
       00026F D0 06            [24]  863 	pop	ar6
       000271 D0 07            [24]  864 	pop	ar7
-                                    865 ;	main.c:53: for (i = 0; 1; i++) {
+                                    865 ;	main.c:51: for (i = 0; 1; i++) {
       000273 0E               [12]  866 	inc	r6
       000274 BE 00 01         [24]  867 	cjne	r6,#0x00,00150$
       000277 0F               [12]  868 	inc	r7
       000278                        869 00150$:
       000278 02r00r5B         [24]  870 	ljmp	00117$
-                                    871 ;	main.c:80: return;
-                                    872 ;	main.c:81: }
+                                    871 ;	main.c:78: return;
+                                    872 ;	main.c:79: }
       00027B 85*00 81         [24]  873 	mov	sp,_bp
       00027E D0*00            [24]  874 	pop	_bp
       000280 22               [24]  875 	ret

@@ -1,9 +1,9 @@
-0000:              .equ     cin, 0x0032
-0000:              .equ     phex16, 0x0036
-0000:              .equ     nl, 0x0048
-0000:              .equ     icrc16, 0x005e
-0000:              .equ     ucrc16, 0x0061
-0000:              .equ     fcrc16, 0x0064
+0000:              .equ     cin, 0x0036
+0000:              .equ     phex16, 0x0045
+0000:              .equ     nl, 0x0054
+0000:              .equ     icrc16, 0x0066
+0000:              .equ     ucrc16, 0x0069
+0000:              .equ     fcrc16, 0x006c
                    
 0000:              .equ     initial_l, 0xff
 0000:              .equ     initial_h, 0xff
@@ -17,27 +17,27 @@
                    calc_crc16:
 2000: 7E FF                 mov     r6, #initial_l
 2002: 7F FF                 mov     r7, #initial_h
-2004: 12 00 5E              lcall   icrc16
+2004: 12 00 66              lcall   icrc16
                             
 2007: 90 00 00              mov     dptr, #0x0000
 200A: 7E 21                 mov     r6, #poly_l
 200C: 7F 10                 mov     r7, #poly_h
                    next_byte:
 200E: E0                    movx    a, @dptr        
-200F: 12 00 61              lcall   ucrc16
+200F: 12 00 69              lcall   ucrc16
 2012: A3                    inc     dptr
 2013: E5 83                 mov     a, dph
 2015: B4 20 F6              cjne    a, #0x20, next_byte
                             
 2018: 7E 00                 mov     r6, #final_l
 201A: 7F 00                 mov     r7, #final_h
-201C: 12 00 64              lcall   fcrc16
+201C: 12 00 6C              lcall   fcrc16
                             
 201F: 8A 82                 mov     dpl, r2
 2021: 8B 83                 mov     dph, r3
-2023: 12 00 36              lcall   phex16
-2026: 12 00 48              lcall   nl
-2029: 12 00 32              lcall   cin
+2023: 12 00 45              lcall   phex16
+2026: 12 00 54              lcall   nl
+2029: 12 00 36              lcall   cin
 202C: 43 87 02              orl     pcon, #2
 202F: 02 00 00              ljmp    0x0000
                    

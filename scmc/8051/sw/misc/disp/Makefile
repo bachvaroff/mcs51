@@ -1,5 +1,5 @@
-SDCCCFLAGS=--model-large --stack-auto -I. -DGPO_PDATA
-#SDCCCFLAGS=--model-large --stack-auto -I.
+SDCCCFLAGS=--model-large --stack-auto -I. -I.. -I../.. -DGPO_PDATA
+#SDCCCFLAGS=--model-large --stack-auto -I. -I.. -I../..
 ASLINKFLAGS=--model-large --stack-auto --code-loc 0x2000 --code-size 0x6000 --xram-loc 0x8000 --xram-size 0x5000
 
 %.rel: %.c

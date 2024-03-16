@@ -368,7 +368,7 @@
                                     368 ;	portme.c:15: __endasm;
                                     369 ;	genInline
       003465 E5 82            [12]  370 	mov	a, dpl
-      003467 02 00 30         [24]  371 	ljmp	0x0030
+      003467 02 00 3C         [24]  371 	ljmp	0x003c
                                     372 ;	Peephole 500	removed redundant label 00101$
                                     373 ;	portme.c:16: }
                                     374 ;	naked function: no epilogue.

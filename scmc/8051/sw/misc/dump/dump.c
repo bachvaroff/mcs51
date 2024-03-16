@@ -1,7 +1,5 @@
 #include <mcs51/at89x52.h>
-
-#define pm2_entry_cout 0x0030
-#define pm2_entry_cin 0x0032
+#include "pm21/paulmon21.h"
 
 int putchar(int c) __naked {
 	(void)c;

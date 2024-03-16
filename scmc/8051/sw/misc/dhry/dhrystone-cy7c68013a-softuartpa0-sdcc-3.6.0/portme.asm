@@ -368,7 +368,7 @@ _putchar:
 ;	portme.c:15: __endasm;
 ;	genInline
 	mov	a, dpl
-	ljmp	0x0030
+	ljmp	0x003c
 ;	Peephole 500	removed redundant label 00101$
 ;	portme.c:16: }
 ;	naked function: no epilogue.
