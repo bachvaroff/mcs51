@@ -1,44 +1,14 @@
 ; PAULMON2, a user-friendly 8051 monitor, by Paul Stoffregen
 ; Please email comments, suggestions, bugs to paul@pjrc.com
-
+;
 ; Version 2.1
 ;	Some code size improvements, contributed by Alexander B. Alexandrov
 ;	Download can now start from main menu prompt
-
+;
 ; Version 2.1ab
 ;	Extensive mods by Atanas Bachvaroff <bachvaroff@gmail.com>
-
-; It's free. PAULMON2 is in the public domain. You may copy
-; sections of code from PAULMON2 into your own programs, even
-; for commercial purposes. PAULMON2 should only be distributed
-; free of charge, but may be bundled as 'value-added' with other
-; products, such as development boards, CDROMs, etc. Please
-; distribute the PAULMON2.DOC file and other files, not just
-; the object code!
-
-; The PAULMON2.EQU and PAULMON2.HDR files contain valuable
-; information that could help you to write programs for use
-; with PAULMON2.
-
-; PAULMON2 is in the public domain. PAULMON2 is distributed in
-; the hope that it will be useful, but without any warranty;
-; without even the implied warranty of merchantability or fitness
-; for a particular purpose. 
-
-; You are probably reading this code to see what it looks like
-; and possibly learn something, or to modify it for some reason.
-; Either is ok, but please remember that this code uses a number
-; of tricks to cram all the functionality into just 4k. As a
-; result, the code can be difficult to read, and adding new
-; features can be very difficult without growing beyond 4k. To
-; add or modify commands in PAULMON2, please consider using the
-; "external command" functionality. It is easier to develop
-; new commands this way, and you can distribute them to other
-; users. Email paul@pjrc.com if you have new PAULMON2
-; commands to contribute to others. Details about adding new
-; commands to PAULMON2 (with examples) can be found at:
-
-; http://www.pjrc.com/tech/8051/pm2_docs/addons.html
+;
+; See LICENSE
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -1833,6 +1803,7 @@ find4:
 
 ;---------------------------------------------------------;
 
+; copy from c [lssrc:hssrc, lesrc:hesrc) to x [ldst:hdst, ...)
 ; r2:r3 lssrc:hssrc
 ; r4:r5 lesrc:hesrc
 ; r6:r7 ldst:hdst
@@ -1861,6 +1832,7 @@ cpycx:
 
 ;---------------------------------------------------------;
 
+; copy from x [lssrc:hssrc, lesrc:hesrc) to x [ldst:hdst, ...)
 ; r2:r3 lssrc:hssrc
 ; r4:r5 lesrc:hesrc
 ; r6:r7 ldst:hdst
@@ -2058,7 +2030,7 @@ pint16u:
 	mov	r3, dph
 
 pint16a:
-	mov	r4, #16		; ten-thousands digit
+	mov	r4, #16		; 10^4
 	mov	r5, #39
 	acall	pint16x
 	jz	pint16b
@@ -2067,7 +2039,7 @@ pint16a:
 	setb	psw.5
 
 pint16b:
-	mov	r4, #232	; thousands digit
+	mov	r4, #232	; 10^3
 	mov	r5, #3
 	acall	pint16x
 	jnz	pint16c
@@ -2078,7 +2050,7 @@ pint16c:
 	setb	psw.5
 
 pint16d:
-	mov	r4, #100	; hundreds digit
+	mov	r4, #100	; 10^2
 	mov	r5, #0
 	acall	pint16x
 	jnz	pint16e
@@ -2089,7 +2061,7 @@ pint16e:
 	setb	psw.5
 
 pint16f:
-	mov	a, r2		; tens digit
+	mov	a, r2		; 10^1
 	mov	r3, b
 	mov	b, #10
 	div	ab
@@ -2100,7 +2072,7 @@ pint16g:
 	lcall	cout
 
 pint16h:
-	mov	a, b		; and finally the ones digit
+	mov	a, b		; 10^0
 	mov	b, r3
 	add	a, #'0'
 	lcall	cout

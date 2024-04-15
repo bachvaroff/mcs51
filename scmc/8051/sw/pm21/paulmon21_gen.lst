@@ -1,44 +1,14 @@
                    ; PAULMON2, a user-friendly 8051 monitor, by Paul Stoffregen
                    ; Please email comments, suggestions, bugs to paul@pjrc.com
-                   
+                   ;
                    ; Version 2.1
                    ;        Some code size improvements, contributed by Alexand
                    ;        Download can now start from main menu prompt
-                   
+                   ;
                    ; Version 2.1ab
                    ;        Extensive mods by Atanas Bachvaroff <bachvaroff@gma
-                   
-                   ; It's free. PAULMON2 is in the public domain. You may copy
-                   ; sections of code from PAULMON2 into your own programs, eve
-                   ; for commercial purposes. PAULMON2 should only be distribut
-                   ; free of charge, but may be bundled as 'value-added' with o
-                   ; products, such as development boards, CDROMs, etc. Please
-                   ; distribute the PAULMON2.DOC file and other files, not just
-                   ; the object code!
-                   
-                   ; The PAULMON2.EQU and PAULMON2.HDR files contain valuable
-                   ; information that could help you to write programs for use
-                   ; with PAULMON2.
-                   
-                   ; PAULMON2 is in the public domain. PAULMON2 is distributed 
-                   ; the hope that it will be useful, but without any warranty;
-                   ; without even the implied warranty of merchantability or fi
-                   ; for a particular purpose. 
-                   
-                   ; You are probably reading this code to see what it looks li
-                   ; and possibly learn something, or to modify it for some rea
-                   ; Either is ok, but please remember that this code uses a nu
-                   ; of tricks to cram all the functionality into just 4k. As a
-                   ; result, the code can be difficult to read, and adding new
-                   ; features can be very difficult without growing beyond 4k. 
-                   ; add or modify commands in PAULMON2, please consider using 
-                   ; "external command" functionality. It is easier to develop
-                   ; new commands this way, and you can distribute them to othe
-                   ; users. Email paul@pjrc.com if you have new PAULMON2
-                   ; commands to contribute to others. Details about adding new
-                   ; commands to PAULMON2 (with examples) can be found at:
-                   
-                   ; http://www.pjrc.com/tech/8051/pm2_docs/addons.html
+                   ;
+                   ; See LICENSE
                    
                    ;---------------------------------------------------------;
                    ;                                                          ;
@@ -1833,6 +1803,7 @@
                    
                    ;---------------------------------------------------------;
                    
+                   ; copy from c [lssrc:hssrc, lesrc:hesrc) to x [ldst:hdst, ..
                    ; r2:r3 lssrc:hssrc
                    ; r4:r5 lesrc:hesrc
                    ; r6:r7 ldst:hdst
@@ -1861,6 +1832,7 @@
                    
                    ;---------------------------------------------------------;
                    
+                   ; copy from x [lssrc:hssrc, lesrc:hesrc) to x [ldst:hdst, ..
                    ; r2:r3 lssrc:hssrc
                    ; r4:r5 lesrc:hesrc
                    ; r6:r7 ldst:hdst
@@ -2058,7 +2030,7 @@
 09DC: AB 83                 mov     r3, dph
                    
                    pint16a:
-09DE: 7C 10                 mov     r4, #16                 ; ten-thousands dig
+09DE: 7C 10                 mov     r4, #16                 ; 10^4
 09E0: 7D 27                 mov     r5, #39
 09E2: 51 31                 acall   pint16x
 09E4: 60 07                 jz      pint16b
@@ -2067,7 +2039,7 @@
 09EB: D2 D5                 setb    psw.5
                    
                    pint16b:
-09ED: 7C E8                 mov     r4, #232        ; thousands digit
+09ED: 7C E8                 mov     r4, #232        ; 10^3
 09EF: 7D 03                 mov     r5, #3
 09F1: 51 31                 acall   pint16x
 09F3: 70 03                 jnz     pint16c
@@ -2078,7 +2050,7 @@
 09FD: D2 D5                 setb    psw.5
                    
                    pint16d:
-09FF: 7C 64                 mov     r4, #100        ; hundreds digit
+09FF: 7C 64                 mov     r4, #100        ; 10^2
 0A01: 7D 00                 mov     r5, #0
 0A03: 51 31                 acall   pint16x
 0A05: 70 03                 jnz     pint16e
@@ -2089,7 +2061,7 @@
 0A0F: D2 D5                 setb    psw.5
                    
                    pint16f:
-0A11: EA                    mov     a, r2           ; tens digit
+0A11: EA                    mov     a, r2           ; 10^1
 0A12: AB F0                 mov     r3, b
 0A14: 75 F0 0A              mov     b, #10
 0A17: 84                    div     ab
@@ -2100,7 +2072,7 @@
 0A1F: 12 00 84              lcall   cout
                    
                    pint16h:
-0A22: E5 F0                 mov     a, b            ; and finally the ones digi
+0A22: E5 F0                 mov     a, b            ; 10^0
 0A24: 8B F0                 mov     b, r3
 0A26: 24 30                 add     a, #'0'
 0A28: 12 00 84              lcall   cout
