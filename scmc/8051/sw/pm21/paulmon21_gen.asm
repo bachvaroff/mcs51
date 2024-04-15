@@ -2146,7 +2146,7 @@ pint16y:
 ;---------------------------------------------------------;
 
 logon:
-	.db	"PAULMON2 v2.1ab VERSTR\r\n\r\n", 0
+	.db	"PAULMON2 v2.1ab 2024041500\r\n\r\n", 0
 	
 abort:
 	.db	"  Command aborted\r\n\r\n", 0

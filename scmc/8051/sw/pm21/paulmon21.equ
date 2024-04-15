@@ -1,3 +1,4 @@
+; VERSTR 2024041500
 .equ setbaud, 0x0033
 .equ cin, 0x0036
 .equ cinpoll, 0x0039

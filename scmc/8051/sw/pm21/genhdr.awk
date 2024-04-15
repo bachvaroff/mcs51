@@ -1,6 +1,7 @@
 #!/bin/awk -f
 
 BEGIN {
+	printf("/* VERSTR %s */\n", verstr);
 	printf("#ifndef _PM2_ENTRY_\n#define _PM2_ENTRY_\n\n");
 }
 
