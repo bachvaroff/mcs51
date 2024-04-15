@@ -13,10 +13,10 @@ VERSTR=$(shell cat VERSTR)
 	echo "$< -Intel" > "$@"
 
 %.h: %.asm
-	./genhdr.awk -v verstr="$(VERSTR)" < "$<" > "$@"
+	./genhdr.awk -v verstr="$(VERSTR)" "$<" > "$@"
 
 %.equ: %.asm
-	./genequ.awk -v verstr="$(VERSTR)" < "$<" > "$@"
+	./genequ.awk -v verstr="$(VERSTR)" "$<" > "$@"
 
 paulmon21_gen.asm: paulmon21.asm
 	sed -E "s/VERSTR/$(VERSTR)/g" paulmon21.asm > paulmon21_gen.asm
