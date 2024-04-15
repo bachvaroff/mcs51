@@ -2,7 +2,7 @@ AS=as31
 ASFLAGS=-l -Fhex
 COMPILE=$(AS) $(ASFLAGS)
 SREC_CAT=srec_cat
-VERSTR=$(shell cat VERSTR)
+VERSTR?=$(shell cat VERSTR)
 
 %.hex: %.asm
 	$(COMPILE) $<
