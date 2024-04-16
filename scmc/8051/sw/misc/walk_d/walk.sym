@@ -355,34 +355,34 @@ Symbol Table
   F __sdcc_program_startup                                         000006 GR
   7 __start__stack                                                 000000 GR
  1A __xinit__neigh                                                 000000 R
- 18 _bang                                                          00001A R
+ 18 _bang                                                          000022 R
     _bp                                                            ****** GX
- 18 _flipOE                                                        00005A R
+ 18 _flipOE                                                        000062 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
   C _g                                                             000000 R
- 18 _getchar                                                       000005 GR
+ 18 _getchar                                                       000009 GR
   8 _i0                                                            000000 R
- 18 _int0                                                          00000E GR
- 18 _main                                                          000678 GR
+ 18 _int0                                                          000016 GR
+ 18 _main                                                          000680 GR
   E _neigh                                                         000000 R
     _printf                                                        ****** GX
  18 _putchar                                                       000000 GR
     _puts                                                          ****** GX
     _rand                                                          ****** GX
- 18 _setOE                                                         000027 R
+ 18 _setOE                                                         00002F R
   C _sp                                                            00BC70 R
     _srand                                                         ****** GX
   C _stack                                                         0025B0 R
- 18 _stinit                                                        000A53 R
- 18 _stpop                                                         000ABD R
- 18 _stpush                                                        000A5C R
- 18 _unsetOE                                                       000040 R
- 18 _update                                                        000073 R
- 18 _walk                                                          000300 R
+ 18 _stinit                                                        000A5B R
+ 18 _stpop                                                         000AC5 R
+ 18 _stpush                                                        000A64 R
+ 18 _unsetOE                                                       000048 R
+ 18 _update                                                        00007B R
+ 18 _walk                                                          000308 R
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
     a.1                                                         =  0000E1 L
@@ -612,7 +612,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size      0   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    B1F   flags   20
+  18 CSEG                                       size    B27   flags   20
   19 CONST                                      size     66   flags   20
   1A XINIT                                      size     40   flags   20
   1B CABS                                       size      0   flags   28

@@ -11,16 +11,20 @@
 int putchar(int c) __naked {
 	(void)c;
 	__asm
+		push acc
 		mov a, dpl
-		ljmp pm2_entry_cout
+		lcall pm2_entry_cout
+		pop acc
 	__endasm;
 }
 
 int getchar(void) __naked {
 	__asm
+		push acc
 		lcall pm2_entry_cin
 		mov dpl, a
 		mov dph, #0
+		pop acc
 		ret
 	__endasm;
 }
@@ -31,10 +35,9 @@ int getchar_poll(void) __naked {
 		push b
 		mov a, #0xff
 		mov b, a
-		jnb ri, nochar
-		mov a, sbuf
-		clr ri
-		mov b, #0
+		lcall pm2_entry_cinpoll
+		jc nochar
+		mov b, #0x00
 nochar:
 		mov dpl, a
 		mov dph, b

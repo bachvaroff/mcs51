@@ -67,7 +67,7 @@ CABS                                00000000    00000000 =           0. bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00000100  l_IRAM                          
-C:   000013CD  l_CSEG                          
+C:   000013D5  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002019  s_GSINIT0                       
 C:   0000201C  s_GSINIT1                       
@@ -78,8 +78,8 @@ C:   00002072  s_GSFINAL
 C:   00002072  s_GSINIT                        
 C:   00002072  s_GSINIT5                       
 C:   00002075  s_CSEG                          
-C:   00003442  s_CONST                         
-C:   00003470  s_XINIT                         
+C:   0000344A  s_CONST                         
+C:   00003478  s_XINIT                         
 C:   00004000  s_PSEG                          
 C:   00004000  s_XSEG                          
 C:   00004002  s_XISEG                         
@@ -368,28 +368,28 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002075    000013CD =        5069. bytes (REL,CON,CODE)
+CSEG                                00002075    000013D5 =        5077. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00002075  _putchar                           irq
-C:   0000207A  _getchar                           irq
-C:   00002083  _int0                              irq
-C:   00002097  _int1                              irq
-C:   000020AD  _main                              irq
-C:   00002127  _vprintf                           vprintf
-C:   0000215E  _printf                            vprintf
-C:   00002197  __sdcc_external_startup            _startup
-C:   000022C8  __print_format                     printf_large
-C:   00003370  __mulint                           _mulint
-C:   0000340E  _strlen                            _strlen
-C:   00003426  __gptrget                          _gptrget
+C:   0000207E  _getchar                           irq
+C:   0000208B  _int0                              irq
+C:   0000209F  _int1                              irq
+C:   000020B5  _main                              irq
+C:   0000212F  _vprintf                           vprintf
+C:   00002166  _printf                            vprintf
+C:   0000219F  __sdcc_external_startup            _startup
+C:   000022D0  __print_format                     printf_large
+C:   00003378  __mulint                           _mulint
+C:   00003416  _strlen                            _strlen
+C:   0000342E  __gptrget                          _gptrget
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003442    0000002E =          46. bytes (REL,CON,CODE)
+CONST                               0000344A    0000002E =          46. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

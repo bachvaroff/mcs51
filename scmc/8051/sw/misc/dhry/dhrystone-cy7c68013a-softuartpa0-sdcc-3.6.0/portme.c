@@ -10,8 +10,10 @@
 int putchar(int c) __naked {
 	(void)c;
 	__asm
+		push acc
 		mov a, dpl
-		ljmp pm2_entry_cout
+		lcall pm2_entry_cout
+		pop acc
 	__endasm;
 }
 
@@ -25,6 +27,7 @@ volatile _Bool sending;
 void init(void)
 {
 	// Configure timer 0 for 1000 clock ticks / second
+	TR0 = 0;
 	TH0 = (65536 - 1382) / 256;
 	TL0 = (65536 - 1382) % 256;
 	TMOD = 0x01;

@@ -346,7 +346,7 @@
                                     346 	.area HOME    (CODE)
       002000                        347 __interrupt_vect:
       002000 02 20 09         [24]  348 	ljmp	__sdcc_gsinit_startup
-      002003 02 20 73         [24]  349 	ljmp	_int0
+      002003 02 20 7B         [24]  349 	ljmp	_int0
                                     350 ;--------------------------------------------------------
                                     351 ; global & static initialisations
                                     352 ;--------------------------------------------------------
@@ -368,7 +368,7 @@
                                     368 	.area HOME    (CODE)
                                     369 	.area HOME    (CODE)
       002006                        370 __sdcc_program_startup:
-      002006 02 20 86         [24]  371 	ljmp	_main
+      002006 02 20 8E         [24]  371 	ljmp	_main
                                     372 ;	return from main will return to caller
                                     373 ;--------------------------------------------------------
                                     374 ; code
@@ -385,485 +385,489 @@
                                     385 ;	-----------------------------------------
       002065                        386 _putchar:
                                     387 ;	naked function: no prologue.
-                                    388 ;	dump.c:9: __endasm;
-      002065 E5 82            [12]  389 	mov	a, dpl
-      002067 02 00 3C         [24]  390 	ljmp	0x003c
-                                    391 ;	dump.c:10: }
-                                    392 ;	naked function: no epilogue.
-                                    393 ;------------------------------------------------------------
-                                    394 ;Allocation info for local variables in function 'getchar'
+                                    388 ;	dump.c:11: __endasm;
+      002065 C0 E0            [24]  389 	push	acc
+      002067 E5 82            [12]  390 	mov	a, dpl
+      002069 12 00 3C         [24]  391 	lcall	0x003c
+      00206C D0 E0            [24]  392 	pop	acc
+                                    393 ;	dump.c:12: }
+                                    394 ;	naked function: no epilogue.
                                     395 ;------------------------------------------------------------
-                                    396 ;	dump.c:12: int getchar(void) __naked {
-                                    397 ;	-----------------------------------------
-                                    398 ;	 function getchar
+                                    396 ;Allocation info for local variables in function 'getchar'
+                                    397 ;------------------------------------------------------------
+                                    398 ;	dump.c:14: int getchar(void) __naked {
                                     399 ;	-----------------------------------------
-      00206A                        400 _getchar:
-                                    401 ;	naked function: no prologue.
-                                    402 ;	dump.c:18: __endasm;
-      00206A 12 00 36         [24]  403 	lcall	0x0036
-      00206D F5 82            [12]  404 	mov	dpl, a
-      00206F 75 83 00         [24]  405 	mov	dph, #0
-      002072 22               [24]  406 	ret
-                                    407 ;	dump.c:19: }
-                                    408 ;	naked function: no epilogue.
-                                    409 ;------------------------------------------------------------
-                                    410 ;Allocation info for local variables in function 'int0'
-                                    411 ;------------------------------------------------------------
-                                    412 ;	dump.c:50: void int0(void) __interrupt IE0_VECTOR __using 1 {
-                                    413 ;	-----------------------------------------
-                                    414 ;	 function int0
-                                    415 ;	-----------------------------------------
-      002073                        416 _int0:
-                           00000F   417 	ar7 = 0x0f
-                           00000E   418 	ar6 = 0x0e
-                           00000D   419 	ar5 = 0x0d
-                           00000C   420 	ar4 = 0x0c
-                           00000B   421 	ar3 = 0x0b
-                           00000A   422 	ar2 = 0x0a
-                           000009   423 	ar1 = 0x09
-                           000008   424 	ar0 = 0x08
-      002073 C0 E0            [24]  425 	push	acc
-      002075 C0 82            [24]  426 	push	dpl
-      002077 C0 83            [24]  427 	push	dph
-                                    428 ;	dump.c:51: intr = 1;
-      002079 90 40 00         [24]  429 	mov	dptr,#_intr
-      00207C 74 01            [12]  430 	mov	a,#0x01
-      00207E F0               [24]  431 	movx	@dptr,a
-                                    432 ;	dump.c:52: }
-      00207F D0 83            [24]  433 	pop	dph
-      002081 D0 82            [24]  434 	pop	dpl
-      002083 D0 E0            [24]  435 	pop	acc
-      002085 32               [24]  436 	reti
-                                    437 ;	eliminated unneeded mov psw,# (no regs used in bank)
-                                    438 ;	eliminated unneeded push/pop psw
-                                    439 ;	eliminated unneeded push/pop b
-                                    440 ;------------------------------------------------------------
-                                    441 ;Allocation info for local variables in function 'main'
-                                    442 ;------------------------------------------------------------
-                                    443 ;__3932160001              Allocated to registers r5 r6 
-                                    444 ;a                         Allocated to registers r4 r7 
-                                    445 ;__3932160003              Allocated to registers 
-                                    446 ;s                         Allocated to registers r5 r6 r7 
-                                    447 ;__5242880005              Allocated to registers r6 r7 
-                                    448 ;a                         Allocated to registers r4 r5 
-                                    449 ;------------------------------------------------------------
-                                    450 ;	dump.c:57: void main(void) {
-                                    451 ;	-----------------------------------------
-                                    452 ;	 function main
-                                    453 ;	-----------------------------------------
-      002086                        454 _main:
-                           000007   455 	ar7 = 0x07
-                           000006   456 	ar6 = 0x06
-                           000005   457 	ar5 = 0x05
-                           000004   458 	ar4 = 0x04
-                           000003   459 	ar3 = 0x03
-                           000002   460 	ar2 = 0x02
-                           000001   461 	ar1 = 0x01
-                           000000   462 	ar0 = 0x00
-                                    463 ;	dump.c:58: intr = 0;
-      002086 90 40 00         [24]  464 	mov	dptr,#_intr
-      002089 E4               [12]  465 	clr	a
-      00208A F0               [24]  466 	movx	@dptr,a
-                                    467 ;	dump.c:60: IT0 = 1;
-                                    468 ;	assignBit
-      00208B D2 88            [12]  469 	setb	_IT0
-                                    470 ;	dump.c:61: EX0 = 1;	
-                                    471 ;	assignBit
-      00208D D2 A8            [12]  472 	setb	_EX0
-                                    473 ;	dump.c:62: EA = 1;
-                                    474 ;	assignBit
-      00208F D2 AF            [12]  475 	setb	_EA
-                                    476 ;	dump.c:64: P1_7 = 0; /* activate IO address space from 0xe000 to 0xffff */
-                                    477 ;	assignBit
-      002091 C2 97            [12]  478 	clr	_P1_7
-                                    479 ;	dump.c:69: __endasm;
-      002093 00               [12]  480 	nop
-      002094 00               [12]  481 	nop
-      002095 00               [12]  482 	nop
-                                    483 ;	dump.c:71: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
-      002096 90 40 01         [24]  484 	mov	dptr,#_base
-      002099 E4               [12]  485 	clr	a
-      00209A F0               [24]  486 	movx	@dptr,a
-      00209B A3               [24]  487 	inc	dptr
-      00209C F0               [24]  488 	movx	@dptr,a
-      00209D A3               [24]  489 	inc	dptr
-      00209E F0               [24]  490 	movx	@dptr,a
-      00209F                        491 00119$:
-      00209F 90 40 00         [24]  492 	mov	dptr,#_intr
-      0020A2 E0               [24]  493 	movx	a,@dptr
-      0020A3 60 03            [24]  494 	jz	00160$
-      0020A5 02 22 90         [24]  495 	ljmp	00106$
-      0020A8                        496 00160$:
-                                    497 ;	dump.c:72: for (off = 0u; off < 0x400u; off += 0x20u) {
-      0020A8 90 40 04         [24]  498 	mov	dptr,#_off
-      0020AB E4               [12]  499 	clr	a
-      0020AC F0               [24]  500 	movx	@dptr,a
-      0020AD A3               [24]  501 	inc	dptr
-      0020AE F0               [24]  502 	movx	@dptr,a
-      0020AF                        503 00116$:
-                                    504 ;	dump.c:73: print16x((unsigned int)base + off);
-      0020AF 90 40 01         [24]  505 	mov	dptr,#_base
-      0020B2 E0               [24]  506 	movx	a,@dptr
-      0020B3 FD               [12]  507 	mov	r5,a
-      0020B4 A3               [24]  508 	inc	dptr
-      0020B5 E0               [24]  509 	movx	a,@dptr
-      0020B6 FE               [12]  510 	mov	r6,a
-      0020B7 A3               [24]  511 	inc	dptr
-      0020B8 E0               [24]  512 	movx	a,@dptr
-      0020B9 90 40 04         [24]  513 	mov	dptr,#_off
-      0020BC E0               [24]  514 	movx	a,@dptr
-      0020BD FC               [12]  515 	mov	r4,a
-      0020BE A3               [24]  516 	inc	dptr
-      0020BF E0               [24]  517 	movx	a,@dptr
-      0020C0 FF               [12]  518 	mov	r7,a
-      0020C1 EC               [12]  519 	mov	a,r4
-      0020C2 2D               [12]  520 	add	a,r5
-      0020C3 FD               [12]  521 	mov	r5,a
-      0020C4 EF               [12]  522 	mov	a,r7
-      0020C5 3E               [12]  523 	addc	a,r6
-      0020C6 FE               [12]  524 	mov	r6,a
-      0020C7 8D 04            [24]  525 	mov	ar4,r5
-                                    526 ;	dump.c:34: putchar(digits[(a >> 12) & 0xf]);
-      0020C9 EE               [12]  527 	mov	a,r6
-      0020CA FF               [12]  528 	mov	r7,a
-      0020CB C4               [12]  529 	swap	a
-      0020CC 54 0F            [12]  530 	anl	a,#0x0f
-      0020CE 30 E3 02         [24]  531 	jnb	acc.3,00161$
-      0020D1 44 F0            [12]  532 	orl	a,#0xf0
-      0020D3                        533 00161$:
-      0020D3 FD               [12]  534 	mov	r5,a
-      0020D4 33               [12]  535 	rlc	a
-      0020D5 95 E0            [12]  536 	subb	a,acc
-      0020D7 53 05 0F         [24]  537 	anl	ar5,#0x0f
-      0020DA 7E 00            [12]  538 	mov	r6,#0x00
-      0020DC ED               [12]  539 	mov	a,r5
-      0020DD 24 B9            [12]  540 	add	a,#_digits
-      0020DF F5 82            [12]  541 	mov	dpl,a
-      0020E1 EE               [12]  542 	mov	a,r6
-      0020E2 34 22            [12]  543 	addc	a,#(_digits >> 8)
-      0020E4 F5 83            [12]  544 	mov	dph,a
-      0020E6 E4               [12]  545 	clr	a
-      0020E7 93               [24]  546 	movc	a,@a+dptr
-      0020E8 FE               [12]  547 	mov	r6,a
-      0020E9 7D 00            [12]  548 	mov	r5,#0x00
-      0020EB 8E 82            [24]  549 	mov	dpl,r6
-      0020ED 8D 83            [24]  550 	mov	dph,r5
-      0020EF 12 20 65         [24]  551 	lcall	_putchar
-                                    552 ;	dump.c:35: putchar(digits[(a >> 8) & 0xf]);
-      0020F2 8F 06            [24]  553 	mov	ar6,r7
-      0020F4 53 06 0F         [24]  554 	anl	ar6,#0x0f
-      0020F7 7D 00            [12]  555 	mov	r5,#0x00
-      0020F9 EE               [12]  556 	mov	a,r6
-      0020FA 24 B9            [12]  557 	add	a,#_digits
-      0020FC F5 82            [12]  558 	mov	dpl,a
-      0020FE ED               [12]  559 	mov	a,r5
-      0020FF 34 22            [12]  560 	addc	a,#(_digits >> 8)
-      002101 F5 83            [12]  561 	mov	dph,a
-      002103 E4               [12]  562 	clr	a
-      002104 93               [24]  563 	movc	a,@a+dptr
-      002105 FE               [12]  564 	mov	r6,a
-      002106 7D 00            [12]  565 	mov	r5,#0x00
-      002108 8E 82            [24]  566 	mov	dpl,r6
-      00210A 8D 83            [24]  567 	mov	dph,r5
-      00210C 12 20 65         [24]  568 	lcall	_putchar
-                                    569 ;	dump.c:36: putchar(digits[(a >> 4) & 0xf]);
-      00210F 8C 05            [24]  570 	mov	ar5,r4
-      002111 EF               [12]  571 	mov	a,r7
-      002112 C4               [12]  572 	swap	a
-      002113 CD               [12]  573 	xch	a,r5
-      002114 C4               [12]  574 	swap	a
-      002115 54 0F            [12]  575 	anl	a,#0x0f
-      002117 6D               [12]  576 	xrl	a,r5
-      002118 CD               [12]  577 	xch	a,r5
-      002119 54 0F            [12]  578 	anl	a,#0x0f
-      00211B CD               [12]  579 	xch	a,r5
-      00211C 6D               [12]  580 	xrl	a,r5
-      00211D CD               [12]  581 	xch	a,r5
-      00211E 30 E3 02         [24]  582 	jnb	acc.3,00162$
-      002121 44 F0            [12]  583 	orl	a,#0xf0
-      002123                        584 00162$:
-      002123 53 05 0F         [24]  585 	anl	ar5,#0x0f
-      002126 7E 00            [12]  586 	mov	r6,#0x00
-      002128 ED               [12]  587 	mov	a,r5
-      002129 24 B9            [12]  588 	add	a,#_digits
-      00212B F5 82            [12]  589 	mov	dpl,a
-      00212D EE               [12]  590 	mov	a,r6
-      00212E 34 22            [12]  591 	addc	a,#(_digits >> 8)
-      002130 F5 83            [12]  592 	mov	dph,a
-      002132 E4               [12]  593 	clr	a
-      002133 93               [24]  594 	movc	a,@a+dptr
-      002134 FE               [12]  595 	mov	r6,a
-      002135 7D 00            [12]  596 	mov	r5,#0x00
-      002137 8E 82            [24]  597 	mov	dpl,r6
-      002139 8D 83            [24]  598 	mov	dph,r5
-      00213B 12 20 65         [24]  599 	lcall	_putchar
-                                    600 ;	dump.c:37: putchar(digits[a & 0xf]);
-      00213E 53 04 0F         [24]  601 	anl	ar4,#0x0f
-      002141 7F 00            [12]  602 	mov	r7,#0x00
-      002143 EC               [12]  603 	mov	a,r4
-      002144 24 B9            [12]  604 	add	a,#_digits
-      002146 F5 82            [12]  605 	mov	dpl,a
-      002148 EF               [12]  606 	mov	a,r7
-      002149 34 22            [12]  607 	addc	a,#(_digits >> 8)
-      00214B F5 83            [12]  608 	mov	dph,a
-      00214D E4               [12]  609 	clr	a
-      00214E 93               [24]  610 	movc	a,@a+dptr
-      00214F FF               [12]  611 	mov	r7,a
-      002150 7E 00            [12]  612 	mov	r6,#0x00
-      002152 8F 82            [24]  613 	mov	dpl,r7
-      002154 8E 83            [24]  614 	mov	dph,r6
-      002156 12 20 65         [24]  615 	lcall	_putchar
-                                    616 ;	dump.c:74: printstr(" : ");
-      002159 7D C9            [12]  617 	mov	r5,#___str_0
-      00215B 7E 22            [12]  618 	mov	r6,#(___str_0 >> 8)
-      00215D 7F 80            [12]  619 	mov	r7,#0x80
-                                    620 ;	dump.c:45: return;
-      00215F                        621 00112$:
-                                    622 ;	dump.c:43: for (; *s; s++) putchar(*s);
-      00215F 8D 82            [24]  623 	mov	dpl,r5
-      002161 8E 83            [24]  624 	mov	dph,r6
-      002163 8F F0            [24]  625 	mov	b,r7
-      002165 12 22 99         [24]  626 	lcall	__gptrget
-      002168 FC               [12]  627 	mov	r4,a
-      002169 60 10            [24]  628 	jz	00109$
-      00216B 7B 00            [12]  629 	mov	r3,#0x00
-      00216D 8C 82            [24]  630 	mov	dpl,r4
-      00216F 8B 83            [24]  631 	mov	dph,r3
-      002171 12 20 65         [24]  632 	lcall	_putchar
-      002174 0D               [12]  633 	inc	r5
-                                    634 ;	dump.c:74: printstr(" : ");
-      002175 BD 00 E7         [24]  635 	cjne	r5,#0x00,00112$
-      002178 0E               [12]  636 	inc	r6
-      002179 80 E4            [24]  637 	sjmp	00112$
-      00217B                        638 00109$:
-                                    639 ;	dump.c:75: for (col = 0u; col < 0x20u; col++) {
-      00217B 90 40 06         [24]  640 	mov	dptr,#_col
-      00217E E4               [12]  641 	clr	a
-      00217F F0               [24]  642 	movx	@dptr,a
-      002180 A3               [24]  643 	inc	dptr
-      002181 F0               [24]  644 	movx	@dptr,a
-      002182                        645 00114$:
-                                    646 ;	dump.c:76: print8x(base[off + col]);
-      002182 90 40 06         [24]  647 	mov	dptr,#_col
-      002185 E0               [24]  648 	movx	a,@dptr
-      002186 FE               [12]  649 	mov	r6,a
-      002187 A3               [24]  650 	inc	dptr
-      002188 E0               [24]  651 	movx	a,@dptr
-      002189 FF               [12]  652 	mov	r7,a
-      00218A 90 40 04         [24]  653 	mov	dptr,#_off
-      00218D E0               [24]  654 	movx	a,@dptr
-      00218E FC               [12]  655 	mov	r4,a
-      00218F A3               [24]  656 	inc	dptr
-      002190 E0               [24]  657 	movx	a,@dptr
-      002191 FD               [12]  658 	mov	r5,a
-      002192 EE               [12]  659 	mov	a,r6
-      002193 2C               [12]  660 	add	a,r4
-      002194 FE               [12]  661 	mov	r6,a
-      002195 EF               [12]  662 	mov	a,r7
-      002196 3D               [12]  663 	addc	a,r5
-      002197 FF               [12]  664 	mov	r7,a
-      002198 90 40 01         [24]  665 	mov	dptr,#_base
-      00219B E0               [24]  666 	movx	a,@dptr
-      00219C FB               [12]  667 	mov	r3,a
-      00219D A3               [24]  668 	inc	dptr
-      00219E E0               [24]  669 	movx	a,@dptr
-      00219F FC               [12]  670 	mov	r4,a
-      0021A0 A3               [24]  671 	inc	dptr
-      0021A1 E0               [24]  672 	movx	a,@dptr
-      0021A2 FD               [12]  673 	mov	r5,a
-      0021A3 EE               [12]  674 	mov	a,r6
-      0021A4 2B               [12]  675 	add	a,r3
-      0021A5 FE               [12]  676 	mov	r6,a
-      0021A6 EF               [12]  677 	mov	a,r7
-      0021A7 3C               [12]  678 	addc	a,r4
-      0021A8 FF               [12]  679 	mov	r7,a
-      0021A9 8D 02            [24]  680 	mov	ar2,r5
-      0021AB 8E 82            [24]  681 	mov	dpl,r6
-      0021AD 8F 83            [24]  682 	mov	dph,r7
-      0021AF 8A F0            [24]  683 	mov	b,r2
-      0021B1 12 22 99         [24]  684 	lcall	__gptrget
-      0021B4 FE               [12]  685 	mov	r6,a
-      0021B5 7F 00            [12]  686 	mov	r7,#0x00
-      0021B7 8E 04            [24]  687 	mov	ar4,r6
-                                    688 ;	dump.c:27: putchar(digits[(a >> 4) & 0xf]);
-      0021B9 EF               [12]  689 	mov	a,r7
-      0021BA C4               [12]  690 	swap	a
-      0021BB CE               [12]  691 	xch	a,r6
-      0021BC C4               [12]  692 	swap	a
-      0021BD 54 0F            [12]  693 	anl	a,#0x0f
-      0021BF 6E               [12]  694 	xrl	a,r6
-      0021C0 CE               [12]  695 	xch	a,r6
-      0021C1 54 0F            [12]  696 	anl	a,#0x0f
-      0021C3 CE               [12]  697 	xch	a,r6
-      0021C4 6E               [12]  698 	xrl	a,r6
-      0021C5 CE               [12]  699 	xch	a,r6
-      0021C6 30 E3 02         [24]  700 	jnb	acc.3,00165$
-      0021C9 44 F0            [12]  701 	orl	a,#0xf0
-      0021CB                        702 00165$:
-      0021CB 53 06 0F         [24]  703 	anl	ar6,#0x0f
-      0021CE 7F 00            [12]  704 	mov	r7,#0x00
-      0021D0 EE               [12]  705 	mov	a,r6
-      0021D1 24 B9            [12]  706 	add	a,#_digits
-      0021D3 F5 82            [12]  707 	mov	dpl,a
-      0021D5 EF               [12]  708 	mov	a,r7
-      0021D6 34 22            [12]  709 	addc	a,#(_digits >> 8)
-      0021D8 F5 83            [12]  710 	mov	dph,a
-      0021DA E4               [12]  711 	clr	a
-      0021DB 93               [24]  712 	movc	a,@a+dptr
-      0021DC FF               [12]  713 	mov	r7,a
-      0021DD 7E 00            [12]  714 	mov	r6,#0x00
-      0021DF 8F 82            [24]  715 	mov	dpl,r7
-      0021E1 8E 83            [24]  716 	mov	dph,r6
-      0021E3 12 20 65         [24]  717 	lcall	_putchar
-                                    718 ;	dump.c:28: putchar(digits[a & 0xf]);
-      0021E6 53 04 0F         [24]  719 	anl	ar4,#0x0f
-      0021E9 7D 00            [12]  720 	mov	r5,#0x00
-      0021EB EC               [12]  721 	mov	a,r4
-      0021EC 24 B9            [12]  722 	add	a,#_digits
-      0021EE F5 82            [12]  723 	mov	dpl,a
-      0021F0 ED               [12]  724 	mov	a,r5
-      0021F1 34 22            [12]  725 	addc	a,#(_digits >> 8)
-      0021F3 F5 83            [12]  726 	mov	dph,a
-      0021F5 E4               [12]  727 	clr	a
-      0021F6 93               [24]  728 	movc	a,@a+dptr
-      0021F7 FF               [12]  729 	mov	r7,a
-      0021F8 7E 00            [12]  730 	mov	r6,#0x00
-      0021FA 8F 82            [24]  731 	mov	dpl,r7
-      0021FC 8E 83            [24]  732 	mov	dph,r6
-      0021FE 12 20 65         [24]  733 	lcall	_putchar
-                                    734 ;	dump.c:77: if (col == 0x1fu) {
-      002201 90 40 06         [24]  735 	mov	dptr,#_col
-      002204 E0               [24]  736 	movx	a,@dptr
-      002205 FE               [12]  737 	mov	r6,a
-      002206 A3               [24]  738 	inc	dptr
-      002207 E0               [24]  739 	movx	a,@dptr
-      002208 FF               [12]  740 	mov	r7,a
-      002209 BE 1F 11         [24]  741 	cjne	r6,#0x1f,00102$
-      00220C BF 00 0E         [24]  742 	cjne	r7,#0x00,00102$
-                                    743 ;	dump.c:78: putchar('\r'); putchar('\n');
-      00220F 90 00 0D         [24]  744 	mov	dptr,#0x000d
-      002212 12 20 65         [24]  745 	lcall	_putchar
-      002215 90 00 0A         [24]  746 	mov	dptr,#0x000a
-      002218 12 20 65         [24]  747 	lcall	_putchar
-      00221B 80 06            [24]  748 	sjmp	00115$
-      00221D                        749 00102$:
-                                    750 ;	dump.c:79: } else putchar(' ');
-      00221D 90 00 20         [24]  751 	mov	dptr,#0x0020
-      002220 12 20 65         [24]  752 	lcall	_putchar
-      002223                        753 00115$:
-                                    754 ;	dump.c:75: for (col = 0u; col < 0x20u; col++) {
-      002223 90 40 06         [24]  755 	mov	dptr,#_col
-      002226 E0               [24]  756 	movx	a,@dptr
-      002227 24 01            [12]  757 	add	a,#0x01
-      002229 F0               [24]  758 	movx	@dptr,a
-      00222A A3               [24]  759 	inc	dptr
-      00222B E0               [24]  760 	movx	a,@dptr
-      00222C 34 00            [12]  761 	addc	a,#0x00
-      00222E F0               [24]  762 	movx	@dptr,a
-      00222F 90 40 06         [24]  763 	mov	dptr,#_col
-      002232 E0               [24]  764 	movx	a,@dptr
-      002233 FE               [12]  765 	mov	r6,a
-      002234 A3               [24]  766 	inc	dptr
-      002235 E0               [24]  767 	movx	a,@dptr
-      002236 FF               [12]  768 	mov	r7,a
-      002237 C3               [12]  769 	clr	c
-      002238 EE               [12]  770 	mov	a,r6
-      002239 94 20            [12]  771 	subb	a,#0x20
-      00223B EF               [12]  772 	mov	a,r7
-      00223C 94 00            [12]  773 	subb	a,#0x00
-      00223E 50 03            [24]  774 	jnc	00168$
-      002240 02 21 82         [24]  775 	ljmp	00114$
-      002243                        776 00168$:
-                                    777 ;	dump.c:72: for (off = 0u; off < 0x400u; off += 0x20u) {
-      002243 90 40 04         [24]  778 	mov	dptr,#_off
-      002246 E0               [24]  779 	movx	a,@dptr
-      002247 FE               [12]  780 	mov	r6,a
-      002248 A3               [24]  781 	inc	dptr
-      002249 E0               [24]  782 	movx	a,@dptr
-      00224A FF               [12]  783 	mov	r7,a
-      00224B 90 40 04         [24]  784 	mov	dptr,#_off
-      00224E 74 20            [12]  785 	mov	a,#0x20
-      002250 2E               [12]  786 	add	a,r6
-      002251 F0               [24]  787 	movx	@dptr,a
-      002252 E4               [12]  788 	clr	a
-      002253 3F               [12]  789 	addc	a,r7
-      002254 A3               [24]  790 	inc	dptr
-      002255 F0               [24]  791 	movx	@dptr,a
-      002256 90 40 04         [24]  792 	mov	dptr,#_off
-      002259 E0               [24]  793 	movx	a,@dptr
-      00225A FE               [12]  794 	mov	r6,a
-      00225B A3               [24]  795 	inc	dptr
-      00225C E0               [24]  796 	movx	a,@dptr
-      00225D FF               [12]  797 	mov	r7,a
-      00225E C3               [12]  798 	clr	c
-      00225F 94 04            [12]  799 	subb	a,#0x04
-      002261 50 03            [24]  800 	jnc	00169$
-      002263 02 20 AF         [24]  801 	ljmp	00116$
-      002266                        802 00169$:
-                                    803 ;	dump.c:82: getchar();
-      002266 12 20 6A         [24]  804 	lcall	_getchar
-                                    805 ;	dump.c:83: putchar('\r'); putchar('\n');
-      002269 90 00 0D         [24]  806 	mov	dptr,#0x000d
-      00226C 12 20 65         [24]  807 	lcall	_putchar
-      00226F 90 00 0A         [24]  808 	mov	dptr,#0x000a
-      002272 12 20 65         [24]  809 	lcall	_putchar
-                                    810 ;	dump.c:71: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
-      002275 90 40 01         [24]  811 	mov	dptr,#_base
-      002278 E0               [24]  812 	movx	a,@dptr
-      002279 FD               [12]  813 	mov	r5,a
-      00227A A3               [24]  814 	inc	dptr
-      00227B E0               [24]  815 	movx	a,@dptr
-      00227C FE               [12]  816 	mov	r6,a
-      00227D A3               [24]  817 	inc	dptr
-      00227E E0               [24]  818 	movx	a,@dptr
-      00227F FF               [12]  819 	mov	r7,a
-      002280 90 40 01         [24]  820 	mov	dptr,#_base
-      002283 ED               [12]  821 	mov	a,r5
-      002284 F0               [24]  822 	movx	@dptr,a
-      002285 74 04            [12]  823 	mov	a,#0x04
-      002287 2E               [12]  824 	add	a,r6
-      002288 A3               [24]  825 	inc	dptr
-      002289 F0               [24]  826 	movx	@dptr,a
-      00228A EF               [12]  827 	mov	a,r7
-      00228B A3               [24]  828 	inc	dptr
-      00228C F0               [24]  829 	movx	@dptr,a
-      00228D 02 20 9F         [24]  830 	ljmp	00119$
-      002290                        831 00106$:
-                                    832 ;	dump.c:86: P1_7 = 1; /* deactivate IO address space from 0xe000 to 0xffff */
-                                    833 ;	assignBit
-      002290 D2 97            [12]  834 	setb	_P1_7
-                                    835 ;	dump.c:91: __endasm;
-      002292 00               [12]  836 	nop
-      002293 00               [12]  837 	nop
-      002294 00               [12]  838 	nop
-                                    839 ;	dump.c:93: PCON |= 2;
-      002295 43 87 02         [24]  840 	orl	_PCON,#0x02
-                                    841 ;	dump.c:95: return;
-                                    842 ;	dump.c:96: }
-      002298 22               [24]  843 	ret
-                                    844 	.area CSEG    (CODE)
-                                    845 	.area CONST   (CODE)
-      0022B9                        846 _digits:
-      0022B9 30                     847 	.db #0x30	; 48	'0'
-      0022BA 31                     848 	.db #0x31	; 49	'1'
-      0022BB 32                     849 	.db #0x32	; 50	'2'
-      0022BC 33                     850 	.db #0x33	; 51	'3'
-      0022BD 34                     851 	.db #0x34	; 52	'4'
-      0022BE 35                     852 	.db #0x35	; 53	'5'
-      0022BF 36                     853 	.db #0x36	; 54	'6'
-      0022C0 37                     854 	.db #0x37	; 55	'7'
-      0022C1 38                     855 	.db #0x38	; 56	'8'
-      0022C2 39                     856 	.db #0x39	; 57	'9'
-      0022C3 61                     857 	.db #0x61	; 97	'a'
-      0022C4 62                     858 	.db #0x62	; 98	'b'
-      0022C5 63                     859 	.db #0x63	; 99	'c'
-      0022C6 64                     860 	.db #0x64	; 100	'd'
-      0022C7 65                     861 	.db #0x65	; 101	'e'
-      0022C8 66                     862 	.db #0x66	; 102	'f'
-                                    863 	.area CONST   (CODE)
-      0022C9                        864 ___str_0:
-      0022C9 20 3A 20               865 	.ascii " : "
-      0022CC 00                     866 	.db 0x00
-                                    867 	.area CSEG    (CODE)
-                                    868 	.area XINIT   (CODE)
-                                    869 	.area CABS    (ABS,CODE)
+                                    400 ;	 function getchar
+                                    401 ;	-----------------------------------------
+      00206E                        402 _getchar:
+                                    403 ;	naked function: no prologue.
+                                    404 ;	dump.c:22: __endasm;
+      00206E C0 E0            [24]  405 	push	acc
+      002070 12 00 36         [24]  406 	lcall	0x0036
+      002073 F5 82            [12]  407 	mov	dpl, a
+      002075 75 83 00         [24]  408 	mov	dph, #0
+      002078 D0 E0            [24]  409 	pop	acc
+      00207A 22               [24]  410 	ret
+                                    411 ;	dump.c:23: }
+                                    412 ;	naked function: no epilogue.
+                                    413 ;------------------------------------------------------------
+                                    414 ;Allocation info for local variables in function 'int0'
+                                    415 ;------------------------------------------------------------
+                                    416 ;	dump.c:54: void int0(void) __interrupt IE0_VECTOR __using 1 {
+                                    417 ;	-----------------------------------------
+                                    418 ;	 function int0
+                                    419 ;	-----------------------------------------
+      00207B                        420 _int0:
+                           00000F   421 	ar7 = 0x0f
+                           00000E   422 	ar6 = 0x0e
+                           00000D   423 	ar5 = 0x0d
+                           00000C   424 	ar4 = 0x0c
+                           00000B   425 	ar3 = 0x0b
+                           00000A   426 	ar2 = 0x0a
+                           000009   427 	ar1 = 0x09
+                           000008   428 	ar0 = 0x08
+      00207B C0 E0            [24]  429 	push	acc
+      00207D C0 82            [24]  430 	push	dpl
+      00207F C0 83            [24]  431 	push	dph
+                                    432 ;	dump.c:55: intr = 1;
+      002081 90 40 00         [24]  433 	mov	dptr,#_intr
+      002084 74 01            [12]  434 	mov	a,#0x01
+      002086 F0               [24]  435 	movx	@dptr,a
+                                    436 ;	dump.c:56: }
+      002087 D0 83            [24]  437 	pop	dph
+      002089 D0 82            [24]  438 	pop	dpl
+      00208B D0 E0            [24]  439 	pop	acc
+      00208D 32               [24]  440 	reti
+                                    441 ;	eliminated unneeded mov psw,# (no regs used in bank)
+                                    442 ;	eliminated unneeded push/pop psw
+                                    443 ;	eliminated unneeded push/pop b
+                                    444 ;------------------------------------------------------------
+                                    445 ;Allocation info for local variables in function 'main'
+                                    446 ;------------------------------------------------------------
+                                    447 ;__3932160001              Allocated to registers r5 r6 
+                                    448 ;a                         Allocated to registers r4 r7 
+                                    449 ;__3932160003              Allocated to registers 
+                                    450 ;s                         Allocated to registers r5 r6 r7 
+                                    451 ;__5242880005              Allocated to registers r6 r7 
+                                    452 ;a                         Allocated to registers r4 r5 
+                                    453 ;------------------------------------------------------------
+                                    454 ;	dump.c:61: void main(void) {
+                                    455 ;	-----------------------------------------
+                                    456 ;	 function main
+                                    457 ;	-----------------------------------------
+      00208E                        458 _main:
+                           000007   459 	ar7 = 0x07
+                           000006   460 	ar6 = 0x06
+                           000005   461 	ar5 = 0x05
+                           000004   462 	ar4 = 0x04
+                           000003   463 	ar3 = 0x03
+                           000002   464 	ar2 = 0x02
+                           000001   465 	ar1 = 0x01
+                           000000   466 	ar0 = 0x00
+                                    467 ;	dump.c:62: intr = 0;
+      00208E 90 40 00         [24]  468 	mov	dptr,#_intr
+      002091 E4               [12]  469 	clr	a
+      002092 F0               [24]  470 	movx	@dptr,a
+                                    471 ;	dump.c:64: IT0 = 1;
+                                    472 ;	assignBit
+      002093 D2 88            [12]  473 	setb	_IT0
+                                    474 ;	dump.c:65: EX0 = 1;	
+                                    475 ;	assignBit
+      002095 D2 A8            [12]  476 	setb	_EX0
+                                    477 ;	dump.c:66: EA = 1;
+                                    478 ;	assignBit
+      002097 D2 AF            [12]  479 	setb	_EA
+                                    480 ;	dump.c:68: P1_7 = 0; /* activate IO address space from 0xe000 to 0xffff */
+                                    481 ;	assignBit
+      002099 C2 97            [12]  482 	clr	_P1_7
+                                    483 ;	dump.c:73: __endasm;
+      00209B 00               [12]  484 	nop
+      00209C 00               [12]  485 	nop
+      00209D 00               [12]  486 	nop
+                                    487 ;	dump.c:75: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
+      00209E 90 40 01         [24]  488 	mov	dptr,#_base
+      0020A1 E4               [12]  489 	clr	a
+      0020A2 F0               [24]  490 	movx	@dptr,a
+      0020A3 A3               [24]  491 	inc	dptr
+      0020A4 F0               [24]  492 	movx	@dptr,a
+      0020A5 A3               [24]  493 	inc	dptr
+      0020A6 F0               [24]  494 	movx	@dptr,a
+      0020A7                        495 00119$:
+      0020A7 90 40 00         [24]  496 	mov	dptr,#_intr
+      0020AA E0               [24]  497 	movx	a,@dptr
+      0020AB 60 03            [24]  498 	jz	00160$
+      0020AD 02 22 98         [24]  499 	ljmp	00106$
+      0020B0                        500 00160$:
+                                    501 ;	dump.c:76: for (off = 0u; off < 0x400u; off += 0x20u) {
+      0020B0 90 40 04         [24]  502 	mov	dptr,#_off
+      0020B3 E4               [12]  503 	clr	a
+      0020B4 F0               [24]  504 	movx	@dptr,a
+      0020B5 A3               [24]  505 	inc	dptr
+      0020B6 F0               [24]  506 	movx	@dptr,a
+      0020B7                        507 00116$:
+                                    508 ;	dump.c:77: print16x((unsigned int)base + off);
+      0020B7 90 40 01         [24]  509 	mov	dptr,#_base
+      0020BA E0               [24]  510 	movx	a,@dptr
+      0020BB FD               [12]  511 	mov	r5,a
+      0020BC A3               [24]  512 	inc	dptr
+      0020BD E0               [24]  513 	movx	a,@dptr
+      0020BE FE               [12]  514 	mov	r6,a
+      0020BF A3               [24]  515 	inc	dptr
+      0020C0 E0               [24]  516 	movx	a,@dptr
+      0020C1 90 40 04         [24]  517 	mov	dptr,#_off
+      0020C4 E0               [24]  518 	movx	a,@dptr
+      0020C5 FC               [12]  519 	mov	r4,a
+      0020C6 A3               [24]  520 	inc	dptr
+      0020C7 E0               [24]  521 	movx	a,@dptr
+      0020C8 FF               [12]  522 	mov	r7,a
+      0020C9 EC               [12]  523 	mov	a,r4
+      0020CA 2D               [12]  524 	add	a,r5
+      0020CB FD               [12]  525 	mov	r5,a
+      0020CC EF               [12]  526 	mov	a,r7
+      0020CD 3E               [12]  527 	addc	a,r6
+      0020CE FE               [12]  528 	mov	r6,a
+      0020CF 8D 04            [24]  529 	mov	ar4,r5
+                                    530 ;	dump.c:38: putchar(digits[(a >> 12) & 0xf]);
+      0020D1 EE               [12]  531 	mov	a,r6
+      0020D2 FF               [12]  532 	mov	r7,a
+      0020D3 C4               [12]  533 	swap	a
+      0020D4 54 0F            [12]  534 	anl	a,#0x0f
+      0020D6 30 E3 02         [24]  535 	jnb	acc.3,00161$
+      0020D9 44 F0            [12]  536 	orl	a,#0xf0
+      0020DB                        537 00161$:
+      0020DB FD               [12]  538 	mov	r5,a
+      0020DC 33               [12]  539 	rlc	a
+      0020DD 95 E0            [12]  540 	subb	a,acc
+      0020DF 53 05 0F         [24]  541 	anl	ar5,#0x0f
+      0020E2 7E 00            [12]  542 	mov	r6,#0x00
+      0020E4 ED               [12]  543 	mov	a,r5
+      0020E5 24 C1            [12]  544 	add	a,#_digits
+      0020E7 F5 82            [12]  545 	mov	dpl,a
+      0020E9 EE               [12]  546 	mov	a,r6
+      0020EA 34 22            [12]  547 	addc	a,#(_digits >> 8)
+      0020EC F5 83            [12]  548 	mov	dph,a
+      0020EE E4               [12]  549 	clr	a
+      0020EF 93               [24]  550 	movc	a,@a+dptr
+      0020F0 FE               [12]  551 	mov	r6,a
+      0020F1 7D 00            [12]  552 	mov	r5,#0x00
+      0020F3 8E 82            [24]  553 	mov	dpl,r6
+      0020F5 8D 83            [24]  554 	mov	dph,r5
+      0020F7 12 20 65         [24]  555 	lcall	_putchar
+                                    556 ;	dump.c:39: putchar(digits[(a >> 8) & 0xf]);
+      0020FA 8F 06            [24]  557 	mov	ar6,r7
+      0020FC 53 06 0F         [24]  558 	anl	ar6,#0x0f
+      0020FF 7D 00            [12]  559 	mov	r5,#0x00
+      002101 EE               [12]  560 	mov	a,r6
+      002102 24 C1            [12]  561 	add	a,#_digits
+      002104 F5 82            [12]  562 	mov	dpl,a
+      002106 ED               [12]  563 	mov	a,r5
+      002107 34 22            [12]  564 	addc	a,#(_digits >> 8)
+      002109 F5 83            [12]  565 	mov	dph,a
+      00210B E4               [12]  566 	clr	a
+      00210C 93               [24]  567 	movc	a,@a+dptr
+      00210D FE               [12]  568 	mov	r6,a
+      00210E 7D 00            [12]  569 	mov	r5,#0x00
+      002110 8E 82            [24]  570 	mov	dpl,r6
+      002112 8D 83            [24]  571 	mov	dph,r5
+      002114 12 20 65         [24]  572 	lcall	_putchar
+                                    573 ;	dump.c:40: putchar(digits[(a >> 4) & 0xf]);
+      002117 8C 05            [24]  574 	mov	ar5,r4
+      002119 EF               [12]  575 	mov	a,r7
+      00211A C4               [12]  576 	swap	a
+      00211B CD               [12]  577 	xch	a,r5
+      00211C C4               [12]  578 	swap	a
+      00211D 54 0F            [12]  579 	anl	a,#0x0f
+      00211F 6D               [12]  580 	xrl	a,r5
+      002120 CD               [12]  581 	xch	a,r5
+      002121 54 0F            [12]  582 	anl	a,#0x0f
+      002123 CD               [12]  583 	xch	a,r5
+      002124 6D               [12]  584 	xrl	a,r5
+      002125 CD               [12]  585 	xch	a,r5
+      002126 30 E3 02         [24]  586 	jnb	acc.3,00162$
+      002129 44 F0            [12]  587 	orl	a,#0xf0
+      00212B                        588 00162$:
+      00212B 53 05 0F         [24]  589 	anl	ar5,#0x0f
+      00212E 7E 00            [12]  590 	mov	r6,#0x00
+      002130 ED               [12]  591 	mov	a,r5
+      002131 24 C1            [12]  592 	add	a,#_digits
+      002133 F5 82            [12]  593 	mov	dpl,a
+      002135 EE               [12]  594 	mov	a,r6
+      002136 34 22            [12]  595 	addc	a,#(_digits >> 8)
+      002138 F5 83            [12]  596 	mov	dph,a
+      00213A E4               [12]  597 	clr	a
+      00213B 93               [24]  598 	movc	a,@a+dptr
+      00213C FE               [12]  599 	mov	r6,a
+      00213D 7D 00            [12]  600 	mov	r5,#0x00
+      00213F 8E 82            [24]  601 	mov	dpl,r6
+      002141 8D 83            [24]  602 	mov	dph,r5
+      002143 12 20 65         [24]  603 	lcall	_putchar
+                                    604 ;	dump.c:41: putchar(digits[a & 0xf]);
+      002146 53 04 0F         [24]  605 	anl	ar4,#0x0f
+      002149 7F 00            [12]  606 	mov	r7,#0x00
+      00214B EC               [12]  607 	mov	a,r4
+      00214C 24 C1            [12]  608 	add	a,#_digits
+      00214E F5 82            [12]  609 	mov	dpl,a
+      002150 EF               [12]  610 	mov	a,r7
+      002151 34 22            [12]  611 	addc	a,#(_digits >> 8)
+      002153 F5 83            [12]  612 	mov	dph,a
+      002155 E4               [12]  613 	clr	a
+      002156 93               [24]  614 	movc	a,@a+dptr
+      002157 FF               [12]  615 	mov	r7,a
+      002158 7E 00            [12]  616 	mov	r6,#0x00
+      00215A 8F 82            [24]  617 	mov	dpl,r7
+      00215C 8E 83            [24]  618 	mov	dph,r6
+      00215E 12 20 65         [24]  619 	lcall	_putchar
+                                    620 ;	dump.c:78: printstr(" : ");
+      002161 7D D1            [12]  621 	mov	r5,#___str_0
+      002163 7E 22            [12]  622 	mov	r6,#(___str_0 >> 8)
+      002165 7F 80            [12]  623 	mov	r7,#0x80
+                                    624 ;	dump.c:49: return;
+      002167                        625 00112$:
+                                    626 ;	dump.c:47: for (; *s; s++) putchar(*s);
+      002167 8D 82            [24]  627 	mov	dpl,r5
+      002169 8E 83            [24]  628 	mov	dph,r6
+      00216B 8F F0            [24]  629 	mov	b,r7
+      00216D 12 22 A1         [24]  630 	lcall	__gptrget
+      002170 FC               [12]  631 	mov	r4,a
+      002171 60 10            [24]  632 	jz	00109$
+      002173 7B 00            [12]  633 	mov	r3,#0x00
+      002175 8C 82            [24]  634 	mov	dpl,r4
+      002177 8B 83            [24]  635 	mov	dph,r3
+      002179 12 20 65         [24]  636 	lcall	_putchar
+      00217C 0D               [12]  637 	inc	r5
+                                    638 ;	dump.c:78: printstr(" : ");
+      00217D BD 00 E7         [24]  639 	cjne	r5,#0x00,00112$
+      002180 0E               [12]  640 	inc	r6
+      002181 80 E4            [24]  641 	sjmp	00112$
+      002183                        642 00109$:
+                                    643 ;	dump.c:79: for (col = 0u; col < 0x20u; col++) {
+      002183 90 40 06         [24]  644 	mov	dptr,#_col
+      002186 E4               [12]  645 	clr	a
+      002187 F0               [24]  646 	movx	@dptr,a
+      002188 A3               [24]  647 	inc	dptr
+      002189 F0               [24]  648 	movx	@dptr,a
+      00218A                        649 00114$:
+                                    650 ;	dump.c:80: print8x(base[off + col]);
+      00218A 90 40 06         [24]  651 	mov	dptr,#_col
+      00218D E0               [24]  652 	movx	a,@dptr
+      00218E FE               [12]  653 	mov	r6,a
+      00218F A3               [24]  654 	inc	dptr
+      002190 E0               [24]  655 	movx	a,@dptr
+      002191 FF               [12]  656 	mov	r7,a
+      002192 90 40 04         [24]  657 	mov	dptr,#_off
+      002195 E0               [24]  658 	movx	a,@dptr
+      002196 FC               [12]  659 	mov	r4,a
+      002197 A3               [24]  660 	inc	dptr
+      002198 E0               [24]  661 	movx	a,@dptr
+      002199 FD               [12]  662 	mov	r5,a
+      00219A EE               [12]  663 	mov	a,r6
+      00219B 2C               [12]  664 	add	a,r4
+      00219C FE               [12]  665 	mov	r6,a
+      00219D EF               [12]  666 	mov	a,r7
+      00219E 3D               [12]  667 	addc	a,r5
+      00219F FF               [12]  668 	mov	r7,a
+      0021A0 90 40 01         [24]  669 	mov	dptr,#_base
+      0021A3 E0               [24]  670 	movx	a,@dptr
+      0021A4 FB               [12]  671 	mov	r3,a
+      0021A5 A3               [24]  672 	inc	dptr
+      0021A6 E0               [24]  673 	movx	a,@dptr
+      0021A7 FC               [12]  674 	mov	r4,a
+      0021A8 A3               [24]  675 	inc	dptr
+      0021A9 E0               [24]  676 	movx	a,@dptr
+      0021AA FD               [12]  677 	mov	r5,a
+      0021AB EE               [12]  678 	mov	a,r6
+      0021AC 2B               [12]  679 	add	a,r3
+      0021AD FE               [12]  680 	mov	r6,a
+      0021AE EF               [12]  681 	mov	a,r7
+      0021AF 3C               [12]  682 	addc	a,r4
+      0021B0 FF               [12]  683 	mov	r7,a
+      0021B1 8D 02            [24]  684 	mov	ar2,r5
+      0021B3 8E 82            [24]  685 	mov	dpl,r6
+      0021B5 8F 83            [24]  686 	mov	dph,r7
+      0021B7 8A F0            [24]  687 	mov	b,r2
+      0021B9 12 22 A1         [24]  688 	lcall	__gptrget
+      0021BC FE               [12]  689 	mov	r6,a
+      0021BD 7F 00            [12]  690 	mov	r7,#0x00
+      0021BF 8E 04            [24]  691 	mov	ar4,r6
+                                    692 ;	dump.c:31: putchar(digits[(a >> 4) & 0xf]);
+      0021C1 EF               [12]  693 	mov	a,r7
+      0021C2 C4               [12]  694 	swap	a
+      0021C3 CE               [12]  695 	xch	a,r6
+      0021C4 C4               [12]  696 	swap	a
+      0021C5 54 0F            [12]  697 	anl	a,#0x0f
+      0021C7 6E               [12]  698 	xrl	a,r6
+      0021C8 CE               [12]  699 	xch	a,r6
+      0021C9 54 0F            [12]  700 	anl	a,#0x0f
+      0021CB CE               [12]  701 	xch	a,r6
+      0021CC 6E               [12]  702 	xrl	a,r6
+      0021CD CE               [12]  703 	xch	a,r6
+      0021CE 30 E3 02         [24]  704 	jnb	acc.3,00165$
+      0021D1 44 F0            [12]  705 	orl	a,#0xf0
+      0021D3                        706 00165$:
+      0021D3 53 06 0F         [24]  707 	anl	ar6,#0x0f
+      0021D6 7F 00            [12]  708 	mov	r7,#0x00
+      0021D8 EE               [12]  709 	mov	a,r6
+      0021D9 24 C1            [12]  710 	add	a,#_digits
+      0021DB F5 82            [12]  711 	mov	dpl,a
+      0021DD EF               [12]  712 	mov	a,r7
+      0021DE 34 22            [12]  713 	addc	a,#(_digits >> 8)
+      0021E0 F5 83            [12]  714 	mov	dph,a
+      0021E2 E4               [12]  715 	clr	a
+      0021E3 93               [24]  716 	movc	a,@a+dptr
+      0021E4 FF               [12]  717 	mov	r7,a
+      0021E5 7E 00            [12]  718 	mov	r6,#0x00
+      0021E7 8F 82            [24]  719 	mov	dpl,r7
+      0021E9 8E 83            [24]  720 	mov	dph,r6
+      0021EB 12 20 65         [24]  721 	lcall	_putchar
+                                    722 ;	dump.c:32: putchar(digits[a & 0xf]);
+      0021EE 53 04 0F         [24]  723 	anl	ar4,#0x0f
+      0021F1 7D 00            [12]  724 	mov	r5,#0x00
+      0021F3 EC               [12]  725 	mov	a,r4
+      0021F4 24 C1            [12]  726 	add	a,#_digits
+      0021F6 F5 82            [12]  727 	mov	dpl,a
+      0021F8 ED               [12]  728 	mov	a,r5
+      0021F9 34 22            [12]  729 	addc	a,#(_digits >> 8)
+      0021FB F5 83            [12]  730 	mov	dph,a
+      0021FD E4               [12]  731 	clr	a
+      0021FE 93               [24]  732 	movc	a,@a+dptr
+      0021FF FF               [12]  733 	mov	r7,a
+      002200 7E 00            [12]  734 	mov	r6,#0x00
+      002202 8F 82            [24]  735 	mov	dpl,r7
+      002204 8E 83            [24]  736 	mov	dph,r6
+      002206 12 20 65         [24]  737 	lcall	_putchar
+                                    738 ;	dump.c:81: if (col == 0x1fu) {
+      002209 90 40 06         [24]  739 	mov	dptr,#_col
+      00220C E0               [24]  740 	movx	a,@dptr
+      00220D FE               [12]  741 	mov	r6,a
+      00220E A3               [24]  742 	inc	dptr
+      00220F E0               [24]  743 	movx	a,@dptr
+      002210 FF               [12]  744 	mov	r7,a
+      002211 BE 1F 11         [24]  745 	cjne	r6,#0x1f,00102$
+      002214 BF 00 0E         [24]  746 	cjne	r7,#0x00,00102$
+                                    747 ;	dump.c:82: putchar('\r'); putchar('\n');
+      002217 90 00 0D         [24]  748 	mov	dptr,#0x000d
+      00221A 12 20 65         [24]  749 	lcall	_putchar
+      00221D 90 00 0A         [24]  750 	mov	dptr,#0x000a
+      002220 12 20 65         [24]  751 	lcall	_putchar
+      002223 80 06            [24]  752 	sjmp	00115$
+      002225                        753 00102$:
+                                    754 ;	dump.c:83: } else putchar(' ');
+      002225 90 00 20         [24]  755 	mov	dptr,#0x0020
+      002228 12 20 65         [24]  756 	lcall	_putchar
+      00222B                        757 00115$:
+                                    758 ;	dump.c:79: for (col = 0u; col < 0x20u; col++) {
+      00222B 90 40 06         [24]  759 	mov	dptr,#_col
+      00222E E0               [24]  760 	movx	a,@dptr
+      00222F 24 01            [12]  761 	add	a,#0x01
+      002231 F0               [24]  762 	movx	@dptr,a
+      002232 A3               [24]  763 	inc	dptr
+      002233 E0               [24]  764 	movx	a,@dptr
+      002234 34 00            [12]  765 	addc	a,#0x00
+      002236 F0               [24]  766 	movx	@dptr,a
+      002237 90 40 06         [24]  767 	mov	dptr,#_col
+      00223A E0               [24]  768 	movx	a,@dptr
+      00223B FE               [12]  769 	mov	r6,a
+      00223C A3               [24]  770 	inc	dptr
+      00223D E0               [24]  771 	movx	a,@dptr
+      00223E FF               [12]  772 	mov	r7,a
+      00223F C3               [12]  773 	clr	c
+      002240 EE               [12]  774 	mov	a,r6
+      002241 94 20            [12]  775 	subb	a,#0x20
+      002243 EF               [12]  776 	mov	a,r7
+      002244 94 00            [12]  777 	subb	a,#0x00
+      002246 50 03            [24]  778 	jnc	00168$
+      002248 02 21 8A         [24]  779 	ljmp	00114$
+      00224B                        780 00168$:
+                                    781 ;	dump.c:76: for (off = 0u; off < 0x400u; off += 0x20u) {
+      00224B 90 40 04         [24]  782 	mov	dptr,#_off
+      00224E E0               [24]  783 	movx	a,@dptr
+      00224F FE               [12]  784 	mov	r6,a
+      002250 A3               [24]  785 	inc	dptr
+      002251 E0               [24]  786 	movx	a,@dptr
+      002252 FF               [12]  787 	mov	r7,a
+      002253 90 40 04         [24]  788 	mov	dptr,#_off
+      002256 74 20            [12]  789 	mov	a,#0x20
+      002258 2E               [12]  790 	add	a,r6
+      002259 F0               [24]  791 	movx	@dptr,a
+      00225A E4               [12]  792 	clr	a
+      00225B 3F               [12]  793 	addc	a,r7
+      00225C A3               [24]  794 	inc	dptr
+      00225D F0               [24]  795 	movx	@dptr,a
+      00225E 90 40 04         [24]  796 	mov	dptr,#_off
+      002261 E0               [24]  797 	movx	a,@dptr
+      002262 FE               [12]  798 	mov	r6,a
+      002263 A3               [24]  799 	inc	dptr
+      002264 E0               [24]  800 	movx	a,@dptr
+      002265 FF               [12]  801 	mov	r7,a
+      002266 C3               [12]  802 	clr	c
+      002267 94 04            [12]  803 	subb	a,#0x04
+      002269 50 03            [24]  804 	jnc	00169$
+      00226B 02 20 B7         [24]  805 	ljmp	00116$
+      00226E                        806 00169$:
+                                    807 ;	dump.c:86: getchar();
+      00226E 12 20 6E         [24]  808 	lcall	_getchar
+                                    809 ;	dump.c:87: putchar('\r'); putchar('\n');
+      002271 90 00 0D         [24]  810 	mov	dptr,#0x000d
+      002274 12 20 65         [24]  811 	lcall	_putchar
+      002277 90 00 0A         [24]  812 	mov	dptr,#0x000a
+      00227A 12 20 65         [24]  813 	lcall	_putchar
+                                    814 ;	dump.c:75: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
+      00227D 90 40 01         [24]  815 	mov	dptr,#_base
+      002280 E0               [24]  816 	movx	a,@dptr
+      002281 FD               [12]  817 	mov	r5,a
+      002282 A3               [24]  818 	inc	dptr
+      002283 E0               [24]  819 	movx	a,@dptr
+      002284 FE               [12]  820 	mov	r6,a
+      002285 A3               [24]  821 	inc	dptr
+      002286 E0               [24]  822 	movx	a,@dptr
+      002287 FF               [12]  823 	mov	r7,a
+      002288 90 40 01         [24]  824 	mov	dptr,#_base
+      00228B ED               [12]  825 	mov	a,r5
+      00228C F0               [24]  826 	movx	@dptr,a
+      00228D 74 04            [12]  827 	mov	a,#0x04
+      00228F 2E               [12]  828 	add	a,r6
+      002290 A3               [24]  829 	inc	dptr
+      002291 F0               [24]  830 	movx	@dptr,a
+      002292 EF               [12]  831 	mov	a,r7
+      002293 A3               [24]  832 	inc	dptr
+      002294 F0               [24]  833 	movx	@dptr,a
+      002295 02 20 A7         [24]  834 	ljmp	00119$
+      002298                        835 00106$:
+                                    836 ;	dump.c:90: P1_7 = 1; /* deactivate IO address space from 0xe000 to 0xffff */
+                                    837 ;	assignBit
+      002298 D2 97            [12]  838 	setb	_P1_7
+                                    839 ;	dump.c:95: __endasm;
+      00229A 00               [12]  840 	nop
+      00229B 00               [12]  841 	nop
+      00229C 00               [12]  842 	nop
+                                    843 ;	dump.c:97: PCON |= 2;
+      00229D 43 87 02         [24]  844 	orl	_PCON,#0x02
+                                    845 ;	dump.c:99: return;
+                                    846 ;	dump.c:100: }
+      0022A0 22               [24]  847 	ret
+                                    848 	.area CSEG    (CODE)
+                                    849 	.area CONST   (CODE)
+      0022C1                        850 _digits:
+      0022C1 30                     851 	.db #0x30	; 48	'0'
+      0022C2 31                     852 	.db #0x31	; 49	'1'
+      0022C3 32                     853 	.db #0x32	; 50	'2'
+      0022C4 33                     854 	.db #0x33	; 51	'3'
+      0022C5 34                     855 	.db #0x34	; 52	'4'
+      0022C6 35                     856 	.db #0x35	; 53	'5'
+      0022C7 36                     857 	.db #0x36	; 54	'6'
+      0022C8 37                     858 	.db #0x37	; 55	'7'
+      0022C9 38                     859 	.db #0x38	; 56	'8'
+      0022CA 39                     860 	.db #0x39	; 57	'9'
+      0022CB 61                     861 	.db #0x61	; 97	'a'
+      0022CC 62                     862 	.db #0x62	; 98	'b'
+      0022CD 63                     863 	.db #0x63	; 99	'c'
+      0022CE 64                     864 	.db #0x64	; 100	'd'
+      0022CF 65                     865 	.db #0x65	; 101	'e'
+      0022D0 66                     866 	.db #0x66	; 102	'f'
+                                    867 	.area CONST   (CODE)
+      0022D1                        868 ___str_0:
+      0022D1 20 3A 20               869 	.ascii " : "
+      0022D4 00                     870 	.db 0x00
+                                    871 	.area CSEG    (CODE)
+                                    872 	.area XINIT   (CODE)
+                                    873 	.area CABS    (ABS,CODE)

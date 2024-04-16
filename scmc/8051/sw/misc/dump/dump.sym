@@ -343,10 +343,10 @@ Symbol Table
   C _base                                                          000001 GR
   C _col                                                           000006 GR
  19 _digits                                                        000000 R
- 18 _getchar                                                       000005 GR
- 18 _int0                                                          00000E GR
+ 18 _getchar                                                       000009 GR
+ 18 _int0                                                          000016 GR
   C _intr                                                          000000 GR
- 18 _main                                                          000021 GR
+ 18 _main                                                          000029 GR
   C _off                                                           000004 GR
  18 _putchar                                                       000000 GR
     a                                                           =  0000E0 L
@@ -584,7 +584,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size      0   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    234   flags   20
+  18 CSEG                                       size    23C   flags   20
   19 CONST                                      size     14   flags   20
   1A XINIT                                      size      0   flags   20
   1B CABS                                       size      0   flags   28

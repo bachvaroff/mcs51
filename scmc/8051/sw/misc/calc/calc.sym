@@ -404,29 +404,29 @@ Symbol Table
   E __sdcc_program_startup                                         000003 GR
   6 __start__stack                                                 000000 GR
  19 __xinit__deltas                                                000000 R
- 17 _accumulate                                                    000022 R
+ 17 _accumulate                                                    000030 R
     _bp                                                            ****** GX
   B _c                                                             00000C R
   D _deltas                                                        000000 R
- 17 _dump_peek                                                     00073B R
- 17 _dump_pop                                                      000193 R
- 17 _getchar                                                       000005 GR
- 17 _getchar_poll                                                  00000E GR
+ 17 _dump_peek                                                     000749 R
+ 17 _dump_pop                                                      0001A1 R
+ 17 _getchar                                                       000009 GR
+ 17 _getchar_poll                                                  000016 GR
   7 _giant                                                         000000 GR
- 17 _help                                                          003608 R
+ 17 _help                                                          00360F R
     _isxdigit                                                      ****** GX
- 17 _main                                                          003A31 GR
- 17 _operator                                                      0008A4 R
+ 17 _main                                                          003A38 GR
+ 17 _operator                                                      0008B2 R
     _printf                                                        ****** GX
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 8.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
- 17 _push_acc                                                      002B9E R
+ 17 _push_acc                                                      002BAC R
  17 _putchar                                                       000000 GR
- 17 _reset_acc                                                     002CC1 R
- 17 _reset_base                                                    002D2B R
+ 17 _reset_acc                                                     002CC8 R
+ 17 _reset_base                                                    002D32 R
   B _s                                                             000000 R
     _stack_init                                                    ****** GX
     _stack_iter_peek                                               ****** GX
@@ -436,7 +436,7 @@ Symbol Table
     _stack_push                                                    ****** GX
     _state_exec                                                    ****** GX
     _state_init                                                    ****** GX
- 17 _status                                                        002DA9 R
+ 17 _status                                                        002DB0 R
     _strtol                                                        ****** GX
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -515,7 +515,7 @@ Symbol Table
     ip.5                                                        =  0000BD L
     it0                                                         =  000088 L
     it1                                                         =  00008A L
- 17 nochar                                                         00001C R
+ 17 nochar                                                         000026 R
     ov                                                          =  0000D2 L
     p                                                           =  0000D0 L
     p0                                                          =  000080 L
@@ -667,7 +667,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size   3E3A   flags   20
+  17 CSEG                                       size   3E41   flags   20
   18 CONST                                      size    3AF   flags   20
   19 XINIT                                      size     AA   flags   20
   1A CABS                                       size      0   flags   28

@@ -346,10 +346,10 @@ Symbol Table
     _bp                                                            ****** GX
   D _fft                                                           000080 GR
     _fix_fftr                                                      ****** GX
- 19 _getchar                                                       000005 GR
+ 19 _getchar                                                       000009 GR
   D _ifft                                                          000100 GR
- 19 _int0                                                          00000E GR
- 19 _main                                                          00002B GR
+ 19 _int0                                                          000016 GR
+ 19 _main                                                          000033 GR
   D _main_R_65536_74                                               000180 R
   9 _print                                                         000000 R
     _printf                                                        ****** GX
@@ -601,7 +601,7 @@ Area Table
   16 GSINIT5                                    size      0   flags   20
   17 GSINIT                                     size      9   flags   20
   18 GSFINAL                                    size      3   flags   20
-  19 CSEG                                       size    281   flags   20
+  19 CSEG                                       size    289   flags   20
   1A CONST                                      size     25   flags   20
   1B XINIT                                      size      0   flags   20
   1C CABS                                       size      0   flags   28

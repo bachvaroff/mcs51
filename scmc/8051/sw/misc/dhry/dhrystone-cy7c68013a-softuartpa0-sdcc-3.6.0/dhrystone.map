@@ -77,9 +77,9 @@ C:   0000206A  s_GSFINAL
 C:   0000206A  s_GSINIT                        
 C:   0000206A  s_GSINIT5                       
 C:   0000206D  s_CSEG                          
-C:   0000248D  l_CSEG                          
-C:   000044FA  s_CONST                         
-C:   00004AC5  s_XINIT                         
+C:   00002493  l_CSEG                          
+C:   00004500  s_CONST                         
+C:   00004ACB  s_XINIT                         
 C:   00008000  s_PSEG                          
 C:   00008000  s_XSEG                          
 C:   00009527  s_XISEG                         
@@ -418,7 +418,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                0000206D    0000248D =        9357. bytes (REL,CON,CODE)
+CSEG                                0000206D    00002493 =        9363. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -435,44 +435,44 @@ C:   0000330C  _Func_1                            dhry_2
 C:   0000332C  _Func_2                            dhry_2
 C:   00003452  _Func_3                            dhry_2
 C:   00003465  _putchar                           portme
-C:   0000346A  _init                              portme
-C:   00003479  _clockinc                          portme
-C:   000034B6  _clock                             portme
-C:   000034E7  _strcpy                            _strcpy
-C:   00003540  ___fsmul                           _fsmul
-C:   000035E3  fsgetargs                          _fsget2args
-C:   00003611  ___memcpy                          __memcpy
-C:   00003685  fs_normalize_a                     _fsnormalize
-C:   000036B8  ___slong2fs                        _slong2fs
-C:   000036C1  slong2fs_doit                      _slong2fs
-C:   000036E5  ___fs2slong                        _fs2slong
-C:   00003740  fsgetarg                           _fsget1arg
-C:   00003752  __gptrput                          _gptrput
-C:   0000376D  __mulint                           _mulint
-C:   0000378D  _strcmp                            _strcmp
-C:   00003816  __divsint                          _divsint
-C:   00003888  __divuint                          _divuint
-C:   00003915  fs_round_and_return                _fsreturnval
-C:   0000392D  fs_zerocheck_return                _fsreturnval
-C:   00003936  fs_return_zero                     _fsreturnval
-C:   0000393E  fs_direct_return                   _fsreturnval
-C:   0000394C  fs_return_inf                      _fsreturnval
-C:   00003959  fs_return_nan                      _fsreturnval
-C:   00003973  _vprintf                           vprintf
-C:   000039B2  _printf                            vprintf
-C:   00003ABB  __print_format                     printf_large
-C:   000043BC  _strlen                            _strlen
-C:   000043D4  ___fsdiv                           _fsdiv
-C:   00004497  __gptrget                          _gptrget
-C:   000044B3  fs_rshift_a                        _fsrshift
-C:   000044F6  __sdcc_external_startup            _startup
+C:   0000346E  _init                              portme
+C:   0000347F  _clockinc                          portme
+C:   000034BC  _clock                             portme
+C:   000034ED  _strcpy                            _strcpy
+C:   00003546  ___fsmul                           _fsmul
+C:   000035E9  fsgetargs                          _fsget2args
+C:   00003617  ___memcpy                          __memcpy
+C:   0000368B  fs_normalize_a                     _fsnormalize
+C:   000036BE  ___slong2fs                        _slong2fs
+C:   000036C7  slong2fs_doit                      _slong2fs
+C:   000036EB  ___fs2slong                        _fs2slong
+C:   00003746  fsgetarg                           _fsget1arg
+C:   00003758  __gptrput                          _gptrput
+C:   00003773  __mulint                           _mulint
+C:   00003793  _strcmp                            _strcmp
+C:   0000381C  __divsint                          _divsint
+C:   0000388E  __divuint                          _divuint
+C:   0000391B  fs_round_and_return                _fsreturnval
+C:   00003933  fs_zerocheck_return                _fsreturnval
+C:   0000393C  fs_return_zero                     _fsreturnval
+C:   00003944  fs_direct_return                   _fsreturnval
+C:   00003952  fs_return_inf                      _fsreturnval
+C:   0000395F  fs_return_nan                      _fsreturnval
+C:   00003979  _vprintf                           vprintf
+C:   000039B8  _printf                            vprintf
+C:   00003AC1  __print_format                     printf_large
+C:   000043C2  _strlen                            _strlen
+C:   000043DA  ___fsdiv                           _fsdiv
+C:   0000449D  __gptrget                          _gptrget
+C:   000044B9  fs_rshift_a                        _fsrshift
+C:   000044FC  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               000044FA    000005CB =        1483. bytes (REL,CON,CODE)
+CONST                               00004500    000005CB =        1483. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -481,7 +481,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00004AC5    00000002 =           2. bytes (REL,CON,CODE)
+XINIT                               00004ACB    00000002 =           2. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

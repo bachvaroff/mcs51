@@ -370,7 +370,7 @@
                                     370 	.area HOME    (CODE)
       002000                        371 __interrupt_vect:
       002000 02 20 09         [24]  372 	ljmp	__sdcc_gsinit_startup
-      002003 02 20 73         [24]  373 	ljmp	_int0
+      002003 02 20 7B         [24]  373 	ljmp	_int0
                                     374 ;--------------------------------------------------------
                                     375 ; global & static initialisations
                                     376 ;--------------------------------------------------------
@@ -392,7 +392,7 @@
                                     392 	.area HOME    (CODE)
                                     393 	.area HOME    (CODE)
       002006                        394 __sdcc_program_startup:
-      002006 02 20 7F         [24]  395 	ljmp	_main
+      002006 02 20 87         [24]  395 	ljmp	_main
                                     396 ;	return from main will return to caller
                                     397 ;--------------------------------------------------------
                                     398 ; code
@@ -409,549 +409,553 @@
                                     409 ;	-----------------------------------------
       002065                        410 _putchar:
                                     411 ;	naked function: no prologue.
-                                    412 ;	crc16.c:11: __endasm;
-      002065 E5 82            [12]  413 	mov	a, dpl
-      002067 02 00 3C         [24]  414 	ljmp	0x003c
-                                    415 ;	crc16.c:12: }
-                                    416 ;	naked function: no epilogue.
-                                    417 ;------------------------------------------------------------
-                                    418 ;Allocation info for local variables in function 'getchar'
+                                    412 ;	crc16.c:13: __endasm;
+      002065 C0 E0            [24]  413 	push	acc
+      002067 E5 82            [12]  414 	mov	a, dpl
+      002069 12 00 3C         [24]  415 	lcall	0x003c
+      00206C D0 E0            [24]  416 	pop	acc
+                                    417 ;	crc16.c:14: }
+                                    418 ;	naked function: no epilogue.
                                     419 ;------------------------------------------------------------
-                                    420 ;	crc16.c:14: int getchar(void) __naked {
-                                    421 ;	-----------------------------------------
-                                    422 ;	 function getchar
+                                    420 ;Allocation info for local variables in function 'getchar'
+                                    421 ;------------------------------------------------------------
+                                    422 ;	crc16.c:16: int getchar(void) __naked {
                                     423 ;	-----------------------------------------
-      00206A                        424 _getchar:
-                                    425 ;	naked function: no prologue.
-                                    426 ;	crc16.c:20: __endasm;
-      00206A 12 00 36         [24]  427 	lcall	0x0036
-      00206D F5 82            [12]  428 	mov	dpl, a
-      00206F 75 83 00         [24]  429 	mov	dph, #0
-      002072 22               [24]  430 	ret
-                                    431 ;	crc16.c:21: }
-                                    432 ;	naked function: no epilogue.
-                                    433 ;------------------------------------------------------------
-                                    434 ;Allocation info for local variables in function 'int0'
-                                    435 ;------------------------------------------------------------
-                                    436 ;	crc16.c:44: void int0(void) __interrupt IE0_VECTOR __using 1 {
-                                    437 ;	-----------------------------------------
-                                    438 ;	 function int0
-                                    439 ;	-----------------------------------------
-      002073                        440 _int0:
-                           00000F   441 	ar7 = 0x0f
-                           00000E   442 	ar6 = 0x0e
-                           00000D   443 	ar5 = 0x0d
-                           00000C   444 	ar4 = 0x0c
-                           00000B   445 	ar3 = 0x0b
-                           00000A   446 	ar2 = 0x0a
-                           000009   447 	ar1 = 0x09
-                           000008   448 	ar0 = 0x08
-      002073 C0 D0            [24]  449 	push	psw
-      002075 75 D0 08         [24]  450 	mov	psw,#0x08
-                                    451 ;	crc16.c:45: intr = 1u;
-      002078 78 11            [12]  452 	mov	r0,#_intr
-      00207A 76 01            [12]  453 	mov	@r0,#0x01
-                                    454 ;	crc16.c:46: }
-      00207C D0 D0            [24]  455 	pop	psw
-      00207E 32               [24]  456 	reti
-                                    457 ;	eliminated unneeded push/pop dpl
-                                    458 ;	eliminated unneeded push/pop dph
-                                    459 ;	eliminated unneeded push/pop b
-                                    460 ;	eliminated unneeded push/pop acc
-                                    461 ;------------------------------------------------------------
-                                    462 ;Allocation info for local variables in function 'main'
-                                    463 ;------------------------------------------------------------
-                                    464 ;	crc16.c:55: void main(void) {
-                                    465 ;	-----------------------------------------
-                                    466 ;	 function main
-                                    467 ;	-----------------------------------------
-      00207F                        468 _main:
-                           000007   469 	ar7 = 0x07
-                           000006   470 	ar6 = 0x06
-                           000005   471 	ar5 = 0x05
-                           000004   472 	ar4 = 0x04
-                           000003   473 	ar3 = 0x03
-                           000002   474 	ar2 = 0x02
-                           000001   475 	ar1 = 0x01
-                           000000   476 	ar0 = 0x00
-                                    477 ;	crc16.c:56: intr = 0u;
-      00207F 78 11            [12]  478 	mov	r0,#_intr
-      002081 76 00            [12]  479 	mov	@r0,#0x00
-                                    480 ;	crc16.c:58: IT0 = 1;
-                                    481 ;	assignBit
-      002083 D2 88            [12]  482 	setb	_IT0
-                                    483 ;	crc16.c:59: EX0 = 1;	
-                                    484 ;	assignBit
-      002085 D2 A8            [12]  485 	setb	_EX0
-                                    486 ;	crc16.c:60: EA = 1;
-                                    487 ;	assignBit
-      002087 D2 AF            [12]  488 	setb	_EA
-                                    489 ;	crc16.c:62: while (!intr) {
-      002089                        490 00131$:
-      002089 78 11            [12]  491 	mov	r0,#_intr
-      00208B E6               [12]  492 	mov	a,@r0
-      00208C 60 03            [24]  493 	jz	00210$
-      00208E 02 22 EB         [24]  494 	ljmp	00133$
-      002091                        495 00210$:
-                                    496 ;	crc16.c:63: base = (pxd_uint8_t)0x0u;
-      002091 78 12            [12]  497 	mov	r0,#_base
-      002093 E4               [12]  498 	clr	a
-      002094 F6               [12]  499 	mov	@r0,a
-      002095 08               [12]  500 	inc	r0
-      002096 F6               [12]  501 	mov	@r0,a
-                                    502 ;	crc16.c:64: len = TLEN;
-      002097 78 16            [12]  503 	mov	r0,#_len
-      002099 76 FF            [12]  504 	mov	@r0,#0xff
-      00209B 08               [12]  505 	inc	r0
-      00209C 76 FF            [12]  506 	mov	@r0,#0xff
-                                    507 ;	crc16.c:65: printf("COMPLETE base=%p ", base);
-      00209E 78 12            [12]  508 	mov	r0,#_base
-      0020A0 86 05            [24]  509 	mov	ar5,@r0
-      0020A2 08               [12]  510 	inc	r0
-      0020A3 86 06            [24]  511 	mov	ar6,@r0
-      0020A5 7F 00            [12]  512 	mov	r7,#0x00
-      0020A7 C0 05            [24]  513 	push	ar5
-      0020A9 C0 06            [24]  514 	push	ar6
-      0020AB C0 07            [24]  515 	push	ar7
-      0020AD 74 19            [12]  516 	mov	a,#___str_0
-      0020AF C0 E0            [24]  517 	push	acc
-      0020B1 74 36            [12]  518 	mov	a,#(___str_0 >> 8)
-      0020B3 C0 E0            [24]  519 	push	acc
-      0020B5 74 80            [12]  520 	mov	a,#0x80
+                                    424 ;	 function getchar
+                                    425 ;	-----------------------------------------
+      00206E                        426 _getchar:
+                                    427 ;	naked function: no prologue.
+                                    428 ;	crc16.c:24: __endasm;
+      00206E C0 E0            [24]  429 	push	acc
+      002070 12 00 36         [24]  430 	lcall	0x0036
+      002073 F5 82            [12]  431 	mov	dpl, a
+      002075 75 83 00         [24]  432 	mov	dph, #0
+      002078 D0 E0            [24]  433 	pop	acc
+      00207A 22               [24]  434 	ret
+                                    435 ;	crc16.c:25: }
+                                    436 ;	naked function: no epilogue.
+                                    437 ;------------------------------------------------------------
+                                    438 ;Allocation info for local variables in function 'int0'
+                                    439 ;------------------------------------------------------------
+                                    440 ;	crc16.c:48: void int0(void) __interrupt IE0_VECTOR __using 1 {
+                                    441 ;	-----------------------------------------
+                                    442 ;	 function int0
+                                    443 ;	-----------------------------------------
+      00207B                        444 _int0:
+                           00000F   445 	ar7 = 0x0f
+                           00000E   446 	ar6 = 0x0e
+                           00000D   447 	ar5 = 0x0d
+                           00000C   448 	ar4 = 0x0c
+                           00000B   449 	ar3 = 0x0b
+                           00000A   450 	ar2 = 0x0a
+                           000009   451 	ar1 = 0x09
+                           000008   452 	ar0 = 0x08
+      00207B C0 D0            [24]  453 	push	psw
+      00207D 75 D0 08         [24]  454 	mov	psw,#0x08
+                                    455 ;	crc16.c:49: intr = 1u;
+      002080 78 11            [12]  456 	mov	r0,#_intr
+      002082 76 01            [12]  457 	mov	@r0,#0x01
+                                    458 ;	crc16.c:50: }
+      002084 D0 D0            [24]  459 	pop	psw
+      002086 32               [24]  460 	reti
+                                    461 ;	eliminated unneeded push/pop dpl
+                                    462 ;	eliminated unneeded push/pop dph
+                                    463 ;	eliminated unneeded push/pop b
+                                    464 ;	eliminated unneeded push/pop acc
+                                    465 ;------------------------------------------------------------
+                                    466 ;Allocation info for local variables in function 'main'
+                                    467 ;------------------------------------------------------------
+                                    468 ;	crc16.c:59: void main(void) {
+                                    469 ;	-----------------------------------------
+                                    470 ;	 function main
+                                    471 ;	-----------------------------------------
+      002087                        472 _main:
+                           000007   473 	ar7 = 0x07
+                           000006   474 	ar6 = 0x06
+                           000005   475 	ar5 = 0x05
+                           000004   476 	ar4 = 0x04
+                           000003   477 	ar3 = 0x03
+                           000002   478 	ar2 = 0x02
+                           000001   479 	ar1 = 0x01
+                           000000   480 	ar0 = 0x00
+                                    481 ;	crc16.c:60: intr = 0u;
+      002087 78 11            [12]  482 	mov	r0,#_intr
+      002089 76 00            [12]  483 	mov	@r0,#0x00
+                                    484 ;	crc16.c:62: IT0 = 1;
+                                    485 ;	assignBit
+      00208B D2 88            [12]  486 	setb	_IT0
+                                    487 ;	crc16.c:63: EX0 = 1;	
+                                    488 ;	assignBit
+      00208D D2 A8            [12]  489 	setb	_EX0
+                                    490 ;	crc16.c:64: EA = 1;
+                                    491 ;	assignBit
+      00208F D2 AF            [12]  492 	setb	_EA
+                                    493 ;	crc16.c:66: while (!intr) {
+      002091                        494 00131$:
+      002091 78 11            [12]  495 	mov	r0,#_intr
+      002093 E6               [12]  496 	mov	a,@r0
+      002094 60 03            [24]  497 	jz	00210$
+      002096 02 22 F3         [24]  498 	ljmp	00133$
+      002099                        499 00210$:
+                                    500 ;	crc16.c:67: base = (pxd_uint8_t)0x0u;
+      002099 78 12            [12]  501 	mov	r0,#_base
+      00209B E4               [12]  502 	clr	a
+      00209C F6               [12]  503 	mov	@r0,a
+      00209D 08               [12]  504 	inc	r0
+      00209E F6               [12]  505 	mov	@r0,a
+                                    506 ;	crc16.c:68: len = TLEN;
+      00209F 78 16            [12]  507 	mov	r0,#_len
+      0020A1 76 FF            [12]  508 	mov	@r0,#0xff
+      0020A3 08               [12]  509 	inc	r0
+      0020A4 76 FF            [12]  510 	mov	@r0,#0xff
+                                    511 ;	crc16.c:69: printf("COMPLETE base=%p ", base);
+      0020A6 78 12            [12]  512 	mov	r0,#_base
+      0020A8 86 05            [24]  513 	mov	ar5,@r0
+      0020AA 08               [12]  514 	inc	r0
+      0020AB 86 06            [24]  515 	mov	ar6,@r0
+      0020AD 7F 00            [12]  516 	mov	r7,#0x00
+      0020AF C0 05            [24]  517 	push	ar5
+      0020B1 C0 06            [24]  518 	push	ar6
+      0020B3 C0 07            [24]  519 	push	ar7
+      0020B5 74 21            [12]  520 	mov	a,#___str_0
       0020B7 C0 E0            [24]  521 	push	acc
-      0020B9 12 23 35         [24]  522 	lcall	_printf
-      0020BC E5 81            [12]  523 	mov	a,sp
-      0020BE 24 FA            [12]  524 	add	a,#0xfa
-      0020C0 F5 81            [12]  525 	mov	sp,a
-                                    526 ;	crc16.c:66: printf("len=0x%04x ", len);
-      0020C2 78 16            [12]  527 	mov	r0,#_len
-      0020C4 E6               [12]  528 	mov	a,@r0
-      0020C5 C0 E0            [24]  529 	push	acc
-      0020C7 08               [12]  530 	inc	r0
-      0020C8 E6               [12]  531 	mov	a,@r0
-      0020C9 C0 E0            [24]  532 	push	acc
-      0020CB 74 2B            [12]  533 	mov	a,#___str_1
-      0020CD C0 E0            [24]  534 	push	acc
-      0020CF 74 36            [12]  535 	mov	a,#(___str_1 >> 8)
+      0020B9 74 36            [12]  522 	mov	a,#(___str_0 >> 8)
+      0020BB C0 E0            [24]  523 	push	acc
+      0020BD 74 80            [12]  524 	mov	a,#0x80
+      0020BF C0 E0            [24]  525 	push	acc
+      0020C1 12 23 3D         [24]  526 	lcall	_printf
+      0020C4 E5 81            [12]  527 	mov	a,sp
+      0020C6 24 FA            [12]  528 	add	a,#0xfa
+      0020C8 F5 81            [12]  529 	mov	sp,a
+                                    530 ;	crc16.c:70: printf("len=0x%04x ", len);
+      0020CA 78 16            [12]  531 	mov	r0,#_len
+      0020CC E6               [12]  532 	mov	a,@r0
+      0020CD C0 E0            [24]  533 	push	acc
+      0020CF 08               [12]  534 	inc	r0
+      0020D0 E6               [12]  535 	mov	a,@r0
       0020D1 C0 E0            [24]  536 	push	acc
-      0020D3 74 80            [12]  537 	mov	a,#0x80
+      0020D3 74 33            [12]  537 	mov	a,#___str_1
       0020D5 C0 E0            [24]  538 	push	acc
-      0020D7 12 23 35         [24]  539 	lcall	_printf
-      0020DA E5 81            [12]  540 	mov	a,sp
-      0020DC 24 FB            [12]  541 	add	a,#0xfb
-      0020DE F5 81            [12]  542 	mov	sp,a
-                                    543 ;	crc16.c:67: CCRCB_INIT(crc);
-      0020E0 78 1A            [12]  544 	mov	r0,#_crc
-      0020E2 76 FF            [12]  545 	mov	@r0,#0xff
-      0020E4 08               [12]  546 	inc	r0
-      0020E5 76 FF            [12]  547 	mov	@r0,#0xff
-                                    548 ;	crc16.c:68: for (off = 0u; off < len; off++)
-      0020E7 78 18            [12]  549 	mov	r0,#_off
-      0020E9 E4               [12]  550 	clr	a
-      0020EA F6               [12]  551 	mov	@r0,a
-      0020EB 08               [12]  552 	inc	r0
-      0020EC F6               [12]  553 	mov	@r0,a
-      0020ED                        554 00137$:
-      0020ED 78 18            [12]  555 	mov	r0,#_off
-      0020EF 79 16            [12]  556 	mov	r1,#_len
-      0020F1 C3               [12]  557 	clr	c
-      0020F2 E6               [12]  558 	mov	a,@r0
-      0020F3 97               [12]  559 	subb	a,@r1
-      0020F4 08               [12]  560 	inc	r0
-      0020F5 E6               [12]  561 	mov	a,@r0
-      0020F6 09               [12]  562 	inc	r1
-      0020F7 97               [12]  563 	subb	a,@r1
-      0020F8 50 6F            [24]  564 	jnc	00109$
-                                    565 ;	crc16.c:69: CCRCB(crc, base[off], bitp);
-      0020FA 78 1C            [12]  566 	mov	r0,#_bitp
-      0020FC 76 80            [12]  567 	mov	@r0,#0x80
-      0020FE                        568 00134$:
-      0020FE 78 1B            [12]  569 	mov	r0,#(_crc + 1)
-      002100 E6               [12]  570 	mov	a,@r0
-      002101 23               [12]  571 	rl	a
-      002102 54 01            [12]  572 	anl	a,#0x01
-      002104 FE               [12]  573 	mov	r6,a
-      002105 7F 00            [12]  574 	mov	r7,#0x00
-      002107 78 12            [12]  575 	mov	r0,#_base
-      002109 79 18            [12]  576 	mov	r1,#_off
-      00210B E7               [12]  577 	mov	a,@r1
-      00210C 26               [12]  578 	add	a,@r0
-      00210D F5 82            [12]  579 	mov	dpl,a
-      00210F 09               [12]  580 	inc	r1
-      002110 E7               [12]  581 	mov	a,@r1
-      002111 08               [12]  582 	inc	r0
-      002112 36               [12]  583 	addc	a,@r0
-      002113 F5 83            [12]  584 	mov	dph,a
-      002115 E0               [24]  585 	movx	a,@dptr
-      002116 FD               [12]  586 	mov	r5,a
-      002117 78 1C            [12]  587 	mov	r0,#_bitp
-      002119 E6               [12]  588 	mov	a,@r0
-      00211A 52 05            [12]  589 	anl	ar5,a
-      00211C ED               [12]  590 	mov	a,r5
-      00211D B4 01 00         [24]  591 	cjne	a,#0x01,00212$
-      002120                        592 00212$:
-      002120 B3               [12]  593 	cpl	c
-      002121 92 00            [24]  594 	mov	b0,c
-      002123 E4               [12]  595 	clr	a
-      002124 33               [12]  596 	rlc	a
-      002125 FC               [12]  597 	mov	r4,a
-      002126 7D 00            [12]  598 	mov	r5,#0x00
-      002128 62 06            [12]  599 	xrl	ar6,a
-      00212A ED               [12]  600 	mov	a,r5
-      00212B 62 07            [12]  601 	xrl	ar7,a
-      00212D EE               [12]  602 	mov	a,r6
-      00212E 4F               [12]  603 	orl	a,r7
-      00212F 60 12            [24]  604 	jz	00146$
-      002131 78 1A            [12]  605 	mov	r0,#_crc
-      002133 E6               [12]  606 	mov	a,@r0
-      002134 25 E0            [12]  607 	add	a,acc
-      002136 FE               [12]  608 	mov	r6,a
-      002137 08               [12]  609 	inc	r0
-      002138 E6               [12]  610 	mov	a,@r0
-      002139 33               [12]  611 	rlc	a
-      00213A FF               [12]  612 	mov	r7,a
-      00213B 63 06 21         [24]  613 	xrl	ar6,#0x21
-      00213E 63 07 10         [24]  614 	xrl	ar7,#0x10
-      002141 80 0A            [24]  615 	sjmp	00147$
-      002143                        616 00146$:
-      002143 78 1A            [12]  617 	mov	r0,#_crc
-      002145 E6               [12]  618 	mov	a,@r0
-      002146 25 E0            [12]  619 	add	a,acc
-      002148 FE               [12]  620 	mov	r6,a
-      002149 08               [12]  621 	inc	r0
-      00214A E6               [12]  622 	mov	a,@r0
-      00214B 33               [12]  623 	rlc	a
-      00214C FF               [12]  624 	mov	r7,a
-      00214D                        625 00147$:
-      00214D 78 1A            [12]  626 	mov	r0,#_crc
-      00214F A6 06            [24]  627 	mov	@r0,ar6
-      002151 08               [12]  628 	inc	r0
-      002152 A6 07            [24]  629 	mov	@r0,ar7
-      002154 78 1C            [12]  630 	mov	r0,#_bitp
-      002156 E6               [12]  631 	mov	a,@r0
-      002157 C3               [12]  632 	clr	c
-      002158 13               [12]  633 	rrc	a
-      002159 F6               [12]  634 	mov	@r0,a
-      00215A 78 1C            [12]  635 	mov	r0,#_bitp
-      00215C E6               [12]  636 	mov	a,@r0
-      00215D 70 9F            [24]  637 	jnz	00134$
-                                    638 ;	crc16.c:68: for (off = 0u; off < len; off++)
-      00215F 78 18            [12]  639 	mov	r0,#_off
-      002161 06               [12]  640 	inc	@r0
-      002162 B6 00 02         [24]  641 	cjne	@r0,#0x00,00215$
-      002165 08               [12]  642 	inc	r0
-      002166 06               [12]  643 	inc	@r0
-      002167                        644 00215$:
-                                    645 ;	crc16.c:70: CCRCB_FINISH(crc);
-      002167 80 84            [24]  646 	sjmp	00137$
-      002169                        647 00109$:
-      002169 78 1A            [12]  648 	mov	r0,#_crc
-      00216B 86 06            [24]  649 	mov	ar6,@r0
-      00216D 08               [12]  650 	inc	r0
-      00216E 86 07            [24]  651 	mov	ar7,@r0
-      002170 78 1A            [12]  652 	mov	r0,#_crc
-      002172 A6 06            [24]  653 	mov	@r0,ar6
-      002174 08               [12]  654 	inc	r0
-      002175 A6 07            [24]  655 	mov	@r0,ar7
-                                    656 ;	crc16.c:71: printf("CRC16=0x%04x\r\n", crc);
-      002177 78 1A            [12]  657 	mov	r0,#_crc
-      002179 E6               [12]  658 	mov	a,@r0
-      00217A C0 E0            [24]  659 	push	acc
-      00217C 08               [12]  660 	inc	r0
-      00217D E6               [12]  661 	mov	a,@r0
-      00217E C0 E0            [24]  662 	push	acc
-      002180 74 37            [12]  663 	mov	a,#___str_2
-      002182 C0 E0            [24]  664 	push	acc
-      002184 74 36            [12]  665 	mov	a,#(___str_2 >> 8)
+      0020D7 74 36            [12]  539 	mov	a,#(___str_1 >> 8)
+      0020D9 C0 E0            [24]  540 	push	acc
+      0020DB 74 80            [12]  541 	mov	a,#0x80
+      0020DD C0 E0            [24]  542 	push	acc
+      0020DF 12 23 3D         [24]  543 	lcall	_printf
+      0020E2 E5 81            [12]  544 	mov	a,sp
+      0020E4 24 FB            [12]  545 	add	a,#0xfb
+      0020E6 F5 81            [12]  546 	mov	sp,a
+                                    547 ;	crc16.c:71: CCRCB_INIT(crc);
+      0020E8 78 1A            [12]  548 	mov	r0,#_crc
+      0020EA 76 FF            [12]  549 	mov	@r0,#0xff
+      0020EC 08               [12]  550 	inc	r0
+      0020ED 76 FF            [12]  551 	mov	@r0,#0xff
+                                    552 ;	crc16.c:72: for (off = 0u; off < len; off++)
+      0020EF 78 18            [12]  553 	mov	r0,#_off
+      0020F1 E4               [12]  554 	clr	a
+      0020F2 F6               [12]  555 	mov	@r0,a
+      0020F3 08               [12]  556 	inc	r0
+      0020F4 F6               [12]  557 	mov	@r0,a
+      0020F5                        558 00137$:
+      0020F5 78 18            [12]  559 	mov	r0,#_off
+      0020F7 79 16            [12]  560 	mov	r1,#_len
+      0020F9 C3               [12]  561 	clr	c
+      0020FA E6               [12]  562 	mov	a,@r0
+      0020FB 97               [12]  563 	subb	a,@r1
+      0020FC 08               [12]  564 	inc	r0
+      0020FD E6               [12]  565 	mov	a,@r0
+      0020FE 09               [12]  566 	inc	r1
+      0020FF 97               [12]  567 	subb	a,@r1
+      002100 50 6F            [24]  568 	jnc	00109$
+                                    569 ;	crc16.c:73: CCRCB(crc, base[off], bitp);
+      002102 78 1C            [12]  570 	mov	r0,#_bitp
+      002104 76 80            [12]  571 	mov	@r0,#0x80
+      002106                        572 00134$:
+      002106 78 1B            [12]  573 	mov	r0,#(_crc + 1)
+      002108 E6               [12]  574 	mov	a,@r0
+      002109 23               [12]  575 	rl	a
+      00210A 54 01            [12]  576 	anl	a,#0x01
+      00210C FE               [12]  577 	mov	r6,a
+      00210D 7F 00            [12]  578 	mov	r7,#0x00
+      00210F 78 12            [12]  579 	mov	r0,#_base
+      002111 79 18            [12]  580 	mov	r1,#_off
+      002113 E7               [12]  581 	mov	a,@r1
+      002114 26               [12]  582 	add	a,@r0
+      002115 F5 82            [12]  583 	mov	dpl,a
+      002117 09               [12]  584 	inc	r1
+      002118 E7               [12]  585 	mov	a,@r1
+      002119 08               [12]  586 	inc	r0
+      00211A 36               [12]  587 	addc	a,@r0
+      00211B F5 83            [12]  588 	mov	dph,a
+      00211D E0               [24]  589 	movx	a,@dptr
+      00211E FD               [12]  590 	mov	r5,a
+      00211F 78 1C            [12]  591 	mov	r0,#_bitp
+      002121 E6               [12]  592 	mov	a,@r0
+      002122 52 05            [12]  593 	anl	ar5,a
+      002124 ED               [12]  594 	mov	a,r5
+      002125 B4 01 00         [24]  595 	cjne	a,#0x01,00212$
+      002128                        596 00212$:
+      002128 B3               [12]  597 	cpl	c
+      002129 92 00            [24]  598 	mov	b0,c
+      00212B E4               [12]  599 	clr	a
+      00212C 33               [12]  600 	rlc	a
+      00212D FC               [12]  601 	mov	r4,a
+      00212E 7D 00            [12]  602 	mov	r5,#0x00
+      002130 62 06            [12]  603 	xrl	ar6,a
+      002132 ED               [12]  604 	mov	a,r5
+      002133 62 07            [12]  605 	xrl	ar7,a
+      002135 EE               [12]  606 	mov	a,r6
+      002136 4F               [12]  607 	orl	a,r7
+      002137 60 12            [24]  608 	jz	00146$
+      002139 78 1A            [12]  609 	mov	r0,#_crc
+      00213B E6               [12]  610 	mov	a,@r0
+      00213C 25 E0            [12]  611 	add	a,acc
+      00213E FE               [12]  612 	mov	r6,a
+      00213F 08               [12]  613 	inc	r0
+      002140 E6               [12]  614 	mov	a,@r0
+      002141 33               [12]  615 	rlc	a
+      002142 FF               [12]  616 	mov	r7,a
+      002143 63 06 21         [24]  617 	xrl	ar6,#0x21
+      002146 63 07 10         [24]  618 	xrl	ar7,#0x10
+      002149 80 0A            [24]  619 	sjmp	00147$
+      00214B                        620 00146$:
+      00214B 78 1A            [12]  621 	mov	r0,#_crc
+      00214D E6               [12]  622 	mov	a,@r0
+      00214E 25 E0            [12]  623 	add	a,acc
+      002150 FE               [12]  624 	mov	r6,a
+      002151 08               [12]  625 	inc	r0
+      002152 E6               [12]  626 	mov	a,@r0
+      002153 33               [12]  627 	rlc	a
+      002154 FF               [12]  628 	mov	r7,a
+      002155                        629 00147$:
+      002155 78 1A            [12]  630 	mov	r0,#_crc
+      002157 A6 06            [24]  631 	mov	@r0,ar6
+      002159 08               [12]  632 	inc	r0
+      00215A A6 07            [24]  633 	mov	@r0,ar7
+      00215C 78 1C            [12]  634 	mov	r0,#_bitp
+      00215E E6               [12]  635 	mov	a,@r0
+      00215F C3               [12]  636 	clr	c
+      002160 13               [12]  637 	rrc	a
+      002161 F6               [12]  638 	mov	@r0,a
+      002162 78 1C            [12]  639 	mov	r0,#_bitp
+      002164 E6               [12]  640 	mov	a,@r0
+      002165 70 9F            [24]  641 	jnz	00134$
+                                    642 ;	crc16.c:72: for (off = 0u; off < len; off++)
+      002167 78 18            [12]  643 	mov	r0,#_off
+      002169 06               [12]  644 	inc	@r0
+      00216A B6 00 02         [24]  645 	cjne	@r0,#0x00,00215$
+      00216D 08               [12]  646 	inc	r0
+      00216E 06               [12]  647 	inc	@r0
+      00216F                        648 00215$:
+                                    649 ;	crc16.c:74: CCRCB_FINISH(crc);
+      00216F 80 84            [24]  650 	sjmp	00137$
+      002171                        651 00109$:
+      002171 78 1A            [12]  652 	mov	r0,#_crc
+      002173 86 06            [24]  653 	mov	ar6,@r0
+      002175 08               [12]  654 	inc	r0
+      002176 86 07            [24]  655 	mov	ar7,@r0
+      002178 78 1A            [12]  656 	mov	r0,#_crc
+      00217A A6 06            [24]  657 	mov	@r0,ar6
+      00217C 08               [12]  658 	inc	r0
+      00217D A6 07            [24]  659 	mov	@r0,ar7
+                                    660 ;	crc16.c:75: printf("CRC16=0x%04x\r\n", crc);
+      00217F 78 1A            [12]  661 	mov	r0,#_crc
+      002181 E6               [12]  662 	mov	a,@r0
+      002182 C0 E0            [24]  663 	push	acc
+      002184 08               [12]  664 	inc	r0
+      002185 E6               [12]  665 	mov	a,@r0
       002186 C0 E0            [24]  666 	push	acc
-      002188 74 80            [12]  667 	mov	a,#0x80
+      002188 74 3F            [12]  667 	mov	a,#___str_2
       00218A C0 E0            [24]  668 	push	acc
-      00218C 12 23 35         [24]  669 	lcall	_printf
-      00218F E5 81            [12]  670 	mov	a,sp
-      002191 24 FB            [12]  671 	add	a,#0xfb
-      002193 F5 81            [12]  672 	mov	sp,a
-                                    673 ;	crc16.c:73: len = PLEN;
-      002195 78 16            [12]  674 	mov	r0,#_len
-      002197 76 00            [12]  675 	mov	@r0,#0x00
-      002199 08               [12]  676 	inc	r0
-      00219A 76 20            [12]  677 	mov	@r0,#0x20
-                                    678 ;	crc16.c:74: while (1) {
-      00219C                        679 00129$:
-                                    680 ;	crc16.c:75: printf("PARTIAL base=%p ", base);
-      00219C 78 12            [12]  681 	mov	r0,#_base
-      00219E 86 05            [24]  682 	mov	ar5,@r0
-      0021A0 08               [12]  683 	inc	r0
-      0021A1 86 06            [24]  684 	mov	ar6,@r0
-      0021A3 7F 00            [12]  685 	mov	r7,#0x00
-      0021A5 C0 05            [24]  686 	push	ar5
-      0021A7 C0 06            [24]  687 	push	ar6
-      0021A9 C0 07            [24]  688 	push	ar7
-      0021AB 74 46            [12]  689 	mov	a,#___str_3
-      0021AD C0 E0            [24]  690 	push	acc
-      0021AF 74 36            [12]  691 	mov	a,#(___str_3 >> 8)
-      0021B1 C0 E0            [24]  692 	push	acc
-      0021B3 74 80            [12]  693 	mov	a,#0x80
+      00218C 74 36            [12]  669 	mov	a,#(___str_2 >> 8)
+      00218E C0 E0            [24]  670 	push	acc
+      002190 74 80            [12]  671 	mov	a,#0x80
+      002192 C0 E0            [24]  672 	push	acc
+      002194 12 23 3D         [24]  673 	lcall	_printf
+      002197 E5 81            [12]  674 	mov	a,sp
+      002199 24 FB            [12]  675 	add	a,#0xfb
+      00219B F5 81            [12]  676 	mov	sp,a
+                                    677 ;	crc16.c:77: len = PLEN;
+      00219D 78 16            [12]  678 	mov	r0,#_len
+      00219F 76 00            [12]  679 	mov	@r0,#0x00
+      0021A1 08               [12]  680 	inc	r0
+      0021A2 76 20            [12]  681 	mov	@r0,#0x20
+                                    682 ;	crc16.c:78: while (1) {
+      0021A4                        683 00129$:
+                                    684 ;	crc16.c:79: printf("PARTIAL base=%p ", base);
+      0021A4 78 12            [12]  685 	mov	r0,#_base
+      0021A6 86 05            [24]  686 	mov	ar5,@r0
+      0021A8 08               [12]  687 	inc	r0
+      0021A9 86 06            [24]  688 	mov	ar6,@r0
+      0021AB 7F 00            [12]  689 	mov	r7,#0x00
+      0021AD C0 05            [24]  690 	push	ar5
+      0021AF C0 06            [24]  691 	push	ar6
+      0021B1 C0 07            [24]  692 	push	ar7
+      0021B3 74 4E            [12]  693 	mov	a,#___str_3
       0021B5 C0 E0            [24]  694 	push	acc
-      0021B7 12 23 35         [24]  695 	lcall	_printf
-      0021BA E5 81            [12]  696 	mov	a,sp
-      0021BC 24 FA            [12]  697 	add	a,#0xfa
-      0021BE F5 81            [12]  698 	mov	sp,a
-                                    699 ;	crc16.c:76: printf("len=0x%04x ", len);
-      0021C0 78 16            [12]  700 	mov	r0,#_len
-      0021C2 E6               [12]  701 	mov	a,@r0
-      0021C3 C0 E0            [24]  702 	push	acc
-      0021C5 08               [12]  703 	inc	r0
-      0021C6 E6               [12]  704 	mov	a,@r0
-      0021C7 C0 E0            [24]  705 	push	acc
-      0021C9 74 2B            [12]  706 	mov	a,#___str_1
-      0021CB C0 E0            [24]  707 	push	acc
-      0021CD 74 36            [12]  708 	mov	a,#(___str_1 >> 8)
+      0021B7 74 36            [12]  695 	mov	a,#(___str_3 >> 8)
+      0021B9 C0 E0            [24]  696 	push	acc
+      0021BB 74 80            [12]  697 	mov	a,#0x80
+      0021BD C0 E0            [24]  698 	push	acc
+      0021BF 12 23 3D         [24]  699 	lcall	_printf
+      0021C2 E5 81            [12]  700 	mov	a,sp
+      0021C4 24 FA            [12]  701 	add	a,#0xfa
+      0021C6 F5 81            [12]  702 	mov	sp,a
+                                    703 ;	crc16.c:80: printf("len=0x%04x ", len);
+      0021C8 78 16            [12]  704 	mov	r0,#_len
+      0021CA E6               [12]  705 	mov	a,@r0
+      0021CB C0 E0            [24]  706 	push	acc
+      0021CD 08               [12]  707 	inc	r0
+      0021CE E6               [12]  708 	mov	a,@r0
       0021CF C0 E0            [24]  709 	push	acc
-      0021D1 74 80            [12]  710 	mov	a,#0x80
+      0021D1 74 33            [12]  710 	mov	a,#___str_1
       0021D3 C0 E0            [24]  711 	push	acc
-      0021D5 12 23 35         [24]  712 	lcall	_printf
-      0021D8 E5 81            [12]  713 	mov	a,sp
-      0021DA 24 FB            [12]  714 	add	a,#0xfb
-      0021DC F5 81            [12]  715 	mov	sp,a
-                                    716 ;	crc16.c:77: CCRCB_INIT(crc);
-      0021DE 78 1A            [12]  717 	mov	r0,#_crc
-      0021E0 76 FF            [12]  718 	mov	@r0,#0xff
-      0021E2 08               [12]  719 	inc	r0
-      0021E3 76 FF            [12]  720 	mov	@r0,#0xff
-                                    721 ;	crc16.c:78: for (off = 0u; off < len; off++)
-      0021E5 78 18            [12]  722 	mov	r0,#_off
-      0021E7 E4               [12]  723 	clr	a
-      0021E8 F6               [12]  724 	mov	@r0,a
-      0021E9 08               [12]  725 	inc	r0
-      0021EA F6               [12]  726 	mov	@r0,a
-      0021EB                        727 00142$:
-      0021EB 78 18            [12]  728 	mov	r0,#_off
-      0021ED 79 16            [12]  729 	mov	r1,#_len
-      0021EF C3               [12]  730 	clr	c
-      0021F0 E6               [12]  731 	mov	a,@r0
-      0021F1 97               [12]  732 	subb	a,@r1
-      0021F2 08               [12]  733 	inc	r0
-      0021F3 E6               [12]  734 	mov	a,@r0
-      0021F4 09               [12]  735 	inc	r1
-      0021F5 97               [12]  736 	subb	a,@r1
-      0021F6 50 6F            [24]  737 	jnc	00120$
-                                    738 ;	crc16.c:79: CCRCB(crc, base[off], bitp);
-      0021F8 78 1C            [12]  739 	mov	r0,#_bitp
-      0021FA 76 80            [12]  740 	mov	@r0,#0x80
-      0021FC                        741 00139$:
-      0021FC 78 1B            [12]  742 	mov	r0,#(_crc + 1)
-      0021FE E6               [12]  743 	mov	a,@r0
-      0021FF 23               [12]  744 	rl	a
-      002200 54 01            [12]  745 	anl	a,#0x01
-      002202 FE               [12]  746 	mov	r6,a
-      002203 7F 00            [12]  747 	mov	r7,#0x00
-      002205 78 12            [12]  748 	mov	r0,#_base
-      002207 79 18            [12]  749 	mov	r1,#_off
-      002209 E7               [12]  750 	mov	a,@r1
-      00220A 26               [12]  751 	add	a,@r0
-      00220B F5 82            [12]  752 	mov	dpl,a
-      00220D 09               [12]  753 	inc	r1
-      00220E E7               [12]  754 	mov	a,@r1
-      00220F 08               [12]  755 	inc	r0
-      002210 36               [12]  756 	addc	a,@r0
-      002211 F5 83            [12]  757 	mov	dph,a
-      002213 E0               [24]  758 	movx	a,@dptr
-      002214 FD               [12]  759 	mov	r5,a
-      002215 78 1C            [12]  760 	mov	r0,#_bitp
-      002217 E6               [12]  761 	mov	a,@r0
-      002218 52 05            [12]  762 	anl	ar5,a
-      00221A ED               [12]  763 	mov	a,r5
-      00221B B4 01 00         [24]  764 	cjne	a,#0x01,00217$
-      00221E                        765 00217$:
-      00221E B3               [12]  766 	cpl	c
-      00221F 92 00            [24]  767 	mov	b0,c
-      002221 E4               [12]  768 	clr	a
-      002222 33               [12]  769 	rlc	a
-      002223 FC               [12]  770 	mov	r4,a
-      002224 7D 00            [12]  771 	mov	r5,#0x00
-      002226 62 06            [12]  772 	xrl	ar6,a
-      002228 ED               [12]  773 	mov	a,r5
-      002229 62 07            [12]  774 	xrl	ar7,a
-      00222B EE               [12]  775 	mov	a,r6
-      00222C 4F               [12]  776 	orl	a,r7
-      00222D 60 12            [24]  777 	jz	00148$
-      00222F 78 1A            [12]  778 	mov	r0,#_crc
-      002231 E6               [12]  779 	mov	a,@r0
-      002232 25 E0            [12]  780 	add	a,acc
-      002234 FE               [12]  781 	mov	r6,a
-      002235 08               [12]  782 	inc	r0
-      002236 E6               [12]  783 	mov	a,@r0
-      002237 33               [12]  784 	rlc	a
-      002238 FF               [12]  785 	mov	r7,a
-      002239 63 06 21         [24]  786 	xrl	ar6,#0x21
-      00223C 63 07 10         [24]  787 	xrl	ar7,#0x10
-      00223F 80 0A            [24]  788 	sjmp	00149$
-      002241                        789 00148$:
-      002241 78 1A            [12]  790 	mov	r0,#_crc
-      002243 E6               [12]  791 	mov	a,@r0
-      002244 25 E0            [12]  792 	add	a,acc
-      002246 FE               [12]  793 	mov	r6,a
-      002247 08               [12]  794 	inc	r0
-      002248 E6               [12]  795 	mov	a,@r0
-      002249 33               [12]  796 	rlc	a
-      00224A FF               [12]  797 	mov	r7,a
-      00224B                        798 00149$:
-      00224B 78 1A            [12]  799 	mov	r0,#_crc
-      00224D A6 06            [24]  800 	mov	@r0,ar6
-      00224F 08               [12]  801 	inc	r0
-      002250 A6 07            [24]  802 	mov	@r0,ar7
-      002252 78 1C            [12]  803 	mov	r0,#_bitp
-      002254 E6               [12]  804 	mov	a,@r0
-      002255 C3               [12]  805 	clr	c
-      002256 13               [12]  806 	rrc	a
-      002257 F6               [12]  807 	mov	@r0,a
-      002258 78 1C            [12]  808 	mov	r0,#_bitp
-      00225A E6               [12]  809 	mov	a,@r0
-      00225B 70 9F            [24]  810 	jnz	00139$
-                                    811 ;	crc16.c:78: for (off = 0u; off < len; off++)
-      00225D 78 18            [12]  812 	mov	r0,#_off
-      00225F 06               [12]  813 	inc	@r0
-      002260 B6 00 02         [24]  814 	cjne	@r0,#0x00,00220$
-      002263 08               [12]  815 	inc	r0
-      002264 06               [12]  816 	inc	@r0
-      002265                        817 00220$:
-                                    818 ;	crc16.c:80: CCRCB_FINISH(crc);
-      002265 80 84            [24]  819 	sjmp	00142$
-      002267                        820 00120$:
-      002267 78 1A            [12]  821 	mov	r0,#_crc
-      002269 86 06            [24]  822 	mov	ar6,@r0
-      00226B 08               [12]  823 	inc	r0
-      00226C 86 07            [24]  824 	mov	ar7,@r0
-      00226E 78 1A            [12]  825 	mov	r0,#_crc
-      002270 A6 06            [24]  826 	mov	@r0,ar6
-      002272 08               [12]  827 	inc	r0
-      002273 A6 07            [24]  828 	mov	@r0,ar7
-                                    829 ;	crc16.c:81: printf("CRC16=0x%04x\r\n", crc);
-      002275 78 1A            [12]  830 	mov	r0,#_crc
-      002277 E6               [12]  831 	mov	a,@r0
-      002278 C0 E0            [24]  832 	push	acc
-      00227A 08               [12]  833 	inc	r0
-      00227B E6               [12]  834 	mov	a,@r0
-      00227C C0 E0            [24]  835 	push	acc
-      00227E 74 37            [12]  836 	mov	a,#___str_2
-      002280 C0 E0            [24]  837 	push	acc
-      002282 74 36            [12]  838 	mov	a,#(___str_2 >> 8)
+      0021D5 74 36            [12]  712 	mov	a,#(___str_1 >> 8)
+      0021D7 C0 E0            [24]  713 	push	acc
+      0021D9 74 80            [12]  714 	mov	a,#0x80
+      0021DB C0 E0            [24]  715 	push	acc
+      0021DD 12 23 3D         [24]  716 	lcall	_printf
+      0021E0 E5 81            [12]  717 	mov	a,sp
+      0021E2 24 FB            [12]  718 	add	a,#0xfb
+      0021E4 F5 81            [12]  719 	mov	sp,a
+                                    720 ;	crc16.c:81: CCRCB_INIT(crc);
+      0021E6 78 1A            [12]  721 	mov	r0,#_crc
+      0021E8 76 FF            [12]  722 	mov	@r0,#0xff
+      0021EA 08               [12]  723 	inc	r0
+      0021EB 76 FF            [12]  724 	mov	@r0,#0xff
+                                    725 ;	crc16.c:82: for (off = 0u; off < len; off++)
+      0021ED 78 18            [12]  726 	mov	r0,#_off
+      0021EF E4               [12]  727 	clr	a
+      0021F0 F6               [12]  728 	mov	@r0,a
+      0021F1 08               [12]  729 	inc	r0
+      0021F2 F6               [12]  730 	mov	@r0,a
+      0021F3                        731 00142$:
+      0021F3 78 18            [12]  732 	mov	r0,#_off
+      0021F5 79 16            [12]  733 	mov	r1,#_len
+      0021F7 C3               [12]  734 	clr	c
+      0021F8 E6               [12]  735 	mov	a,@r0
+      0021F9 97               [12]  736 	subb	a,@r1
+      0021FA 08               [12]  737 	inc	r0
+      0021FB E6               [12]  738 	mov	a,@r0
+      0021FC 09               [12]  739 	inc	r1
+      0021FD 97               [12]  740 	subb	a,@r1
+      0021FE 50 6F            [24]  741 	jnc	00120$
+                                    742 ;	crc16.c:83: CCRCB(crc, base[off], bitp);
+      002200 78 1C            [12]  743 	mov	r0,#_bitp
+      002202 76 80            [12]  744 	mov	@r0,#0x80
+      002204                        745 00139$:
+      002204 78 1B            [12]  746 	mov	r0,#(_crc + 1)
+      002206 E6               [12]  747 	mov	a,@r0
+      002207 23               [12]  748 	rl	a
+      002208 54 01            [12]  749 	anl	a,#0x01
+      00220A FE               [12]  750 	mov	r6,a
+      00220B 7F 00            [12]  751 	mov	r7,#0x00
+      00220D 78 12            [12]  752 	mov	r0,#_base
+      00220F 79 18            [12]  753 	mov	r1,#_off
+      002211 E7               [12]  754 	mov	a,@r1
+      002212 26               [12]  755 	add	a,@r0
+      002213 F5 82            [12]  756 	mov	dpl,a
+      002215 09               [12]  757 	inc	r1
+      002216 E7               [12]  758 	mov	a,@r1
+      002217 08               [12]  759 	inc	r0
+      002218 36               [12]  760 	addc	a,@r0
+      002219 F5 83            [12]  761 	mov	dph,a
+      00221B E0               [24]  762 	movx	a,@dptr
+      00221C FD               [12]  763 	mov	r5,a
+      00221D 78 1C            [12]  764 	mov	r0,#_bitp
+      00221F E6               [12]  765 	mov	a,@r0
+      002220 52 05            [12]  766 	anl	ar5,a
+      002222 ED               [12]  767 	mov	a,r5
+      002223 B4 01 00         [24]  768 	cjne	a,#0x01,00217$
+      002226                        769 00217$:
+      002226 B3               [12]  770 	cpl	c
+      002227 92 00            [24]  771 	mov	b0,c
+      002229 E4               [12]  772 	clr	a
+      00222A 33               [12]  773 	rlc	a
+      00222B FC               [12]  774 	mov	r4,a
+      00222C 7D 00            [12]  775 	mov	r5,#0x00
+      00222E 62 06            [12]  776 	xrl	ar6,a
+      002230 ED               [12]  777 	mov	a,r5
+      002231 62 07            [12]  778 	xrl	ar7,a
+      002233 EE               [12]  779 	mov	a,r6
+      002234 4F               [12]  780 	orl	a,r7
+      002235 60 12            [24]  781 	jz	00148$
+      002237 78 1A            [12]  782 	mov	r0,#_crc
+      002239 E6               [12]  783 	mov	a,@r0
+      00223A 25 E0            [12]  784 	add	a,acc
+      00223C FE               [12]  785 	mov	r6,a
+      00223D 08               [12]  786 	inc	r0
+      00223E E6               [12]  787 	mov	a,@r0
+      00223F 33               [12]  788 	rlc	a
+      002240 FF               [12]  789 	mov	r7,a
+      002241 63 06 21         [24]  790 	xrl	ar6,#0x21
+      002244 63 07 10         [24]  791 	xrl	ar7,#0x10
+      002247 80 0A            [24]  792 	sjmp	00149$
+      002249                        793 00148$:
+      002249 78 1A            [12]  794 	mov	r0,#_crc
+      00224B E6               [12]  795 	mov	a,@r0
+      00224C 25 E0            [12]  796 	add	a,acc
+      00224E FE               [12]  797 	mov	r6,a
+      00224F 08               [12]  798 	inc	r0
+      002250 E6               [12]  799 	mov	a,@r0
+      002251 33               [12]  800 	rlc	a
+      002252 FF               [12]  801 	mov	r7,a
+      002253                        802 00149$:
+      002253 78 1A            [12]  803 	mov	r0,#_crc
+      002255 A6 06            [24]  804 	mov	@r0,ar6
+      002257 08               [12]  805 	inc	r0
+      002258 A6 07            [24]  806 	mov	@r0,ar7
+      00225A 78 1C            [12]  807 	mov	r0,#_bitp
+      00225C E6               [12]  808 	mov	a,@r0
+      00225D C3               [12]  809 	clr	c
+      00225E 13               [12]  810 	rrc	a
+      00225F F6               [12]  811 	mov	@r0,a
+      002260 78 1C            [12]  812 	mov	r0,#_bitp
+      002262 E6               [12]  813 	mov	a,@r0
+      002263 70 9F            [24]  814 	jnz	00139$
+                                    815 ;	crc16.c:82: for (off = 0u; off < len; off++)
+      002265 78 18            [12]  816 	mov	r0,#_off
+      002267 06               [12]  817 	inc	@r0
+      002268 B6 00 02         [24]  818 	cjne	@r0,#0x00,00220$
+      00226B 08               [12]  819 	inc	r0
+      00226C 06               [12]  820 	inc	@r0
+      00226D                        821 00220$:
+                                    822 ;	crc16.c:84: CCRCB_FINISH(crc);
+      00226D 80 84            [24]  823 	sjmp	00142$
+      00226F                        824 00120$:
+      00226F 78 1A            [12]  825 	mov	r0,#_crc
+      002271 86 06            [24]  826 	mov	ar6,@r0
+      002273 08               [12]  827 	inc	r0
+      002274 86 07            [24]  828 	mov	ar7,@r0
+      002276 78 1A            [12]  829 	mov	r0,#_crc
+      002278 A6 06            [24]  830 	mov	@r0,ar6
+      00227A 08               [12]  831 	inc	r0
+      00227B A6 07            [24]  832 	mov	@r0,ar7
+                                    833 ;	crc16.c:85: printf("CRC16=0x%04x\r\n", crc);
+      00227D 78 1A            [12]  834 	mov	r0,#_crc
+      00227F E6               [12]  835 	mov	a,@r0
+      002280 C0 E0            [24]  836 	push	acc
+      002282 08               [12]  837 	inc	r0
+      002283 E6               [12]  838 	mov	a,@r0
       002284 C0 E0            [24]  839 	push	acc
-      002286 74 80            [12]  840 	mov	a,#0x80
+      002286 74 3F            [12]  840 	mov	a,#___str_2
       002288 C0 E0            [24]  841 	push	acc
-      00228A 12 23 35         [24]  842 	lcall	_printf
-      00228D E5 81            [12]  843 	mov	a,sp
-      00228F 24 FB            [12]  844 	add	a,#0xfb
-      002291 F5 81            [12]  845 	mov	sp,a
-                                    846 ;	crc16.c:83: if (intr) {
-      002293 78 11            [12]  847 	mov	r0,#_intr
-      002295 E6               [12]  848 	mov	a,@r0
-      002296 60 1A            [24]  849 	jz	00124$
-                                    850 ;	crc16.c:84: EA = 0;
-                                    851 ;	assignBit
-      002298 C2 AF            [12]  852 	clr	_EA
-                                    853 ;	crc16.c:85: printf("interrupted\n");
-      00229A 74 57            [12]  854 	mov	a,#___str_4
-      00229C C0 E0            [24]  855 	push	acc
-      00229E 74 36            [12]  856 	mov	a,#(___str_4 >> 8)
-      0022A0 C0 E0            [24]  857 	push	acc
-      0022A2 74 80            [12]  858 	mov	a,#0x80
+      00228A 74 36            [12]  842 	mov	a,#(___str_2 >> 8)
+      00228C C0 E0            [24]  843 	push	acc
+      00228E 74 80            [12]  844 	mov	a,#0x80
+      002290 C0 E0            [24]  845 	push	acc
+      002292 12 23 3D         [24]  846 	lcall	_printf
+      002295 E5 81            [12]  847 	mov	a,sp
+      002297 24 FB            [12]  848 	add	a,#0xfb
+      002299 F5 81            [12]  849 	mov	sp,a
+                                    850 ;	crc16.c:87: if (intr) {
+      00229B 78 11            [12]  851 	mov	r0,#_intr
+      00229D E6               [12]  852 	mov	a,@r0
+      00229E 60 1A            [24]  853 	jz	00124$
+                                    854 ;	crc16.c:88: EA = 0;
+                                    855 ;	assignBit
+      0022A0 C2 AF            [12]  856 	clr	_EA
+                                    857 ;	crc16.c:89: printf("interrupted\n");
+      0022A2 74 5F            [12]  858 	mov	a,#___str_4
       0022A4 C0 E0            [24]  859 	push	acc
-      0022A6 12 23 35         [24]  860 	lcall	_printf
-      0022A9 15 81            [12]  861 	dec	sp
-      0022AB 15 81            [12]  862 	dec	sp
-      0022AD 15 81            [12]  863 	dec	sp
-                                    864 ;	crc16.c:86: break;
-      0022AF 02 20 89         [24]  865 	ljmp	00131$
-      0022B2                        866 00124$:
-                                    867 ;	crc16.c:89: t = base + (len >> 1);
-      0022B2 78 16            [12]  868 	mov	r0,#_len
-      0022B4 86 06            [24]  869 	mov	ar6,@r0
-      0022B6 08               [12]  870 	inc	r0
-      0022B7 E6               [12]  871 	mov	a,@r0
-      0022B8 C3               [12]  872 	clr	c
-      0022B9 13               [12]  873 	rrc	a
-      0022BA CE               [12]  874 	xch	a,r6
-      0022BB 13               [12]  875 	rrc	a
-      0022BC CE               [12]  876 	xch	a,r6
-      0022BD FF               [12]  877 	mov	r7,a
-      0022BE 78 12            [12]  878 	mov	r0,#_base
-      0022C0 EE               [12]  879 	mov	a,r6
-      0022C1 26               [12]  880 	add	a,@r0
-      0022C2 FE               [12]  881 	mov	r6,a
-      0022C3 EF               [12]  882 	mov	a,r7
-      0022C4 08               [12]  883 	inc	r0
-      0022C5 36               [12]  884 	addc	a,@r0
-      0022C6 FF               [12]  885 	mov	r7,a
-      0022C7 78 14            [12]  886 	mov	r0,#_t
-      0022C9 A6 06            [24]  887 	mov	@r0,ar6
-      0022CB 08               [12]  888 	inc	r0
-      0022CC A6 07            [24]  889 	mov	@r0,ar7
-                                    890 ;	crc16.c:90: if (t < base) break;
-      0022CE 78 14            [12]  891 	mov	r0,#_t
-      0022D0 79 12            [12]  892 	mov	r1,#_base
-      0022D2 C3               [12]  893 	clr	c
-      0022D3 E6               [12]  894 	mov	a,@r0
-      0022D4 97               [12]  895 	subb	a,@r1
-      0022D5 08               [12]  896 	inc	r0
-      0022D6 E6               [12]  897 	mov	a,@r0
-      0022D7 09               [12]  898 	inc	r1
-      0022D8 97               [12]  899 	subb	a,@r1
-      0022D9 50 03            [24]  900 	jnc	00222$
-      0022DB 02 20 89         [24]  901 	ljmp	00131$
-      0022DE                        902 00222$:
-                                    903 ;	crc16.c:91: else base = t;
-      0022DE 78 14            [12]  904 	mov	r0,#_t
-      0022E0 79 12            [12]  905 	mov	r1,#_base
-      0022E2 E6               [12]  906 	mov	a,@r0
-      0022E3 F7               [12]  907 	mov	@r1,a
-      0022E4 08               [12]  908 	inc	r0
-      0022E5 09               [12]  909 	inc	r1
-      0022E6 E6               [12]  910 	mov	a,@r0
-      0022E7 F7               [12]  911 	mov	@r1,a
-      0022E8 02 21 9C         [24]  912 	ljmp	00129$
-      0022EB                        913 00133$:
-                                    914 ;	crc16.c:95: PCON |= 2;
-      0022EB 43 87 02         [24]  915 	orl	_PCON,#0x02
-                                    916 ;	crc16.c:97: return;
-                                    917 ;	crc16.c:98: }
-      0022EE 22               [24]  918 	ret
-                                    919 	.area CSEG    (CODE)
-                                    920 	.area CONST   (CODE)
-                                    921 	.area CONST   (CODE)
-      003619                        922 ___str_0:
-      003619 43 4F 4D 50 4C 45 54   923 	.ascii "COMPLETE base=%p "
+      0022A6 74 36            [12]  860 	mov	a,#(___str_4 >> 8)
+      0022A8 C0 E0            [24]  861 	push	acc
+      0022AA 74 80            [12]  862 	mov	a,#0x80
+      0022AC C0 E0            [24]  863 	push	acc
+      0022AE 12 23 3D         [24]  864 	lcall	_printf
+      0022B1 15 81            [12]  865 	dec	sp
+      0022B3 15 81            [12]  866 	dec	sp
+      0022B5 15 81            [12]  867 	dec	sp
+                                    868 ;	crc16.c:90: break;
+      0022B7 02 20 91         [24]  869 	ljmp	00131$
+      0022BA                        870 00124$:
+                                    871 ;	crc16.c:93: t = base + (len >> 1);
+      0022BA 78 16            [12]  872 	mov	r0,#_len
+      0022BC 86 06            [24]  873 	mov	ar6,@r0
+      0022BE 08               [12]  874 	inc	r0
+      0022BF E6               [12]  875 	mov	a,@r0
+      0022C0 C3               [12]  876 	clr	c
+      0022C1 13               [12]  877 	rrc	a
+      0022C2 CE               [12]  878 	xch	a,r6
+      0022C3 13               [12]  879 	rrc	a
+      0022C4 CE               [12]  880 	xch	a,r6
+      0022C5 FF               [12]  881 	mov	r7,a
+      0022C6 78 12            [12]  882 	mov	r0,#_base
+      0022C8 EE               [12]  883 	mov	a,r6
+      0022C9 26               [12]  884 	add	a,@r0
+      0022CA FE               [12]  885 	mov	r6,a
+      0022CB EF               [12]  886 	mov	a,r7
+      0022CC 08               [12]  887 	inc	r0
+      0022CD 36               [12]  888 	addc	a,@r0
+      0022CE FF               [12]  889 	mov	r7,a
+      0022CF 78 14            [12]  890 	mov	r0,#_t
+      0022D1 A6 06            [24]  891 	mov	@r0,ar6
+      0022D3 08               [12]  892 	inc	r0
+      0022D4 A6 07            [24]  893 	mov	@r0,ar7
+                                    894 ;	crc16.c:94: if (t < base) break;
+      0022D6 78 14            [12]  895 	mov	r0,#_t
+      0022D8 79 12            [12]  896 	mov	r1,#_base
+      0022DA C3               [12]  897 	clr	c
+      0022DB E6               [12]  898 	mov	a,@r0
+      0022DC 97               [12]  899 	subb	a,@r1
+      0022DD 08               [12]  900 	inc	r0
+      0022DE E6               [12]  901 	mov	a,@r0
+      0022DF 09               [12]  902 	inc	r1
+      0022E0 97               [12]  903 	subb	a,@r1
+      0022E1 50 03            [24]  904 	jnc	00222$
+      0022E3 02 20 91         [24]  905 	ljmp	00131$
+      0022E6                        906 00222$:
+                                    907 ;	crc16.c:95: else base = t;
+      0022E6 78 14            [12]  908 	mov	r0,#_t
+      0022E8 79 12            [12]  909 	mov	r1,#_base
+      0022EA E6               [12]  910 	mov	a,@r0
+      0022EB F7               [12]  911 	mov	@r1,a
+      0022EC 08               [12]  912 	inc	r0
+      0022ED 09               [12]  913 	inc	r1
+      0022EE E6               [12]  914 	mov	a,@r0
+      0022EF F7               [12]  915 	mov	@r1,a
+      0022F0 02 21 A4         [24]  916 	ljmp	00129$
+      0022F3                        917 00133$:
+                                    918 ;	crc16.c:99: PCON |= 2;
+      0022F3 43 87 02         [24]  919 	orl	_PCON,#0x02
+                                    920 ;	crc16.c:101: return;
+                                    921 ;	crc16.c:102: }
+      0022F6 22               [24]  922 	ret
+                                    923 	.area CSEG    (CODE)
+                                    924 	.area CONST   (CODE)
+                                    925 	.area CONST   (CODE)
+      003621                        926 ___str_0:
+      003621 43 4F 4D 50 4C 45 54   927 	.ascii "COMPLETE base=%p "
              45 20 62 61 73 65 3D
              25 70 20
-      00362A 00                     924 	.db 0x00
-                                    925 	.area CSEG    (CODE)
-                                    926 	.area CONST   (CODE)
-      00362B                        927 ___str_1:
-      00362B 6C 65 6E 3D 30 78 25   928 	.ascii "len=0x%04x "
+      003632 00                     928 	.db 0x00
+                                    929 	.area CSEG    (CODE)
+                                    930 	.area CONST   (CODE)
+      003633                        931 ___str_1:
+      003633 6C 65 6E 3D 30 78 25   932 	.ascii "len=0x%04x "
              30 34 78 20
-      003636 00                     929 	.db 0x00
-                                    930 	.area CSEG    (CODE)
-                                    931 	.area CONST   (CODE)
-      003637                        932 ___str_2:
-      003637 43 52 43 31 36 3D 30   933 	.ascii "CRC16=0x%04x"
+      00363E 00                     933 	.db 0x00
+                                    934 	.area CSEG    (CODE)
+                                    935 	.area CONST   (CODE)
+      00363F                        936 ___str_2:
+      00363F 43 52 43 31 36 3D 30   937 	.ascii "CRC16=0x%04x"
              78 25 30 34 78
-      003643 0D                     934 	.db 0x0d
-      003644 0A                     935 	.db 0x0a
-      003645 00                     936 	.db 0x00
-                                    937 	.area CSEG    (CODE)
-                                    938 	.area CONST   (CODE)
-      003646                        939 ___str_3:
-      003646 50 41 52 54 49 41 4C   940 	.ascii "PARTIAL base=%p "
+      00364B 0D                     938 	.db 0x0d
+      00364C 0A                     939 	.db 0x0a
+      00364D 00                     940 	.db 0x00
+                                    941 	.area CSEG    (CODE)
+                                    942 	.area CONST   (CODE)
+      00364E                        943 ___str_3:
+      00364E 50 41 52 54 49 41 4C   944 	.ascii "PARTIAL base=%p "
              20 62 61 73 65 3D 25
              70 20
-      003656 00                     941 	.db 0x00
-                                    942 	.area CSEG    (CODE)
-                                    943 	.area CONST   (CODE)
-      003657                        944 ___str_4:
-      003657 69 6E 74 65 72 72 75   945 	.ascii "interrupted"
+      00365E 00                     945 	.db 0x00
+                                    946 	.area CSEG    (CODE)
+                                    947 	.area CONST   (CODE)
+      00365F                        948 ___str_4:
+      00365F 69 6E 74 65 72 72 75   949 	.ascii "interrupted"
              70 74 65 64
-      003662 0A                     946 	.db 0x0a
-      003663 00                     947 	.db 0x00
-                                    948 	.area CSEG    (CODE)
-                                    949 	.area XINIT   (CODE)
-                                    950 	.area CABS    (ABS,CODE)
+      00366A 0A                     950 	.db 0x0a
+      00366B 00                     951 	.db 0x00
+                                    952 	.area CSEG    (CODE)
+                                    953 	.area XINIT   (CODE)
+                                    954 	.area CABS    (ABS,CODE)
