@@ -1,0 +1,20 @@
+2000:              .org     0x2000
+2000:              .equ     DPS, 0x86
+                   
+                   main:
+2000: 75 86 01              MOV DPS,#01h    ;Make sure were on DPTR1
+2003: 90 20 00              MOV DPTR,#2000h ;Load the destination address into 
+2006: 15 86                 DEC DPS            ;Now DPS=0, so weve selected the
+2008: 90 10 00              MOV DPTR,#1000h ;Load the source address into DPTR
+200B: 78 40                 MOV R0,#64      ;Set our character counter
+                   LOOP:
+200D: E0                    MOVX A,@DPTR    ;Read the source byte 2 cycles
+200E: A3                    INC DPTR          ;Increment the source pointer 3 c
+200F: 05 86                 INC DPS            ;Now DPS=1 so were using DPTR1 2
+2011: F0                    MOVX @DPTR,A    ;Write the value to the destination
+2012: A3                    INC DPTR          ;Increment the destination pointe
+2013: 15 86                 DEC DPS            ;Now DPS=0 so were using DPTR 2 
+2015: D8 F6                 DJNZ R0,LOOP    ;Copy until R0=0 3 cycles       
+                   
+2017: 02 00 00              ljmp    0x0000
+                            

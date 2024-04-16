@@ -1,0 +1,38 @@
+0000:              .equ     cin, 0x0036
+0000:              .equ     cout, 0x003c
+0000:              .equ     phex, 0x003f
+0000:              .equ     phex16, 0x0045
+0000:              .equ     crlf, 0x0057
+                   
+2000:              .org     0x2000
+                   
+                   main:
+2000: C2 97                 clr     p1.7
+                            
+2002: 74 F0                 mov     a, #0xf0
+2004: F5 A0                 mov     p2, a
+                   
+2006: 78 04                 mov     r0, #0x04
+2008: 79 05                 mov     r1, #0x05
+                            
+200A: E4                    clr     a
+200B: F2                    movx    @r0, a
+200C: F3                    movx    @r1, a
+                            
+200D: 78 06                 mov     r0, #0x06
+200F: 74 CF                 mov     a, #0xcf
+2011: F2                    movx    @r0, a
+                            
+2012: 78 04                 mov     r0, #0x04
+                            
+2014: E4                    clr     a
+                   loop:
+2015: 64 80                 xrl     a, #0x80
+2017: F2                    movx    @r0, a
+                   ;        xrl     a, #0x80
+2018: F3                    movx    @r1, a
+                   ;        xrl     a, #0x80
+2019: 80 FA                 sjmp    loop
+                            
+201B: 02 00 00              ljmp    0x0000
+                            

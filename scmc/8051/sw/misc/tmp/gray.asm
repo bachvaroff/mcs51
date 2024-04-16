@@ -1,8 +1,8 @@
-.equ	cin, 0x0032
-.equ	cout, 0x0030
-.equ	phex, 0x0034
-.equ	phex16, 0x0036
-.equ	nl, 0x0048
+.equ	cin, 0x0036
+.equ	cout, 0x003c
+.equ	phex, 0x003f
+.equ	phex16, 0x0045
+.equ	crlf, 0x0057
 
 .org	0x2000
 
@@ -29,7 +29,7 @@ next:
 	acall	gdec
 	lcall	phex
 	
-	lcall	nl
+	lcall	crlf
 	
 	inc	r7
 	cjne	r7, #0, next

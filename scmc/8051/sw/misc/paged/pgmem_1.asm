@@ -2,7 +2,7 @@
 .equ	cout, 0x003c
 .equ	phex, 0x003f
 .equ	phex16, 0x0045
-.equ	nl, 0x0054
+.equ	crlf, 0x0057
 
 .org	0x4000
 
@@ -30,7 +30,7 @@ test:
 	mov	r6, #0x00
 	mov	r7, #0x20
 	acall	test_page
-	lcall	nl
+	lcall	crlf
 	lcall	cin
 ;--------------------------------
 	orl	pcon, #2
@@ -71,7 +71,7 @@ dumpb:
 	mov	a, dpl
 	anl	a, #0x1f
 	jnz	print_sp
-	lcall	nl
+	lcall	crlf
 	sjmp	next
 print_sp:
 	mov	a, #' '

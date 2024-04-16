@@ -1,6 +1,6 @@
 .equ	cin, 0x0036
 .equ	phex16, 0x0045
-.equ	nl, 0x0054
+.equ	crlf, 0x0057
 
 .equ	initial_l, 0xff
 .equ	initial_h, 0xff
@@ -27,7 +27,7 @@ next_byte:
 	mov	dpl, r2
 	mov	dph, r3
 	lcall	phex16
-	lcall	nl
+	lcall	crlf
 	lcall	cin
 	orl	pcon, #2
 	ljmp	0x0000

@@ -2,7 +2,7 @@
 .equ	cout, 0x003c
 .equ	phex, 0x003f
 .equ	phex16, 0x0045
-.equ	nl, 0x0054
+.equ	crlf, 0x0057
 
 .org	0x2000
 
@@ -31,7 +31,7 @@ floop:
 ploop:
 	movx	a, @r0
 	lcall	phex
-	lcall	nl
+	lcall	crlf
 	inc	r0
 	cjne	r0, #0x10, ploop
 	

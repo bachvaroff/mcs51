@@ -1,6 +1,6 @@
 0000:              .equ     cin, 0x0036
 0000:              .equ     phex16, 0x0045
-0000:              .equ     nl, 0x0054
+0000:              .equ     crlf, 0x0057
                    
 0000:              .equ     initial_l, 0xff
 0000:              .equ     initial_h, 0xff
@@ -27,7 +27,7 @@
 2010: 8A 82                 mov     dpl, r2
 2012: 8B 83                 mov     dph, r3
 2014: 12 00 45              lcall   phex16
-2017: 12 00 54              lcall   nl
+2017: 12 00 57              lcall   crlf
 201A: 12 00 36              lcall   cin
 201D: 43 87 02              orl     pcon, #2
 2020: 02 00 00              ljmp    0x0000

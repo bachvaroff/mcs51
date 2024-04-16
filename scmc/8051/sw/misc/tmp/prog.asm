@@ -1,10 +1,10 @@
-.equ	cin, 0x0032
-.equ	cout, 0x0030
-.equ    pcstr, 0x0045
+.equ	cin, 0x0036
+.equ	cout, 0x003c
+.equ    pcstr, 0x0048
 
 .equ	locat, 0x8000		; Location for this program
 .org	locat
-.db	0xA5, 0xE5, 0xE0, 0xA5	; signiture bytes
+.db	0xA5, 0xE5, 0xE0, 0xA5	; signature bytes
 .db	35, 255, 0, 0		; id (35=prog)
 .db	0, 0, 0, 0		; prompt code vector
 .db	0, 0, 0, 0		; reserved

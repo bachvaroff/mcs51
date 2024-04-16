@@ -2,7 +2,7 @@
 0000:              .equ     cout, 0x003c
 0000:              .equ     phex, 0x003f
 0000:              .equ     phex16, 0x0045
-0000:              .equ     nl, 0x0054
+0000:              .equ     crlf, 0x0057
                    
 2000:              .org     0x2000
                    
@@ -31,7 +31,7 @@
                    ploop:
 201B: E2                    movx    a, @r0
 201C: 12 00 3F              lcall   phex
-201F: 12 00 54              lcall   nl
+201F: 12 00 57              lcall   crlf
 2022: 08                    inc     r0
 2023: B8 10 F5              cjne    r0, #0x10, ploop
                             
