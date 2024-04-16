@@ -192,23 +192,24 @@
 	ljmp	phex1		; JMP_TABLE 0x0042
 	ljmp	phex16		; JMP_TABLE 0x0045
 	ljmp	pcstr		; JMP_TABLE 0x0048
-	ljmp	pint8u		; JMP_TABLE 0x004b
-	ljmp	pint8		; JMP_TABLE 0x004e
-	ljmp	pint16u		; JMP_TABLE 0x0051
-	ljmp	crlf		; JMP_TABLE 0x0054
+	ljmp	pcb7str		; JMP_TABLE 0x004b
+	ljmp	pint8u		; JMP_TABLE 0x004e
+	ljmp	pint8		; JMP_TABLE 0x0051
+	ljmp	pint16u		; JMP_TABLE 0x0054
+	ljmp	crlf		; JMP_TABLE 0x0057
 	
-	ljmp	ghex		; JMP_TABLE 0x0057
-	ljmp	ghex16		; JMP_TABLE 0x005a
+	ljmp	ghex		; JMP_TABLE 0x005a
+	ljmp	ghex16		; JMP_TABLE 0x005d
 	
-	ljmp	asc2hex		; JMP_TABLE 0x005d
-	ljmp	upper		; JMP_TABLE 0x0060
-	ljmp	lenstr		; JMP_TABLE 0x0063
+	ljmp	asc2hex		; JMP_TABLE 0x0060
+	ljmp	upper		; JMP_TABLE 0x0063
+	ljmp	lenstr		; JMP_TABLE 0x0066
 	
-	ljmp	init_crc16	; JMP_TABLE 0x0066
-	ljmp	update_crc16	; JMP_TABLE 0x0069
-	ljmp	finish_crc16	; JMP_TABLE 0x006c
+	ljmp	init_crc16	; JMP_TABLE 0x0069
+	ljmp	update_crc16	; JMP_TABLE 0x006c
+	ljmp	finish_crc16	; JMP_TABLE 0x006f
 	
-	ljmp	find		; JMP_TABLE 0x006f
+	ljmp	find		; JMP_TABLE 0x0072
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -285,6 +286,22 @@ pcstr1:
 	acall	cout
 	sjmp	pcstr1
 pcstr2:
+	pop	acc
+	ret
+
+pcb7str:
+	push	acc
+pcb7str1:
+	movx	a, @dptr
+	inc	dptr
+	jz	pcb7str3
+	jb	acc.7, pcb7str2
+	acall	cout
+	sjmp	pcb7str1
+pcb7str2:
+	anl	a, #0x7f
+	acall	cout
+pcb7str3:
 	pop	acc
 	ret
 	
@@ -2217,7 +2234,7 @@ runs1:
 	.db	"\r\nRunning program...\r\n\r\n", 0
 	
 uplds3:
-	.db	"\r\n\r\nSending Intel hex file from ", 0
+	.db	"\r\nSending Intel hex file from ", 0
 	
 uplds4:
 	.db	" to ", 0

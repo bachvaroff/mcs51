@@ -12,6 +12,8 @@
 ; http://www.pjrc.com/tech/8051/pm2_docs/index.html
 
 ; monitor functions ----
+
+; VERSTR 2024041600
 .equ setbaud, 0x0033
 .equ cin, 0x0036
 .equ cinpoll, 0x0039
@@ -20,19 +22,21 @@
 .equ phex1, 0x0042
 .equ phex16, 0x0045
 .equ pcstr, 0x0048
-.equ pint8u, 0x004b
-.equ pint8, 0x004e
-.equ pint16u, 0x0051
-.equ crlf, 0x0054
-.equ ghex, 0x0057
-.equ ghex16, 0x005a
-.equ asc2hex, 0x005d
-.equ upper, 0x0060
-.equ lenstr, 0x0063
-.equ init_crc16, 0x0066
-.equ update_crc16, 0x0069
-.equ finish_crc16, 0x006c
-.equ find, 0x006f
+.equ pcb7str, 0x004b
+.equ pint8u, 0x004e
+.equ pint8, 0x0051
+.equ pint16u, 0x0054
+.equ crlf, 0x0057
+.equ ghex, 0x005a
+.equ ghex16, 0x005d
+.equ asc2hex, 0x0060
+.equ upper, 0x0063
+.equ lenstr, 0x0066
+.equ init_crc16, 0x0069
+.equ update_crc16, 0x006c
+.equ finish_crc16, 0x006f
+.equ find, 0x0072
+
 ; ---- monitor functions
 
 .equ	locat, 0x1000		;location for these commands (usually 1000)
@@ -333,7 +337,7 @@ pdir2:  clr     a
         subb    a, r3
         jnz     pdir3
 pcstr_h:
-	ljmp	pcstr
+	ljmp	pcb7str
 
 pdir3:  clr     a
         movc    a,@a+dptr
@@ -697,7 +701,7 @@ ssrun:
 	;first check to make sure they connect int1 low
 	jnb	p3.3, ssrun2
         mov     dptr, #sserr1	;give error msg if int1 not grounded
-	ljmp	pcstr
+	ljmp	pcb7str
 
 ssrun2:	;make sure there's a ljmp at the int1 vector location
 	mov	dptr, #0x0013
@@ -1940,7 +1944,7 @@ str_data: .db	"DATA", 0
 
 cout_hh:ljmp	cout
 phex_hh:ljmp	phex
-pcstr_hh:ljmp	pcstr
+pcstr_hh:ljmp	pcb7str
 crlf_hh:ljmp	crlf
 pint_hh:ljmp	pint8
 
