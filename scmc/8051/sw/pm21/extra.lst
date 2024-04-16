@@ -12,6 +12,8 @@
                    ; http://www.pjrc.com/tech/8051/pm2_docs/index.html
                    
                    ; monitor functions ----
+                   
+                   ; VERSTR 2024041600
 0000:              .equ setbaud, 0x0033
 0000:              .equ cin, 0x0036
 0000:              .equ cinpoll, 0x0039
@@ -33,7 +35,9 @@
 0000:              .equ init_crc16, 0x0069
 0000:              .equ update_crc16, 0x006c
 0000:              .equ finish_crc16, 0x006f
-0000:              .equ find, 0x0072; ---- monitor functions
+0000:              .equ find, 0x0072
+                   
+                   ; ---- monitor functions
                    
 0000:              .equ     locat, 0x1000           ;location for these command
                    

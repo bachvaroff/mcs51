@@ -1462,7 +1462,7 @@ upld:
 	cjne	a, #ESC, upld2e
 	ajmp	abort_it
 upld2e:
-	acall	crlf
+	acall	dcrlf
 	mov	dpl, r2
 	mov	dph, r3
 
@@ -2135,7 +2135,7 @@ pint16y:
 ;---------------------------------------------------------;
 
 logon:
-	.db	"PAULMON2 v2.1ab 2024041600\r\n\r\n", 0
+	.db	"PAULMON2 v2.1ab 2024041601\r\n\r\n", 0
 	
 abort:
 	.db	"  Command aborted\r\n\r\n", 0

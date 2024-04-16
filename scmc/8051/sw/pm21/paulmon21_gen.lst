@@ -1462,7 +1462,7 @@
 06DE: B4 1B 02              cjne    a, #ESC, upld2e
 06E1: E1 6C                 ajmp    abort_it
                    upld2e:
-06E3: 11 A1                 acall   crlf
+06E3: 11 BA                 acall   dcrlf
 06E5: 8A 82                 mov     dpl, r2
 06E7: 8B 83                 mov     dph, r3
                    
@@ -2141,8 +2141,8 @@
       31 61 62 20 
       32 30 32 34 
       30 34 31 36 
-      30 30 0D 0A 
-      0D 0A 00              .db     "PAULMON2 v2.1ab 2024041600\r\n\r\n", 0
+      30 31 0D 0A 
+      0D 0A 00              .db     "PAULMON2 v2.1ab 2024041601\r\n\r\n", 0
                             
                    abort:
 0A7C: 20 20 43 6F 

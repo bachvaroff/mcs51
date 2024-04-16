@@ -1462,7 +1462,7 @@ upld:
 	cjne	a, #ESC, upld2e
 	ajmp	abort_it
 upld2e:
-	acall	crlf
+	acall	dcrlf
 	mov	dpl, r2
 	mov	dph, r3
 
