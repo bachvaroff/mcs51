@@ -56,7 +56,7 @@ C:   0000007B  l_CONST
 C:   000000C4  l_SSEG                          
 C:   00000100  l_IRAM                          
 C:   00000101  l_XSEG                          
-C:   00000642  l_CSEG                          
+C:   00000643  l_CSEG                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -78,8 +78,8 @@ C:   0000206A  s_GSINIT
 C:   0000206A  s_GSINIT5                       
 C:   000020AA  s_GSFINAL                       
 C:   000020AD  s_CSEG                          
-C:   000026EF  s_CONST                         
-C:   0000276A  s_XINIT                         
+C:   000026F0  s_CONST                         
+C:   0000276B  s_XINIT                         
 C:   00008000  s_PSEG                          
 C:   00008000  s_XSEG                          
 C:   00008101  s_XISEG                         
@@ -399,34 +399,34 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                000020AD    00000642 =        1602. bytes (REL,CON,CODE)
+CSEG                                000020AD    00000643 =        1603. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   000020AD  _putchar                           disp
-C:   000020B6  _getchar                           disp
-C:   000020C3  _getchar_poll                      disp
-C:   000020DD  _gpo_init                          disp
-C:   000020FE  _gpo_clear                         disp
-C:   00002117  _init_intr                         disp
-C:   00002122  _init_timer0                       disp
-C:   0000212E  _init_timer1                       disp
-C:   0000213A  _init_disp                         disp
-C:   0000216B  _timer0_intr                       disp
-C:   000021A7  _scroll                            disp
-C:   00002351  _main                              disp
-C:   000025D6  _toupper                           toupper
-C:   000025FD  _strncpy                           _strncpy
-C:   000026B4  __gptrget                          _gptrget
-C:   000026D0  __sdcc_external_startup            _startup
-C:   000026D4  __gptrput                          _gptrput
+C:   000020B7  _getchar                           disp
+C:   000020C4  _getchar_poll                      disp
+C:   000020DE  _gpo_init                          disp
+C:   000020FF  _gpo_clear                         disp
+C:   00002118  _init_intr                         disp
+C:   00002123  _init_timer0                       disp
+C:   0000212F  _init_timer1                       disp
+C:   0000213B  _init_disp                         disp
+C:   0000216C  _timer0_intr                       disp
+C:   000021A8  _scroll                            disp
+C:   00002352  _main                              disp
+C:   000025D7  _toupper                           toupper
+C:   000025FE  _strncpy                           _strncpy
+C:   000026B5  __gptrget                          _gptrget
+C:   000026D1  __sdcc_external_startup            _startup
+C:   000026D5  __gptrput                          _gptrput
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               000026EF    0000007B =         123. bytes (REL,CON,CODE)
+CONST                               000026F0    0000007B =         123. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -435,7 +435,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               0000276A    00000803 =        2051. bytes (REL,CON,CODE)
+XINIT                               0000276B    00000803 =        2051. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

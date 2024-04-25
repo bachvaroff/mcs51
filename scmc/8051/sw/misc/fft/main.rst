@@ -366,7 +366,7 @@
                                     366 	.area HOME    (CODE)
       002000                        367 __interrupt_vect:
       002000 02 20 09         [24]  368 	ljmp	__sdcc_gsinit_startup
-      002003 02 2C 38         [24]  369 	ljmp	_int0
+      002003 02 2C 39         [24]  369 	ljmp	_int0
                                     370 ;--------------------------------------------------------
                                     371 ; global & static initialisations
                                     372 ;--------------------------------------------------------
@@ -389,7 +389,7 @@
                                     389 ;sloc0                     Allocated to stack - _bp +7
                                     390 ;R                         Allocated with name '_main_R_65536_74'
                                     391 ;------------------------------------------------------------
-                                    392 ;	main.c:43: static volatile __xdata int *R = (__xdata int *)0xfffe;
+                                    392 ;	main.c:44: static volatile __xdata int *R = (__xdata int *)0xfffe;
       002062 90 4D 80         [24]  393 	mov	dptr,#_main_R_65536_74
       002065 74 FE            [12]  394 	mov	a,#0xfe
       002067 F0               [24]  395 	movx	@dptr,a
@@ -404,7 +404,7 @@
                                     404 	.area HOME    (CODE)
                                     405 	.area HOME    (CODE)
       002006                        406 __sdcc_program_startup:
-      002006 02 2C 55         [24]  407 	ljmp	_main
+      002006 02 2C 56         [24]  407 	ljmp	_main
                                     408 ;	return from main will return to caller
                                     409 ;--------------------------------------------------------
                                     410 ; code
@@ -421,488 +421,489 @@
                                     421 ;	-----------------------------------------
       002C22                        422 _putchar:
                                     423 ;	naked function: no prologue.
-                                    424 ;	main.c:17: __endasm;
+                                    424 ;	main.c:18: __endasm;
       002C22 C0 E0            [24]  425 	push	acc
       002C24 E5 82            [12]  426 	mov	a, dpl
       002C26 12 00 3C         [24]  427 	lcall	0x003c
       002C29 D0 E0            [24]  428 	pop	acc
-                                    429 ;	main.c:18: }
-                                    430 ;	naked function: no epilogue.
-                                    431 ;------------------------------------------------------------
-                                    432 ;Allocation info for local variables in function 'getchar'
-                                    433 ;------------------------------------------------------------
-                                    434 ;	main.c:20: int getchar(void) __naked {
-                                    435 ;	-----------------------------------------
-                                    436 ;	 function getchar
-                                    437 ;	-----------------------------------------
-      002C2B                        438 _getchar:
-                                    439 ;	naked function: no prologue.
-                                    440 ;	main.c:28: __endasm;
-      002C2B C0 E0            [24]  441 	push	acc
-      002C2D 12 00 36         [24]  442 	lcall	0x0036
-      002C30 F5 82            [12]  443 	mov	dpl, a
-      002C32 75 83 00         [24]  444 	mov	dph, #0
-      002C35 D0 E0            [24]  445 	pop	acc
-      002C37 22               [24]  446 	ret
-                                    447 ;	main.c:29: }
-                                    448 ;	naked function: no epilogue.
-                                    449 ;------------------------------------------------------------
-                                    450 ;Allocation info for local variables in function 'int0'
-                                    451 ;------------------------------------------------------------
-                                    452 ;	main.c:33: void int0(void) __interrupt IE0_VECTOR __using 1 {
-                                    453 ;	-----------------------------------------
-                                    454 ;	 function int0
-                                    455 ;	-----------------------------------------
-      002C38                        456 _int0:
-                           00000F   457 	ar7 = 0x0f
-                           00000E   458 	ar6 = 0x0e
-                           00000D   459 	ar5 = 0x0d
-                           00000C   460 	ar4 = 0x0c
-                           00000B   461 	ar3 = 0x0b
-                           00000A   462 	ar2 = 0x0a
-                           000009   463 	ar1 = 0x09
-                           000008   464 	ar0 = 0x08
-      002C38 C0 20            [24]  465 	push	bits
-      002C3A C0 E0            [24]  466 	push	acc
-      002C3C C0 D0            [24]  467 	push	psw
-      002C3E 75 D0 08         [24]  468 	mov	psw,#0x08
-                                    469 ;	main.c:34: print = !print;
-      002C41 78 11            [12]  470 	mov	r0,#_print
-      002C43 E6               [12]  471 	mov	a,@r0
-      002C44 B4 01 00         [24]  472 	cjne	a,#0x01,00103$
-      002C47                        473 00103$:
-      002C47 92 00            [24]  474 	mov	b0,c
-      002C49 78 11            [12]  475 	mov	r0,#_print
-      002C4B E4               [12]  476 	clr	a
-      002C4C 33               [12]  477 	rlc	a
-      002C4D F6               [12]  478 	mov	@r0,a
-                                    479 ;	main.c:35: }
-      002C4E D0 D0            [24]  480 	pop	psw
-      002C50 D0 E0            [24]  481 	pop	acc
-      002C52 D0 20            [24]  482 	pop	bits
-      002C54 32               [24]  483 	reti
-                                    484 ;	eliminated unneeded push/pop dpl
-                                    485 ;	eliminated unneeded push/pop dph
-                                    486 ;	eliminated unneeded push/pop b
-                                    487 ;------------------------------------------------------------
-                                    488 ;Allocation info for local variables in function 'main'
-                                    489 ;------------------------------------------------------------
-                                    490 ;i                         Allocated to registers 
-                                    491 ;j                         Allocated to stack - _bp +1
-                                    492 ;scale                     Allocated to stack - _bp +3
-                                    493 ;sloc0                     Allocated to stack - _bp +7
-                                    494 ;R                         Allocated with name '_main_R_65536_74'
-                                    495 ;------------------------------------------------------------
-                                    496 ;	main.c:42: void main(void) {
-                                    497 ;	-----------------------------------------
-                                    498 ;	 function main
-                                    499 ;	-----------------------------------------
-      002C55                        500 _main:
-                           000007   501 	ar7 = 0x07
-                           000006   502 	ar6 = 0x06
-                           000005   503 	ar5 = 0x05
-                           000004   504 	ar4 = 0x04
-                           000003   505 	ar3 = 0x03
-                           000002   506 	ar2 = 0x02
-                           000001   507 	ar1 = 0x01
-                           000000   508 	ar0 = 0x00
-      002C55 C0 10            [24]  509 	push	_bp
-      002C57 E5 81            [12]  510 	mov	a,sp
-      002C59 F5 10            [12]  511 	mov	_bp,a
-      002C5B 24 04            [12]  512 	add	a,#0x04
-      002C5D F5 81            [12]  513 	mov	sp,a
-                                    514 ;	main.c:47: print = 1;
-      002C5F 78 11            [12]  515 	mov	r0,#_print
-      002C61 76 01            [12]  516 	mov	@r0,#0x01
-                                    517 ;	main.c:49: IT0 = 1;
-                                    518 ;	assignBit
-      002C63 D2 88            [12]  519 	setb	_IT0
-                                    520 ;	main.c:50: EX0 = 1;
-                                    521 ;	assignBit
-      002C65 D2 A8            [12]  522 	setb	_EX0
-                                    523 ;	main.c:51: EA = 1;
-                                    524 ;	assignBit
-      002C67 D2 AF            [12]  525 	setb	_EA
-                                    526 ;	main.c:53: srand(*R);
-      002C69 90 4D 80         [24]  527 	mov	dptr,#_main_R_65536_74
-      002C6C E0               [24]  528 	movx	a,@dptr
-      002C6D FE               [12]  529 	mov	r6,a
-      002C6E A3               [24]  530 	inc	dptr
-      002C6F E0               [24]  531 	movx	a,@dptr
-      002C70 FF               [12]  532 	mov	r7,a
-      002C71 8E 82            [24]  533 	mov	dpl,r6
-      002C73 8F 83            [24]  534 	mov	dph,r7
-      002C75 E0               [24]  535 	movx	a,@dptr
-      002C76 FE               [12]  536 	mov	r6,a
-      002C77 A3               [24]  537 	inc	dptr
-      002C78 E0               [24]  538 	movx	a,@dptr
-      002C79 FF               [12]  539 	mov	r7,a
-      002C7A 8E 82            [24]  540 	mov	dpl,r6
-      002C7C 8F 83            [24]  541 	mov	dph,r7
-      002C7E 12 2F 6F         [24]  542 	lcall	_srand
-                                    543 ;	main.c:55: for (i = 0; 1; i++) {
-      002C81 7E 00            [12]  544 	mov	r6,#0x00
-      002C83 7F 00            [12]  545 	mov	r7,#0x00
-                                    546 ;	main.c:56: for (j = 0; j < (1 << N); j++)
-      002C85                        547 00117$:
-      002C85 A8 10            [24]  548 	mov	r0,_bp
-      002C87 08               [12]  549 	inc	r0
-      002C88 E4               [12]  550 	clr	a
-      002C89 F6               [12]  551 	mov	@r0,a
-      002C8A 08               [12]  552 	inc	r0
-      002C8B F6               [12]  553 	mov	@r0,a
-      002C8C                        554 00106$:
-                                    555 ;	main.c:57: samples[j] = ((rand() & 1) ? -1 : 1) * (int16_t)rand();
-      002C8C A8 10            [24]  556 	mov	r0,_bp
-      002C8E 08               [12]  557 	inc	r0
-      002C8F E6               [12]  558 	mov	a,@r0
-      002C90 25 E0            [12]  559 	add	a,acc
-      002C92 FA               [12]  560 	mov	r2,a
-      002C93 08               [12]  561 	inc	r0
-      002C94 E6               [12]  562 	mov	a,@r0
-      002C95 33               [12]  563 	rlc	a
-      002C96 FB               [12]  564 	mov	r3,a
-      002C97 EA               [12]  565 	mov	a,r2
-      002C98 24 00            [12]  566 	add	a,#_samples
-      002C9A FA               [12]  567 	mov	r2,a
-      002C9B EB               [12]  568 	mov	a,r3
-      002C9C 34 4C            [12]  569 	addc	a,#(_samples >> 8)
-      002C9E FB               [12]  570 	mov	r3,a
-      002C9F C0 07            [24]  571 	push	ar7
-      002CA1 C0 06            [24]  572 	push	ar6
-      002CA3 C0 03            [24]  573 	push	ar3
-      002CA5 C0 02            [24]  574 	push	ar2
-      002CA7 12 2E AB         [24]  575 	lcall	_rand
-      002CAA E5 82            [12]  576 	mov	a,dpl
-      002CAC 85 83 F0         [24]  577 	mov	b,dph
-      002CAF D0 02            [24]  578 	pop	ar2
-      002CB1 D0 03            [24]  579 	pop	ar3
-      002CB3 D0 06            [24]  580 	pop	ar6
-      002CB5 D0 07            [24]  581 	pop	ar7
-      002CB7 30 E0 06         [24]  582 	jnb	acc.0,00114$
-      002CBA 7C FF            [12]  583 	mov	r4,#0xff
-      002CBC 7D FF            [12]  584 	mov	r5,#0xff
-      002CBE 80 04            [24]  585 	sjmp	00115$
-      002CC0                        586 00114$:
-      002CC0 7C 01            [12]  587 	mov	r4,#0x01
-      002CC2 7D 00            [12]  588 	mov	r5,#0x00
-      002CC4                        589 00115$:
-      002CC4 C0 06            [24]  590 	push	ar6
-      002CC6 C0 07            [24]  591 	push	ar7
-      002CC8 C0 05            [24]  592 	push	ar5
-      002CCA C0 04            [24]  593 	push	ar4
-      002CCC C0 03            [24]  594 	push	ar3
-      002CCE C0 02            [24]  595 	push	ar2
-      002CD0 12 2E AB         [24]  596 	lcall	_rand
-      002CD3 AE 82            [24]  597 	mov	r6,dpl
-      002CD5 AF 83            [24]  598 	mov	r7,dph
-      002CD7 D0 02            [24]  599 	pop	ar2
-      002CD9 D0 03            [24]  600 	pop	ar3
-      002CDB D0 04            [24]  601 	pop	ar4
-      002CDD D0 05            [24]  602 	pop	ar5
-      002CDF C0 03            [24]  603 	push	ar3
-      002CE1 C0 02            [24]  604 	push	ar2
-      002CE3 C0 06            [24]  605 	push	ar6
-      002CE5 C0 07            [24]  606 	push	ar7
-      002CE7 8C 82            [24]  607 	mov	dpl,r4
-      002CE9 8D 83            [24]  608 	mov	dph,r5
-      002CEB 12 2F A3         [24]  609 	lcall	__mulint
-      002CEE AE 82            [24]  610 	mov	r6,dpl
-      002CF0 AF 83            [24]  611 	mov	r7,dph
-      002CF2 15 81            [12]  612 	dec	sp
-      002CF4 15 81            [12]  613 	dec	sp
-      002CF6 D0 02            [24]  614 	pop	ar2
-      002CF8 D0 03            [24]  615 	pop	ar3
-      002CFA 8A 82            [24]  616 	mov	dpl,r2
-      002CFC 8B 83            [24]  617 	mov	dph,r3
-      002CFE EE               [12]  618 	mov	a,r6
-      002CFF F0               [24]  619 	movx	@dptr,a
-      002D00 EF               [12]  620 	mov	a,r7
-      002D01 A3               [24]  621 	inc	dptr
-      002D02 F0               [24]  622 	movx	@dptr,a
-                                    623 ;	main.c:56: for (j = 0; j < (1 << N); j++)
-      002D03 A8 10            [24]  624 	mov	r0,_bp
-      002D05 08               [12]  625 	inc	r0
-      002D06 06               [12]  626 	inc	@r0
-      002D07 B6 00 02         [24]  627 	cjne	@r0,#0x00,00143$
-      002D0A 08               [12]  628 	inc	r0
-      002D0B 06               [12]  629 	inc	@r0
-      002D0C                        630 00143$:
-      002D0C A8 10            [24]  631 	mov	r0,_bp
-      002D0E 08               [12]  632 	inc	r0
-      002D0F C3               [12]  633 	clr	c
-      002D10 E6               [12]  634 	mov	a,@r0
-      002D11 94 40            [12]  635 	subb	a,#0x40
-      002D13 08               [12]  636 	inc	r0
-      002D14 E6               [12]  637 	mov	a,@r0
-      002D15 64 80            [12]  638 	xrl	a,#0x80
-      002D17 94 80            [12]  639 	subb	a,#0x80
-      002D19 D0 07            [24]  640 	pop	ar7
-      002D1B D0 06            [24]  641 	pop	ar6
-      002D1D 50 03            [24]  642 	jnc	00144$
-      002D1F 02 2C 8C         [24]  643 	ljmp	00106$
-      002D22                        644 00144$:
-                                    645 ;	main.c:59: printf("DO FFT IFFT %d\r\n", i);
-      002D22 C0 07            [24]  646 	push	ar7
-      002D24 C0 06            [24]  647 	push	ar6
-      002D26 C0 06            [24]  648 	push	ar6
-      002D28 C0 07            [24]  649 	push	ar7
-      002D2A 74 35            [12]  650 	mov	a,#___str_0
-      002D2C C0 E0            [24]  651 	push	acc
-      002D2E 74 45            [12]  652 	mov	a,#(___str_0 >> 8)
-      002D30 C0 E0            [24]  653 	push	acc
-      002D32 74 80            [12]  654 	mov	a,#0x80
-      002D34 C0 E0            [24]  655 	push	acc
-      002D36 12 31 1A         [24]  656 	lcall	_printf
-      002D39 E5 81            [12]  657 	mov	a,sp
-      002D3B 24 FB            [12]  658 	add	a,#0xfb
-      002D3D F5 81            [12]  659 	mov	sp,a
-                                    660 ;	main.c:61: memcpy(fft, samples, sizeof (samples));
-      002D3F 74 80            [12]  661 	mov	a,#0x80
-      002D41 C0 E0            [24]  662 	push	acc
-      002D43 E4               [12]  663 	clr	a
-      002D44 C0 E0            [24]  664 	push	acc
-      002D46 74 00            [12]  665 	mov	a,#_samples
-      002D48 C0 E0            [24]  666 	push	acc
-      002D4A 74 4C            [12]  667 	mov	a,#(_samples >> 8)
-      002D4C C0 E0            [24]  668 	push	acc
-      002D4E E4               [12]  669 	clr	a
-      002D4F C0 E0            [24]  670 	push	acc
-      002D51 90 4C 80         [24]  671 	mov	dptr,#_fft
-      002D54 75 F0 00         [24]  672 	mov	b,#0x00
-      002D57 12 30 41         [24]  673 	lcall	___memcpy
-      002D5A E5 81            [12]  674 	mov	a,sp
-      002D5C 24 FB            [12]  675 	add	a,#0xfb
-      002D5E F5 81            [12]  676 	mov	sp,a
-                                    677 ;	main.c:62: scale = fix_fftr(fft, N, 0);		
-      002D60 E4               [12]  678 	clr	a
-      002D61 C0 E0            [24]  679 	push	acc
-      002D63 C0 E0            [24]  680 	push	acc
-      002D65 74 06            [12]  681 	mov	a,#0x06
-      002D67 C0 E0            [24]  682 	push	acc
-      002D69 E4               [12]  683 	clr	a
-      002D6A C0 E0            [24]  684 	push	acc
-      002D6C 90 4C 80         [24]  685 	mov	dptr,#_fft
-      002D6F 75 F0 00         [24]  686 	mov	b,#0x00
-      002D72 12 2A 21         [24]  687 	lcall	_fix_fftr
-      002D75 E5 81            [12]  688 	mov	a,sp
-      002D77 24 FC            [12]  689 	add	a,#0xfc
-      002D79 F5 81            [12]  690 	mov	sp,a
-                                    691 ;	main.c:69: memcpy(ifft, fft, sizeof (fft));
-      002D7B 74 80            [12]  692 	mov	a,#0x80
-      002D7D C0 E0            [24]  693 	push	acc
-      002D7F E4               [12]  694 	clr	a
-      002D80 C0 E0            [24]  695 	push	acc
-      002D82 74 80            [12]  696 	mov	a,#_fft
-      002D84 C0 E0            [24]  697 	push	acc
-      002D86 74 4C            [12]  698 	mov	a,#(_fft >> 8)
-      002D88 C0 E0            [24]  699 	push	acc
-      002D8A E4               [12]  700 	clr	a
-      002D8B C0 E0            [24]  701 	push	acc
-      002D8D 90 4D 00         [24]  702 	mov	dptr,#_ifft
-      002D90 75 F0 00         [24]  703 	mov	b,#0x00
-      002D93 12 30 41         [24]  704 	lcall	___memcpy
-      002D96 E5 81            [12]  705 	mov	a,sp
-      002D98 24 FB            [12]  706 	add	a,#0xfb
-      002D9A F5 81            [12]  707 	mov	sp,a
-                                    708 ;	main.c:70: scale = fix_fftr(ifft, N, 1);
-      002D9C 74 01            [12]  709 	mov	a,#0x01
-      002D9E C0 E0            [24]  710 	push	acc
-      002DA0 E4               [12]  711 	clr	a
-      002DA1 C0 E0            [24]  712 	push	acc
-      002DA3 74 06            [12]  713 	mov	a,#0x06
-      002DA5 C0 E0            [24]  714 	push	acc
-      002DA7 E4               [12]  715 	clr	a
-      002DA8 C0 E0            [24]  716 	push	acc
-      002DAA 90 4D 00         [24]  717 	mov	dptr,#_ifft
-      002DAD 75 F0 00         [24]  718 	mov	b,#0x00
-      002DB0 12 2A 21         [24]  719 	lcall	_fix_fftr
-      002DB3 AC 82            [24]  720 	mov	r4,dpl
-      002DB5 AD 83            [24]  721 	mov	r5,dph
-      002DB7 E5 81            [12]  722 	mov	a,sp
-      002DB9 24 FC            [12]  723 	add	a,#0xfc
-      002DBB F5 81            [12]  724 	mov	sp,a
-      002DBD D0 06            [24]  725 	pop	ar6
-      002DBF D0 07            [24]  726 	pop	ar7
-      002DC1 E5 10            [12]  727 	mov	a,_bp
-      002DC3 24 03            [12]  728 	add	a,#0x03
-      002DC5 F8               [12]  729 	mov	r0,a
-      002DC6 A6 04            [24]  730 	mov	@r0,ar4
-      002DC8 08               [12]  731 	inc	r0
-      002DC9 A6 05            [24]  732 	mov	@r0,ar5
-                                    733 ;	main.c:72: if (print)
-      002DCB 78 11            [12]  734 	mov	r0,#_print
-      002DCD E6               [12]  735 	mov	a,@r0
-      002DCE 70 03            [24]  736 	jnz	00145$
-      002DD0 02 2E 80         [24]  737 	ljmp	00104$
-      002DD3                        738 00145$:
-                                    739 ;	main.c:73: for (j = 0; j < (1 << N); j++)
-      002DD3 A8 10            [24]  740 	mov	r0,_bp
-      002DD5 08               [12]  741 	inc	r0
-      002DD6 E4               [12]  742 	clr	a
-      002DD7 F6               [12]  743 	mov	@r0,a
-      002DD8 08               [12]  744 	inc	r0
-      002DD9 F6               [12]  745 	mov	@r0,a
-      002DDA                        746 00108$:
-                                    747 ;	main.c:75: samples[j], ifft[j] * (1 << scale));
-      002DDA C0 06            [24]  748 	push	ar6
-      002DDC C0 07            [24]  749 	push	ar7
-      002DDE A8 10            [24]  750 	mov	r0,_bp
-      002DE0 08               [12]  751 	inc	r0
-      002DE1 E6               [12]  752 	mov	a,@r0
-      002DE2 25 E0            [12]  753 	add	a,acc
-      002DE4 FE               [12]  754 	mov	r6,a
-      002DE5 08               [12]  755 	inc	r0
-      002DE6 E6               [12]  756 	mov	a,@r0
-      002DE7 33               [12]  757 	rlc	a
-      002DE8 FF               [12]  758 	mov	r7,a
-      002DE9 EE               [12]  759 	mov	a,r6
-      002DEA 24 00            [12]  760 	add	a,#_ifft
-      002DEC F5 82            [12]  761 	mov	dpl,a
-      002DEE EF               [12]  762 	mov	a,r7
-      002DEF 34 4D            [12]  763 	addc	a,#(_ifft >> 8)
-      002DF1 F5 83            [12]  764 	mov	dph,a
-      002DF3 E0               [24]  765 	movx	a,@dptr
-      002DF4 FC               [12]  766 	mov	r4,a
-      002DF5 A3               [24]  767 	inc	dptr
-      002DF6 E0               [24]  768 	movx	a,@dptr
-      002DF7 FD               [12]  769 	mov	r5,a
-      002DF8 E5 10            [12]  770 	mov	a,_bp
-      002DFA 24 03            [12]  771 	add	a,#0x03
-      002DFC F8               [12]  772 	mov	r0,a
-      002DFD 86 03            [24]  773 	mov	ar3,@r0
-      002DFF 8B F0            [24]  774 	mov	b,r3
-      002E01 05 F0            [12]  775 	inc	b
-      002E03 7B 01            [12]  776 	mov	r3,#0x01
-      002E05 7A 00            [12]  777 	mov	r2,#0x00
-      002E07 80 06            [24]  778 	sjmp	00147$
-      002E09                        779 00146$:
-      002E09 EB               [12]  780 	mov	a,r3
-      002E0A 2B               [12]  781 	add	a,r3
-      002E0B FB               [12]  782 	mov	r3,a
-      002E0C EA               [12]  783 	mov	a,r2
-      002E0D 33               [12]  784 	rlc	a
-      002E0E FA               [12]  785 	mov	r2,a
-      002E0F                        786 00147$:
-      002E0F D5 F0 F7         [24]  787 	djnz	b,00146$
-      002E12 C0 07            [24]  788 	push	ar7
-      002E14 C0 06            [24]  789 	push	ar6
-      002E16 C0 03            [24]  790 	push	ar3
-      002E18 C0 02            [24]  791 	push	ar2
-      002E1A 8C 82            [24]  792 	mov	dpl,r4
-      002E1C 8D 83            [24]  793 	mov	dph,r5
-      002E1E 12 2F A3         [24]  794 	lcall	__mulint
-      002E21 AC 82            [24]  795 	mov	r4,dpl
-      002E23 AD 83            [24]  796 	mov	r5,dph
-      002E25 15 81            [12]  797 	dec	sp
-      002E27 15 81            [12]  798 	dec	sp
-      002E29 D0 06            [24]  799 	pop	ar6
-      002E2B D0 07            [24]  800 	pop	ar7
-      002E2D EE               [12]  801 	mov	a,r6
-      002E2E 24 00            [12]  802 	add	a,#_samples
-      002E30 F5 82            [12]  803 	mov	dpl,a
-      002E32 EF               [12]  804 	mov	a,r7
-      002E33 34 4C            [12]  805 	addc	a,#(_samples >> 8)
-      002E35 F5 83            [12]  806 	mov	dph,a
-      002E37 E0               [24]  807 	movx	a,@dptr
-      002E38 FE               [12]  808 	mov	r6,a
-      002E39 A3               [24]  809 	inc	dptr
-      002E3A E0               [24]  810 	movx	a,@dptr
-      002E3B FF               [12]  811 	mov	r7,a
-                                    812 ;	main.c:74: printf("% 8d% 8d\r\n",
-      002E3C C0 07            [24]  813 	push	ar7
-      002E3E C0 06            [24]  814 	push	ar6
-      002E40 C0 04            [24]  815 	push	ar4
-      002E42 C0 05            [24]  816 	push	ar5
-      002E44 C0 06            [24]  817 	push	ar6
-      002E46 C0 07            [24]  818 	push	ar7
-      002E48 74 46            [12]  819 	mov	a,#___str_1
-      002E4A C0 E0            [24]  820 	push	acc
-      002E4C 74 45            [12]  821 	mov	a,#(___str_1 >> 8)
-      002E4E C0 E0            [24]  822 	push	acc
-      002E50 74 80            [12]  823 	mov	a,#0x80
-      002E52 C0 E0            [24]  824 	push	acc
-      002E54 12 31 1A         [24]  825 	lcall	_printf
-      002E57 E5 81            [12]  826 	mov	a,sp
-      002E59 24 F9            [12]  827 	add	a,#0xf9
-      002E5B F5 81            [12]  828 	mov	sp,a
-      002E5D D0 06            [24]  829 	pop	ar6
-      002E5F D0 07            [24]  830 	pop	ar7
-                                    831 ;	main.c:73: for (j = 0; j < (1 << N); j++)
-      002E61 A8 10            [24]  832 	mov	r0,_bp
-      002E63 08               [12]  833 	inc	r0
-      002E64 06               [12]  834 	inc	@r0
-      002E65 B6 00 02         [24]  835 	cjne	@r0,#0x00,00148$
-      002E68 08               [12]  836 	inc	r0
-      002E69 06               [12]  837 	inc	@r0
-      002E6A                        838 00148$:
-      002E6A A8 10            [24]  839 	mov	r0,_bp
-      002E6C 08               [12]  840 	inc	r0
-      002E6D C3               [12]  841 	clr	c
-      002E6E E6               [12]  842 	mov	a,@r0
-      002E6F 94 40            [12]  843 	subb	a,#0x40
-      002E71 08               [12]  844 	inc	r0
-      002E72 E6               [12]  845 	mov	a,@r0
-      002E73 64 80            [12]  846 	xrl	a,#0x80
-      002E75 94 80            [12]  847 	subb	a,#0x80
-      002E77 D0 07            [24]  848 	pop	ar7
-      002E79 D0 06            [24]  849 	pop	ar6
-      002E7B 50 03            [24]  850 	jnc	00149$
-      002E7D 02 2D DA         [24]  851 	ljmp	00108$
-      002E80                        852 00149$:
-      002E80                        853 00104$:
-                                    854 ;	main.c:77: printf("DONE\r\n\r\n");
-      002E80 C0 07            [24]  855 	push	ar7
-      002E82 C0 06            [24]  856 	push	ar6
-      002E84 74 51            [12]  857 	mov	a,#___str_2
-      002E86 C0 E0            [24]  858 	push	acc
-      002E88 74 45            [12]  859 	mov	a,#(___str_2 >> 8)
-      002E8A C0 E0            [24]  860 	push	acc
-      002E8C 74 80            [12]  861 	mov	a,#0x80
-      002E8E C0 E0            [24]  862 	push	acc
-      002E90 12 31 1A         [24]  863 	lcall	_printf
-      002E93 15 81            [12]  864 	dec	sp
-      002E95 15 81            [12]  865 	dec	sp
-      002E97 15 81            [12]  866 	dec	sp
-      002E99 D0 06            [24]  867 	pop	ar6
-      002E9B D0 07            [24]  868 	pop	ar7
-                                    869 ;	main.c:55: for (i = 0; 1; i++) {
-      002E9D 0E               [12]  870 	inc	r6
-      002E9E BE 00 01         [24]  871 	cjne	r6,#0x00,00150$
-      002EA1 0F               [12]  872 	inc	r7
-      002EA2                        873 00150$:
-      002EA2 02 2C 85         [24]  874 	ljmp	00117$
-                                    875 ;	main.c:82: return;
-                                    876 ;	main.c:83: }
-      002EA5 85 10 81         [24]  877 	mov	sp,_bp
-      002EA8 D0 10            [24]  878 	pop	_bp
-      002EAA 22               [24]  879 	ret
-                                    880 	.area CSEG    (CODE)
-                                    881 	.area CONST   (CODE)
+      002C2B 22               [24]  429 	ret
+                                    430 ;	main.c:19: }
+                                    431 ;	naked function: no epilogue.
+                                    432 ;------------------------------------------------------------
+                                    433 ;Allocation info for local variables in function 'getchar'
+                                    434 ;------------------------------------------------------------
+                                    435 ;	main.c:21: int getchar(void) __naked {
+                                    436 ;	-----------------------------------------
+                                    437 ;	 function getchar
+                                    438 ;	-----------------------------------------
+      002C2C                        439 _getchar:
+                                    440 ;	naked function: no prologue.
+                                    441 ;	main.c:29: __endasm;
+      002C2C C0 E0            [24]  442 	push	acc
+      002C2E 12 00 36         [24]  443 	lcall	0x0036
+      002C31 F5 82            [12]  444 	mov	dpl, a
+      002C33 75 83 00         [24]  445 	mov	dph, #0
+      002C36 D0 E0            [24]  446 	pop	acc
+      002C38 22               [24]  447 	ret
+                                    448 ;	main.c:30: }
+                                    449 ;	naked function: no epilogue.
+                                    450 ;------------------------------------------------------------
+                                    451 ;Allocation info for local variables in function 'int0'
+                                    452 ;------------------------------------------------------------
+                                    453 ;	main.c:34: void int0(void) __interrupt IE0_VECTOR __using 1 {
+                                    454 ;	-----------------------------------------
+                                    455 ;	 function int0
+                                    456 ;	-----------------------------------------
+      002C39                        457 _int0:
+                           00000F   458 	ar7 = 0x0f
+                           00000E   459 	ar6 = 0x0e
+                           00000D   460 	ar5 = 0x0d
+                           00000C   461 	ar4 = 0x0c
+                           00000B   462 	ar3 = 0x0b
+                           00000A   463 	ar2 = 0x0a
+                           000009   464 	ar1 = 0x09
+                           000008   465 	ar0 = 0x08
+      002C39 C0 20            [24]  466 	push	bits
+      002C3B C0 E0            [24]  467 	push	acc
+      002C3D C0 D0            [24]  468 	push	psw
+      002C3F 75 D0 08         [24]  469 	mov	psw,#0x08
+                                    470 ;	main.c:35: print = !print;
+      002C42 78 11            [12]  471 	mov	r0,#_print
+      002C44 E6               [12]  472 	mov	a,@r0
+      002C45 B4 01 00         [24]  473 	cjne	a,#0x01,00103$
+      002C48                        474 00103$:
+      002C48 92 00            [24]  475 	mov	b0,c
+      002C4A 78 11            [12]  476 	mov	r0,#_print
+      002C4C E4               [12]  477 	clr	a
+      002C4D 33               [12]  478 	rlc	a
+      002C4E F6               [12]  479 	mov	@r0,a
+                                    480 ;	main.c:36: }
+      002C4F D0 D0            [24]  481 	pop	psw
+      002C51 D0 E0            [24]  482 	pop	acc
+      002C53 D0 20            [24]  483 	pop	bits
+      002C55 32               [24]  484 	reti
+                                    485 ;	eliminated unneeded push/pop dpl
+                                    486 ;	eliminated unneeded push/pop dph
+                                    487 ;	eliminated unneeded push/pop b
+                                    488 ;------------------------------------------------------------
+                                    489 ;Allocation info for local variables in function 'main'
+                                    490 ;------------------------------------------------------------
+                                    491 ;i                         Allocated to registers 
+                                    492 ;j                         Allocated to stack - _bp +1
+                                    493 ;scale                     Allocated to stack - _bp +3
+                                    494 ;sloc0                     Allocated to stack - _bp +7
+                                    495 ;R                         Allocated with name '_main_R_65536_74'
+                                    496 ;------------------------------------------------------------
+                                    497 ;	main.c:43: void main(void) {
+                                    498 ;	-----------------------------------------
+                                    499 ;	 function main
+                                    500 ;	-----------------------------------------
+      002C56                        501 _main:
+                           000007   502 	ar7 = 0x07
+                           000006   503 	ar6 = 0x06
+                           000005   504 	ar5 = 0x05
+                           000004   505 	ar4 = 0x04
+                           000003   506 	ar3 = 0x03
+                           000002   507 	ar2 = 0x02
+                           000001   508 	ar1 = 0x01
+                           000000   509 	ar0 = 0x00
+      002C56 C0 10            [24]  510 	push	_bp
+      002C58 E5 81            [12]  511 	mov	a,sp
+      002C5A F5 10            [12]  512 	mov	_bp,a
+      002C5C 24 04            [12]  513 	add	a,#0x04
+      002C5E F5 81            [12]  514 	mov	sp,a
+                                    515 ;	main.c:48: print = 1;
+      002C60 78 11            [12]  516 	mov	r0,#_print
+      002C62 76 01            [12]  517 	mov	@r0,#0x01
+                                    518 ;	main.c:50: IT0 = 1;
+                                    519 ;	assignBit
+      002C64 D2 88            [12]  520 	setb	_IT0
+                                    521 ;	main.c:51: EX0 = 1;
+                                    522 ;	assignBit
+      002C66 D2 A8            [12]  523 	setb	_EX0
+                                    524 ;	main.c:52: EA = 1;
+                                    525 ;	assignBit
+      002C68 D2 AF            [12]  526 	setb	_EA
+                                    527 ;	main.c:54: srand(*R);
+      002C6A 90 4D 80         [24]  528 	mov	dptr,#_main_R_65536_74
+      002C6D E0               [24]  529 	movx	a,@dptr
+      002C6E FE               [12]  530 	mov	r6,a
+      002C6F A3               [24]  531 	inc	dptr
+      002C70 E0               [24]  532 	movx	a,@dptr
+      002C71 FF               [12]  533 	mov	r7,a
+      002C72 8E 82            [24]  534 	mov	dpl,r6
+      002C74 8F 83            [24]  535 	mov	dph,r7
+      002C76 E0               [24]  536 	movx	a,@dptr
+      002C77 FE               [12]  537 	mov	r6,a
+      002C78 A3               [24]  538 	inc	dptr
+      002C79 E0               [24]  539 	movx	a,@dptr
+      002C7A FF               [12]  540 	mov	r7,a
+      002C7B 8E 82            [24]  541 	mov	dpl,r6
+      002C7D 8F 83            [24]  542 	mov	dph,r7
+      002C7F 12 2F 70         [24]  543 	lcall	_srand
+                                    544 ;	main.c:56: for (i = 0; 1; i++) {
+      002C82 7E 00            [12]  545 	mov	r6,#0x00
+      002C84 7F 00            [12]  546 	mov	r7,#0x00
+                                    547 ;	main.c:57: for (j = 0; j < (1 << N); j++)
+      002C86                        548 00117$:
+      002C86 A8 10            [24]  549 	mov	r0,_bp
+      002C88 08               [12]  550 	inc	r0
+      002C89 E4               [12]  551 	clr	a
+      002C8A F6               [12]  552 	mov	@r0,a
+      002C8B 08               [12]  553 	inc	r0
+      002C8C F6               [12]  554 	mov	@r0,a
+      002C8D                        555 00106$:
+                                    556 ;	main.c:58: samples[j] = ((rand() & 1) ? -1 : 1) * (int16_t)rand();
+      002C8D A8 10            [24]  557 	mov	r0,_bp
+      002C8F 08               [12]  558 	inc	r0
+      002C90 E6               [12]  559 	mov	a,@r0
+      002C91 25 E0            [12]  560 	add	a,acc
+      002C93 FA               [12]  561 	mov	r2,a
+      002C94 08               [12]  562 	inc	r0
+      002C95 E6               [12]  563 	mov	a,@r0
+      002C96 33               [12]  564 	rlc	a
+      002C97 FB               [12]  565 	mov	r3,a
+      002C98 EA               [12]  566 	mov	a,r2
+      002C99 24 00            [12]  567 	add	a,#_samples
+      002C9B FA               [12]  568 	mov	r2,a
+      002C9C EB               [12]  569 	mov	a,r3
+      002C9D 34 4C            [12]  570 	addc	a,#(_samples >> 8)
+      002C9F FB               [12]  571 	mov	r3,a
+      002CA0 C0 07            [24]  572 	push	ar7
+      002CA2 C0 06            [24]  573 	push	ar6
+      002CA4 C0 03            [24]  574 	push	ar3
+      002CA6 C0 02            [24]  575 	push	ar2
+      002CA8 12 2E AC         [24]  576 	lcall	_rand
+      002CAB E5 82            [12]  577 	mov	a,dpl
+      002CAD 85 83 F0         [24]  578 	mov	b,dph
+      002CB0 D0 02            [24]  579 	pop	ar2
+      002CB2 D0 03            [24]  580 	pop	ar3
+      002CB4 D0 06            [24]  581 	pop	ar6
+      002CB6 D0 07            [24]  582 	pop	ar7
+      002CB8 30 E0 06         [24]  583 	jnb	acc.0,00114$
+      002CBB 7C FF            [12]  584 	mov	r4,#0xff
+      002CBD 7D FF            [12]  585 	mov	r5,#0xff
+      002CBF 80 04            [24]  586 	sjmp	00115$
+      002CC1                        587 00114$:
+      002CC1 7C 01            [12]  588 	mov	r4,#0x01
+      002CC3 7D 00            [12]  589 	mov	r5,#0x00
+      002CC5                        590 00115$:
+      002CC5 C0 06            [24]  591 	push	ar6
+      002CC7 C0 07            [24]  592 	push	ar7
+      002CC9 C0 05            [24]  593 	push	ar5
+      002CCB C0 04            [24]  594 	push	ar4
+      002CCD C0 03            [24]  595 	push	ar3
+      002CCF C0 02            [24]  596 	push	ar2
+      002CD1 12 2E AC         [24]  597 	lcall	_rand
+      002CD4 AE 82            [24]  598 	mov	r6,dpl
+      002CD6 AF 83            [24]  599 	mov	r7,dph
+      002CD8 D0 02            [24]  600 	pop	ar2
+      002CDA D0 03            [24]  601 	pop	ar3
+      002CDC D0 04            [24]  602 	pop	ar4
+      002CDE D0 05            [24]  603 	pop	ar5
+      002CE0 C0 03            [24]  604 	push	ar3
+      002CE2 C0 02            [24]  605 	push	ar2
+      002CE4 C0 06            [24]  606 	push	ar6
+      002CE6 C0 07            [24]  607 	push	ar7
+      002CE8 8C 82            [24]  608 	mov	dpl,r4
+      002CEA 8D 83            [24]  609 	mov	dph,r5
+      002CEC 12 2F A4         [24]  610 	lcall	__mulint
+      002CEF AE 82            [24]  611 	mov	r6,dpl
+      002CF1 AF 83            [24]  612 	mov	r7,dph
+      002CF3 15 81            [12]  613 	dec	sp
+      002CF5 15 81            [12]  614 	dec	sp
+      002CF7 D0 02            [24]  615 	pop	ar2
+      002CF9 D0 03            [24]  616 	pop	ar3
+      002CFB 8A 82            [24]  617 	mov	dpl,r2
+      002CFD 8B 83            [24]  618 	mov	dph,r3
+      002CFF EE               [12]  619 	mov	a,r6
+      002D00 F0               [24]  620 	movx	@dptr,a
+      002D01 EF               [12]  621 	mov	a,r7
+      002D02 A3               [24]  622 	inc	dptr
+      002D03 F0               [24]  623 	movx	@dptr,a
+                                    624 ;	main.c:57: for (j = 0; j < (1 << N); j++)
+      002D04 A8 10            [24]  625 	mov	r0,_bp
+      002D06 08               [12]  626 	inc	r0
+      002D07 06               [12]  627 	inc	@r0
+      002D08 B6 00 02         [24]  628 	cjne	@r0,#0x00,00143$
+      002D0B 08               [12]  629 	inc	r0
+      002D0C 06               [12]  630 	inc	@r0
+      002D0D                        631 00143$:
+      002D0D A8 10            [24]  632 	mov	r0,_bp
+      002D0F 08               [12]  633 	inc	r0
+      002D10 C3               [12]  634 	clr	c
+      002D11 E6               [12]  635 	mov	a,@r0
+      002D12 94 40            [12]  636 	subb	a,#0x40
+      002D14 08               [12]  637 	inc	r0
+      002D15 E6               [12]  638 	mov	a,@r0
+      002D16 64 80            [12]  639 	xrl	a,#0x80
+      002D18 94 80            [12]  640 	subb	a,#0x80
+      002D1A D0 07            [24]  641 	pop	ar7
+      002D1C D0 06            [24]  642 	pop	ar6
+      002D1E 50 03            [24]  643 	jnc	00144$
+      002D20 02 2C 8D         [24]  644 	ljmp	00106$
+      002D23                        645 00144$:
+                                    646 ;	main.c:60: printf("DO FFT IFFT %d\r\n", i);
+      002D23 C0 07            [24]  647 	push	ar7
+      002D25 C0 06            [24]  648 	push	ar6
+      002D27 C0 06            [24]  649 	push	ar6
+      002D29 C0 07            [24]  650 	push	ar7
+      002D2B 74 36            [12]  651 	mov	a,#___str_0
+      002D2D C0 E0            [24]  652 	push	acc
+      002D2F 74 45            [12]  653 	mov	a,#(___str_0 >> 8)
+      002D31 C0 E0            [24]  654 	push	acc
+      002D33 74 80            [12]  655 	mov	a,#0x80
+      002D35 C0 E0            [24]  656 	push	acc
+      002D37 12 31 1B         [24]  657 	lcall	_printf
+      002D3A E5 81            [12]  658 	mov	a,sp
+      002D3C 24 FB            [12]  659 	add	a,#0xfb
+      002D3E F5 81            [12]  660 	mov	sp,a
+                                    661 ;	main.c:62: memcpy(fft, samples, sizeof (samples));
+      002D40 74 80            [12]  662 	mov	a,#0x80
+      002D42 C0 E0            [24]  663 	push	acc
+      002D44 E4               [12]  664 	clr	a
+      002D45 C0 E0            [24]  665 	push	acc
+      002D47 74 00            [12]  666 	mov	a,#_samples
+      002D49 C0 E0            [24]  667 	push	acc
+      002D4B 74 4C            [12]  668 	mov	a,#(_samples >> 8)
+      002D4D C0 E0            [24]  669 	push	acc
+      002D4F E4               [12]  670 	clr	a
+      002D50 C0 E0            [24]  671 	push	acc
+      002D52 90 4C 80         [24]  672 	mov	dptr,#_fft
+      002D55 75 F0 00         [24]  673 	mov	b,#0x00
+      002D58 12 30 42         [24]  674 	lcall	___memcpy
+      002D5B E5 81            [12]  675 	mov	a,sp
+      002D5D 24 FB            [12]  676 	add	a,#0xfb
+      002D5F F5 81            [12]  677 	mov	sp,a
+                                    678 ;	main.c:63: scale = fix_fftr(fft, N, 0);		
+      002D61 E4               [12]  679 	clr	a
+      002D62 C0 E0            [24]  680 	push	acc
+      002D64 C0 E0            [24]  681 	push	acc
+      002D66 74 06            [12]  682 	mov	a,#0x06
+      002D68 C0 E0            [24]  683 	push	acc
+      002D6A E4               [12]  684 	clr	a
+      002D6B C0 E0            [24]  685 	push	acc
+      002D6D 90 4C 80         [24]  686 	mov	dptr,#_fft
+      002D70 75 F0 00         [24]  687 	mov	b,#0x00
+      002D73 12 2A 21         [24]  688 	lcall	_fix_fftr
+      002D76 E5 81            [12]  689 	mov	a,sp
+      002D78 24 FC            [12]  690 	add	a,#0xfc
+      002D7A F5 81            [12]  691 	mov	sp,a
+                                    692 ;	main.c:70: memcpy(ifft, fft, sizeof (fft));
+      002D7C 74 80            [12]  693 	mov	a,#0x80
+      002D7E C0 E0            [24]  694 	push	acc
+      002D80 E4               [12]  695 	clr	a
+      002D81 C0 E0            [24]  696 	push	acc
+      002D83 74 80            [12]  697 	mov	a,#_fft
+      002D85 C0 E0            [24]  698 	push	acc
+      002D87 74 4C            [12]  699 	mov	a,#(_fft >> 8)
+      002D89 C0 E0            [24]  700 	push	acc
+      002D8B E4               [12]  701 	clr	a
+      002D8C C0 E0            [24]  702 	push	acc
+      002D8E 90 4D 00         [24]  703 	mov	dptr,#_ifft
+      002D91 75 F0 00         [24]  704 	mov	b,#0x00
+      002D94 12 30 42         [24]  705 	lcall	___memcpy
+      002D97 E5 81            [12]  706 	mov	a,sp
+      002D99 24 FB            [12]  707 	add	a,#0xfb
+      002D9B F5 81            [12]  708 	mov	sp,a
+                                    709 ;	main.c:71: scale = fix_fftr(ifft, N, 1);
+      002D9D 74 01            [12]  710 	mov	a,#0x01
+      002D9F C0 E0            [24]  711 	push	acc
+      002DA1 E4               [12]  712 	clr	a
+      002DA2 C0 E0            [24]  713 	push	acc
+      002DA4 74 06            [12]  714 	mov	a,#0x06
+      002DA6 C0 E0            [24]  715 	push	acc
+      002DA8 E4               [12]  716 	clr	a
+      002DA9 C0 E0            [24]  717 	push	acc
+      002DAB 90 4D 00         [24]  718 	mov	dptr,#_ifft
+      002DAE 75 F0 00         [24]  719 	mov	b,#0x00
+      002DB1 12 2A 21         [24]  720 	lcall	_fix_fftr
+      002DB4 AC 82            [24]  721 	mov	r4,dpl
+      002DB6 AD 83            [24]  722 	mov	r5,dph
+      002DB8 E5 81            [12]  723 	mov	a,sp
+      002DBA 24 FC            [12]  724 	add	a,#0xfc
+      002DBC F5 81            [12]  725 	mov	sp,a
+      002DBE D0 06            [24]  726 	pop	ar6
+      002DC0 D0 07            [24]  727 	pop	ar7
+      002DC2 E5 10            [12]  728 	mov	a,_bp
+      002DC4 24 03            [12]  729 	add	a,#0x03
+      002DC6 F8               [12]  730 	mov	r0,a
+      002DC7 A6 04            [24]  731 	mov	@r0,ar4
+      002DC9 08               [12]  732 	inc	r0
+      002DCA A6 05            [24]  733 	mov	@r0,ar5
+                                    734 ;	main.c:73: if (print)
+      002DCC 78 11            [12]  735 	mov	r0,#_print
+      002DCE E6               [12]  736 	mov	a,@r0
+      002DCF 70 03            [24]  737 	jnz	00145$
+      002DD1 02 2E 81         [24]  738 	ljmp	00104$
+      002DD4                        739 00145$:
+                                    740 ;	main.c:74: for (j = 0; j < (1 << N); j++)
+      002DD4 A8 10            [24]  741 	mov	r0,_bp
+      002DD6 08               [12]  742 	inc	r0
+      002DD7 E4               [12]  743 	clr	a
+      002DD8 F6               [12]  744 	mov	@r0,a
+      002DD9 08               [12]  745 	inc	r0
+      002DDA F6               [12]  746 	mov	@r0,a
+      002DDB                        747 00108$:
+                                    748 ;	main.c:76: samples[j], ifft[j] * (1 << scale));
+      002DDB C0 06            [24]  749 	push	ar6
+      002DDD C0 07            [24]  750 	push	ar7
+      002DDF A8 10            [24]  751 	mov	r0,_bp
+      002DE1 08               [12]  752 	inc	r0
+      002DE2 E6               [12]  753 	mov	a,@r0
+      002DE3 25 E0            [12]  754 	add	a,acc
+      002DE5 FE               [12]  755 	mov	r6,a
+      002DE6 08               [12]  756 	inc	r0
+      002DE7 E6               [12]  757 	mov	a,@r0
+      002DE8 33               [12]  758 	rlc	a
+      002DE9 FF               [12]  759 	mov	r7,a
+      002DEA EE               [12]  760 	mov	a,r6
+      002DEB 24 00            [12]  761 	add	a,#_ifft
+      002DED F5 82            [12]  762 	mov	dpl,a
+      002DEF EF               [12]  763 	mov	a,r7
+      002DF0 34 4D            [12]  764 	addc	a,#(_ifft >> 8)
+      002DF2 F5 83            [12]  765 	mov	dph,a
+      002DF4 E0               [24]  766 	movx	a,@dptr
+      002DF5 FC               [12]  767 	mov	r4,a
+      002DF6 A3               [24]  768 	inc	dptr
+      002DF7 E0               [24]  769 	movx	a,@dptr
+      002DF8 FD               [12]  770 	mov	r5,a
+      002DF9 E5 10            [12]  771 	mov	a,_bp
+      002DFB 24 03            [12]  772 	add	a,#0x03
+      002DFD F8               [12]  773 	mov	r0,a
+      002DFE 86 03            [24]  774 	mov	ar3,@r0
+      002E00 8B F0            [24]  775 	mov	b,r3
+      002E02 05 F0            [12]  776 	inc	b
+      002E04 7B 01            [12]  777 	mov	r3,#0x01
+      002E06 7A 00            [12]  778 	mov	r2,#0x00
+      002E08 80 06            [24]  779 	sjmp	00147$
+      002E0A                        780 00146$:
+      002E0A EB               [12]  781 	mov	a,r3
+      002E0B 2B               [12]  782 	add	a,r3
+      002E0C FB               [12]  783 	mov	r3,a
+      002E0D EA               [12]  784 	mov	a,r2
+      002E0E 33               [12]  785 	rlc	a
+      002E0F FA               [12]  786 	mov	r2,a
+      002E10                        787 00147$:
+      002E10 D5 F0 F7         [24]  788 	djnz	b,00146$
+      002E13 C0 07            [24]  789 	push	ar7
+      002E15 C0 06            [24]  790 	push	ar6
+      002E17 C0 03            [24]  791 	push	ar3
+      002E19 C0 02            [24]  792 	push	ar2
+      002E1B 8C 82            [24]  793 	mov	dpl,r4
+      002E1D 8D 83            [24]  794 	mov	dph,r5
+      002E1F 12 2F A4         [24]  795 	lcall	__mulint
+      002E22 AC 82            [24]  796 	mov	r4,dpl
+      002E24 AD 83            [24]  797 	mov	r5,dph
+      002E26 15 81            [12]  798 	dec	sp
+      002E28 15 81            [12]  799 	dec	sp
+      002E2A D0 06            [24]  800 	pop	ar6
+      002E2C D0 07            [24]  801 	pop	ar7
+      002E2E EE               [12]  802 	mov	a,r6
+      002E2F 24 00            [12]  803 	add	a,#_samples
+      002E31 F5 82            [12]  804 	mov	dpl,a
+      002E33 EF               [12]  805 	mov	a,r7
+      002E34 34 4C            [12]  806 	addc	a,#(_samples >> 8)
+      002E36 F5 83            [12]  807 	mov	dph,a
+      002E38 E0               [24]  808 	movx	a,@dptr
+      002E39 FE               [12]  809 	mov	r6,a
+      002E3A A3               [24]  810 	inc	dptr
+      002E3B E0               [24]  811 	movx	a,@dptr
+      002E3C FF               [12]  812 	mov	r7,a
+                                    813 ;	main.c:75: printf("% 8d% 8d\r\n",
+      002E3D C0 07            [24]  814 	push	ar7
+      002E3F C0 06            [24]  815 	push	ar6
+      002E41 C0 04            [24]  816 	push	ar4
+      002E43 C0 05            [24]  817 	push	ar5
+      002E45 C0 06            [24]  818 	push	ar6
+      002E47 C0 07            [24]  819 	push	ar7
+      002E49 74 47            [12]  820 	mov	a,#___str_1
+      002E4B C0 E0            [24]  821 	push	acc
+      002E4D 74 45            [12]  822 	mov	a,#(___str_1 >> 8)
+      002E4F C0 E0            [24]  823 	push	acc
+      002E51 74 80            [12]  824 	mov	a,#0x80
+      002E53 C0 E0            [24]  825 	push	acc
+      002E55 12 31 1B         [24]  826 	lcall	_printf
+      002E58 E5 81            [12]  827 	mov	a,sp
+      002E5A 24 F9            [12]  828 	add	a,#0xf9
+      002E5C F5 81            [12]  829 	mov	sp,a
+      002E5E D0 06            [24]  830 	pop	ar6
+      002E60 D0 07            [24]  831 	pop	ar7
+                                    832 ;	main.c:74: for (j = 0; j < (1 << N); j++)
+      002E62 A8 10            [24]  833 	mov	r0,_bp
+      002E64 08               [12]  834 	inc	r0
+      002E65 06               [12]  835 	inc	@r0
+      002E66 B6 00 02         [24]  836 	cjne	@r0,#0x00,00148$
+      002E69 08               [12]  837 	inc	r0
+      002E6A 06               [12]  838 	inc	@r0
+      002E6B                        839 00148$:
+      002E6B A8 10            [24]  840 	mov	r0,_bp
+      002E6D 08               [12]  841 	inc	r0
+      002E6E C3               [12]  842 	clr	c
+      002E6F E6               [12]  843 	mov	a,@r0
+      002E70 94 40            [12]  844 	subb	a,#0x40
+      002E72 08               [12]  845 	inc	r0
+      002E73 E6               [12]  846 	mov	a,@r0
+      002E74 64 80            [12]  847 	xrl	a,#0x80
+      002E76 94 80            [12]  848 	subb	a,#0x80
+      002E78 D0 07            [24]  849 	pop	ar7
+      002E7A D0 06            [24]  850 	pop	ar6
+      002E7C 50 03            [24]  851 	jnc	00149$
+      002E7E 02 2D DB         [24]  852 	ljmp	00108$
+      002E81                        853 00149$:
+      002E81                        854 00104$:
+                                    855 ;	main.c:78: printf("DONE\r\n\r\n");
+      002E81 C0 07            [24]  856 	push	ar7
+      002E83 C0 06            [24]  857 	push	ar6
+      002E85 74 52            [12]  858 	mov	a,#___str_2
+      002E87 C0 E0            [24]  859 	push	acc
+      002E89 74 45            [12]  860 	mov	a,#(___str_2 >> 8)
+      002E8B C0 E0            [24]  861 	push	acc
+      002E8D 74 80            [12]  862 	mov	a,#0x80
+      002E8F C0 E0            [24]  863 	push	acc
+      002E91 12 31 1B         [24]  864 	lcall	_printf
+      002E94 15 81            [12]  865 	dec	sp
+      002E96 15 81            [12]  866 	dec	sp
+      002E98 15 81            [12]  867 	dec	sp
+      002E9A D0 06            [24]  868 	pop	ar6
+      002E9C D0 07            [24]  869 	pop	ar7
+                                    870 ;	main.c:56: for (i = 0; 1; i++) {
+      002E9E 0E               [12]  871 	inc	r6
+      002E9F BE 00 01         [24]  872 	cjne	r6,#0x00,00150$
+      002EA2 0F               [12]  873 	inc	r7
+      002EA3                        874 00150$:
+      002EA3 02 2C 86         [24]  875 	ljmp	00117$
+                                    876 ;	main.c:83: return;
+                                    877 ;	main.c:84: }
+      002EA6 85 10 81         [24]  878 	mov	sp,_bp
+      002EA9 D0 10            [24]  879 	pop	_bp
+      002EAB 22               [24]  880 	ret
+                                    881 	.area CSEG    (CODE)
                                     882 	.area CONST   (CODE)
-      004535                        883 ___str_0:
-      004535 44 4F 20 46 46 54 20   884 	.ascii "DO FFT IFFT %d"
+                                    883 	.area CONST   (CODE)
+      004536                        884 ___str_0:
+      004536 44 4F 20 46 46 54 20   885 	.ascii "DO FFT IFFT %d"
              49 46 46 54 20 25 64
-      004543 0D                     885 	.db 0x0d
-      004544 0A                     886 	.db 0x0a
-      004545 00                     887 	.db 0x00
-                                    888 	.area CSEG    (CODE)
-                                    889 	.area CONST   (CODE)
-      004546                        890 ___str_1:
-      004546 25 20 38 64 25 20 38   891 	.ascii "% 8d% 8d"
+      004544 0D                     886 	.db 0x0d
+      004545 0A                     887 	.db 0x0a
+      004546 00                     888 	.db 0x00
+                                    889 	.area CSEG    (CODE)
+                                    890 	.area CONST   (CODE)
+      004547                        891 ___str_1:
+      004547 25 20 38 64 25 20 38   892 	.ascii "% 8d% 8d"
              64
-      00454E 0D                     892 	.db 0x0d
-      00454F 0A                     893 	.db 0x0a
-      004550 00                     894 	.db 0x00
-                                    895 	.area CSEG    (CODE)
-                                    896 	.area CONST   (CODE)
-      004551                        897 ___str_2:
-      004551 44 4F 4E 45            898 	.ascii "DONE"
-      004555 0D                     899 	.db 0x0d
-      004556 0A                     900 	.db 0x0a
-      004557 0D                     901 	.db 0x0d
-      004558 0A                     902 	.db 0x0a
-      004559 00                     903 	.db 0x00
-                                    904 	.area CSEG    (CODE)
-                                    905 	.area XINIT   (CODE)
-                                    906 	.area CABS    (ABS,CODE)
+      00454F 0D                     893 	.db 0x0d
+      004550 0A                     894 	.db 0x0a
+      004551 00                     895 	.db 0x00
+                                    896 	.area CSEG    (CODE)
+                                    897 	.area CONST   (CODE)
+      004552                        898 ___str_2:
+      004552 44 4F 4E 45            899 	.ascii "DONE"
+      004556 0D                     900 	.db 0x0d
+      004557 0A                     901 	.db 0x0a
+      004558 0D                     902 	.db 0x0d
+      004559 0A                     903 	.db 0x0a
+      00455A 00                     904 	.db 0x00
+                                    905 	.area CSEG    (CODE)
+                                    906 	.area XINIT   (CODE)
+                                    907 	.area CABS    (ABS,CODE)

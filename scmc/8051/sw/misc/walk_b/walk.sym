@@ -355,35 +355,35 @@ Symbol Table
   F __sdcc_program_startup                                         000006 GR
   7 __start__stack                                                 000000 GR
  1A __xinit__neigh                                                 000000 R
- 18 _bang                                                          000022 R
+ 18 _bang                                                          000023 R
     _bp                                                            ****** GX
- 18 _flipOE                                                        000062 R
+ 18 _flipOE                                                        000063 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
   C _g                                                             000000 R
- 18 _getchar                                                       000009 GR
+ 18 _getchar                                                       00000A GR
   C _hp                                                            00BC70 R
   8 _i0                                                            000000 R
- 18 _int0                                                          000016 GR
- 18 _main                                                          0006B1 GR
+ 18 _int0                                                          000017 GR
+ 18 _main                                                          0006B2 GR
   E _neigh                                                         000000 R
     _printf                                                        ****** GX
  18 _putchar                                                       000000 GR
     _puts                                                          ****** GX
- 18 _qadd                                                          000A9A R
- 18 _qget                                                          000B8C R
- 18 _qinit                                                         000A8C R
+ 18 _qadd                                                          000A9B R
+ 18 _qget                                                          000B8D R
+ 18 _qinit                                                         000A8D R
   C _queue                                                         0025B0 R
     _rand                                                          ****** GX
- 18 _setOE                                                         00002F R
+ 18 _setOE                                                         000030 R
     _srand                                                         ****** GX
   C _tp                                                            00BC72 R
- 18 _unsetOE                                                       000048 R
- 18 _update                                                        00007B R
- 18 _walk                                                          000308 R
+ 18 _unsetOE                                                       000049 R
+ 18 _update                                                        00007C R
+ 18 _walk                                                          000309 R
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
     a.1                                                         =  0000E1 L
@@ -614,7 +614,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size      0   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    C10   flags   20
+  18 CSEG                                       size    C11   flags   20
   19 CONST                                      size     6A   flags   20
   1A XINIT                                      size     40   flags   20
   1B CABS                                       size      0   flags   28

@@ -12,6 +12,7 @@ int putchar(int c) __naked {
 		mov a, dpl
 		lcall pm2_entry_cout
 		pop acc
+		ret
 	__endasm;
 }
 
