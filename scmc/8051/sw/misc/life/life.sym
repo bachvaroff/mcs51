@@ -369,6 +369,8 @@ Symbol Table
   9 _c                                                             000019 R
   9 _cycle2                                                        00001D R
   9 _digits                                                        000000 R
+  9 _dx                                                            00001E R
+  9 _dy                                                            000020 R
   9 _fixed                                                         00001C R
  19 _flashOE                                                       000049 R
   9 _generation                                                    000022 R
@@ -392,9 +394,7 @@ Symbol Table
     _toupper                                                       ****** GX
   D _u                                                             004800 R
   9 _x                                                             000013 R
-  9 _x1                                                            00001E R
   9 _y                                                             000015 R
-  9 _y1                                                            000020 R
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
     a.1                                                         =  0000E1 L
