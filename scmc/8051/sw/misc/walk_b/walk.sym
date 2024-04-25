@@ -365,7 +365,7 @@ Symbol Table
 
   C _g                                                             000000 R
  18 _getchar                                                       00000A GR
-  C _hp                                                            00BC70 R
+  C _hp                                                            00B400 R
   8 _i0                                                            000000 R
  18 _int0                                                          000017 GR
  18 _main                                                          0006B2 GR
@@ -374,13 +374,13 @@ Symbol Table
  18 _putchar                                                       000000 GR
     _puts                                                          ****** GX
  18 _qadd                                                          000A9B R
- 18 _qget                                                          000B8D R
+ 18 _qget                                                          000B8B R
  18 _qinit                                                         000A8D R
-  C _queue                                                         0025B0 R
+  C _queue                                                         002400 R
     _rand                                                          ****** GX
  18 _setOE                                                         000030 R
     _srand                                                         ****** GX
-  C _tp                                                            00BC72 R
+  C _tp                                                            00B402 R
  18 _unsetOE                                                       000049 R
  18 _update                                                        00007C R
  18 _walk                                                          000309 R
@@ -602,7 +602,7 @@ Area Table
    9 IABS                                       size      0   flags    8
    A BSEG                                       size      0   flags   80
    B PSEG                                       size      0   flags   50
-   C XSEG                                       size   BC74   flags   40
+   C XSEG                                       size   B404   flags   40
    D XABS                                       size      0   flags   48
    E XISEG                                      size     40   flags   40
    F HOME                                       size      9   flags   20
@@ -614,7 +614,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size      0   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    C11   flags   20
+  18 CSEG                                       size    C0E   flags   20
   19 CONST                                      size     6A   flags   20
   1A XINIT                                      size     40   flags   20
   1B CABS                                       size      0   flags   28

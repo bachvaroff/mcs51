@@ -25,6 +25,5 @@ Other memory:
    Name             Start    End      Size     Max     
    ---------------- -------- -------- -------- --------
    PAGED EXT. RAM                         0      256   
-   EXTERNAL RAM     0x4310   0xffc7   48312    65536   
-   ROM/EPROM/FLASH  0x2000   0x4310    8977     8976   
-*** ERROR: Insufficient ROM/EPROM/FLASH memory.
+   EXTERNAL RAM     0x4310   0xf757   46152    65536   
+   ROM/EPROM/FLASH  0x2000   0x430d    8974     8976   
