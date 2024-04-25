@@ -72,7 +72,7 @@ static char pu[H * W], u[H * W], nu[H * W]; /* evolve(), show(), loadu() */
 __idata static int x, y; /* evolve(), show(), loadu() */
 __idata static int j, c; /* loadu() */
 __idata static char bstep, n, fixed, cycle2; /* evolve() */
-__idata static int x1, y1; /* evolve() */
+__idata static int dx, dy; /* evolve() */
 __idata static int generation[2]; /* cleargen(), updategen(), printgen(), show() */
 
 inline void cleargen(void) {
@@ -175,24 +175,21 @@ inline void evolve(void) {
 		for (x = 0; x < W; x++) {
 			n = -u[A2D(W, y, x)];
 			
-			y1 = -1; x1 = -1;
-			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
-			y1 = -1; x1 = 0;
-			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
-			y1 = -1; x1 = 1;
-			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
-			y1 = 0; x1 = -1;
-			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
-			y1 = 0; x1 = 0;
-			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
-			y1 = 0; x1 = 1;
-			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
-			y1 = 1; x1 = -1;
-			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
-			y1 = 1; x1 = 0;
-			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
-			y1 = 1; x1 = 1;
-			n += u[A2D(W, (y + y1 + H) % H, (x + x1 + W) % W)];
+#define UPDN(DY,DX) do { \
+	dy = (DY); \
+	dx = (DX); \
+	n += u[A2D(W, (y + dy + H) % H, (x + dx + W) % W)]; \
+} while (0)
+			UPDN(-1, -1);
+			UPDN(-1, 0);
+			UPDN(-1, 1);
+			UPDN(0, -1);
+			UPDN(0, 0);
+			UPDN(0, 1);
+			UPDN(1, -1);
+			UPDN(1, 0);
+			UPDN(1, 1);
+#undef UPDN
 			
 			nu[A2D(W, y, x)] = (n == 3) || ((n == 2) && u[A2D(W, y, x)]);
 			cycle2 |= pu[A2D(W, y, x)] ^ nu[A2D(W, y, x)];
