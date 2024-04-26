@@ -3,10 +3,7 @@ ASLINKFLAGS=--model-large --stack-auto -L../../pm21 -llibpm21
 ASMEMFLAGS=--code-loc 0x2000 --code-size 0x2300 --xram-loc 0x4300
 
 %.rel: %.c
-	sdcc $(SDCCCFLAGS) -c "$<"
-
-%.ihx: *.rel
-	sdcc $(ASLINKFLAGS) $(ASMEMFLAGS) $^
+	sdcc -c $(SDCCCFLAGS) "$<"
 
 %.hex: %.ihx
 	packihx "$<" > "$@"
@@ -14,6 +11,9 @@ ASMEMFLAGS=--code-loc 0x2000 --code-size 0x2300 --xram-loc 0x4300
 .PRECIOUS: %.ihx
 
 all: walk
+
+walk.ihx: walk.rel
+	sdcc $(ASLINKFLAGS) $(ASMEMFLAGS) $^ -o "$@"
 
 walk: walk.hex
 	cat "$@.mem"

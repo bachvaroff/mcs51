@@ -367,19 +367,19 @@ Symbol Table
   9 _dy                                                            000020 R
   9 _fixed                                                         00001C R
   9 _generation                                                    000022 R
- 19 _getchar                                                       00000A GR
+    _getchar                                                       ****** GX
   9 _i0                                                            000010 R
   9 _i1                                                            000011 R
- 19 _int0                                                          000017 GR
- 19 _int1                                                          000023 GR
+ 19 _int0                                                          000000 GR
+ 19 _int1                                                          00000C GR
   9 _j                                                             000016 R
- 19 _main                                                          00022C GR
+ 19 _main                                                          000269 GR
     _memset                                                        ****** GX
   9 _n                                                             00001B R
   D _nu                                                            001000 R
   D _pu                                                            000000 R
- 19 _putchar                                                       000000 GR
- 19 _show                                                          00002F GR
+    _putchar                                                       ****** GX
+ 19 _show                                                          000018 GR
     _toupper                                                       ****** GX
   D _u                                                             000800 R
   9 _x                                                             000012 R
@@ -624,7 +624,7 @@ Area Table
   16 GSINIT5                                    size      0   flags   20
   17 GSINIT                                     size     50   flags   20
   18 GSFINAL                                    size      3   flags   20
-  19 CSEG                                       size    9FD   flags   20
+  19 CSEG                                       size    ABE   flags   20
   1A CONST                                      size     5B   flags   20
   1B XINIT                                      size      0   flags   20
   1C CABS                                       size      0   flags   28

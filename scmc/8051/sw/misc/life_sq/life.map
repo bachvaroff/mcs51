@@ -66,7 +66,7 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000C49  l_CSEG                          
+C:   00000D3B  l_CSEG                          
 C:   00001800  l_XSEG                          
 C:   00002000  s_HOME                          
 C:   00002019  s_GSINIT0                       
@@ -78,8 +78,8 @@ C:   00002072  s_GSINIT
 C:   00002072  s_GSINIT5                       
 C:   000020C2  s_GSFINAL                       
 C:   000020C5  s_CSEG                          
-C:   00002D0E  s_CONST                         
-C:   00002D69  s_XINIT                         
+C:   00002E00  s_CONST                         
+C:   00002E5B  s_XINIT                         
 C:   00004000  s_PSEG                          
 C:   00004000  s_XSEG                          
 C:   00005800  s_XISEG                         
@@ -94,55 +94,55 @@ Area                                    Addr        Size        Decimal Bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000000  .__.ABS.                           _gptrput
-     00000080  _P0                                life
-     00000080  _P0_0                              life
-     00000081  _P0_1                              life
-     00000081  _SP                                life
-     00000082  _DPL                               life
-     00000082  _P0_2                              life
-     00000083  _DPH                               life
-     00000083  _P0_3                              life
-     00000084  _P0_4                              life
-     00000085  _P0_5                              life
-     00000086  _P0_6                              life
-     00000087  _P0_7                              life
-     00000087  _PCON                              life
-     00000088  _IT0                               life
-     00000088  _TCON                              life
-     00000089  _IE0                               life
-     00000089  _TMOD                              life
-     0000008A  _IT1                               life
-     0000008A  _TL0                               life
-     0000008B  _IE1                               life
-     0000008B  _TL1                               life
-     0000008C  _TH0                               life
-     0000008C  _TR0                               life
-     0000008D  _TF0                               life
-     0000008D  _TH1                               life
-     0000008E  _TR1                               life
-     0000008F  _TF1                               life
-     00000090  _P1                                life
-     00000090  _P1_0                              life
-     00000090  _T2                                life
-     00000091  _P1_1                              life
-     00000091  _T2EX                              life
-     00000092  _P1_2                              life
-     00000093  _P1_3                              life
-     00000094  _P1_4                              life
-     00000095  _P1_5                              life
-     00000096  _P1_6                              life
-     00000097  _P1_7                              life
-     00000098  _RI                                life
-     00000098  _SCON                              life
-     00000099  _SBUF                              life
-     00000099  _TI                                life
-     0000009A  _RB8                               life
-     0000009B  _TB8                               life
-     0000009C  _REN                               life
-     0000009D  _SM2                               life
-     0000009E  _SM1                               life
-     0000009F  _SM0                               life
-     000000A0  _P2                                life
+     00000080  _P0                                sio
+     00000080  _P0_0                              sio
+     00000081  _P0_1                              sio
+     00000081  _SP                                sio
+     00000082  _DPL                               sio
+     00000082  _P0_2                              sio
+     00000083  _DPH                               sio
+     00000083  _P0_3                              sio
+     00000084  _P0_4                              sio
+     00000085  _P0_5                              sio
+     00000086  _P0_6                              sio
+     00000087  _P0_7                              sio
+     00000087  _PCON                              sio
+     00000088  _IT0                               sio
+     00000088  _TCON                              sio
+     00000089  _IE0                               sio
+     00000089  _TMOD                              sio
+     0000008A  _IT1                               sio
+     0000008A  _TL0                               sio
+     0000008B  _IE1                               sio
+     0000008B  _TL1                               sio
+     0000008C  _TH0                               sio
+     0000008C  _TR0                               sio
+     0000008D  _TF0                               sio
+     0000008D  _TH1                               sio
+     0000008E  _TR1                               sio
+     0000008F  _TF1                               sio
+     00000090  _P1                                sio
+     00000090  _P1_0                              sio
+     00000090  _T2                                sio
+     00000091  _P1_1                              sio
+     00000091  _T2EX                              sio
+     00000092  _P1_2                              sio
+     00000093  _P1_3                              sio
+     00000094  _P1_4                              sio
+     00000095  _P1_5                              sio
+     00000096  _P1_6                              sio
+     00000097  _P1_7                              sio
+     00000098  _RI                                sio
+     00000098  _SCON                              sio
+     00000099  _SBUF                              sio
+     00000099  _TI                                sio
+     0000009A  _RB8                               sio
+     0000009B  _TB8                               sio
+     0000009C  _REN                               sio
+     0000009D  _SM2                               sio
+     0000009E  _SM1                               sio
+     0000009F  _SM0                               sio
+     000000A0  _P2                                sio
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -152,57 +152,57 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000A0  _P2_0                              life
+     000000A0  _P2_0                              sio
      000000A0  __XPAGE                            
-     000000A1  _P2_1                              life
-     000000A2  _P2_2                              life
-     000000A3  _P2_3                              life
-     000000A4  _P2_4                              life
-     000000A5  _P2_5                              life
-     000000A6  _P2_6                              life
-     000000A7  _P2_7                              life
-     000000A8  _EX0                               life
-     000000A8  _IE                                life
-     000000A9  _ET0                               life
-     000000AA  _EX1                               life
-     000000AB  _ET1                               life
-     000000AC  _ES                                life
-     000000AD  _ET2                               life
-     000000AF  _EA                                life
-     000000B0  _P3                                life
-     000000B0  _P3_0                              life
-     000000B0  _RXD                               life
-     000000B1  _P3_1                              life
-     000000B1  _TXD                               life
-     000000B2  _INT0                              life
-     000000B2  _P3_2                              life
-     000000B3  _INT1                              life
-     000000B3  _P3_3                              life
-     000000B4  _P3_4                              life
-     000000B4  _T0                                life
-     000000B5  _P3_5                              life
-     000000B5  _T1                                life
-     000000B6  _P3_6                              life
-     000000B6  _WR                                life
-     000000B7  _P3_7                              life
-     000000B7  _RD                                life
-     000000B8  _IP                                life
-     000000B8  _PX0                               life
-     000000B9  _PT0                               life
-     000000BA  _PX1                               life
-     000000BB  _PT1                               life
-     000000BC  _PS                                life
-     000000BD  _PT2                               life
-     000000C8  _CP_RL2                            life
-     000000C8  _T2CON                             life
-     000000C8  _T2CON_0                           life
-     000000C9  _C_T2                              life
-     000000C9  _T2CON_1                           life
-     000000C9  _T2MOD                             life
-     000000CA  _RCAP2L                            life
-     000000CA  _T2CON_2                           life
-     000000CA  _TR2                               life
-     000000CB  _EXEN2                             life
+     000000A1  _P2_1                              sio
+     000000A2  _P2_2                              sio
+     000000A3  _P2_3                              sio
+     000000A4  _P2_4                              sio
+     000000A5  _P2_5                              sio
+     000000A6  _P2_6                              sio
+     000000A7  _P2_7                              sio
+     000000A8  _EX0                               sio
+     000000A8  _IE                                sio
+     000000A9  _ET0                               sio
+     000000AA  _EX1                               sio
+     000000AB  _ET1                               sio
+     000000AC  _ES                                sio
+     000000AD  _ET2                               sio
+     000000AF  _EA                                sio
+     000000B0  _P3                                sio
+     000000B0  _P3_0                              sio
+     000000B0  _RXD                               sio
+     000000B1  _P3_1                              sio
+     000000B1  _TXD                               sio
+     000000B2  _INT0                              sio
+     000000B2  _P3_2                              sio
+     000000B3  _INT1                              sio
+     000000B3  _P3_3                              sio
+     000000B4  _P3_4                              sio
+     000000B4  _T0                                sio
+     000000B5  _P3_5                              sio
+     000000B5  _T1                                sio
+     000000B6  _P3_6                              sio
+     000000B6  _WR                                sio
+     000000B7  _P3_7                              sio
+     000000B7  _RD                                sio
+     000000B8  _IP                                sio
+     000000B8  _PX0                               sio
+     000000B9  _PT0                               sio
+     000000BA  _PX1                               sio
+     000000BB  _PT1                               sio
+     000000BC  _PS                                sio
+     000000BD  _PT2                               sio
+     000000C8  _CP_RL2                            sio
+     000000C8  _T2CON                             sio
+     000000C8  _T2CON_0                           sio
+     000000C9  _C_T2                              sio
+     000000C9  _T2CON_1                           sio
+     000000C9  _T2MOD                             sio
+     000000CA  _RCAP2L                            sio
+     000000CA  _T2CON_2                           sio
+     000000CA  _TR2                               sio
+     000000CB  _EXEN2                             sio
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
@@ -212,30 +212,30 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000CB  _RCAP2H                            life
-     000000CB  _T2CON_3                           life
-     000000CC  _T2CON_4                           life
-     000000CC  _TCLK                              life
-     000000CC  _TL2                               life
-     000000CD  _RCLK                              life
-     000000CD  _T2CON_5                           life
-     000000CD  _TH2                               life
-     000000CE  _EXF2                              life
-     000000CE  _T2CON_6                           life
-     000000CF  _T2CON_7                           life
-     000000CF  _TF2                               life
-     000000D0  _P                                 life
-     000000D0  _PSW                               life
-     000000D1  _FL                                life
-     000000D2  _OV                                life
-     000000D3  _RS0                               life
-     000000D4  _RS1                               life
-     000000D5  _F0                                life
-     000000D6  _AC                                life
-     000000D7  _CY                                life
-     000000E0  _A                                 life
-     000000E0  _ACC                               life
-     000000F0  _B                                 life
+     000000CB  _RCAP2H                            sio
+     000000CB  _T2CON_3                           sio
+     000000CC  _T2CON_4                           sio
+     000000CC  _TCLK                              sio
+     000000CC  _TL2                               sio
+     000000CD  _RCLK                              sio
+     000000CD  _T2CON_5                           sio
+     000000CD  _TH2                               sio
+     000000CE  _EXF2                              sio
+     000000CE  _T2CON_6                           sio
+     000000CF  _T2CON_7                           sio
+     000000CF  _TF2                               sio
+     000000D0  _P                                 sio
+     000000D0  _PSW                               sio
+     000000D1  _FL                                sio
+     000000D2  _OV                                sio
+     000000D3  _RS0                               sio
+     000000D4  _RS1                               sio
+     000000D5  _F0                                sio
+     000000D6  _AC                                sio
+     000000D7  _CY                                sio
+     000000E0  _A                                 sio
+     000000E0  _ACC                               sio
+     000000F0  _B                                 sio
      000000F5  _B_5                               _gptrput
      000000F6  _B_6                               _gptrput
      000000F7  _B_7                               _gptrput
@@ -384,31 +384,31 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                000020C5    00000C49 =        3145. bytes (REL,CON,CODE)
+CSEG                                000020C5    00000D3B =        3387. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   000020C5  _putchar                           life
-C:   000020CF  _getchar                           life
-C:   000020DC  _int0                              life
-C:   000020E8  _int1                              life
-C:   000020F4  _show                              life
-C:   000022F1  _main                              life
-C:   00002AC2  ___memcpy                          __memcpy
-C:   00002B55  _memset                            _memset
-C:   00002BBF  _toupper                           toupper
-C:   00002BE6  __gptrget                          _gptrget
-C:   00002C02  __modsint                          _modsint
-C:   00002C70  __moduint                          _moduint
-C:   00002CEF  __sdcc_external_startup            _startup
-C:   00002CF3  __gptrput                          _gptrput
-
+C:   000020C5  _int0                              life
+C:   000020D1  _int1                              life
+C:   000020DD  _show                              life
+C:   0000232E  _main                              life
+C:   00002B83  _putchar                           sio
+C:   00002B8D  _getchar                           sio
+C:   00002B9A  _getchar_poll                      sio
+C:   00002BB4  ___memcpy                          __memcpy
+C:   00002C47  _memset                            _memset
+C:   00002CB1  _toupper                           toupper
+C:   00002CD8  __gptrget                          _gptrget
+C:   00002CF4  __modsint                          _modsint
+C:   00002D62  __moduint                          _moduint
+C:   00002DE1  __sdcc_external_startup            _startup
+C:   00002DE5  __gptrput                          _gptrput
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00002D0E    0000005B =          91. bytes (REL,CON,CODE)
+CONST                               00002E00    0000005B =          91. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -425,6 +425,7 @@ Libraries Linked                          [ object file ]
                                           [ crtclear.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/mcs51.lib
                                           [ crtxinit.rel ]
+../../pm21/libpm21.lib                    [ sio.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/mcs51.lib
                                           [ crtxclear.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib

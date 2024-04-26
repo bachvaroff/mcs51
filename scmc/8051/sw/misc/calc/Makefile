@@ -3,7 +3,7 @@ ASLINKFLAGS=--model-large --stack-auto -L../../pm21 -llibpm21
 ASMEMFLAGS=--code-loc 0x2000 --code-size 0x8000 --xram-loc 0xa000
 
 %.rel: %.c
-	sdcc $(SDCCCFLAGS) -c "$<"
+	sdcc -c $(SDCCCFLAGS) "$<"
 
 %.hex: %.ihx
 	packihx "$<" > "$@"
