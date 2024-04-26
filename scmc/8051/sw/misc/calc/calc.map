@@ -77,12 +77,12 @@ C:   0000208D  s_GSINIT
 C:   0000208D  s_GSINIT5                       
 C:   00002090  s_CSEG                          
 C:   00004025  l_XSEG                          
-C:   000068D3  l_CSEG                          
-C:   00008963  s_CONST                         
-C:   00008D23  s_XINIT                         
-C:   00009000  s_PSEG                          
-C:   00009000  s_XSEG                          
-C:   0000D025  s_XISEG                         
+C:   00006DF4  l_CSEG                          
+C:   00008E84  s_CONST                         
+C:   00009244  s_XINIT                         
+C:   0000A000  s_PSEG                          
+C:   0000A000  s_XSEG                          
+C:   0000E025  s_XISEG                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -94,55 +94,55 @@ Area                                    Addr        Size        Decimal Bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000000  .__.ABS.                           _strlen
-     00000080  _P0                                calc
-     00000080  _P0_0                              calc
-     00000081  _P0_1                              calc
-     00000081  _SP                                calc
-     00000082  _DPL                               calc
-     00000082  _P0_2                              calc
-     00000083  _DPH                               calc
-     00000083  _P0_3                              calc
-     00000084  _P0_4                              calc
-     00000085  _P0_5                              calc
-     00000086  _P0_6                              calc
-     00000087  _P0_7                              calc
-     00000087  _PCON                              calc
-     00000088  _IT0                               calc
-     00000088  _TCON                              calc
-     00000089  _IE0                               calc
-     00000089  _TMOD                              calc
-     0000008A  _IT1                               calc
-     0000008A  _TL0                               calc
-     0000008B  _IE1                               calc
-     0000008B  _TL1                               calc
-     0000008C  _TH0                               calc
-     0000008C  _TR0                               calc
-     0000008D  _TF0                               calc
-     0000008D  _TH1                               calc
-     0000008E  _TR1                               calc
-     0000008F  _TF1                               calc
-     00000090  _P1                                calc
-     00000090  _P1_0                              calc
-     00000090  _T2                                calc
-     00000091  _P1_1                              calc
-     00000091  _T2EX                              calc
-     00000092  _P1_2                              calc
-     00000093  _P1_3                              calc
-     00000094  _P1_4                              calc
-     00000095  _P1_5                              calc
-     00000096  _P1_6                              calc
-     00000097  _P1_7                              calc
-     00000098  _RI                                calc
-     00000098  _SCON                              calc
-     00000099  _SBUF                              calc
-     00000099  _TI                                calc
-     0000009A  _RB8                               calc
-     0000009B  _TB8                               calc
-     0000009C  _REN                               calc
-     0000009D  _SM2                               calc
-     0000009E  _SM1                               calc
-     0000009F  _SM0                               calc
-     000000A0  _P2                                calc
+     00000080  _P0                                sio
+     00000080  _P0_0                              sio
+     00000081  _P0_1                              sio
+     00000081  _SP                                sio
+     00000082  _DPL                               sio
+     00000082  _P0_2                              sio
+     00000083  _DPH                               sio
+     00000083  _P0_3                              sio
+     00000084  _P0_4                              sio
+     00000085  _P0_5                              sio
+     00000086  _P0_6                              sio
+     00000087  _P0_7                              sio
+     00000087  _PCON                              sio
+     00000088  _IT0                               sio
+     00000088  _TCON                              sio
+     00000089  _IE0                               sio
+     00000089  _TMOD                              sio
+     0000008A  _IT1                               sio
+     0000008A  _TL0                               sio
+     0000008B  _IE1                               sio
+     0000008B  _TL1                               sio
+     0000008C  _TH0                               sio
+     0000008C  _TR0                               sio
+     0000008D  _TF0                               sio
+     0000008D  _TH1                               sio
+     0000008E  _TR1                               sio
+     0000008F  _TF1                               sio
+     00000090  _P1                                sio
+     00000090  _P1_0                              sio
+     00000090  _T2                                sio
+     00000091  _P1_1                              sio
+     00000091  _T2EX                              sio
+     00000092  _P1_2                              sio
+     00000093  _P1_3                              sio
+     00000094  _P1_4                              sio
+     00000095  _P1_5                              sio
+     00000096  _P1_6                              sio
+     00000097  _P1_7                              sio
+     00000098  _RI                                sio
+     00000098  _SCON                              sio
+     00000099  _SBUF                              sio
+     00000099  _TI                                sio
+     0000009A  _RB8                               sio
+     0000009B  _TB8                               sio
+     0000009C  _REN                               sio
+     0000009D  _SM2                               sio
+     0000009E  _SM1                               sio
+     0000009F  _SM0                               sio
+     000000A0  _P2                                sio
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -152,57 +152,57 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000A0  _P2_0                              calc
+     000000A0  _P2_0                              sio
      000000A0  __XPAGE                            
-     000000A1  _P2_1                              calc
-     000000A2  _P2_2                              calc
-     000000A3  _P2_3                              calc
-     000000A4  _P2_4                              calc
-     000000A5  _P2_5                              calc
-     000000A6  _P2_6                              calc
-     000000A7  _P2_7                              calc
-     000000A8  _EX0                               calc
-     000000A8  _IE                                calc
-     000000A9  _ET0                               calc
-     000000AA  _EX1                               calc
-     000000AB  _ET1                               calc
-     000000AC  _ES                                calc
-     000000AD  _ET2                               calc
-     000000AF  _EA                                calc
-     000000B0  _P3                                calc
-     000000B0  _P3_0                              calc
-     000000B0  _RXD                               calc
-     000000B1  _P3_1                              calc
-     000000B1  _TXD                               calc
-     000000B2  _INT0                              calc
-     000000B2  _P3_2                              calc
-     000000B3  _INT1                              calc
-     000000B3  _P3_3                              calc
-     000000B4  _P3_4                              calc
-     000000B4  _T0                                calc
-     000000B5  _P3_5                              calc
-     000000B5  _T1                                calc
-     000000B6  _P3_6                              calc
-     000000B6  _WR                                calc
-     000000B7  _P3_7                              calc
-     000000B7  _RD                                calc
-     000000B8  _IP                                calc
-     000000B8  _PX0                               calc
-     000000B9  _PT0                               calc
-     000000BA  _PX1                               calc
-     000000BB  _PT1                               calc
-     000000BC  _PS                                calc
-     000000BD  _PT2                               calc
-     000000C8  _CP_RL2                            calc
-     000000C8  _T2CON                             calc
-     000000C8  _T2CON_0                           calc
-     000000C9  _C_T2                              calc
-     000000C9  _T2CON_1                           calc
-     000000C9  _T2MOD                             calc
-     000000CA  _RCAP2L                            calc
-     000000CA  _T2CON_2                           calc
-     000000CA  _TR2                               calc
-     000000CB  _EXEN2                             calc
+     000000A1  _P2_1                              sio
+     000000A2  _P2_2                              sio
+     000000A3  _P2_3                              sio
+     000000A4  _P2_4                              sio
+     000000A5  _P2_5                              sio
+     000000A6  _P2_6                              sio
+     000000A7  _P2_7                              sio
+     000000A8  _EX0                               sio
+     000000A8  _IE                                sio
+     000000A9  _ET0                               sio
+     000000AA  _EX1                               sio
+     000000AB  _ET1                               sio
+     000000AC  _ES                                sio
+     000000AD  _ET2                               sio
+     000000AF  _EA                                sio
+     000000B0  _P3                                sio
+     000000B0  _P3_0                              sio
+     000000B0  _RXD                               sio
+     000000B1  _P3_1                              sio
+     000000B1  _TXD                               sio
+     000000B2  _INT0                              sio
+     000000B2  _P3_2                              sio
+     000000B3  _INT1                              sio
+     000000B3  _P3_3                              sio
+     000000B4  _P3_4                              sio
+     000000B4  _T0                                sio
+     000000B5  _P3_5                              sio
+     000000B5  _T1                                sio
+     000000B6  _P3_6                              sio
+     000000B6  _WR                                sio
+     000000B7  _P3_7                              sio
+     000000B7  _RD                                sio
+     000000B8  _IP                                sio
+     000000B8  _PX0                               sio
+     000000B9  _PT0                               sio
+     000000BA  _PX1                               sio
+     000000BB  _PT1                               sio
+     000000BC  _PS                                sio
+     000000BD  _PT2                               sio
+     000000C8  _CP_RL2                            sio
+     000000C8  _T2CON                             sio
+     000000C8  _T2CON_0                           sio
+     000000C9  _C_T2                              sio
+     000000C9  _T2CON_1                           sio
+     000000C9  _T2MOD                             sio
+     000000CA  _RCAP2L                            sio
+     000000CA  _T2CON_2                           sio
+     000000CA  _TR2                               sio
+     000000CB  _EXEN2                             sio
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
@@ -212,30 +212,30 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000CB  _RCAP2H                            calc
-     000000CB  _T2CON_3                           calc
-     000000CC  _T2CON_4                           calc
-     000000CC  _TCLK                              calc
-     000000CC  _TL2                               calc
-     000000CD  _RCLK                              calc
-     000000CD  _T2CON_5                           calc
-     000000CD  _TH2                               calc
-     000000CE  _EXF2                              calc
-     000000CE  _T2CON_6                           calc
-     000000CF  _T2CON_7                           calc
-     000000CF  _TF2                               calc
-     000000D0  _P                                 calc
-     000000D0  _PSW                               calc
-     000000D1  _FL                                calc
-     000000D2  _OV                                calc
-     000000D3  _RS0                               calc
-     000000D4  _RS1                               calc
-     000000D5  _F0                                calc
-     000000D6  _AC                                calc
-     000000D7  _CY                                calc
-     000000E0  _A                                 calc
-     000000E0  _ACC                               calc
-     000000F0  _B                                 calc
+     000000CB  _RCAP2H                            sio
+     000000CB  _T2CON_3                           sio
+     000000CC  _T2CON_4                           sio
+     000000CC  _TCLK                              sio
+     000000CC  _TL2                               sio
+     000000CD  _RCLK                              sio
+     000000CD  _T2CON_5                           sio
+     000000CD  _TH2                               sio
+     000000CE  _EXF2                              sio
+     000000CE  _T2CON_6                           sio
+     000000CF  _T2CON_7                           sio
+     000000CF  _TF2                               sio
+     000000D0  _P                                 sio
+     000000D0  _PSW                               sio
+     000000D1  _FL                                sio
+     000000D2  _OV                                sio
+     000000D3  _RS0                               sio
+     000000D4  _RS1                               sio
+     000000D5  _F0                                sio
+     000000D6  _AC                                sio
+     000000D7  _CY                                sio
+     000000E0  _A                                 sio
+     000000E0  _ACC                               sio
+     000000F0  _B                                 sio
      000000F5  _B_5                               _gptrget
      000000F6  _B_6                               _gptrget
      000000F7  _B_7                               _gptrget
@@ -296,18 +296,18 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                00009000    00004025 =       16421. bytes (REL,CON,XDATA)
+XSEG                                0000A000    00004025 =       16421. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-D:   0000D023  _errno                             errno
+D:   0000E023  _errno                             errno
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XISEG                               0000D025    000000AA =         170. bytes (REL,CON,XDATA)
+XISEG                               0000E025    000000AA =         170. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -380,7 +380,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002090    000068D3 =       26835. bytes (REL,CON,CODE)
+CSEG                                00002090    00006DF4 =       28148. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -393,33 +393,33 @@ C:   00002783  _stack_pop                         stack
 C:   0000285E  _stack_peek                        stack
 C:   000028FF  _stack_peek2                       stack
 C:   00002A91  _stack_iter_peek                   stack
-C:   00002B70  _putchar                           calc
-C:   00002B7A  _getchar                           calc
-C:   00002B87  _getchar_poll                      calc
-C:   000065B0  _main                              calc
-C:   000069B9  _isxdigit                          isxdigit
-C:   00006A29  _strtol                            strtol
-C:   00006C67  __gptrput                          _gptrput
-C:   00006C82  __mulint                           _mulint
-C:   00006D20  __modslong                         _modslong
-C:   00006E17  __modulong                         _modulong
-C:   00006ED9  __divslong                         _divslong
-C:   00006FD6  __divulong                         _divulong
-C:   00007072  _vprintf                           vprintf
-C:   000070A9  _printf                            vprintf
-C:   000070E2  __gptrget                          _gptrget
-C:   00007152  _strtoul                           strtoul
-C:   000074DB  __mullong                          _mullong
-C:   000076B0  __sdcc_external_startup            _startup
-C:   000077E1  __print_format                     printf_large
-C:   00008889  _strncmp                           _strncmp
-C:   0000894B  _strlen                            _strlen
+C:   00006A6D  _main                              calc
+C:   00006EA9  _isxdigit                          isxdigit
+C:   00006F19  _strtol                            strtol
+C:   00007157  __gptrput                          _gptrput
+C:   00007172  _putchar                           sio
+C:   0000717C  _getchar                           sio
+C:   00007189  _getchar_poll                      sio
+C:   000071A3  __mulint                           _mulint
+C:   00007241  __modslong                         _modslong
+C:   00007338  __modulong                         _modulong
+C:   000073FA  __divslong                         _divslong
+C:   000074F7  __divulong                         _divulong
+C:   00007593  _vprintf                           vprintf
+C:   000075CA  _printf                            vprintf
+C:   00007603  __gptrget                          _gptrget
+C:   00007673  _strtoul                           strtoul
+C:   000079FC  __mullong                          _mullong
+C:   00007BD1  __sdcc_external_startup            _startup
+C:   00007D02  __print_format                     printf_large
+C:   00008DAA  _strncmp                           _strncmp
+C:   00008E6C  _strlen                            _strlen
 ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00008963    000003C0 =         960. bytes (REL,CON,CODE)
+CONST                               00008E84    000003C0 =         960. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -428,7 +428,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00008D23    000000AA =         170. bytes (REL,CON,CODE)
+XINIT                               00009244    000000AA =         170. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -453,6 +453,7 @@ Libraries Linked                          [ object file ]
                                           [ crtxinit.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
                                           [ _gptrput.rel ]
+../../pm21/libpm21.lib                    [ sio.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libint.lib
                                           [ _mulint.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/mcs51.lib
@@ -497,8 +498,8 @@ Libraries Linked                          [ object file ]
 User Base Address Definitions
 
 HOME = 0x2000
-XSEG = 0x9000
-PSEG = 0x9000
+XSEG = 0xa000
+PSEG = 0xa000
 ISEG = 0x0000
 BSEG = 0x0000
 

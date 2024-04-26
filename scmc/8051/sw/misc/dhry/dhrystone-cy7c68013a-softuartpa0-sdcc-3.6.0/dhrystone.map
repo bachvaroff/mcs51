@@ -77,9 +77,9 @@ C:   0000206A  s_GSFINAL
 C:   0000206A  s_GSINIT                        
 C:   0000206A  s_GSINIT5                       
 C:   0000206D  s_CSEG                          
-C:   00002494  l_CSEG                          
-C:   00004501  s_CONST                         
-C:   00004ACC  s_XINIT                         
+C:   000024BB  l_CSEG                          
+C:   00004528  s_CONST                         
+C:   00004AF3  s_XINIT                         
 C:   00008000  s_PSEG                          
 C:   00008000  s_XSEG                          
 C:   00009527  s_XISEG                         
@@ -94,55 +94,55 @@ Area                                    Addr        Size        Decimal Bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000000  .__.ABS.                           _bp
-     00000080  _P0                                portme
-     00000080  _P0_0                              portme
-     00000081  _P0_1                              portme
-     00000081  _SP                                portme
-     00000082  _DPL                               portme
-     00000082  _P0_2                              portme
-     00000083  _DPH                               portme
-     00000083  _P0_3                              portme
-     00000084  _P0_4                              portme
-     00000085  _P0_5                              portme
-     00000086  _P0_6                              portme
-     00000087  _P0_7                              portme
-     00000087  _PCON                              portme
-     00000088  _IT0                               portme
-     00000088  _TCON                              portme
-     00000089  _IE0                               portme
-     00000089  _TMOD                              portme
-     0000008A  _IT1                               portme
-     0000008A  _TL0                               portme
-     0000008B  _IE1                               portme
-     0000008B  _TL1                               portme
-     0000008C  _TH0                               portme
-     0000008C  _TR0                               portme
-     0000008D  _TF0                               portme
-     0000008D  _TH1                               portme
-     0000008E  _TR1                               portme
-     0000008F  _TF1                               portme
-     00000090  _P1                                portme
-     00000090  _P1_0                              portme
-     00000090  _T2                                portme
-     00000091  _P1_1                              portme
-     00000091  _T2EX                              portme
-     00000092  _P1_2                              portme
-     00000093  _P1_3                              portme
-     00000094  _P1_4                              portme
-     00000095  _P1_5                              portme
-     00000096  _P1_6                              portme
-     00000097  _P1_7                              portme
-     00000098  _RI                                portme
-     00000098  _SCON                              portme
-     00000099  _SBUF                              portme
-     00000099  _TI                                portme
-     0000009A  _RB8                               portme
-     0000009B  _TB8                               portme
-     0000009C  _REN                               portme
-     0000009D  _SM2                               portme
-     0000009E  _SM1                               portme
-     0000009F  _SM0                               portme
-     000000A0  _P2                                portme
+     00000080  _P0                                sio
+     00000080  _P0_0                              sio
+     00000081  _P0_1                              sio
+     00000081  _SP                                sio
+     00000082  _DPL                               sio
+     00000082  _P0_2                              sio
+     00000083  _DPH                               sio
+     00000083  _P0_3                              sio
+     00000084  _P0_4                              sio
+     00000085  _P0_5                              sio
+     00000086  _P0_6                              sio
+     00000087  _P0_7                              sio
+     00000087  _PCON                              sio
+     00000088  _IT0                               sio
+     00000088  _TCON                              sio
+     00000089  _IE0                               sio
+     00000089  _TMOD                              sio
+     0000008A  _IT1                               sio
+     0000008A  _TL0                               sio
+     0000008B  _IE1                               sio
+     0000008B  _TL1                               sio
+     0000008C  _TH0                               sio
+     0000008C  _TR0                               sio
+     0000008D  _TF0                               sio
+     0000008D  _TH1                               sio
+     0000008E  _TR1                               sio
+     0000008F  _TF1                               sio
+     00000090  _P1                                sio
+     00000090  _P1_0                              sio
+     00000090  _T2                                sio
+     00000091  _P1_1                              sio
+     00000091  _T2EX                              sio
+     00000092  _P1_2                              sio
+     00000093  _P1_3                              sio
+     00000094  _P1_4                              sio
+     00000095  _P1_5                              sio
+     00000096  _P1_6                              sio
+     00000097  _P1_7                              sio
+     00000098  _RI                                sio
+     00000098  _SCON                              sio
+     00000099  _SBUF                              sio
+     00000099  _TI                                sio
+     0000009A  _RB8                               sio
+     0000009B  _TB8                               sio
+     0000009C  _REN                               sio
+     0000009D  _SM2                               sio
+     0000009E  _SM1                               sio
+     0000009F  _SM0                               sio
+     000000A0  _P2                                sio
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -152,57 +152,57 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000A0  _P2_0                              portme
+     000000A0  _P2_0                              sio
      000000A0  __XPAGE                            
-     000000A1  _P2_1                              portme
-     000000A2  _P2_2                              portme
-     000000A3  _P2_3                              portme
-     000000A4  _P2_4                              portme
-     000000A5  _P2_5                              portme
-     000000A6  _P2_6                              portme
-     000000A7  _P2_7                              portme
-     000000A8  _EX0                               portme
-     000000A8  _IE                                portme
-     000000A9  _ET0                               portme
-     000000AA  _EX1                               portme
-     000000AB  _ET1                               portme
-     000000AC  _ES                                portme
-     000000AD  _ET2                               portme
-     000000AF  _EA                                portme
-     000000B0  _P3                                portme
-     000000B0  _P3_0                              portme
-     000000B0  _RXD                               portme
-     000000B1  _P3_1                              portme
-     000000B1  _TXD                               portme
-     000000B2  _INT0                              portme
-     000000B2  _P3_2                              portme
-     000000B3  _INT1                              portme
-     000000B3  _P3_3                              portme
-     000000B4  _P3_4                              portme
-     000000B4  _T0                                portme
-     000000B5  _P3_5                              portme
-     000000B5  _T1                                portme
-     000000B6  _P3_6                              portme
-     000000B6  _WR                                portme
-     000000B7  _P3_7                              portme
-     000000B7  _RD                                portme
-     000000B8  _IP                                portme
-     000000B8  _PX0                               portme
-     000000B9  _PT0                               portme
-     000000BA  _PX1                               portme
-     000000BB  _PT1                               portme
-     000000BC  _PS                                portme
-     000000BD  _PT2                               portme
-     000000C8  _CP_RL2                            portme
-     000000C8  _T2CON                             portme
-     000000C8  _T2CON_0                           portme
-     000000C9  _C_T2                              portme
-     000000C9  _T2CON_1                           portme
-     000000C9  _T2MOD                             portme
-     000000CA  _RCAP2L                            portme
-     000000CA  _T2CON_2                           portme
-     000000CA  _TR2                               portme
-     000000CB  _EXEN2                             portme
+     000000A1  _P2_1                              sio
+     000000A2  _P2_2                              sio
+     000000A3  _P2_3                              sio
+     000000A4  _P2_4                              sio
+     000000A5  _P2_5                              sio
+     000000A6  _P2_6                              sio
+     000000A7  _P2_7                              sio
+     000000A8  _EX0                               sio
+     000000A8  _IE                                sio
+     000000A9  _ET0                               sio
+     000000AA  _EX1                               sio
+     000000AB  _ET1                               sio
+     000000AC  _ES                                sio
+     000000AD  _ET2                               sio
+     000000AF  _EA                                sio
+     000000B0  _P3                                sio
+     000000B0  _P3_0                              sio
+     000000B0  _RXD                               sio
+     000000B1  _P3_1                              sio
+     000000B1  _TXD                               sio
+     000000B2  _INT0                              sio
+     000000B2  _P3_2                              sio
+     000000B3  _INT1                              sio
+     000000B3  _P3_3                              sio
+     000000B4  _P3_4                              sio
+     000000B4  _T0                                sio
+     000000B5  _P3_5                              sio
+     000000B5  _T1                                sio
+     000000B6  _P3_6                              sio
+     000000B6  _WR                                sio
+     000000B7  _P3_7                              sio
+     000000B7  _RD                                sio
+     000000B8  _IP                                sio
+     000000B8  _PX0                               sio
+     000000B9  _PT0                               sio
+     000000BA  _PX1                               sio
+     000000BB  _PT1                               sio
+     000000BC  _PS                                sio
+     000000BD  _PT2                               sio
+     000000C8  _CP_RL2                            sio
+     000000C8  _T2CON                             sio
+     000000C8  _T2CON_0                           sio
+     000000C9  _C_T2                              sio
+     000000C9  _T2CON_1                           sio
+     000000C9  _T2MOD                             sio
+     000000CA  _RCAP2L                            sio
+     000000CA  _T2CON_2                           sio
+     000000CA  _TR2                               sio
+     000000CB  _EXEN2                             sio
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
@@ -212,30 +212,30 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000CB  _RCAP2H                            portme
-     000000CB  _T2CON_3                           portme
-     000000CC  _T2CON_4                           portme
-     000000CC  _TCLK                              portme
-     000000CC  _TL2                               portme
-     000000CD  _RCLK                              portme
-     000000CD  _T2CON_5                           portme
-     000000CD  _TH2                               portme
-     000000CE  _EXF2                              portme
-     000000CE  _T2CON_6                           portme
-     000000CF  _T2CON_7                           portme
-     000000CF  _TF2                               portme
-     000000D0  _P                                 portme
-     000000D0  _PSW                               portme
-     000000D1  _FL                                portme
-     000000D2  _OV                                portme
-     000000D3  _RS0                               portme
-     000000D4  _RS1                               portme
-     000000D5  _F0                                portme
-     000000D6  _AC                                portme
-     000000D7  _CY                                portme
-     000000E0  _A                                 portme
-     000000E0  _ACC                               portme
-     000000F0  _B                                 portme
+     000000CB  _RCAP2H                            sio
+     000000CB  _T2CON_3                           sio
+     000000CC  _T2CON_4                           sio
+     000000CC  _TCLK                              sio
+     000000CC  _TL2                               sio
+     000000CD  _RCLK                              sio
+     000000CD  _T2CON_5                           sio
+     000000CD  _TH2                               sio
+     000000CE  _EXF2                              sio
+     000000CE  _T2CON_6                           sio
+     000000CF  _T2CON_7                           sio
+     000000CF  _TF2                               sio
+     000000D0  _P                                 sio
+     000000D0  _PSW                               sio
+     000000D1  _FL                                sio
+     000000D2  _OV                                sio
+     000000D3  _RS0                               sio
+     000000D4  _RS1                               sio
+     000000D5  _F0                                sio
+     000000D6  _AC                                sio
+     000000D7  _CY                                sio
+     000000E0  _A                                 sio
+     000000E0  _ACC                               sio
+     000000F0  _B                                 sio
      000000F5  _B_5                               _gptrget
      000000F6  _B_6                               _gptrget
      000000F7  _B_7                               _gptrget
@@ -418,7 +418,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                0000206D    00002494 =        9364. bytes (REL,CON,CODE)
+CSEG                                0000206D    000024BB =        9403. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -434,45 +434,47 @@ C:   00003136  _Proc_8                            dhry_2
 C:   0000330C  _Func_1                            dhry_2
 C:   0000332C  _Func_2                            dhry_2
 C:   00003452  _Func_3                            dhry_2
-C:   00003465  _putchar                           portme
-C:   0000346F  _init                              portme
-C:   00003480  _clockinc                          portme
-C:   000034BD  _clock                             portme
-C:   000034EE  _strcpy                            _strcpy
-C:   00003547  ___fsmul                           _fsmul
-C:   000035EA  fsgetargs                          _fsget2args
-C:   00003618  ___memcpy                          __memcpy
-C:   0000368C  fs_normalize_a                     _fsnormalize
-C:   000036BF  ___slong2fs                        _slong2fs
-C:   000036C8  slong2fs_doit                      _slong2fs
-C:   000036EC  ___fs2slong                        _fs2slong
-C:   00003747  fsgetarg                           _fsget1arg
-C:   00003759  __gptrput                          _gptrput
-C:   00003774  __mulint                           _mulint
-C:   00003794  _strcmp                            _strcmp
-C:   0000381D  __divsint                          _divsint
-C:   0000388F  __divuint                          _divuint
-C:   0000391C  fs_round_and_return                _fsreturnval
-C:   00003934  fs_zerocheck_return                _fsreturnval
-C:   0000393D  fs_return_zero                     _fsreturnval
-C:   00003945  fs_direct_return                   _fsreturnval
-C:   00003953  fs_return_inf                      _fsreturnval
-C:   00003960  fs_return_nan                      _fsreturnval
-C:   0000397A  _vprintf                           vprintf
-C:   000039B9  _printf                            vprintf
-C:   00003AC2  __print_format                     printf_large
-C:   000043C3  _strlen                            _strlen
-C:   000043DB  ___fsdiv                           _fsdiv
-C:   0000449E  __gptrget                          _gptrget
-C:   000044BA  fs_rshift_a                        _fsrshift
-C:   000044FD  __sdcc_external_startup            _startup
+C:   00003465  _init                              portme
+C:   00003476  _clockinc                          portme
+C:   000034B3  _clock                             portme
+C:   000034E4  _strcpy                            _strcpy
+C:   0000353D  ___fsmul                           _fsmul
+C:   000035E0  fsgetargs                          _fsget2args
+C:   0000360E  ___memcpy                          __memcpy
+C:   00003682  fs_normalize_a                     _fsnormalize
+C:   000036B5  ___slong2fs                        _slong2fs
+C:   000036BE  slong2fs_doit                      _slong2fs
+C:   000036E2  ___fs2slong                        _fs2slong
+C:   0000373D  fsgetarg                           _fsget1arg
+C:   0000374F  __gptrput                          _gptrput
+C:   0000376A  __mulint                           _mulint
+C:   0000378A  _strcmp                            _strcmp
+C:   00003813  __divsint                          _divsint
+C:   00003885  __divuint                          _divuint
+C:   00003912  fs_round_and_return                _fsreturnval
+C:   0000392A  fs_zerocheck_return                _fsreturnval
+C:   00003933  fs_return_zero                     _fsreturnval
+C:   0000393B  fs_direct_return                   _fsreturnval
+C:   00003949  fs_return_inf                      _fsreturnval
+C:   00003956  fs_return_nan                      _fsreturnval
+C:   00003970  _vprintf                           vprintf
+C:   000039AF  _printf                            vprintf
+C:   00003AB8  __print_format                     printf_large
+C:   000043B9  _strlen                            _strlen
+C:   000043D1  ___fsdiv                           _fsdiv
+C:   00004494  __gptrget                          _gptrget
+C:   000044B0  fs_rshift_a                        _fsrshift
+C:   000044F3  __sdcc_external_startup            _startup
+C:   000044F7  _putchar                           sio
+C:   00004501  _getchar                           sio
+C:   0000450E  _getchar_poll                      sio
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00004501    000005CB =        1483. bytes (REL,CON,CODE)
+CONST                               00004528    000005CB =        1483. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -481,7 +483,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00004ACC    00000002 =           2. bytes (REL,CON,CODE)
+XINIT                               00004AF3    00000002 =           2. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -548,6 +550,7 @@ Libraries Linked                          [ object file ]
                                           [ _fsrshift.rel ]
 /usr/bin/../share/sdcc/lib/large/libsdcc.lib
                                           [ _startup.rel ]
+../../../pm21/libpm21.lib                 [ sio.rel ]
 /usr/bin/../share/sdcc/lib/large/libsdcc.lib
                                           [ _bp.rel ]
 

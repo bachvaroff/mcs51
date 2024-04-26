@@ -8,8 +8,10 @@
 -b PSEG = 0x4000
 -b ISEG = 0x0000
 -b BSEG = 0x0000
+-k ../../pm21
 -k /usr/bin/../share/sdcc/lib/large-stack-auto
 -k /usr/share/sdcc/lib/large-stack-auto
+-l libpm21
 -l mcs51
 -l libsdcc
 -l libint

@@ -1,5 +1,6 @@
-SDCCCFLAGS=--model-large --stack-auto -I. -I.. -I../..
-ASLINKFLAGS=--model-large --stack-auto --code-loc 0x2000 --xram-loc 0x4c00
+SDCCCFLAGS=--model-large --stack-auto -I. -I.. -I../../pm21
+ASLINKFLAGS=--model-large --stack-auto -L../../pm21 -llibpm21
+ASMEMFLAGS=--code-loc 0x2000 --xram-loc 0x4c00
 
 %.rel: %.c
 	sdcc $(SDCCCFLAGS) -c $<
@@ -9,7 +10,7 @@ ASLINKFLAGS=--model-large --stack-auto --code-loc 0x2000 --xram-loc 0x4c00
 all: fft
 
 fft.ihx: fix_fft.rel main.rel
-	sdcc $(ASLINKFLAGS) $^ -o "$@"
+	sdcc $(ASLINKFLAGS) $(ASMEMFLAGS) $^ -o "$@"
 
 fft: fft.ihx
 	cat "$@.mem"

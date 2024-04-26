@@ -2,14 +2,16 @@
 -i walk.ihx
 -M
 -Y
--C 0x2310
+-C 0x2330
 -b HOME = 0x2000
--b XSEG = 0x4310
--b PSEG = 0x4310
+-b XSEG = 0x4330
+-b PSEG = 0x4330
 -b ISEG = 0x0000
 -b BSEG = 0x0000
+-k ../../pm21
 -k /usr/bin/../share/sdcc/lib/large-stack-auto
 -k /usr/share/sdcc/lib/large-stack-auto
+-l libpm21
 -l mcs51
 -l libsdcc
 -l libint

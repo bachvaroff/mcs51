@@ -141,8 +141,6 @@
 	.globl _ifft
 	.globl _fft
 	.globl _samples
-	.globl _putchar
-	.globl _getchar
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -340,7 +338,7 @@ _fft::
 	.ds 128
 _ifft::
 	.ds 128
-_main_R_65536_74:
+_main_R_65536_73:
 	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -387,10 +385,10 @@ __interrupt_vect:
 ;j                         Allocated to stack - _bp +1
 ;scale                     Allocated to stack - _bp +3
 ;sloc0                     Allocated to stack - _bp +7
-;R                         Allocated with name '_main_R_65536_74'
+;R                         Allocated with name '_main_R_65536_73'
 ;------------------------------------------------------------
-;	main.c:44: static volatile __xdata int *R = (__xdata int *)0xfffe;
-	mov	dptr,#_main_R_65536_74
+;	main.c:23: static volatile __xdata int *R = (__xdata int *)0xfffe;
+	mov	dptr,#_main_R_65536_73
 	mov	a,#0xfe
 	movx	@dptr,a
 	inc	a
@@ -411,46 +409,9 @@ __sdcc_program_startup:
 ;--------------------------------------------------------
 	.area CSEG    (CODE)
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'putchar'
-;------------------------------------------------------------
-;c                         Allocated to registers 
-;------------------------------------------------------------
-;	main.c:10: int putchar(int c) __naked {
-;	-----------------------------------------
-;	 function putchar
-;	-----------------------------------------
-_putchar:
-;	naked function: no prologue.
-;	main.c:18: __endasm;
-	push	acc
-	mov	a, dpl
-	lcall	0x003c
-	pop	acc
-	ret
-;	main.c:19: }
-;	naked function: no epilogue.
-;------------------------------------------------------------
-;Allocation info for local variables in function 'getchar'
-;------------------------------------------------------------
-;	main.c:21: int getchar(void) __naked {
-;	-----------------------------------------
-;	 function getchar
-;	-----------------------------------------
-_getchar:
-;	naked function: no prologue.
-;	main.c:29: __endasm;
-	push	acc
-	lcall	0x0036
-	mov	dpl, a
-	mov	dph, #0
-	pop	acc
-	ret
-;	main.c:30: }
-;	naked function: no epilogue.
-;------------------------------------------------------------
 ;Allocation info for local variables in function 'int0'
 ;------------------------------------------------------------
-;	main.c:34: void int0(void) __interrupt IE0_VECTOR __using 1 {
+;	main.c:13: void int0(void) __interrupt IE0_VECTOR __using 1 {
 ;	-----------------------------------------
 ;	 function int0
 ;	-----------------------------------------
@@ -467,7 +428,7 @@ _int0:
 	push	acc
 	push	psw
 	mov	psw,#0x08
-;	main.c:35: print = !print;
+;	main.c:14: print = !print;
 	mov	r0,#_print
 	mov	a,@r0
 	cjne	a,#0x01,00103$
@@ -477,7 +438,7 @@ _int0:
 	clr	a
 	rlc	a
 	mov	@r0,a
-;	main.c:36: }
+;	main.c:15: }
 	pop	psw
 	pop	acc
 	pop	bits
@@ -492,9 +453,9 @@ _int0:
 ;j                         Allocated to stack - _bp +1
 ;scale                     Allocated to stack - _bp +3
 ;sloc0                     Allocated to stack - _bp +7
-;R                         Allocated with name '_main_R_65536_74'
+;R                         Allocated with name '_main_R_65536_73'
 ;------------------------------------------------------------
-;	main.c:43: void main(void) {
+;	main.c:22: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -512,20 +473,20 @@ _main:
 	mov	_bp,a
 	add	a,#0x04
 	mov	sp,a
-;	main.c:48: print = 1;
+;	main.c:27: print = 1;
 	mov	r0,#_print
 	mov	@r0,#0x01
-;	main.c:50: IT0 = 1;
+;	main.c:29: IT0 = 1;
 ;	assignBit
 	setb	_IT0
-;	main.c:51: EX0 = 1;
+;	main.c:30: EX0 = 1;
 ;	assignBit
 	setb	_EX0
-;	main.c:52: EA = 1;
+;	main.c:31: EA = 1;
 ;	assignBit
 	setb	_EA
-;	main.c:54: srand(*R);
-	mov	dptr,#_main_R_65536_74
+;	main.c:33: srand(*R);
+	mov	dptr,#_main_R_65536_73
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -541,10 +502,10 @@ _main:
 	mov	dpl,r6
 	mov	dph,r7
 	lcall	_srand
-;	main.c:56: for (i = 0; 1; i++) {
+;	main.c:35: for (i = 0; 1; i++) {
 	mov	r6,#0x00
 	mov	r7,#0x00
-;	main.c:57: for (j = 0; j < (1 << N); j++)
+;	main.c:36: for (j = 0; j < (1 << N); j++)
 00117$:
 	mov	r0,_bp
 	inc	r0
@@ -553,7 +514,7 @@ _main:
 	inc	r0
 	mov	@r0,a
 00106$:
-;	main.c:58: samples[j] = ((rand() & 1) ? -1 : 1) * (int16_t)rand();
+;	main.c:37: samples[j] = ((rand() & 1) ? -1 : 1) * (int16_t)rand();
 	mov	r0,_bp
 	inc	r0
 	mov	a,@r0
@@ -621,7 +582,7 @@ _main:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	main.c:57: for (j = 0; j < (1 << N); j++)
+;	main.c:36: for (j = 0; j < (1 << N); j++)
 	mov	r0,_bp
 	inc	r0
 	inc	@r0
@@ -643,7 +604,7 @@ _main:
 	jnc	00144$
 	ljmp	00106$
 00144$:
-;	main.c:60: printf("DO FFT IFFT %d\r\n", i);
+;	main.c:39: printf("DO FFT IFFT %d\r\n", i);
 	push	ar7
 	push	ar6
 	push	ar6
@@ -658,7 +619,7 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	main.c:62: memcpy(fft, samples, sizeof (samples));
+;	main.c:41: memcpy(fft, samples, sizeof (samples));
 	mov	a,#0x80
 	push	acc
 	clr	a
@@ -675,7 +636,7 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	main.c:63: scale = fix_fftr(fft, N, 0);		
+;	main.c:42: scale = fix_fftr(fft, N, 0);		
 	clr	a
 	push	acc
 	push	acc
@@ -689,7 +650,7 @@ _main:
 	mov	a,sp
 	add	a,#0xfc
 	mov	sp,a
-;	main.c:70: memcpy(ifft, fft, sizeof (fft));
+;	main.c:49: memcpy(ifft, fft, sizeof (fft));
 	mov	a,#0x80
 	push	acc
 	clr	a
@@ -706,7 +667,7 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	main.c:71: scale = fix_fftr(ifft, N, 1);
+;	main.c:50: scale = fix_fftr(ifft, N, 1);
 	mov	a,#0x01
 	push	acc
 	clr	a
@@ -731,13 +692,13 @@ _main:
 	mov	@r0,ar4
 	inc	r0
 	mov	@r0,ar5
-;	main.c:73: if (print)
+;	main.c:52: if (print)
 	mov	r0,#_print
 	mov	a,@r0
 	jnz	00145$
 	ljmp	00104$
 00145$:
-;	main.c:74: for (j = 0; j < (1 << N); j++)
+;	main.c:53: for (j = 0; j < (1 << N); j++)
 	mov	r0,_bp
 	inc	r0
 	clr	a
@@ -745,7 +706,7 @@ _main:
 	inc	r0
 	mov	@r0,a
 00108$:
-;	main.c:76: samples[j], ifft[j] * (1 << scale));
+;	main.c:55: samples[j], ifft[j] * (1 << scale));
 	push	ar6
 	push	ar7
 	mov	r0,_bp
@@ -810,7 +771,7 @@ _main:
 	inc	dptr
 	movx	a,@dptr
 	mov	r7,a
-;	main.c:75: printf("% 8d% 8d\r\n",
+;	main.c:54: printf("% 8d% 8d\r\n",
 	push	ar7
 	push	ar6
 	push	ar4
@@ -829,7 +790,7 @@ _main:
 	mov	sp,a
 	pop	ar6
 	pop	ar7
-;	main.c:74: for (j = 0; j < (1 << N); j++)
+;	main.c:53: for (j = 0; j < (1 << N); j++)
 	mov	r0,_bp
 	inc	r0
 	inc	@r0
@@ -852,7 +813,7 @@ _main:
 	ljmp	00108$
 00149$:
 00104$:
-;	main.c:78: printf("DONE\r\n\r\n");
+;	main.c:57: printf("DONE\r\n\r\n");
 	push	ar7
 	push	ar6
 	mov	a,#___str_2
@@ -867,14 +828,14 @@ _main:
 	dec	sp
 	pop	ar6
 	pop	ar7
-;	main.c:56: for (i = 0; 1; i++) {
+;	main.c:35: for (i = 0; 1; i++) {
 	inc	r6
 	cjne	r6,#0x00,00150$
 	inc	r7
 00150$:
 	ljmp	00117$
-;	main.c:83: return;
-;	main.c:84: }
+;	main.c:62: return;
+;	main.c:63: }
 	mov	sp,_bp
 	pop	_bp
 	ret

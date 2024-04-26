@@ -1,5 +1,6 @@
-SDCCCFLAGS=--model-large --stack-auto -I. -I.. -I../..
-ASLINKFLAGS=--model-large --stack-auto --code-loc 0x2000 --code-size 0x7000 --xram-loc 0x9000
+SDCCCFLAGS=--model-large --stack-auto -I. -I.. -I../../pm21
+ASLINKFLAGS=--model-large --stack-auto -L../../pm21 -llibpm21
+ASMEMFLAGS=--code-loc 0x2000 --code-size 0x8000 --xram-loc 0xa000
 
 %.rel: %.c
 	sdcc $(SDCCCFLAGS) -c "$<"
@@ -12,7 +13,7 @@ ASLINKFLAGS=--model-large --stack-auto --code-loc 0x2000 --code-size 0x7000 --xr
 all: calc
 
 calc.ihx: sm.rel stack.rel calc.rel
-	sdcc $(ASLINKFLAGS) $^ -o "$@"
+	sdcc $(ASLINKFLAGS) $(ASMEMFLAGS) $^ -o "$@"
 
 calc: calc.hex
 	cat "$@.mem"

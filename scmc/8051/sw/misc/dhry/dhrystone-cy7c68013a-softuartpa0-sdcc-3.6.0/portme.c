@@ -2,21 +2,11 @@
    Author: Philipp Klaus Krause */
 
 #include <mcs51/at89x52.h>
-#include "pm21/paulmon21.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 
-int putchar(int c) __naked {
-	(void)c;
-	__asm
-		push acc
-		mov a, dpl
-		lcall pm2_entry_cout
-		pop acc
-		ret
-	__endasm;
-}
+#include "libpm21.h"
 
 volatile __near unsigned long int clocktime;
 volatile _Bool clockupdate;

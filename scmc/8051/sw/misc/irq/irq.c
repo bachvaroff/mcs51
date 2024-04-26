@@ -1,28 +1,7 @@
 #include <mcs51/at89x52.h>
-#include "pm21/paulmon21.h"
 #include <stdio.h>
 
-int putchar(int c) __naked {
-	(void)c;
-	__asm
-		push acc
-		mov a, dpl
-		lcall pm2_entry_cout
-		pop acc
-		ret
-	__endasm;
-}
-
-int getchar(void) __naked {
-	__asm
-		push acc
-		lcall pm2_entry_cin
-		mov dpl, a
-		mov dph, #0
-		pop acc
-		ret
-	__endasm;
-}
+#include "libpm21.h"
 
 int intr;
 

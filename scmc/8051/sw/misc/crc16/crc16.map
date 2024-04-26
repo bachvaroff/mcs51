@@ -67,7 +67,7 @@ CABS                                00000000    00000000 =           0. bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00000100  l_IRAM                          
-C:   000015BD  l_CSEG                          
+C:   000015D7  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002009  s_GSINIT0                       
 C:   0000200C  s_GSINIT1                       
@@ -78,8 +78,8 @@ C:   00002062  s_GSFINAL
 C:   00002062  s_GSINIT                        
 C:   00002062  s_GSINIT5                       
 C:   00002065  s_CSEG                          
-C:   00003622  s_CONST                         
-C:   00003678  s_XINIT                         
+C:   0000363C  s_CONST                         
+C:   00003692  s_XINIT                         
 C:   00004000  s_PSEG                          
 C:   00004000  s_XISEG                         
 C:   00004000  s_XSEG                          
@@ -94,55 +94,55 @@ Area                                    Addr        Size        Decimal Bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000000  .__.ABS.                           _gptrget
-     00000080  _P0                                crc16
-     00000080  _P0_0                              crc16
-     00000081  _P0_1                              crc16
-     00000081  _SP                                crc16
-     00000082  _DPL                               crc16
-     00000082  _P0_2                              crc16
-     00000083  _DPH                               crc16
-     00000083  _P0_3                              crc16
-     00000084  _P0_4                              crc16
-     00000085  _P0_5                              crc16
-     00000086  _P0_6                              crc16
-     00000087  _P0_7                              crc16
-     00000087  _PCON                              crc16
-     00000088  _IT0                               crc16
-     00000088  _TCON                              crc16
-     00000089  _IE0                               crc16
-     00000089  _TMOD                              crc16
-     0000008A  _IT1                               crc16
-     0000008A  _TL0                               crc16
-     0000008B  _IE1                               crc16
-     0000008B  _TL1                               crc16
-     0000008C  _TH0                               crc16
-     0000008C  _TR0                               crc16
-     0000008D  _TF0                               crc16
-     0000008D  _TH1                               crc16
-     0000008E  _TR1                               crc16
-     0000008F  _TF1                               crc16
-     00000090  _P1                                crc16
-     00000090  _P1_0                              crc16
-     00000090  _T2                                crc16
-     00000091  _P1_1                              crc16
-     00000091  _T2EX                              crc16
-     00000092  _P1_2                              crc16
-     00000093  _P1_3                              crc16
-     00000094  _P1_4                              crc16
-     00000095  _P1_5                              crc16
-     00000096  _P1_6                              crc16
-     00000097  _P1_7                              crc16
-     00000098  _RI                                crc16
-     00000098  _SCON                              crc16
-     00000099  _SBUF                              crc16
-     00000099  _TI                                crc16
-     0000009A  _RB8                               crc16
-     0000009B  _TB8                               crc16
-     0000009C  _REN                               crc16
-     0000009D  _SM2                               crc16
-     0000009E  _SM1                               crc16
-     0000009F  _SM0                               crc16
-     000000A0  _P2                                crc16
+     00000080  _P0                                sio
+     00000080  _P0_0                              sio
+     00000081  _P0_1                              sio
+     00000081  _SP                                sio
+     00000082  _DPL                               sio
+     00000082  _P0_2                              sio
+     00000083  _DPH                               sio
+     00000083  _P0_3                              sio
+     00000084  _P0_4                              sio
+     00000085  _P0_5                              sio
+     00000086  _P0_6                              sio
+     00000087  _P0_7                              sio
+     00000087  _PCON                              sio
+     00000088  _IT0                               sio
+     00000088  _TCON                              sio
+     00000089  _IE0                               sio
+     00000089  _TMOD                              sio
+     0000008A  _IT1                               sio
+     0000008A  _TL0                               sio
+     0000008B  _IE1                               sio
+     0000008B  _TL1                               sio
+     0000008C  _TH0                               sio
+     0000008C  _TR0                               sio
+     0000008D  _TF0                               sio
+     0000008D  _TH1                               sio
+     0000008E  _TR1                               sio
+     0000008F  _TF1                               sio
+     00000090  _P1                                sio
+     00000090  _P1_0                              sio
+     00000090  _T2                                sio
+     00000091  _P1_1                              sio
+     00000091  _T2EX                              sio
+     00000092  _P1_2                              sio
+     00000093  _P1_3                              sio
+     00000094  _P1_4                              sio
+     00000095  _P1_5                              sio
+     00000096  _P1_6                              sio
+     00000097  _P1_7                              sio
+     00000098  _RI                                sio
+     00000098  _SCON                              sio
+     00000099  _SBUF                              sio
+     00000099  _TI                                sio
+     0000009A  _RB8                               sio
+     0000009B  _TB8                               sio
+     0000009C  _REN                               sio
+     0000009D  _SM2                               sio
+     0000009E  _SM1                               sio
+     0000009F  _SM0                               sio
+     000000A0  _P2                                sio
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -152,57 +152,57 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000A0  _P2_0                              crc16
+     000000A0  _P2_0                              sio
      000000A0  __XPAGE                            
-     000000A1  _P2_1                              crc16
-     000000A2  _P2_2                              crc16
-     000000A3  _P2_3                              crc16
-     000000A4  _P2_4                              crc16
-     000000A5  _P2_5                              crc16
-     000000A6  _P2_6                              crc16
-     000000A7  _P2_7                              crc16
-     000000A8  _EX0                               crc16
-     000000A8  _IE                                crc16
-     000000A9  _ET0                               crc16
-     000000AA  _EX1                               crc16
-     000000AB  _ET1                               crc16
-     000000AC  _ES                                crc16
-     000000AD  _ET2                               crc16
-     000000AF  _EA                                crc16
-     000000B0  _P3                                crc16
-     000000B0  _P3_0                              crc16
-     000000B0  _RXD                               crc16
-     000000B1  _P3_1                              crc16
-     000000B1  _TXD                               crc16
-     000000B2  _INT0                              crc16
-     000000B2  _P3_2                              crc16
-     000000B3  _INT1                              crc16
-     000000B3  _P3_3                              crc16
-     000000B4  _P3_4                              crc16
-     000000B4  _T0                                crc16
-     000000B5  _P3_5                              crc16
-     000000B5  _T1                                crc16
-     000000B6  _P3_6                              crc16
-     000000B6  _WR                                crc16
-     000000B7  _P3_7                              crc16
-     000000B7  _RD                                crc16
-     000000B8  _IP                                crc16
-     000000B8  _PX0                               crc16
-     000000B9  _PT0                               crc16
-     000000BA  _PX1                               crc16
-     000000BB  _PT1                               crc16
-     000000BC  _PS                                crc16
-     000000BD  _PT2                               crc16
-     000000C8  _CP_RL2                            crc16
-     000000C8  _T2CON                             crc16
-     000000C8  _T2CON_0                           crc16
-     000000C9  _C_T2                              crc16
-     000000C9  _T2CON_1                           crc16
-     000000C9  _T2MOD                             crc16
-     000000CA  _RCAP2L                            crc16
-     000000CA  _T2CON_2                           crc16
-     000000CA  _TR2                               crc16
-     000000CB  _EXEN2                             crc16
+     000000A1  _P2_1                              sio
+     000000A2  _P2_2                              sio
+     000000A3  _P2_3                              sio
+     000000A4  _P2_4                              sio
+     000000A5  _P2_5                              sio
+     000000A6  _P2_6                              sio
+     000000A7  _P2_7                              sio
+     000000A8  _EX0                               sio
+     000000A8  _IE                                sio
+     000000A9  _ET0                               sio
+     000000AA  _EX1                               sio
+     000000AB  _ET1                               sio
+     000000AC  _ES                                sio
+     000000AD  _ET2                               sio
+     000000AF  _EA                                sio
+     000000B0  _P3                                sio
+     000000B0  _P3_0                              sio
+     000000B0  _RXD                               sio
+     000000B1  _P3_1                              sio
+     000000B1  _TXD                               sio
+     000000B2  _INT0                              sio
+     000000B2  _P3_2                              sio
+     000000B3  _INT1                              sio
+     000000B3  _P3_3                              sio
+     000000B4  _P3_4                              sio
+     000000B4  _T0                                sio
+     000000B5  _P3_5                              sio
+     000000B5  _T1                                sio
+     000000B6  _P3_6                              sio
+     000000B6  _WR                                sio
+     000000B7  _P3_7                              sio
+     000000B7  _RD                                sio
+     000000B8  _IP                                sio
+     000000B8  _PX0                               sio
+     000000B9  _PT0                               sio
+     000000BA  _PX1                               sio
+     000000BB  _PT1                               sio
+     000000BC  _PS                                sio
+     000000BD  _PT2                               sio
+     000000C8  _CP_RL2                            sio
+     000000C8  _T2CON                             sio
+     000000C8  _T2CON_0                           sio
+     000000C9  _C_T2                              sio
+     000000C9  _T2CON_1                           sio
+     000000C9  _T2MOD                             sio
+     000000CA  _RCAP2L                            sio
+     000000CA  _T2CON_2                           sio
+     000000CA  _TR2                               sio
+     000000CB  _EXEN2                             sio
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
@@ -212,30 +212,30 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000CB  _RCAP2H                            crc16
-     000000CB  _T2CON_3                           crc16
-     000000CC  _T2CON_4                           crc16
-     000000CC  _TCLK                              crc16
-     000000CC  _TL2                               crc16
-     000000CD  _RCLK                              crc16
-     000000CD  _T2CON_5                           crc16
-     000000CD  _TH2                               crc16
-     000000CE  _EXF2                              crc16
-     000000CE  _T2CON_6                           crc16
-     000000CF  _T2CON_7                           crc16
-     000000CF  _TF2                               crc16
-     000000D0  _P                                 crc16
-     000000D0  _PSW                               crc16
-     000000D1  _FL                                crc16
-     000000D2  _OV                                crc16
-     000000D3  _RS0                               crc16
-     000000D4  _RS1                               crc16
-     000000D5  _F0                                crc16
-     000000D6  _AC                                crc16
-     000000D7  _CY                                crc16
-     000000E0  _A                                 crc16
-     000000E0  _ACC                               crc16
-     000000F0  _B                                 crc16
+     000000CB  _RCAP2H                            sio
+     000000CB  _T2CON_3                           sio
+     000000CC  _T2CON_4                           sio
+     000000CC  _TCLK                              sio
+     000000CC  _TL2                               sio
+     000000CD  _RCLK                              sio
+     000000CD  _T2CON_5                           sio
+     000000CD  _TH2                               sio
+     000000CE  _EXF2                              sio
+     000000CE  _T2CON_6                           sio
+     000000CF  _T2CON_7                           sio
+     000000CF  _TF2                               sio
+     000000D0  _P                                 sio
+     000000D0  _PSW                               sio
+     000000D1  _FL                                sio
+     000000D2  _OV                                sio
+     000000D3  _RS0                               sio
+     000000D4  _RS1                               sio
+     000000D5  _F0                                sio
+     000000D6  _AC                                sio
+     000000D7  _CY                                sio
+     000000E0  _A                                 sio
+     000000E0  _ACC                               sio
+     000000F0  _B                                 sio
      000000F5  _B_5                               _gptrget
      000000F6  _B_6                               _gptrget
      000000F7  _B_7                               _gptrget
@@ -374,28 +374,28 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002065    000015BD =        5565. bytes (REL,CON,CODE)
+CSEG                                00002065    000015D7 =        5591. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00002065  _putchar                           crc16
-C:   0000206F  _getchar                           crc16
-C:   0000207C  _int0                              crc16
-C:   00002088  _main                              crc16
-C:   00002307  _vprintf                           vprintf
-C:   0000233E  _printf                            vprintf
-C:   00002377  __sdcc_external_startup            _startup
-C:   000024A8  __print_format                     printf_large
-C:   00003550  __mulint                           _mulint
-C:   000035EE  _strlen                            _strlen
-C:   00003606  __gptrget                          _gptrget
-
+C:   00002065  _int0                              crc16
+C:   00002071  _main                              crc16
+C:   000022F0  _vprintf                           vprintf
+C:   00002327  _printf                            vprintf
+C:   00002360  __sdcc_external_startup            _startup
+C:   00002491  __print_format                     printf_large
+C:   00003539  _putchar                           sio
+C:   00003543  _getchar                           sio
+C:   00003550  _getchar_poll                      sio
+C:   0000356A  __mulint                           _mulint
+C:   00003608  _strlen                            _strlen
+C:   00003620  __gptrget                          _gptrget
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003622    00000056 =          86. bytes (REL,CON,CODE)
+CONST                               0000363C    00000056 =          86. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -424,6 +424,7 @@ Libraries Linked                          [ object file ]
                                           [ _startup.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib
                                           [ printf_large.rel ]
+../../pm21/libpm21.lib                    [ sio.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libint.lib
                                           [ _mulint.rel ]
 /usr/bin/../share/sdcc/lib/large-stack-auto/libsdcc.lib

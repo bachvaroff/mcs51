@@ -121,11 +121,11 @@
       00209D 24 FC            [12]  121 	add	a,#0xfc
       00209F F8               [12]  122 	mov	r0,a
       0020A0 E6               [12]  123 	mov	a,@r0
-      0020A1 12 6C 67         [24]  124 	lcall	__gptrput
+      0020A1 12 71 57         [24]  124 	lcall	__gptrput
       0020A4 A3               [24]  125 	inc	dptr
       0020A5 08               [12]  126 	inc	r0
       0020A6 E6               [12]  127 	mov	a,@r0
-      0020A7 12 6C 67         [24]  128 	lcall	__gptrput
+      0020A7 12 71 57         [24]  128 	lcall	__gptrput
                                     129 ;	sm.c:5: state->final = Final;
       0020AA 74 02            [12]  130 	mov	a,#0x02
       0020AC 2D               [12]  131 	add	a,r5
@@ -141,11 +141,11 @@
       0020BB 24 FA            [12]  141 	add	a,#0xfa
       0020BD F8               [12]  142 	mov	r0,a
       0020BE E6               [12]  143 	mov	a,@r0
-      0020BF 12 6C 67         [24]  144 	lcall	__gptrput
+      0020BF 12 71 57         [24]  144 	lcall	__gptrput
       0020C2 A3               [24]  145 	inc	dptr
       0020C3 08               [12]  146 	inc	r0
       0020C4 E6               [12]  147 	mov	a,@r0
-      0020C5 12 6C 67         [24]  148 	lcall	__gptrput
+      0020C5 12 71 57         [24]  148 	lcall	__gptrput
                                     149 ;	sm.c:6: state->spurious = Spurious;
       0020C8 74 04            [12]  150 	mov	a,#0x04
       0020CA 2D               [12]  151 	add	a,r5
@@ -161,11 +161,11 @@
       0020D9 24 F8            [12]  161 	add	a,#0xf8
       0020DB F8               [12]  162 	mov	r0,a
       0020DC E6               [12]  163 	mov	a,@r0
-      0020DD 12 6C 67         [24]  164 	lcall	__gptrput
+      0020DD 12 71 57         [24]  164 	lcall	__gptrput
       0020E0 A3               [24]  165 	inc	dptr
       0020E1 08               [12]  166 	inc	r0
       0020E2 E6               [12]  167 	mov	a,@r0
-      0020E3 12 6C 67         [24]  168 	lcall	__gptrput
+      0020E3 12 71 57         [24]  168 	lcall	__gptrput
                                     169 ;	sm.c:7: state->deltas = Deltas;
       0020E6 74 06            [12]  170 	mov	a,#0x06
       0020E8 2D               [12]  171 	add	a,r5
@@ -181,15 +181,15 @@
       0020F7 24 F5            [12]  181 	add	a,#0xf5
       0020F9 F8               [12]  182 	mov	r0,a
       0020FA E6               [12]  183 	mov	a,@r0
-      0020FB 12 6C 67         [24]  184 	lcall	__gptrput
+      0020FB 12 71 57         [24]  184 	lcall	__gptrput
       0020FE A3               [24]  185 	inc	dptr
       0020FF 08               [12]  186 	inc	r0
       002100 E6               [12]  187 	mov	a,@r0
-      002101 12 6C 67         [24]  188 	lcall	__gptrput
+      002101 12 71 57         [24]  188 	lcall	__gptrput
       002104 A3               [24]  189 	inc	dptr
       002105 08               [12]  190 	inc	r0
       002106 E6               [12]  191 	mov	a,@r0
-      002107 12 6C 67         [24]  192 	lcall	__gptrput
+      002107 12 71 57         [24]  192 	lcall	__gptrput
                                     193 ;	sm.c:8: state->ctx = Context;
       00210A 74 09            [12]  194 	mov	a,#0x09
       00210C 2D               [12]  195 	add	a,r5
@@ -204,15 +204,15 @@
       002119 24 F2            [12]  204 	add	a,#0xf2
       00211B F8               [12]  205 	mov	r0,a
       00211C E6               [12]  206 	mov	a,@r0
-      00211D 12 6C 67         [24]  207 	lcall	__gptrput
+      00211D 12 71 57         [24]  207 	lcall	__gptrput
       002120 A3               [24]  208 	inc	dptr
       002121 08               [12]  209 	inc	r0
       002122 E6               [12]  210 	mov	a,@r0
-      002123 12 6C 67         [24]  211 	lcall	__gptrput
+      002123 12 71 57         [24]  211 	lcall	__gptrput
       002126 A3               [24]  212 	inc	dptr
       002127 08               [12]  213 	inc	r0
       002128 E6               [12]  214 	mov	a,@r0
-      002129 12 6C 67         [24]  215 	lcall	__gptrput
+      002129 12 71 57         [24]  215 	lcall	__gptrput
                                     216 ;	sm.c:10: return;
                                     217 ;	sm.c:11: }
       00212C D0 08            [24]  218 	pop	_bp
@@ -235,11 +235,11 @@
       002136 24 FC            [12]  235 	add	a,#0xfc
       002138 F8               [12]  236 	mov	r0,a
       002139 E6               [12]  237 	mov	a,@r0
-      00213A 12 6C 67         [24]  238 	lcall	__gptrput
+      00213A 12 71 57         [24]  238 	lcall	__gptrput
       00213D A3               [24]  239 	inc	dptr
       00213E 08               [12]  240 	inc	r0
       00213F E6               [12]  241 	mov	a,@r0
-      002140 12 6C 67         [24]  242 	lcall	__gptrput
+      002140 12 71 57         [24]  242 	lcall	__gptrput
                                     243 ;	sm.c:16: return;
                                     244 ;	sm.c:17: }
       002143 D0 08            [24]  245 	pop	_bp
@@ -290,10 +290,10 @@
       002167 86 83            [24]  290 	mov	dph,@r0
       002169 08               [12]  291 	inc	r0
       00216A 86 F0            [24]  292 	mov	b,@r0
-      00216C 12 70 E2         [24]  293 	lcall	__gptrget
+      00216C 12 76 03         [24]  293 	lcall	__gptrget
       00216F FA               [12]  294 	mov	r2,a
       002170 A3               [24]  295 	inc	dptr
-      002171 12 70 E2         [24]  296 	lcall	__gptrget
+      002171 12 76 03         [24]  296 	lcall	__gptrget
       002174 FC               [12]  297 	mov	r4,a
       002175 A8 08            [24]  298 	mov	r0,_bp
       002177 08               [12]  299 	inc	r0
@@ -320,10 +320,10 @@
       002192 86 83            [24]  320 	mov	dph,@r0
       002194 08               [12]  321 	inc	r0
       002195 86 F0            [24]  322 	mov	b,@r0
-      002197 12 70 E2         [24]  323 	lcall	__gptrget
+      002197 12 76 03         [24]  323 	lcall	__gptrget
       00219A FB               [12]  324 	mov	r3,a
       00219B A3               [24]  325 	inc	dptr
-      00219C 12 70 E2         [24]  326 	lcall	__gptrget
+      00219C 12 76 03         [24]  326 	lcall	__gptrget
       00219F FF               [12]  327 	mov	r7,a
       0021A0 EA               [12]  328 	mov	a,r2
       0021A1 B5 03 10         [24]  329 	cjne	a,ar3,00102$
@@ -370,10 +370,10 @@
       0021D9 86 83            [24]  370 	mov	dph,@r0
       0021DB 08               [12]  371 	inc	r0
       0021DC 86 F0            [24]  372 	mov	b,@r0
-      0021DE 12 70 E2         [24]  373 	lcall	__gptrget
+      0021DE 12 76 03         [24]  373 	lcall	__gptrget
       0021E1 FB               [12]  374 	mov	r3,a
       0021E2 A3               [24]  375 	inc	dptr
-      0021E3 12 70 E2         [24]  376 	lcall	__gptrget
+      0021E3 12 76 03         [24]  376 	lcall	__gptrget
       0021E6 FF               [12]  377 	mov	r7,a
       0021E7 EA               [12]  378 	mov	a,r2
       0021E8 B5 03 11         [24]  379 	cjne	a,ar3,00104$
@@ -468,14 +468,14 @@
       00225A E5 08            [12]  468 	mov	a,_bp
       00225C 24 15            [12]  469 	add	a,#0x15
       00225E F9               [12]  470 	mov	r1,a
-      00225F 12 70 E2         [24]  471 	lcall	__gptrget
+      00225F 12 76 03         [24]  471 	lcall	__gptrget
       002262 F7               [12]  472 	mov	@r1,a
       002263 A3               [24]  473 	inc	dptr
-      002264 12 70 E2         [24]  474 	lcall	__gptrget
+      002264 12 76 03         [24]  474 	lcall	__gptrget
       002267 09               [12]  475 	inc	r1
       002268 F7               [12]  476 	mov	@r1,a
       002269 A3               [24]  477 	inc	dptr
-      00226A 12 70 E2         [24]  478 	lcall	__gptrget
+      00226A 12 76 03         [24]  478 	lcall	__gptrget
       00226D 09               [12]  479 	inc	r1
       00226E F7               [12]  480 	mov	@r1,a
       00226F E5 08            [12]  481 	mov	a,_bp
@@ -497,10 +497,10 @@
       002284 8C 82            [24]  497 	mov	dpl,r4
       002286 8D 83            [24]  498 	mov	dph,r5
       002288 8E F0            [24]  499 	mov	b,r6
-      00228A 12 70 E2         [24]  500 	lcall	__gptrget
+      00228A 12 76 03         [24]  500 	lcall	__gptrget
       00228D FC               [12]  501 	mov	r4,a
       00228E A3               [24]  502 	inc	dptr
-      00228F 12 70 E2         [24]  503 	lcall	__gptrget
+      00228F 12 76 03         [24]  503 	lcall	__gptrget
       002292 FD               [12]  504 	mov	r5,a
       002293 BC 00 37         [24]  505 	cjne	r4,#0x00,00132$
       002296 BD 80 34         [24]  506 	cjne	r5,#0x80,00132$
@@ -529,10 +529,10 @@
       0022B5 8C 82            [24]  529 	mov	dpl,r4
       0022B7 8D 83            [24]  530 	mov	dph,r5
       0022B9 8E F0            [24]  531 	mov	b,r6
-      0022BB 12 70 E2         [24]  532 	lcall	__gptrget
+      0022BB 12 76 03         [24]  532 	lcall	__gptrget
       0022BE FC               [12]  533 	mov	r4,a
       0022BF A3               [24]  534 	inc	dptr
-      0022C0 12 70 E2         [24]  535 	lcall	__gptrget
+      0022C0 12 76 03         [24]  535 	lcall	__gptrget
       0022C3 FD               [12]  536 	mov	r5,a
       0022C4 BC 00 06         [24]  537 	cjne	r4,#0x00,00195$
       0022C7 BD 80 03         [24]  538 	cjne	r5,#0x80,00195$
@@ -548,13 +548,13 @@
       0022D5 86 83            [24]  548 	mov	dph,@r0
       0022D7 08               [12]  549 	inc	r0
       0022D8 86 F0            [24]  550 	mov	b,@r0
-      0022DA 12 70 E2         [24]  551 	lcall	__gptrget
+      0022DA 12 76 03         [24]  551 	lcall	__gptrget
       0022DD FC               [12]  552 	mov	r4,a
       0022DE A3               [24]  553 	inc	dptr
-      0022DF 12 70 E2         [24]  554 	lcall	__gptrget
+      0022DF 12 76 03         [24]  554 	lcall	__gptrget
       0022E2 FD               [12]  555 	mov	r5,a
       0022E3 A3               [24]  556 	inc	dptr
-      0022E4 12 70 E2         [24]  557 	lcall	__gptrget
+      0022E4 12 76 03         [24]  557 	lcall	__gptrget
       0022E7 FE               [12]  558 	mov	r6,a
       0022E8 E5 08            [12]  559 	mov	a,_bp
       0022EA 24 0F            [12]  560 	add	a,#0x0f
@@ -569,10 +569,10 @@
       0022F4 8C 82            [24]  569 	mov	dpl,r4
       0022F6 8D 83            [24]  570 	mov	dph,r5
       0022F8 8E F0            [24]  571 	mov	b,r6
-      0022FA 12 70 E2         [24]  572 	lcall	__gptrget
+      0022FA 12 76 03         [24]  572 	lcall	__gptrget
       0022FD FC               [12]  573 	mov	r4,a
       0022FE A3               [24]  574 	inc	dptr
-      0022FF 12 70 E2         [24]  575 	lcall	__gptrget
+      0022FF 12 76 03         [24]  575 	lcall	__gptrget
       002302 FB               [12]  576 	mov	r3,a
       002303 A8 08            [24]  577 	mov	r0,_bp
       002305 08               [12]  578 	inc	r0
@@ -581,10 +581,10 @@
       002309 86 83            [24]  581 	mov	dph,@r0
       00230B 08               [12]  582 	inc	r0
       00230C 86 F0            [24]  583 	mov	b,@r0
-      00230E 12 70 E2         [24]  584 	lcall	__gptrget
+      00230E 12 76 03         [24]  584 	lcall	__gptrget
       002311 FD               [12]  585 	mov	r5,a
       002312 A3               [24]  586 	inc	dptr
-      002313 12 70 E2         [24]  587 	lcall	__gptrget
+      002313 12 76 03         [24]  587 	lcall	__gptrget
       002316 FE               [12]  588 	mov	r6,a
       002317 EC               [12]  589 	mov	a,r4
       002318 B5 05 06         [24]  590 	cjne	a,ar5,00196$
@@ -608,13 +608,13 @@
       002334 86 83            [24]  608 	mov	dph,@r0
       002336 08               [12]  609 	inc	r0
       002337 86 F0            [24]  610 	mov	b,@r0
-      002339 12 70 E2         [24]  611 	lcall	__gptrget
+      002339 12 76 03         [24]  611 	lcall	__gptrget
       00233C FC               [12]  612 	mov	r4,a
       00233D A3               [24]  613 	inc	dptr
-      00233E 12 70 E2         [24]  614 	lcall	__gptrget
+      00233E 12 76 03         [24]  614 	lcall	__gptrget
       002341 FD               [12]  615 	mov	r5,a
       002342 A3               [24]  616 	inc	dptr
-      002343 12 70 E2         [24]  617 	lcall	__gptrget
+      002343 12 76 03         [24]  617 	lcall	__gptrget
       002346 FE               [12]  618 	mov	r6,a
       002347 E5 08            [12]  619 	mov	a,_bp
       002349 24 11            [12]  620 	add	a,#0x11
@@ -635,10 +635,10 @@
       00235A 8C 82            [24]  635 	mov	dpl,r4
       00235C 8D 83            [24]  636 	mov	dph,r5
       00235E 8E F0            [24]  637 	mov	b,r6
-      002360 12 70 E2         [24]  638 	lcall	__gptrget
+      002360 12 76 03         [24]  638 	lcall	__gptrget
       002363 FE               [12]  639 	mov	r6,a
       002364 A3               [24]  640 	inc	dptr
-      002365 12 70 E2         [24]  641 	lcall	__gptrget
+      002365 12 76 03         [24]  641 	lcall	__gptrget
       002368 FD               [12]  642 	mov	r5,a
       002369 E5 08            [12]  643 	mov	a,_bp
       00236B 24 FC            [12]  644 	add	a,#0xfc
@@ -666,13 +666,13 @@
       00238C 86 83            [24]  666 	mov	dph,@r0
       00238E 08               [12]  667 	inc	r0
       00238F 86 F0            [24]  668 	mov	b,@r0
-      002391 12 70 E2         [24]  669 	lcall	__gptrget
+      002391 12 76 03         [24]  669 	lcall	__gptrget
       002394 FC               [12]  670 	mov	r4,a
       002395 A3               [24]  671 	inc	dptr
-      002396 12 70 E2         [24]  672 	lcall	__gptrget
+      002396 12 76 03         [24]  672 	lcall	__gptrget
       002399 FD               [12]  673 	mov	r5,a
       00239A A3               [24]  674 	inc	dptr
-      00239B 12 70 E2         [24]  675 	lcall	__gptrget
+      00239B 12 76 03         [24]  675 	lcall	__gptrget
       00239E FE               [12]  676 	mov	r6,a
       00239F E5 08            [12]  677 	mov	a,_bp
       0023A1 24 11            [12]  678 	add	a,#0x11
@@ -705,10 +705,10 @@
       0023C4 8C 82            [24]  705 	mov	dpl,r4
       0023C6 8D 83            [24]  706 	mov	dph,r5
       0023C8 8E F0            [24]  707 	mov	b,r6
-      0023CA 12 70 E2         [24]  708 	lcall	__gptrget
+      0023CA 12 76 03         [24]  708 	lcall	__gptrget
       0023CD FC               [12]  709 	mov	r4,a
       0023CE A3               [24]  710 	inc	dptr
-      0023CF 12 70 E2         [24]  711 	lcall	__gptrget
+      0023CF 12 76 03         [24]  711 	lcall	__gptrget
       0023D2 FD               [12]  712 	mov	r5,a
       0023D3 4C               [12]  713 	orl	a,r4
       0023D4 60 60            [24]  714 	jz	00109$
@@ -723,13 +723,13 @@
       0023E2 86 83            [24]  723 	mov	dph,@r0
       0023E4 08               [12]  724 	inc	r0
       0023E5 86 F0            [24]  725 	mov	b,@r0
-      0023E7 12 70 E2         [24]  726 	lcall	__gptrget
+      0023E7 12 76 03         [24]  726 	lcall	__gptrget
       0023EA FA               [12]  727 	mov	r2,a
       0023EB A3               [24]  728 	inc	dptr
-      0023EC 12 70 E2         [24]  729 	lcall	__gptrget
+      0023EC 12 76 03         [24]  729 	lcall	__gptrget
       0023EF FE               [12]  730 	mov	r6,a
       0023F0 A3               [24]  731 	inc	dptr
-      0023F1 12 70 E2         [24]  732 	lcall	__gptrget
+      0023F1 12 76 03         [24]  732 	lcall	__gptrget
       0023F4 FF               [12]  733 	mov	r7,a
       0023F5 C0 05            [24]  734 	push	ar5
       0023F7 C0 04            [24]  735 	push	ar4
@@ -780,13 +780,13 @@
       00243E 86 83            [24]  780 	mov	dph,@r0
       002440 08               [12]  781 	inc	r0
       002441 86 F0            [24]  782 	mov	b,@r0
-      002443 12 70 E2         [24]  783 	lcall	__gptrget
+      002443 12 76 03         [24]  783 	lcall	__gptrget
       002446 FC               [12]  784 	mov	r4,a
       002447 A3               [24]  785 	inc	dptr
-      002448 12 70 E2         [24]  786 	lcall	__gptrget
+      002448 12 76 03         [24]  786 	lcall	__gptrget
       00244B FD               [12]  787 	mov	r5,a
       00244C A3               [24]  788 	inc	dptr
-      00244D 12 70 E2         [24]  789 	lcall	__gptrget
+      00244D 12 76 03         [24]  789 	lcall	__gptrget
       002450 FE               [12]  790 	mov	r6,a
       002451 E5 08            [12]  791 	mov	a,_bp
       002453 24 11            [12]  792 	add	a,#0x11
@@ -812,10 +812,10 @@
       00246E E5 08            [12]  812 	mov	a,_bp
       002470 24 18            [12]  813 	add	a,#0x18
       002472 F8               [12]  814 	mov	r0,a
-      002473 12 70 E2         [24]  815 	lcall	__gptrget
+      002473 12 76 03         [24]  815 	lcall	__gptrget
       002476 F6               [12]  816 	mov	@r0,a
       002477 A3               [24]  817 	inc	dptr
-      002478 12 70 E2         [24]  818 	lcall	__gptrget
+      002478 12 76 03         [24]  818 	lcall	__gptrget
       00247B 08               [12]  819 	inc	r0
       00247C F6               [12]  820 	mov	@r0,a
       00247D E5 08            [12]  821 	mov	a,_bp
@@ -834,13 +834,13 @@
       00248F 86 83            [24]  834 	mov	dph,@r0
       002491 08               [12]  835 	inc	r0
       002492 86 F0            [24]  836 	mov	b,@r0
-      002494 12 70 E2         [24]  837 	lcall	__gptrget
+      002494 12 76 03         [24]  837 	lcall	__gptrget
       002497 FC               [12]  838 	mov	r4,a
       002498 A3               [24]  839 	inc	dptr
-      002499 12 70 E2         [24]  840 	lcall	__gptrget
+      002499 12 76 03         [24]  840 	lcall	__gptrget
       00249C FD               [12]  841 	mov	r5,a
       00249D A3               [24]  842 	inc	dptr
-      00249E 12 70 E2         [24]  843 	lcall	__gptrget
+      00249E 12 76 03         [24]  843 	lcall	__gptrget
       0024A1 FE               [12]  844 	mov	r6,a
       0024A2 C0 07            [24]  845 	push	ar7
       0024A4 C0 03            [24]  846 	push	ar3
@@ -943,10 +943,10 @@
       00252F 08               [12]  943 	inc	r0
       002530 86 F0            [24]  944 	mov	b,@r0
       002532 E4               [12]  945 	clr	a
-      002533 12 6C 67         [24]  946 	lcall	__gptrput
+      002533 12 71 57         [24]  946 	lcall	__gptrput
       002536 A3               [24]  947 	inc	dptr
       002537 74 80            [12]  948 	mov	a,#0x80
-      002539 12 6C 67         [24]  949 	lcall	__gptrput
+      002539 12 71 57         [24]  949 	lcall	__gptrput
                                     950 ;	sm.c:48: goto error;
       00253C 02 26 70         [24]  951 	ljmp	00130$
       00253F                        952 00121$:
@@ -965,10 +965,10 @@
       002551 86 83            [24]  965 	mov	dph,@r0
       002553 08               [12]  966 	inc	r0
       002554 86 F0            [24]  967 	mov	b,@r0
-      002556 12 70 E2         [24]  968 	lcall	__gptrget
+      002556 12 76 03         [24]  968 	lcall	__gptrget
       002559 FE               [12]  969 	mov	r6,a
       00255A A3               [24]  970 	inc	dptr
-      00255B 12 70 E2         [24]  971 	lcall	__gptrget
+      00255B 12 76 03         [24]  971 	lcall	__gptrget
       00255E FF               [12]  972 	mov	r7,a
       00255F E5 08            [12]  973 	mov	a,_bp
       002561 24 1D            [12]  974 	add	a,#0x1d
@@ -992,10 +992,10 @@
       002579 86 83            [24]  992 	mov	dph,@r0
       00257B 08               [12]  993 	inc	r0
       00257C 86 F0            [24]  994 	mov	b,@r0
-      00257E 12 70 E2         [24]  995 	lcall	__gptrget
+      00257E 12 76 03         [24]  995 	lcall	__gptrget
       002581 FF               [12]  996 	mov	r7,a
       002582 A3               [24]  997 	inc	dptr
-      002583 12 70 E2         [24]  998 	lcall	__gptrget
+      002583 12 76 03         [24]  998 	lcall	__gptrget
       002586 FE               [12]  999 	mov	r6,a
       002587 A8 08            [24] 1000 	mov	r0,_bp
       002589 08               [12] 1001 	inc	r0
@@ -1005,10 +1005,10 @@
       00258F 08               [12] 1005 	inc	r0
       002590 86 F0            [24] 1006 	mov	b,@r0
       002592 EF               [12] 1007 	mov	a,r7
-      002593 12 6C 67         [24] 1008 	lcall	__gptrput
+      002593 12 71 57         [24] 1008 	lcall	__gptrput
       002596 A3               [24] 1009 	inc	dptr
       002597 EE               [12] 1010 	mov	a,r6
-      002598 12 6C 67         [24] 1011 	lcall	__gptrput
+      002598 12 71 57         [24] 1011 	lcall	__gptrput
       00259B E5 08            [12] 1012 	mov	a,_bp
       00259D 24 1D            [12] 1013 	add	a,#0x1d
       00259F F8               [12] 1014 	mov	r0,a
@@ -1039,13 +1039,13 @@
       0025C4 86 83            [24] 1039 	mov	dph,@r0
       0025C6 08               [12] 1040 	inc	r0
       0025C7 86 F0            [24] 1041 	mov	b,@r0
-      0025C9 12 70 E2         [24] 1042 	lcall	__gptrget
+      0025C9 12 76 03         [24] 1042 	lcall	__gptrget
       0025CC FD               [12] 1043 	mov	r5,a
       0025CD A3               [24] 1044 	inc	dptr
-      0025CE 12 70 E2         [24] 1045 	lcall	__gptrget
+      0025CE 12 76 03         [24] 1045 	lcall	__gptrget
       0025D1 FE               [12] 1046 	mov	r6,a
       0025D2 A3               [24] 1047 	inc	dptr
-      0025D3 12 70 E2         [24] 1048 	lcall	__gptrget
+      0025D3 12 76 03         [24] 1048 	lcall	__gptrget
       0025D6 FF               [12] 1049 	mov	r7,a
       0025D7 C0 07            [24] 1050 	push	ar7
       0025D9 C0 06            [24] 1051 	push	ar6
@@ -1059,7 +1059,7 @@
       0025E6 E6               [12] 1059 	mov	a,@r0
       0025E7 C0 E0            [24] 1060 	push	acc
       0025E9 90 00 0A         [24] 1061 	mov	dptr,#0x000a
-      0025EC 12 6C 82         [24] 1062 	lcall	__mulint
+      0025EC 12 71 A3         [24] 1062 	lcall	__mulint
       0025EF AB 82            [24] 1063 	mov	r3,dpl
       0025F1 AC 83            [24] 1064 	mov	r4,dph
       0025F3 15 81            [12] 1065 	dec	sp
@@ -1082,10 +1082,10 @@
       00260A 8D 82            [24] 1082 	mov	dpl,r5
       00260C 8E 83            [24] 1083 	mov	dph,r6
       00260E 8F F0            [24] 1084 	mov	b,r7
-      002610 12 70 E2         [24] 1085 	lcall	__gptrget
+      002610 12 76 03         [24] 1085 	lcall	__gptrget
       002613 FF               [12] 1086 	mov	r7,a
       002614 A3               [24] 1087 	inc	dptr
-      002615 12 70 E2         [24] 1088 	lcall	__gptrget
+      002615 12 76 03         [24] 1088 	lcall	__gptrget
       002618 FE               [12] 1089 	mov	r6,a
       002619 BF FF 05         [24] 1090 	cjne	r7,#0xff,00216$
       00261C BE 7F 02         [24] 1091 	cjne	r6,#0x7f,00216$
@@ -1099,10 +1099,10 @@
       002629 08               [12] 1099 	inc	r0
       00262A 86 F0            [24] 1100 	mov	b,@r0
       00262C EF               [12] 1101 	mov	a,r7
-      00262D 12 6C 67         [24] 1102 	lcall	__gptrput
+      00262D 12 71 57         [24] 1102 	lcall	__gptrput
       002630 A3               [24] 1103 	inc	dptr
       002631 EE               [12] 1104 	mov	a,r6
-      002632 12 6C 67         [24] 1105 	lcall	__gptrput
+      002632 12 71 57         [24] 1105 	lcall	__gptrput
       002635                       1106 00126$:
                                    1107 ;	sm.c:58: if (state->current == state->final) {
       002635 A8 08            [24] 1108 	mov	r0,_bp
@@ -1112,10 +1112,10 @@
       00263B 86 83            [24] 1112 	mov	dph,@r0
       00263D 08               [12] 1113 	inc	r0
       00263E 86 F0            [24] 1114 	mov	b,@r0
-      002640 12 70 E2         [24] 1115 	lcall	__gptrget
+      002640 12 76 03         [24] 1115 	lcall	__gptrget
       002643 FE               [12] 1116 	mov	r6,a
       002644 A3               [24] 1117 	inc	dptr
-      002645 12 70 E2         [24] 1118 	lcall	__gptrget
+      002645 12 76 03         [24] 1118 	lcall	__gptrget
       002648 FF               [12] 1119 	mov	r7,a
       002649 E5 08            [12] 1120 	mov	a,_bp
       00264B 24 04            [12] 1121 	add	a,#0x04
@@ -1125,10 +1125,10 @@
       002651 86 83            [24] 1125 	mov	dph,@r0
       002653 08               [12] 1126 	inc	r0
       002654 86 F0            [24] 1127 	mov	b,@r0
-      002656 12 70 E2         [24] 1128 	lcall	__gptrget
+      002656 12 76 03         [24] 1128 	lcall	__gptrget
       002659 FC               [12] 1129 	mov	r4,a
       00265A A3               [24] 1130 	inc	dptr
-      00265B 12 70 E2         [24] 1131 	lcall	__gptrget
+      00265B 12 76 03         [24] 1131 	lcall	__gptrget
       00265E FD               [12] 1132 	mov	r5,a
       00265F EE               [12] 1133 	mov	a,r6
       002660 B5 04 0D         [24] 1134 	cjne	a,ar4,00130$
