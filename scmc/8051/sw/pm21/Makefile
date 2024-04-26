@@ -6,33 +6,33 @@ SREC_CAT=srec_cat
 VERSTR?=$(shell cat VERSTR)
 
 %.hex: %.asm
-	$(COMPILE) $<
+	$(COMPILE) "$<"
 
 %.rel: %.c
-	sdcc -c $(SDCCCFLAGS) $<
+	sdcc -c $(SDCCCFLAGS) "$<"
 
 .PRECIOUS: %.hex
 
 %.merge: %.hex
-	echo "$< -Intel" > $@
+	echo "$< -Intel" > "$@"
 
 %.h: %.asm
-	./genhdr.awk -v verstr="$(VERSTR)" $< > $@
+	./genhdr.awk -v verstr="$(VERSTR)" "$<" > "$@"
 
 %.equ: %.asm
-	./genequ.awk -v verstr="$(VERSTR)" $< > $@
+	./genequ.awk -v verstr="$(VERSTR)" "$<" > "$@"
 
 all: monitor paulmon21.h paulmon21.equ libpm21.lib
 
 monitor: paulmon21_gen.merge extra.merge
 	cat $^ > merge_script
-	$(SREC_CAT) @merge_script -Output $@.hex -Intel
+	$(SREC_CAT) @merge_script -Output "$@.hex" -Intel
 
 paulmon21_gen.asm: paulmon21.asm
 	sed -E "s/VERSTR/$(VERSTR)/g" paulmon21.asm > paulmon21_gen.asm
 
 libpm21.lib: sio.rel
-	sdar -rc $@ $^
+	sdar -rc "$@" $^
 
 clean:
 	rm -f *_gen.* *.hex *.lst *.merge *.rel *.rst *.sym *.lib merge_script
