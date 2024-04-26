@@ -1,6 +1,6 @@
 AS=as31
 ASFLAGS=-l -Fhex
-SDCCCFLAGS=--model-large --stack-auto
+SDCCCFLAGS=--model-large --stack-auto -I.
 COMPILE=$(AS) $(ASFLAGS)
 SREC_CAT=srec_cat
 VERSTR?=$(shell cat VERSTR)
@@ -35,5 +35,6 @@ libpm21.lib: sio.rel
 	sdar -rc "$@" $^
 
 clean:
-	rm -f *_gen.* *.hex *.lst *.h *.equ *.merge *.rel *.rst *.sym *.lib merge_script
+	rm -f *_gen.* *.hex *.lst *.merge *.rel *.rst *.sym *.lib merge_script
+	rm -f paulmon21.h paulmon21.equ sio.asm
 
