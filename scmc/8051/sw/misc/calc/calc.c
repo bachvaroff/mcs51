@@ -15,7 +15,7 @@
 __idata char giant;
 
 inline void printall(long d) {
-	printf("%08lx\t", d);
+	print32x(d);
 	printf("% 11ld\t", d);
 	printf("%011lo\t", d);
 	print32bin(d);
