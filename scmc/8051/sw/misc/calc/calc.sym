@@ -379,11 +379,11 @@ Symbol Table
  18 ___str_45                                                      000338 R
  18 ___str_46                                                      000359 R
  18 ___str_47                                                      00036E R
- 18 ___str_48                                                      000382 R
- 18 ___str_49                                                      00038D R
+ 18 ___str_48                                                      00037D R
+ 18 ___str_49                                                      000388 R
  18 ___str_5                                                       00002B R
- 18 ___str_50                                                      000396 R
- 18 ___str_51                                                      00039F R
+ 18 ___str_50                                                      000391 R
+ 18 ___str_51                                                      00039A R
  18 ___str_6                                                       000031 R
  18 ___str_7                                                       000037 R
  18 ___str_8                                                       00003F R
@@ -668,7 +668,7 @@ Area Table
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
   17 CSEG                                       size   2FBD   flags   20
-  18 CONST                                      size    3A6   flags   20
+  18 CONST                                      size    3A1   flags   20
   19 XINIT                                      size     AA   flags   20
   1A CABS                                       size      0   flags   28
 

@@ -7293,7 +7293,7 @@ _help:
 	mov	dptr,#___str_46
 	mov	b,#0x80
 	lcall	_printstr
-;	calc.c:406: printstr("~\tbitwise not top\r\n");
+;	calc.c:406: printstr("~\tinvert top\r\n");
 	mov	dptr,#___str_47
 	mov	b,#0x80
 	lcall	_printstr
@@ -8303,7 +8303,7 @@ ___str_46:
 ___str_47:
 	.ascii "~"
 	.db 0x09
-	.ascii "bitwise not top"
+	.ascii "invert top"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
