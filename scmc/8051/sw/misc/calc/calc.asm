@@ -1503,7 +1503,7 @@ _operator:
 	mov	r0,_bp
 	inc	r0
 	cjne	@r0,#0x4d,00536$
-	ljmp	00127$
+	ljmp	00134$
 00536$:
 	mov	r0,_bp
 	inc	r0
@@ -1512,13 +1512,13 @@ _operator:
 00537$:
 	mov	r0,_bp
 	inc	r0
-	cjne	@r0,#0x54,00538$
-	ljmp	00145$
+	cjne	@r0,#0x53,00538$
+	ljmp	00152$
 00538$:
 	mov	r0,_bp
 	inc	r0
 	cjne	@r0,#0x55,00539$
-	ljmp	00139$
+	ljmp	00146$
 00539$:
 	mov	r0,_bp
 	inc	r0
@@ -1528,7 +1528,7 @@ _operator:
 	mov	r0,_bp
 	inc	r0
 	cjne	@r0,#0x58,00541$
-	ljmp	00152$
+	ljmp	00121$
 00541$:
 	mov	r0,_bp
 	inc	r0
@@ -1548,7 +1548,7 @@ _operator:
 	mov	r0,_bp
 	inc	r0
 	cjne	@r0,#0x6d,00545$
-	ljmp	00121$
+	ljmp	00128$
 00545$:
 	mov	r0,_bp
 	inc	r0
@@ -1558,7 +1558,7 @@ _operator:
 	mov	r0,_bp
 	inc	r0
 	cjne	@r0,#0x75,00547$
-	ljmp	00133$
+	ljmp	00140$
 00547$:
 	mov	r0,_bp
 	inc	r0
@@ -2207,7 +2207,7 @@ _operator:
 	mov	sp,a
 ;	calc.c:123: break;
 	ljmp	00249$
-;	calc.c:124: case 'm':
+;	calc.c:124: case 'X':
 00121$:
 ;	calc.c:125: if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
 	mov	a,_bp
@@ -2263,545 +2263,13 @@ _operator:
 	dec	sp
 	mov	a,r3
 	orl	a,r4
-	jnz	00125$
+	jnz	00126$
 	mov	dptr,#___str_9
 	mov	b,#0x80
 	lcall	_printstr
 	ljmp	00249$
-00125$:
-;	calc.c:127: if (!stack_push(ctx->ss, d0)) {
-	mov	a,_bp
-	add	a,#0x17
-	mov	r0,a
-	mov	a,#0x14
-	add	a,@r0
-	mov	r2,a
-	mov	a,#0x40
-	inc	r0
-	addc	a,@r0
-	mov	r3,a
-	inc	r0
-	mov	ar4,@r0
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	__gptrget
-	mov	r2,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	mov	a,_bp
-	add	a,#0x1a
-	mov	r0,a
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_stack_push
-	mov	r3,dpl
-	mov	r4,dph
-	mov	a,sp
-	add	a,#0xfc
-	mov	sp,a
-	mov	a,r3
-	orl	a,r4
-	jz	00558$
-	ljmp	00249$
-00558$:
-;	calc.c:128: printstr("\r\nsecondary stack overflow\r\n");
-	mov	dptr,#___str_10
-	mov	b,#0x80
-	lcall	_printstr
-;	calc.c:129: (void)stack_push(ctx->ps, d0);
-	mov	a,_bp
-	add	a,#0x05
-	mov	r0,a
-	mov	dpl,@r0
-	inc	r0
-	mov	dph,@r0
-	inc	r0
-	mov	b,@r0
-	lcall	__gptrget
-	mov	r2,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	mov	a,_bp
-	add	a,#0x1a
-	mov	r0,a
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_stack_push
-	mov	a,sp
-	add	a,#0xfc
-	mov	sp,a
-;	calc.c:132: break;
-	ljmp	00249$
-;	calc.c:133: case 'M':
-00127$:
-;	calc.c:134: if (!stack_pop(ctx->ss, &d0)) printstr("\r\nsecondary stack underflow\r\n");
-	mov	a,_bp
-	add	a,#0x1a
-	mov	r7,a
-	mov	r6,#0x00
-	mov	r5,#0x40
-	mov	a,_bp
-	add	a,#0x17
-	mov	r0,a
-	mov	a,_bp
-	add	a,#0x05
-	mov	r1,a
-	mov	a,#0x14
-	add	a,@r0
-	mov	@r1,a
-	mov	a,#0x40
-	inc	r0
-	addc	a,@r0
-	inc	r1
-	mov	@r1,a
-	inc	r0
-	inc	r1
-	mov	a,@r0
-	mov	@r1,a
-	mov	a,_bp
-	add	a,#0x05
-	mov	r0,a
-	mov	dpl,@r0
-	inc	r0
-	mov	dph,@r0
-	inc	r0
-	mov	b,@r0
-	lcall	__gptrget
-	mov	r2,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	push	ar7
-	push	ar6
-	push	ar5
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_stack_pop
-	mov	r3,dpl
-	mov	r4,dph
-	dec	sp
-	dec	sp
-	dec	sp
-	mov	a,r3
-	orl	a,r4
-	jnz	00131$
-	mov	dptr,#___str_11
-	mov	b,#0x80
-	lcall	_printstr
-	ljmp	00249$
-00131$:
-;	calc.c:136: if (!stack_push(ctx->ps, d0)) {
-	mov	a,_bp
-	add	a,#0x17
-	mov	r0,a
-	mov	a,#0x11
-	add	a,@r0
-	mov	r2,a
-	mov	a,#0x40
-	inc	r0
-	addc	a,@r0
-	mov	r3,a
-	inc	r0
-	mov	ar4,@r0
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	__gptrget
-	mov	r2,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	mov	a,_bp
-	add	a,#0x1a
-	mov	r0,a
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_stack_push
-	mov	r3,dpl
-	mov	r4,dph
-	mov	a,sp
-	add	a,#0xfc
-	mov	sp,a
-	mov	a,r3
-	orl	a,r4
-	jz	00560$
-	ljmp	00249$
-00560$:
-;	calc.c:137: printstr("\r\nstack overflow\r\n");
-	mov	dptr,#___str_12
-	mov	b,#0x80
-	lcall	_printstr
-;	calc.c:138: (void)stack_push(ctx->ss, d0);
-	mov	a,_bp
-	add	a,#0x05
-	mov	r0,a
-	mov	dpl,@r0
-	inc	r0
-	mov	dph,@r0
-	inc	r0
-	mov	b,@r0
-	lcall	__gptrget
-	mov	r2,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	mov	a,_bp
-	add	a,#0x1a
-	mov	r0,a
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_stack_push
-	mov	a,sp
-	add	a,#0xfc
-	mov	sp,a
-;	calc.c:141: break;
-	ljmp	00249$
-;	calc.c:142: case 'u':
-00133$:
-;	calc.c:143: if (!stack_peek(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
-	mov	a,_bp
-	add	a,#0x1a
-	mov	r7,a
-	mov	r6,#0x00
-	mov	r5,#0x40
-	mov	a,_bp
-	add	a,#0x17
-	mov	r0,a
-	mov	a,#0x11
-	add	a,@r0
-	mov	r2,a
-	mov	a,r5
-	inc	r0
-	addc	a,@r0
-	mov	r3,a
-	inc	r0
-	mov	ar4,@r0
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	__gptrget
-	mov	r2,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	push	ar7
-	push	ar6
-	push	ar5
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_stack_peek
-	mov	r3,dpl
-	mov	r4,dph
-	dec	sp
-	dec	sp
-	dec	sp
-	mov	a,r3
-	orl	a,r4
-	jnz	00137$
-	mov	dptr,#___str_9
-	mov	b,#0x80
-	lcall	_printstr
-	ljmp	00249$
-00137$:
-;	calc.c:144: else if (!stack_push(ctx->ss, d0)) printstr("\r\nsecondary stack overflow\r\n");
-	mov	a,_bp
-	add	a,#0x17
-	mov	r0,a
-	mov	a,#0x14
-	add	a,@r0
-	mov	r2,a
-	mov	a,#0x40
-	inc	r0
-	addc	a,@r0
-	mov	r3,a
-	inc	r0
-	mov	ar4,@r0
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	__gptrget
-	mov	r2,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	mov	a,_bp
-	add	a,#0x1a
-	mov	r0,a
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_stack_push
-	mov	r3,dpl
-	mov	r4,dph
-	mov	a,sp
-	add	a,#0xfc
-	mov	sp,a
-	mov	a,r3
-	orl	a,r4
-	jz	00562$
-	ljmp	00249$
-00562$:
-	mov	dptr,#___str_10
-	mov	b,#0x80
-	lcall	_printstr
-;	calc.c:145: break;
-	ljmp	00249$
-;	calc.c:146: case 'U':
-00139$:
-;	calc.c:147: if (!stack_peek(ctx->ss, &d0)) printstr("\r\nsecondary stack underflow\r\n");
-	mov	a,_bp
-	add	a,#0x1a
-	mov	r7,a
-	mov	r6,#0x00
-	mov	r5,#0x40
-	mov	a,_bp
-	add	a,#0x17
-	mov	r0,a
-	mov	a,#0x14
-	add	a,@r0
-	mov	r2,a
-	mov	a,r5
-	inc	r0
-	addc	a,@r0
-	mov	r3,a
-	inc	r0
-	mov	ar4,@r0
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	__gptrget
-	mov	r2,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	push	ar7
-	push	ar6
-	push	ar5
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_stack_peek
-	mov	r3,dpl
-	mov	r4,dph
-	dec	sp
-	dec	sp
-	dec	sp
-	mov	a,r3
-	orl	a,r4
-	jnz	00143$
-	mov	dptr,#___str_11
-	mov	b,#0x80
-	lcall	_printstr
-	ljmp	00249$
-00143$:
-;	calc.c:148: else if (!stack_push(ctx->ps, d0)) printstr("\r\nstack overflow\r\n");
-	mov	a,_bp
-	add	a,#0x17
-	mov	r0,a
-	mov	a,#0x11
-	add	a,@r0
-	mov	r2,a
-	mov	a,#0x40
-	inc	r0
-	addc	a,@r0
-	mov	r3,a
-	inc	r0
-	mov	ar4,@r0
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	__gptrget
-	mov	r2,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	mov	a,_bp
-	add	a,#0x1a
-	mov	r0,a
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	inc	r0
-	mov	a,@r0
-	push	acc
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_stack_push
-	mov	r3,dpl
-	mov	r4,dph
-	mov	a,sp
-	add	a,#0xfc
-	mov	sp,a
-	mov	a,r3
-	orl	a,r4
-	jz	00564$
-	ljmp	00249$
-00564$:
-	mov	dptr,#___str_12
-	mov	b,#0x80
-	lcall	_printstr
-;	calc.c:149: break;
-	ljmp	00249$
-;	calc.c:150: case 'T':
-00145$:
-;	calc.c:151: if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
-	mov	a,_bp
-	add	a,#0x1a
-	mov	r7,a
-	mov	r6,#0x00
-	mov	r5,#0x40
-	mov	a,_bp
-	add	a,#0x17
-	mov	r0,a
-	mov	a,_bp
-	add	a,#0x05
-	mov	r1,a
-	mov	a,#0x11
-	add	a,@r0
-	mov	@r1,a
-	mov	a,#0x40
-	inc	r0
-	addc	a,@r0
-	inc	r1
-	mov	@r1,a
-	inc	r0
-	inc	r1
-	mov	a,@r0
-	mov	@r1,a
-	mov	a,_bp
-	add	a,#0x05
-	mov	r0,a
-	mov	dpl,@r0
-	inc	r0
-	mov	dph,@r0
-	inc	r0
-	mov	b,@r0
-	lcall	__gptrget
-	mov	r2,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r3,a
-	inc	dptr
-	lcall	__gptrget
-	mov	r4,a
-	push	ar7
-	push	ar6
-	push	ar5
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	lcall	_stack_pop
-	mov	r3,dpl
-	mov	r4,dph
-	dec	sp
-	dec	sp
-	dec	sp
-	mov	a,r3
-	orl	a,r4
-	jnz	00150$
-	mov	dptr,#___str_9
-	mov	b,#0x80
-	lcall	_printstr
-	ljmp	00249$
-00150$:
-;	calc.c:153: if (!stack_pop(ctx->ss, &d1)) {
+00126$:
+;	calc.c:127: if (!stack_pop(ctx->ss, &d1)) {
 	mov	a,_bp
 	add	a,#0x1e
 	mov	r7,a
@@ -2855,12 +2323,12 @@ _operator:
 	dec	sp
 	mov	a,r3
 	orl	a,r4
-	jnz	00147$
-;	calc.c:154: printstr("\r\nsecondary stack underflow\r\n");
-	mov	dptr,#___str_11
+	jnz	00123$
+;	calc.c:128: printstr("\r\nsecondary stack underflow\r\n");
+	mov	dptr,#___str_10
 	mov	b,#0x80
 	lcall	_printstr
-;	calc.c:155: (void)stack_push(ctx->ps, d0);
+;	calc.c:129: (void)stack_push(ctx->ps, d0);
 	mov	a,_bp
 	add	a,#0x05
 	mov	r0,a
@@ -2899,8 +2367,8 @@ _operator:
 	add	a,#0xfc
 	mov	sp,a
 	ljmp	00249$
-00147$:
-;	calc.c:157: (void)stack_push(ctx->ps, d1);
+00123$:
+;	calc.c:131: (void)stack_push(ctx->ps, d1);
 	mov	a,_bp
 	add	a,#0x05
 	mov	r0,a
@@ -2938,7 +2406,7 @@ _operator:
 	mov	a,sp
 	add	a,#0xfc
 	mov	sp,a
-;	calc.c:158: (void)stack_push(ctx->ss, d0);
+;	calc.c:132: (void)stack_push(ctx->ss, d0);
 	mov	r0,_bp
 	inc	r0
 	inc	r0
@@ -2976,9 +2444,541 @@ _operator:
 	mov	a,sp
 	add	a,#0xfc
 	mov	sp,a
+;	calc.c:135: break;
+	ljmp	00249$
+;	calc.c:136: case 'm':
+00128$:
+;	calc.c:137: if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+	mov	a,_bp
+	add	a,#0x1a
+	mov	r7,a
+	mov	r6,#0x00
+	mov	r5,#0x40
+	mov	a,_bp
+	add	a,#0x17
+	mov	r0,a
+	mov	a,_bp
+	add	a,#0x08
+	mov	r1,a
+	mov	a,#0x11
+	add	a,@r0
+	mov	@r1,a
+	mov	a,#0x40
+	inc	r0
+	addc	a,@r0
+	inc	r1
+	mov	@r1,a
+	inc	r0
+	inc	r1
+	mov	a,@r0
+	mov	@r1,a
+	mov	a,_bp
+	add	a,#0x08
+	mov	r0,a
+	mov	dpl,@r0
+	inc	r0
+	mov	dph,@r0
+	inc	r0
+	mov	b,@r0
+	lcall	__gptrget
+	mov	r2,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r3,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r4,a
+	push	ar7
+	push	ar6
+	push	ar5
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	_stack_pop
+	mov	r3,dpl
+	mov	r4,dph
+	dec	sp
+	dec	sp
+	dec	sp
+	mov	a,r3
+	orl	a,r4
+	jnz	00132$
+	mov	dptr,#___str_9
+	mov	b,#0x80
+	lcall	_printstr
+	ljmp	00249$
+00132$:
+;	calc.c:139: if (!stack_push(ctx->ss, d0)) {
+	mov	a,_bp
+	add	a,#0x17
+	mov	r0,a
+	mov	a,#0x14
+	add	a,@r0
+	mov	r2,a
+	mov	a,#0x40
+	inc	r0
+	addc	a,@r0
+	mov	r3,a
+	inc	r0
+	mov	ar4,@r0
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	__gptrget
+	mov	r2,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r3,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r4,a
+	mov	a,_bp
+	add	a,#0x1a
+	mov	r0,a
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	_stack_push
+	mov	r3,dpl
+	mov	r4,dph
+	mov	a,sp
+	add	a,#0xfc
+	mov	sp,a
+	mov	a,r3
+	orl	a,r4
+	jz	00560$
+	ljmp	00249$
+00560$:
+;	calc.c:140: printstr("\r\nsecondary stack overflow\r\n");
+	mov	dptr,#___str_11
+	mov	b,#0x80
+	lcall	_printstr
+;	calc.c:141: (void)stack_push(ctx->ps, d0);
+	mov	a,_bp
+	add	a,#0x08
+	mov	r0,a
+	mov	dpl,@r0
+	inc	r0
+	mov	dph,@r0
+	inc	r0
+	mov	b,@r0
+	lcall	__gptrget
+	mov	r2,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r3,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r4,a
+	mov	a,_bp
+	add	a,#0x1a
+	mov	r0,a
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	_stack_push
+	mov	a,sp
+	add	a,#0xfc
+	mov	sp,a
+;	calc.c:144: break;
+	ljmp	00249$
+;	calc.c:145: case 'M':
+00134$:
+;	calc.c:146: if (!stack_pop(ctx->ss, &d0)) printstr("\r\nsecondary stack underflow\r\n");
+	mov	a,_bp
+	add	a,#0x1a
+	mov	r7,a
+	mov	r6,#0x00
+	mov	r5,#0x40
+	mov	a,_bp
+	add	a,#0x17
+	mov	r0,a
+	mov	a,_bp
+	add	a,#0x08
+	mov	r1,a
+	mov	a,#0x14
+	add	a,@r0
+	mov	@r1,a
+	mov	a,#0x40
+	inc	r0
+	addc	a,@r0
+	inc	r1
+	mov	@r1,a
+	inc	r0
+	inc	r1
+	mov	a,@r0
+	mov	@r1,a
+	mov	a,_bp
+	add	a,#0x08
+	mov	r0,a
+	mov	dpl,@r0
+	inc	r0
+	mov	dph,@r0
+	inc	r0
+	mov	b,@r0
+	lcall	__gptrget
+	mov	r2,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r3,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r4,a
+	push	ar7
+	push	ar6
+	push	ar5
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	_stack_pop
+	mov	r3,dpl
+	mov	r4,dph
+	dec	sp
+	dec	sp
+	dec	sp
+	mov	a,r3
+	orl	a,r4
+	jnz	00138$
+	mov	dptr,#___str_10
+	mov	b,#0x80
+	lcall	_printstr
+	ljmp	00249$
+00138$:
+;	calc.c:148: if (!stack_push(ctx->ps, d0)) {
+	mov	a,_bp
+	add	a,#0x17
+	mov	r0,a
+	mov	a,#0x11
+	add	a,@r0
+	mov	r2,a
+	mov	a,#0x40
+	inc	r0
+	addc	a,@r0
+	mov	r3,a
+	inc	r0
+	mov	ar4,@r0
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	__gptrget
+	mov	r2,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r3,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r4,a
+	mov	a,_bp
+	add	a,#0x1a
+	mov	r0,a
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	_stack_push
+	mov	r3,dpl
+	mov	r4,dph
+	mov	a,sp
+	add	a,#0xfc
+	mov	sp,a
+	mov	a,r3
+	orl	a,r4
+	jz	00562$
+	ljmp	00249$
+00562$:
+;	calc.c:149: printstr("\r\nstack overflow\r\n");
+	mov	dptr,#___str_12
+	mov	b,#0x80
+	lcall	_printstr
+;	calc.c:150: (void)stack_push(ctx->ss, d0);
+	mov	a,_bp
+	add	a,#0x08
+	mov	r0,a
+	mov	dpl,@r0
+	inc	r0
+	mov	dph,@r0
+	inc	r0
+	mov	b,@r0
+	lcall	__gptrget
+	mov	r2,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r3,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r4,a
+	mov	a,_bp
+	add	a,#0x1a
+	mov	r0,a
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	_stack_push
+	mov	a,sp
+	add	a,#0xfc
+	mov	sp,a
+;	calc.c:153: break;
+	ljmp	00249$
+;	calc.c:154: case 'u':
+00140$:
+;	calc.c:155: if (!stack_peek(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+	mov	a,_bp
+	add	a,#0x1a
+	mov	r7,a
+	mov	r6,#0x00
+	mov	r5,#0x40
+	mov	a,_bp
+	add	a,#0x17
+	mov	r0,a
+	mov	a,#0x11
+	add	a,@r0
+	mov	r2,a
+	mov	a,r5
+	inc	r0
+	addc	a,@r0
+	mov	r3,a
+	inc	r0
+	mov	ar4,@r0
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	__gptrget
+	mov	r2,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r3,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r4,a
+	push	ar7
+	push	ar6
+	push	ar5
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	_stack_peek
+	mov	r3,dpl
+	mov	r4,dph
+	dec	sp
+	dec	sp
+	dec	sp
+	mov	a,r3
+	orl	a,r4
+	jnz	00144$
+	mov	dptr,#___str_9
+	mov	b,#0x80
+	lcall	_printstr
+	ljmp	00249$
+00144$:
+;	calc.c:156: else if (!stack_push(ctx->ss, d0)) printstr("\r\nsecondary stack overflow\r\n");
+	mov	a,_bp
+	add	a,#0x17
+	mov	r0,a
+	mov	a,#0x14
+	add	a,@r0
+	mov	r2,a
+	mov	a,#0x40
+	inc	r0
+	addc	a,@r0
+	mov	r3,a
+	inc	r0
+	mov	ar4,@r0
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	__gptrget
+	mov	r2,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r3,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r4,a
+	mov	a,_bp
+	add	a,#0x1a
+	mov	r0,a
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	_stack_push
+	mov	r3,dpl
+	mov	r4,dph
+	mov	a,sp
+	add	a,#0xfc
+	mov	sp,a
+	mov	a,r3
+	orl	a,r4
+	jz	00564$
+	ljmp	00249$
+00564$:
+	mov	dptr,#___str_11
+	mov	b,#0x80
+	lcall	_printstr
+;	calc.c:157: break;
+	ljmp	00249$
+;	calc.c:158: case 'U':
+00146$:
+;	calc.c:159: if (!stack_peek(ctx->ss, &d0)) printstr("\r\nsecondary stack underflow\r\n");
+	mov	a,_bp
+	add	a,#0x1a
+	mov	r7,a
+	mov	r6,#0x00
+	mov	r5,#0x40
+	mov	a,_bp
+	add	a,#0x17
+	mov	r0,a
+	mov	a,#0x14
+	add	a,@r0
+	mov	r2,a
+	mov	a,r5
+	inc	r0
+	addc	a,@r0
+	mov	r3,a
+	inc	r0
+	mov	ar4,@r0
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	__gptrget
+	mov	r2,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r3,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r4,a
+	push	ar7
+	push	ar6
+	push	ar5
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	_stack_peek
+	mov	r3,dpl
+	mov	r4,dph
+	dec	sp
+	dec	sp
+	dec	sp
+	mov	a,r3
+	orl	a,r4
+	jnz	00150$
+	mov	dptr,#___str_10
+	mov	b,#0x80
+	lcall	_printstr
+	ljmp	00249$
+00150$:
+;	calc.c:160: else if (!stack_push(ctx->ps, d0)) printstr("\r\nstack overflow\r\n");
+	mov	a,_bp
+	add	a,#0x17
+	mov	r0,a
+	mov	a,#0x11
+	add	a,@r0
+	mov	r2,a
+	mov	a,#0x40
+	inc	r0
+	addc	a,@r0
+	mov	r3,a
+	inc	r0
+	mov	ar4,@r0
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	__gptrget
+	mov	r2,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r3,a
+	inc	dptr
+	lcall	__gptrget
+	mov	r4,a
+	mov	a,_bp
+	add	a,#0x1a
+	mov	r0,a
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	inc	r0
+	mov	a,@r0
+	push	acc
+	mov	dpl,r2
+	mov	dph,r3
+	mov	b,r4
+	lcall	_stack_push
+	mov	r3,dpl
+	mov	r4,dph
+	mov	a,sp
+	add	a,#0xfc
+	mov	sp,a
+	mov	a,r3
+	orl	a,r4
+	jz	00566$
+	ljmp	00249$
+00566$:
+	mov	dptr,#___str_12
+	mov	b,#0x80
+	lcall	_printstr
 ;	calc.c:161: break;
 	ljmp	00249$
-;	calc.c:162: case 'X':
+;	calc.c:162: case 'S':
 00152$:
 ;	calc.c:163: t0 = ctx->ps;
 	mov	a,_bp
@@ -6053,9 +6053,9 @@ _operator:
 ;Allocation info for local variables in function 'push_acc'
 ;------------------------------------------------------------
 ;delta                     Allocated to stack - _bp -5
-;_ctx                      Allocated to stack - _bp +5
+;_ctx                      Allocated to stack - _bp +1
 ;ctx                       Allocated to registers r2 r3 r4 
-;sloc0                     Allocated to stack - _bp +1
+;sloc0                     Allocated to stack - _bp +4
 ;------------------------------------------------------------
 ;	calc.c:303: static int push_acc(void *_ctx, delta_t *delta) __reentrant {
 ;	-----------------------------------------
@@ -6063,23 +6063,16 @@ _operator:
 ;	-----------------------------------------
 _push_acc:
 	push	_bp
+	mov	_bp,sp
+	push	dpl
+	push	dph
+	push	b
 	mov	a,sp
-	mov	_bp,a
-	add	a,#0x07
+	add	a,#0x04
 	mov	sp,a
-	xch	a,r0
-	mov	a,_bp
-	add	a,#0x05
-	xch	a,r0
-	mov	@r0,dpl
-	inc	r0
-	mov	@r0,dph
-	inc	r0
-	mov	@r0,b
 ;	calc.c:304: calc_ctx_t *ctx = (calc_ctx_t *)_ctx;
-	mov	a,_bp
-	add	a,#0x05
-	mov	r0,a
+	mov	r0,_bp
+	inc	r0
 	mov	ar2,@r0
 	inc	r0
 	mov	ar3,@r0
@@ -6109,8 +6102,9 @@ _push_acc:
 	mov	dpl,r7
 	mov	dph,r5
 	mov	b,r6
-	mov	r0,_bp
-	inc	r0
+	mov	a,_bp
+	add	a,#0x04
+	mov	r0,a
 	lcall	__gptrget
 	mov	@r0,a
 	inc	dptr
@@ -6143,8 +6137,9 @@ _push_acc:
 	inc	dptr
 	lcall	__gptrget
 	mov	r7,a
-	mov	r0,_bp
-	inc	r0
+	mov	a,_bp
+	add	a,#0x04
+	mov	r0,a
 	mov	a,@r0
 	push	acc
 	inc	r0
@@ -6201,9 +6196,8 @@ _push_acc:
 	push	ar5
 	push	ar6
 	push	ar7
-	mov	a,_bp
-	add	a,#0x05
-	mov	r0,a
+	mov	r0,_bp
+	inc	r0
 	mov	dpl,@r0
 	inc	r0
 	mov	dph,@r0
@@ -7219,31 +7213,31 @@ _help:
 	mov	dptr,#___str_26
 	mov	b,#0x80
 	lcall	_printstr
-;	calc.c:386: printstr("x\texchange top 2\r\n");
+;	calc.c:386: printstr("X\texchange tops primary <-> secondary\r\n");
 	mov	dptr,#___str_27
 	mov	b,#0x80
 	lcall	_printstr
-;	calc.c:387: printstr("X\texchange stacks primary <-> secondary\r\n");
+;	calc.c:387: printstr("x\texchange top 2\r\n");
 	mov	dptr,#___str_28
 	mov	b,#0x80
 	lcall	_printstr
-;	calc.c:388: printstr("T\texchange tops primary <-> secondary\r\n");
+;	calc.c:388: printstr("U\tcopy top secondary -> primary\r\n");
 	mov	dptr,#___str_29
 	mov	b,#0x80
 	lcall	_printstr
-;	calc.c:389: printstr("U\tcopy top secondary -> primary\r\n");
+;	calc.c:389: printstr("u\tcopy top primary -> secondary\r\n");
 	mov	dptr,#___str_30
 	mov	b,#0x80
 	lcall	_printstr
-;	calc.c:390: printstr("u\tcopy top primary -> secondary\r\n");
+;	calc.c:390: printstr("M\tmove top secondary -> primary\r\n");
 	mov	dptr,#___str_31
 	mov	b,#0x80
 	lcall	_printstr
-;	calc.c:391: printstr("M\tmove top secondary -> primary\r\n");
+;	calc.c:391: printstr("m\tmove top primary -> secondary\r\n");
 	mov	dptr,#___str_32
 	mov	b,#0x80
 	lcall	_printstr
-;	calc.c:392: printstr("m\tmove top primary -> secondary\r\n");
+;	calc.c:392: printstr("S\tswitch stacks primary <-> secondary\r\n");
 	mov	dptr,#___str_33
 	mov	b,#0x80
 	lcall	_printstr
@@ -7719,27 +7713,28 @@ _main:
 00405$:
 	ljmp	00193$
 00160$:
-;	calc.c:492: ((char)input == 'X') || ((char)input == 'T') ||
+;	calc.c:492: ((char)input == 'X') ||
 	cjne	r5,#0x58,00406$
 	sjmp	00151$
 00406$:
-	cjne	r5,#0x54,00407$
+;	calc.c:493: ((char)input == 'm') || ((char)input == 'M') ||
+	cjne	r5,#0x6d,00407$
 	sjmp	00151$
 00407$:
-;	calc.c:493: ((char)input == 'm') || ((char)input == 'M') ||
-	cjne	r5,#0x6d,00408$
+	cjne	r5,#0x4d,00408$
 	sjmp	00151$
 00408$:
-	cjne	r5,#0x4d,00409$
+;	calc.c:494: ((char)input == 'u') || ((char)input == 'U') ||
+	cjne	r5,#0x75,00409$
 	sjmp	00151$
 00409$:
-;	calc.c:494: ((char)input == 'u') || ((char)input == 'U')
-	cjne	r5,#0x75,00410$
+	cjne	r5,#0x55,00410$
 	sjmp	00151$
 00410$:
-	cjne	r5,#0x55,00152$
+;	calc.c:495: ((char)input == 'S')
+	cjne	r5,#0x53,00152$
 00151$:
-;	calc.c:496: if (state_exec(&s, EVENT_OP) <= 0) break;
+;	calc.c:497: if (state_exec(&s, EVENT_OP) <= 0) break;
 	mov	a,#0x02
 	push	acc
 	clr	a
@@ -7763,13 +7758,13 @@ _main:
 00413$:
 	ljmp	00193$
 00152$:
-;	calc.c:498: ((char)input == '+') || ((char)input == '-')
+;	calc.c:499: ((char)input == '+') || ((char)input == '-')
 	cjne	r5,#0x2b,00414$
 	sjmp	00147$
 00414$:
 	cjne	r5,#0x2d,00148$
 00147$:
-;	calc.c:500: if (state_exec(&s, EVENT_OP) <= 0) break;
+;	calc.c:501: if (state_exec(&s, EVENT_OP) <= 0) break;
 	mov	a,#0x02
 	push	acc
 	clr	a
@@ -7793,24 +7788,24 @@ _main:
 00417$:
 	ljmp	00193$
 00148$:
-;	calc.c:502: ((char)input == '*') ||
+;	calc.c:503: ((char)input == '*') ||
 	cjne	r5,#0x2a,00418$
 	sjmp	00140$
 00418$:
-;	calc.c:503: ((char)input == '/') || ((char)input == '\\') ||
+;	calc.c:504: ((char)input == '/') || ((char)input == '\\') ||
 	cjne	r5,#0x2f,00419$
 	sjmp	00140$
 00419$:
 	cjne	r5,#0x5c,00420$
 	sjmp	00140$
 00420$:
-;	calc.c:504: ((char)input == '%') || ((char)input == '#')
+;	calc.c:505: ((char)input == '%') || ((char)input == '#')
 	cjne	r5,#0x25,00421$
 	sjmp	00140$
 00421$:
 	cjne	r5,#0x23,00141$
 00140$:
-;	calc.c:506: if (state_exec(&s, EVENT_OP) <= 0) break;
+;	calc.c:507: if (state_exec(&s, EVENT_OP) <= 0) break;
 	mov	a,#0x02
 	push	acc
 	clr	a
@@ -7832,32 +7827,32 @@ _main:
 	jnc	00193$
 	ljmp	00192$
 00141$:
-;	calc.c:508: ((char)input == '&') ||
+;	calc.c:509: ((char)input == '&') ||
 	cjne	r5,#0x26,00425$
 	sjmp	00131$
 00425$:
-;	calc.c:509: ((char)input == '|') || ((char)input == '^') ||
+;	calc.c:510: ((char)input == '|') || ((char)input == '^') ||
 	cjne	r5,#0x7c,00426$
 	sjmp	00131$
 00426$:
 	cjne	r5,#0x5e,00427$
 	sjmp	00131$
 00427$:
-;	calc.c:510: ((char)input == '~') ||
+;	calc.c:511: ((char)input == '~') ||
 	cjne	r5,#0x7e,00428$
 	sjmp	00131$
 00428$:
-;	calc.c:511: ((char)input == '>') || ((char)input == ']') ||
+;	calc.c:512: ((char)input == '>') || ((char)input == ']') ||
 	cjne	r5,#0x3e,00429$
 	sjmp	00131$
 00429$:
 	cjne	r5,#0x5d,00430$
 	sjmp	00131$
 00430$:
-;	calc.c:512: ((char)input == '<')
+;	calc.c:513: ((char)input == '<')
 	cjne	r5,#0x3c,00132$
 00131$:
-;	calc.c:514: if (state_exec(&s, EVENT_OP) <= 0) break;
+;	calc.c:515: if (state_exec(&s, EVENT_OP) <= 0) break;
 	mov	a,#0x02
 	push	acc
 	clr	a
@@ -7879,7 +7874,7 @@ _main:
 	jnc	00193$
 	ljmp	00192$
 00132$:
-;	calc.c:516: if (state_exec(&s, EVENT_DELIM) <= 0) break;
+;	calc.c:517: if (state_exec(&s, EVENT_DELIM) <= 0) break;
 	clr	a
 	push	acc
 	push	acc
@@ -7901,14 +7896,14 @@ _main:
 	ljmp	00192$
 00434$:
 00193$:
-;	calc.c:520: printstr("TERM\r\n");
+;	calc.c:521: printstr("TERM\r\n");
 	mov	dptr,#___str_51
 	mov	b,#0x80
 	lcall	_printstr
-;	calc.c:522: PCON |= 2;
+;	calc.c:523: PCON |= 2;
 	orl	_PCON,#0x02
-;	calc.c:524: return;
-;	calc.c:525: }
+;	calc.c:525: return;
+;	calc.c:526: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -7980,7 +7975,7 @@ ___str_9:
 ___str_10:
 	.db 0x0d
 	.db 0x0a
-	.ascii "secondary stack overflow"
+	.ascii "secondary stack underflow"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
@@ -7989,7 +7984,7 @@ ___str_10:
 ___str_11:
 	.db 0x0d
 	.db 0x0a
-	.ascii "secondary stack underflow"
+	.ascii "secondary stack overflow"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
@@ -8126,6 +8121,15 @@ ___str_26:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_27:
+	.ascii "X"
+	.db 0x09
+	.ascii "exchange tops primary <-> secondary"
+	.db 0x0d
+	.db 0x0a
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_28:
 	.ascii "x"
 	.db 0x09
 	.ascii "exchange top 2"
@@ -8134,25 +8138,7 @@ ___str_27:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_28:
-	.ascii "X"
-	.db 0x09
-	.ascii "exchange stacks primary <-> secondary"
-	.db 0x0d
-	.db 0x0a
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
 ___str_29:
-	.ascii "T"
-	.db 0x09
-	.ascii "exchange tops primary <-> secondary"
-	.db 0x0d
-	.db 0x0a
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_30:
 	.ascii "U"
 	.db 0x09
 	.ascii "copy top secondary -> primary"
@@ -8161,7 +8147,7 @@ ___str_30:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_31:
+___str_30:
 	.ascii "u"
 	.db 0x09
 	.ascii "copy top primary -> secondary"
@@ -8170,7 +8156,7 @@ ___str_31:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_32:
+___str_31:
 	.ascii "M"
 	.db 0x09
 	.ascii "move top secondary -> primary"
@@ -8179,10 +8165,19 @@ ___str_32:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_33:
+___str_32:
 	.ascii "m"
 	.db 0x09
 	.ascii "move top primary -> secondary"
+	.db 0x0d
+	.db 0x0a
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_33:
+	.ascii "S"
+	.db 0x09
+	.ascii "switch stacks primary <-> secondary"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00

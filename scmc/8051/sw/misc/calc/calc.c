@@ -121,6 +121,18 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 			(void)stack_push(ctx->ps, d1);
 		}
 		break;
+	case 'X':
+		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
+		else {
+			if (!stack_pop(ctx->ss, &d1)) {
+				printstr("\r\nsecondary stack underflow\r\n");
+				(void)stack_push(ctx->ps, d0);
+			} else {
+				(void)stack_push(ctx->ps, d1);
+				(void)stack_push(ctx->ss, d0);
+			}
+		}
+		break;
 	case 'm':
 		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
 		else {
@@ -147,19 +159,7 @@ static int operator(void *_ctx, delta_t *delta) __reentrant {
 		if (!stack_peek(ctx->ss, &d0)) printstr("\r\nsecondary stack underflow\r\n");
 		else if (!stack_push(ctx->ps, d0)) printstr("\r\nstack overflow\r\n");
 		break;
-	case 'T':
-		if (!stack_pop(ctx->ps, &d0)) printstr("\r\nstack underflow\r\n");
-		else {
-			if (!stack_pop(ctx->ss, &d1)) {
-				printstr("\r\nsecondary stack underflow\r\n");
-				(void)stack_push(ctx->ps, d0);
-			} else {
-				(void)stack_push(ctx->ps, d1);
-				(void)stack_push(ctx->ss, d0);
-			}
-		}
-		break;
-	case 'X':
+	case 'S':
 		t0 = ctx->ps;
 		ctx->ps = ctx->ss;
 		ctx->ss = t0;
@@ -383,13 +383,13 @@ static int help(void *_ctx, delta_t *delta) __reentrant {
 	printstr("V\tpeek stack\r\n");
 	printstr("i\treset acc\r\n");
 	printstr("I\treset and discard acc\r\n");
+	printstr("X\texchange tops primary <-> secondary\r\n");
 	printstr("x\texchange top 2\r\n");
-	printstr("X\texchange stacks primary <-> secondary\r\n");
-	printstr("T\texchange tops primary <-> secondary\r\n");
 	printstr("U\tcopy top secondary -> primary\r\n");
 	printstr("u\tcopy top primary -> secondary\r\n");
 	printstr("M\tmove top secondary -> primary\r\n");
 	printstr("m\tmove top primary -> secondary\r\n");
+	printstr("S\tswitch stacks primary <-> secondary\r\n");
 	printstr("+\tadd top 2\r\n");
 	printstr("-\tsubtract top 2\r\n");
 	printstr("*\tmultiply top 2\r\n");
@@ -489,9 +489,10 @@ void main(void) {
 		) {
 			if (state_exec(&s, EVENT_OP) <= 0) break;
 		} else if (
-				((char)input == 'X') || ((char)input == 'T') ||
+				((char)input == 'X') ||
 				((char)input == 'm') || ((char)input == 'M') ||
-				((char)input == 'u') || ((char)input == 'U')
+				((char)input == 'u') || ((char)input == 'U') ||
+				((char)input == 'S')
 		) {
 			if (state_exec(&s, EVENT_OP) <= 0) break;
 		} else if (

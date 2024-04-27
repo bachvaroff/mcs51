@@ -334,7 +334,7 @@ Symbol Table
  18 ___str_0                                                       000000 R
  18 ___str_1                                                       000008 R
  18 ___str_10                                                      00005B R
- 18 ___str_11                                                      000078 R
+ 18 ___str_11                                                      000079 R
  18 ___str_12                                                      000096 R
  18 ___str_13                                                      0000A9 R
  18 ___str_14                                                      0000BE R
@@ -352,38 +352,38 @@ Symbol Table
  18 ___str_25                                                      00015A R
  18 ___str_26                                                      000168 R
  18 ___str_27                                                      000182 R
- 18 ___str_28                                                      000195 R
- 18 ___str_29                                                      0001BF R
+ 18 ___str_28                                                      0001AA R
+ 18 ___str_29                                                      0001BD R
  18 ___str_3                                                       000013 R
- 18 ___str_30                                                      0001E7 R
- 18 ___str_31                                                      000209 R
- 18 ___str_32                                                      00022B R
+ 18 ___str_30                                                      0001DF R
+ 18 ___str_31                                                      000201 R
+ 18 ___str_32                                                      000223 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
- 18 ___str_33                                                      00024D R
- 18 ___str_34                                                      00026F R
- 18 ___str_35                                                      00027D R
- 18 ___str_36                                                      000290 R
- 18 ___str_37                                                      0002A3 R
- 18 ___str_38                                                      0002B4 R
- 18 ___str_39                                                      0002CE R
+ 18 ___str_33                                                      000245 R
+ 18 ___str_34                                                      00026D R
+ 18 ___str_35                                                      00027B R
+ 18 ___str_36                                                      00028E R
+ 18 ___str_37                                                      0002A1 R
+ 18 ___str_38                                                      0002B2 R
+ 18 ___str_39                                                      0002CC R
  18 ___str_4                                                       000025 R
- 18 ___str_40                                                      0002E0 R
- 18 ___str_41                                                      0002FB R
- 18 ___str_42                                                      000309 R
- 18 ___str_43                                                      000316 R
- 18 ___str_44                                                      000324 R
- 18 ___str_45                                                      00033A R
- 18 ___str_46                                                      00035B R
- 18 ___str_47                                                      000370 R
- 18 ___str_48                                                      000384 R
- 18 ___str_49                                                      00038F R
+ 18 ___str_40                                                      0002DE R
+ 18 ___str_41                                                      0002F9 R
+ 18 ___str_42                                                      000307 R
+ 18 ___str_43                                                      000314 R
+ 18 ___str_44                                                      000322 R
+ 18 ___str_45                                                      000338 R
+ 18 ___str_46                                                      000359 R
+ 18 ___str_47                                                      00036E R
+ 18 ___str_48                                                      000382 R
+ 18 ___str_49                                                      00038D R
  18 ___str_5                                                       00002B R
- 18 ___str_50                                                      000398 R
- 18 ___str_51                                                      0003A1 R
+ 18 ___str_50                                                      000396 R
+ 18 ___str_51                                                      00039F R
  18 ___str_6                                                       000031 R
  18 ___str_7                                                       000037 R
  18 ___str_8                                                       00003F R
@@ -411,9 +411,9 @@ Symbol Table
  17 _dump_pop                                                      000171 R
     _getchar                                                       ****** GX
   7 _giant                                                         000000 GR
- 17 _help                                                          002AD0 R
+ 17 _help                                                          002AC9 R
     _isxdigit                                                      ****** GX
- 17 _main                                                          002BF2 GR
+ 17 _main                                                          002BEB GR
  17 _operator                                                      00063B R
     _print32bin                                                    ****** GX
     _print32x                                                      ****** GX
@@ -426,8 +426,8 @@ Symbol Table
     _printstr                                                      ****** GX
  17 _push_acc                                                      0023B0 R
     _putchar                                                       ****** GX
- 17 _reset_acc                                                     0024BA R
- 17 _reset_base                                                    002524 R
+ 17 _reset_acc                                                     0024B3 R
+ 17 _reset_base                                                    00251D R
   B _s                                                             000000 R
     _stack_init                                                    ****** GX
     _stack_iter_peek                                               ****** GX
@@ -437,7 +437,7 @@ Symbol Table
     _stack_push                                                    ****** GX
     _state_exec                                                    ****** GX
     _state_init                                                    ****** GX
- 17 _status                                                        0025A2 R
+ 17 _status                                                        00259B R
     _strtol                                                        ****** GX
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -667,8 +667,8 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size   2FC4   flags   20
-  18 CONST                                      size    3A8   flags   20
+  17 CSEG                                       size   2FBD   flags   20
+  18 CONST                                      size    3A6   flags   20
   19 XINIT                                      size     AA   flags   20
   1A CABS                                       size      0   flags   28
 

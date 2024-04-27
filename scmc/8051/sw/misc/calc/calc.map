@@ -56,7 +56,7 @@ C:   000000AA  l_XINIT
 C:   000000AA  l_XISEG                         
 C:   000000DF  l_SSEG                          
 C:   00000100  l_IRAM                          
-C:   000003C9  l_CONST                         
+C:   000003C7  l_CONST                         
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -77,9 +77,9 @@ C:   0000208D  s_GSINIT
 C:   0000208D  s_GSINIT5                       
 C:   00002090  s_CSEG                          
 C:   00004025  l_XSEG                          
-C:   00005D64  l_CSEG                          
-C:   00007DF4  s_CONST                         
-C:   000081BD  s_XINIT                         
+C:   00005D5D  l_CSEG                          
+C:   00007DED  s_CONST                         
+C:   000081B4  s_XINIT                         
 C:   0000A000  s_PSEG                          
 C:   0000A000  s_XSEG                          
 C:   0000E025  s_XISEG                         
@@ -380,7 +380,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002090    00005D64 =       23908. bytes (REL,CON,CODE)
+CSEG                                00002090    00005D5D =       23901. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -393,41 +393,41 @@ C:   00002783  _stack_pop                         stack
 C:   0000285E  _stack_peek                        stack
 C:   000028FF  _stack_peek2                       stack
 C:   00002A91  _stack_iter_peek                   stack
-C:   00005762  _main                              calc
-C:   00005B34  _isxdigit                          isxdigit
-C:   00005BA4  _strtol                            strtol
-C:   00005DE2  __gptrput                          _gptrput
-C:   00005DFD  _putchar                           sio
-C:   00005E07  _getchar                           sio
-C:   00005E14  _getchar_poll                      sio
-C:   00005E2E  _printstr                          sio
-C:   00005E51  _print8bin                         sio
-C:   00005E71  _print16bin                        sio
-C:   00005E9D  _print32bin                        sio
-C:   00005F1B  _print8x                           sio
-C:   00005F58  _print16x                          sio
-C:   00005FDE  _print32x                          sio
-C:   00006113  __mulint                           _mulint
-C:   000061B1  __modslong                         _modslong
-C:   000062A8  __modulong                         _modulong
-C:   0000636A  __divslong                         _divslong
-C:   00006467  __divulong                         _divulong
-C:   00006503  _vprintf                           vprintf
-C:   0000653A  _printf                            vprintf
-C:   00006573  __gptrget                          _gptrget
-C:   000065E3  _strtoul                           strtoul
-C:   0000696C  __mullong                          _mullong
-C:   00006B41  __sdcc_external_startup            _startup
-C:   00006C72  __print_format                     printf_large
-C:   00007D1A  _strncmp                           _strncmp
-C:   00007DDC  _strlen                            _strlen
+C:   0000575B  _main                              calc
+C:   00005B2D  _isxdigit                          isxdigit
+C:   00005B9D  _strtol                            strtol
+C:   00005DDB  __gptrput                          _gptrput
+C:   00005DF6  _putchar                           sio
+C:   00005E00  _getchar                           sio
+C:   00005E0D  _getchar_poll                      sio
+C:   00005E27  _printstr                          sio
+C:   00005E4A  _print8bin                         sio
+C:   00005E6A  _print16bin                        sio
+C:   00005E96  _print32bin                        sio
+C:   00005F14  _print8x                           sio
+C:   00005F51  _print16x                          sio
+C:   00005FD7  _print32x                          sio
+C:   0000610C  __mulint                           _mulint
+C:   000061AA  __modslong                         _modslong
+C:   000062A1  __modulong                         _modulong
+C:   00006363  __divslong                         _divslong
+C:   00006460  __divulong                         _divulong
+C:   000064FC  _vprintf                           vprintf
+C:   00006533  _printf                            vprintf
+C:   0000656C  __gptrget                          _gptrget
+C:   000065DC  _strtoul                           strtoul
+C:   00006965  __mullong                          _mullong
+C:   00006B3A  __sdcc_external_startup            _startup
+C:   00006C6B  __print_format                     printf_large
+C:   00007D13  _strncmp                           _strncmp
+C:   00007DD5  _strlen                            _strlen
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00007DF4    000003C9 =         969. bytes (REL,CON,CODE)
+CONST                               00007DED    000003C7 =         967. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -436,7 +436,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               000081BD    000000AA =         170. bytes (REL,CON,CODE)
+XINIT                               000081B4    000000AA =         170. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
