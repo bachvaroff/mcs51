@@ -226,7 +226,7 @@ Symbol Table
     _IP                                                         =  0000B8 G
     _IT0                                                        =  000088 G
     _IT1                                                        =  00008A G
-  9 _OE76                                                          000012 R
+  9 _OE76                                                          000002 R
     _OEreg                                                      =  00F006 
     _OV                                                         =  0000D2 G
     _P                                                          =  0000D0 G
@@ -350,7 +350,6 @@ Symbol Table
  1A ___str_7                                                       000034 R
  1A ___str_8                                                       00003E R
  1A ___str_9                                                       000052 R
-    __gptrget                                                      ****** GX
  10 __interrupt_vect                                               000000 R
     __mcs51_genRAMCLEAR                                            ****** GX
     __mcs51_genXINIT                                               ****** GX
@@ -358,34 +357,35 @@ Symbol Table
     __modsint                                                      ****** GX
     __mulint                                                       ****** GX
     __sdcc_gsinit_startup                                          ****** GX
+ 10 __sdcc_program_startup                                         000016 GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
- 10 __sdcc_program_startup                                         000016 GR
   8 __start__stack                                                 000000 GR
     _bp                                                            ****** GX
-  9 _c                                                             000019 R
-  9 _cycle2                                                        00001D R
-  9 _digits                                                        000000 R
-  9 _dx                                                            00001E R
-  9 _dy                                                            000020 R
-  9 _fixed                                                         00001C R
+  9 _c                                                             000009 R
+  9 _cycle2                                                        00000D R
+  9 _dx                                                            00000E R
+  9 _dy                                                            000010 R
+  9 _fixed                                                         00000C R
  19 _flashOE                                                       000018 R
-  9 _generation                                                    000022 R
+  9 _generation                                                    000012 R
     _getchar                                                       ****** GX
     _getchar_poll                                                  ****** GX
-  9 _i0                                                            000010 R
-  9 _i1                                                            000011 R
+  9 _i0                                                            000000 R
+  9 _i1                                                            000001 R
  19 _int0                                                          000000 GR
  19 _int1                                                          00000C GR
   D _iu                                                            000000 R
-  9 _j                                                             000017 R
- 19 _main                                                          0002B7 GR
+  9 _j                                                             000007 R
+ 19 _main                                                          00011E GR
     _memset                                                        ****** GX
-  9 _n                                                             00001B R
+  9 _n                                                             00000B R
   D _nu                                                            006C00 R
+    _print16x                                                      ****** GX
+    _printstr                                                      ****** GX
   D _pu                                                            002400 R
     _putchar                                                       ****** GX
     _rand                                                          ****** GX
@@ -393,8 +393,8 @@ Symbol Table
     _srand                                                         ****** GX
     _toupper                                                       ****** GX
   D _u                                                             004800 R
-  9 _x                                                             000013 R
-  9 _y                                                             000015 R
+  9 _x                                                             000003 R
+  9 _y                                                             000005 R
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
     a.1                                                         =  0000E1 L
@@ -623,7 +623,7 @@ Area Table
    6 BIT_BANK                                   size      1   flags    4
    7 DSEG                                       size      0   flags    0
    8 SSEG                                       size      1   flags    0
-   9 ISEG                                       size     26   flags    0
+   9 ISEG                                       size     16   flags    0
    A IABS                                       size      0   flags    8
    B BSEG                                       size      0   flags   80
    C PSEG                                       size      0   flags   50
@@ -637,9 +637,9 @@ Area Table
   14 GSINIT3                                    size      0   flags   20
   15 GSINIT4                                    size      0   flags   20
   16 GSINIT5                                    size      0   flags   20
-  17 GSINIT                                     size     40   flags   20
+  17 GSINIT                                     size      0   flags   20
   18 GSFINAL                                    size      3   flags   20
-  19 CSEG                                       size    CA0   flags   20
+  19 CSEG                                       size    8D8   flags   20
   1A CONST                                      size     8A   flags   20
   1B XINIT                                      size      0   flags   20
   1C CABS                                       size      0   flags   28

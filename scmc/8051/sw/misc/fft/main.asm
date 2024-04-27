@@ -338,7 +338,7 @@ _fft::
 	.ds 128
 _ifft::
 	.ds 128
-_main_R_65536_73:
+_main_R_65536_80:
 	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -385,10 +385,10 @@ __interrupt_vect:
 ;j                         Allocated to stack - _bp +1
 ;scale                     Allocated to stack - _bp +3
 ;sloc0                     Allocated to stack - _bp +7
-;R                         Allocated with name '_main_R_65536_73'
+;R                         Allocated with name '_main_R_65536_80'
 ;------------------------------------------------------------
 ;	main.c:23: static volatile __xdata int *R = (__xdata int *)0xfffe;
-	mov	dptr,#_main_R_65536_73
+	mov	dptr,#_main_R_65536_80
 	mov	a,#0xfe
 	movx	@dptr,a
 	inc	a
@@ -453,7 +453,7 @@ _int0:
 ;j                         Allocated to stack - _bp +1
 ;scale                     Allocated to stack - _bp +3
 ;sloc0                     Allocated to stack - _bp +7
-;R                         Allocated with name '_main_R_65536_73'
+;R                         Allocated with name '_main_R_65536_80'
 ;------------------------------------------------------------
 ;	main.c:22: void main(void) {
 ;	-----------------------------------------
@@ -486,7 +486,7 @@ _main:
 ;	assignBit
 	setb	_EA
 ;	main.c:33: srand(*R);
-	mov	dptr,#_main_R_65536_73
+	mov	dptr,#_main_R_65536_80
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr

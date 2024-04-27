@@ -338,7 +338,7 @@
       000080                        338 	.ds 128
       000100                        339 _ifft::
       000100                        340 	.ds 128
-      000180                        341 _main_R_65536_73:
+      000180                        341 _main_R_65536_80:
       000180                        342 	.ds 2
                                     343 ;--------------------------------------------------------
                                     344 ; absolute external ram data
@@ -385,10 +385,10 @@
                                     385 ;j                         Allocated to stack - _bp +1
                                     386 ;scale                     Allocated to stack - _bp +3
                                     387 ;sloc0                     Allocated to stack - _bp +7
-                                    388 ;R                         Allocated with name '_main_R_65536_73'
+                                    388 ;R                         Allocated with name '_main_R_65536_80'
                                     389 ;------------------------------------------------------------
                                     390 ;	main.c:23: static volatile __xdata int *R = (__xdata int *)0xfffe;
-      000000 90r01r80         [24]  391 	mov	dptr,#_main_R_65536_73
+      000000 90r01r80         [24]  391 	mov	dptr,#_main_R_65536_80
       000003 74 FE            [12]  392 	mov	a,#0xfe
       000005 F0               [24]  393 	movx	@dptr,a
       000006 04               [12]  394 	inc	a
@@ -453,7 +453,7 @@
                                     453 ;j                         Allocated to stack - _bp +1
                                     454 ;scale                     Allocated to stack - _bp +3
                                     455 ;sloc0                     Allocated to stack - _bp +7
-                                    456 ;R                         Allocated with name '_main_R_65536_73'
+                                    456 ;R                         Allocated with name '_main_R_65536_80'
                                     457 ;------------------------------------------------------------
                                     458 ;	main.c:22: void main(void) {
                                     459 ;	-----------------------------------------
@@ -486,7 +486,7 @@
                                     486 ;	assignBit
       00002F D2 AF            [12]  487 	setb	_EA
                                     488 ;	main.c:33: srand(*R);
-      000031 90r01r80         [24]  489 	mov	dptr,#_main_R_65536_73
+      000031 90r01r80         [24]  489 	mov	dptr,#_main_R_65536_80
       000034 E0               [24]  490 	movx	a,@dptr
       000035 FE               [12]  491 	mov	r6,a
       000036 A3               [24]  492 	inc	dptr

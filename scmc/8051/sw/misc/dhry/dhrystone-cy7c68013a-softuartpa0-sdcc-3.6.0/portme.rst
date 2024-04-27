@@ -317,7 +317,7 @@
       0094C8                        317 	.ds 1
       0094C9                        318 _sending::
       0094C9                        319 	.ds 1
-      0094CA                        320 _clock_ctmp_65536_23:
+      0094CA                        320 _clock_ctmp_65536_30:
       0094CA                        321 	.ds 4
                                     322 ;--------------------------------------------------------
                                     323 ; absolute external ram data
@@ -360,7 +360,7 @@
                                     360 ;	-----------------------------------------
                                     361 ;	 function init
                                     362 ;	-----------------------------------------
-      003465                        363 _init:
+      0034A5                        363 _init:
                            000007   364 	ar7 = 0x07
                            000006   365 	ar6 = 0x06
                            000005   366 	ar5 = 0x05
@@ -372,26 +372,26 @@
                                     372 ;	portme.c:21: TR0 = 0;
                                     373 ;	genAssign
                                     374 ;	assignBit
-      003465 C2 8C            [12]  375 	clr	_TR0
+      0034A5 C2 8C            [12]  375 	clr	_TR0
                                     376 ;	portme.c:22: TH0 = (65536 - 1382) / 256;
                                     377 ;	genAssign
-      003467 75 8C FA         [24]  378 	mov	_TH0,#0xfa
+      0034A7 75 8C FA         [24]  378 	mov	_TH0,#0xfa
                                     379 ;	portme.c:23: TL0 = (65536 - 1382) % 256;
                                     380 ;	genAssign
-      00346A 75 8A 9A         [24]  381 	mov	_TL0,#0x9a
+      0034AA 75 8A 9A         [24]  381 	mov	_TL0,#0x9a
                                     382 ;	portme.c:24: TMOD = 0x01;
                                     383 ;	genAssign
-      00346D 75 89 01         [24]  384 	mov	_TMOD,#0x01
+      0034AD 75 89 01         [24]  384 	mov	_TMOD,#0x01
                                     385 ;	portme.c:25: IE = 0x82;
                                     386 ;	genAssign
-      003470 75 A8 82         [24]  387 	mov	_IE,#0x82
+      0034B0 75 A8 82         [24]  387 	mov	_IE,#0x82
                                     388 ;	portme.c:26: TR0 = 1; // Start timers
                                     389 ;	genAssign
                                     390 ;	assignBit
-      003473 D2 8C            [12]  391 	setb	_TR0
+      0034B3 D2 8C            [12]  391 	setb	_TR0
                                     392 ;	Peephole 500	removed redundant label 00101$
                                     393 ;	portme.c:27: }
-      003475 22               [24]  394 	ret
+      0034B5 22               [24]  394 	ret
                                     395 ;------------------------------------------------------------
                                     396 ;Allocation info for local variables in function 'clockinc'
                                     397 ;------------------------------------------------------------
@@ -399,7 +399,7 @@
                                     399 ;	-----------------------------------------
                                     400 ;	 function clockinc
                                     401 ;	-----------------------------------------
-      003476                        402 _clockinc:
+      0034B6                        402 _clockinc:
                            00000F   403 	ar7 = 0x0f
                            00000E   404 	ar6 = 0x0e
                            00000D   405 	ar5 = 0x0d
@@ -408,71 +408,71 @@
                            00000A   408 	ar2 = 0x0a
                            000009   409 	ar1 = 0x09
                            000008   410 	ar0 = 0x08
-      003476 C0 E0            [24]  411 	push	acc
-      003478 C0 82            [24]  412 	push	dpl
-      00347A C0 83            [24]  413 	push	dph
-      00347C C0 D0            [24]  414 	push	psw
-      00347E 75 D0 08         [24]  415 	mov	psw,#0x08
+      0034B6 C0 E0            [24]  411 	push	acc
+      0034B8 C0 82            [24]  412 	push	dpl
+      0034BA C0 83            [24]  413 	push	dph
+      0034BC C0 D0            [24]  414 	push	psw
+      0034BE 75 D0 08         [24]  415 	mov	psw,#0x08
                                     416 ;	portme.c:31: clocktime++;
                                     417 ;	genAssign
-      003481 AC 2B            [24]  418 	mov	r4,_clocktime
-      003483 AD 2C            [24]  419 	mov	r5,(_clocktime + 1)
-      003485 AE 2D            [24]  420 	mov	r6,(_clocktime + 2)
-      003487 AF 2E            [24]  421 	mov	r7,(_clocktime + 3)
+      0034C1 AC 2B            [24]  418 	mov	r4,_clocktime
+      0034C3 AD 2C            [24]  419 	mov	r5,(_clocktime + 1)
+      0034C5 AE 2D            [24]  420 	mov	r6,(_clocktime + 2)
+      0034C7 AF 2E            [24]  421 	mov	r7,(_clocktime + 3)
                                     422 ;	genPlus
                                     423 ;	genPlusIncr
-      003489 74 01            [12]  424 	mov	a,#0x01
-      00348B 2C               [12]  425 	add	a,r4
-      00348C F5 2B            [12]  426 	mov	_clocktime,a
+      0034C9 74 01            [12]  424 	mov	a,#0x01
+      0034CB 2C               [12]  425 	add	a,r4
+      0034CC F5 2B            [12]  426 	mov	_clocktime,a
                                     427 ;	Peephole 181	changed mov to clr
-      00348E E4               [12]  428 	clr	a
-      00348F 3D               [12]  429 	addc	a,r5
-      003490 F5 2C            [12]  430 	mov	(_clocktime + 1),a
+      0034CE E4               [12]  428 	clr	a
+      0034CF 3D               [12]  429 	addc	a,r5
+      0034D0 F5 2C            [12]  430 	mov	(_clocktime + 1),a
                                     431 ;	Peephole 181	changed mov to clr
-      003492 E4               [12]  432 	clr	a
-      003493 3E               [12]  433 	addc	a,r6
-      003494 F5 2D            [12]  434 	mov	(_clocktime + 2),a
+      0034D2 E4               [12]  432 	clr	a
+      0034D3 3E               [12]  433 	addc	a,r6
+      0034D4 F5 2D            [12]  434 	mov	(_clocktime + 2),a
                                     435 ;	Peephole 181	changed mov to clr
-      003496 E4               [12]  436 	clr	a
-      003497 3F               [12]  437 	addc	a,r7
-      003498 F5 2E            [12]  438 	mov	(_clocktime + 3),a
+      0034D6 E4               [12]  436 	clr	a
+      0034D7 3F               [12]  437 	addc	a,r7
+      0034D8 F5 2E            [12]  438 	mov	(_clocktime + 3),a
                                     439 ;	portme.c:32: clockupdate = true;
                                     440 ;	genAssign
-      00349A 90 94 C8         [24]  441 	mov	dptr,#_clockupdate
-      00349D 74 01            [12]  442 	mov	a,#0x01
-      00349F F0               [24]  443 	movx	@dptr,a
+      0034DA 90 94 C8         [24]  441 	mov	dptr,#_clockupdate
+      0034DD 74 01            [12]  442 	mov	a,#0x01
+      0034DF F0               [24]  443 	movx	@dptr,a
                                     444 ;	portme.c:33: TR0 = 0;
                                     445 ;	genAssign
                                     446 ;	assignBit
-      0034A0 C2 8C            [12]  447 	clr	_TR0
+      0034E0 C2 8C            [12]  447 	clr	_TR0
                                     448 ;	portme.c:34: TH0 = (65536 - 1382) / 256;
                                     449 ;	genAssign
-      0034A2 75 8C FA         [24]  450 	mov	_TH0,#0xfa
+      0034E2 75 8C FA         [24]  450 	mov	_TH0,#0xfa
                                     451 ;	portme.c:35: TL0 = (65536 - 1382) % 256;
                                     452 ;	genAssign
-      0034A5 75 8A 9A         [24]  453 	mov	_TL0,#0x9a
+      0034E5 75 8A 9A         [24]  453 	mov	_TL0,#0x9a
                                     454 ;	portme.c:36: TR0 = 1;
                                     455 ;	genAssign
                                     456 ;	assignBit
-      0034A8 D2 8C            [12]  457 	setb	_TR0
+      0034E8 D2 8C            [12]  457 	setb	_TR0
                                     458 ;	Peephole 500	removed redundant label 00101$
                                     459 ;	portme.c:37: }
-      0034AA D0 D0            [24]  460 	pop	psw
-      0034AC D0 83            [24]  461 	pop	dph
-      0034AE D0 82            [24]  462 	pop	dpl
-      0034B0 D0 E0            [24]  463 	pop	acc
-      0034B2 32               [24]  464 	reti
+      0034EA D0 D0            [24]  460 	pop	psw
+      0034EC D0 83            [24]  461 	pop	dph
+      0034EE D0 82            [24]  462 	pop	dpl
+      0034F0 D0 E0            [24]  463 	pop	acc
+      0034F2 32               [24]  464 	reti
                                     465 ;	eliminated unneeded push/pop b
                                     466 ;------------------------------------------------------------
                                     467 ;Allocation info for local variables in function 'clock'
                                     468 ;------------------------------------------------------------
-                                    469 ;ctmp                      Allocated with name '_clock_ctmp_65536_23'
+                                    469 ;ctmp                      Allocated with name '_clock_ctmp_65536_30'
                                     470 ;------------------------------------------------------------
                                     471 ;	portme.c:39: unsigned long int clock(void)
                                     472 ;	-----------------------------------------
                                     473 ;	 function clock
                                     474 ;	-----------------------------------------
-      0034B3                        475 _clock:
+      0034F3                        475 _clock:
                            000007   476 	ar7 = 0x07
                            000006   477 	ar6 = 0x06
                            000005   478 	ar5 = 0x05
@@ -482,58 +482,58 @@
                            000001   482 	ar1 = 0x01
                            000000   483 	ar0 = 0x00
                                     484 ;	portme.c:43: do
-      0034B3                        485 00101$:
+      0034F3                        485 00101$:
                                     486 ;	portme.c:45: clockupdate = false;
                                     487 ;	genAssign
-      0034B3 90 94 C8         [24]  488 	mov	dptr,#_clockupdate
+      0034F3 90 94 C8         [24]  488 	mov	dptr,#_clockupdate
                                     489 ;	Peephole 181	changed mov to clr
-      0034B6 E4               [12]  490 	clr	a
-      0034B7 F0               [24]  491 	movx	@dptr,a
+      0034F6 E4               [12]  490 	clr	a
+      0034F7 F0               [24]  491 	movx	@dptr,a
                                     492 ;	portme.c:46: ctmp = clocktime;
                                     493 ;	genAssign
-      0034B8 90 94 CA         [24]  494 	mov	dptr,#_clock_ctmp_65536_23
-      0034BB E5 2B            [12]  495 	mov	a,_clocktime
-      0034BD F0               [24]  496 	movx	@dptr,a
-      0034BE E5 2C            [12]  497 	mov	a,(_clocktime + 1)
-      0034C0 A3               [24]  498 	inc	dptr
-      0034C1 F0               [24]  499 	movx	@dptr,a
-      0034C2 E5 2D            [12]  500 	mov	a,(_clocktime + 2)
-      0034C4 A3               [24]  501 	inc	dptr
-      0034C5 F0               [24]  502 	movx	@dptr,a
-      0034C6 E5 2E            [12]  503 	mov	a,(_clocktime + 3)
-      0034C8 A3               [24]  504 	inc	dptr
-      0034C9 F0               [24]  505 	movx	@dptr,a
+      0034F8 90 94 CA         [24]  494 	mov	dptr,#_clock_ctmp_65536_30
+      0034FB E5 2B            [12]  495 	mov	a,_clocktime
+      0034FD F0               [24]  496 	movx	@dptr,a
+      0034FE E5 2C            [12]  497 	mov	a,(_clocktime + 1)
+      003500 A3               [24]  498 	inc	dptr
+      003501 F0               [24]  499 	movx	@dptr,a
+      003502 E5 2D            [12]  500 	mov	a,(_clocktime + 2)
+      003504 A3               [24]  501 	inc	dptr
+      003505 F0               [24]  502 	movx	@dptr,a
+      003506 E5 2E            [12]  503 	mov	a,(_clocktime + 3)
+      003508 A3               [24]  504 	inc	dptr
+      003509 F0               [24]  505 	movx	@dptr,a
                                     506 ;	portme.c:47: } while (clockupdate);
                                     507 ;	genAssign
-      0034CA 90 94 C8         [24]  508 	mov	dptr,#_clockupdate
-      0034CD E0               [24]  509 	movx	a,@dptr
+      00350A 90 94 C8         [24]  508 	mov	dptr,#_clockupdate
+      00350D E0               [24]  509 	movx	a,@dptr
                                     510 ;	genIfx
                                     511 ;	genIfxJump
                                     512 ;	Peephole 108.b	removed ljmp by inverse jump logic
-      0034CE 70 E3            [24]  513 	jnz	00101$
+      00350E 70 E3            [24]  513 	jnz	00101$
                                     514 ;	Peephole 500	removed redundant label 00114$
                                     515 ;	portme.c:49: return(ctmp);
                                     516 ;	genAssign
-      0034D0 90 94 CA         [24]  517 	mov	dptr,#_clock_ctmp_65536_23
-      0034D3 E0               [24]  518 	movx	a,@dptr
-      0034D4 FC               [12]  519 	mov	r4,a
-      0034D5 A3               [24]  520 	inc	dptr
-      0034D6 E0               [24]  521 	movx	a,@dptr
-      0034D7 FD               [12]  522 	mov	r5,a
-      0034D8 A3               [24]  523 	inc	dptr
-      0034D9 E0               [24]  524 	movx	a,@dptr
-      0034DA FE               [12]  525 	mov	r6,a
-      0034DB A3               [24]  526 	inc	dptr
-      0034DC E0               [24]  527 	movx	a,@dptr
+      003510 90 94 CA         [24]  517 	mov	dptr,#_clock_ctmp_65536_30
+      003513 E0               [24]  518 	movx	a,@dptr
+      003514 FC               [12]  519 	mov	r4,a
+      003515 A3               [24]  520 	inc	dptr
+      003516 E0               [24]  521 	movx	a,@dptr
+      003517 FD               [12]  522 	mov	r5,a
+      003518 A3               [24]  523 	inc	dptr
+      003519 E0               [24]  524 	movx	a,@dptr
+      00351A FE               [12]  525 	mov	r6,a
+      00351B A3               [24]  526 	inc	dptr
+      00351C E0               [24]  527 	movx	a,@dptr
                                     528 ;	genRet
                                     529 ;	Peephole 301	mov r7,a removed
-      0034DD 8C 82            [24]  530 	mov	dpl,r4
-      0034DF 8D 83            [24]  531 	mov	dph,r5
-      0034E1 8E F0            [24]  532 	mov	b,r6
+      00351D 8C 82            [24]  530 	mov	dpl,r4
+      00351F 8D 83            [24]  531 	mov	dph,r5
+      003521 8E F0            [24]  532 	mov	b,r6
                                     533 ;	Peephole 191	removed redundant mov
                                     534 ;	Peephole 500	removed redundant label 00104$
                                     535 ;	portme.c:50: }
-      0034E3 22               [24]  536 	ret
+      003523 22               [24]  536 	ret
                                     537 	.area CSEG    (CODE)
                                     538 	.area CONST   (CODE)
                                     539 	.area XINIT   (CODE)

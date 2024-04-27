@@ -14,26 +14,11 @@
 
 __idata char giant;
 
-inline void printstr(const char *s) {
-	for (; *s; s++) putchar(*s);
-	
-	return;
-}
-
-inline void printbin(long d) {
-	unsigned long mask;
-	
-	for (mask = 0x80000000lu; mask; mask >>= 1)
-		(void)putchar((d & mask) ? (int)'1' : (int)'0');
-	
-	return;
-}
-
 inline void printall(long d) {
 	printf("%08lx\t", d);
 	printf("% 11ld\t", d);
 	printf("%011lo\t", d);
-	printbin(d);
+	print32bin(d);
 	
 	return;
 }

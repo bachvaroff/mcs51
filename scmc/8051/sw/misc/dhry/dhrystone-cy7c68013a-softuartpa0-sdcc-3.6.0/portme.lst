@@ -317,7 +317,7 @@
       000000                        317 	.ds 1
       000001                        318 _sending::
       000001                        319 	.ds 1
-      000002                        320 _clock_ctmp_65536_23:
+      000002                        320 _clock_ctmp_65536_30:
       000002                        321 	.ds 4
                                     322 ;--------------------------------------------------------
                                     323 ; absolute external ram data
@@ -466,7 +466,7 @@
                                     466 ;------------------------------------------------------------
                                     467 ;Allocation info for local variables in function 'clock'
                                     468 ;------------------------------------------------------------
-                                    469 ;ctmp                      Allocated with name '_clock_ctmp_65536_23'
+                                    469 ;ctmp                      Allocated with name '_clock_ctmp_65536_30'
                                     470 ;------------------------------------------------------------
                                     471 ;	portme.c:39: unsigned long int clock(void)
                                     472 ;	-----------------------------------------
@@ -491,7 +491,7 @@
       000052 F0               [24]  491 	movx	@dptr,a
                                     492 ;	portme.c:46: ctmp = clocktime;
                                     493 ;	genAssign
-      000053 90r00r02         [24]  494 	mov	dptr,#_clock_ctmp_65536_23
+      000053 90r00r02         [24]  494 	mov	dptr,#_clock_ctmp_65536_30
       000056 E5*00            [12]  495 	mov	a,_clocktime
       000058 F0               [24]  496 	movx	@dptr,a
       000059 E5*01            [12]  497 	mov	a,(_clocktime + 1)
@@ -514,7 +514,7 @@
                                     514 ;	Peephole 500	removed redundant label 00114$
                                     515 ;	portme.c:49: return(ctmp);
                                     516 ;	genAssign
-      00006B 90r00r02         [24]  517 	mov	dptr,#_clock_ctmp_65536_23
+      00006B 90r00r02         [24]  517 	mov	dptr,#_clock_ctmp_65536_30
       00006E E0               [24]  518 	movx	a,@dptr
       00006F FC               [12]  519 	mov	r4,a
       000070 A3               [24]  520 	inc	dptr

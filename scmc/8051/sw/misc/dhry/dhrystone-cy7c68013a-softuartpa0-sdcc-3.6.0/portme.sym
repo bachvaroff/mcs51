@@ -332,7 +332,7 @@ Symbol Table
     _TXD                                                        =  0000B1 G
     _WR                                                         =  0000B6 G
  17 _clock                                                         00004E GR
-  B _clock_ctmp_65536_23                                           000002 R
+  B _clock_ctmp_65536_30                                           000002 R
  17 _clockinc                                                      000011 GR
   6 _clocktime                                                     000000 GR
   B _clockupdate                                                   000000 GR

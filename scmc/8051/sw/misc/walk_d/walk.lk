@@ -2,10 +2,10 @@
 -i walk.ihx
 -M
 -Y
--C 0x2300
+-C 0x2600
 -b HOME = 0x2000
--b XSEG = 0x4300
--b PSEG = 0x4300
+-b XSEG = 0x4600
+-b PSEG = 0x4600
 -b ISEG = 0x0000
 -b BSEG = 0x0000
 -k ../../pm21

@@ -29,7 +29,7 @@ struct node {
 };
 
 #define ROWS 48
-#define COLS 201
+#define COLS 192
 
 static uint8_t g[ROWS][COLS];
 

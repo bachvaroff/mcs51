@@ -10,6 +10,9 @@
 ;--------------------------------------------------------
 	.globl _main
 	.globl _int0
+	.globl _print16x
+	.globl _print8x
+	.globl _printstr
 	.globl _getchar
 	.globl _putchar
 	.globl _CY
@@ -377,7 +380,7 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'int0'
 ;------------------------------------------------------------
-;	dump.c:34: void int0(void) __interrupt IE0_VECTOR __using 1 {
+;	dump.c:7: void int0(void) __interrupt IE0_VECTOR __using 1 {
 ;	-----------------------------------------
 ;	 function int0
 ;	-----------------------------------------
@@ -393,11 +396,11 @@ _int0:
 	push	acc
 	push	dpl
 	push	dph
-;	dump.c:35: intr = 1;
+;	dump.c:8: intr = 1;
 	mov	dptr,#_intr
 	mov	a,#0x01
 	movx	@dptr,a
-;	dump.c:36: }
+;	dump.c:9: }
 	pop	dph
 	pop	dpl
 	pop	acc
@@ -408,14 +411,7 @@ _int0:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;__3932160001              Allocated to registers r5 r6 
-;a                         Allocated to registers r4 r7 
-;__3932160003              Allocated to registers 
-;s                         Allocated to registers r5 r6 r7 
-;__5242880005              Allocated to registers r6 r7 
-;a                         Allocated to registers r4 r5 
-;------------------------------------------------------------
-;	dump.c:41: void main(void) {
+;	dump.c:14: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -428,27 +424,27 @@ _main:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	dump.c:42: intr = 0;
+;	dump.c:15: intr = 0;
 	mov	dptr,#_intr
 	clr	a
 	movx	@dptr,a
-;	dump.c:44: IT0 = 1;
+;	dump.c:17: IT0 = 1;
 ;	assignBit
 	setb	_IT0
-;	dump.c:45: EX0 = 1;	
+;	dump.c:18: EX0 = 1;	
 ;	assignBit
 	setb	_EX0
-;	dump.c:46: EA = 1;
+;	dump.c:19: EA = 1;
 ;	assignBit
 	setb	_EA
-;	dump.c:48: P1_7 = 0; /* activate IO address space from 0xe000 to 0xffff */
+;	dump.c:21: P1_7 = 0; /* activate IO address space from 0xe000 to 0xffff */
 ;	assignBit
 	clr	_P1_7
-;	dump.c:53: __endasm;
+;	dump.c:26: __endasm;
 	nop
 	nop
 	nop
-;	dump.c:55: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
+;	dump.c:28: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
 	mov	dptr,#_base
 	clr	a
 	movx	@dptr,a
@@ -456,20 +452,20 @@ _main:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-00119$:
+00112$:
 	mov	dptr,#_intr
 	movx	a,@dptr
-	jz	00160$
+	jz	00144$
 	ljmp	00106$
-00160$:
-;	dump.c:56: for (off = 0u; off < 0x400u; off += 0x20u) {
+00144$:
+;	dump.c:29: for (off = 0u; off < 0x400u; off += 0x20u) {
 	mov	dptr,#_off
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-00116$:
-;	dump.c:57: print16x((unsigned int)base + off);
+00109$:
+;	dump.c:30: print16x((unsigned int)base + off);
 	mov	dptr,#_base
 	movx	a,@dptr
 	mov	r5,a
@@ -490,146 +486,21 @@ _main:
 	mov	a,r7
 	addc	a,r6
 	mov	r6,a
-	mov	ar4,r5
-;	dump.c:18: putchar(digits[(a >> 12) & 0xf]);
-	mov	a,r6
-	mov	r7,a
-	swap	a
-	anl	a,#0x0f
-	jnb	acc.3,00161$
-	orl	a,#0xf0
-00161$:
-	mov	r5,a
-	rlc	a
-	subb	a,acc
-	anl	ar5,#0x0f
-	mov	r6,#0x00
-	mov	a,r5
-	add	a,#_digits
-	mov	dpl,a
-	mov	a,r6
-	addc	a,#(_digits >> 8)
-	mov	dph,a
-	clr	a
-	movc	a,@a+dptr
-	mov	r6,a
-	mov	r5,#0x00
-	mov	dpl,r6
-	mov	dph,r5
-	push	ar7
-	push	ar4
-	lcall	_putchar
-	pop	ar4
-	pop	ar7
-;	dump.c:19: putchar(digits[(a >> 8) & 0xf]);
-	mov	ar6,r7
-	anl	ar6,#0x0f
-	mov	r5,#0x00
-	mov	a,r6
-	add	a,#_digits
-	mov	dpl,a
-	mov	a,r5
-	addc	a,#(_digits >> 8)
-	mov	dph,a
-	clr	a
-	movc	a,@a+dptr
-	mov	r6,a
-	mov	r5,#0x00
-	mov	dpl,r6
-	mov	dph,r5
-	push	ar7
-	push	ar4
-	lcall	_putchar
-	pop	ar4
-	pop	ar7
-;	dump.c:20: putchar(digits[(a >> 4) & 0xf]);
-	mov	ar5,r4
-	mov	a,r7
-	swap	a
-	xch	a,r5
-	swap	a
-	anl	a,#0x0f
-	xrl	a,r5
-	xch	a,r5
-	anl	a,#0x0f
-	xch	a,r5
-	xrl	a,r5
-	xch	a,r5
-	jnb	acc.3,00162$
-	orl	a,#0xf0
-00162$:
-	anl	ar5,#0x0f
-	mov	r6,#0x00
-	mov	a,r5
-	add	a,#_digits
-	mov	dpl,a
-	mov	a,r6
-	addc	a,#(_digits >> 8)
-	mov	dph,a
-	clr	a
-	movc	a,@a+dptr
-	mov	r6,a
-	mov	r5,#0x00
-	mov	dpl,r6
-	mov	dph,r5
-	push	ar7
-	push	ar4
-	lcall	_putchar
-	pop	ar4
-	pop	ar7
-;	dump.c:21: putchar(digits[a & 0xf]);
-	anl	ar4,#0x0f
-	mov	r7,#0x00
-	mov	a,r4
-	add	a,#_digits
-	mov	dpl,a
-	mov	a,r7
-	addc	a,#(_digits >> 8)
-	mov	dph,a
-	clr	a
-	movc	a,@a+dptr
-	mov	r7,a
-	mov	r6,#0x00
-	mov	dpl,r7
-	mov	dph,r6
-	lcall	_putchar
-;	dump.c:58: printstr(" : ");
-	mov	r5,#___str_0
-	mov	r6,#(___str_0 >> 8)
-	mov	r7,#0x80
-;	dump.c:29: return;
-00112$:
-;	dump.c:27: for (; *s; s++) putchar(*s);
 	mov	dpl,r5
 	mov	dph,r6
-	mov	b,r7
-	lcall	__gptrget
-	mov	r4,a
-	jz	00109$
-	mov	r3,#0x00
-	mov	dpl,r4
-	mov	dph,r3
-	push	ar7
-	push	ar6
-	push	ar5
-	lcall	_putchar
-	pop	ar5
-	pop	ar6
-	pop	ar7
-	inc	r5
-;	dump.c:58: printstr(" : ");
-	cjne	r5,#0x00,00112$
-	inc	r6
-	sjmp	00112$
-00109$:
-;	dump.c:59: for (col = 0u; col < 0x20u; col++) {
+	lcall	_print16x
+;	dump.c:31: printstr(" : ");
+	mov	dptr,#___str_0
+	mov	b,#0x80
+	lcall	_printstr
+;	dump.c:32: for (col = 0u; col < 0x20u; col++) {
 	mov	dptr,#_col
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-00114$:
-;	dump.c:60: print8x(base[off + col]);
+00107$:
+;	dump.c:33: print8x(base[off + col]);
 	mov	dptr,#_col
 	movx	a,@dptr
 	mov	r6,a
@@ -668,61 +539,9 @@ _main:
 	mov	dph,r7
 	mov	b,r2
 	lcall	__gptrget
-	mov	r6,a
-	mov	r7,#0x00
-	mov	ar4,r6
-;	dump.c:11: putchar(digits[(a >> 4) & 0xf]);
-	mov	a,r7
-	mov	r5,a
-	swap	a
-	xch	a,r6
-	swap	a
-	anl	a,#0x0f
-	xrl	a,r6
-	xch	a,r6
-	anl	a,#0x0f
-	xch	a,r6
-	xrl	a,r6
-	xch	a,r6
-	jnb	acc.3,00165$
-	orl	a,#0xf0
-00165$:
-	anl	ar6,#0x0f
-	mov	r7,#0x00
-	mov	a,r6
-	add	a,#_digits
 	mov	dpl,a
-	mov	a,r7
-	addc	a,#(_digits >> 8)
-	mov	dph,a
-	clr	a
-	movc	a,@a+dptr
-	mov	r7,a
-	mov	r6,#0x00
-	mov	dpl,r7
-	mov	dph,r6
-	push	ar5
-	push	ar4
-	lcall	_putchar
-	pop	ar4
-	pop	ar5
-;	dump.c:12: putchar(digits[a & 0xf]);
-	anl	ar4,#0x0f
-	mov	r5,#0x00
-	mov	a,r4
-	add	a,#_digits
-	mov	dpl,a
-	mov	a,r5
-	addc	a,#(_digits >> 8)
-	mov	dph,a
-	clr	a
-	movc	a,@a+dptr
-	mov	r7,a
-	mov	r6,#0x00
-	mov	dpl,r7
-	mov	dph,r6
-	lcall	_putchar
-;	dump.c:61: if (col == 0x1fu) {
+	lcall	_print8x
+;	dump.c:34: if (col == 0x1fu) {
 	mov	dptr,#_col
 	movx	a,@dptr
 	mov	r6,a
@@ -731,18 +550,18 @@ _main:
 	mov	r7,a
 	cjne	r6,#0x1f,00102$
 	cjne	r7,#0x00,00102$
-;	dump.c:62: putchar('\r'); putchar('\n');
+;	dump.c:35: putchar('\r'); putchar('\n');
 	mov	dptr,#0x000d
 	lcall	_putchar
 	mov	dptr,#0x000a
 	lcall	_putchar
-	sjmp	00115$
+	sjmp	00108$
 00102$:
-;	dump.c:63: } else putchar(' ');
+;	dump.c:36: } else putchar(' ');
 	mov	dptr,#0x0020
 	lcall	_putchar
-00115$:
-;	dump.c:59: for (col = 0u; col < 0x20u; col++) {
+00108$:
+;	dump.c:32: for (col = 0u; col < 0x20u; col++) {
 	mov	dptr,#_col
 	movx	a,@dptr
 	add	a,#0x01
@@ -762,10 +581,10 @@ _main:
 	subb	a,#0x20
 	mov	a,r7
 	subb	a,#0x00
-	jnc	00168$
-	ljmp	00114$
-00168$:
-;	dump.c:56: for (off = 0u; off < 0x400u; off += 0x20u) {
+	jnc	00147$
+	ljmp	00107$
+00147$:
+;	dump.c:29: for (off = 0u; off < 0x400u; off += 0x20u) {
 	mov	dptr,#_off
 	movx	a,@dptr
 	mov	r6,a
@@ -788,17 +607,17 @@ _main:
 	mov	r7,a
 	clr	c
 	subb	a,#0x04
-	jnc	00169$
-	ljmp	00116$
-00169$:
-;	dump.c:66: getchar();
+	jnc	00148$
+	ljmp	00109$
+00148$:
+;	dump.c:39: getchar();
 	lcall	_getchar
-;	dump.c:67: putchar('\r'); putchar('\n');
+;	dump.c:40: putchar('\r'); putchar('\n');
 	mov	dptr,#0x000d
 	lcall	_putchar
 	mov	dptr,#0x000a
 	lcall	_putchar
-;	dump.c:55: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
+;	dump.c:28: for (base = (unsigned char *)0u; !intr; base += 0x400u) {
 	mov	dptr,#_base
 	movx	a,@dptr
 	mov	r5,a
@@ -818,39 +637,22 @@ _main:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-	ljmp	00119$
+	ljmp	00112$
 00106$:
-;	dump.c:70: P1_7 = 1; /* deactivate IO address space from 0xe000 to 0xffff */
+;	dump.c:43: P1_7 = 1; /* deactivate IO address space from 0xe000 to 0xffff */
 ;	assignBit
 	setb	_P1_7
-;	dump.c:75: __endasm;
+;	dump.c:48: __endasm;
 	nop
 	nop
 	nop
-;	dump.c:77: PCON |= 2;
+;	dump.c:50: PCON |= 2;
 	orl	_PCON,#0x02
-;	dump.c:79: return;
-;	dump.c:80: }
+;	dump.c:52: return;
+;	dump.c:53: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-_digits:
-	.db #0x30	; 48	'0'
-	.db #0x31	; 49	'1'
-	.db #0x32	; 50	'2'
-	.db #0x33	; 51	'3'
-	.db #0x34	; 52	'4'
-	.db #0x35	; 53	'5'
-	.db #0x36	; 54	'6'
-	.db #0x37	; 55	'7'
-	.db #0x38	; 56	'8'
-	.db #0x39	; 57	'9'
-	.db #0x61	; 97	'a'
-	.db #0x62	; 98	'b'
-	.db #0x63	; 99	'c'
-	.db #0x64	; 100	'd'
-	.db #0x65	; 101	'e'
-	.db #0x66	; 102	'f'
 	.area CONST   (CODE)
 ___str_0:
 	.ascii " : "

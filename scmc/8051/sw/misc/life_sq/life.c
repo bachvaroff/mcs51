@@ -4,33 +4,6 @@
 
 #include "libpm21.h"
 
-__idata static const char digits[16] = {
-	'0', '1', '2', '3', '4', '5', '6', '7',
-	'8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
-};
-
-inline void print8x(short a) {
-	putchar(digits[(a >> 4) & 0xf]);
-	putchar(digits[a & 0xf]);
-	
-	return;
-}
-
-inline void print16x(int a) {
-	putchar(digits[(a >> 12) & 0xf]);
-	putchar(digits[(a >> 8) & 0xf]);
-	putchar(digits[(a >> 4) & 0xf]);
-	putchar(digits[a & 0xf]);
-	
-	return;
-}
-
-inline void printstr(const char *s) {
-	for (; *s; s++) putchar(*s);
-	
-	return;
-}
-
 __idata static char i0, i1;
 
 void int0(void) __interrupt IE0_VECTOR __using 1 {

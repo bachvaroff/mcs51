@@ -349,7 +349,7 @@ Symbol Table
   D _ifft                                                          000100 GR
  19 _int0                                                          000000 GR
  19 _main                                                          00001D GR
-  D _main_R_65536_73                                               000180 R
+  D _main_R_65536_80                                               000180 R
   9 _print                                                         000000 R
     _printf                                                        ****** GX
     _rand                                                          ****** GX

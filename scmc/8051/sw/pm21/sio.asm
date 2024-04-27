@@ -134,6 +134,13 @@
 	.globl _putchar
 	.globl _getchar
 	.globl _getchar_poll
+	.globl _printstr
+	.globl _print8bin
+	.globl _print16bin
+	.globl _print32bin
+	.globl _print8x
+	.globl _print16x
+	.globl _print32x
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -283,6 +290,8 @@ _CY	=	0x00d7
 ; indirectly addressable internal ram data
 ;--------------------------------------------------------
 	.area ISEG    (DATA)
+_digits:
+	.ds 16
 ;--------------------------------------------------------
 ; absolute internal ram data
 ;--------------------------------------------------------
@@ -325,6 +334,39 @@ _CY	=	0x00d7
 	.area GSINIT  (CODE)
 	.area GSFINAL (CODE)
 	.area GSINIT  (CODE)
+;	sio.c:5: __idata static const char digits[16] = {
+	mov	r0,#_digits
+	mov	@r0,#0x30
+	mov	r0,#(_digits + 0x0001)
+	mov	@r0,#0x31
+	mov	r0,#(_digits + 0x0002)
+	mov	@r0,#0x32
+	mov	r0,#(_digits + 0x0003)
+	mov	@r0,#0x33
+	mov	r0,#(_digits + 0x0004)
+	mov	@r0,#0x34
+	mov	r0,#(_digits + 0x0005)
+	mov	@r0,#0x35
+	mov	r0,#(_digits + 0x0006)
+	mov	@r0,#0x36
+	mov	r0,#(_digits + 0x0007)
+	mov	@r0,#0x37
+	mov	r0,#(_digits + 0x0008)
+	mov	@r0,#0x38
+	mov	r0,#(_digits + 0x0009)
+	mov	@r0,#0x39
+	mov	r0,#(_digits + 0x000a)
+	mov	@r0,#0x41
+	mov	r0,#(_digits + 0x000b)
+	mov	@r0,#0x42
+	mov	r0,#(_digits + 0x000c)
+	mov	@r0,#0x43
+	mov	r0,#(_digits + 0x000d)
+	mov	@r0,#0x44
+	mov	r0,#(_digits + 0x000e)
+	mov	@r0,#0x45
+	mov	r0,#(_digits + 0x000f)
+	mov	@r0,#0x46
 ;--------------------------------------------------------
 ; Home
 ;--------------------------------------------------------
@@ -339,48 +381,48 @@ _CY	=	0x00d7
 ;------------------------------------------------------------
 ;c                         Allocated to registers 
 ;------------------------------------------------------------
-;	sio.c:5: int putchar(int c) __naked {
+;	sio.c:10: int putchar(int c) __naked {
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
 _putchar:
 ;	naked function: no prologue.
-;	sio.c:13: __endasm;
+;	sio.c:18: __endasm;
 	push	acc
 	mov	a, dpl
 	lcall	0x003c
 	pop	acc
 	ret
-;	sio.c:14: }
+;	sio.c:19: }
 ;	naked function: no epilogue.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	sio.c:16: int getchar(void) __naked {
+;	sio.c:21: int getchar(void) __naked {
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
 _getchar:
 ;	naked function: no prologue.
-;	sio.c:24: __endasm;
+;	sio.c:29: __endasm;
 	push	acc
 	lcall	0x0036
 	mov	dpl, a
 	mov	dph, #0
 	pop	acc
 	ret
-;	sio.c:25: }
+;	sio.c:30: }
 ;	naked function: no epilogue.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar_poll'
 ;------------------------------------------------------------
-;	sio.c:27: int getchar_poll(void) __naked {
+;	sio.c:32: int getchar_poll(void) __naked {
 ;	-----------------------------------------
 ;	 function getchar_poll
 ;	-----------------------------------------
 _getchar_poll:
 ;	naked function: no prologue.
-;	sio.c:42: __endasm;
+;	sio.c:47: __endasm;
 	push	acc
 	push	b
 	mov	a, #0xff
@@ -394,8 +436,565 @@ _getchar_poll:
 	pop	b
 	pop	acc
 	ret
-;	sio.c:43: }
+;	sio.c:48: }
 ;	naked function: no epilogue.
+;------------------------------------------------------------
+;Allocation info for local variables in function 'printstr'
+;------------------------------------------------------------
+;s                         Allocated to registers 
+;------------------------------------------------------------
+;	sio.c:50: void printstr(const char *s) {
+;	-----------------------------------------
+;	 function printstr
+;	-----------------------------------------
+_printstr:
+	ar7 = 0x07
+	ar6 = 0x06
+	ar5 = 0x05
+	ar4 = 0x04
+	ar3 = 0x03
+	ar2 = 0x02
+	ar1 = 0x01
+	ar0 = 0x00
+	mov	r5,dpl
+	mov	r6,dph
+	mov	r7,b
+;	sio.c:53: return;
+00103$:
+;	sio.c:51: for (; *s; s++) putchar((int)*s);
+	mov	dpl,r5
+	mov	dph,r6
+	mov	b,r7
+	lcall	__gptrget
+	mov	r4,a
+	jz	00101$
+	mov	r3,#0x00
+	mov	dpl,r4
+	mov	dph,r3
+	lcall	_putchar
+	inc	r5
+	cjne	r5,#0x00,00103$
+	inc	r6
+	sjmp	00103$
+00101$:
+;	sio.c:53: return;
+;	sio.c:54: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'print8bin'
+;------------------------------------------------------------
+;d                         Allocated to registers r7 
+;mask                      Allocated to registers r6 
+;------------------------------------------------------------
+;	sio.c:56: void print8bin(unsigned char d) {
+;	-----------------------------------------
+;	 function print8bin
+;	-----------------------------------------
+_print8bin:
+	mov	r7,dpl
+;	sio.c:59: for (mask = 0x80u; mask; mask >>= 1)
+	mov	r6,#0x80
+00102$:
+;	sio.c:60: (void)putchar((d & mask) ? (int)'1' : (int)'0');
+	mov	a,r6
+	anl	a,r7
+	jz	00106$
+	mov	r4,#0x31
+	mov	r5,#0x00
+	sjmp	00107$
+00106$:
+	mov	r4,#0x30
+	mov	r5,#0x00
+00107$:
+	mov	dpl,r4
+	mov	dph,r5
+	lcall	_putchar
+;	sio.c:59: for (mask = 0x80u; mask; mask >>= 1)
+	mov	a,r6
+	clr	c
+	rrc	a
+	mov	r6,a
+	jnz	00102$
+;	sio.c:62: return;
+;	sio.c:63: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'print16bin'
+;------------------------------------------------------------
+;d                         Allocated to registers r6 r7 
+;mask                      Allocated to registers r4 r5 
+;------------------------------------------------------------
+;	sio.c:65: void print16bin(unsigned int d) {
+;	-----------------------------------------
+;	 function print16bin
+;	-----------------------------------------
+_print16bin:
+	mov	r6,dpl
+	mov	r7,dph
+;	sio.c:68: for (mask = 0x8000u; mask; mask >>= 1)
+	mov	r4,#0x00
+	mov	r5,#0x80
+00102$:
+;	sio.c:69: (void)putchar((d & mask) ? (int)'1' : (int)'0');
+	mov	a,r4
+	anl	a,r6
+	mov	r2,a
+	mov	a,r5
+	anl	a,r7
+	orl	a,r2
+	jz	00106$
+	mov	r2,#0x31
+	mov	r3,#0x00
+	sjmp	00107$
+00106$:
+	mov	r2,#0x30
+	mov	r3,#0x00
+00107$:
+	mov	dpl,r2
+	mov	dph,r3
+	lcall	_putchar
+;	sio.c:68: for (mask = 0x8000u; mask; mask >>= 1)
+	mov	a,r5
+	clr	c
+	rrc	a
+	xch	a,r4
+	rrc	a
+	xch	a,r4
+	mov	r5,a
+	orl	a,r4
+	jnz	00102$
+;	sio.c:71: return;
+;	sio.c:72: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'print32bin'
+;------------------------------------------------------------
+;d                         Allocated to stack - _bp +1
+;mask                      Allocated to stack - _bp +5
+;------------------------------------------------------------
+;	sio.c:74: void print32bin(unsigned long d) {
+;	-----------------------------------------
+;	 function print32bin
+;	-----------------------------------------
+_print32bin:
+	push	_bp
+	mov	_bp,sp
+	push	dpl
+	push	dph
+	push	b
+	push	acc
+	mov	a,sp
+	add	a,#0x04
+	mov	sp,a
+;	sio.c:77: for (mask = 0x80000000lu; mask; mask >>= 1)
+	mov	a,_bp
+	add	a,#0x05
+	mov	r0,a
+	clr	a
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	inc	r0
+	mov	@r0,#0x80
+00102$:
+;	sio.c:78: (void)putchar((d & mask) ? (int)'1' : (int)'0');
+	mov	r0,_bp
+	inc	r0
+	mov	a,_bp
+	add	a,#0x05
+	mov	r1,a
+	mov	a,@r1
+	anl	a,@r0
+	mov	r4,a
+	inc	r1
+	mov	a,@r1
+	inc	r0
+	anl	a,@r0
+	mov	r5,a
+	inc	r1
+	mov	a,@r1
+	inc	r0
+	anl	a,@r0
+	mov	r6,a
+	inc	r1
+	mov	a,@r1
+	inc	r0
+	anl	a,@r0
+	mov	r7,a
+	mov	a,r4
+	orl	a,r5
+	orl	a,r6
+	orl	a,r7
+	jz	00106$
+	mov	r6,#0x31
+	mov	r7,#0x00
+	sjmp	00107$
+00106$:
+	mov	r6,#0x30
+	mov	r7,#0x00
+00107$:
+	mov	dpl,r6
+	mov	dph,r7
+	lcall	_putchar
+;	sio.c:77: for (mask = 0x80000000lu; mask; mask >>= 1)
+	mov	a,_bp
+	add	a,#0x05
+	mov	r0,a
+	inc	r0
+	inc	r0
+	inc	r0
+	mov	a,@r0
+	clr	c
+	rrc	a
+	mov	@r0,a
+	dec	r0
+	mov	a,@r0
+	rrc	a
+	mov	@r0,a
+	dec	r0
+	mov	a,@r0
+	rrc	a
+	mov	@r0,a
+	dec	r0
+	mov	a,@r0
+	rrc	a
+	mov	@r0,a
+	mov	a,_bp
+	add	a,#0x05
+	mov	r0,a
+	mov	a,@r0
+	inc	r0
+	orl	a,@r0
+	inc	r0
+	orl	a,@r0
+	inc	r0
+	orl	a,@r0
+	jnz	00102$
+;	sio.c:80: return;
+;	sio.c:81: }
+	mov	sp,_bp
+	pop	_bp
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'print8x'
+;------------------------------------------------------------
+;d                         Allocated to registers r7 
+;------------------------------------------------------------
+;	sio.c:83: void print8x(unsigned char d) {
+;	-----------------------------------------
+;	 function print8x
+;	-----------------------------------------
+_print8x:
+;	sio.c:84: putchar(digits[(d >> 4) & 0xf]);
+	mov	a,dpl
+	mov	r7,a
+	swap	a
+	anl	a,#0x0f
+	mov	r6,a
+	anl	ar6,#0x0f
+	mov	a,r6
+	add	a,#_digits
+	mov	r1,a
+	mov	ar6,@r1
+	mov	r5,#0x00
+	mov	dpl,r6
+	mov	dph,r5
+	lcall	_putchar
+;	sio.c:85: putchar(digits[d & 0xf]);
+	anl	ar7,#0x0f
+	mov	a,r7
+	add	a,#_digits
+	mov	r1,a
+	mov	ar7,@r1
+	mov	r6,#0x00
+	mov	dpl,r7
+	mov	dph,r6
+;	sio.c:87: return;
+;	sio.c:88: }
+	ljmp	_putchar
+;------------------------------------------------------------
+;Allocation info for local variables in function 'print16x'
+;------------------------------------------------------------
+;d                         Allocated to registers r6 r7 
+;------------------------------------------------------------
+;	sio.c:90: void print16x(unsigned int d) {
+;	-----------------------------------------
+;	 function print16x
+;	-----------------------------------------
+_print16x:
+	mov	r6,dpl
+;	sio.c:91: putchar(digits[(d >> 12) & 0xf]);
+	mov	a,dph
+	mov	r7,a
+	swap	a
+	anl	a,#0x0f
+	mov	r4,a
+	anl	ar4,#0x0f
+	mov	a,r4
+	add	a,#_digits
+	mov	r1,a
+	mov	ar5,@r1
+	mov	r4,#0x00
+	mov	dpl,r5
+	mov	dph,r4
+	lcall	_putchar
+;	sio.c:92: putchar(digits[(d >> 8) & 0xf]);
+	mov	ar5,r7
+	anl	ar5,#0x0f
+	mov	a,r5
+	add	a,#_digits
+	mov	r1,a
+	mov	ar5,@r1
+	mov	r4,#0x00
+	mov	dpl,r5
+	mov	dph,r4
+	lcall	_putchar
+;	sio.c:93: putchar(digits[(d >> 4) & 0xf]);
+	mov	ar4,r6
+	mov	a,r7
+	swap	a
+	xch	a,r4
+	swap	a
+	anl	a,#0x0f
+	xrl	a,r4
+	xch	a,r4
+	anl	a,#0x0f
+	xch	a,r4
+	xrl	a,r4
+	xch	a,r4
+	anl	ar4,#0x0f
+	mov	a,r4
+	add	a,#_digits
+	mov	r1,a
+	mov	ar5,@r1
+	mov	r4,#0x00
+	mov	dpl,r5
+	mov	dph,r4
+	lcall	_putchar
+;	sio.c:94: putchar(digits[d & 0xf]);
+	anl	ar6,#0x0f
+	mov	a,r6
+	add	a,#_digits
+	mov	r1,a
+	mov	ar7,@r1
+	mov	r6,#0x00
+	mov	dpl,r7
+	mov	dph,r6
+;	sio.c:96: return;
+;	sio.c:97: }
+	ljmp	_putchar
+;------------------------------------------------------------
+;Allocation info for local variables in function 'print32x'
+;------------------------------------------------------------
+;d                         Allocated to stack - _bp +1
+;------------------------------------------------------------
+;	sio.c:99: void print32x(unsigned long d) {
+;	-----------------------------------------
+;	 function print32x
+;	-----------------------------------------
+_print32x:
+	push	_bp
+	mov	_bp,sp
+	push	dpl
+	push	dph
+	push	b
+	push	acc
+;	sio.c:100: putchar(digits[(d >> 28) & 0xf]);
+	mov	r0,_bp
+	inc	r0
+	inc	r0
+	inc	r0
+	inc	r0
+	mov	a,@r0
+	swap	a
+	anl	a,#0x0f
+	mov	r2,a
+	anl	ar2,#0x0f
+	clr	a
+	mov	a,r2
+	add	a,#_digits
+	mov	r1,a
+	mov	ar7,@r1
+	mov	r6,#0x00
+	mov	dpl,r7
+	mov	dph,r6
+	lcall	_putchar
+;	sio.c:101: putchar(digits[(d >> 24) & 0xf]);
+	mov	r0,_bp
+	inc	r0
+	inc	r0
+	inc	r0
+	inc	r0
+	mov	ar7,@r0
+	anl	ar7,#0x0f
+	mov	a,r7
+	add	a,#_digits
+	mov	r1,a
+	mov	ar7,@r1
+	mov	r6,#0x00
+	mov	dpl,r7
+	mov	dph,r6
+	lcall	_putchar
+;	sio.c:102: putchar(digits[(d >> 20) & 0xf]);
+	mov	r0,_bp
+	inc	r0
+	inc	r0
+	inc	r0
+	mov	ar4,@r0
+	inc	r0
+	mov	a,@r0
+	swap	a
+	xch	a,r4
+	swap	a
+	anl	a,#0x0f
+	xrl	a,r4
+	xch	a,r4
+	anl	a,#0x0f
+	xch	a,r4
+	xrl	a,r4
+	xch	a,r4
+	anl	ar4,#0x0f
+	clr	a
+	mov	a,r4
+	add	a,#_digits
+	mov	r1,a
+	mov	ar7,@r1
+	mov	r6,#0x00
+	mov	dpl,r7
+	mov	dph,r6
+	lcall	_putchar
+;	sio.c:103: putchar(digits[(d >> 16) & 0xf]);
+	mov	r0,_bp
+	inc	r0
+	inc	r0
+	inc	r0
+	mov	ar7,@r0
+	anl	ar7,#0x0f
+	mov	a,r7
+	add	a,#_digits
+	mov	r1,a
+	mov	ar7,@r1
+	mov	r6,#0x00
+	mov	dpl,r7
+	mov	dph,r6
+	lcall	_putchar
+;	sio.c:104: putchar(digits[(d >> 12) & 0xf]);
+	mov	r0,_bp
+	inc	r0
+	inc	r0
+	mov	ar4,@r0
+	inc	r0
+	mov	a,@r0
+	swap	a
+	xch	a,r4
+	swap	a
+	anl	a,#0x0f
+	xrl	a,r4
+	xch	a,r4
+	anl	a,#0x0f
+	xch	a,r4
+	xrl	a,r4
+	xch	a,r4
+	mov	r5,a
+	inc	r0
+	mov	a,@r0
+	swap	a
+	anl	a,#0xf0
+	orl	a,r5
+	mov	a,@r0
+	swap	a
+	anl	a,#0x0f
+	anl	ar4,#0x0f
+	clr	a
+	mov	a,r4
+	add	a,#_digits
+	mov	r1,a
+	mov	ar7,@r1
+	mov	r6,#0x00
+	mov	dpl,r7
+	mov	dph,r6
+	lcall	_putchar
+;	sio.c:105: putchar(digits[(d >> 8) & 0xf]);
+	mov	r0,_bp
+	inc	r0
+	inc	r0
+	mov	ar7,@r0
+	anl	ar7,#0x0f
+	mov	a,r7
+	add	a,#_digits
+	mov	r1,a
+	mov	ar7,@r1
+	mov	r6,#0x00
+	mov	dpl,r7
+	mov	dph,r6
+	lcall	_putchar
+;	sio.c:106: putchar(digits[(d >> 4) & 0xf]);
+	mov	r0,_bp
+	inc	r0
+	mov	ar4,@r0
+	inc	r0
+	mov	a,@r0
+	swap	a
+	xch	a,r4
+	swap	a
+	anl	a,#0x0f
+	xrl	a,r4
+	xch	a,r4
+	anl	a,#0x0f
+	xch	a,r4
+	xrl	a,r4
+	xch	a,r4
+	mov	r5,a
+	inc	r0
+	mov	a,@r0
+	swap	a
+	anl	a,#0xf0
+	orl	a,r5
+	mov	ar6,@r0
+	inc	r0
+	mov	a,@r0
+	swap	a
+	xch	a,r6
+	swap	a
+	anl	a,#0x0f
+	xrl	a,r6
+	xch	a,r6
+	anl	a,#0x0f
+	xch	a,r6
+	xrl	a,r6
+	xch	a,r6
+	anl	ar4,#0x0f
+	clr	a
+	mov	a,r4
+	add	a,#_digits
+	mov	r1,a
+	mov	ar7,@r1
+	mov	r6,#0x00
+	mov	dpl,r7
+	mov	dph,r6
+	lcall	_putchar
+;	sio.c:107: putchar(digits[d & 0xf]);
+	mov	r0,_bp
+	inc	r0
+	mov	a,#0x0f
+	anl	a,@r0
+	mov	r4,a
+	clr	a
+	mov	a,r4
+	add	a,#_digits
+	mov	r1,a
+	mov	ar7,@r1
+	mov	r6,#0x00
+	mov	dpl,r7
+	mov	dph,r6
+	lcall	_putchar
+;	sio.c:109: return;
+;	sio.c:110: }
+	mov	sp,_bp
+	pop	_bp
+	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area XINIT   (CODE)

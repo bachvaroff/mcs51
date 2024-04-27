@@ -317,7 +317,7 @@ _clockupdate::
 	.ds 1
 _sending::
 	.ds 1
-_clock_ctmp_65536_23:
+_clock_ctmp_65536_30:
 	.ds 4
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -466,7 +466,7 @@ _clockinc:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'clock'
 ;------------------------------------------------------------
-;ctmp                      Allocated with name '_clock_ctmp_65536_23'
+;ctmp                      Allocated with name '_clock_ctmp_65536_30'
 ;------------------------------------------------------------
 ;	portme.c:39: unsigned long int clock(void)
 ;	-----------------------------------------
@@ -491,7 +491,7 @@ _clock:
 	movx	@dptr,a
 ;	portme.c:46: ctmp = clocktime;
 ;	genAssign
-	mov	dptr,#_clock_ctmp_65536_23
+	mov	dptr,#_clock_ctmp_65536_30
 	mov	a,_clocktime
 	movx	@dptr,a
 	mov	a,(_clocktime + 1)
@@ -514,7 +514,7 @@ _clock:
 ;	Peephole 500	removed redundant label 00114$
 ;	portme.c:49: return(ctmp);
 ;	genAssign
-	mov	dptr,#_clock_ctmp_65536_23
+	mov	dptr,#_clock_ctmp_65536_30
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr

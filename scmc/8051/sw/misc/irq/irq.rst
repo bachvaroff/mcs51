@@ -288,8 +288,8 @@
                                     288 ; Stack segment in internal ram 
                                     289 ;--------------------------------------------------------
                                     290 	.area	SSEG
-      000021                        291 __start__stack:
-      000021                        292 	.ds	1
+      000031                        291 __start__stack:
+      000031                        292 	.ds	1
                                     293 
                                     294 ;--------------------------------------------------------
                                     295 ; indirectly addressable internal ram data
@@ -338,11 +338,11 @@
                                     338 	.area HOME    (CODE)
       002000                        339 __interrupt_vect:
       002000 02 20 19         [24]  340 	ljmp	__sdcc_gsinit_startup
-      002003 02 20 75         [24]  341 	ljmp	_int0
+      002003 02 20 B5         [24]  341 	ljmp	_int0
       002006                        342 	.ds	5
       00200B 32               [24]  343 	reti
       00200C                        344 	.ds	7
-      002013 02 20 89         [24]  345 	ljmp	_int1
+      002013 02 20 C9         [24]  345 	ljmp	_int1
                                     346 ;--------------------------------------------------------
                                     347 ; global & static initialisations
                                     348 ;--------------------------------------------------------
@@ -357,14 +357,14 @@
                                     357 	.globl __mcs51_genXRAMCLEAR
                                     358 	.globl __mcs51_genRAMCLEAR
                                     359 	.area GSFINAL (CODE)
-      002072 02 20 16         [24]  360 	ljmp	__sdcc_program_startup
+      0020B2 02 20 16         [24]  360 	ljmp	__sdcc_program_startup
                                     361 ;--------------------------------------------------------
                                     362 ; Home
                                     363 ;--------------------------------------------------------
                                     364 	.area HOME    (CODE)
                                     365 	.area HOME    (CODE)
       002016                        366 __sdcc_program_startup:
-      002016 02 20 9F         [24]  367 	ljmp	_main
+      002016 02 20 DF         [24]  367 	ljmp	_main
                                     368 ;	return from main will return to caller
                                     369 ;--------------------------------------------------------
                                     370 ; code
@@ -377,7 +377,7 @@
                                     377 ;	-----------------------------------------
                                     378 ;	 function int0
                                     379 ;	-----------------------------------------
-      002075                        380 _int0:
+      0020B5                        380 _int0:
                            00000F   381 	ar7 = 0x0f
                            00000E   382 	ar6 = 0x0e
                            00000D   383 	ar5 = 0x0d
@@ -386,20 +386,20 @@
                            00000A   386 	ar2 = 0x0a
                            000009   387 	ar1 = 0x09
                            000008   388 	ar0 = 0x08
-      002075 C0 E0            [24]  389 	push	acc
-      002077 C0 82            [24]  390 	push	dpl
-      002079 C0 83            [24]  391 	push	dph
+      0020B5 C0 E0            [24]  389 	push	acc
+      0020B7 C0 82            [24]  390 	push	dpl
+      0020B9 C0 83            [24]  391 	push	dph
                                     392 ;	irq.c:9: intr = 0;
-      00207B 90 40 00         [24]  393 	mov	dptr,#_intr
-      00207E E4               [12]  394 	clr	a
-      00207F F0               [24]  395 	movx	@dptr,a
-      002080 A3               [24]  396 	inc	dptr
-      002081 F0               [24]  397 	movx	@dptr,a
+      0020BB 90 40 00         [24]  393 	mov	dptr,#_intr
+      0020BE E4               [12]  394 	clr	a
+      0020BF F0               [24]  395 	movx	@dptr,a
+      0020C0 A3               [24]  396 	inc	dptr
+      0020C1 F0               [24]  397 	movx	@dptr,a
                                     398 ;	irq.c:10: }
-      002082 D0 83            [24]  399 	pop	dph
-      002084 D0 82            [24]  400 	pop	dpl
-      002086 D0 E0            [24]  401 	pop	acc
-      002088 32               [24]  402 	reti
+      0020C2 D0 83            [24]  399 	pop	dph
+      0020C4 D0 82            [24]  400 	pop	dpl
+      0020C6 D0 E0            [24]  401 	pop	acc
+      0020C8 32               [24]  402 	reti
                                     403 ;	eliminated unneeded mov psw,# (no regs used in bank)
                                     404 ;	eliminated unneeded push/pop psw
                                     405 ;	eliminated unneeded push/pop b
@@ -410,22 +410,22 @@
                                     410 ;	-----------------------------------------
                                     411 ;	 function int1
                                     412 ;	-----------------------------------------
-      002089                        413 _int1:
-      002089 C0 E0            [24]  414 	push	acc
-      00208B C0 82            [24]  415 	push	dpl
-      00208D C0 83            [24]  416 	push	dph
+      0020C9                        413 _int1:
+      0020C9 C0 E0            [24]  414 	push	acc
+      0020CB C0 82            [24]  415 	push	dpl
+      0020CD C0 83            [24]  416 	push	dph
                                     417 ;	irq.c:13: intr = 1;
-      00208F 90 40 00         [24]  418 	mov	dptr,#_intr
-      002092 74 01            [12]  419 	mov	a,#0x01
-      002094 F0               [24]  420 	movx	@dptr,a
-      002095 E4               [12]  421 	clr	a
-      002096 A3               [24]  422 	inc	dptr
-      002097 F0               [24]  423 	movx	@dptr,a
+      0020CF 90 40 00         [24]  418 	mov	dptr,#_intr
+      0020D2 74 01            [12]  419 	mov	a,#0x01
+      0020D4 F0               [24]  420 	movx	@dptr,a
+      0020D5 E4               [12]  421 	clr	a
+      0020D6 A3               [24]  422 	inc	dptr
+      0020D7 F0               [24]  423 	movx	@dptr,a
                                     424 ;	irq.c:14: }
-      002098 D0 83            [24]  425 	pop	dph
-      00209A D0 82            [24]  426 	pop	dpl
-      00209C D0 E0            [24]  427 	pop	acc
-      00209E 32               [24]  428 	reti
+      0020D8 D0 83            [24]  425 	pop	dph
+      0020DA D0 82            [24]  426 	pop	dpl
+      0020DC D0 E0            [24]  427 	pop	acc
+      0020DE 32               [24]  428 	reti
                                     429 ;	eliminated unneeded mov psw,# (no regs used in bank)
                                     430 ;	eliminated unneeded push/pop psw
                                     431 ;	eliminated unneeded push/pop b
@@ -438,7 +438,7 @@
                                     438 ;	-----------------------------------------
                                     439 ;	 function main
                                     440 ;	-----------------------------------------
-      00209F                        441 _main:
+      0020DF                        441 _main:
                            000007   442 	ar7 = 0x07
                            000006   443 	ar6 = 0x06
                            000005   444 	ar5 = 0x05
@@ -448,102 +448,102 @@
                            000001   448 	ar1 = 0x01
                            000000   449 	ar0 = 0x00
                                     450 ;	irq.c:19: intr = -1;
-      00209F 90 40 00         [24]  451 	mov	dptr,#_intr
-      0020A2 74 FF            [12]  452 	mov	a,#0xff
-      0020A4 F0               [24]  453 	movx	@dptr,a
-      0020A5 A3               [24]  454 	inc	dptr
-      0020A6 F0               [24]  455 	movx	@dptr,a
+      0020DF 90 40 00         [24]  451 	mov	dptr,#_intr
+      0020E2 74 FF            [12]  452 	mov	a,#0xff
+      0020E4 F0               [24]  453 	movx	@dptr,a
+      0020E5 A3               [24]  454 	inc	dptr
+      0020E6 F0               [24]  455 	movx	@dptr,a
                                     456 ;	irq.c:22: IT0 = 1;
                                     457 ;	assignBit
-      0020A7 D2 88            [12]  458 	setb	_IT0
+      0020E7 D2 88            [12]  458 	setb	_IT0
                                     459 ;	irq.c:23: IT1 = 1;
                                     460 ;	assignBit
-      0020A9 D2 8A            [12]  461 	setb	_IT1
+      0020E9 D2 8A            [12]  461 	setb	_IT1
                                     462 ;	irq.c:25: EX0 = 1;
                                     463 ;	assignBit
-      0020AB D2 A8            [12]  464 	setb	_EX0
+      0020EB D2 A8            [12]  464 	setb	_EX0
                                     465 ;	irq.c:26: EX1 = 1;
                                     466 ;	assignBit
-      0020AD D2 AA            [12]  467 	setb	_EX1
+      0020ED D2 AA            [12]  467 	setb	_EX1
                                     468 ;	irq.c:27: EA = 1;
                                     469 ;	assignBit
-      0020AF D2 AF            [12]  470 	setb	_EA
+      0020EF D2 AF            [12]  470 	setb	_EA
                                     471 ;	irq.c:29: for (i = 0; ; i++) {
-      0020B1 7E 00            [12]  472 	mov	r6,#0x00
-      0020B3 7F 00            [12]  473 	mov	r7,#0x00
-      0020B5                        474 00104$:
+      0020F1 7E 00            [12]  472 	mov	r6,#0x00
+      0020F3 7F 00            [12]  473 	mov	r7,#0x00
+      0020F5                        474 00104$:
                                     475 ;	irq.c:30: if (intr >= 0) break;
-      0020B5 90 40 00         [24]  476 	mov	dptr,#_intr
-      0020B8 E0               [24]  477 	movx	a,@dptr
-      0020B9 FC               [12]  478 	mov	r4,a
-      0020BA A3               [24]  479 	inc	dptr
-      0020BB E0               [24]  480 	movx	a,@dptr
-      0020BC FD               [12]  481 	mov	r5,a
-      0020BD 30 E7 28         [24]  482 	jnb	acc.7,00103$
+      0020F5 90 40 00         [24]  476 	mov	dptr,#_intr
+      0020F8 E0               [24]  477 	movx	a,@dptr
+      0020F9 FC               [12]  478 	mov	r4,a
+      0020FA A3               [24]  479 	inc	dptr
+      0020FB E0               [24]  480 	movx	a,@dptr
+      0020FC FD               [12]  481 	mov	r5,a
+      0020FD 30 E7 28         [24]  482 	jnb	acc.7,00103$
                                     483 ;	irq.c:31: printf("working %d...\r\n", i);
-      0020C0 C0 07            [24]  484 	push	ar7
-      0020C2 C0 06            [24]  485 	push	ar6
-      0020C4 C0 06            [24]  486 	push	ar6
-      0020C6 C0 07            [24]  487 	push	ar7
-      0020C8 74 65            [12]  488 	mov	a,#___str_0
-      0020CA C0 E0            [24]  489 	push	acc
-      0020CC 74 34            [12]  490 	mov	a,#(___str_0 >> 8)
-      0020CE C0 E0            [24]  491 	push	acc
-      0020D0 74 80            [12]  492 	mov	a,#0x80
-      0020D2 C0 E0            [24]  493 	push	acc
-      0020D4 12 21 50         [24]  494 	lcall	_printf
-      0020D7 E5 81            [12]  495 	mov	a,sp
-      0020D9 24 FB            [12]  496 	add	a,#0xfb
-      0020DB F5 81            [12]  497 	mov	sp,a
-      0020DD D0 06            [24]  498 	pop	ar6
-      0020DF D0 07            [24]  499 	pop	ar7
+      002100 C0 07            [24]  484 	push	ar7
+      002102 C0 06            [24]  485 	push	ar6
+      002104 C0 06            [24]  486 	push	ar6
+      002106 C0 07            [24]  487 	push	ar7
+      002108 74 49            [12]  488 	mov	a,#___str_0
+      00210A C0 E0            [24]  489 	push	acc
+      00210C 74 37            [12]  490 	mov	a,#(___str_0 >> 8)
+      00210E C0 E0            [24]  491 	push	acc
+      002110 74 80            [12]  492 	mov	a,#0x80
+      002112 C0 E0            [24]  493 	push	acc
+      002114 12 21 90         [24]  494 	lcall	_printf
+      002117 E5 81            [12]  495 	mov	a,sp
+      002119 24 FB            [12]  496 	add	a,#0xfb
+      00211B F5 81            [12]  497 	mov	sp,a
+      00211D D0 06            [24]  498 	pop	ar6
+      00211F D0 07            [24]  499 	pop	ar7
                                     500 ;	irq.c:29: for (i = 0; ; i++) {
-      0020E1 0E               [12]  501 	inc	r6
-      0020E2 BE 00 D0         [24]  502 	cjne	r6,#0x00,00104$
-      0020E5 0F               [12]  503 	inc	r7
-      0020E6 80 CD            [24]  504 	sjmp	00104$
-      0020E8                        505 00103$:
+      002121 0E               [12]  501 	inc	r6
+      002122 BE 00 D0         [24]  502 	cjne	r6,#0x00,00104$
+      002125 0F               [12]  503 	inc	r7
+      002126 80 CD            [24]  504 	sjmp	00104$
+      002128                        505 00103$:
                                     506 ;	irq.c:34: EA = 0;
                                     507 ;	assignBit
-      0020E8 C2 AF            [12]  508 	clr	_EA
+      002128 C2 AF            [12]  508 	clr	_EA
                                     509 ;	irq.c:35: printf("got interrupt %d\r\n", intr);
-      0020EA C0 04            [24]  510 	push	ar4
-      0020EC C0 05            [24]  511 	push	ar5
-      0020EE 74 75            [12]  512 	mov	a,#___str_1
-      0020F0 C0 E0            [24]  513 	push	acc
-      0020F2 74 34            [12]  514 	mov	a,#(___str_1 >> 8)
-      0020F4 C0 E0            [24]  515 	push	acc
-      0020F6 74 80            [12]  516 	mov	a,#0x80
-      0020F8 C0 E0            [24]  517 	push	acc
-      0020FA 12 21 50         [24]  518 	lcall	_printf
-      0020FD E5 81            [12]  519 	mov	a,sp
-      0020FF 24 FB            [12]  520 	add	a,#0xfb
-      002101 F5 81            [12]  521 	mov	sp,a
+      00212A C0 04            [24]  510 	push	ar4
+      00212C C0 05            [24]  511 	push	ar5
+      00212E 74 59            [12]  512 	mov	a,#___str_1
+      002130 C0 E0            [24]  513 	push	acc
+      002132 74 37            [12]  514 	mov	a,#(___str_1 >> 8)
+      002134 C0 E0            [24]  515 	push	acc
+      002136 74 80            [12]  516 	mov	a,#0x80
+      002138 C0 E0            [24]  517 	push	acc
+      00213A 12 21 90         [24]  518 	lcall	_printf
+      00213D E5 81            [12]  519 	mov	a,sp
+      00213F 24 FB            [12]  520 	add	a,#0xfb
+      002141 F5 81            [12]  521 	mov	sp,a
                                     522 ;	irq.c:36: (void)getchar();
-      002103 12 21 93         [24]  523 	lcall	_getchar
+      002143 12 21 D3         [24]  523 	lcall	_getchar
                                     524 ;	irq.c:38: PCON |= 2;
-      002106 43 87 02         [24]  525 	orl	_PCON,#0x02
+      002146 43 87 02         [24]  525 	orl	_PCON,#0x02
                                     526 ;	irq.c:40: return;
                                     527 ;	irq.c:41: }
-      002109 22               [24]  528 	ret
+      002149 22               [24]  528 	ret
                                     529 	.area CSEG    (CODE)
                                     530 	.area CONST   (CODE)
                                     531 	.area CONST   (CODE)
-      003465                        532 ___str_0:
-      003465 77 6F 72 6B 69 6E 67   533 	.ascii "working %d..."
+      003749                        532 ___str_0:
+      003749 77 6F 72 6B 69 6E 67   533 	.ascii "working %d..."
              20 25 64 2E 2E 2E
-      003472 0D                     534 	.db 0x0d
-      003473 0A                     535 	.db 0x0a
-      003474 00                     536 	.db 0x00
+      003756 0D                     534 	.db 0x0d
+      003757 0A                     535 	.db 0x0a
+      003758 00                     536 	.db 0x00
                                     537 	.area CSEG    (CODE)
                                     538 	.area CONST   (CODE)
-      003475                        539 ___str_1:
-      003475 67 6F 74 20 69 6E 74   540 	.ascii "got interrupt %d"
+      003759                        539 ___str_1:
+      003759 67 6F 74 20 69 6E 74   540 	.ascii "got interrupt %d"
              65 72 72 75 70 74 20
              25 64
-      003485 0D                     541 	.db 0x0d
-      003486 0A                     542 	.db 0x0a
-      003487 00                     543 	.db 0x00
+      003769 0D                     541 	.db 0x0d
+      00376A 0A                     542 	.db 0x0a
+      00376B 00                     543 	.db 0x00
                                     544 	.area CSEG    (CODE)
                                     545 	.area XINIT   (CODE)
                                     546 	.area CABS    (ABS,CODE)

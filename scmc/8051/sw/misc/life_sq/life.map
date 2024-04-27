@@ -66,7 +66,7 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000D3B  l_CSEG                          
+C:   00000CB2  l_CSEG                          
 C:   00001800  l_XSEG                          
 C:   00002000  s_HOME                          
 C:   00002019  s_GSINIT0                       
@@ -78,8 +78,8 @@ C:   00002072  s_GSINIT
 C:   00002072  s_GSINIT5                       
 C:   000020C2  s_GSFINAL                       
 C:   000020C5  s_CSEG                          
-C:   00002E00  s_CONST                         
-C:   00002E5B  s_XINIT                         
+C:   00002D77  s_CONST                         
+C:   00002DD2  s_XINIT                         
 C:   00004000  s_PSEG                          
 C:   00004000  s_XSEG                          
 C:   00005800  s_XISEG                         
@@ -384,31 +384,39 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                000020C5    00000D3B =        3387. bytes (REL,CON,CODE)
+CSEG                                000020C5    00000CB2 =        3250. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   000020C5  _int0                              life
 C:   000020D1  _int1                              life
 C:   000020DD  _show                              life
-C:   0000232E  _main                              life
-C:   00002B83  _putchar                           sio
-C:   00002B8D  _getchar                           sio
-C:   00002B9A  _getchar_poll                      sio
-C:   00002BB4  ___memcpy                          __memcpy
-C:   00002C47  _memset                            _memset
-C:   00002CB1  _toupper                           toupper
-C:   00002CD8  __gptrget                          _gptrget
-C:   00002CF4  __modsint                          _modsint
-C:   00002D62  __moduint                          _moduint
-C:   00002DE1  __sdcc_external_startup            _startup
-C:   00002DE5  __gptrput                          _gptrput
+C:   000021C6  _main                              life
+C:   00002856  _putchar                           sio
+C:   00002860  _getchar                           sio
+C:   0000286D  _getchar_poll                      sio
+C:   00002887  _printstr                          sio
+C:   000028AA  _print8bin                         sio
+C:   000028CA  _print16bin                        sio
+C:   000028F6  _print32bin                        sio
+C:   00002974  _print8x                           sio
+C:   0000299F  _print16x                          sio
+C:   00002A01  _print32x                          sio
+C:   00002B2B  ___memcpy                          __memcpy
+C:   00002BBE  _memset                            _memset
+C:   00002C28  _toupper                           toupper
+C:   00002C4F  __gptrget                          _gptrget
+C:   00002C6B  __modsint                          _modsint
+C:   00002CD9  __moduint                          _moduint
+C:   00002D58  __sdcc_external_startup            _startup
+C:   00002D5C  __gptrput                          _gptrput
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00002E00    0000005B =          91. bytes (REL,CON,CODE)
+CONST                               00002D77    0000005B =          91. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

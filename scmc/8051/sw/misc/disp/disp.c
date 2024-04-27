@@ -8,12 +8,6 @@
 #include "font6x8.h"
 #include "initial.h"
 
-inline void printstr(const char *s) {
-	for (; *s; s++) putchar((int)*s);
-	
-	return;
-}
-
 /* -------- GPO -------- */
 #define GPO_BASE_H	0xf0u
 #define GPO_BASE_L	0x00u
@@ -99,9 +93,8 @@ __idata uint8_t inv;
 const static uint8_t *initial = INITIAL_MSG;
 static uint8_t buf[257];
 
-inline void pinv(void) {
-	putchar((int)'I');
-	putchar(inv ? (int)'1' : (int)'0');
+inline void pnl(void) {
+	printstr("\r\n");
 	
 	return;
 }
@@ -114,8 +107,18 @@ inline void pmsg(void) {
 	return;
 }
 
-inline void pnl(void) {
-	printstr("\r\n");
+inline void pinv(void) {
+	putchar((int)'I');
+	putchar(inv ? (int)'1' : (int)'0');
+	
+	return;
+}
+
+inline void pinfo(void) {
+	printstr("? P SP ");
+	pinv();
+	printstr(" L S R T");
+	pnl();
 	
 	return;
 }
@@ -231,6 +234,8 @@ skip_shift:
 				printstr("PAUSE\r\n");
 				(void)getchar();
 				printstr("RESUME\r\n");
+			} else if (c == (int)'?') {
+				pinfo();
 			} else if (c == (int)'P') {
 				pmsg();
 				pnl();
@@ -268,17 +273,16 @@ reset:
 	while (1) {
 		pmsg();
 		pnl();
-		printstr("P SP ");
-		pinv();
-		printstr(" L S R T");
-		pnl();
+		pinfo();
 		
 		c = scroll(buf);
 		
 		while (1) {
 			if (c == (int)'T') goto term;
 			else if (c == (int)'R') goto reset;
-			else if (c == (int)'P') {
+			else if (c == (int)'?') {
+				pinfo();
+			} else if (c == (int)'P') {
 				pmsg();
 				pnl();
 			} else if (c == (int)'I') {
