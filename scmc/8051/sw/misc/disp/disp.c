@@ -9,7 +9,7 @@
 #include "initial.h"
 
 inline void printstr(const char *s) {
-	for (; *s; s++) putchar(*s);
+	for (; *s; s++) putchar((int)*s);
 	
 	return;
 }
@@ -96,6 +96,29 @@ __idata volatile uint8_t ddata[8];
 __idata volatile uint8_t column;
 __idata uint8_t OE;
 __idata uint8_t inv;
+const static uint8_t *initial = INITIAL_MSG;
+static uint8_t buf[257];
+
+inline void pinv(void) {
+	putchar((int)'I');
+	putchar(inv ? (int)'1' : (int)'0');
+	
+	return;
+}
+
+inline void pmsg(void) {
+	printstr("MSG \"");
+	printstr((char *)buf);
+	putchar((int)'"');
+	
+	return;
+}
+
+inline void pnl(void) {
+	printstr("\r\n");
+	
+	return;
+}
 
 void init_intr(void) {
 	TR0 = 0;
@@ -177,14 +200,11 @@ inline void delay(void) {
 	return;
 }
 
-const static uint8_t *initial = INITIAL_MSG;
-static uint8_t buf[257];
-
 int scroll(uint8_t *msg) {
 	register uint8_t symbol, bit;
 	register uint16_t i;
 	register uint8_t j;
-	int r;
+	int c;
 	
 	for (bit = 0u, i = 0u; ; bit = (bit + 1u) & 0x07u) {
 		if (!bit) {
@@ -205,17 +225,24 @@ int scroll(uint8_t *msg) {
 			ddata[j] = (((FONT_TABLE[symbol][j] ^ inv) << (7u - bit)) & 0x80u) | (ddata[j] >> 1u);
 		
 skip_shift:
-		if ((r = getchar_poll()) >= 0) {
-			r = toupper(r);
-			if ((r == (int)'P') || (r == (int)' ')) {
+		if ((c = getchar_poll()) >= 0) {
+			c = toupper(c);
+			if (c == (int)' ') {
 				printstr("PAUSE\r\n");
 				(void)getchar();
-			} else if (r == (int)'I') inv = ~inv;
-			else if ((r == (int)'T') || (r == (int)'R') || (r == (int)'L')) break;
+				printstr("RESUME\r\n");
+			} else if (c == (int)'P') {
+				pmsg();
+				pnl();
+			} else if (c == (int)'I') {
+				inv = ~inv;
+				pinv();
+				pnl();
+			} else if ((c == (int)'T') || (c == (int)'R') || (c == (int)'L')) break;
 		}
 	}
 	
-	return r;
+	return c;
 }
 
 void main(void) {
@@ -236,19 +263,29 @@ reset:
 	(void)strncpy(buf, initial, sizeof (buf) - 1u);
 	buf[sizeof (buf) - 1u] = 0u;
 	inv = 0u;
+	printstr("INITIAL ");
 	
 	while (1) {
-		printstr("P SP I L ENT S R T START MSG \"");
-		printstr((char *)buf);
-		printstr("\"\r\n");
+		pmsg();
+		pnl();
+		printstr("P SP ");
+		pinv();
+		printstr(" L S R T");
+		pnl();
 		
 		c = scroll(buf);
 		
 		while (1) {
 			if (c == (int)'T') goto term;
 			else if (c == (int)'R') goto reset;
-			else if (c == (int)'I') inv = ~inv;
-			else if (c == (int)'L') {
+			else if (c == (int)'P') {
+				pmsg();
+				pnl();
+			} else if (c == (int)'I') {
+				inv = ~inv;
+				pinv();
+				pnl();
+			} else if (c == (int)'L') {
 				init_disp();
 				printstr("LOAD ");
 				for (j = 0u; j < (sizeof (buf) - 1u); j++) {
@@ -260,10 +297,9 @@ reset:
 					} else buf[j] = c & 0xffu;
 				}
 				buf[j] = 0u;
-				printstr("\r\n");
-				printstr("MSG \"");
-				printstr((char *)buf);
-				printstr("\"\r\n");
+				pnl();
+				pmsg();
+				pnl();
 			} else if (c == (int)'S') break;
 			
 			c = toupper(getchar());
