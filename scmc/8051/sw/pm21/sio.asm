@@ -290,8 +290,6 @@ _CY	=	0x00d7
 ; indirectly addressable internal ram data
 ;--------------------------------------------------------
 	.area ISEG    (DATA)
-_digits:
-	.ds 16
 ;--------------------------------------------------------
 ; absolute internal ram data
 ;--------------------------------------------------------
@@ -334,39 +332,6 @@ _digits:
 	.area GSINIT  (CODE)
 	.area GSFINAL (CODE)
 	.area GSINIT  (CODE)
-;	sio.c:5: __idata static const char digits[16] = {
-	mov	r0,#_digits
-	mov	@r0,#0x30
-	mov	r0,#(_digits + 0x0001)
-	mov	@r0,#0x31
-	mov	r0,#(_digits + 0x0002)
-	mov	@r0,#0x32
-	mov	r0,#(_digits + 0x0003)
-	mov	@r0,#0x33
-	mov	r0,#(_digits + 0x0004)
-	mov	@r0,#0x34
-	mov	r0,#(_digits + 0x0005)
-	mov	@r0,#0x35
-	mov	r0,#(_digits + 0x0006)
-	mov	@r0,#0x36
-	mov	r0,#(_digits + 0x0007)
-	mov	@r0,#0x37
-	mov	r0,#(_digits + 0x0008)
-	mov	@r0,#0x38
-	mov	r0,#(_digits + 0x0009)
-	mov	@r0,#0x39
-	mov	r0,#(_digits + 0x000a)
-	mov	@r0,#0x41
-	mov	r0,#(_digits + 0x000b)
-	mov	@r0,#0x42
-	mov	r0,#(_digits + 0x000c)
-	mov	@r0,#0x43
-	mov	r0,#(_digits + 0x000d)
-	mov	@r0,#0x44
-	mov	r0,#(_digits + 0x000e)
-	mov	@r0,#0x45
-	mov	r0,#(_digits + 0x000f)
-	mov	@r0,#0x46
 ;--------------------------------------------------------
 ; Home
 ;--------------------------------------------------------
@@ -694,20 +659,32 @@ _print8x:
 	anl	a,#0x0f
 	mov	r6,a
 	anl	ar6,#0x0f
+	mov	r5,#0x00
 	mov	a,r6
 	add	a,#_digits
-	mov	r1,a
-	mov	ar6,@r1
+	mov	dpl,a
+	mov	a,r5
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r6,a
 	mov	r5,#0x00
 	mov	dpl,r6
 	mov	dph,r5
 	lcall	_putchar
 ;	sio.c:85: putchar(digits[d & 0xf]);
 	anl	ar7,#0x0f
+	mov	r6,#0x00
 	mov	a,r7
 	add	a,#_digits
-	mov	r1,a
-	mov	ar7,@r1
+	mov	dpl,a
+	mov	a,r6
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r7,a
 	mov	r6,#0x00
 	mov	dpl,r7
 	mov	dph,r6
@@ -732,10 +709,16 @@ _print16x:
 	anl	a,#0x0f
 	mov	r4,a
 	anl	ar4,#0x0f
+	mov	r5,#0x00
 	mov	a,r4
 	add	a,#_digits
-	mov	r1,a
-	mov	ar5,@r1
+	mov	dpl,a
+	mov	a,r5
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r5,a
 	mov	r4,#0x00
 	mov	dpl,r5
 	mov	dph,r4
@@ -743,10 +726,16 @@ _print16x:
 ;	sio.c:92: putchar(digits[(d >> 8) & 0xf]);
 	mov	ar5,r7
 	anl	ar5,#0x0f
+	mov	r4,#0x00
 	mov	a,r5
 	add	a,#_digits
-	mov	r1,a
-	mov	ar5,@r1
+	mov	dpl,a
+	mov	a,r4
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r5,a
 	mov	r4,#0x00
 	mov	dpl,r5
 	mov	dph,r4
@@ -765,20 +754,32 @@ _print16x:
 	xrl	a,r4
 	xch	a,r4
 	anl	ar4,#0x0f
+	mov	r5,#0x00
 	mov	a,r4
 	add	a,#_digits
-	mov	r1,a
-	mov	ar5,@r1
+	mov	dpl,a
+	mov	a,r5
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r5,a
 	mov	r4,#0x00
 	mov	dpl,r5
 	mov	dph,r4
 	lcall	_putchar
 ;	sio.c:94: putchar(digits[d & 0xf]);
 	anl	ar6,#0x0f
+	mov	r7,#0x00
 	mov	a,r6
 	add	a,#_digits
-	mov	r1,a
-	mov	ar7,@r1
+	mov	dpl,a
+	mov	a,r7
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r7,a
 	mov	r6,#0x00
 	mov	dpl,r7
 	mov	dph,r6
@@ -788,214 +789,237 @@ _print16x:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'print32x'
 ;------------------------------------------------------------
-;d                         Allocated to stack - _bp +1
+;d                         Allocated to registers r4 r5 r6 r7 
 ;------------------------------------------------------------
 ;	sio.c:99: void print32x(unsigned long d) {
 ;	-----------------------------------------
 ;	 function print32x
 ;	-----------------------------------------
 _print32x:
-	push	_bp
-	mov	_bp,sp
-	push	dpl
-	push	dph
-	push	b
-	push	acc
+	mov	r4,dpl
+	mov	r5,dph
+	mov	r6,b
 ;	sio.c:100: putchar(digits[(d >> 28) & 0xf]);
-	mov	r0,_bp
-	inc	r0
-	inc	r0
-	inc	r0
-	inc	r0
-	mov	a,@r0
+	mov	r7,a
 	swap	a
 	anl	a,#0x0f
-	mov	r2,a
-	anl	ar2,#0x0f
+	mov	r0,a
+	anl	ar0,#0x0f
 	clr	a
-	mov	a,r2
-	add	a,#_digits
 	mov	r1,a
-	mov	ar7,@r1
-	mov	r6,#0x00
-	mov	dpl,r7
-	mov	dph,r6
+	mov	a,r0
+	add	a,#_digits
+	mov	dpl,a
+	mov	a,r1
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r3,a
+	mov	r2,#0x00
+	mov	dpl,r3
+	mov	dph,r2
 	lcall	_putchar
 ;	sio.c:101: putchar(digits[(d >> 24) & 0xf]);
-	mov	r0,_bp
-	inc	r0
-	inc	r0
-	inc	r0
-	inc	r0
-	mov	ar7,@r0
-	anl	ar7,#0x0f
-	mov	a,r7
+	mov	ar3,r7
+	anl	ar3,#0x0f
+	mov	r2,#0x00
+	mov	a,r3
 	add	a,#_digits
-	mov	r1,a
-	mov	ar7,@r1
-	mov	r6,#0x00
-	mov	dpl,r7
-	mov	dph,r6
+	mov	dpl,a
+	mov	a,r2
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r3,a
+	mov	r2,#0x00
+	mov	dpl,r3
+	mov	dph,r2
 	lcall	_putchar
 ;	sio.c:102: putchar(digits[(d >> 20) & 0xf]);
-	mov	r0,_bp
-	inc	r0
-	inc	r0
-	inc	r0
-	mov	ar4,@r0
-	inc	r0
-	mov	a,@r0
+	mov	ar0,r6
+	mov	a,r7
 	swap	a
-	xch	a,r4
+	xch	a,r0
 	swap	a
 	anl	a,#0x0f
-	xrl	a,r4
-	xch	a,r4
+	xrl	a,r0
+	xch	a,r0
 	anl	a,#0x0f
-	xch	a,r4
-	xrl	a,r4
-	xch	a,r4
-	anl	ar4,#0x0f
+	xch	a,r0
+	xrl	a,r0
+	xch	a,r0
+	anl	ar0,#0x0f
 	clr	a
-	mov	a,r4
-	add	a,#_digits
 	mov	r1,a
-	mov	ar7,@r1
-	mov	r6,#0x00
-	mov	dpl,r7
-	mov	dph,r6
+	mov	a,r0
+	add	a,#_digits
+	mov	dpl,a
+	mov	a,r1
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r3,a
+	mov	r2,#0x00
+	mov	dpl,r3
+	mov	dph,r2
 	lcall	_putchar
 ;	sio.c:103: putchar(digits[(d >> 16) & 0xf]);
-	mov	r0,_bp
-	inc	r0
-	inc	r0
-	inc	r0
-	mov	ar7,@r0
-	anl	ar7,#0x0f
-	mov	a,r7
+	mov	ar3,r6
+	anl	ar3,#0x0f
+	mov	r2,#0x00
+	mov	a,r3
 	add	a,#_digits
-	mov	r1,a
-	mov	ar7,@r1
-	mov	r6,#0x00
-	mov	dpl,r7
-	mov	dph,r6
+	mov	dpl,a
+	mov	a,r2
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r3,a
+	mov	r2,#0x00
+	mov	dpl,r3
+	mov	dph,r2
 	lcall	_putchar
 ;	sio.c:104: putchar(digits[(d >> 12) & 0xf]);
-	mov	r0,_bp
-	inc	r0
-	inc	r0
-	mov	ar4,@r0
-	inc	r0
-	mov	a,@r0
+	mov	ar0,r5
+	mov	a,r6
 	swap	a
-	xch	a,r4
+	xch	a,r0
 	swap	a
 	anl	a,#0x0f
-	xrl	a,r4
-	xch	a,r4
+	xrl	a,r0
+	xch	a,r0
 	anl	a,#0x0f
-	xch	a,r4
-	xrl	a,r4
-	xch	a,r4
-	mov	r5,a
-	inc	r0
-	mov	a,@r0
+	xch	a,r0
+	xrl	a,r0
+	xch	a,r0
+	mov	r1,a
+	mov	a,r7
 	swap	a
 	anl	a,#0xf0
-	orl	a,r5
-	mov	a,@r0
+	orl	a,r1
+	mov	a,r7
 	swap	a
 	anl	a,#0x0f
-	anl	ar4,#0x0f
+	anl	ar0,#0x0f
 	clr	a
-	mov	a,r4
-	add	a,#_digits
 	mov	r1,a
-	mov	ar7,@r1
-	mov	r6,#0x00
-	mov	dpl,r7
-	mov	dph,r6
+	mov	a,r0
+	add	a,#_digits
+	mov	dpl,a
+	mov	a,r1
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r3,a
+	mov	r2,#0x00
+	mov	dpl,r3
+	mov	dph,r2
 	lcall	_putchar
 ;	sio.c:105: putchar(digits[(d >> 8) & 0xf]);
-	mov	r0,_bp
-	inc	r0
-	inc	r0
-	mov	ar7,@r0
-	anl	ar7,#0x0f
-	mov	a,r7
+	mov	ar3,r5
+	anl	ar3,#0x0f
+	mov	r2,#0x00
+	mov	a,r3
 	add	a,#_digits
-	mov	r1,a
-	mov	ar7,@r1
-	mov	r6,#0x00
-	mov	dpl,r7
-	mov	dph,r6
+	mov	dpl,a
+	mov	a,r2
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r3,a
+	mov	r2,#0x00
+	mov	dpl,r3
+	mov	dph,r2
 	lcall	_putchar
 ;	sio.c:106: putchar(digits[(d >> 4) & 0xf]);
-	mov	r0,_bp
-	inc	r0
-	mov	ar4,@r0
-	inc	r0
-	mov	a,@r0
+	mov	ar0,r4
+	mov	a,r5
 	swap	a
-	xch	a,r4
+	xch	a,r0
 	swap	a
 	anl	a,#0x0f
-	xrl	a,r4
-	xch	a,r4
+	xrl	a,r0
+	xch	a,r0
 	anl	a,#0x0f
-	xch	a,r4
-	xrl	a,r4
-	xch	a,r4
-	mov	r5,a
-	inc	r0
-	mov	a,@r0
+	xch	a,r0
+	xrl	a,r0
+	xch	a,r0
+	mov	r1,a
+	mov	a,r6
 	swap	a
 	anl	a,#0xf0
-	orl	a,r5
-	mov	ar6,@r0
-	inc	r0
-	mov	a,@r0
+	orl	a,r1
+	mov	ar2,r6
+	mov	a,r7
 	swap	a
-	xch	a,r6
+	xch	a,r2
 	swap	a
 	anl	a,#0x0f
-	xrl	a,r6
-	xch	a,r6
+	xrl	a,r2
+	xch	a,r2
 	anl	a,#0x0f
-	xch	a,r6
-	xrl	a,r6
-	xch	a,r6
-	anl	ar4,#0x0f
+	xch	a,r2
+	xrl	a,r2
+	xch	a,r2
+	anl	ar0,#0x0f
 	clr	a
-	mov	a,r4
-	add	a,#_digits
 	mov	r1,a
-	mov	ar7,@r1
-	mov	r6,#0x00
-	mov	dpl,r7
-	mov	dph,r6
+	mov	a,r0
+	add	a,#_digits
+	mov	dpl,a
+	mov	a,r1
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r3,a
+	mov	r2,#0x00
+	mov	dpl,r3
+	mov	dph,r2
 	lcall	_putchar
 ;	sio.c:107: putchar(digits[d & 0xf]);
-	mov	r0,_bp
-	inc	r0
-	mov	a,#0x0f
-	anl	a,@r0
-	mov	r4,a
+	anl	ar4,#0x0f
 	clr	a
+	mov	r5,a
 	mov	a,r4
 	add	a,#_digits
-	mov	r1,a
-	mov	ar7,@r1
+	mov	dpl,a
+	mov	a,r5
+	addc	a,#(_digits >> 8)
+	mov	dph,a
+	clr	a
+	movc	a,@a+dptr
+	mov	r7,a
 	mov	r6,#0x00
 	mov	dpl,r7
 	mov	dph,r6
-	lcall	_putchar
 ;	sio.c:109: return;
 ;	sio.c:110: }
-	mov	sp,_bp
-	pop	_bp
-	ret
+	ljmp	_putchar
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
+_digits:
+	.db #0x30	; 48	'0'
+	.db #0x31	; 49	'1'
+	.db #0x32	; 50	'2'
+	.db #0x33	; 51	'3'
+	.db #0x34	; 52	'4'
+	.db #0x35	; 53	'5'
+	.db #0x36	; 54	'6'
+	.db #0x37	; 55	'7'
+	.db #0x38	; 56	'8'
+	.db #0x39	; 57	'9'
+	.db #0x41	; 65	'A'
+	.db #0x42	; 66	'B'
+	.db #0x43	; 67	'C'
+	.db #0x44	; 68	'D'
+	.db #0x45	; 69	'E'
+	.db #0x46	; 70	'F'
 	.area XINIT   (CODE)
 	.area CABS    (ABS,CODE)
