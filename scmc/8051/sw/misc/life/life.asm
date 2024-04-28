@@ -9,7 +9,7 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _main
-	.globl _show
+	.globl _showu
 	.globl _int1
 	.globl _int0
 	.globl _print32x
@@ -338,7 +338,11 @@ _gen:
 	.ds 4
 _genc2:
 	.ds 4
+_genfx:
+	.ds 4
 _c2set:
+	.ds 1
+_fxset:
 	.ds 1
 _pruni:
 	.ds 1
@@ -498,19 +502,19 @@ _flashOE:
 ;	life.c:33: }
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'show'
+;Allocation info for local variables in function 'showu'
 ;------------------------------------------------------------
 ;universe                  Allocated to stack - _bp -5
 ;prflags                   Allocated to registers r7 
 ;------------------------------------------------------------
-;	life.c:67: void show(char prflags, char *universe) {
+;	life.c:93: void showu(char prflags, char *universe) {
 ;	-----------------------------------------
-;	 function show
+;	 function showu
 ;	-----------------------------------------
-_show:
+_showu:
 	push	_bp
 	mov	_bp,sp
-;	life.c:68: if (prflags & PRCLR) printstr("\033[2J");
+;	life.c:94: if (prflags & PRCLR) printstr("\033[2J");
 	mov	a,dpl
 	mov	r7,a
 	jnb	acc.0,00102$
@@ -520,15 +524,15 @@ _show:
 	lcall	_printstr
 	pop	ar7
 00102$:
-;	life.c:69: if (prflags & PRHDR) {
+;	life.c:95: if (prflags & PRHDR) {
 	mov	a,r7
-	jnb	acc.1,00106$
-;	life.c:70: printstr("GEN ");
+	jnb	acc.1,00108$
+;	life.c:96: printstr("GEN ");
 	mov	dptr,#___str_1
 	mov	b,#0x80
 	push	ar7
 	lcall	_printstr
-;	life.c:71: print32x(gen);
+;	life.c:97: print32x(gen);
 	mov	r0,#_gen
 	mov	dpl,@r0
 	inc	r0
@@ -539,16 +543,16 @@ _show:
 	mov	a,@r0
 	lcall	_print32x
 	pop	ar7
-;	life.c:72: if (c2set) {
+;	life.c:98: if (c2set) {
 	mov	r0,#_c2set
 	mov	a,@r0
 	jz	00104$
-;	life.c:73: printstr(" CYCLE2 ");
+;	life.c:99: printstr(" CYCLE2 ");
 	mov	dptr,#___str_2
 	mov	b,#0x80
 	push	ar7
 	lcall	_printstr
-;	life.c:74: print32x(genc2);
+;	life.c:100: print32x(genc2);
 	mov	r0,#_genc2
 	mov	dpl,@r0
 	inc	r0
@@ -560,37 +564,58 @@ _show:
 	lcall	_print32x
 	pop	ar7
 00104$:
-;	life.c:76: printstr("\r\n");
+;	life.c:102: if (fxset) {
+	mov	r0,#_fxset
+	mov	a,@r0
+	jz	00106$
+;	life.c:103: printstr(" FIXED ");
 	mov	dptr,#___str_3
 	mov	b,#0x80
 	push	ar7
 	lcall	_printstr
+;	life.c:104: print32x(genfx);
+	mov	r0,#_genfx
+	mov	dpl,@r0
+	inc	r0
+	mov	dph,@r0
+	inc	r0
+	mov	b,@r0
+	inc	r0
+	mov	a,@r0
+	lcall	_print32x
 	pop	ar7
 00106$:
-;	life.c:78: if (prflags & PRUNI) {
-	mov	a,r7
-	jb	acc.2,00159$
-	ljmp	00113$
-00159$:
-;	life.c:79: printstr("\033[?25l");
+;	life.c:106: printstr("\r\n");
 	mov	dptr,#___str_4
 	mov	b,#0x80
+	push	ar7
 	lcall	_printstr
-;	life.c:80: for (x = 0; x < W; x++) {
+	pop	ar7
+00108$:
+;	life.c:108: if (prflags & PRUNI) {
+	mov	a,r7
+	jb	acc.2,00166$
+	ljmp	00115$
+00166$:
+;	life.c:109: printstr("\033[?25l");
+	mov	dptr,#___str_5
+	mov	b,#0x80
+	lcall	_printstr
+;	life.c:110: for (x = 0; x < W; x++) {
 	mov	r0,#_x
 	clr	a
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-00116$:
-;	life.c:81: for (y = 0; y < H; y++)
+00118$:
+;	life.c:111: for (y = 0; y < H; y++)
 	mov	r0,#_y
 	clr	a
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-00114$:
-;	life.c:82: if (universe[A2D(W, y, x)]) putchar((int)'1');
+00116$:
+;	life.c:112: if (universe[A2D(W, y, x)]) putchar((int)'1');
 	mov	r0,#_y
 	mov	a,@r0
 	push	acc
@@ -627,22 +652,22 @@ _show:
 	mov	dph,r7
 	mov	b,r5
 	lcall	__gptrget
-	jz	00108$
+	jz	00110$
 	mov	dptr,#0x0031
 	lcall	_putchar
-	sjmp	00115$
-00108$:
-;	life.c:83: else putchar((int)'0');
+	sjmp	00117$
+00110$:
+;	life.c:113: else putchar((int)'0');
 	mov	dptr,#0x0030
 	lcall	_putchar
-00115$:
-;	life.c:81: for (y = 0; y < H; y++)
+00117$:
+;	life.c:111: for (y = 0; y < H; y++)
 	mov	r0,#_y
 	inc	@r0
-	cjne	@r0,#0x00,00161$
+	cjne	@r0,#0x00,00168$
 	inc	r0
 	inc	@r0
-00161$:
+00168$:
 	mov	r0,#_y
 	clr	c
 	mov	a,@r0
@@ -651,18 +676,18 @@ _show:
 	mov	a,@r0
 	xrl	a,#0x80
 	subb	a,#0x80
-	jc	00114$
-;	life.c:84: printstr("\r\n");
-	mov	dptr,#___str_3
+	jc	00116$
+;	life.c:114: printstr("\r\n");
+	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:80: for (x = 0; x < W; x++) {
+;	life.c:110: for (x = 0; x < W; x++) {
 	mov	r0,#_x
 	inc	@r0
-	cjne	@r0,#0x00,00163$
+	cjne	@r0,#0x00,00170$
 	inc	r0
 	inc	@r0
-00163$:
+00170$:
 	mov	r0,#_x
 	clr	c
 	mov	a,@r0
@@ -671,16 +696,16 @@ _show:
 	mov	a,@r0
 	xrl	a,#0x80
 	subb	a,#0x80
-	jnc	00164$
-	ljmp	00116$
-00164$:
-;	life.c:86: printstr("\033[?25h");
-	mov	dptr,#___str_5
+	jnc	00171$
+	ljmp	00118$
+00171$:
+;	life.c:116: printstr("\033[?25h");
+	mov	dptr,#___str_6
 	mov	b,#0x80
 	lcall	_printstr
-00113$:
-;	life.c:89: return;
-;	life.c:90: }
+00115$:
+;	life.c:119: return;
+;	life.c:120: }
 	pop	_bp
 	ret
 ;------------------------------------------------------------
@@ -689,13 +714,15 @@ _show:
 ;c                         Allocated to registers r6 r7 
 ;nbits                     Allocated to registers r4 r5 
 ;c                         Allocated to stack - _bp +10
+;__3932160006              Allocated to registers 
+;__4587520011              Allocated to registers 
 ;sloc0                     Allocated to stack - _bp +1
 ;sloc1                     Allocated to stack - _bp +2
 ;sloc2                     Allocated to stack - _bp +4
 ;sloc3                     Allocated to stack - _bp +6
 ;sloc4                     Allocated to stack - _bp +8
 ;------------------------------------------------------------
-;	life.c:194: void main(void) {
+;	life.c:225: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -705,29 +732,29 @@ _main:
 	mov	_bp,a
 	add	a,#0x0b
 	mov	sp,a
-;	life.c:197: IT0 = 1;
+;	life.c:228: IT0 = 1;
 ;	assignBit
 	setb	_IT0
-;	life.c:198: IT1 = 1;
+;	life.c:229: IT1 = 1;
 ;	assignBit
 	setb	_IT1
-;	life.c:199: EX0 = 1;
+;	life.c:230: EX0 = 1;
 ;	assignBit
 	setb	_EX0
-;	life.c:200: EX1 = 1;
+;	life.c:231: EX1 = 1;
 ;	assignBit
 	setb	_EX1
-;	life.c:201: EA = 1;	
+;	life.c:232: EA = 1;
 ;	assignBit
 	setb	_EA
-;	life.c:202: P1_7 = 0;
+;	life.c:233: P1_7 = 0;
 ;	assignBit
 	clr	_P1_7
-;	life.c:207: __endasm;
+;	life.c:238: __endasm;
 	nop
 	nop
 	nop
-;	life.c:209: srand(RND);
+;	life.c:240: srand(RND);
 	mov	dptr,#_RND
 	movx	a,@dptr
 	mov	r6,a
@@ -737,12 +764,12 @@ _main:
 	mov	dpl,r6
 	mov	dph,r7
 	lcall	_srand
-;	life.c:211: OE76 = OE76_0;
+;	life.c:242: OE76 = OE76_0;
 	mov	r0,#_OE76
 	mov	@r0,#0x3f
-;	life.c:212: flashOE();
+;	life.c:243: flashOE();
 	lcall	_flashOE
-;	life.c:49: gen = 0ul;
+;	life.c:51: gen = 0ul;
 	mov	r0,#_gen
 	clr	a
 	mov	@r0,a
@@ -752,7 +779,7 @@ _main:
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-;	life.c:50: genc2 = 0ul;
+;	life.c:52: genc2 = 0ul;
 	mov	r0,#_genc2
 	mov	@r0,a
 	inc	r0
@@ -761,86 +788,98 @@ _main:
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-;	life.c:51: c2set = 0;
+;	life.c:53: genfx = 0ul;
+	mov	r0,#_genfx
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+;	life.c:54: c2set = 0;
 	mov	r0,#_c2set
 	mov	@r0,#0x00
-;	life.c:215: pruni = 0;
+;	life.c:55: fxset = 0;
+	mov	r0,#_fxset
+	mov	@r0,#0x00
+;	life.c:246: pruni = 0;
 	mov	r0,#_pruni
 	mov	@r0,#0x00
-;	life.c:217: printstr("\033[?25h\033[m");
-	mov	dptr,#___str_9
-	mov	b,#0x80
-	lcall	_printstr
-;	life.c:219: for (i0 = 0; !i0; ) {
-	mov	r0,#_i0
-	mov	@r0,#0x00
-;	life.c:220: while (1) {
-00127$:
-;	life.c:221: printstr("LIFE I L R O P S U");
+;	life.c:248: printstr("\033[?25h\033[m");
 	mov	dptr,#___str_10
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:222: putchar(pruni ? (int)'1' : (int)'0');
-	mov	r0,#_pruni
-	mov	a,@r0
-	jz	00239$
-	mov	r6,#0x31
-	mov	r7,#0x00
-	sjmp	00240$
-00239$:
-	mov	r6,#0x30
-	mov	r7,#0x00
-00240$:
-	mov	dpl,r6
-	mov	dph,r7
-	lcall	_putchar
-;	life.c:223: printstr(" B T\r\n");
+;	life.c:250: for (i0 = 0; !i0; ) {
+	mov	r0,#_i0
+	mov	@r0,#0x00
+;	life.c:251: while (1) {
+00127$:
+;	life.c:252: printstr("LIFE I L R O P S U");
 	mov	dptr,#___str_11
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:224: c = toupper(getchar());
+;	life.c:253: putchar(pruni ? (int)'1' : (int)'0');
+	mov	r0,#_pruni
+	mov	a,@r0
+	jz	00243$
+	mov	r6,#0x31
+	mov	r7,#0x00
+	sjmp	00244$
+00243$:
+	mov	r6,#0x30
+	mov	r7,#0x00
+00244$:
+	mov	dpl,r6
+	mov	dph,r7
+	lcall	_putchar
+;	life.c:254: printstr(" B T\r\n");
+	mov	dptr,#___str_12
+	mov	b,#0x80
+	lcall	_printstr
+;	life.c:255: c = toupper(getchar());
 	lcall	_getchar
 	lcall	_toupper
 	mov	r6,dpl
 	mov	r7,dph
-;	life.c:225: if (i0 || (c == (int)'T')) goto term;
+;	life.c:256: if (i0 || (c == (int)'T')) goto term;
 	mov	r0,#_i0
 	mov	a,@r0
-	jz	00458$
+	jz	00467$
 	ljmp	00154$
-00458$:
-	cjne	r6,#0x54,00459$
-	cjne	r7,#0x00,00459$
+00467$:
+	cjne	r6,#0x54,00468$
+	cjne	r7,#0x00,00468$
 	ljmp	00154$
-00459$:
-;	life.c:226: else if ((c == (int)'I') || (c == (int)'L') || (c == (int)'R')) {
-	cjne	r6,#0x49,00460$
-	cjne	r7,#0x00,00460$
+00468$:
+;	life.c:257: else if ((c == (int)'I') || (c == (int)'L') || (c == (int)'R')) {
+	cjne	r6,#0x49,00469$
+	cjne	r7,#0x00,00469$
 	sjmp	00117$
-00460$:
-	cjne	r6,#0x4c,00461$
-	cjne	r7,#0x00,00461$
+00469$:
+	cjne	r6,#0x4c,00470$
+	cjne	r7,#0x00,00470$
 	sjmp	00117$
-00461$:
-	cjne	r6,#0x52,00462$
-	cjne	r7,#0x00,00462$
-	sjmp	00463$
-00462$:
+00470$:
+	cjne	r6,#0x52,00471$
+	cjne	r7,#0x00,00471$
+	sjmp	00472$
+00471$:
 	ljmp	00118$
-00463$:
+00472$:
 00117$:
-;	life.c:227: if (c == (int)'L') loadiu();
-	cjne	r6,#0x4c,00464$
-	cjne	r7,#0x00,00464$
-	sjmp	00465$
-00464$:
+;	life.c:258: if (c == (int)'L') loadiu();
+	cjne	r6,#0x4c,00473$
+	cjne	r7,#0x00,00473$
+	sjmp	00474$
+00473$:
 	ljmp	00104$
-00465$:
-;	life.c:102: printstr("LOAD 0 1 ~ # <");
-	mov	dptr,#___str_6
+00474$:
+;	life.c:133: printstr("LOAD 0 1 ~ # <");
+	mov	dptr,#___str_7
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:104: for (nbits = 0, y = 0; y < (H * W); y += W) {
+;	life.c:135: for (nbits = 0, y = 0; y < (H * W); y += W) {
 	mov	r4,#0x00
 	mov	r5,#0x00
 	mov	r0,#_y
@@ -848,25 +887,25 @@ _main:
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-00221$:
+00225$:
 	mov	r0,#_y
 	clr	c
 	inc	r0
 	mov	a,@r0
 	xrl	a,#0x80
 	subb	a,#0xa4
-	jc	00466$
+	jc	00475$
 	ljmp	00181$
-00466$:
-;	life.c:105: for (x = 0; x < W; x++) {
+00475$:
+;	life.c:136: for (x = 0; x < W; x++) {
 	mov	r0,#_x
 	clr	a
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-;	life.c:106: while (1) {
+;	life.c:137: while (1) {
 00168$:
-;	life.c:107: c = getchar();
+;	life.c:138: c = getchar();
 	push	ar5
 	push	ar4
 	lcall	_getchar
@@ -880,14 +919,14 @@ _main:
 	mov	@r0,ar2
 	inc	r0
 	mov	@r0,ar3
-;	life.c:108: if (c == (int)'0') {
+;	life.c:139: if (c == (int)'0') {
 	mov	a,_bp
 	add	a,#0x0a
 	mov	r0,a
 	cjne	@r0,#0x30,00166$
 	inc	r0
 	cjne	@r0,#0x00,00166$
-;	life.c:109: iu[y + x] = 0;
+;	life.c:140: iu[y + x] = 0;
 	mov	r0,#_y
 	mov	r1,#_x
 	mov	a,@r1
@@ -906,21 +945,21 @@ _main:
 	mov	dph,a
 	clr	a
 	movx	@dptr,a
-;	life.c:110: nbits++;
+;	life.c:141: nbits++;
 	inc	r4
-;	life.c:111: break;
+;	life.c:142: break;
 	cjne	r4,#0x00,00171$
 	inc	r5
 	sjmp	00171$
 00166$:
-;	life.c:112: } else if (c == (int)'1') {
+;	life.c:143: } else if (c == (int)'1') {
 	mov	a,_bp
 	add	a,#0x0a
 	mov	r0,a
 	cjne	@r0,#0x31,00164$
 	inc	r0
 	cjne	@r0,#0x00,00164$
-;	life.c:113: iu[y + x] = 1;
+;	life.c:144: iu[y + x] = 1;
 	mov	r0,#_y
 	mov	r1,#_x
 	mov	a,@r1
@@ -939,41 +978,41 @@ _main:
 	mov	dph,a
 	mov	a,#0x01
 	movx	@dptr,a
-;	life.c:114: nbits++;
+;	life.c:145: nbits++;
 	inc	r4
-;	life.c:115: break;
+;	life.c:146: break;
 	cjne	r4,#0x00,00171$
 	inc	r5
 	sjmp	00171$
 00164$:
-;	life.c:116: } else if (c == (int)'~') goto br_inner;
+;	life.c:147: } else if (c == (int)'~') goto br_inner;
 	mov	a,_bp
 	add	a,#0x0a
 	mov	r0,a
-	cjne	@r0,#0x7e,00473$
+	cjne	@r0,#0x7e,00482$
 	inc	r0
-	cjne	@r0,#0x00,00473$
-	sjmp	00222$
-00473$:
-;	life.c:117: else if (c == (int)'#') goto out;
+	cjne	@r0,#0x00,00482$
+	sjmp	00226$
+00482$:
+;	life.c:148: else if (c == (int)'#') goto out;
 	mov	a,_bp
 	add	a,#0x0a
 	mov	r0,a
-	cjne	@r0,#0x23,00474$
+	cjne	@r0,#0x23,00483$
 	inc	r0
-	cjne	@r0,#0x00,00474$
+	cjne	@r0,#0x00,00483$
 	sjmp	00181$
-00474$:
+00483$:
 	ljmp	00168$
-;	life.c:121: break;
+;	life.c:152: break;
 00171$:
-;	life.c:105: for (x = 0; x < W; x++) {
+;	life.c:136: for (x = 0; x < W; x++) {
 	mov	r0,#_x
 	inc	@r0
-	cjne	@r0,#0x00,00475$
+	cjne	@r0,#0x00,00484$
 	inc	r0
 	inc	@r0
-00475$:
+00484$:
 	mov	r0,#_x
 	clr	c
 	mov	a,@r0
@@ -982,11 +1021,11 @@ _main:
 	mov	a,@r0
 	xrl	a,#0x80
 	subb	a,#0x80
-	jnc	00476$
+	jnc	00485$
 	ljmp	00168$
-00476$:
-00222$:
-;	life.c:104: for (nbits = 0, y = 0; y < (H * W); y += W) {
+00485$:
+00226$:
+;	life.c:135: for (nbits = 0, y = 0; y < (H * W); y += W) {
 	mov	r0,#_y
 	mov	a,#0x30
 	add	a,@r0
@@ -995,21 +1034,21 @@ _main:
 	inc	r0
 	addc	a,@r0
 	mov	@r0,a
-	ljmp	00221$
-;	life.c:125: out:
+	ljmp	00225$
+;	life.c:156: out:
 00181$:
-;	life.c:126: if (c != (int)'#')
+;	life.c:157: if (c != (int)'#')
 	mov	a,_bp
 	add	a,#0x0a
 	mov	r0,a
-	cjne	@r0,#0x23,00477$
+	cjne	@r0,#0x23,00486$
 	inc	r0
-	cjne	@r0,#0x00,00477$
+	cjne	@r0,#0x00,00486$
 	sjmp	00180$
-00477$:
-;	life.c:127: while (1) {
+00486$:
+;	life.c:158: while (1) {
 00177$:
-;	life.c:128: c = getchar();
+;	life.c:159: c = getchar();
 	push	ar5
 	push	ar4
 	lcall	_getchar
@@ -1023,7 +1062,7 @@ _main:
 	mov	@r0,ar2
 	inc	r0
 	mov	@r0,ar3
-;	life.c:129: if (c == (int)'#') break;
+;	life.c:160: if (c == (int)'#') break;
 	mov	a,_bp
 	add	a,#0x0a
 	mov	r0,a
@@ -1031,39 +1070,39 @@ _main:
 	inc	r0
 	cjne	@r0,#0x00,00177$
 00180$:
-;	life.c:131: print16x(nbits);
+;	life.c:162: print16x(nbits);
 	mov	dpl,r4
 	mov	dph,r5
 	lcall	_print16x
-;	life.c:132: printstr(">\r\n");
-	mov	dptr,#___str_7
-	mov	b,#0x80
-	lcall	_printstr
-;	life.c:227: if (c == (int)'L') loadiu();
-	sjmp	00105$
-00104$:
-;	life.c:228: else if (c == (int)'R') loadriu();
-	cjne	r6,#0x52,00105$
-	cjne	r7,#0x00,00105$
-;	life.c:138: printstr("RANDOM");
+;	life.c:163: printstr(">\r\n");
 	mov	dptr,#___str_8
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:140: for (y = 0; y < (H * W); y += W)
+;	life.c:258: if (c == (int)'L') loadiu();
+	sjmp	00105$
+00104$:
+;	life.c:259: else if (c == (int)'R') loadriu();
+	cjne	r6,#0x52,00105$
+	cjne	r7,#0x00,00105$
+;	life.c:169: printstr("RANDOM");
+	mov	dptr,#___str_9
+	mov	b,#0x80
+	lcall	_printstr
+;	life.c:171: for (y = 0; y < (H * W); y += W)
 	mov	r0,#_y
 	clr	a
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-00225$:
-;	life.c:141: for (x = 0; x < W; x++)
+00229$:
+;	life.c:172: for (x = 0; x < W; x++)
 	mov	r0,#_x
 	clr	a
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-00223$:
-;	life.c:142: iu[y + x] = rand() & 1;
+00227$:
+;	life.c:173: iu[y + x] = rand() & 1;
 	mov	r0,#_y
 	mov	r1,#_x
 	mov	a,@r1
@@ -1091,13 +1130,13 @@ _main:
 	mov	dph,r5
 	mov	a,r2
 	movx	@dptr,a
-;	life.c:141: for (x = 0; x < W; x++)
+;	life.c:172: for (x = 0; x < W; x++)
 	mov	r0,#_x
 	inc	@r0
-	cjne	@r0,#0x00,00482$
+	cjne	@r0,#0x00,00491$
 	inc	r0
 	inc	@r0
-00482$:
+00491$:
 	mov	r0,#_x
 	clr	c
 	mov	a,@r0
@@ -1106,8 +1145,8 @@ _main:
 	mov	a,@r0
 	xrl	a,#0x80
 	subb	a,#0x80
-	jc	00223$
-;	life.c:140: for (y = 0; y < (H * W); y += W)
+	jc	00227$
+;	life.c:171: for (y = 0; y < (H * W); y += W)
 	mov	r0,#_y
 	mov	a,#0x30
 	add	a,@r0
@@ -1122,62 +1161,15 @@ _main:
 	mov	a,@r0
 	xrl	a,#0x80
 	subb	a,#0xa4
-	jc	00225$
-;	life.c:144: printstr("\r\n");
-	mov	dptr,#___str_3
+	jc	00229$
+;	life.c:175: printstr("\r\n");
+	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:228: else if (c == (int)'R') loadriu();
+;	life.c:259: else if (c == (int)'R') loadriu();
 00105$:
-;	life.c:93: memset(u, 0, sizeof (u));
+;	life.c:123: memcpy(u, iu, sizeof (iu));
 	clr	a
-	push	acc
-	mov	a,#0x24
-	push	acc
-	clr	a
-	push	acc
-	mov	dptr,#_u
-	mov	b,#0x00
-	lcall	_memset
-	dec	sp
-	dec	sp
-	dec	sp
-;	life.c:94: memset(pu, 0, sizeof (pu));
-	clr	a
-	push	acc
-	mov	a,#0x24
-	push	acc
-	clr	a
-	push	acc
-	mov	dptr,#_pu
-	mov	b,#0x00
-	lcall	_memset
-	dec	sp
-	dec	sp
-	dec	sp
-;	life.c:49: gen = 0ul;
-	mov	r0,#_gen
-	clr	a
-	mov	@r0,a
-	inc	r0
-	mov	@r0,a
-	inc	r0
-	mov	@r0,a
-	inc	r0
-	mov	@r0,a
-;	life.c:50: genc2 = 0ul;
-	mov	r0,#_genc2
-	mov	@r0,a
-	inc	r0
-	mov	@r0,a
-	inc	r0
-	mov	@r0,a
-	inc	r0
-	mov	@r0,a
-;	life.c:51: c2set = 0;
-	mov	r0,#_c2set
-	mov	@r0,#0x00
-;	life.c:231: memcpy(u, iu, sizeof (iu));
 	push	acc
 	mov	a,#0x24
 	push	acc
@@ -1193,7 +1185,54 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	life.c:232: show(PRUNI, u);
+;	life.c:124: memset(pu, 0, sizeof (pu));
+	clr	a
+	push	acc
+	mov	a,#0x24
+	push	acc
+	clr	a
+	push	acc
+	mov	dptr,#_pu
+	mov	b,#0x00
+	lcall	_memset
+	dec	sp
+	dec	sp
+	dec	sp
+;	life.c:51: gen = 0ul;
+	mov	r0,#_gen
+	clr	a
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+;	life.c:52: genc2 = 0ul;
+	mov	r0,#_genc2
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+;	life.c:53: genfx = 0ul;
+	mov	r0,#_genfx
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
+;	life.c:54: c2set = 0;
+	mov	r0,#_c2set
+	mov	@r0,#0x00
+;	life.c:55: fxset = 0;
+	mov	r0,#_fxset
+	mov	@r0,#0x00
+;	life.c:261: showu(PRUNI, u);
 	mov	a,#_u
 	push	acc
 	mov	a,#(_u >> 8)
@@ -1201,13 +1240,13 @@ _main:
 	clr	a
 	push	acc
 	mov	dpl,#0x04
-	lcall	_show
+	lcall	_showu
 	dec	sp
 	dec	sp
 	dec	sp
 	ljmp	00127$
 00118$:
-;	life.c:233: } else if (c == (int)'O') show(PRUNI, iu);
+;	life.c:262: } else if (c == (int)'O') showu(PRUNI, iu);
 	cjne	r6,#0x4f,00115$
 	cjne	r7,#0x00,00115$
 	mov	a,#_iu
@@ -1217,13 +1256,13 @@ _main:
 	clr	a
 	push	acc
 	mov	dpl,#0x04
-	lcall	_show
+	lcall	_showu
 	dec	sp
 	dec	sp
 	dec	sp
 	ljmp	00127$
 00115$:
-;	life.c:234: else if (c == (int)'P') show(PRHDR | PRUNI, u);
+;	life.c:263: else if (c == (int)'P') showu(PRHDR | PRUNI, u);
 	cjne	r6,#0x50,00112$
 	cjne	r7,#0x00,00112$
 	mov	a,#_u
@@ -1233,19 +1272,19 @@ _main:
 	clr	a
 	push	acc
 	mov	dpl,#0x06
-	lcall	_show
+	lcall	_showu
 	dec	sp
 	dec	sp
 	dec	sp
 	ljmp	00127$
 00112$:
-;	life.c:235: else if (c == (int)'U') pruni = !pruni;
+;	life.c:264: else if (c == (int)'U') pruni = !pruni;
 	cjne	r6,#0x55,00109$
 	cjne	r7,#0x00,00109$
 	mov	r0,#_pruni
 	mov	a,@r0
-	cjne	a,#0x01,00491$
-00491$:
+	cjne	a,#0x01,00500$
+00500$:
 	mov	b0,c
 	mov	r0,#_pruni
 	clr	a
@@ -1253,45 +1292,36 @@ _main:
 	mov	@r0,a
 	ljmp	00127$
 00109$:
-;	life.c:236: else if (c == (int)'S') break;
-	cjne	r6,#0x53,00492$
-	cjne	r7,#0x00,00492$
-	sjmp	00493$
-00492$:
+;	life.c:265: else if (c == (int)'S') break;
+	cjne	r6,#0x53,00501$
+	cjne	r7,#0x00,00501$
+	sjmp	00502$
+00501$:
 	ljmp	00127$
-00493$:
-;	life.c:239: for (i1 = 0; !i0 && !i1; ) {
+00502$:
+;	life.c:268: for (i1 = 0; !i0 && !i1; ) {
 	mov	r0,#_i1
 	mov	@r0,#0x00
-00233$:
+00237$:
 	mov	r0,#_i0
 	mov	a,@r0
-	jz	00494$
+	jz	00503$
 	ljmp	00150$
-00494$:
+00503$:
 	mov	r0,#_i1
 	mov	a,@r0
-	jz	00495$
+	jz	00504$
 	ljmp	00150$
-00495$:
-;	life.c:240: if (pruni) show(PRCLR | PRHDR | PRUNI, u);
-	mov	r0,#_pruni
+00504$:
+;	life.c:269: if (fxu()) {
+	mov	r0,#_fxset
 	mov	a,@r0
 	jz	00130$
-	mov	a,#_u
-	push	acc
-	mov	a,#(_u >> 8)
-	push	acc
-	clr	a
-	push	acc
-	mov	dpl,#0x07
-	lcall	_show
-	dec	sp
-	dec	sp
-	dec	sp
-	sjmp	00131$
-00130$:
-;	life.c:241: else show(PRHDR, u);
+;	life.c:270: printstr("FIXED AT ");
+	mov	dptr,#___str_13
+	mov	b,#0x80
+	lcall	_printstr
+;	life.c:271: showu(PRHDR, u);
 	mov	a,#_u
 	push	acc
 	mov	a,#(_u >> 8)
@@ -1299,43 +1329,75 @@ _main:
 	clr	a
 	push	acc
 	mov	dpl,#0x02
-	lcall	_show
+	lcall	_showu
 	dec	sp
 	dec	sp
 	dec	sp
-00131$:
-;	life.c:57: gen++;
+;	life.c:272: break;
+	ljmp	00150$
+00130$:
+;	life.c:274: if (pruni) showu(PRCLR | PRHDR | PRUNI, u);
+	mov	r0,#_pruni
+	mov	a,@r0
+	jz	00132$
+	mov	a,#_u
+	push	acc
+	mov	a,#(_u >> 8)
+	push	acc
+	clr	a
+	push	acc
+	mov	dpl,#0x07
+	lcall	_showu
+	dec	sp
+	dec	sp
+	dec	sp
+	sjmp	00133$
+00132$:
+;	life.c:275: else showu(PRHDR, u);
+	mov	a,#_u
+	push	acc
+	mov	a,#(_u >> 8)
+	push	acc
+	clr	a
+	push	acc
+	mov	dpl,#0x02
+	lcall	_showu
+	dec	sp
+	dec	sp
+	dec	sp
+00133$:
+;	life.c:61: gen++;
 	mov	r0,#_gen
 	inc	@r0
-	cjne	@r0,#0x00,00497$
+	cjne	@r0,#0x00,00507$
 	inc	r0
 	inc	@r0
-	cjne	@r0,#0x00,00497$
+	cjne	@r0,#0x00,00507$
 	inc	r0
 	inc	@r0
-	cjne	@r0,#0x00,00497$
+	cjne	@r0,#0x00,00507$
 	inc	r0
 	inc	@r0
-00497$:
-;	life.c:150: fixed = 0;
+00507$:
+;	life.c:181: fixed = 0;
 	mov	r0,#_fixed
 	mov	@r0,#0x00
-;	life.c:151: cycle2 = 0;
+;	life.c:182: cycle2 = 0;
 	mov	r0,#_cycle2
 	mov	@r0,#0x00
-;	life.c:153: OE76 = OE76_0;
+;	life.c:184: OE76 = OE76_0;
 	mov	r0,#_OE76
 	mov	@r0,#0x3f
-;	life.c:154: flashOE();
+;	life.c:185: flashOE();
 	lcall	_flashOE
-;	life.c:156: for (y = 0; y < H; y++) {
+;	life.c:187: for (y = 0; y < H; y++) {
 	mov	r0,#_y
 	clr	a
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-00229$:
-;	life.c:157: OE76 = OE76_0 | ((y & 0x0003u) << 6);
+00233$:
+;	life.c:188: OE76 = OE76_0 | ((y & 0x0003u) << 6);
 	mov	r0,#_y
 	mov	ar7,@r0
 	anl	ar7,#0x03
@@ -1348,16 +1410,16 @@ _main:
 	mov	a,#0x3f
 	orl	a,r7
 	mov	@r0,a
-;	life.c:158: flashOE();
+;	life.c:189: flashOE();
 	lcall	_flashOE
-;	life.c:159: for (x = 0; x < W; x++) {
+;	life.c:190: for (x = 0; x < W; x++) {
 	mov	r0,#_x
 	clr	a
 	mov	@r0,a
 	inc	r0
 	mov	@r0,a
-00227$:
-;	life.c:160: n = -u[A2D(W, y, x)];
+00231$:
+;	life.c:191: n = -u[A2D(W, y, x)];
 	mov	r0,#_y
 	mov	a,@r0
 	push	acc
@@ -1413,7 +1475,7 @@ _main:
 	clr	a
 	subb	a,r3
 	mov	@r0,a
-;	life.c:165: UPDN(-1, -1);
+;	life.c:196: UPDN(-1, -1);
 	mov	r0,#_y
 	mov	a,#0xbf
 	add	a,@r0
@@ -1483,7 +1545,7 @@ _main:
 	mov	a,r7
 	add	a,@r0
 	mov	@r0,a
-;	life.c:166: UPDN(-1, 0);
+;	life.c:197: UPDN(-1, 0);
 	mov	r0,#_x
 	mov	a,#0x30
 	add	a,@r0
@@ -1537,7 +1599,7 @@ _main:
 	mov	a,r7
 	add	a,@r0
 	mov	@r0,a
-;	life.c:167: UPDN(-1, 1);
+;	life.c:198: UPDN(-1, 1);
 	mov	r0,#_x
 	mov	a,#0x31
 	add	a,@r0
@@ -1582,7 +1644,7 @@ _main:
 	mov	a,r3
 	add	a,@r0
 	mov	@r0,a
-;	life.c:168: UPDN(0, -1);
+;	life.c:199: UPDN(0, -1);
 	mov	r0,#_y
 	mov	a,#0xc0
 	add	a,@r0
@@ -1646,7 +1708,7 @@ _main:
 	mov	a,r3
 	add	a,@r0
 	mov	@r0,a
-;	life.c:169: UPDN(0, 0);
+;	life.c:200: UPDN(0, 0);
 	mov	a,_bp
 	add	a,#0x08
 	mov	r0,a
@@ -1674,7 +1736,7 @@ _main:
 	mov	a,r3
 	add	a,@r0
 	mov	@r0,a
-;	life.c:170: UPDN(0, 1);
+;	life.c:201: UPDN(0, 1);
 	mov	a,_bp
 	add	a,#0x08
 	mov	r0,a
@@ -1701,7 +1763,7 @@ _main:
 	mov	a,r3
 	add	a,@r0
 	mov	@r1,a
-;	life.c:171: UPDN(1, -1);
+;	life.c:202: UPDN(1, -1);
 	mov	r0,#_y
 	mov	a,#0xc1
 	add	a,@r0
@@ -1760,7 +1822,7 @@ _main:
 	mov	a,r5
 	add	a,@r0
 	mov	@r1,a
-;	life.c:172: UPDN(1, 0);
+;	life.c:203: UPDN(1, 0);
 	mov	a,_bp
 	add	a,#0x06
 	mov	r0,a
@@ -1785,7 +1847,7 @@ _main:
 	mov	a,r5
 	add	a,@r0
 	mov	r5,a
-;	life.c:173: UPDN(1, 1);
+;	life.c:204: UPDN(1, 1);
 	mov	a,r6
 	add	a,r2
 	mov	r6,a
@@ -1803,7 +1865,7 @@ _main:
 	mov	r7,a
 	mov	r0,#_n
 	mov	@r0,ar7
-;	life.c:176: nu[A2D(W, y, x)] = (n == 3) || ((n == 2) && u[A2D(W, y, x)]);
+;	life.c:207: nu[A2D(W, y, x)] = (n == 3) || ((n == 2) && u[A2D(W, y, x)]);
 	mov	r0,_bp
 	inc	r0
 	inc	r0
@@ -1814,10 +1876,10 @@ _main:
 	mov	a,@r0
 	addc	a,#(_nu >> 8)
 	mov	r6,a
-	cjne	r7,#0x03,00498$
-	sjmp	00242$
-00498$:
-	cjne	r7,#0x02,00241$
+	cjne	r7,#0x03,00508$
+	sjmp	00246$
+00508$:
+	cjne	r7,#0x02,00245$
 	mov	a,_bp
 	add	a,#0x04
 	mov	r0,a
@@ -1839,22 +1901,22 @@ _main:
 	mov	dpl,r4
 	mov	dph,r7
 	movx	a,@dptr
-	jnz	00242$
-00241$:
+	jnz	00246$
+00245$:
 ;	assignBit
 	clr	b0
-	sjmp	00243$
-00242$:
+	sjmp	00247$
+00246$:
 ;	assignBit
 	setb	b0
-00243$:
+00247$:
 	mov	c,b0
 	clr	a
 	rlc	a
 	mov	dpl,r5
 	mov	dph,r6
 	movx	@dptr,a
-;	life.c:177: cycle2 |= pu[A2D(W, y, x)] ^ nu[A2D(W, y, x)];
+;	life.c:208: cycle2 |= pu[A2D(W, y, x)] ^ nu[A2D(W, y, x)];
 	mov	r0,#_y
 	mov	a,@r0
 	push	acc
@@ -1895,7 +1957,7 @@ _main:
 	mov	r0,#_cycle2
 	orl	a,@r0
 	mov	@r0,a
-;	life.c:178: fixed |= u[A2D(W, y, x)] ^ nu[A2D(W, y, x)];
+;	life.c:209: fixed |= u[A2D(W, y, x)] ^ nu[A2D(W, y, x)];
 	mov	a,r6
 	add	a,#_u
 	mov	dpl,a
@@ -1909,13 +1971,13 @@ _main:
 	mov	r0,#_fixed
 	orl	a,@r0
 	mov	@r0,a
-;	life.c:159: for (x = 0; x < W; x++) {
+;	life.c:190: for (x = 0; x < W; x++) {
 	mov	r0,#_x
 	inc	@r0
-	cjne	@r0,#0x00,00502$
+	cjne	@r0,#0x00,00512$
 	inc	r0
 	inc	@r0
-00502$:
+00512$:
 	mov	r0,#_x
 	clr	c
 	mov	a,@r0
@@ -1924,16 +1986,16 @@ _main:
 	mov	a,@r0
 	xrl	a,#0x80
 	subb	a,#0x80
-	jnc	00503$
-	ljmp	00227$
-00503$:
-;	life.c:156: for (y = 0; y < H; y++) {
+	jnc	00513$
+	ljmp	00231$
+00513$:
+;	life.c:187: for (y = 0; y < H; y++) {
 	mov	r0,#_y
 	inc	@r0
-	cjne	@r0,#0x00,00504$
+	cjne	@r0,#0x00,00514$
 	inc	r0
 	inc	@r0
-00504$:
+00514$:
 	mov	r0,#_y
 	clr	c
 	mov	a,@r0
@@ -1942,35 +2004,35 @@ _main:
 	mov	a,@r0
 	xrl	a,#0x80
 	subb	a,#0x80
-	jnc	00505$
-	ljmp	00229$
-00505$:
-;	life.c:182: OE76 = OE76_0;
+	jnc	00515$
+	ljmp	00233$
+00515$:
+;	life.c:213: OE76 = OE76_0;
 	mov	r0,#_OE76
 	mov	@r0,#0x3f
-;	life.c:183: flashOE();
+;	life.c:214: flashOE();
 	lcall	_flashOE
-;	life.c:185: cycle2 = !cycle2;
+;	life.c:216: cycle2 = !cycle2;
 	mov	r0,#_cycle2
 	mov	a,@r0
-	cjne	a,#0x01,00506$
-00506$:
+	cjne	a,#0x01,00516$
+00516$:
 	mov	b0,c
 	mov	r0,#_cycle2
 	clr	a
 	rlc	a
 	mov	@r0,a
-;	life.c:186: fixed = !fixed;
+;	life.c:217: fixed = !fixed;
 	mov	r0,#_fixed
 	mov	a,@r0
-	cjne	a,#0x01,00507$
-00507$:
+	cjne	a,#0x01,00517$
+00517$:
 	mov	b0,c
 	mov	r0,#_fixed
 	clr	a
 	rlc	a
 	mov	@r0,a
-;	life.c:188: memcpy(pu, u, sizeof (u));
+;	life.c:219: memcpy(pu, u, sizeof (u));
 	clr	a
 	push	acc
 	mov	a,#0x24
@@ -1987,7 +2049,7 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	life.c:189: memcpy(u, nu, sizeof (nu));
+;	life.c:220: memcpy(u, nu, sizeof (nu));
 	clr	a
 	push	acc
 	mov	a,#0x24
@@ -2004,23 +2066,35 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	life.c:244: if (fixed || cycle2) {
-	mov	r0,#_fixed
-	mov	a,@r0
-	jnz	00137$
-	mov	r0,#_cycle2
-	mov	a,@r0
-	jz	00138$
-00137$:
-;	life.c:245: if (fixed) {
+;	life.c:278: if (fixed) {
 	mov	r0,#_fixed
 	mov	a,@r0
 	jz	00135$
-;	life.c:246: printstr("FIXED AT ");
-	mov	dptr,#___str_12
+;	life.c:67: genfx = gen;
+	mov	r0,#_gen
+	mov	ar4,@r0
+	inc	r0
+	mov	ar5,@r0
+	inc	r0
+	mov	ar6,@r0
+	inc	r0
+	mov	ar7,@r0
+	mov	r0,#_genfx
+	mov	@r0,ar4
+	inc	r0
+	mov	@r0,ar5
+	inc	r0
+	mov	@r0,ar6
+	inc	r0
+	mov	@r0,ar7
+;	life.c:68: fxset = 1;
+	mov	r0,#_fxset
+	mov	@r0,#0x01
+;	life.c:280: printstr("FIXED AT ");
+	mov	dptr,#___str_13
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:247: show(PRHDR, u);
+;	life.c:281: showu(PRHDR, u);
 	mov	a,#_u
 	push	acc
 	mov	a,#(_u >> 8)
@@ -2028,18 +2102,22 @@ _main:
 	clr	a
 	push	acc
 	mov	dpl,#0x02
-	lcall	_show
+	lcall	_showu
 	dec	sp
 	dec	sp
 	dec	sp
-;	life.c:248: break;
-	sjmp	00150$
+;	life.c:282: break;
+	ljmp	00150$
 00135$:
-;	life.c:249: } else if (!c2set) {
+;	life.c:284: if (cycle2) {
+	mov	r0,#_cycle2
+	mov	a,@r0
+	jz	00139$
+;	life.c:285: if (!c2u()) updatec2();
 	mov	r0,#_c2set
 	mov	a,@r0
-	jnz	00138$
-;	life.c:250: genc2 = gen;
+	jnz	00139$
+;	life.c:74: genc2 = gen;
 	mov	r0,#_gen
 	mov	ar4,@r0
 	inc	r0
@@ -2056,15 +2134,16 @@ _main:
 	mov	@r0,ar6
 	inc	r0
 	mov	@r0,ar7
-;	life.c:251: c2set = 1;
+;	life.c:75: c2set = 1;
 	mov	r0,#_c2set
 	mov	@r0,#0x01
-00138$:
-;	life.c:255: c = getchar_poll();
+;	life.c:285: if (!c2u()) updatec2();
+00139$:
+;	life.c:288: c = getchar_poll();
 	lcall	_getchar_poll
 	mov	r6,dpl
 	mov	r7,dph
-;	life.c:256: if (c > 0) {
+;	life.c:289: if (c > 0) {
 	clr	c
 	clr	a
 	subb	a,r6
@@ -2072,56 +2151,56 @@ _main:
 	mov	b,r7
 	xrl	b,#0x80
 	subb	a,b
-	jc	00512$
-	ljmp	00233$
-00512$:
-;	life.c:257: c = toupper(c);
+	jc	00521$
+	ljmp	00237$
+00521$:
+;	life.c:290: c = toupper(c);
 	mov	dpl,r6
 	mov	dph,r7
 	lcall	_toupper
 	mov	r6,dpl
 	mov	r7,dph
-;	life.c:258: if (c == (int)'U') pruni = !pruni;
+;	life.c:291: if (c == (int)'U') pruni = !pruni;
 	cjne	r6,#0x55,00146$
 	cjne	r7,#0x00,00146$
 	mov	r0,#_pruni
 	mov	a,@r0
-	cjne	a,#0x01,00515$
-00515$:
+	cjne	a,#0x01,00524$
+00524$:
 	mov	b0,c
 	mov	r0,#_pruni
 	clr	a
 	rlc	a
 	mov	@r0,a
-	ljmp	00233$
+	ljmp	00237$
 00146$:
-;	life.c:259: else if (c == (int)'T') i0 = 1;
+;	life.c:292: else if (c == (int)'T') i0 = 1;
 	cjne	r6,#0x54,00143$
 	cjne	r7,#0x00,00143$
 	mov	r0,#_i0
 	mov	@r0,#0x01
-	ljmp	00233$
+	ljmp	00237$
 00143$:
-;	life.c:260: else if (c == (int)'B') i1 = 1;
-	cjne	r6,#0x42,00518$
-	cjne	r7,#0x00,00518$
-	sjmp	00519$
-00518$:
-	ljmp	00233$
-00519$:
+;	life.c:293: else if (c == (int)'B') i1 = 1;
+	cjne	r6,#0x42,00527$
+	cjne	r7,#0x00,00527$
+	sjmp	00528$
+00527$:
+	ljmp	00237$
+00528$:
 	mov	r0,#_i1
 	mov	@r0,#0x01
-	ljmp	00233$
+	ljmp	00237$
 00150$:
-;	life.c:264: if (i1) {
+;	life.c:297: if (i1) {
 	mov	r0,#_i1
 	mov	a,@r0
-	jz	00236$
-;	life.c:265: printstr("BREAK AT ");
-	mov	dptr,#___str_13
+	jz	00240$
+;	life.c:298: printstr("BREAK AT ");
+	mov	dptr,#___str_14
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:266: show(PRHDR, u);
+;	life.c:299: showu(PRHDR, u);
 	mov	a,#_u
 	push	acc
 	mov	a,#(_u >> 8)
@@ -2129,30 +2208,30 @@ _main:
 	clr	a
 	push	acc
 	mov	dpl,#0x02
-	lcall	_show
+	lcall	_showu
 	dec	sp
 	dec	sp
 	dec	sp
-00236$:
-;	life.c:219: for (i0 = 0; !i0; ) {
+00240$:
+;	life.c:250: for (i0 = 0; !i0; ) {
 	mov	r0,#_i0
 	mov	a,@r0
-	jnz	00521$
+	jnz	00530$
 	ljmp	00127$
-00521$:
-;	life.c:270: term:
+00530$:
+;	life.c:303: term:
 00154$:
-;	life.c:271: EA = 0;
+;	life.c:304: EA = 0;
 ;	assignBit
 	clr	_EA
-;	life.c:272: printstr("TERM\r\n");
-	mov	dptr,#___str_14
+;	life.c:305: printstr("TERM\r\n");
+	mov	dptr,#___str_15
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:274: PCON |= 2;
+;	life.c:307: PCON |= 2;
 	orl	_PCON,#0x02
-;	life.c:276: return;
-;	life.c:277: }
+;	life.c:309: return;
+;	life.c:310: }
 	mov	sp,_bp
 	pop	_bp
 	ret
@@ -2176,41 +2255,46 @@ ___str_2:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_3:
+	.ascii " FIXED "
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_4:
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_4:
+___str_5:
 	.db 0x1b
 	.ascii "[?25l"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_5:
+___str_6:
 	.db 0x1b
 	.ascii "[?25h"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_6:
+___str_7:
 	.ascii "LOAD 0 1 ~ # <"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_7:
+___str_8:
 	.ascii ">"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_8:
+___str_9:
 	.ascii "RANDOM"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_9:
+___str_10:
 	.db 0x1b
 	.ascii "[?25h"
 	.db 0x1b
@@ -2218,29 +2302,29 @@ ___str_9:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_10:
+___str_11:
 	.ascii "LIFE I L R O P S U"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_11:
+___str_12:
 	.ascii " B T"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_12:
+___str_13:
 	.ascii "FIXED AT "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_13:
+___str_14:
 	.ascii "BREAK AT "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_14:
+___str_15:
 	.ascii "TERM"
 	.db 0x0d
 	.db 0x0a

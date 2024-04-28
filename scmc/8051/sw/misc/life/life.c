@@ -41,14 +41,18 @@ static char iu[H * W], pu[H * W], u[H * W], nu[H * W];
 
 __idata static int x, y;
 __idata static char n, fixed, cycle2;
+
 __idata static unsigned long gen;
 __idata static unsigned long genc2;
-__idata static char c2set, pruni;
+__idata static unsigned long genfx;
+__idata static char c2set, fxset, pruni;
 
 inline void cleargen(void) {
 	gen = 0ul;
 	genc2 = 0ul;
+	genfx = 0ul;
 	c2set = 0;
+	fxset = 0;
 	
 	return;
 }
@@ -59,12 +63,34 @@ inline void updategen(void) {
 	return;
 }
 
+inline void updatefix(void) {
+	genfx = gen;
+	fxset = 1;
+	
+	return;
+}
+
+inline void updatec2(void) {
+	genc2 = gen;
+	c2set = 1;
+	
+	return;
+}
+
+inline char fxu(void) {
+	return fxset;
+}
+
+inline char c2u(void) {
+	return c2set;
+}
+
 #define PRNONE	0
 #define PRCLR	1
 #define PRHDR	2
 #define PRUNI	4
 
-void show(char prflags, char *universe) {
+void showu(char prflags, char *universe) {
 	if (prflags & PRCLR) printstr("\033[2J");
 	if (prflags & PRHDR) {
 		printstr("GEN ");
@@ -72,6 +98,10 @@ void show(char prflags, char *universe) {
 		if (c2set) {
 			printstr(" CYCLE2 ");
 			print32x(genc2);
+		}
+		if (fxset) {
+			printstr(" FIXED ");
+			print32x(genfx);
 		}
 		printstr("\r\n");
 	}
@@ -89,9 +119,10 @@ void show(char prflags, char *universe) {
 	return;
 }
 
-inline void clearu(void) {
-	memset(u, 0, sizeof (u));
+inline void initu(void) {
+	memcpy(u, iu, sizeof (iu));
 	memset(pu, 0, sizeof (pu));
+	cleargen();
 	
 	return;
 }
@@ -146,7 +177,7 @@ inline void loadriu(void) {
 	return;
 }
 
-inline void evolve(void) {
+inline void evolveu(void) {
 	fixed = 0;
 	cycle2 = 0;
 	
@@ -198,7 +229,7 @@ void main(void) {
 	IT1 = 1;
 	EX0 = 1;
 	EX1 = 1;
-	EA = 1;	
+	EA = 1;
 	P1_7 = 0;
 	__asm
 		nop
@@ -226,30 +257,32 @@ void main(void) {
 			else if ((c == (int)'I') || (c == (int)'L') || (c == (int)'R')) {
 				if (c == (int)'L') loadiu();
 				else if (c == (int)'R') loadriu();
-				clearu();
-				cleargen();
-				memcpy(u, iu, sizeof (iu));
-				show(PRUNI, u);
-			} else if (c == (int)'O') show(PRUNI, iu);
-			else if (c == (int)'P') show(PRHDR | PRUNI, u);
+				initu();
+				showu(PRUNI, u);
+			} else if (c == (int)'O') showu(PRUNI, iu);
+			else if (c == (int)'P') showu(PRHDR | PRUNI, u);
 			else if (c == (int)'U') pruni = !pruni;
 			else if (c == (int)'S') break;
 		}
 		
 		for (i1 = 0; !i0 && !i1; ) {
-			if (pruni) show(PRCLR | PRHDR | PRUNI, u);
-			else show(PRHDR, u);
+			if (fxu()) {
+				printstr("FIXED AT ");
+				showu(PRHDR, u);
+				break;
+			}
+			if (pruni) showu(PRCLR | PRHDR | PRUNI, u);
+			else showu(PRHDR, u);
 			updategen();
-			evolve();
-			if (fixed || cycle2) {
-				if (fixed) {
-					printstr("FIXED AT ");
-					show(PRHDR, u);
-					break;
-				} else if (!c2set) {
-					genc2 = gen;
-					c2set = 1;
-				}
+			evolveu();
+			if (fixed) {
+				updatefix();
+				printstr("FIXED AT ");
+				showu(PRHDR, u);
+				break;
+			}
+			if (cycle2) {
+				if (!c2u()) updatec2();
 			}
 			
 			c = getchar_poll();
@@ -263,7 +296,7 @@ void main(void) {
 		
 		if (i1) {
 			printstr("BREAK AT ");
-			show(PRHDR, u);
+			showu(PRHDR, u);
 		}
 	}
 	
