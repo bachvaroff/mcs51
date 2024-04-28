@@ -212,13 +212,15 @@ void main(void) {
 	flashOE();
 
 	cleargen();
+	pruni = 1;
 	
 	printstr("\033[?25h\033[m");
 	
 	for (i0 = 0; !i0; ) {
-		pruni = 1;
 		while (1) {
-			printstr("LIFE I L R O P S U B T\r\n");
+			printstr("LIFE I L R O P S U");
+			putchar(pruni ? (int)'1' : (int)'0');
+			printstr(" B T\r\n");
 			c = toupper(getchar());
 			if (i0 || (c == (int)'T')) goto term;
 			else if ((c == (int)'I') || (c == (int)'L') || (c == (int)'R')) {
@@ -230,15 +232,9 @@ void main(void) {
 				show(PRUNI, u);
 			} else if (c == (int)'O') show(PRUNI, iu);
 			else if (c == (int)'P') show(PRHDR | PRUNI, u);
-			else if (c == (int)'U') {
-				pruni = !pruni;
-				printstr("U");
-				putchar(pruni ? (int)'1' : (int)'0');
-				printstr("\r\n");
-			} else if (c == (int)'S') break;
+			else if (c == (int)'U') pruni = !pruni;
+			else if (c == (int)'S') break;
 		}
-		
-		cleargen();
 		
 		for (i1 = 0; !i0 && !i1; ) {
 			if (pruni) show(PRCLR | PRHDR | PRUNI, u);
@@ -247,7 +243,8 @@ void main(void) {
 			evolve();
 			if (fixed || cycle2) {
 				if (fixed) {
-					printstr("FIXED\r\n");
+					printstr("FIXED AT ");
+					show(PRHDR, u);
 					break;
 				} else if (!c2set) {
 					genc2 = gen;
@@ -264,7 +261,10 @@ void main(void) {
 			}
 		}
 		
-		if (i1) printstr("BREAK\r\n");
+		if (i1) {
+			printstr("BREAK AT ");
+			show(PRHDR, u);
+		}
 	}
 	
 term:
