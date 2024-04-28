@@ -764,9 +764,9 @@ _main:
 ;	life.c:51: c2set = 0;
 	mov	r0,#_c2set
 	mov	@r0,#0x00
-;	life.c:215: pruni = 1;
+;	life.c:215: pruni = 0;
 	mov	r0,#_pruni
-	mov	@r0,#0x01
+	mov	@r0,#0x00
 ;	life.c:217: printstr("\033[?25h\033[m");
 	mov	dptr,#___str_9
 	mov	b,#0x80

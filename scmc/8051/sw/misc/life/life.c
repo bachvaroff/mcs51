@@ -212,7 +212,7 @@ void main(void) {
 	flashOE();
 
 	cleargen();
-	pruni = 1;
+	pruni = 0;
 	
 	printstr("\033[?25h\033[m");
 	
