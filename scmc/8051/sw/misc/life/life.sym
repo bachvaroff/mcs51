@@ -336,20 +336,21 @@ Symbol Table
     _WR                                                         =  0000B6 G
     ___memcpy                                                      ****** GX
  1A ___str_0                                                       000000 R
- 1A ___str_1                                                       000007 R
- 1A ___str_10                                                      000064 R
- 1A ___str_11                                                      00006A R
- 1A ___str_12                                                      000072 R
- 1A ___str_13                                                      00007B R
- 1A ___str_14                                                      000083 R
- 1A ___str_2                                                       000010 R
+ 1A ___str_1                                                       000005 R
+ 1A ___str_10                                                      000048 R
+ 1A ___str_11                                                      000061 R
+ 1A ___str_12                                                      000063 R
+ 1A ___str_13                                                      00006B R
+ 1A ___str_14                                                      000073 R
+ 1A ___str_2                                                       00000A R
  1A ___str_3                                                       000013 R
- 1A ___str_4                                                       00001A R
- 1A ___str_5                                                       000029 R
- 1A ___str_6                                                       00002D R
- 1A ___str_7                                                       000034 R
- 1A ___str_8                                                       00003E R
- 1A ___str_9                                                       000052 R
+ 1A ___str_4                                                       000016 R
+ 1A ___str_5                                                       00001D R
+ 1A ___str_6                                                       000024 R
+ 1A ___str_7                                                       000033 R
+ 1A ___str_8                                                       000037 R
+ 1A ___str_9                                                       00003E R
+    __gptrget                                                      ****** GX
  10 __interrupt_vect                                               000000 R
     __mcs51_genRAMCLEAR                                            ****** GX
     __mcs51_genXINIT                                               ****** GX
@@ -357,21 +358,20 @@ Symbol Table
     __modsint                                                      ****** GX
     __mulint                                                       ****** GX
     __sdcc_gsinit_startup                                          ****** GX
- 10 __sdcc_program_startup                                         000016 GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+ 10 __sdcc_program_startup                                         000016 GR
   8 __start__stack                                                 000000 GR
     _bp                                                            ****** GX
-  9 _c                                                             000009 R
-  9 _cycle2                                                        00000D R
-  9 _dx                                                            00000E R
-  9 _dy                                                            000010 R
-  9 _fixed                                                         00000C R
+  9 _c2set                                                         000012 R
+  9 _cycle2                                                        000009 R
+  9 _fixed                                                         000008 R
  19 _flashOE                                                       000018 R
-  9 _generation                                                    000012 R
+  9 _gen                                                           00000A R
+  9 _genc2                                                         00000E R
     _getchar                                                       ****** GX
     _getchar_poll                                                  ****** GX
   9 _i0                                                            000000 R
@@ -379,13 +379,14 @@ Symbol Table
  19 _int0                                                          000000 GR
  19 _int1                                                          00000C GR
   D _iu                                                            000000 R
-  9 _j                                                             000007 R
- 19 _main                                                          00011E GR
+ 19 _main                                                          000138 GR
     _memset                                                        ****** GX
-  9 _n                                                             00000B R
+  9 _n                                                             000007 R
   D _nu                                                            006C00 R
     _print16x                                                      ****** GX
+    _print32x                                                      ****** GX
     _printstr                                                      ****** GX
+  9 _pruni                                                         000013 R
   D _pu                                                            002400 R
     _putchar                                                       ****** GX
     _rand                                                          ****** GX
@@ -417,12 +418,12 @@ Symbol Table
     ar0                                                         =  000000 
     ar1                                                         =  000001 
     ar2                                                         =  000002 
-    ar3                                                         =  000003 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 8.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    ar3                                                         =  000003 
     ar4                                                         =  000004 
     ar5                                                         =  000005 
     ar6                                                         =  000006 
@@ -477,12 +478,12 @@ Symbol Table
     ip.1                                                        =  0000B9 L
     ip.2                                                        =  0000BA L
     ip.3                                                        =  0000BB L
-    ip.4                                                        =  0000BC L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 9.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    ip.4                                                        =  0000BC L
     ip.5                                                        =  0000BD L
     it0                                                         =  000088 L
     it1                                                         =  00008A L
@@ -537,12 +538,12 @@ Symbol Table
     psw.7                                                       =  0000D7 L
     pt0                                                         =  0000B9 L
     pt1                                                         =  0000BB L
-    pt2                                                         =  0000BD L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 10.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    pt2                                                         =  0000BD L
     px0                                                         =  0000B8 L
     px1                                                         =  0000BA L
     rb8                                                         =  00009A L
@@ -597,17 +598,18 @@ Symbol Table
     ti                                                          =  000099 L
     tl0                                                         =  00008A L
     tl1                                                         =  00008B L
-    tl2                                                         =  0000CC L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 11.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    tl2                                                         =  0000CC L
     tmod                                                        =  000089 L
     tr0                                                         =  00008C L
     tr1                                                         =  00008E L
     tr2                                                         =  0000CA L
     txd                                                         =  0000B1 L
+
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 12.
 Hexadecimal [24-Bits]
@@ -623,7 +625,7 @@ Area Table
    6 BIT_BANK                                   size      1   flags    4
    7 DSEG                                       size      0   flags    0
    8 SSEG                                       size      1   flags    0
-   9 ISEG                                       size     16   flags    0
+   9 ISEG                                       size     14   flags    0
    A IABS                                       size      0   flags    8
    B BSEG                                       size      0   flags   80
    C PSEG                                       size      0   flags   50
@@ -639,8 +641,8 @@ Area Table
   16 GSINIT5                                    size      0   flags   20
   17 GSINIT                                     size      0   flags   20
   18 GSFINAL                                    size      3   flags   20
-  19 CSEG                                       size    8D8   flags   20
-  1A CONST                                      size     8A   flags   20
+  19 CSEG                                       size    9A7   flags   20
+  1A CONST                                      size     7A   flags   20
   1B XINIT                                      size      0   flags   20
   1C CABS                                       size      0   flags   28
 

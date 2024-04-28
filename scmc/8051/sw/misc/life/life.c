@@ -49,53 +49,54 @@ static void flashOE(void) {
 #define H 192
 #define W 48
 
-static char iu[H * W], pu[H * W], u[H * W], nu[H * W]; /* evolve(), show(), loadu() */
+static char iu[H * W], pu[H * W], u[H * W], nu[H * W];
 
-__idata static int x, y; /* evolve(), show(), loadu() */
-__idata static int j, c; /* loadu() */
-__idata static char n, fixed, cycle2; /* evolve() */
-__idata static int dx, dy; /* evolve() */
-__idata static unsigned int generation[2]; /* cleargen(), updategen(), printgen(), show() */
+__idata static int x, y;
+__idata static char n, fixed, cycle2;
+__idata static unsigned long gen;
+__idata static unsigned long genc2;
+__idata static char c2set, pruni;
 
 inline void cleargen(void) {
-	generation[0] = 0u;
-	generation[1] = 0u;
+	gen = 0ul;
+	genc2 = 0ul;
+	c2set = 0;
 	
 	return;
 }
 
 inline void updategen(void) {
-	generation[0]++;
-	if (!generation[0]) generation[1]++;
+	gen++;
 	
 	return;
 }
 
-inline void printgen(void) {
-	print16x(generation[1]);
-	print16x(generation[0]);
-	
-	return;
-}
+#define PRNONE	0
+#define PRCLR	1
+#define PRHDR	2
+#define PRUNI	4
 
-void show(char hdr) {
-	printstr("\033[?25l");
-	
-	if (hdr) {
-		printstr("\033[2JGEN ");
-		printgen();
-		printstr("\r\n");
-		updategen();
-	}
-	
-	for (x = 0; x < W; x++) {
-		for (y = 0; y < H; y++)
-			if (u[A2D(W, y, x)]) putchar('1');
-			else putchar('0');
+void show(char prflags, char *universe) {
+	if (prflags & PRCLR) printstr("\033[2J");
+	if (prflags & PRHDR) {
+		printstr("GEN ");
+		print32x(gen);
+		if (c2set) {
+			printstr(" CYCLE2 ");
+			print32x(genc2);
+		}
 		printstr("\r\n");
 	}
-
-	printstr("\033[?25h");
+	if (prflags & PRUNI) {
+		printstr("\033[?25l");
+		for (x = 0; x < W; x++) {
+			for (y = 0; y < H; y++)
+				if (universe[A2D(W, y, x)]) putchar((int)'1');
+				else putchar((int)'0');
+			printstr("\r\n");
+		}
+		printstr("\033[?25h");
+	}
 	
 	return;
 }
@@ -108,21 +109,21 @@ inline void clearu(void) {
 }
 
 inline void loadiu(void) {
-	j = 0;
+	int nbits, c;
 	
 	printstr("LOAD 0 1 ~ # <");
 	
-	for (y = 0; y < (H * W); y += W) {
+	for (nbits = 0, y = 0; y < (H * W); y += W) {
 		for (x = 0; x < W; x++) {
 			while (1) {
 				c = getchar();
 				if (c == (int)'0') {
 					iu[y + x] = 0;
-					j++;
+					nbits++;
 					break;
 				} else if (c == (int)'1') {
 					iu[y + x] = 1;
-					j++;
+					nbits++;
 					break;
 				} else if (c == (int)'~') goto br_inner;
 				else if (c == (int)'#') goto out;
@@ -139,15 +140,13 @@ out:
 			c = getchar();
 			if (c == (int)'#') break;
 		}
-	print16x(j);
+	print16x(nbits);
 	printstr(">\r\n");
 	
 	return;
 }
 
 inline void loadriu(void) {
-	j = 0;
-	
 	printstr("RANDOM");
 	
 	for (y = 0; y < (H * W); y += W)
@@ -173,9 +172,7 @@ inline void evolve(void) {
 			n = -u[A2D(W, y, x)];
 			
 #define UPDN(DY,DX) do { \
-	dy = (DY); \
-	dx = (DX); \
-	n += u[A2D(W, (y + dy + H) % H, (x + dx + W) % W)]; \
+	n += u[A2D(W, (y + (DY) + H) % H, (x + (DX) + W) % W)]; \
 } while (0)
 			UPDN(-1, -1);
 			UPDN(-1, 0);
@@ -207,6 +204,8 @@ inline void evolve(void) {
 }
 
 void main(void) {
+	int c;
+	
 	IT0 = 1;
 	IT1 = 1;
 	EX0 = 1;
@@ -224,63 +223,65 @@ void main(void) {
 	OE76 = OE76_0;
 	flashOE();
 
+	cleargen();
+	
 	printstr("\033[?25h\033[m");
 	
-	for (i0 = 0; !i0; ) {	
-		printstr("LIFE INIT T L R P\r\n");
+	for (i0 = 0; !i0; ) {
+		pruni = 1;
 		while (1) {
+			printstr("LIFE I L R O P S U B T\r\n");
 			c = toupper(getchar());
 			if (i0 || (c == (int)'T')) goto term;
-			else if ((c == (int)'L') || (c == (int)'R') || (c == (int)'P')) break;
-		}
-		
-reload:
-		clearu();
-		if (c == (int)'L') loadiu();
-		else if (c == (int)'R') loadriu();
-		memcpy(u, iu, sizeof (iu));
-		show(0);
-		
-		printstr("READY T L R P S\r\n");
-		while (1) {
-			c = toupper(getchar());
-			if (i0 || (c == (int)'T')) goto term;
-			else if ((c == (int)'L') || (c == (int)'R') || (c == (int)'P')) goto reload;
-			else if (c == (int)'S') break;
+			else if ((c == (int)'I') || (c == (int)'L') || (c == (int)'R')) {
+				if (c == (int)'L') loadiu();
+				else if (c == (int)'R') loadriu();
+				clearu();
+				cleargen();
+				memcpy(u, iu, sizeof (iu));
+				show(PRUNI, u);
+			} else if (c == (int)'O') show(PRUNI, iu);
+			else if (c == (int)'P') show(PRHDR | PRUNI, u);
+			else if (c == (int)'U') {
+				pruni = !pruni;
+				printstr("U");
+				putchar(pruni ? (int)'1' : (int)'0');
+				printstr("\r\n");
+			} else if (c == (int)'S') break;
 		}
 		
 		cleargen();
 		
 		for (i1 = 0; !i0 && !i1; ) {
-			show(1);
+			if (pruni) show(PRCLR | PRHDR | PRUNI, u);
+			else show(PRHDR, u);
+			updategen();
 			evolve();
-			
 			if (fixed || cycle2) {
-				printstr("DONE ");
-				if (fixed) printstr("FIXED\r\n");
-				else printstr("CYCLE2\r\n");
-				(void)getchar();
-				break;
+				if (fixed) {
+					printstr("FIXED\r\n");
+					break;
+				} else if (!c2set) {
+					genc2 = gen;
+					c2set = 1;
+				}
 			}
 			
 			c = getchar_poll();
 			if (c > 0) {
 				c = toupper(c);
-				if (c == (int)'T') i0 = 1;
+				if (c == (int)'U') pruni = !pruni;
+				else if (c == (int)'T') i0 = 1;
 				else if (c == (int)'B') i1 = 1;
 			}
 		}
 		
-		if (i1) {
-			printstr("BREAK\r\n");
-			(void)getchar();
-		}
+		if (i1) printstr("BREAK\r\n");
 	}
 	
 term:
 	EA = 0;
 	printstr("TERM\r\n");
-	(void)getchar();
 	
 	PCON |= 2;
 	

@@ -2,6 +2,7 @@
 -i life.ihx
 -M
 -Y
+-X 0xa000
 -C 0x2000
 -b HOME = 0x2000
 -b XSEG = 0x4000
