@@ -6,7 +6,7 @@
 
 #include "libpm21.h"
 
-__xdata __at(0x8000u) static volatile int RND;
+__xdata __at(0xe000u) static volatile int RND;
 
 __idata static char i0, i1;
 
@@ -27,19 +27,7 @@ __idata static uint8_t OE76;
 __xdata __at(0xf006u) static volatile uint8_t OEreg;
 
 static void flashOE(void) {
-	P1_7 = 0;
-	__asm
-		nop
-		nop
-		nop
-	__endasm;
 	OEreg = OE76;
-	P1_7 = 1;
-	__asm
-		nop
-		nop
-		nop
-	__endasm;
 	
 	return;
 }
@@ -211,7 +199,7 @@ void main(void) {
 	EX0 = 1;
 	EX1 = 1;
 	EA = 1;	
-	P1_7 = 1;
+	P1_7 = 0;
 	__asm
 		nop
 		nop
