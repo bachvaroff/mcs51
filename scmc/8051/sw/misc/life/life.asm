@@ -894,7 +894,7 @@ _dumpu:
 	jnc	00136$
 	ljmp	00112$
 00136$:
-;	life.c:143: printstr("#\n");
+;	life.c:143: printstr("#\r\n");
 	mov	dptr,#___str_7
 	mov	b,#0x80
 	lcall	_printstr
@@ -2560,6 +2560,7 @@ ___str_6:
 	.area CONST   (CODE)
 ___str_7:
 	.ascii "#"
+	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)

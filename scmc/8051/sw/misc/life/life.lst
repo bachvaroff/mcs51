@@ -894,7 +894,7 @@
       000257 50 03            [24]  894 	jnc	00136$
       000259 02r01rD8         [24]  895 	ljmp	00112$
       00025C                        896 00136$:
-                                    897 ;	life.c:143: printstr("#\n");
+                                    897 ;	life.c:143: printstr("#\r\n");
       00025C 90r00r2C         [24]  898 	mov	dptr,#___str_7
       00025F 75 F0 80         [24]  899 	mov	b,#0x80
       000262 12r00r00         [24]  900 	lcall	_printstr
@@ -936,7 +936,7 @@
       00028A 15 81            [12]  936 	dec	sp
       00028C 15 81            [12]  937 	dec	sp
                                     938 ;	life.c:154: printstr("LOAD 0 1 ~ # <");
-      00028E 90r00r2F         [24]  939 	mov	dptr,#___str_8
+      00028E 90r00r30         [24]  939 	mov	dptr,#___str_8
       000291 75 F0 80         [24]  940 	mov	b,#0x80
       000294 12r00r00         [24]  941 	lcall	_printstr
                                     942 ;	life.c:156: for (nbits = 0, y = 0; y < (H * W); y += W) {
@@ -1113,7 +1113,7 @@
       00037A 86 83            [24] 1113 	mov	dph,@r0
       00037C 12r00r00         [24] 1114 	lcall	_print16x
                                    1115 ;	life.c:184: printstr(">\r\n");
-      00037F 90r00r3E         [24] 1116 	mov	dptr,#___str_9
+      00037F 90r00r3F         [24] 1116 	mov	dptr,#___str_9
       000382 75 F0 80         [24] 1117 	mov	b,#0x80
       000385 12r00r00         [24] 1118 	lcall	_printstr
                                    1119 ;	life.c:186: return;
@@ -1133,7 +1133,7 @@
                                    1133 ;	-----------------------------------------
       00038E                       1134 _loadriu:
                                    1135 ;	life.c:192: printstr("RANDOM");
-      00038E 90r00r42         [24] 1136 	mov	dptr,#___str_10
+      00038E 90r00r43         [24] 1136 	mov	dptr,#___str_10
       000391 75 F0 80         [24] 1137 	mov	b,#0x80
       000394 12r00r00         [24] 1138 	lcall	_printstr
                                    1139 ;	life.c:194: for (y = 0; y < (H * W); y += W)
@@ -2114,7 +2114,7 @@
       0008D0 78r11            [12] 2114 	mov	r0,#_pruni
       0008D2 76 00            [12] 2115 	mov	@r0,#0x00
                                    2116 ;	life.c:274: printstr("\033[?25h\033[m");
-      0008D4 90r00r49         [24] 2117 	mov	dptr,#___str_11
+      0008D4 90r00r4A         [24] 2117 	mov	dptr,#___str_11
       0008D7 75 F0 80         [24] 2118 	mov	b,#0x80
       0008DA 12r00r00         [24] 2119 	lcall	_printstr
                                    2120 ;	life.c:276: for (i0 = 0; !i0; ) {
@@ -2123,7 +2123,7 @@
                                    2123 ;	life.c:277: while (1) {
       0008E1                       2124 00133$:
                                    2125 ;	life.c:278: printstr("LIFE [ I L R ] [ D O Q P ] [ S U");
-      0008E1 90r00r53         [24] 2126 	mov	dptr,#___str_12
+      0008E1 90r00r54         [24] 2126 	mov	dptr,#___str_12
       0008E4 75 F0 80         [24] 2127 	mov	b,#0x80
       0008E7 12r00r00         [24] 2128 	lcall	_printstr
                                    2129 ;	life.c:279: putchar(pruni ? (int)'1' : (int)'0');
@@ -2141,7 +2141,7 @@
       0008FB 8F 83            [24] 2141 	mov	dph,r7
       0008FD 12r00r00         [24] 2142 	lcall	_putchar
                                    2143 ;	life.c:280: printstr(" B ] T\r\n");
-      000900 90r00r74         [24] 2144 	mov	dptr,#___str_13
+      000900 90r00r75         [24] 2144 	mov	dptr,#___str_13
       000903 75 F0 80         [24] 2145 	mov	b,#0x80
       000906 12r00r00         [24] 2146 	lcall	_printstr
                                    2147 ;	life.c:281: c = toupper(getchar());
@@ -2286,7 +2286,7 @@
       000A06 E6               [12] 2286 	mov	a,@r0
       000A07 60 23            [24] 2287 	jz	00136$
                                    2288 ;	life.c:298: printstr("FIXED AT ");
-      000A09 90r00r7D         [24] 2289 	mov	dptr,#___str_14
+      000A09 90r00r7E         [24] 2289 	mov	dptr,#___str_14
       000A0C 75 F0 80         [24] 2290 	mov	b,#0x80
       000A0F 12r00r00         [24] 2291 	lcall	_printstr
                                    2292 ;	life.c:299: showu(PRHDR, u);
@@ -2374,7 +2374,7 @@
       000A95 78r10            [12] 2374 	mov	r0,#_fxset
       000A97 76 01            [12] 2375 	mov	@r0,#0x01
                                    2376 ;	life.c:308: printstr("FIXED AT ");
-      000A99 90r00r7D         [24] 2377 	mov	dptr,#___str_14
+      000A99 90r00r7E         [24] 2377 	mov	dptr,#___str_14
       000A9C 75 F0 80         [24] 2378 	mov	b,#0x80
       000A9F 12r00r00         [24] 2379 	lcall	_printstr
                                    2380 ;	life.c:309: showu(PRHDR, u);
@@ -2480,7 +2480,7 @@
       000B3E E6               [12] 2480 	mov	a,@r0
       000B3F 60 20            [24] 2481 	jz	00173$
                                    2482 ;	life.c:326: printstr("BREAK AT ");
-      000B41 90r00r87         [24] 2483 	mov	dptr,#___str_15
+      000B41 90r00r88         [24] 2483 	mov	dptr,#___str_15
       000B44 75 F0 80         [24] 2484 	mov	b,#0x80
       000B47 12r00r00         [24] 2485 	lcall	_printstr
                                    2486 ;	life.c:327: showu(PRHDR, u);
@@ -2508,7 +2508,7 @@
                                    2508 ;	assignBit
       000B69 C2 AF            [12] 2509 	clr	_EA
                                    2510 ;	life.c:333: printstr("TERM\r\n");
-      000B6B 90r00r91         [24] 2511 	mov	dptr,#___str_16
+      000B6B 90r00r92         [24] 2511 	mov	dptr,#___str_16
       000B6E 75 F0 80         [24] 2512 	mov	b,#0x80
       000B71 12r00r00         [24] 2513 	lcall	_printstr
                                    2514 ;	life.c:335: PCON |= 2;
@@ -2561,69 +2561,70 @@
                                    2560 	.area CONST   (CODE)
       00002C                       2561 ___str_7:
       00002C 23                    2562 	.ascii "#"
-      00002D 0A                    2563 	.db 0x0a
-      00002E 00                    2564 	.db 0x00
-                                   2565 	.area CSEG    (CODE)
-                                   2566 	.area CONST   (CODE)
-      00002F                       2567 ___str_8:
-      00002F 4C 4F 41 44 20 30 20  2568 	.ascii "LOAD 0 1 ~ # <"
+      00002D 0D                    2563 	.db 0x0d
+      00002E 0A                    2564 	.db 0x0a
+      00002F 00                    2565 	.db 0x00
+                                   2566 	.area CSEG    (CODE)
+                                   2567 	.area CONST   (CODE)
+      000030                       2568 ___str_8:
+      000030 4C 4F 41 44 20 30 20  2569 	.ascii "LOAD 0 1 ~ # <"
              31 20 7E 20 23 20 3C
-      00003D 00                    2569 	.db 0x00
-                                   2570 	.area CSEG    (CODE)
-                                   2571 	.area CONST   (CODE)
-      00003E                       2572 ___str_9:
-      00003E 3E                    2573 	.ascii ">"
-      00003F 0D                    2574 	.db 0x0d
-      000040 0A                    2575 	.db 0x0a
-      000041 00                    2576 	.db 0x00
-                                   2577 	.area CSEG    (CODE)
-                                   2578 	.area CONST   (CODE)
-      000042                       2579 ___str_10:
-      000042 52 41 4E 44 4F 4D     2580 	.ascii "RANDOM"
-      000048 00                    2581 	.db 0x00
-                                   2582 	.area CSEG    (CODE)
-                                   2583 	.area CONST   (CODE)
-      000049                       2584 ___str_11:
-      000049 1B                    2585 	.db 0x1b
-      00004A 5B 3F 32 35 68        2586 	.ascii "[?25h"
-      00004F 1B                    2587 	.db 0x1b
-      000050 5B 6D                 2588 	.ascii "[m"
-      000052 00                    2589 	.db 0x00
-                                   2590 	.area CSEG    (CODE)
-                                   2591 	.area CONST   (CODE)
-      000053                       2592 ___str_12:
-      000053 4C 49 46 45 20 5B 20  2593 	.ascii "LIFE [ I L R ] [ D O Q P ] [ S U"
+      00003E 00                    2570 	.db 0x00
+                                   2571 	.area CSEG    (CODE)
+                                   2572 	.area CONST   (CODE)
+      00003F                       2573 ___str_9:
+      00003F 3E                    2574 	.ascii ">"
+      000040 0D                    2575 	.db 0x0d
+      000041 0A                    2576 	.db 0x0a
+      000042 00                    2577 	.db 0x00
+                                   2578 	.area CSEG    (CODE)
+                                   2579 	.area CONST   (CODE)
+      000043                       2580 ___str_10:
+      000043 52 41 4E 44 4F 4D     2581 	.ascii "RANDOM"
+      000049 00                    2582 	.db 0x00
+                                   2583 	.area CSEG    (CODE)
+                                   2584 	.area CONST   (CODE)
+      00004A                       2585 ___str_11:
+      00004A 1B                    2586 	.db 0x1b
+      00004B 5B 3F 32 35 68        2587 	.ascii "[?25h"
+      000050 1B                    2588 	.db 0x1b
+      000051 5B 6D                 2589 	.ascii "[m"
+      000053 00                    2590 	.db 0x00
+                                   2591 	.area CSEG    (CODE)
+                                   2592 	.area CONST   (CODE)
+      000054                       2593 ___str_12:
+      000054 4C 49 46 45 20 5B 20  2594 	.ascii "LIFE [ I L R ] [ D O Q P ] [ S U"
              49 20 4C 20 52 20 5D
              20 5B 20 44 20 4F 20
              51 20 50 20 5D 20 5B
              20 53 20 55
-      000073 00                    2594 	.db 0x00
-                                   2595 	.area CSEG    (CODE)
-                                   2596 	.area CONST   (CODE)
-      000074                       2597 ___str_13:
-      000074 20 42 20 5D 20 54     2598 	.ascii " B ] T"
-      00007A 0D                    2599 	.db 0x0d
-      00007B 0A                    2600 	.db 0x0a
-      00007C 00                    2601 	.db 0x00
-                                   2602 	.area CSEG    (CODE)
-                                   2603 	.area CONST   (CODE)
-      00007D                       2604 ___str_14:
-      00007D 46 49 58 45 44 20 41  2605 	.ascii "FIXED AT "
+      000074 00                    2595 	.db 0x00
+                                   2596 	.area CSEG    (CODE)
+                                   2597 	.area CONST   (CODE)
+      000075                       2598 ___str_13:
+      000075 20 42 20 5D 20 54     2599 	.ascii " B ] T"
+      00007B 0D                    2600 	.db 0x0d
+      00007C 0A                    2601 	.db 0x0a
+      00007D 00                    2602 	.db 0x00
+                                   2603 	.area CSEG    (CODE)
+                                   2604 	.area CONST   (CODE)
+      00007E                       2605 ___str_14:
+      00007E 46 49 58 45 44 20 41  2606 	.ascii "FIXED AT "
              54 20
-      000086 00                    2606 	.db 0x00
-                                   2607 	.area CSEG    (CODE)
-                                   2608 	.area CONST   (CODE)
-      000087                       2609 ___str_15:
-      000087 42 52 45 41 4B 20 41  2610 	.ascii "BREAK AT "
+      000087 00                    2607 	.db 0x00
+                                   2608 	.area CSEG    (CODE)
+                                   2609 	.area CONST   (CODE)
+      000088                       2610 ___str_15:
+      000088 42 52 45 41 4B 20 41  2611 	.ascii "BREAK AT "
              54 20
-      000090 00                    2611 	.db 0x00
-                                   2612 	.area CSEG    (CODE)
-                                   2613 	.area CONST   (CODE)
-      000091                       2614 ___str_16:
-      000091 54 45 52 4D           2615 	.ascii "TERM"
-      000095 0D                    2616 	.db 0x0d
-      000096 0A                    2617 	.db 0x0a
-      000097 00                    2618 	.db 0x00
-                                   2619 	.area CSEG    (CODE)
-                                   2620 	.area XINIT   (CODE)
-                                   2621 	.area CABS    (ABS,CODE)
+      000091 00                    2612 	.db 0x00
+                                   2613 	.area CSEG    (CODE)
+                                   2614 	.area CONST   (CODE)
+      000092                       2615 ___str_16:
+      000092 54 45 52 4D           2616 	.ascii "TERM"
+      000096 0D                    2617 	.db 0x0d
+      000097 0A                    2618 	.db 0x0a
+      000098 00                    2619 	.db 0x00
+                                   2620 	.area CSEG    (CODE)
+                                   2621 	.area XINIT   (CODE)
+                                   2622 	.area CABS    (ABS,CODE)

@@ -140,7 +140,7 @@ static void dumpu(char *universe) {
 			putchar(universe[y + x] ? (int)'1' : (int)'0');
 		printstr("\r\n");
 	}
-	printstr("#\n");
+	printstr("#\r\n");
 	
 	return;
 }
