@@ -275,9 +275,9 @@ void main(void) {
 	
 	for (i0 = 0; !i0; ) {
 		while (1) {
-			printstr("LIFE I L R D O P S U");
+			printstr("LIFE [ I L R ] [ D O Q P ] [ S U");
 			putchar(pruni ? (int)'1' : (int)'0');
-			printstr(" B T\r\n");
+			printstr(" B ] T\r\n");
 			c = toupper(getchar());
 			if (i0 || (c == (int)'T')) goto term;
 			else if ((c == (int)'I') || (c == (int)'L') || (c == (int)'R')) {
@@ -287,6 +287,7 @@ void main(void) {
 				showu(PRUNI, u);
 			} else if (c == (int)'D') dumpu(iu);
 			else if (c == (int)'O') showu(PRUNI, iu);
+			else if (c == (int)'Q') dumpu(u);
 			else if (c == (int)'P') showu(PRHDR | PRUNI, u);
 			else if (c == (int)'U') pruni = !pruni;
 			else if (c == (int)'S') break;

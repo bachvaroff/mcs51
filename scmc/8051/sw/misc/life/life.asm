@@ -2121,26 +2121,26 @@ _main:
 	mov	r0,#_i0
 	mov	@r0,#0x00
 ;	life.c:277: while (1) {
-00130$:
-;	life.c:278: printstr("LIFE I L R D O P S U");
+00133$:
+;	life.c:278: printstr("LIFE [ I L R ] [ D O Q P ] [ S U");
 	mov	dptr,#___str_12
 	mov	b,#0x80
 	lcall	_printstr
 ;	life.c:279: putchar(pruni ? (int)'1' : (int)'0');
 	mov	r0,#_pruni
 	mov	a,@r0
-	jz	00173$
+	jz	00176$
 	mov	r6,#0x31
 	mov	r7,#0x00
-	sjmp	00174$
-00173$:
+	sjmp	00177$
+00176$:
 	mov	r6,#0x30
 	mov	r7,#0x00
-00174$:
+00177$:
 	mov	dpl,r6
 	mov	dph,r7
 	lcall	_putchar
-;	life.c:280: printstr(" B T\r\n");
+;	life.c:280: printstr(" B ] T\r\n");
 	mov	dptr,#___str_13
 	mov	b,#0x80
 	lcall	_printstr
@@ -2152,25 +2152,25 @@ _main:
 ;	life.c:282: if (i0 || (c == (int)'T')) goto term;
 	mov	r0,#_i0
 	mov	a,@r0
-	jz	00306$
-	ljmp	00157$
-00306$:
-	cjne	r6,#0x54,00307$
-	cjne	r7,#0x00,00307$
-	ljmp	00157$
-00307$:
+	jz	00314$
+	ljmp	00160$
+00314$:
+	cjne	r6,#0x54,00315$
+	cjne	r7,#0x00,00315$
+	ljmp	00160$
+00315$:
 ;	life.c:283: else if ((c == (int)'I') || (c == (int)'L') || (c == (int)'R')) {
-	cjne	r6,#0x49,00308$
-	cjne	r7,#0x00,00308$
-	sjmp	00120$
-00308$:
-	cjne	r6,#0x4c,00309$
-	cjne	r7,#0x00,00309$
-	sjmp	00120$
-00309$:
-	cjne	r6,#0x52,00121$
-	cjne	r7,#0x00,00121$
-00120$:
+	cjne	r6,#0x49,00316$
+	cjne	r7,#0x00,00316$
+	sjmp	00123$
+00316$:
+	cjne	r6,#0x4c,00317$
+	cjne	r7,#0x00,00317$
+	sjmp	00123$
+00317$:
+	cjne	r6,#0x52,00124$
+	cjne	r7,#0x00,00124$
+00123$:
 ;	life.c:284: if (c == (int)'L') loadiu();
 	cjne	r6,#0x4c,00104$
 	cjne	r7,#0x00,00104$
@@ -2196,19 +2196,19 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-	ljmp	00130$
-00121$:
+	ljmp	00133$
+00124$:
 ;	life.c:288: } else if (c == (int)'D') dumpu(iu);
-	cjne	r6,#0x44,00118$
-	cjne	r7,#0x00,00118$
+	cjne	r6,#0x44,00121$
+	cjne	r7,#0x00,00121$
 	mov	dptr,#_iu
 	mov	b,#0x00
 	lcall	_dumpu
-	ljmp	00130$
-00118$:
+	ljmp	00133$
+00121$:
 ;	life.c:289: else if (c == (int)'O') showu(PRUNI, iu);
-	cjne	r6,#0x4f,00115$
-	cjne	r7,#0x00,00115$
+	cjne	r6,#0x4f,00118$
+	cjne	r7,#0x00,00118$
 	mov	a,#_iu
 	push	acc
 	mov	a,#(_iu >> 8)
@@ -2220,9 +2220,17 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-	ljmp	00130$
+	ljmp	00133$
+00118$:
+;	life.c:290: else if (c == (int)'Q') dumpu(u);
+	cjne	r6,#0x51,00115$
+	cjne	r7,#0x00,00115$
+	mov	dptr,#_u
+	mov	b,#0x00
+	lcall	_dumpu
+	ljmp	00133$
 00115$:
-;	life.c:290: else if (c == (int)'P') showu(PRHDR | PRUNI, u);
+;	life.c:291: else if (c == (int)'P') showu(PRHDR | PRUNI, u);
 	cjne	r6,#0x50,00112$
 	cjne	r7,#0x00,00112$
 	mov	a,#_u
@@ -2236,52 +2244,52 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-	ljmp	00130$
+	ljmp	00133$
 00112$:
-;	life.c:291: else if (c == (int)'U') pruni = !pruni;
+;	life.c:292: else if (c == (int)'U') pruni = !pruni;
 	cjne	r6,#0x55,00109$
 	cjne	r7,#0x00,00109$
 	mov	r0,#_pruni
 	mov	a,@r0
-	cjne	a,#0x01,00324$
-00324$:
+	cjne	a,#0x01,00334$
+00334$:
 	mov	b0,c
 	mov	r0,#_pruni
 	clr	a
 	rlc	a
 	mov	@r0,a
-	ljmp	00130$
+	ljmp	00133$
 00109$:
-;	life.c:292: else if (c == (int)'S') break;
-	cjne	r6,#0x53,00325$
-	cjne	r7,#0x00,00325$
-	sjmp	00326$
-00325$:
-	ljmp	00130$
-00326$:
-;	life.c:295: for (i1 = 0; !i0 && !i1; ) {
+;	life.c:293: else if (c == (int)'S') break;
+	cjne	r6,#0x53,00335$
+	cjne	r7,#0x00,00335$
+	sjmp	00336$
+00335$:
+	ljmp	00133$
+00336$:
+;	life.c:296: for (i1 = 0; !i0 && !i1; ) {
 	mov	r0,#_i1
 	mov	@r0,#0x00
-00167$:
+00170$:
 	mov	r0,#_i0
 	mov	a,@r0
-	jz	00327$
-	ljmp	00153$
-00327$:
+	jz	00337$
+	ljmp	00156$
+00337$:
 	mov	r0,#_i1
 	mov	a,@r0
-	jz	00328$
-	ljmp	00153$
-00328$:
-;	life.c:296: if (fxu()) {
+	jz	00338$
+	ljmp	00156$
+00338$:
+;	life.c:297: if (fxu()) {
 	mov	r0,#_fxset
 	mov	a,@r0
-	jz	00133$
-;	life.c:297: printstr("FIXED AT ");
+	jz	00136$
+;	life.c:298: printstr("FIXED AT ");
 	mov	dptr,#___str_14
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:298: showu(PRHDR, u);
+;	life.c:299: showu(PRHDR, u);
 	mov	a,#_u
 	push	acc
 	mov	a,#(_u >> 8)
@@ -2293,13 +2301,13 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	life.c:299: break;
-	ljmp	00153$
-00133$:
-;	life.c:301: if (pruni) showu(PRCLR | PRHDR | PRUNI, u);
+;	life.c:300: break;
+	ljmp	00156$
+00136$:
+;	life.c:302: if (pruni) showu(PRCLR | PRHDR | PRUNI, u);
 	mov	r0,#_pruni
 	mov	a,@r0
-	jz	00135$
+	jz	00138$
 	mov	a,#_u
 	push	acc
 	mov	a,#(_u >> 8)
@@ -2311,9 +2319,9 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-	sjmp	00136$
-00135$:
-;	life.c:302: else showu(PRHDR, u);
+	sjmp	00139$
+00138$:
+;	life.c:303: else showu(PRHDR, u);
 	mov	a,#_u
 	push	acc
 	mov	a,#(_u >> 8)
@@ -2325,26 +2333,26 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-00136$:
+00139$:
 ;	life.c:53: gen++;
 	mov	r0,#_gen
 	inc	@r0
-	cjne	@r0,#0x00,00331$
+	cjne	@r0,#0x00,00341$
 	inc	r0
 	inc	@r0
-	cjne	@r0,#0x00,00331$
+	cjne	@r0,#0x00,00341$
 	inc	r0
 	inc	@r0
-	cjne	@r0,#0x00,00331$
+	cjne	@r0,#0x00,00341$
 	inc	r0
 	inc	@r0
-00331$:
-;	life.c:304: evolveu();
+00341$:
+;	life.c:305: evolveu();
 	lcall	_evolveu
-;	life.c:305: if (fixed) {
+;	life.c:306: if (fixed) {
 	mov	r0,#_fixed
 	mov	a,@r0
-	jz	00138$
+	jz	00141$
 ;	life.c:59: genfx = gen;
 	mov	r0,#_gen
 	mov	ar4,@r0
@@ -2365,11 +2373,11 @@ _main:
 ;	life.c:60: fxset = 1;
 	mov	r0,#_fxset
 	mov	@r0,#0x01
-;	life.c:307: printstr("FIXED AT ");
+;	life.c:308: printstr("FIXED AT ");
 	mov	dptr,#___str_14
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:308: showu(PRHDR, u);
+;	life.c:309: showu(PRHDR, u);
 	mov	a,#_u
 	push	acc
 	mov	a,#(_u >> 8)
@@ -2381,17 +2389,17 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	life.c:309: break;
-	ljmp	00153$
-00138$:
-;	life.c:311: if (cycle2) {
+;	life.c:310: break;
+	ljmp	00156$
+00141$:
+;	life.c:312: if (cycle2) {
 	mov	r0,#_cycle2
 	mov	a,@r0
-	jz	00142$
-;	life.c:312: if (!c2u()) updatec2();
+	jz	00145$
+;	life.c:313: if (!c2u()) updatec2();
 	mov	r0,#_c2set
 	mov	a,@r0
-	jnz	00142$
+	jnz	00145$
 ;	life.c:66: genc2 = gen;
 	mov	r0,#_gen
 	mov	ar4,@r0
@@ -2412,13 +2420,13 @@ _main:
 ;	life.c:67: c2set = 1;
 	mov	r0,#_c2set
 	mov	@r0,#0x01
-;	life.c:312: if (!c2u()) updatec2();
-00142$:
-;	life.c:315: c = getchar_poll();
+;	life.c:313: if (!c2u()) updatec2();
+00145$:
+;	life.c:316: c = getchar_poll();
 	lcall	_getchar_poll
 	mov	r6,dpl
 	mov	r7,dph
-;	life.c:316: if (c > 0) {
+;	life.c:317: if (c > 0) {
 	clr	c
 	clr	a
 	subb	a,r6
@@ -2426,56 +2434,56 @@ _main:
 	mov	b,r7
 	xrl	b,#0x80
 	subb	a,b
-	jc	00335$
-	ljmp	00167$
-00335$:
-;	life.c:317: c = toupper(c);
+	jc	00345$
+	ljmp	00170$
+00345$:
+;	life.c:318: c = toupper(c);
 	mov	dpl,r6
 	mov	dph,r7
 	lcall	_toupper
 	mov	r6,dpl
 	mov	r7,dph
-;	life.c:318: if (c == (int)'U') pruni = !pruni;
-	cjne	r6,#0x55,00149$
-	cjne	r7,#0x00,00149$
+;	life.c:319: if (c == (int)'U') pruni = !pruni;
+	cjne	r6,#0x55,00152$
+	cjne	r7,#0x00,00152$
 	mov	r0,#_pruni
 	mov	a,@r0
-	cjne	a,#0x01,00338$
-00338$:
+	cjne	a,#0x01,00348$
+00348$:
 	mov	b0,c
 	mov	r0,#_pruni
 	clr	a
 	rlc	a
 	mov	@r0,a
-	ljmp	00167$
-00149$:
-;	life.c:319: else if (c == (int)'T') i0 = 1;
-	cjne	r6,#0x54,00146$
-	cjne	r7,#0x00,00146$
+	ljmp	00170$
+00152$:
+;	life.c:320: else if (c == (int)'T') i0 = 1;
+	cjne	r6,#0x54,00149$
+	cjne	r7,#0x00,00149$
 	mov	r0,#_i0
 	mov	@r0,#0x01
-	ljmp	00167$
-00146$:
-;	life.c:320: else if (c == (int)'B') i1 = 1;
-	cjne	r6,#0x42,00341$
-	cjne	r7,#0x00,00341$
-	sjmp	00342$
-00341$:
-	ljmp	00167$
-00342$:
+	ljmp	00170$
+00149$:
+;	life.c:321: else if (c == (int)'B') i1 = 1;
+	cjne	r6,#0x42,00351$
+	cjne	r7,#0x00,00351$
+	sjmp	00352$
+00351$:
+	ljmp	00170$
+00352$:
 	mov	r0,#_i1
 	mov	@r0,#0x01
-	ljmp	00167$
-00153$:
-;	life.c:324: if (i1) {
+	ljmp	00170$
+00156$:
+;	life.c:325: if (i1) {
 	mov	r0,#_i1
 	mov	a,@r0
-	jz	00170$
-;	life.c:325: printstr("BREAK AT ");
+	jz	00173$
+;	life.c:326: printstr("BREAK AT ");
 	mov	dptr,#___str_15
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:326: showu(PRHDR, u);
+;	life.c:327: showu(PRHDR, u);
 	mov	a,#_u
 	push	acc
 	mov	a,#(_u >> 8)
@@ -2487,26 +2495,26 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-00170$:
+00173$:
 ;	life.c:276: for (i0 = 0; !i0; ) {
 	mov	r0,#_i0
 	mov	a,@r0
-	jnz	00344$
-	ljmp	00130$
-00344$:
-;	life.c:330: term:
-00157$:
-;	life.c:331: EA = 0;
+	jnz	00354$
+	ljmp	00133$
+00354$:
+;	life.c:331: term:
+00160$:
+;	life.c:332: EA = 0;
 ;	assignBit
 	clr	_EA
-;	life.c:332: printstr("TERM\r\n");
+;	life.c:333: printstr("TERM\r\n");
 	mov	dptr,#___str_16
 	mov	b,#0x80
 	lcall	_printstr
-;	life.c:334: PCON |= 2;
+;	life.c:335: PCON |= 2;
 	orl	_PCON,#0x02
-;	life.c:336: return;
-;	life.c:337: }
+;	life.c:337: return;
+;	life.c:338: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -2582,12 +2590,12 @@ ___str_11:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_12:
-	.ascii "LIFE I L R D O P S U"
+	.ascii "LIFE [ I L R ] [ D O Q P ] [ S U"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_13:
-	.ascii " B T"
+	.ascii " B ] T"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
