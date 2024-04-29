@@ -86,8 +86,7 @@ inline char c2u(void) {
 
 static char iu[H * W], pu[H * W], u[H * W], nu[H * W];
 
-__idata static int x, y;
-__idata static char n, fixed, cycle2;
+__idata static char fixed, cycle2;
 
 static void initu(void) {
 	memcpy(u, iu, sizeof (iu));
@@ -103,6 +102,8 @@ static void initu(void) {
 #define PRUNI	4
 
 static void showu(char prflags, char *universe) {
+	int x, y;
+	
 	if (prflags & PRCLR) printstr("\033[2J");
 	if (prflags & PRHDR) {
 		printstr("GEN ");
@@ -132,6 +133,7 @@ static void showu(char prflags, char *universe) {
 }
 
 static void loadiu(void) {
+	int x, y;
 	int nbits, c;
 
 	memset(iu, 0, sizeof (iu));
@@ -172,6 +174,8 @@ out:
 }
 
 static void loadriu(void) {
+	int x, y;
+	
 	printstr("RANDOM");
 	
 	for (y = 0; y < (H * W); y += W)
@@ -184,6 +188,9 @@ static void loadriu(void) {
 }
 
 void evolveu(void) {
+	int x, y;
+	int n;
+	
 	fixed = 0;
 	cycle2 = 0;
 	
