@@ -132,6 +132,19 @@ static void showu(char prflags, char *universe) {
 	return;
 }
 
+static void dumpu(char *universe) {
+	int x, y;
+	
+	for (y = 0; y < (H * W); y += W) {
+		for (x = 0; x < W; x++)
+			putchar(universe[y + x] ? (int)'1' : (int)'0');
+		printstr("\r\n");
+	}
+	printstr("#\n");
+	
+	return;
+}
+
 static void loadiu(void) {
 	int x, y;
 	int nbits, c;
@@ -262,7 +275,7 @@ void main(void) {
 	
 	for (i0 = 0; !i0; ) {
 		while (1) {
-			printstr("LIFE I L R O P S U");
+			printstr("LIFE I L R D O P S U");
 			putchar(pruni ? (int)'1' : (int)'0');
 			printstr(" B T\r\n");
 			c = toupper(getchar());
@@ -272,7 +285,8 @@ void main(void) {
 				else if (c == (int)'R') loadriu();
 				initu();
 				showu(PRUNI, u);
-			} else if (c == (int)'O') showu(PRUNI, iu);
+			} else if (c == (int)'D') dumpu(iu);
+			else if (c == (int)'O') showu(PRUNI, iu);
 			else if (c == (int)'P') showu(PRHDR | PRUNI, u);
 			else if (c == (int)'U') pruni = !pruni;
 			else if (c == (int)'S') break;
