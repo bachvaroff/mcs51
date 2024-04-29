@@ -26,21 +26,13 @@ void int1(void) __interrupt IE1_VECTOR __using 1 {
 __idata static uint8_t OE76;
 __xdata __at(0xf006u) static volatile uint8_t OEreg;
 
-static void flashOE(void) {
+inline void flashOE(void) {
 	OEreg = OE76;
 	
 	return;
 }
 
-#define A2D(COLW, ROW, COL) ((int)(ROW) * (int)(COLW) + (int)(COL))
-
-#define H 192
-#define W 48
-
-static char iu[H * W], pu[H * W], u[H * W], nu[H * W];
-
-__idata static int x, y;
-__idata static char n, fixed, cycle2;
+/* generations */
 
 __idata static unsigned long gen;
 __idata static unsigned long genc2;
@@ -85,12 +77,32 @@ inline char c2u(void) {
 	return c2set;
 }
 
+/* universe */
+
+#define A2D(COLW, ROW, COL) ((int)(ROW) * (int)(COLW) + (int)(COL))
+
+#define H 192
+#define W 48
+
+static char iu[H * W], pu[H * W], u[H * W], nu[H * W];
+
+__idata static int x, y;
+__idata static char n, fixed, cycle2;
+
+static void initu(void) {
+	memcpy(u, iu, sizeof (iu));
+	memset(pu, 0, sizeof (pu));
+	cleargen();
+	
+	return;
+}
+
 #define PRNONE	0
 #define PRCLR	1
 #define PRHDR	2
 #define PRUNI	4
 
-void showu(char prflags, char *universe) {
+static void showu(char prflags, char *universe) {
 	if (prflags & PRCLR) printstr("\033[2J");
 	if (prflags & PRHDR) {
 		printstr("GEN ");
@@ -119,15 +131,7 @@ void showu(char prflags, char *universe) {
 	return;
 }
 
-inline void initu(void) {
-	memcpy(u, iu, sizeof (iu));
-	memset(pu, 0, sizeof (pu));
-	cleargen();
-	
-	return;
-}
-
-inline void loadiu(void) {
+static void loadiu(void) {
 	int nbits, c;
 
 	memset(iu, 0, sizeof (iu));
@@ -167,7 +171,7 @@ out:
 	return;
 }
 
-inline void loadriu(void) {
+static void loadriu(void) {
 	printstr("RANDOM");
 	
 	for (y = 0; y < (H * W); y += W)
@@ -179,7 +183,7 @@ inline void loadriu(void) {
 	return;
 }
 
-inline void evolveu(void) {
+void evolveu(void) {
 	fixed = 0;
 	cycle2 = 0;
 	
