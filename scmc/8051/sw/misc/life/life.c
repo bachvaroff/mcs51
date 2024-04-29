@@ -129,6 +129,8 @@ inline void initu(void) {
 
 inline void loadiu(void) {
 	int nbits, c;
+
+	memset(iu, 0, sizeof (iu));
 	
 	printstr("LOAD 0 1 ~ # <");
 	

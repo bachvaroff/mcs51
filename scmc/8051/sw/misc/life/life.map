@@ -66,7 +66,7 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   000010ED  l_CSEG                          
+C:   00001106  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002019  s_GSINIT0                       
 C:   0000201C  s_GSINIT1                       
@@ -77,8 +77,8 @@ C:   00002072  s_GSFINAL
 C:   00002072  s_GSINIT                        
 C:   00002072  s_GSINIT5                       
 C:   00002075  s_CSEG                          
-C:   00003162  s_CONST                         
-C:   000031F7  s_XINIT                         
+C:   0000317B  s_CONST                         
+C:   00003210  s_XINIT                         
 C:   00004000  s_PSEG                          
 C:   00004000  s_XSEG                          
 C:   00009000  l_XSEG                          
@@ -384,7 +384,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002075    000010ED =        4333. bytes (REL,CON,CODE)
+CSEG                                00002075    00001106 =        4358. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -392,34 +392,34 @@ C:   00002075  _int0                              life
 C:   00002081  _int1                              life
 C:   00002095  _showu                             life
 C:   000021C4  _main                              life
-C:   00002A85  _rand                              rand
-C:   00002B49  _srand                             rand
-C:   00002B62  _putchar                           sio
-C:   00002B6C  _getchar                           sio
-C:   00002B79  _getchar_poll                      sio
-C:   00002B93  _printstr                          sio
-C:   00002BB6  _print8bin                         sio
-C:   00002BD6  _print16bin                        sio
-C:   00002C02  _print32bin                        sio
-C:   00002C80  _print8x                           sio
-C:   00002CBD  _print16x                          sio
-C:   00002D43  _print32x                          sio
-C:   00002E78  __mulint                           _mulint
-C:   00002F16  ___memcpy                          __memcpy
-C:   00002FA9  _memset                            _memset
-C:   00003013  _toupper                           toupper
-C:   0000303A  __gptrget                          _gptrget
-C:   00003056  __modsint                          _modsint
-C:   000030C4  __moduint                          _moduint
-C:   00003143  __sdcc_external_startup            _startup
-C:   00003147  __gptrput                          _gptrput
+C:   00002A9E  _rand                              rand
+C:   00002B62  _srand                             rand
+C:   00002B7B  _putchar                           sio
+C:   00002B85  _getchar                           sio
+C:   00002B92  _getchar_poll                      sio
+C:   00002BAC  _printstr                          sio
+C:   00002BCF  _print8bin                         sio
+C:   00002BEF  _print16bin                        sio
+C:   00002C1B  _print32bin                        sio
+C:   00002C99  _print8x                           sio
+C:   00002CD6  _print16x                          sio
+C:   00002D5C  _print32x                          sio
+C:   00002E91  __mulint                           _mulint
+C:   00002F2F  ___memcpy                          __memcpy
+C:   00002FC2  _memset                            _memset
+C:   0000302C  _toupper                           toupper
+C:   00003053  __gptrget                          _gptrget
+C:   0000306F  __modsint                          _modsint
+C:   000030DD  __moduint                          _moduint
+C:   0000315C  __sdcc_external_startup            _startup
+C:   00003160  __gptrput                          _gptrput
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003162    00000095 =         149. bytes (REL,CON,CODE)
+CONST                               0000317B    00000095 =         149. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -428,7 +428,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               000031F7    00000004 =           4. bytes (REL,CON,CODE)
+XINIT                               00003210    00000004 =           4. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
