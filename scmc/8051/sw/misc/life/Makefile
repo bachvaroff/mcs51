@@ -8,12 +8,14 @@ ASMEMFLAGS=--code-loc 0x2000 --code-size 0x2000 --xram-loc 0x4000 --xram-size 0x
 %.hex: %.ihx
 	packihx "$<" > "$@"
 
-.PRECIOUS: %.ihx
-
 all: life
 
-life.ihx: life.rel
+life.rel: life.c ../../pm21/libpm21.h
+
+life.ihx: life.rel ../../pm21/libpm21.lib
 	sdcc $(ASLINKFLAGS) $(ASMEMFLAGS) $^ -o "$@"
+
+life.hex: life.ihx
 
 life: life.hex
 	cat "$@.mem"

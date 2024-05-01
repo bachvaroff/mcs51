@@ -10,12 +10,14 @@ ASMEMFLAGS=--code-loc 0x2000 --code-size 0x6000 --xram-loc 0x8000 --xram-size 0x
 %.hex: %.ihx
 	packihx "$<" > "$@"
 
-.PRECIOUS: %.ihx
-
 all: disp
 
-disp.ihx: disp.rel
+disp.rel: disp.c ../../pm21/libpm21.h
+
+disp.ihx: disp.rel ../../pm21/libpm21.lib
 	sdcc $(ASLINKFLAGS) $(ASMEMFLAGS) $^ -o "$@"
+
+disp.hex: disp.ihx
 
 disp: disp.hex
 	cat "$@.mem"

@@ -8,12 +8,14 @@ ASMEMFLAGS=--code-loc 0x2000 --xram-loc 0x4000
 %.hex: %.ihx
 	packihx "$<" > "$@"
 
-.PRECIOUS: %.ihx
-
 all: irq
 
-irq.ihx: irq.rel
+irq.rel: irq.c ../../pm21/libpm21.h
+
+irq.ihx: irq.rel ../../pm21/libpm21.lib
 	sdcc $(ASLINKFLAGS) $(ASMEMFLAGS) $^ -o "$@"
+
+irq.hex: irq.ihx
 
 irq: irq.hex
 	cat "$@.mem"

@@ -8,12 +8,16 @@ ASMEMFLAGS=--code-loc 0x2000 --xram-loc 0x4c00
 %.hex: %.ihx
 	packihx "$<" > "$@"
 
-.PRECIOUS: %.ihx
-
 all: fft
 
-fft.ihx: fix_fft.rel main.rel
+fix_fft.rel: fix_fft.c fix_fft.h
+
+main.rel: main.c fix_fft.h ../../pm21/libpm21.h
+
+fft.ihx: fix_fft.rel main.rel ../../pm21/libpm21.lib
 	sdcc $(ASLINKFLAGS) $(ASMEMFLAGS) $^ -o "$@"
+
+fft.hex: fft.ihx
 
 fft: fft.hex
 	cat "$@.mem"
