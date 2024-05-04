@@ -280,9 +280,8 @@ reset:
 		while (1) {
 			if (c == (int)'T') goto term;
 			else if (c == (int)'R') goto reset;
-			else if (c == (int)'?') {
-				pinfo();
-			} else if (c == (int)'P') {
+			else if (c == (int)'?') pinfo();
+			else if (c == (int)'P') {
 				pmsg();
 				pnl();
 			} else if (c == (int)'I') {
@@ -314,7 +313,6 @@ term:
 	EA = 0;
 	init_disp();
 	printstr("TERM\r\n");
-	(void)getchar();
 	
 	PCON |= 2;
 	

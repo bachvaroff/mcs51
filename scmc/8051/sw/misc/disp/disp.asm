@@ -1240,7 +1240,7 @@ _main:
 	cjne	r7,#0x00,00231$
 	ljmp	00101$
 00231$:
-;	disp.c:283: else if (c == (int)'?') {
+;	disp.c:283: else if (c == (int)'?') pinfo();
 	cjne	r6,#0x3f,00119$
 	cjne	r7,#0x00,00119$
 ;	disp.c:118: printstr("? P SP ");
@@ -1272,10 +1272,10 @@ _main:
 	mov	dptr,#___str_0
 	mov	b,#0x80
 	lcall	_printstr
-;	disp.c:284: pinfo();
+;	disp.c:283: else if (c == (int)'?') pinfo();
 	ljmp	00126$
 00119$:
-;	disp.c:285: } else if (c == (int)'P') {
+;	disp.c:284: else if (c == (int)'P') {
 	cjne	r6,#0x50,00116$
 	cjne	r7,#0x00,00116$
 ;	disp.c:103: printstr("MSG \"");
@@ -1293,13 +1293,13 @@ _main:
 	mov	dptr,#___str_0
 	mov	b,#0x80
 	lcall	_printstr
-;	disp.c:287: pnl();
+;	disp.c:286: pnl();
 	ljmp	00126$
 00116$:
-;	disp.c:288: } else if (c == (int)'I') {
+;	disp.c:287: } else if (c == (int)'I') {
 	cjne	r6,#0x49,00113$
 	cjne	r7,#0x00,00113$
-;	disp.c:289: inv = ~inv;
+;	disp.c:288: inv = ~inv;
 	mov	r0,#_inv
 	mov	a,@r0
 	cpl	a
@@ -1325,23 +1325,23 @@ _main:
 	mov	dptr,#___str_0
 	mov	b,#0x80
 	lcall	_printstr
-;	disp.c:291: pnl();
+;	disp.c:290: pnl();
 	ljmp	00126$
 00113$:
-;	disp.c:292: } else if (c == (int)'L') {
+;	disp.c:291: } else if (c == (int)'L') {
 	cjne	r6,#0x4c,00240$
 	cjne	r7,#0x00,00240$
 	sjmp	00241$
 00240$:
 	ljmp	00110$
 00241$:
-;	disp.c:293: init_disp();
+;	disp.c:292: init_disp();
 	lcall	_init_disp
-;	disp.c:294: printstr("LOAD ");
+;	disp.c:293: printstr("LOAD ");
 	mov	dptr,#___str_8
 	mov	b,#0x80
 	lcall	_printstr
-;	disp.c:295: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
+;	disp.c:294: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
 	mov	r4,#0x00
 	mov	r5,#0x00
 	mov	r0,_bp
@@ -1351,7 +1351,7 @@ _main:
 	inc	r0
 	mov	@r0,a
 00149$:
-;	disp.c:296: c = getchar();
+;	disp.c:295: c = getchar();
 	push	ar4
 	push	ar5
 	lcall	_getchar
@@ -1359,7 +1359,7 @@ _main:
 	mov	r5,dph
 	mov	ar7,r4
 	mov	ar6,r5
-;	disp.c:297: (void)putchar(c);
+;	disp.c:296: (void)putchar(c);
 	mov	dpl,r7
 	mov	dph,r6
 	push	ar7
@@ -1371,7 +1371,7 @@ _main:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	disp.c:298: if ((c == (int)'\r') || (c == (int)'\n')) {
+;	disp.c:297: if ((c == (int)'\r') || (c == (int)'\n')) {
 	cjne	r7,#0x0d,00242$
 	cjne	r6,#0x00,00242$
 	pop	ar5
@@ -1383,7 +1383,7 @@ _main:
 	cjne	r7,#0x0a,00103$
 	cjne	r6,#0x00,00103$
 00102$:
-;	disp.c:299: buf[j] = 0u;
+;	disp.c:298: buf[j] = 0u;
 	mov	a,r4
 	add	a,#_buf
 	mov	dpl,a
@@ -1392,10 +1392,10 @@ _main:
 	mov	dph,a
 	clr	a
 	movx	@dptr,a
-;	disp.c:300: break;
+;	disp.c:299: break;
 	sjmp	00106$
 00103$:
-;	disp.c:301: } else buf[j] = c & 0xffu;
+;	disp.c:300: } else buf[j] = c & 0xffu;
 	mov	r0,_bp
 	inc	r0
 	mov	a,@r0
@@ -1410,7 +1410,7 @@ _main:
 	mov	dph,r4
 	mov	a,r3
 	movx	@dptr,a
-;	disp.c:295: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
+;	disp.c:294: for (j = 0u; j < (sizeof (buf) - 1u); j++) {
 	mov	r0,_bp
 	inc	r0
 	inc	@r0
@@ -1432,7 +1432,7 @@ _main:
 	add	a,r3
 	jnc	00149$
 00106$:
-;	disp.c:303: buf[j] = 0u;
+;	disp.c:302: buf[j] = 0u;
 	mov	a,r4
 	add	a,#_buf
 	mov	dpl,a
@@ -1460,38 +1460,36 @@ _main:
 	mov	dptr,#___str_0
 	mov	b,#0x80
 	lcall	_printstr
-;	disp.c:306: pnl();
+;	disp.c:305: pnl();
 	sjmp	00126$
 00110$:
-;	disp.c:307: } else if (c == (int)'S') break;
+;	disp.c:306: } else if (c == (int)'S') break;
 	cjne	r6,#0x53,00247$
 	cjne	r7,#0x00,00247$
 	ljmp	00131$
 00247$:
 00126$:
-;	disp.c:309: c = toupper(getchar());
+;	disp.c:308: c = toupper(getchar());
 	lcall	_getchar
 	lcall	_toupper
 	mov	r6,dpl
 	mov	r7,dph
 	ljmp	00128$
-;	disp.c:313: term:	
+;	disp.c:312: term:	
 00133$:
-;	disp.c:314: EA = 0;
+;	disp.c:313: EA = 0;
 ;	assignBit
 	clr	_EA
-;	disp.c:315: init_disp();
+;	disp.c:314: init_disp();
 	lcall	_init_disp
-;	disp.c:316: printstr("TERM\r\n");
+;	disp.c:315: printstr("TERM\r\n");
 	mov	dptr,#___str_9
 	mov	b,#0x80
 	lcall	_printstr
-;	disp.c:317: (void)getchar();
-	lcall	_getchar
-;	disp.c:319: PCON |= 2;
+;	disp.c:317: PCON |= 2;
 	orl	_PCON,#0x02
-;	disp.c:321: return;
-;	disp.c:322: }
+;	disp.c:319: return;
+;	disp.c:320: }
 	mov	sp,_bp
 	pop	_bp
 	ret

@@ -13,6 +13,7 @@
 -k /usr/bin/../share/sdcc/lib/large-stack-auto
 -k /usr/share/sdcc/lib/large-stack-auto
 -l libpm21
+-l ../../pm21/libpm21.lib
 -l mcs51
 -l libsdcc
 -l libint
