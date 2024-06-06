@@ -14,6 +14,7 @@ assign LED_CLK = counter[UPDATE_CLK];
 skipring #(LEN) skip_clock(
 	.iCLK(LED_CLK),
 	.RST(1'b0),
+	.E(1'b1),
 	.MASK(LEN'b0011010001000101),
 	.oCLK(LED_SCLK),
 	.oB0(LED_B0)
