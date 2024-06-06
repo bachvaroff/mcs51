@@ -5,7 +5,7 @@ output wire LED_SCLK;
 output wire LED_B0;
 
 localparam LEN = 16;
-localparam UPDATE_CLK = 26;
+localparam UPDATE_CLK = 23;
 
 reg [31:0] counter = 32'b0;
 
