@@ -7,7 +7,7 @@ parameter LEN = 16;
 reg [(LEN - 1):0] bsel = { (LEN - 1)'b0, 1'b1 };
 
 assign oCLK = iCLK & ~(|(bsel & MASK) & E);
-assign oB0 = bsel[0] & E;
+assign oB0 = bsel[0];
 
 always @(negedge iCLK) begin
 	if (RST) bsel <= { (LEN - 1)'b0, 1'b1 };
