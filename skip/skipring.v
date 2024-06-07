@@ -7,11 +7,11 @@ parameter LEN = 16;
 reg [(LEN - 1):0] bsel = { (LEN - 1)'b0, 1'b1 };
 
 assign oCLK = iCLK & ~(|(bsel & MASK) & E);
-assign oB0 = bsel[0];
+assign oB0 = bsel[0] & E;
 
 always @(negedge iCLK) begin
 	if (RST) bsel <= { (LEN - 1)'b0, 1'b1 };
-	else bsel <= { bsel[(LEN - 2):0], bsel[LEN - 1] };
+	else if (E) bsel <= { bsel[(LEN - 2):0], bsel[LEN - 1] };
 end
 
 endmodule
