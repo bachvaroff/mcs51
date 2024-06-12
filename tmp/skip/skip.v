@@ -13,7 +13,7 @@ assign LED_CLK = counter[`CLK_BIT];
 
 skipring #(
 	.LEN(`LEN),
-	.defSEL(`LEN'b1)
+	.defSEL(`LEN'b0000000000000001)
 ) skip_clock (
 	.iCLK(LED_CLK),
 	.RST(1'b0),
