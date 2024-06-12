@@ -7,22 +7,29 @@ parameter LEN = 16;
 parameter defSEL = 16'b1;
 
 reg [(LEN - 1):0] bsel = defSEL;
+reg Ereg = 1'b1;
+reg RSTreg = 1'b0;
 
-assign oCLK = iCLK & ~(|(bsel & MASK) & E);
+assign oCLK = iCLK & ~(|(bsel & MASK) & Ereg);
 assign oB0 = bsel[0];
+
+always @(posedge iCLK) begin
+	Ereg <= E;
+	RSTreg <= RST;
+end
 
 /*
 always @(negedge iCLK) begin
-	if (RST) bsel <= rSEL;
-	else if (E) bsel <= { bsel[(LEN - 2):0], bsel[LEN - 1] };
+	if (RSTreg) bsel <= rSEL;
+	else if (Ereg) bsel <= { bsel[(LEN - 2):0], bsel[LEN - 1] };
 end
 */
 
 always @(negedge iCLK) begin: rol_bsel
 	integer i;
 	
-	if (RST) bsel <= rSEL;
-	else if (E) begin
+	if (RSTreg) bsel <= rSEL;
+	else if (Ereg) begin
 		for (i = 1; i <= LEN; i = i + 1)
 			bsel[i % LEN] <= bsel[i - 1];
 	end
