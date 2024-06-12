@@ -6,13 +6,10 @@ output wire LED_B0;
 
 `define LEN 16
 `define CLK_BIT 24
-`define EN_BIT 30
 
 reg [31:0] counter = 32'b0;
-wire EN;
 
 assign LED_CLK = counter[`CLK_BIT];
-assign EN = counter[`EN_BIT];
 
 skipring #(
 	.LEN(`LEN),
@@ -20,9 +17,9 @@ skipring #(
 ) skip_clock (
 	.iCLK(LED_CLK),
 	.RST(1'b0),
-	.E(EN),
+	.E(1'b1),
 	.rSEL(`LEN'b1),
-	.MASK(`LEN'b0011010001000101),
+	.MASK(`LEN'b1100110011001100),
 	.oCLK(LED_SCLK),
 	.oB0(LED_B0)
 );
