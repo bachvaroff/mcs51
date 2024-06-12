@@ -4,7 +4,7 @@ output wire [2:0] led;
 
 reg [31:0] counter = 0;
 
-always @ (posedge clk) begin: counting
+always @(posedge clk) begin: counting
 	counter <= counter + 1;
 end
 
