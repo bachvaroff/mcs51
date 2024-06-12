@@ -18,7 +18,7 @@ skipring #(
 	.iCLK(LED_CLK),
 	.RST(1'b0),
 	.E(1'b1),
-	.rSEL(`LEN'b1),
+	.rSEL(`LEN'b0000000000000001),
 	.MASK(`LEN'b1100110011001100),
 	.oCLK(LED_SCLK),
 	.oB0(LED_B0)
