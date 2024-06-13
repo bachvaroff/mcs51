@@ -1,8 +1,8 @@
-module skip (mCLK, LED_CLK, LED_SCLK, LED_B0);
+module skip (mCLK, LED_CLK, LED_SCLK, LED_ST);
 input wire mCLK;
 output wire LED_CLK;
 output wire LED_SCLK;
-output wire LED_B0;
+output wire LED_ST;
 
 `define LEN 16
 `define CLK_BIT 24
@@ -25,7 +25,7 @@ skipring #(
 	.rSEL(`LEN'b0000000000000001),
 	.MASK(`LEN'b1100110011001100),
 	.oCLK(LED_SCLK),
-	.oB0(LED_B0)
+	.oST(LED_ST)
 );
 
 always @(posedge mCLK) begin

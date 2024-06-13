@@ -2,7 +2,7 @@
 
 .model skip
 .inputs mCLK
-.outputs LED_CLK LED_SCLK LED_B0
+.outputs LED_CLK LED_SCLK LED_ST
 .names $false
 .names $true
 1
@@ -27,7 +27,7 @@
 .attr module_not_derived 00000000000000000000000000000001
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:40"
 .param LUT_INIT 01
-.gate SB_LUT4 I0=$abc$589$auto$ice40_ffinit.cc:141:execute$579 I1=$false I2=$false I3=$false O=LED_B0
+.gate SB_LUT4 I0=$abc$589$auto$ice40_ffinit.cc:141:execute$579 I1=$false I2=$false I3=$false O=skip_clock.bsel[0]
 .attr module_not_derived 00000000000000000000000000000001
 .attr src "/usr/bin/../share/yosys/ice40/cells_map.v:40"
 .param LUT_INIT 01
@@ -341,58 +341,60 @@
 .attr src "skip.v:31|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFF C=LED_CLK D=$abc$589$auto$ice40_ffinit.cc:140:execute$582 Q=$abc$589$auto$ice40_ffinit.cc:141:execute$583
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:16|/usr/bin/../share/yosys/ice40/cells_map.v:2"
+.attr src "skip.v:18|skipring.v:17|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .gate SB_DFFNE C=LED_CLK D=$abc$589$auto$ice40_ffinit.cc:140:execute$578 E=skip_clock.Ereg Q=$abc$589$auto$ice40_ffinit.cc:141:execute$579
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
-.gate SB_DFFNE C=LED_CLK D=LED_B0 E=skip_clock.Ereg Q=skip_clock.bsel[1]
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[0] E=skip_clock.Ereg Q=skip_clock.bsel[1]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[1] E=skip_clock.Ereg Q=skip_clock.bsel[2]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[2] E=skip_clock.Ereg Q=skip_clock.bsel[3]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[3] E=skip_clock.Ereg Q=skip_clock.bsel[4]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[4] E=skip_clock.Ereg Q=skip_clock.bsel[5]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[5] E=skip_clock.Ereg Q=skip_clock.bsel[6]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[6] E=skip_clock.Ereg Q=skip_clock.bsel[7]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[7] E=skip_clock.Ereg Q=skip_clock.bsel[8]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[8] E=skip_clock.Ereg Q=skip_clock.bsel[9]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[9] E=skip_clock.Ereg Q=skip_clock.bsel[10]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[10] E=skip_clock.Ereg Q=skip_clock.bsel[11]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[11] E=skip_clock.Ereg Q=skip_clock.bsel[12]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[12] E=skip_clock.Ereg Q=skip_clock.bsel[13]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[13] E=skip_clock.Ereg Q=skip_clock.bsel[14]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .gate SB_DFFNE C=LED_CLK D=skip_clock.bsel[14] E=skip_clock.Ereg Q=skip_clock.bsel[15]
 .attr module_not_derived 00000000000000000000000000000001
-.attr src "skip.v:18|skipring.v:28|/usr/bin/../share/yosys/ice40/cells_map.v:7"
+.attr src "skip.v:18|skipring.v:27|/usr/bin/../share/yosys/ice40/cells_map.v:7"
 .names $false $auto$alumacc.cc:474:replace_alu$166.C[0]
 1 1
 .names counter[0] $auto$alumacc.cc:474:replace_alu$166.C[1]
+1 1
+.names skip_clock.Ereg LED_ST
 1 1
 .names LED_CLK counter[24]
 1 1
@@ -438,13 +440,11 @@
 1 1
 .names $false skip_clock.RSTreg
 1 1
-.names LED_B0 skip_clock.bsel[0]
-1 1
 .names LED_CLK skip_clock.iCLK
 1 1
-.names LED_B0 skip_clock.oB0
-1 1
 .names LED_SCLK skip_clock.oCLK
+1 1
+.names skip_clock.Ereg skip_clock.oST
 1 1
 .names $true skip_clock.rSEL[0]
 1 1
