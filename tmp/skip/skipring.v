@@ -8,9 +8,10 @@ parameter defSEL = 16'b1;
 
 reg [(LEN - 1):0] bsel = defSEL;
 reg Ereg = 1'b1;
+reg OEreg = 1'b1;
 reg RSTreg = 1'b0;
 
-assign oCLK = iCLK & ~(|(bsel & MASK) & Ereg);
+assign oCLK = iCLK & ~(|(bsel & MASK) & OEreg);
 // assign oST = bsel[0];
 assign oST = Ereg;
 
@@ -32,6 +33,7 @@ always @(negedge iCLK) begin: rol_bsel
 		for (i = 1; i <= LEN; i = i + 1)
 			bsel[i % LEN] <= bsel[i - 1];
 	end
+	OEreg <= Ereg;
 end
 
 endmodule
