@@ -12,18 +12,12 @@ reg OEreg = 1'b1;
 reg RSTreg = 1'b0;
 
 assign oCLK = iCLK & ~(|(bsel & MASK) & OEreg);
-// assign oST = bsel[0];
 assign oST = OEreg;
 
 always @(posedge iCLK) begin
 	Ereg <= E;
 	RSTreg <= RST;
 end
-
-// always @(negedge iCLK) begin
-//	if (RSTreg) bsel <= rSEL;
-//	else if (Ereg) bsel <= { bsel[(LEN - 2):0], bsel[LEN - 1] };
-// end
 
 always @(negedge iCLK) begin: rol_bsel
 	integer i;
