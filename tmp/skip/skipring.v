@@ -13,7 +13,7 @@ reg RSTreg = 1'b0;
 
 assign oCLK = iCLK & ~(|(bsel & MASK) & OEreg);
 // assign oST = bsel[0];
-assign oST = Ereg;
+assign oST = OEreg;
 
 always @(posedge iCLK) begin
 	Ereg <= E;
