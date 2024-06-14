@@ -17,6 +17,7 @@ assign E_SKIP = counter[`E_BIT];
 
 skipring #(
 	.LEN(`LEN),
+	.defE(1'b0),
 	.defSEL(`LEN'b1),
 	.defMASK(`LEN'b1100110011001100)
 ) skip_clock (
