@@ -1,33 +1,44 @@
-module skipring (iCLK, RST, E, rSEL, MASK, oCLK, oST);
-input wire iCLK, RST, E;
-input wire [(LEN - 1):0] rSEL;
-input wire [(LEN - 1):0] MASK;
+module skipring (iCLK, iE, iRST, iSEL, iMASK, oCLK, oST);
+input wire iCLK, iE, iRST;
+input wire [(LEN - 1):0] iSEL;
+input wire [(LEN - 1):0] iMASK;
 output wire oCLK, oST;
 parameter LEN = 16;
 parameter defSEL = 16'b1;
+parameter defMASK = 16'b0;
 
-reg [(LEN - 1):0] bsel = defSEL;
+reg [(LEN - 1):0] SELreg = defSEL;
+reg [(LEN - 1):0] bSELreg = defSEL;
+
+reg [(LEN - 1):0] MASKreg = defMASK;
+reg [(LEN - 1):0] oMASKreg = defMASK;
+
 reg Ereg = 1'b1;
-reg OEreg = 1'b1;
+reg oEreg = 1'b1;
+
 reg RSTreg = 1'b0;
 
-assign oCLK = iCLK & ~(|(bsel & MASK) & OEreg);
-assign oST = OEreg;
+assign oCLK = iCLK & ~(|(bSELreg & oMASKreg) & oEreg);
+assign oST = oEreg;
 
 always @(posedge iCLK) begin
-	Ereg <= E;
-	RSTreg <= RST;
+	Ereg <= iE;
+	RSTreg <= iRST;
+	SELreg <= iSEL;
+	MASKreg <= iMASK;
 end
 
 always @(negedge iCLK) begin: rol_bsel
 	integer i;
 	
-	if (RSTreg) bsel <= rSEL;
-	else if (Ereg) begin
+	if (RSTreg) begin
+		bSELreg <= SELreg;
+		oMASKreg <= MASKreg;
+	end else if (Ereg) begin
 		for (i = 1; i <= LEN; i = i + 1)
-			bsel[i % LEN] <= bsel[i - 1];
+			bSELreg[i % LEN] <= bSELreg[i - 1];
 	end
-	OEreg <= Ereg;
+	oEreg <= Ereg;
 end
 
 endmodule

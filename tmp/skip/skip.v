@@ -17,13 +17,14 @@ assign E_SKIP = counter[`E_BIT];
 
 skipring #(
 	.LEN(`LEN),
-	.defSEL(`LEN'b0000000000000001)
+	.defSEL(`LEN'b1),
+	.defMASK(`LEN'b1100110011001100)
 ) skip_clock (
 	.iCLK(LED_CLK),
-	.RST(1'b0),
-	.E(E_SKIP),
-	.rSEL(`LEN'b0000000000000001),
-	.MASK(`LEN'b1100110011001100),
+	.iE(E_SKIP),
+	.iRST(1'b0),
+	.iSEL(`LEN'b1),
+	.iMASK(`LEN'b1100110011001100),
 	.oCLK(LED_SCLK),
 	.oST(LED_ST)
 );
