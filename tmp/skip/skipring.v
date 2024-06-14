@@ -4,7 +4,7 @@ input wire [(LEN - 1):0] iSEL;
 input wire [(LEN - 1):0] iMASK;
 output wire oCLK, oST;
 parameter LEN = 16;
-parameter defE = 1'b1;
+parameter defE = 1'b0;
 parameter defSEL = 16'b1;
 parameter defMASK = 16'b0;
 
