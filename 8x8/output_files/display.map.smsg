@@ -1,3 +1,0 @@
-Info (10281): Verilog HDL Declaration information at driver.v(5): object "ROW" differs only in case from object "row" in the same scope File: C:/Users/bachv/dev/8x8/driver.v Line: 5
-Info (10281): Verilog HDL Declaration information at driver.v(6): object "COLUMN" differs only in case from object "column" in the same scope File: C:/Users/bachv/dev/8x8/driver.v Line: 6
-Info (10281): Verilog HDL Declaration information at driver.v(7): object "CLEAR" differs only in case from object "clear" in the same scope File: C:/Users/bachv/dev/8x8/driver.v Line: 7
