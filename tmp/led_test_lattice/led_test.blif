@@ -134,13 +134,6 @@
 .attr module_not_derived 00000000000000000000000000000001
 .attr src "led_test.v:11|/usr/bin/../share/yosys/ice40/arith_map.v:53"
 .param LUT_INIT 0110100110010110
-.gate SB_CARRY CI=$auto$alumacc.cc:474:replace_alu$5.C[26] CO=$auto$alumacc.cc:474:replace_alu$5.C[27] I0=$false I1=counter[26]
-.attr module_not_derived 00000000000000000000000000000001
-.attr src "led_test.v:11|/usr/bin/../share/yosys/ice40/arith_map.v:47"
-.gate SB_LUT4 I0=$false I1=$false I2=counter[27] I3=$auto$alumacc.cc:474:replace_alu$5.C[27] O=$0\counter[31:0][27]
-.attr module_not_derived 00000000000000000000000000000001
-.attr src "led_test.v:11|/usr/bin/../share/yosys/ice40/arith_map.v:53"
-.param LUT_INIT 0110100110010110
 .gate SB_LUT4 I0=$false I1=$false I2=counter[2] I3=$auto$alumacc.cc:474:replace_alu$5.C[2] O=$0\counter[31:0][2]
 .attr module_not_derived 00000000000000000000000000000001
 .attr src "led_test.v:11|/usr/bin/../share/yosys/ice40/arith_map.v:53"
@@ -278,12 +271,11 @@
 .gate SB_DFF C=clk D=$0\counter[31:0][26] Q=counter[26]
 .attr module_not_derived 00000000000000000000000000000001
 .attr src "led_test.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
-.gate SB_DFF C=clk D=$0\counter[31:0][27] Q=counter[27]
-.attr module_not_derived 00000000000000000000000000000001
-.attr src "led_test.v:10|/usr/bin/../share/yosys/ice40/cells_map.v:2"
 .names $false $auto$alumacc.cc:474:replace_alu$5.C[0]
 1 1
 .names counter[0] $auto$alumacc.cc:474:replace_alu$5.C[1]
+1 1
+.names $false counter[27]
 1 1
 .names $false counter[28]
 1 1
@@ -293,10 +285,10 @@
 1 1
 .names $false counter[31]
 1 1
-.names counter[25] led[0]
+.names counter[24] led[0]
 1 1
-.names counter[26] led[1]
+.names counter[25] led[1]
 1 1
-.names counter[27] led[2]
+.names counter[26] led[2]
 1 1
 .end
