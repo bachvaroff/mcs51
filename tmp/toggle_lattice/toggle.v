@@ -3,14 +3,12 @@ input wire iCLK, iD;
 output wire oD;
 
 reg [1:0] Dreg = 2'b00;
-reg Oreg = 1'b0;
 
-assign oD = Oreg;
+assign oD = ^Dreg & iCLK;
 
 always @(posedge iCLK) begin
 	Dreg[0] <= iD;
 	Dreg[1] <= Dreg[0];
-	Oreg <= ^Dreg;
 end
 
 endmodule
