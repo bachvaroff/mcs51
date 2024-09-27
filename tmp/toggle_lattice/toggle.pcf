@@ -1,9 +1,0 @@
-set_io --warn-no-port mCLK R9
-
-# LED1
-set_io --warn-no-port LED_iD C8
-# LED2
-set_io --warn-no-port LED_oD F7
-# LED3
-set_io --warn-no-port LED_CLK K9
-

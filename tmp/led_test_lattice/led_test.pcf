@@ -1,9 +1,0 @@
-set_io --warn-no-port clk R9
-
-# LED1 GREEN
-set_io --warn-no-port led[0] C8
-# LED2 GREEN
-set_io --warn-no-port led[1] F7
-# LED3 RED
-set_io --warn-no-port led[2] K9
-
