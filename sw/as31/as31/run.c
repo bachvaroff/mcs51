@@ -34,10 +34,10 @@ int run_as31(const char *infile, int lst, int use_stdout,
 	FILE* finPre;
 	char tmpName[256];
 	char *lineBuffer=NULL;
-	int sizeBuf=0;
+	size_t sizeBuf=0ul;
 	char *includePtr=NULL;
 	char *incLineBuffer=NULL;
-	int incSizeBuf=0;
+	size_t incSizeBuf=0ul;
 	FILE* includeFile=NULL;
 	int fd;
 
