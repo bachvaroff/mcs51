@@ -237,7 +237,7 @@ cout:
 	clr	ti
 	mov	sbuf, a
 	ret
-	
+
 sspace:
 	push	acc
 	mov	a, #SPACE
@@ -304,7 +304,7 @@ pcb7str2:
 pcb7str3:
 	pop	acc
 	ret
-	
+
 ;---------------------------------------------------------;
 
 ; get 2 digit hex number from serial port
@@ -563,7 +563,7 @@ menu:
 	acall	phex
 	mov	dptr, #prompt2
 	acall	pcstr
-
+	
 ; now we're finally past the prompt, so let's get some input
 	acall	cin		; get the input, finally
 	cjne	a, #':', menu0
@@ -571,21 +571,21 @@ menu:
 	sjmp	menu
 menu0:
 	acall	upper
-
+	
 ; push return address onto stack so we can just jump to the program
 	mov	b, #(menu & 0xff)	; we push the return address now,
 	push	b		; to save code later...
 	mov	b, #(menu >> 8)	; if bogus input, just ret for
 	push	b		; another prompt.
-
+	
 ; first we'll look through memory for a program header that says
 ; it's a user installed command which matches what the user pressed
-
+	
 ; user installed commands need to avoid changing R6/R7, which holds
 ; the memory pointer. The stack pointer can't be changed obviously.
 ; all the other general purpose registers should be available for
 ; user commands to alter as they wish.
-
+	
 menux:
 	mov	b, a		; now search for external commands...
 	mov	dptr, #bmem
@@ -611,7 +611,7 @@ menux2:
 	cjne	a, #((emem + 1) >> 8) & 0xff, menux1
 menuxend:
 	mov	a, b
-
+	
 ; since we didn't find a user installed command, use the builtin ones
 menui1:
 	cjne	a, #help_key, menui2
@@ -702,7 +702,7 @@ menui15:
 	mov	dptr, #baud_cmd
 	acall	pcstr
 	ljmp	reset_baud
-
+	
 menuiend:
 	ajmp	crlf
 
@@ -735,39 +735,39 @@ dptrtor6r7:
 ;  *   7 = unexpected non-hex digits (in middle of a line)
 
 dnld:
-	mov	dptr, #dnlds1	; "begin sending file <ESC> to abort"		 
+	mov	dptr, #dnlds1	; "begin sending file <ESC> to abort"
 	acall	pcstr
 	acall	dnld_init
 	
 dnld1:
-	; look for begining of line marker ':'
+; look for begining of line marker ':'
 	acall	cin
 	cjne	a, #ESC, dnld2	; Test for escape
 	sjmp	dnld_esc
-
+	
 dnld2:
 	cjne	a, #':', dnld2b
 	sjmp	dnld2d
 dnld2b:
-	; check to see if it's a hex digit, error if it is
+; check to see if it's a hex digit, error if it is
 	acall	asc2hex
 	jc	dnld1
 	mov	r1, #6
 	acall	dnld_inc
 	sjmp	dnld1
-
+	
 dnld_now:
-	; entry point for main menu detecting ':' character
+; entry point for main menu detecting ':' character
 	mov	a, #':'
 	acall	cout
 	acall	dnld_init
-
+	
 dnld2d:
 	mov	r1, #0
 	acall	dnld_inc
-
+	
 dnld3:
-	; begin taking in the line of data
+; begin taking in the line of data
 ;	mov	a, #'.'
 ;	acall	cout
 	mov	r4, #0		; r4 will count up checksum
@@ -805,17 +805,18 @@ dnld_sumerr:
 	mov	r1, #4
 	acall	dnld_inc	; all we can do it count # of cksum errors
 	sjmp	dnld1
-
-dnld_unknown:	; handle unknown line type
+	
+dnld_unknown:
+; handle unknown line type
 	mov	a, r0
 	jz	dnld_get_cksum	; skip data if size is zero
 dnld_ukn2:
 	acall	dnld_ghex	; consume all of unknown data
 	djnz	r0, dnld_ukn2
 	sjmp	dnld_get_cksum
-
+	
 dnld_end:
-	; handles the proper end-of-download marker
+; handles the proper end-of-download marker
 	mov	a, r0
 	jz	dnld_end_3	; should usually be zero
 dnld_end_2:
@@ -828,16 +829,16 @@ dnld_end_3:
 	acall	dnld_dly
 	mov	dptr, #dnlds3	; "download went ok..."
 	acall	pcstr
-	; consume any cr or lf character that may have been
-	; on the end of the last line
+; consume any cr or lf character that may have been
+; on the end of the last line
 	jnb	ri, dnld_sum
 	acall	cin
 	sjmp	dnld_sum
-
+	
 dnld_esc:
-	; handle esc received in the download stream
+; handle esc received in the download stream
 	acall	dnld_dly
-	mov	dptr, #dnlds2	; "download aborted."	 
+	mov	dptr, #dnlds2	; "download aborted."
 	acall	pcstr
 	sjmp	dnld_sum
 
@@ -845,7 +846,7 @@ dnld_esc:
 ; won't be ready to receive anything immediately after
 ; they've transmitted a file... even on a fast Pentium(tm)
 ; machine with 16550 uarts!
-
+	
 dnld_dly:
 	mov	r0, #0
 dnlddly2:
@@ -853,10 +854,10 @@ dnlddly2:
 	djnz	r1, *		; roughly 128k cycles, appox 0.1 sec
 	djnz	r0, dnlddly2
 	ret
-
+	
 ; increment parameter specified by R1
 ; note, values in Acc and R1 are destroyed
-
+	
 dnld_inc:
 	mov	a, r1
 	anl	a, #00000111b	; just in case
@@ -870,11 +871,11 @@ dnld_inc:
 	inc	@r1
 dnldin2:
 	ret
-
+	
 ; get parameter, and inc to next one (@r1)
 ; carry clear if parameter is zero.
 ; 16 bit value returned in dptr
-
+	
 dnld_gp:
 	setb	c
 	mov	dpl, @r1
@@ -888,7 +889,7 @@ dnld_gp:
 	clr	c
 dnldgp2:
 	ret
-
+	
 ; a special version of ghex just for the download. Does not
 ; look for carriage return or backspace. Handles ESC key by
 ; poping the return address (I know, nasty, but it saves many
@@ -897,7 +898,7 @@ dnldgp2:
 ; sees ':', it pops the return and jumps to an error handler
 ; for ':' in the middle of a line. Non-hex digits also jump
 ; to error handlers, depending on which digit.
-
+	
 dnld_ghex:
 dnldgh1:
 	acall	cin
@@ -946,14 +947,13 @@ dnldghA:
 	mov	r4, a
 	mov	a, r2		; return value in acc
 	ret
-
-; dnlds4 =  "Summary:"
-; dnlds5 =  " lines received"
+	
+; print out download summary
+; dnlds4 = "Summary:"
+; dnlds5 = " lines received"
 ; dnlds6a = " bytes received"
 ; dnlds6b = " bytes written"
-
-; print out download summary
-
+	
 dnld_sum:
 	mov	a, r6
 	push	acc
@@ -971,9 +971,16 @@ dnld_sum:
 	mov	r6, #dnlds6b & 0xff
 	mov	r7, #dnlds6b >> 8
 	acall	dnld_i0
-
+	
 ; now print out error summary
-
+; dnlds7 = "Errors:"
+; dnlds8 = " bytes unable to write"
+; dnlds9 = " incorrect checksums"
+; dnlds10 = " unexpected begin of line"
+; dnlds11 = " unexpected hex digits"
+; dnlds12 = " unexpected non-hex digits"
+; dnlds13 = "No errors detected"
+	
 dnld_err:
 	mov	r2, #5
 dnlder2:
@@ -984,7 +991,7 @@ dnlder2:
 	mov	dptr, #dnlds13
 	acall	pcstr
 	sjmp	dlnd_sum_done
-
+	
 dnlder3:
 ; there were errors, so now we print 'em
 	mov	dptr, #dnlds7
@@ -1012,7 +1019,7 @@ dlnd_sum_done:
 	pop	acc
 	mov	r6, a
 	ajmp	crlf
-
+	
 dnld_item:
 	acall	dnld_gp		; error conditions
 	jnc	dnld_i3
@@ -1023,28 +1030,19 @@ dnld_i2:
 	acall	pcstr
 dnld_i3:
 	ret
-
+	
 dnld_i0:
 	acall	dnld_gp		; non-error conditions
 	sjmp	dnld_i2
-
-; init all dnld parms to zero.
-
+	
 dnld_init:
+; init all dnld parms to zero.
 	mov	r0, #dnld_parm
 dnld0:
 	mov	@r0, #0
 	inc	r0
 	cjne	r0, #dnld_parm + 16, dnld0
 	ret
-
-; dnlds7:  = "Errors:"
-; dnlds8:  = " bytes unable to write"
-; dnlds9:  = " incorrect checksums"
-; dnlds10: = " unexpected begin of line"
-; dnlds11: = " unexpected hex digits"
-; dnlds12: = " unexpected non-hex digits"
-; dnlds13: = "No errors detected"
 
 ;---------------------------------------------------------;
 
@@ -1066,7 +1064,6 @@ jump3:
 	mov	dptr, #runs1
 	acall	pcstr
 	acall	r6r7todptr
-
 jump_doit:
 	clr	a
 	mov	psw, a
@@ -1080,7 +1077,7 @@ clrintram:
 
 ;---------------------------------------------------------;
 
-dump:	
+dump:
 	mov	r2, #16		; number of lines to print
 	acall	dcrlf
 dump1:
@@ -1167,7 +1164,6 @@ dir0a:
 	djnz	r0, dir0a
 	mov	dptr, #prompt9b
 	acall	pcstr
-
 	mov	dph, #(bmem >> 8)
 dir1:
 	lcall	find		; find the next program in memory
@@ -1198,7 +1194,6 @@ dir4:
 	mov	dpl, #4		; now figure out what type it is
 	movx	a, @dptr
 	mov	r2, dph		; save this, we're inside a search
-
 dir5:
 	cjne	a, #254, dir5b
 	mov	dptr, #type1	; it's an external command
@@ -1218,7 +1213,6 @@ dir5d:
 dir5e:
 dir6:
 	mov	dptr, #type5	; who knows what the hell it is
-
 dir7:
 	acall	pcstr		; print out the type
 	mov	dph, r2		; go back and find the next one
@@ -1297,7 +1291,7 @@ run4a:
 	acall	cout
 	mov	r3, a
 	acall	crlf
-	; check to see if it's under 32, if so convert to uppercase
+; check to see if it's under 32, if so convert to uppercase
 	mov	a, r3
 	add	a, #(256 - 'A')
 	jnc	run4		; if they typed less than 'A'
@@ -1416,10 +1410,10 @@ help3a:
 	inc	dph
 	mov	a, dph
 	cjne	a, #((emem + 1) >> 8) & 0xff, help3
-help4:	
+help4:
 	ajmp	crlf
-
-help2:				; print 11 standard lines
+help2:
+; print 11 standard lines
 	acall	dspace		; given key in R4 and name in dptr
 	mov	a, r4
 	acall	cout_sp
@@ -1431,10 +1425,9 @@ help2:				; print 11 standard lines
 
 upld:
 	acall	get_mem
-	; assume we've got the beginning address in r3/r2
-	; and the final address in r5/r4 (r4=lsb)...
-
-	; print out what we'll be doing
+; assume we've got the beginning address in r3/r2
+; and the final address in r5/r4 (r4=lsb)...
+; print out what we'll be doing
 	mov	dptr, #uplds3
 	acall	pcstr
 	mov	a, r3
@@ -1448,14 +1441,12 @@ upld:
 	mov	a, r4
 	acall	phex
 	acall	crlf
-
-	; need to adjust end location by 1...
+; need to adjust end location by 1...
 	mov	dph, r5
 	mov	dpl, r4
 	inc	dptr
 	mov	r4, dpl
 	mov	r5, dph
-
 	mov	dptr, #prompt7
 	acall	pcstr
 	acall	cin
@@ -1465,7 +1456,6 @@ upld2e:
 	acall	dcrlf
 	mov	dpl, r2
 	mov	dph, r3
-
 upld3:
 	mov	a, r4		; how many more bytes to output??
 	clr	c
@@ -1552,7 +1542,6 @@ get_mem:
 	jc	pop_it
 	jb	psw.5, pop_it
 	ajmp	crlf
-
 pop_it:
 	pop	acc
 	pop	acc
@@ -1585,7 +1574,7 @@ clrm:
 	cjne	a, #'Y', abort_it
 	acall	dcrlf
 clrm2:
-	; now we actually do it
+; now we actually do it
 	mov	dph, r3
 	mov	dpl, r2
 clrm3:
@@ -1599,19 +1588,18 @@ clrm3:
 clrm4:
 	inc	dptr
 	sjmp	clrm3
+
 ;---------------------------------------------------------;
 
 reset_baud:
 	acall	dcrlf
 	mov	dptr, #baudprompt
 	acall	pcstr
-	
 	acall	ghex16
 	jc	bailout
 	jb	psw.5, bailout
 	push	dpl
 	push	dph
-	
 	acall	crlf
 	mov	dptr, #sure
 	acall	pcstr
@@ -1620,12 +1608,10 @@ reset_baud:
 	acall	upper
 	cjne	a, #'Y', bailout_pop
 	acall	dcrlf
-	
 	pop	b
 	pop	acc
 	lcall	setbaud
 	ret
-	
 bailout_pop:
 	pop	acc
 	pop	acc
@@ -1633,7 +1619,7 @@ bailout:
 	acall	crlf
 	mov	dptr, #abort
 	ajmp	pcstr
-	
+
 ;---------------------------------------------------------;
 
 .equ	initial, 0xffff
@@ -1643,46 +1629,37 @@ bailout:
 calc_crc16:
 	acall	get_mem
 	acall	crlf
-	
 	acall	r6r7todptr
 	push	dpl
 	push	dph
 	mov	dpl, r2
 	mov	dph, r3
-		
 	mov	r6, #(initial & 0xff)
 	mov	r7, #(initial >> 8)
 	lcall	init_crc16
-	
 	mov	r6, #(poly & 0xff)
 	mov	r7, #(poly >> 8)
 calc_loop:
 	movx	a, @dptr
 	lcall	update_crc16
-	
 	mov	a, r5
 	cjne	a, dph, calc_skip
 	mov	a, r4
 	cjne	a, dpl, calc_skip
-	
 	mov	r6, #(final & 0xff)
 	mov	r7, #(final >> 8)
 	lcall	finish_crc16
-	
 	mov	dpl, r2
 	mov	dph, r3
 	lcall	phex16
-	
 	pop	dph
 	pop	dpl
 	lcall	dptrtor6r7
-	
 	ljmp	dcrlf
-	
 calc_skip:
 	inc	dptr
 	sjmp	calc_loop
-	
+
 init_crc16:
 	push	acc
 	mov	a, r6
@@ -1691,7 +1668,7 @@ init_crc16:
 	mov	r3, a
 	pop	acc
 	ret
-	
+
 finish_crc16:
 	push	acc
 	mov	a, r2
@@ -1702,17 +1679,14 @@ finish_crc16:
 	mov	r3, a
 	pop	acc
 	ret
-	
+
 update_crc16:
 	push	b
-	
 	mov	b, a
 	mov	a, #0x80
-	
 loop:
 	mov	r0, a
 	mov	a, b
-	
 	anl	a, r0
 	jz	skip0
 	mov	a, #1
@@ -1723,33 +1697,28 @@ skip0:
 	anl	a, #1
 	xrl	a, r1
 	mov	r1, a
-	
 	mov     a, r2
 	add     a, r2
 	mov     r2, a
 	mov     a, r3
 	rlc     a
 	mov     r3, a
-	
 	mov	a, r1
 	jz	skip1
-	
 	mov	a, r2
 	xrl	a, r6
 	mov	r2, a
 	mov	a, r3
 	xrl	a, r7
 	mov	r3, a
-	
 skip1:
 	mov	a, r0
 	clr	c
 	rrc	a
 	jnz	loop
-	
 	pop	b
 	ret
-	
+
 ;---------------------------------------------------------;
 
 intm:
@@ -1779,7 +1748,7 @@ intm4:
 eio77:
 	clr	p1.7
 	ljmp	crlf
-	
+
 ;---------------------------------------------------------;
 
 dio77:
@@ -1903,37 +1872,31 @@ reset:
 	mov	p2, #p2_init
 	mov	psw, #psw_init
 	mov	sp, #sp_init
-	
 	mov	r2, #0x00	; lssrc
-	mov	r3, #0x00	; hssrc	
+	mov	r3, #0x00	; hssrc
 	mov	r4, #0x00	; lesrc
-	mov	r5, #0x20	; hesrc	
+	mov	r5, #0x20	; hesrc
 	mov	r6, #0x00	; ldst
 	mov	r7, #0x00	; hdst
 	lcall	cpycx
-	
 	mov	r2, #(switch_shadow & 0xff)	; lssrc
-	mov	r3, #(switch_shadow >> 8)	; hssrc	
+	mov	r3, #(switch_shadow >> 8)	; hssrc
 	mov	r4, #(switch_shadow_end & 0xff)	; lesrc
-	mov	r5, #(switch_shadow_end >> 8)	; hesrc	
+	mov	r5, #(switch_shadow_end >> 8)	; hesrc
 	mov	r6, #(pgm & 0xff)	; ldst
 	mov	r7, #(pgm >> 8)		; hdst
 	lcall	cpycx
 	lcall	pgm		; switch_shadow
-	
 ; initialize the serial port
 	mov	a, #(bc & 0xff)	; lsb
 	mov	b, #(bc >> 8)	; msb
 	lcall	setbaud
-	
 ; run any user initialization programs in external memory
 	mov	b, #249
 	lcall	stcode
-		
 ; run the start-up programs in external memory
 	mov	b, #253
 	lcall	stcode
-	
 	lcall	crlf
 	lcall	crlf
 	lcall	crlf
@@ -2045,7 +2008,6 @@ pint16u:
 	clr	psw.5
 	mov	r2, dpl
 	mov	r3, dph
-
 pint16a:
 	mov	r4, #16		; 10^4
 	mov	r5, #39
@@ -2054,7 +2016,6 @@ pint16a:
 	add	a, #'0'
 	lcall	cout
 	setb	psw.5
-
 pint16b:
 	mov	r4, #232	; 10^3
 	mov	r5, #3
@@ -2065,7 +2026,6 @@ pint16c:
 	add	a, #'0'
 	lcall	cout
 	setb	psw.5
-
 pint16d:
 	mov	r4, #100	; 10^2
 	mov	r5, #0
@@ -2076,7 +2036,6 @@ pint16e:
 	add	a, #'0'
 	lcall	cout
 	setb	psw.5
-
 pint16f:
 	mov	a, r2		; 10^1
 	mov	r3, b
@@ -2087,13 +2046,11 @@ pint16f:
 pint16g:
 	add	a, #'0'
 	lcall	cout
-
 pint16h:
 	mov	a, b		; 10^0
 	mov	b, r3
 	add	a, #'0'
 	lcall	cout
-
 	pop	acc
 	mov	r0, a
 	pop	acc
@@ -2136,175 +2093,117 @@ pint16y:
 
 logon:
 	.db	"PAULMON2 v2.1ab VERSTR\r\n\r\n", 0
-	
 abort:
 	.db	"  Command aborted\r\n\r\n", 0
-	
 prompt1:
 	.db	"Location:", 0
-	
 prompt2:
 	.db	" > ", 0
-	
 prompt3:
 	.db	"Select program to run (", 0
-	
 prompt4:
 	.db	") or ESC to abort: ", 0
-	
 prompt5:
 	.db	"No program headers found in memory, use JUMP instead\r\n\r\n", 0
-	
 prompt6:
 	.db	"\r\n\r\nNew location: ", 0
-	
 prompt7:
 	.db	"Press any key...", 0
-	
 prompt8:
 	.db	"\r\n\r\nJump to memory location (", 0
-	
 prompt9:
 	.db	"\r\n\r\nProgram Name", 0
-	
 prompt9b:
 	.db	"Location      Type\r\n", 0
-	
 prompt10:
 	.db	") New value: ", 0
-	
 beg_str:
 	.db	"First location: ", 0
-	
 end_str:
 	.db	"Last location: ", 0
-	
 sure:
 	.db	"Are you sure? ", 0
-	
 edits1:
 	.db	"\r\n\r\nEditing external RAM, ESC to abort\r\n", 0
-	
 edits2:
 	.db	"  Editing complete, this location unchanged\r\n\r\n", 0
-	
 dnlds1:
 	.db	"\r\n\r\nBegin transfer of Intel hex file, ESC to abort\r\n\r\n", 0
-	
 dnlds2:
 	.db	"\r\nDownload aborted\r\n\r\n", 0
-	
 dnlds3:
 	.db	"\r\nDownload completed\r\n\r\n", 0
-	
 dnlds4:
 	.db	"Summary:\r\n", 0
-	
 dnlds5:
 	.db	"  lines received\r\n", 0
-	
 dnlds6a:
 	.db	"  bytes received\r\n", 0
-	
 dnlds6b:
 	.db	"  bytes written\r\n", 0
-	
 dnlds7:
 	.db	"Errors:\r\n", 0
-	
 dnlds8:
 	.db	"  bytes unable to write\r\n", 0
-	
 dnlds9:
 	.db	"  bad checksums\r\n", 0
-	
 dnlds10:
 	.db	"  unexpected begin of line\r\n", 0
-	
 dnlds11:
 	.db	"  unexpected hex digits\r\n", 0
-	
 dnlds12:
 	.db	"  unexpected non hex digits\r\n", 0
-	
 dnlds13:
 	.db	"No errors detected\r\n\r\n", 0
-	
 runs1:
 	.db	"\r\nRunning program...\r\n\r\n", 0
-	
 uplds3:
 	.db	"\r\nSending Intel hex file from ", 0
-	
 uplds4:
 	.db	" to ", 0
-	
 help1txt:
 	.db	"\r\n\r\nStandard commands:\r\n", 0
-	
 help2txt:
 	.db	"\r\nUser installed commands:\r\n", 0
-	
 type1:
 	.db	"External command", 0
-	
 type2:
 	.db	"Program", 0
-	
 type4:
 	.db	"Startup code", 0
-	
 type5:
 	.db	"???", 0
-	
 help_cmd2:
 	.db	"Help", 0
-	
 help_cmd:
 	.db	"This help list", 0
-	
 dir_cmd:
 	.db	"List programs", 0
-	
 run_cmd:
 	.db	"Run program", 0
-	
 dnld_cmd:
 	.db	"Download", 0
-	
 upld_cmd:
 	.db	"Upload", 0
-	
 nloc_cmd:
 	.db	"New location", 0
-	
 jump_cmd:
 	.db	"Jump to memory location", 0
-	
 dump_cmd:
 	.db	"Hex dump external memory", 0
-	
 intm_cmd:
 	.db	"Hex dump internal memory", 0
-	
 edit_cmd:
 	.db	"Edit external memory", 0
-	
 clrm_cmd:
 	.db	"Clear external memory", 0
-
 crc16_cmd:
 	.db	"Calculate CRC16", 0
-	
 eio77_cmd:
 	.db	"Enable nCSIO77", 0
-
 dio77_cmd:
 	.db	"Disable nCSIO77", 0
-	
 baud_cmd:
 	.db	"Reset baud rate", 0
-	
 baudprompt:
 	.db	"Enter new baud const: ", 0
-
