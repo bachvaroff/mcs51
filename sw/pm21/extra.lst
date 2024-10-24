@@ -13,7 +13,7 @@
                    
                    ; monitor functions ----
                    
-                   ; VERSTR 2024041600
+                   ; VERSTR 2024102400
 0000:              .equ setbaud, 0x0033
 0000:              .equ cin, 0x0036
 0000:              .equ cinpoll, 0x0039
@@ -31,11 +31,11 @@
 0000:              .equ ghex16, 0x005d
 0000:              .equ asc2hex, 0x0060
 0000:              .equ upper, 0x0063
-0000:              .equ lenstr, 0x0066
-0000:              .equ init_crc16, 0x0069
-0000:              .equ update_crc16, 0x006c
-0000:              .equ finish_crc16, 0x006f
-0000:              .equ find, 0x0072
+0000:              .equ lencstr, 0x0066
+0000:              .equ lencb7str, 0x0069
+0000:              .equ init_crc16, 0x006c
+0000:              .equ update_crc16, 0x006f
+0000:              .equ finish_crc16, 0x0072
                    
                    ; ---- monitor functions
                    

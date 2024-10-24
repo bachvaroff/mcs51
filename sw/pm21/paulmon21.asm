@@ -203,13 +203,12 @@
 	
 	ljmp	asc2hex		; JMP_TABLE 0x0060
 	ljmp	upper		; JMP_TABLE 0x0063
-	ljmp	lenstr		; JMP_TABLE 0x0066
+	ljmp	lencstr		; JMP_TABLE 0x0066
+	ljmp	lencb7str	; JMP_TABLE 0x0069
 	
-	ljmp	init_crc16	; JMP_TABLE 0x0069
-	ljmp	update_crc16	; JMP_TABLE 0x006c
-	ljmp	finish_crc16	; JMP_TABLE 0x006f
-	
-	ljmp	find		; JMP_TABLE 0x0072
+	ljmp	init_crc16	; JMP_TABLE 0x006c
+	ljmp	update_crc16	; JMP_TABLE 0x006f
+	ljmp	finish_crc16	; JMP_TABLE 0x0072
 
 ;---------------------------------------------------------;
 ;							  ;
@@ -223,6 +222,8 @@ cin:
 	clr	ri
 	ret
 
+;---------------------------------------------------------;
+
 cinpoll:
 	setb	c
 	jnb	ri, cinpoll1
@@ -232,11 +233,15 @@ cinpoll:
 cinpoll1:
 	ret
 
+;---------------------------------------------------------;
+
 cout:
 	jnb	ti, cout
 	clr	ti
 	mov	sbuf, a
 	ret
+
+;---------------------------------------------------------;
 
 sspace:
 	push	acc
@@ -245,12 +250,16 @@ sspace:
 	pop	acc
 	ret
 
+;---------------------------------------------------------;
+
 dash:
 	push	acc
 	mov	a, #'-'
 	acall	cout
 	pop	acc
 	ret
+
+;---------------------------------------------------------;
 
 crlf:
 	push	acc
@@ -261,21 +270,31 @@ crlf:
 	pop	acc
 	ret
 
+;---------------------------------------------------------;
+
 cout_sp:
 	acall	cout
 	ajmp	sspace
+
+;---------------------------------------------------------;
 
 dash_sp:
 	acall	dash
 	ajmp	sspace
 
+;---------------------------------------------------------;
+
 dspace:
 	acall	sspace
 	ajmp	sspace
 
+;---------------------------------------------------------;
+
 dcrlf:
 	acall	crlf
 	ajmp	crlf
+
+;---------------------------------------------------------;
 
 pcstr:
 	push	acc
@@ -288,6 +307,8 @@ pcstr1:
 pcstr2:
 	pop	acc
 	ret
+
+;---------------------------------------------------------;
 
 pcb7str:
 	push	acc
@@ -519,6 +540,143 @@ phex16:
 
 ;---------------------------------------------------------;
 
+; prints the unsigned 8 bit value in Acc in base 10
+
+pint8u:
+	push	b
+	push	acc
+	sjmp	pint8b
+
+;---------------------------------------------------------;
+
+; prints the signed 8 bit value in Acc in base 10
+
+pint8:
+	push	b
+	push	acc
+	jnb	acc.7, pint8b
+	mov	a, #'-'
+	lcall	cout
+	pop	acc
+	push	acc
+	cpl	a
+	add	a, #1
+pint8b:
+	mov	b, #100
+	div	ab
+	setb	f0
+	jz	pint8c
+	clr	f0
+	add	a, #'0'
+	lcall	cout
+pint8c:
+	mov	a, b
+	mov	b, #10
+	div	ab
+	jnb	f0, pint8d
+	jz	pint8e
+pint8d:
+	add	a, #'0'
+	lcall	cout
+pint8e:
+	mov	a, b
+	add	a, #'0'
+	lcall	cout
+	pop	acc
+	pop	b
+	ret
+
+;---------------------------------------------------------;
+
+; print 16 bit unsigned integer in DPTR, using base 10.
+; warning, destroys r2, r3, r4, r5, psw.5
+
+pint16u:
+	push	acc
+	mov	a, r0
+	push	acc
+	clr	psw.5
+	mov	r2, dpl
+	mov	r3, dph
+pint16a:
+	mov	r4, #16		; 10^4
+	mov	r5, #39
+	acall	pint16x
+	jz	pint16b
+	add	a, #'0'
+	lcall	cout
+	setb	psw.5
+pint16b:
+	mov	r4, #232	; 10^3
+	mov	r5, #3
+	acall	pint16x
+	jnz	pint16c
+	jnb	psw.5, pint16d
+pint16c:
+	add	a, #'0'
+	lcall	cout
+	setb	psw.5
+pint16d:
+	mov	r4, #100	; 10^2
+	mov	r5, #0
+	acall	pint16x
+	jnz	pint16e
+	jnb	psw.5, pint16f
+pint16e:
+	add	a, #'0'
+	lcall	cout
+	setb	psw.5
+pint16f:
+	mov	a, r2		; 10^1
+	mov	r3, b
+	mov	b, #10
+	div	ab
+	jnz	pint16g
+	jnb	psw.5, pint16h
+pint16g:
+	add	a, #'0'
+	lcall	cout
+pint16h:
+	mov	a, b		; 10^0
+	mov	b, r3
+	add	a, #'0'
+	lcall	cout
+	pop	acc
+	mov	r0, a
+	pop	acc
+	ret
+
+;---------------------------------------------------------;
+
+; ok, it's a cpu hog and a nasty way to divide, but this code
+; requires only 21 bytes! Divides r2-r3 by r4-r5 and leaves
+; quotient in r2-r3 and returns remainder in acc. If Intel
+; had made a proper divide, then this would be much easier.
+
+pint16x:
+	mov	r0, #0
+pint16y:
+	inc	r0
+	clr	c
+	mov	a, r2
+	subb	a, r4
+	mov	r2, a
+	mov	a, r3
+	subb	a, r5
+	mov	r3, a
+	jnc	pint16y
+	dec	r0
+	mov	a, r2
+	add	a, r4
+	mov	r2, a
+	mov	a, r3
+	addc	a, r5
+	mov	r3, a
+	mov	a, r0
+	ret
+
+;---------------------------------------------------------;
+
 ; converts the ascii code in Acc to uppercase, if it is lowercase
 ; Code efficient (saves 6 byes) upper contributed
 ; by Alexander B. Alexandrov <abalex@cbr.spb.ru>
@@ -536,16 +694,32 @@ upper4:
 
 ;---------------------------------------------------------;
 
-lenstr:
+lencstr:
 	mov	r0, #0		; returns length of a string in r0
 	push	acc
-lenstr1:
+lencstr1:
 	movx	a, @dptr
-	jz	lenstr2
+	jz	lencstr2
 	inc	r0
 	inc	dptr
-	sjmp	lenstr1
-lenstr2:
+	sjmp	lencstr1
+lencstr2:
+	pop	acc
+	ret
+
+;---------------------------------------------------------;
+
+lencb7str:
+	mov	r0, #0
+	push	acc
+lencb7str1:
+	movx	a, @dptr
+	jz	lencb7str2
+	inc	r0
+	jb	acc.7, lencb7str2
+	inc	dptr
+	sjmp	lencb7str1
+lencb7str2:
 	pop	acc
 	ret
 
@@ -646,8 +820,8 @@ menui5:
 menui6:
 	cjne	a, #nloc_key, menui7
 	mov	dptr, #nloc_cmd
-	acall	pcstr
-	ajmp	nloc
+	lcall	pcstr
+	ljmp	nloc
 	
 menui7:
 	cjne	a, #jump_key, menui8
@@ -671,7 +845,7 @@ menui10:
 	cjne	a, #clrm_key, menui11
 	mov	dptr, #clrm_cmd
 	acall	pcstr
-	ajmp	clrm
+	ljmp	clrm
 	
 menui11:
 	cjne	a, #intm_key, menui12
@@ -1055,7 +1229,7 @@ jump:
 	acall	ghex16
 	jb	psw.5, jump3
 	jnc	jump2
-	ajmp	abort2
+	ljmp	abort2
 jump2:
 	acall	dptrtor6r7
 jump3:
@@ -1174,7 +1348,7 @@ dir2:
 	mov	dpl, #32	; print its name
 	acall	pcstr
 	mov	dpl, #32	; how long is the name
-	acall	lenstr
+	acall	lencstr
 	mov	a, #33
 	clr	c
 	subb	a, r0
@@ -1423,7 +1597,7 @@ help2:
 ;---------------------------------------------------------;
 
 upld:
-	acall	get_mem
+	lcall	get_mem
 ; assume we've got the beginning address in r3/r2
 ; and the final address in r5/r4 (r4=lsb)...
 ; print out what we'll be doing
@@ -1450,7 +1624,7 @@ upld:
 	acall	pcstr
 	acall	cin
 	cjne	a, #ESC, upld2e
-	ajmp	abort_it
+	ljmp	abort_it
 upld2e:
 	acall	dcrlf
 	mov	dpl, r2
@@ -1506,11 +1680,11 @@ upld7:
 	acall	phex
 	acall	phex
 	inc	a
-	acall	phex
+	lcall	phex
 	mov	a, #255
-	acall	phex
+	lcall	phex
 upld8:
-	ajmp	dcrlf
+	ljmp	dcrlf
 
 ;---------------------------------------------------------;
 
@@ -1520,18 +1694,18 @@ upld8:
 ; (nasty programming, but we need tight code for 4k rom)
 
 get_mem:
-	acall	dcrlf
+	lcall	dcrlf
 	mov	dptr, #beg_str
-	acall	pcstr
-	acall	ghex16
+	lcall	pcstr
+	lcall	ghex16
 	jc	pop_it
 	jb	psw.5, pop_it
 	push	dph
 	push	dpl
-	acall	crlf
+	lcall	crlf
 	mov	dptr, #end_str
-	acall	pcstr
-	acall	ghex16
+	lcall	pcstr
+	lcall	ghex16
 	mov	r5, dph
 	mov	r4, dpl
 	pop	acc
@@ -1540,38 +1714,38 @@ get_mem:
 	mov	r3, a
 	jc	pop_it
 	jb	psw.5, pop_it
-	ajmp	crlf
+	ljmp	crlf
 pop_it:
 	pop	acc
 	pop	acc
 abort_it:
-	acall	crlf
+	lcall	crlf
 abort2:
 	mov	dptr, #abort
-	ajmp	pcstr
+	ljmp	pcstr
 
 ;---------------------------------------------------------;
 
 nloc:
 	mov	dptr, #prompt6
-	acall	pcstr
-	acall	ghex16
+	lcall	pcstr
+	lcall	ghex16
 	jc	abort2
 	jb	psw.5, abort2
-	acall	dptrtor6r7
-	ajmp	dcrlf
+	lcall	dptrtor6r7
+	ljmp	dcrlf
 
 ;---------------------------------------------------------;
 
 clrm:
 	acall	get_mem
 	mov	dptr, #sure
-	acall	pcstr
-	acall	cin
-	acall	cout
-	acall	upper
+	lcall	pcstr
+	lcall	cin
+	lcall	cout
+	lcall	upper
 	cjne	a, #'Y', abort_it
-	acall	dcrlf
+	lcall	dcrlf
 clrm2:
 ; now we actually do it
 	mov	dph, r3
@@ -1591,22 +1765,22 @@ clrm4:
 ;---------------------------------------------------------;
 
 reset_baud:
-	acall	dcrlf
+	lcall	dcrlf
 	mov	dptr, #baudprompt
-	acall	pcstr
-	acall	ghex16
+	lcall	pcstr
+	lcall	ghex16
 	jc	bailout
 	jb	psw.5, bailout
 	push	dpl
 	push	dph
-	acall	crlf
+	lcall	crlf
 	mov	dptr, #sure
-	acall	pcstr
-	acall	cin
-	acall	cout
-	acall	upper
+	lcall	pcstr
+	lcall	cin
+	lcall	cout
+	lcall	upper
 	cjne	a, #'Y', bailout_pop
-	acall	dcrlf
+	lcall	dcrlf
 	pop	b
 	pop	acc
 	lcall	setbaud
@@ -1615,9 +1789,9 @@ bailout_pop:
 	pop	acc
 	pop	acc
 bailout:
-	acall	crlf
+	lcall	crlf
 	mov	dptr, #abort
-	ajmp	pcstr
+	ljmp	pcstr
 
 ;---------------------------------------------------------;
 
@@ -1627,8 +1801,8 @@ bailout:
 
 calc_crc16:
 	acall	get_mem
-	acall	crlf
-	acall	r6r7todptr
+	lcall	crlf
+	lcall	r6r7todptr
 	push	dpl
 	push	dph
 	mov	dpl, r2
@@ -1945,143 +2119,6 @@ setbaud:
 	mov	t2con, #00110000b
 	mov	scon, #01010010b
 	setb	tr2
-	ret
-
-;---------------------------------------------------------;
-
-; prints the unsigned 8 bit value in Acc in base 10
-
-pint8u:
-	push	b
-	push	acc
-	sjmp	pint8b
-
-;---------------------------------------------------------;
-
-; prints the signed 8 bit value in Acc in base 10
-
-pint8:
-	push	b
-	push	acc
-	jnb	acc.7, pint8b
-	mov	a, #'-'
-	lcall	cout
-	pop	acc
-	push	acc
-	cpl	a
-	add	a, #1
-pint8b:
-	mov	b, #100
-	div	ab
-	setb	f0
-	jz	pint8c
-	clr	f0
-	add	a, #'0'
-	lcall	cout
-pint8c:
-	mov	a, b
-	mov	b, #10
-	div	ab
-	jnb	f0, pint8d
-	jz	pint8e
-pint8d:
-	add	a, #'0'
-	lcall	cout
-pint8e:
-	mov	a, b
-	add	a, #'0'
-	lcall	cout
-	pop	acc
-	pop	b
-	ret
-
-;---------------------------------------------------------;
-
-; print 16 bit unsigned integer in DPTR, using base 10.
-; warning, destroys r2, r3, r4, r5, psw.5
-
-pint16u:
-	push	acc
-	mov	a, r0
-	push	acc
-	clr	psw.5
-	mov	r2, dpl
-	mov	r3, dph
-pint16a:
-	mov	r4, #16		; 10^4
-	mov	r5, #39
-	acall	pint16x
-	jz	pint16b
-	add	a, #'0'
-	lcall	cout
-	setb	psw.5
-pint16b:
-	mov	r4, #232	; 10^3
-	mov	r5, #3
-	acall	pint16x
-	jnz	pint16c
-	jnb	psw.5, pint16d
-pint16c:
-	add	a, #'0'
-	lcall	cout
-	setb	psw.5
-pint16d:
-	mov	r4, #100	; 10^2
-	mov	r5, #0
-	acall	pint16x
-	jnz	pint16e
-	jnb	psw.5, pint16f
-pint16e:
-	add	a, #'0'
-	lcall	cout
-	setb	psw.5
-pint16f:
-	mov	a, r2		; 10^1
-	mov	r3, b
-	mov	b, #10
-	div	ab
-	jnz	pint16g
-	jnb	psw.5, pint16h
-pint16g:
-	add	a, #'0'
-	lcall	cout
-pint16h:
-	mov	a, b		; 10^0
-	mov	b, r3
-	add	a, #'0'
-	lcall	cout
-	pop	acc
-	mov	r0, a
-	pop	acc
-	ret
-
-;---------------------------------------------------------;
-
-; ok, it's a cpu hog and a nasty way to divide, but this code
-; requires only 21 bytes! Divides r2-r3 by r4-r5 and leaves
-; quotient in r2-r3 and returns remainder in acc. If Intel
-; had made a proper divide, then this would be much easier.
-
-pint16x:
-	mov	r0, #0
-pint16y:
-	inc	r0
-	clr	c
-	mov	a, r2
-	subb	a, r4
-	mov	r2, a
-	mov	a, r3
-	subb	a, r5
-	mov	r3, a
-	jnc	pint16y
-	dec	r0
-	mov	a, r2
-	add	a, r4
-	mov	r2, a
-	mov	a, r3
-	addc	a, r5
-	mov	r3, a
-	mov	a, r0
 	ret
 
 ;---------------------------------------------------------;
