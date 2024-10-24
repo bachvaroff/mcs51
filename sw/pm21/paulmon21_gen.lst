@@ -2482,3 +2482,9 @@
       75 64 20 63 
       6F 6E 73 74 
       3A 20 00              .db     "Enter new baud const: ", 0
+0F00: 45 6E 74 65 
+      72 20 6E 65 
+      77 20 62 61 
+      75 64 20 63 
+      6F 6E 73 74 
+      3A 20 00              .db     "Enter new baud const: ", 0
