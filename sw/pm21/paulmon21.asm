@@ -831,8 +831,7 @@ dnld_end_3:
 	acall	pcstr
 ; consume any cr or lf character that may have been
 ; on the end of the last line
-	jnb	ri, dnld_sum
-	acall	cin
+	acall	cinpoll
 	sjmp	dnld_sum
 	
 dnld_esc:
