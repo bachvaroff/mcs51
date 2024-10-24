@@ -1,6 +1,6 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
-; Version 4.0.0 #11528 (Linux)
+; Version 4.2.0 #13081 (Linux)
 ;--------------------------------------------------------
 	.module sio
 	.optsdcc -mmcs51 --model-large
@@ -284,7 +284,7 @@ _CY	=	0x00d7
 ;--------------------------------------------------------
 	.area DSEG    (DATA)
 ;--------------------------------------------------------
-; overlayable items in internal ram 
+; overlayable items in internal ram
 ;--------------------------------------------------------
 ;--------------------------------------------------------
 ; indirectly addressable internal ram data
