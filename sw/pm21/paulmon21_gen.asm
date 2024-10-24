@@ -1930,6 +1930,19 @@ dio77:
 
 ;---------------------------------------------------------;
 
+setbaud:
+	clr	tr2
+	mov	tl2, a
+	mov	th2, b
+	mov	rcap2l, a
+	mov	rcap2h, b
+	mov	t2con, #00110000b
+	mov	scon, #01010010b
+	setb	tr2
+	ret
+
+;---------------------------------------------------------;
+
 ; finds the next header in the external memory.
 ; Input DPTR=point to start search (only MSB used)
 ; Output DPTR=location of next module
@@ -1959,6 +1972,35 @@ find3:
 find4:
 	inc	dph		; keep on searching
 	sjmp	find
+
+;---------------------------------------------------------;
+
+stcode:
+	mov	dptr, #bmem	 ; search for startup routines
+stcode2:
+	lcall	find
+	jnc	stcode5
+	mov	dpl, #4
+	movx	a, @dptr
+	cjne	a, b, stcode4	; only startup code if matches B
+	push	b
+	push	dph
+	mov	a, #(stcode3 & 0xff)
+	push	acc
+	mov	a, #(stcode3 >> 8)
+	push	acc
+	mov	dpl, #64
+	clr	a
+	jmp	@a+dptr		; jump to the startup code
+stcode3:
+	pop	dph		; hopefully it'll return to here
+	pop	b
+stcode4:
+	inc	dph
+	mov	a, dph
+	cjne	a, #((emem + 1) >> 8) & 0xff, stcode2
+stcode5:
+	ret			; now we've executed all of 'em
 
 ;---------------------------------------------------------;
 
@@ -2080,46 +2122,6 @@ reset:
 	mov	r6, #(pgm & 0xff)
 	mov	r7, #(pgm >> 8)
 	ljmp	menu
-
-stcode:
-	mov	dptr, #bmem	 ; search for startup routines
-stcode2:
-	lcall	find
-	jnc	stcode5
-	mov	dpl, #4
-	movx	a, @dptr
-	cjne	a, b, stcode4	; only startup code if matches B
-	push	b
-	push	dph
-	mov	a, #(stcode3 & 0xff)
-	push	acc
-	mov	a, #(stcode3 >> 8)
-	push	acc
-	mov	dpl, #64
-	clr	a
-	jmp	@a+dptr		; jump to the startup code
-stcode3:
-	pop	dph		; hopefully it'll return to here
-	pop	b
-stcode4:
-	inc	dph
-	mov	a, dph
-	cjne	a, #((emem + 1) >> 8) & 0xff, stcode2
-stcode5:
-	ret			; now we've executed all of 'em
-
-;---------------------------------------------------------;
-
-setbaud:
-	clr	tr2
-	mov	tl2, a
-	mov	th2, b
-	mov	rcap2l, a
-	mov	rcap2h, b
-	mov	t2con, #00110000b
-	mov	scon, #01010010b
-	setb	tr2
-	ret
 
 ;---------------------------------------------------------;
 ;							  ;

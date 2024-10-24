@@ -111,7 +111,7 @@
                    
                    ;------ RESET --------------------------------------------;
 0000:              .org     base
-0000: 02 09 EC              ljmp    reset
+0000: 02 0A 2D              ljmp    reset
                    ;------ RESET --------------------------------------------;
                    
                    ;------ IE0_VECTOR ---------------------------------------;
@@ -183,7 +183,7 @@
                    ;---------------------------------------------------------;
                    
 0033:              .org     base + 51
-0033: 02 0A 7E              ljmp    setbaud                 ; JMP_TABLE 0x0033
+0033: 02 09 7B              ljmp    setbaud                 ; JMP_TABLE 0x0033
 0036: 02 00 75              ljmp    cin             ; JMP_TABLE 0x0036
 0039: 02 00 7D              ljmp    cinpoll                 ; JMP_TABLE 0x0039
 003C: 02 00 87              ljmp    cout            ; JMP_TABLE 0x003c
@@ -764,7 +764,7 @@
 02E0: F5 F0                 mov     b, a            ; now search for external c
 02E2: 90 10 00              mov     dptr, #bmem
                    menux1:
-02E5: 12 09 7B              lcall   find
+02E5: 12 09 90              lcall   find
 02E8: 50 22                 jnc     menuxend        ; searched all the commands
 02EA: 75 82 04              mov     dpl, #4
 02ED: E0                    movx    a, @dptr
@@ -1339,7 +1339,7 @@
 05D3: 11 BE                 acall   pcstr
 05D5: 75 83 10              mov     dph, #(bmem >> 8)
                    dir1:
-05D8: 12 09 7B              lcall   find            ; find the next program in 
+05D8: 12 09 90              lcall   find            ; find the next program in 
 05DB: 40 02                 jc      dir2
                    dir_end:
 05DD: 01 A1                 ajmp    crlf            ; we're done if no more fou
@@ -1417,7 +1417,7 @@
 064C: B4 E0 02              cjne    a, #((emem + 1) >> 8) & 0xff, run2b
 064F: 80 21                 sjmp    run3
                    run2b:
-0651: 12 09 7B              lcall   find
+0651: 12 09 90              lcall   find
 0654: 50 1C                 jnc     run3            ; have we found 'em all??
 0656: 75 82 04              mov     dpl, #4
 0659: E0                    movx    a, @dptr
@@ -1482,7 +1482,7 @@
 06BA: B4 E0 02              cjne    a, #((emem + 1) >> 8) & 0xff, run5b
 06BD: 80 17                 sjmp    run8
                    run5b:
-06BF: 12 09 7B              lcall   find
+06BF: 12 09 90              lcall   find
 06C2: 50 12                 jnc     run8            ; Shouldn't ever do this ju
 06C4: 75 82 04              mov     dpl, #4
 06C7: E0                    movx    a, @dptr
@@ -1566,7 +1566,7 @@
 0748: 11 BE                 acall   pcstr
 074A: 90 10 00              mov     dptr, #bmem
                    help3:
-074D: 12 09 7B              lcall   find
+074D: 12 09 90              lcall   find
 0750: 50 1E                 jnc     help4
 0752: 75 82 04              mov     dpl, #4
 0755: E0                    movx    a, @dptr
@@ -1783,7 +1783,7 @@
 08B1: 12 00 BA              lcall   dcrlf
 08B4: D0 F0                 pop     b
 08B6: D0 E0                 pop     acc
-08B8: 12 0A 7E              lcall   setbaud
+08B8: 12 09 7B              lcall   setbaud
 08BB: 22                    ret
                    bailout_pop:
 08BC: D0 E0                 pop     acc
@@ -1930,35 +1930,77 @@
                    
                    ;---------------------------------------------------------;
                    
+                   setbaud:
+097B: C2 CA                 clr     tr2
+097D: F5 CC                 mov     tl2, a
+097F: 85 F0 CD              mov     th2, b
+0982: F5 CA                 mov     rcap2l, a
+0984: 85 F0 CB              mov     rcap2h, b
+0987: 75 C8 30              mov     t2con, #00110000b
+098A: 75 98 52              mov     scon, #01010010b
+098D: D2 CA                 setb    tr2
+098F: 22                    ret
+                   
+                   ;---------------------------------------------------------;
+                   
                    ; finds the next header in the external memory.
                    ; Input DPTR=point to start search (only MSB used)
                    ; Output DPTR=location of next module
                    ; C=set if a header found, C=clear if no more headers
                    
                    find:
-097B: 75 82 00              mov     dpl, #0
-097E: E0                    movx    a, @dptr
-097F: B4 A5 14              cjne    a, #0xa5, find3
-0982: A3                    inc     dptr
-0983: E0                    movx    a, @dptr
-0984: B4 E5 0F              cjne    a, #0xe5, find3
-0987: A3                    inc     dptr
-0988: E0                    movx    a, @dptr
-0989: B4 E0 0A              cjne    a, #0xe0, find3
-098C: A3                    inc     dptr
-098D: E0                    movx    a, @dptr
-098E: B4 A5 05              cjne    a, #0xa5, find3
-0991: 75 82 00              mov     dpl, #0                 ; found one here!
-0994: D3                    setb    c
-0995: 22                    ret
+0990: 75 82 00              mov     dpl, #0
+0993: E0                    movx    a, @dptr
+0994: B4 A5 14              cjne    a, #0xa5, find3
+0997: A3                    inc     dptr
+0998: E0                    movx    a, @dptr
+0999: B4 E5 0F              cjne    a, #0xe5, find3
+099C: A3                    inc     dptr
+099D: E0                    movx    a, @dptr
+099E: B4 E0 0A              cjne    a, #0xe0, find3
+09A1: A3                    inc     dptr
+09A2: E0                    movx    a, @dptr
+09A3: B4 A5 05              cjne    a, #0xa5, find3
+09A6: 75 82 00              mov     dpl, #0                 ; found one here!
+09A9: D3                    setb    c
+09AA: 22                    ret
                    find3:
-0996: 74 DF                 mov     a, #(emem >> 8)
-0998: B5 83 02              cjne    a, dph, find4   ; did we just check the end
-099B: C3                    clr     c
-099C: 22                    ret
+09AB: 74 DF                 mov     a, #(emem >> 8)
+09AD: B5 83 02              cjne    a, dph, find4   ; did we just check the end
+09B0: C3                    clr     c
+09B1: 22                    ret
                    find4:
-099D: 05 83                 inc     dph             ; keep on searching
-099F: 80 DA                 sjmp    find
+09B2: 05 83                 inc     dph             ; keep on searching
+09B4: 80 DA                 sjmp    find
+                   
+                   ;---------------------------------------------------------;
+                   
+                   stcode:
+09B6: 90 10 00              mov     dptr, #bmem      ; search for startup routi
+                   stcode2:
+09B9: 12 09 90              lcall   find
+09BC: 50 23                 jnc     stcode5
+09BE: 75 82 04              mov     dpl, #4
+09C1: E0                    movx    a, @dptr
+09C2: B5 F0 15              cjne    a, b, stcode4   ; only startup code if matc
+09C5: C0 F0                 push    b
+09C7: C0 83                 push    dph
+09C9: 74 D6                 mov     a, #(stcode3 & 0xff)
+09CB: C0 E0                 push    acc
+09CD: 74 09                 mov     a, #(stcode3 >> 8)
+09CF: C0 E0                 push    acc
+09D1: 75 82 40              mov     dpl, #64
+09D4: E4                    clr     a
+09D5: 73                    jmp     @a+dptr                 ; jump to the start
+                   stcode3:
+09D6: D0 83                 pop     dph             ; hopefully it'll return to
+09D8: D0 F0                 pop     b
+                   stcode4:
+09DA: 05 83                 inc     dph
+09DC: E5 83                 mov     a, dph
+09DE: B4 E0 D8              cjne    a, #((emem + 1) >> 8) & 0xff, stcode2
+                   stcode5:
+09E1: 22                    ret                     ; now we've executed all of
                    
                    ;---------------------------------------------------------;
                    
@@ -1968,26 +2010,26 @@
                    ; r6:r7 ldst:hdst
                    
                    cpycx:
-09A1: 8A 82                 mov     dpl, r2
-09A3: 8B 83                 mov     dph, r3
-09A5: E4                    clr     a
-09A6: 93                    movc    a, @a+dptr
-09A7: A3                    inc     dptr
-09A8: AA 82                 mov     r2, dpl
-09AA: AB 83                 mov     r3, dph
-09AC: 8E 82                 mov     dpl, r6
-09AE: 8F 83                 mov     dph, r7
-09B0: F0                    movx    @dptr, a
-09B1: A3                    inc     dptr
-09B2: AE 82                 mov     r6, dpl
-09B4: AF 83                 mov     r7, dph
-09B6: EA                    mov     a, r2
-09B7: 8C F0                 mov     b, r4
-09B9: B5 F0 E5              cjne    a, b, cpycx
-09BC: EB                    mov     a, r3
-09BD: 8D F0                 mov     b, r5
-09BF: B5 F0 DF              cjne    a, b, cpycx
-09C2: 22                    ret
+09E2: 8A 82                 mov     dpl, r2
+09E4: 8B 83                 mov     dph, r3
+09E6: E4                    clr     a
+09E7: 93                    movc    a, @a+dptr
+09E8: A3                    inc     dptr
+09E9: AA 82                 mov     r2, dpl
+09EB: AB 83                 mov     r3, dph
+09ED: 8E 82                 mov     dpl, r6
+09EF: 8F 83                 mov     dph, r7
+09F1: F0                    movx    @dptr, a
+09F2: A3                    inc     dptr
+09F3: AE 82                 mov     r6, dpl
+09F5: AF 83                 mov     r7, dph
+09F7: EA                    mov     a, r2
+09F8: 8C F0                 mov     b, r4
+09FA: B5 F0 E5              cjne    a, b, cpycx
+09FD: EB                    mov     a, r3
+09FE: 8D F0                 mov     b, r5
+0A00: B5 F0 DF              cjne    a, b, cpycx
+0A03: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
@@ -1997,36 +2039,36 @@
                    ; r6:r7 ldst:hdst
                    
                    cpyxx:
-09C3: 8A 82                 mov     dpl, r2
-09C5: 8B 83                 mov     dph, r3
-09C7: E0                    movx    a, @dptr
-09C8: A3                    inc     dptr
-09C9: AA 82                 mov     r2, dpl
-09CB: AB 83                 mov     r3, dph
-09CD: 8E 82                 mov     dpl, r6
-09CF: 8F 83                 mov     dph, r7
-09D1: F0                    movx    @dptr, a
-09D2: A3                    inc     dptr
-09D3: AE 82                 mov     r6, dpl
-09D5: AF 83                 mov     r7, dph
-09D7: EA                    mov     a, r2
-09D8: 8C F0                 mov     b, r4
-09DA: B5 F0 E6              cjne    a, b, cpyxx
-09DD: EB                    mov     a, r3
-09DE: 8D F0                 mov     b, r5
-09E0: B5 F0 E0              cjne    a, b, cpyxx
-09E3: 22                    ret
+0A04: 8A 82                 mov     dpl, r2
+0A06: 8B 83                 mov     dph, r3
+0A08: E0                    movx    a, @dptr
+0A09: A3                    inc     dptr
+0A0A: AA 82                 mov     r2, dpl
+0A0C: AB 83                 mov     r3, dph
+0A0E: 8E 82                 mov     dpl, r6
+0A10: 8F 83                 mov     dph, r7
+0A12: F0                    movx    @dptr, a
+0A13: A3                    inc     dptr
+0A14: AE 82                 mov     r6, dpl
+0A16: AF 83                 mov     r7, dph
+0A18: EA                    mov     a, r2
+0A19: 8C F0                 mov     b, r4
+0A1B: B5 F0 E6              cjne    a, b, cpyxx
+0A1E: EB                    mov     a, r3
+0A1F: 8D F0                 mov     b, r5
+0A21: B5 F0 E0              cjne    a, b, cpyxx
+0A24: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
                             ;-------- switch_shadow helper subroutine --------
                             switch_shadow:
-09E4: 75 90 FE                      mov     p1, #mctrl_shadow
-09E7: FF                            mov     r7, a
-09E8: FF                            mov     r7, a
-09E9: FF                            mov     r7, a
-09EA: FF                            mov     r7, a
-09EB: 22                            ret
+0A25: 75 90 FE                      mov     p1, #mctrl_shadow
+0A28: FF                            mov     r7, a
+0A29: FF                            mov     r7, a
+0A2A: FF                            mov     r7, a
+0A2B: FF                            mov     r7, a
+0A2C: 22                            ret
                             switch_shadow_end:
                             ;-------- switch_shadow helper subroutine --------
                    
@@ -2034,92 +2076,52 @@
                    ; copy flash to memory
                    
                    reset:
-09EC: E4                    clr     a
-09ED: F5 A8                 mov     ie, a
-09EF: F5 B8                 mov     ip, a
-09F1: 75 90 FF              mov     p1, #mctrl_reset
-09F4: FF                    mov     r7, a
-09F5: FF                    mov     r7, a
-09F6: FF                    mov     r7, a
-09F7: FF                    mov     r7, a
-09F8: 75 A0 FF              mov     p2, #p2_init
-09FB: 75 D0 00              mov     psw, #psw_init
-09FE: 75 81 17              mov     sp, #sp_init
-0A01: 7A 00                 mov     r2, #0x00       ; lssrc
-0A03: 7B 00                 mov     r3, #0x00       ; hssrc
-0A05: 7C 00                 mov     r4, #0x00       ; lesrc
-0A07: 7D 20                 mov     r5, #0x20       ; hesrc
-0A09: 7E 00                 mov     r6, #0x00       ; ldst
-0A0B: 7F 00                 mov     r7, #0x00       ; hdst
-0A0D: 12 09 A1              lcall   cpycx
-0A10: 7A E4                 mov     r2, #(switch_shadow & 0xff)     ; lssrc
-0A12: 7B 09                 mov     r3, #(switch_shadow >> 8)       ; hssrc
-0A14: 7C EC                 mov     r4, #(switch_shadow_end & 0xff)         ; l
-0A16: 7D 09                 mov     r5, #(switch_shadow_end >> 8)   ; hesrc
-0A18: 7E 00                 mov     r6, #(pgm & 0xff)       ; ldst
-0A1A: 7F 20                 mov     r7, #(pgm >> 8)                 ; hdst
-0A1C: 12 09 A1              lcall   cpycx
-0A1F: 12 20 00              lcall   pgm             ; switch_shadow
+0A2D: E4                    clr     a
+0A2E: F5 A8                 mov     ie, a
+0A30: F5 B8                 mov     ip, a
+0A32: 75 90 FF              mov     p1, #mctrl_reset
+0A35: FF                    mov     r7, a
+0A36: FF                    mov     r7, a
+0A37: FF                    mov     r7, a
+0A38: FF                    mov     r7, a
+0A39: 75 A0 FF              mov     p2, #p2_init
+0A3C: 75 D0 00              mov     psw, #psw_init
+0A3F: 75 81 17              mov     sp, #sp_init
+0A42: 7A 00                 mov     r2, #0x00       ; lssrc
+0A44: 7B 00                 mov     r3, #0x00       ; hssrc
+0A46: 7C 00                 mov     r4, #0x00       ; lesrc
+0A48: 7D 20                 mov     r5, #0x20       ; hesrc
+0A4A: 7E 00                 mov     r6, #0x00       ; ldst
+0A4C: 7F 00                 mov     r7, #0x00       ; hdst
+0A4E: 12 09 E2              lcall   cpycx
+0A51: 7A 25                 mov     r2, #(switch_shadow & 0xff)     ; lssrc
+0A53: 7B 0A                 mov     r3, #(switch_shadow >> 8)       ; hssrc
+0A55: 7C 2D                 mov     r4, #(switch_shadow_end & 0xff)         ; l
+0A57: 7D 0A                 mov     r5, #(switch_shadow_end >> 8)   ; hesrc
+0A59: 7E 00                 mov     r6, #(pgm & 0xff)       ; ldst
+0A5B: 7F 20                 mov     r7, #(pgm >> 8)                 ; hdst
+0A5D: 12 09 E2              lcall   cpycx
+0A60: 12 20 00              lcall   pgm             ; switch_shadow
                    ; initialize the serial port
-0A22: 74 F7                 mov     a, #(bc & 0xff)         ; lsb
-0A24: 75 F0 FF              mov     b, #(bc >> 8)   ; msb
-0A27: 12 0A 7E              lcall   setbaud
+0A63: 74 F7                 mov     a, #(bc & 0xff)         ; lsb
+0A65: 75 F0 FF              mov     b, #(bc >> 8)   ; msb
+0A68: 12 09 7B              lcall   setbaud
                    ; run any user initialization programs in external memory
-0A2A: 75 F0 F9              mov     b, #249
-0A2D: 12 0A 52              lcall   stcode
+0A6B: 75 F0 F9              mov     b, #249
+0A6E: 12 09 B6              lcall   stcode
                    ; run the start-up programs in external memory
-0A30: 75 F0 FD              mov     b, #253
-0A33: 12 0A 52              lcall   stcode
-0A36: 12 00 A1              lcall   crlf
-0A39: 12 00 A1              lcall   crlf
-0A3C: 12 00 A1              lcall   crlf
-0A3F: 12 00 A1              lcall   crlf
-0A42: 90 0A 93              mov     dptr, #logon
-0A45: 12 00 BE              lcall   pcstr
-0A48: 12 05 C5              lcall   dir
-0A4B: 7E 00                 mov     r6, #(pgm & 0xff)
-0A4D: 7F 20                 mov     r7, #(pgm >> 8)
-0A4F: 02 02 BB              ljmp    menu
-                   
-                   stcode:
-0A52: 90 10 00              mov     dptr, #bmem      ; search for startup routi
-                   stcode2:
-0A55: 12 09 7B              lcall   find
-0A58: 50 23                 jnc     stcode5
-0A5A: 75 82 04              mov     dpl, #4
-0A5D: E0                    movx    a, @dptr
-0A5E: B5 F0 15              cjne    a, b, stcode4   ; only startup code if matc
-0A61: C0 F0                 push    b
-0A63: C0 83                 push    dph
-0A65: 74 72                 mov     a, #(stcode3 & 0xff)
-0A67: C0 E0                 push    acc
-0A69: 74 0A                 mov     a, #(stcode3 >> 8)
-0A6B: C0 E0                 push    acc
-0A6D: 75 82 40              mov     dpl, #64
-0A70: E4                    clr     a
-0A71: 73                    jmp     @a+dptr                 ; jump to the start
-                   stcode3:
-0A72: D0 83                 pop     dph             ; hopefully it'll return to
-0A74: D0 F0                 pop     b
-                   stcode4:
-0A76: 05 83                 inc     dph
-0A78: E5 83                 mov     a, dph
-0A7A: B4 E0 D8              cjne    a, #((emem + 1) >> 8) & 0xff, stcode2
-                   stcode5:
-0A7D: 22                    ret                     ; now we've executed all of
-                   
-                   ;---------------------------------------------------------;
-                   
-                   setbaud:
-0A7E: C2 CA                 clr     tr2
-0A80: F5 CC                 mov     tl2, a
-0A82: 85 F0 CD              mov     th2, b
-0A85: F5 CA                 mov     rcap2l, a
-0A87: 85 F0 CB              mov     rcap2h, b
-0A8A: 75 C8 30              mov     t2con, #00110000b
-0A8D: 75 98 52              mov     scon, #01010010b
-0A90: D2 CA                 setb    tr2
-0A92: 22                    ret
+0A71: 75 F0 FD              mov     b, #253
+0A74: 12 09 B6              lcall   stcode
+0A77: 12 00 A1              lcall   crlf
+0A7A: 12 00 A1              lcall   crlf
+0A7D: 12 00 A1              lcall   crlf
+0A80: 12 00 A1              lcall   crlf
+0A83: 90 0A 93              mov     dptr, #logon
+0A86: 12 00 BE              lcall   pcstr
+0A89: 12 05 C5              lcall   dir
+0A8C: 7E 00                 mov     r6, #(pgm & 0xff)
+0A8E: 7F 20                 mov     r7, #(pgm >> 8)
+0A90: 02 02 BB              ljmp    menu
                    
                    ;---------------------------------------------------------;
                    ;                                                          ;
