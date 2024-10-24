@@ -216,6 +216,19 @@
 ;							  ;
 ;---------------------------------------------------------;
 
+setbaud:
+	clr	tr2
+	mov	tl2, a
+	mov	th2, b
+	mov	rcap2l, a
+	mov	rcap2h, b
+	mov	t2con, #00110000b
+	mov	scon, #01010010b
+	setb	tr2
+	ret
+
+;---------------------------------------------------------;
+
 cin:
 	jnb	ri, cin
 	mov	a, sbuf
@@ -1668,17 +1681,17 @@ upld6:
 	inc	a
 	acall	phex		; and finally the checksum
 	acall	crlf
-	acall	cinpoll
+	lcall	cinpoll
 	jc	upld3
 	cjne	a, #ESC, upld3
 	sjmp	abort_it
 upld7:
 	mov	a, #':'
-	acall	cout
+	lcall	cout
 	clr	a
-	acall	phex
-	acall	phex
-	acall	phex
+	lcall	phex
+	lcall	phex
+	lcall	phex
 	inc	a
 	lcall	phex
 	mov	a, #255
@@ -1927,19 +1940,6 @@ eio77:
 dio77:
 	setb	p1.7
 	ljmp	crlf
-
-;---------------------------------------------------------;
-
-setbaud:
-	clr	tr2
-	mov	tl2, a
-	mov	th2, b
-	mov	rcap2l, a
-	mov	rcap2h, b
-	mov	t2con, #00110000b
-	mov	scon, #01010010b
-	setb	tr2
-	ret
 
 ;---------------------------------------------------------;
 
