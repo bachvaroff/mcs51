@@ -224,6 +224,8 @@ setbaud:
 	mov	rcap2h, b
 	mov	t2con, #00110000b
 	mov	scon, #01010010b
+	clr	ri
+	clr	ti
 	setb	tr2
 	ret
 
@@ -1679,8 +1681,8 @@ upld6:
 	mov	a, r3
 	cpl	a
 	inc	a
-	acall	phex		; and finally the checksum
-	acall	crlf
+	lcall	phex		; and finally the checksum
+	lcall	crlf
 	lcall	cinpoll
 	jc	upld3
 	cjne	a, #ESC, upld3
