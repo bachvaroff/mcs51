@@ -2,8 +2,7 @@
                    ; Please email comments, suggestions, bugs to paul@pjrc.com
                    ;
                    ; Version 2.1
-                   ;        Some code size improvements, contributed by Alexand
-                   ;        Download can now start from main menu prompt
+                   ;        Download can start from main menu prompt
                    ;
                    ; Version 2.1ab
                    ;        Extensive mods by Atanas Bachvaroff <bachvaroff@gma
@@ -98,6 +97,9 @@
 0000:              .equ     CR, '\r'
 0000:              .equ     ESC, 27
 0000:              .equ     SPACE, ' '
+0000:              .equ     pos_A, 'A'
+0000:              .equ     neg_a, (-'a')
+0000:              .equ     neg_zmap1, (-'z' + 'a' - 1)
                    ;---------------------------------------------------------;
                    
                    ;---------------------------------------------------------;
@@ -111,7 +113,7 @@
                    
                    ;------ RESET --------------------------------------------;
 0000:              .org     base
-0000: 02 0A 38              ljmp    reset
+0000: 02 0A 5F              ljmp    reset
                    ;------ RESET --------------------------------------------;
                    
                    ;------ IE0_VECTOR ---------------------------------------;
@@ -188,27 +190,27 @@
 0039: 02 00 96              ljmp    cinpoll                 ; JMP_TABLE 0x0039
 003C: 02 00 A0              ljmp    cout            ; JMP_TABLE 0x003c
                             
-003F: 02 01 D2              ljmp    phex            ; JMP_TABLE 0x003f
-0042: 02 01 D5              ljmp    phex1           ; JMP_TABLE 0x0042
-0045: 02 01 E4              ljmp    phex16          ; JMP_TABLE 0x0045
+003F: 02 01 E7              ljmp    phex            ; JMP_TABLE 0x003f
+0042: 02 01 D2              ljmp    phex1           ; JMP_TABLE 0x0042
+0045: 02 01 F5              ljmp    phex16          ; JMP_TABLE 0x0045
 0048: 02 00 D7              ljmp    pcstr           ; JMP_TABLE 0x0048
 004B: 02 00 E4              ljmp    pcb7str                 ; JMP_TABLE 0x004b
-004E: 02 01 F1              ljmp    pint8u          ; JMP_TABLE 0x004e
-0051: 02 01 F7              ljmp    pint8           ; JMP_TABLE 0x0051
-0054: 02 02 35              ljmp    pint16u                 ; JMP_TABLE 0x0054
+004E: 02 02 02              ljmp    pint8u          ; JMP_TABLE 0x004e
+0051: 02 02 08              ljmp    pint8           ; JMP_TABLE 0x0051
+0054: 02 02 46              ljmp    pint16u                 ; JMP_TABLE 0x0054
 0057: 02 00 BA              ljmp    crlf            ; JMP_TABLE 0x0057
                             
 005A: 02 00 F8              ljmp    ghex            ; JMP_TABLE 0x005a
 005D: 02 01 3C              ljmp    ghex16          ; JMP_TABLE 0x005d
                             
 0060: 02 01 B8              ljmp    asc2hex                 ; JMP_TABLE 0x0060
-0063: 02 02 A8              ljmp    upper           ; JMP_TABLE 0x0063
-0066: 02 02 B5              ljmp    lencstr                 ; JMP_TABLE 0x0066
-0069: 02 02 C3              ljmp    lencb7str       ; JMP_TABLE 0x0069
+0063: 02 02 D0              ljmp    toupper                 ; JMP_TABLE 0x0063
+0066: 02 02 D7              ljmp    lencstr                 ; JMP_TABLE 0x0066
+0069: 02 02 E5              ljmp    lencb7str       ; JMP_TABLE 0x0069
                             
-006C: 02 09 2B              ljmp    init_crc16      ; JMP_TABLE 0x006c
-006F: 02 09 3F              ljmp    update_crc16    ; JMP_TABLE 0x006f
-0072: 02 09 34              ljmp    finish_crc16    ; JMP_TABLE 0x0072
+006C: 02 09 52              ljmp    init_crc16      ; JMP_TABLE 0x006c
+006F: 02 09 66              ljmp    update_crc16    ; JMP_TABLE 0x006f
+0072: 02 09 5B              ljmp    finish_crc16    ; JMP_TABLE 0x0072
                    
                    ;---------------------------------------------------------;
                    ;                                                          ;
@@ -352,7 +354,7 @@
 00F8: C2 D5                 clr     psw.5
                    ghex8c:
 00FA: 11 8E                 acall   cin     ; get first digit
-00FC: 51 A8                 acall   upper
+00FC: 51 D0                 acall   toupper
 00FE: B4 1B 03              cjne    a, #ESC, ghex8f
                    ghex8d:
 0101: D3                    setb    c
@@ -372,7 +374,7 @@
 0112: 11 A0                 acall   cout
                    ghex8j:
 0114: 11 8E                 acall   cin     ; get second digit
-0116: 51 A8                 acall   upper
+0116: 51 D0                 acall   toupper
 0118: B4 1B 02              cjne    a, #ESC, ghex8k
 011B: 80 E4                 sjmp    ghex8d
                    ghex8k:
@@ -413,7 +415,7 @@
                    
                    ghex16c:
 0144: 11 8E                 acall   cin
-0146: 51 A8                 acall   upper
+0146: 51 D0                 acall   toupper
 0148: B4 1B 07              cjne    a, #ESC, ghex16d
 014B: D3                    setb    c               ; handle esc key
 014C: E4                    clr     a
@@ -523,83 +525,91 @@
                    
                    ;---------------------------------------------------------;
                    
-                   ; Highly code efficient resursive call phex contributed
-                   ; by Alexander B. Alexandrov <abalex@cbr.spb.ru>
+                   phex1:
+01D2: C0 E0                 push    acc
+01D4: 54 0F                 anl     a, #0x0f
+01D6: 24 F6                 add     a, #(-0x0a)
+01D8: 20 E7 04              jb      acc.7, phex1_0_9
+01DB: 24 41                 add     a, #'A'
+01DD: 80 02                 sjmp    phex1_print
+                   phex1_0_9:
+01DF: 24 3A                 add     a, #('0' + 0x0a)
+                   phex1_print:
+01E1: 12 00 A0              lcall   cout
+01E4: D0 E0                 pop     acc
+01E6: 22                    ret
+                   
+                   ;---------------------------------------------------------;
                    
                    phex:
                    phex8:
-01D2: 31 D4                 acall   phex_b
-                   phex_b:
-01D4: C4                    swap    a               ; SWAP A will be twice => A
-                   phex1:
-01D5: C0 E0                 push    acc
-01D7: 54 0F                 anl     a, #15
-01D9: 24 90                 add     a, #0x90        ; acc is 0x9X, where X is h
-01DB: D4                    da      a               ; if A to F, C=1 and lower 
-01DC: 34 40                 addc    a, #0x40
-01DE: D4                    da      a
-01DF: 11 A0                 acall   cout
-01E1: D0 E0                 pop     acc
-01E3: 22                    ret
+01E7: C0 E0                 push    acc
+01E9: C0 E0                 push    acc
+01EB: C4                    swap    a
+01EC: 31 D2                 acall   phex1
+01EE: D0 E0                 pop     acc
+01F0: 31 D2                 acall   phex1
+01F2: D0 E0                 pop     acc
+01F4: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
                    phex16:
-01E4: C0 E0                 push    acc
-01E6: E5 83                 mov     a, dph
-01E8: 31 D2                 acall   phex
-01EA: E5 82                 mov     a, dpl
-01EC: 31 D2                 acall   phex
-01EE: D0 E0                 pop     acc
-01F0: 22                    ret
+01F5: C0 E0                 push    acc
+01F7: E5 83                 mov     a, dph
+01F9: 31 E7                 acall   phex
+01FB: E5 82                 mov     a, dpl
+01FD: 31 E7                 acall   phex
+01FF: D0 E0                 pop     acc
+0201: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
                    ; prints the unsigned 8 bit value in Acc in base 10
                    
                    pint8u:
-01F1: C0 F0                 push    b
-01F3: C0 E0                 push    acc
-01F5: 80 13                 sjmp    pint8b
+0202: C0 F0                 push    b
+0204: C0 E0                 push    acc
+0206: 80 13                 sjmp    pint8b
                    
                    ;---------------------------------------------------------;
                    
                    ; prints the signed 8 bit value in Acc in base 10
                    
                    pint8:
-01F7: C0 F0                 push    b
-01F9: C0 E0                 push    acc
-01FB: 30 E7 0C              jnb     acc.7, pint8b
-01FE: 74 2D                 mov     a, #'-'
-0200: 12 00 A0              lcall   cout
-0203: D0 E0                 pop     acc
-0205: C0 E0                 push    acc
-0207: F4                    cpl     a
-0208: 24 01                 add     a, #1
+0208: C0 F0                 push    b
+020A: C0 E0                 push    acc
+020C: 30 E7 0C              jnb     acc.7, pint8b
+020F: 74 2D                 mov     a, #'-'
+0211: 12 00 A0              lcall   cout
+0214: D0 E0                 pop     acc
+0216: C0 E0                 push    acc
+0218: F4                    cpl     a
+0219: 24 01                 add     a, #1
                    pint8b:
-020A: 75 F0 64              mov     b, #100
-020D: 84                    div     ab
-020E: D2 D5                 setb    f0
-0210: 60 07                 jz      pint8c
-0212: C2 D5                 clr     f0
-0214: 24 30                 add     a, #'0'
-0216: 12 00 A0              lcall   cout
-                   pint8c:
-0219: E5 F0                 mov     a, b
-021B: 75 F0 0A              mov     b, #10
+021B: 75 F0 64              mov     b, #100
 021E: 84                    div     ab
-021F: 30 D5 02              jnb     f0, pint8d
-0222: 60 05                 jz      pint8e
+021F: D2 D5                 setb    f0
+0221: 60 07                 jz      pint8c
+0223: C2 D5                 clr     f0
+0225: 24 30                 add     a, #'0'
+0227: 12 00 A0              lcall   cout
+                   pint8c:
+022A: E5 F0                 mov     a, b
+022C: 75 F0 0A              mov     b, #10
+022F: 84                    div     ab
+0230: 30 D5 02              jnb     f0, pint8d
+0233: 60 05                 jz      pint8e
                    pint8d:
-0224: 24 30                 add     a, #'0'
-0226: 12 00 A0              lcall   cout
+0235: 24 30                 add     a, #'0'
+0237: 12 00 A0              lcall   cout
                    pint8e:
-0229: E5 F0                 mov     a, b
-022B: 24 30                 add     a, #'0'
-022D: 12 00 A0              lcall   cout
-0230: D0 E0                 pop     acc
-0232: D0 F0                 pop     b
-0234: 22                    ret
+023A: E5 F0                 mov     a, b
+023C: 24 30                 add     a, #'0'
+023E: 12 00 A0              lcall   cout
+0241: D0 E0                 pop     acc
+0243: D0 F0                 pop     b
+0245: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
@@ -607,59 +617,59 @@
                    ; warning, destroys r2, r3, r4, r5, psw.5
                    
                    pint16u:
-0235: C0 E0                 push    acc
-0237: E8                    mov     a, r0
-0238: C0 E0                 push    acc
-023A: C2 D5                 clr     psw.5
-023C: AA 82                 mov     r2, dpl
-023E: AB 83                 mov     r3, dph
+0246: C0 E0                 push    acc
+0248: E8                    mov     a, r0
+0249: C0 E0                 push    acc
+024B: C2 D5                 clr     psw.5
+024D: AA 82                 mov     r2, dpl
+024F: AB 83                 mov     r3, dph
                    pint16a:
-0240: 7C 10                 mov     r4, #16                 ; 10^4
-0242: 7D 27                 mov     r5, #39
-0244: 51 93                 acall   pint16x
-0246: 60 07                 jz      pint16b
-0248: 24 30                 add     a, #'0'
-024A: 12 00 A0              lcall   cout
-024D: D2 D5                 setb    psw.5
+0251: 7C 10                 mov     r4, #16                 ; 10^4
+0253: 7D 27                 mov     r5, #39
+0255: 51 A4                 acall   pint16x
+0257: 60 07                 jz      pint16b
+0259: 24 30                 add     a, #'0'
+025B: 12 00 A0              lcall   cout
+025E: D2 D5                 setb    psw.5
                    pint16b:
-024F: 7C E8                 mov     r4, #232        ; 10^3
-0251: 7D 03                 mov     r5, #3
-0253: 51 93                 acall   pint16x
-0255: 70 03                 jnz     pint16c
-0257: 30 D5 07              jnb     psw.5, pint16d
+0260: 7C E8                 mov     r4, #232        ; 10^3
+0262: 7D 03                 mov     r5, #3
+0264: 51 A4                 acall   pint16x
+0266: 70 03                 jnz     pint16c
+0268: 30 D5 07              jnb     psw.5, pint16d
                    pint16c:
-025A: 24 30                 add     a, #'0'
-025C: 12 00 A0              lcall   cout
-025F: D2 D5                 setb    psw.5
+026B: 24 30                 add     a, #'0'
+026D: 12 00 A0              lcall   cout
+0270: D2 D5                 setb    psw.5
                    pint16d:
-0261: 7C 64                 mov     r4, #100        ; 10^2
-0263: 7D 00                 mov     r5, #0
-0265: 51 93                 acall   pint16x
-0267: 70 03                 jnz     pint16e
-0269: 30 D5 07              jnb     psw.5, pint16f
+0272: 7C 64                 mov     r4, #100        ; 10^2
+0274: 7D 00                 mov     r5, #0
+0276: 51 A4                 acall   pint16x
+0278: 70 03                 jnz     pint16e
+027A: 30 D5 07              jnb     psw.5, pint16f
                    pint16e:
-026C: 24 30                 add     a, #'0'
-026E: 12 00 A0              lcall   cout
-0271: D2 D5                 setb    psw.5
+027D: 24 30                 add     a, #'0'
+027F: 12 00 A0              lcall   cout
+0282: D2 D5                 setb    psw.5
                    pint16f:
-0273: EA                    mov     a, r2           ; 10^1
-0274: AB F0                 mov     r3, b
-0276: 75 F0 0A              mov     b, #10
-0279: 84                    div     ab
-027A: 70 03                 jnz     pint16g
-027C: 30 D5 05              jnb     psw.5, pint16h
+0284: EA                    mov     a, r2           ; 10^1
+0285: AB F0                 mov     r3, b
+0287: 75 F0 0A              mov     b, #10
+028A: 84                    div     ab
+028B: 70 03                 jnz     pint16g
+028D: 30 D5 05              jnb     psw.5, pint16h
                    pint16g:
-027F: 24 30                 add     a, #'0'
-0281: 12 00 A0              lcall   cout
+0290: 24 30                 add     a, #'0'
+0292: 12 00 A0              lcall   cout
                    pint16h:
-0284: E5 F0                 mov     a, b            ; 10^0
-0286: 8B F0                 mov     b, r3
-0288: 24 30                 add     a, #'0'
-028A: 12 00 A0              lcall   cout
-028D: D0 E0                 pop     acc
-028F: F8                    mov     r0, a
-0290: D0 E0                 pop     acc
-0292: 22                    ret
+0295: E5 F0                 mov     a, b            ; 10^0
+0297: 8B F0                 mov     b, r3
+0299: 24 30                 add     a, #'0'
+029B: 12 00 A0              lcall   cout
+029E: D0 E0                 pop     acc
+02A0: F8                    mov     r0, a
+02A1: D0 E0                 pop     acc
+02A3: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
@@ -669,74 +679,84 @@
                    ; had made a proper divide, then this would be much easier.
                    
                    pint16x:
-0293: 78 00                 mov     r0, #0
+02A4: 78 00                 mov     r0, #0
                    pint16y:
-0295: 08                    inc     r0
-0296: C3                    clr     c
-0297: EA                    mov     a, r2
-0298: 9C                    subb    a, r4
-0299: FA                    mov     r2, a
-029A: EB                    mov     a, r3
-029B: 9D                    subb    a, r5
-029C: FB                    mov     r3, a
-029D: 50 F6                 jnc     pint16y
-029F: 18                    dec     r0
-02A0: EA                    mov     a, r2
-02A1: 2C                    add     a, r4
-02A2: FA                    mov     r2, a
-02A3: EB                    mov     a, r3
-02A4: 3D                    addc    a, r5
-02A5: FB                    mov     r3, a
-02A6: E8                    mov     a, r0
-02A7: 22                    ret
+02A6: 08                    inc     r0
+02A7: C3                    clr     c
+02A8: EA                    mov     a, r2
+02A9: 9C                    subb    a, r4
+02AA: FA                    mov     r2, a
+02AB: EB                    mov     a, r3
+02AC: 9D                    subb    a, r5
+02AD: FB                    mov     r3, a
+02AE: 50 F6                 jnc     pint16y
+02B0: 18                    dec     r0
+02B1: EA                    mov     a, r2
+02B2: 2C                    add     a, r4
+02B3: FA                    mov     r2, a
+02B4: EB                    mov     a, r3
+02B5: 3D                    addc    a, r5
+02B6: FB                    mov     r3, a
+02B7: E8                    mov     a, r0
+02B8: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
-                   ; converts the ascii code in Acc to uppercase, if it is lowe
-                   ; Code efficient (saves 6 byes) upper contributed
-                   ; by Alexander B. Alexandrov <abalex@cbr.spb.ru>
+                   islower:
+02B9: 20 E7 12              jb      acc.7, islower_out0
+02BC: C0 E0                 push    acc
+02BE: 24 9F                 add     a, #neg_a
+02C0: 20 E7 09              jb      acc.7, islower_out1
+02C3: 24 E6                 add     a, #neg_zmap1
+02C5: 30 E7 04              jnb     acc.7, islower_out1
+02C8: D0 E0                 pop     acc
+02CA: D3                    setb    c
+02CB: 22                    ret
+                   islower_out1:
+02CC: D0 E0                 pop     acc
+                   islower_out0:
+02CE: C3                    clr     c
+02CF: 22                    ret
                    
-                   upper:
-02A8: B4 61 00              cjne    a, #97, upper2
-                   upper2:
-02AB: 40 07                 jc      upper4          ; end if acc < 97
-02AD: B4 7B 00              cjne    a, #123, upper3
-                   upper3:
-02B0: 50 02                 jnc     upper4          ; end if acc >= 123
-02B2: 24 E0                 add     a, #224                 ; convert to upperc
-                   upper4:
-02B4: 22                    ret
+                   ;---------------------------------------------------------;
+                   
+                   toupper:
+02D0: 51 B9                 acall   islower
+02D2: 50 02                 jnc     toupper_out
+02D4: 24 E0                 add     a, #(neg_a + pos_A)
+                   toupper_out:
+02D6: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
                    lencstr:
-02B5: 78 00                 mov     r0, #0          ; returns length of a strin
-02B7: C0 E0                 push    acc
+02D7: 78 00                 mov     r0, #0          ; returns length of a strin
+02D9: C0 E0                 push    acc
                    lencstr1:
-02B9: E0                    movx    a, @dptr
-02BA: 60 04                 jz      lencstr2
-02BC: 08                    inc     r0
-02BD: A3                    inc     dptr
-02BE: 80 F9                 sjmp    lencstr1
+02DB: E0                    movx    a, @dptr
+02DC: 60 04                 jz      lencstr2
+02DE: 08                    inc     r0
+02DF: A3                    inc     dptr
+02E0: 80 F9                 sjmp    lencstr1
                    lencstr2:
-02C0: D0 E0                 pop     acc
-02C2: 22                    ret
+02E2: D0 E0                 pop     acc
+02E4: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
                    lencb7str:
-02C3: 78 00                 mov     r0, #0
-02C5: C0 E0                 push    acc
+02E5: 78 00                 mov     r0, #0
+02E7: C0 E0                 push    acc
                    lencb7str1:
-02C7: E0                    movx    a, @dptr
-02C8: 60 07                 jz      lencb7str2
-02CA: 08                    inc     r0
-02CB: 20 E7 03              jb      acc.7, lencb7str2
-02CE: A3                    inc     dptr
-02CF: 80 F6                 sjmp    lencb7str1
+02E9: E0                    movx    a, @dptr
+02EA: 60 07                 jz      lencb7str2
+02EC: 08                    inc     r0
+02ED: 20 E7 03              jb      acc.7, lencb7str2
+02F0: A3                    inc     dptr
+02F1: 80 F6                 sjmp    lencb7str1
                    lencb7str2:
-02D1: D0 E0                 pop     acc
-02D3: 22                    ret
+02F3: D0 E0                 pop     acc
+02F5: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
@@ -744,28 +764,28 @@
                    ; first we print out the prompt, which isn't as simple
                    ; as it may seem, since external code can add to the
                    ; prompt, so we've got to find and execute all of 'em.
-02D4: 90 0A D3              mov     dptr, #prompt1  ; give 'em the first part o
-02D7: 11 D7                 acall   pcstr
-02D9: EF                    mov     a, r7
-02DA: 31 D2                 acall   phex
-02DC: EE                    mov     a, r6
-02DD: 31 D2                 acall   phex
-02DF: 90 0A DD              mov     dptr, #prompt2
-02E2: 11 D7                 acall   pcstr
+02F6: 90 0A FA              mov     dptr, #prompt1  ; give 'em the first part o
+02F9: 11 D7                 acall   pcstr
+02FB: EF                    mov     a, r7
+02FC: 31 E7                 acall   phex
+02FE: EE                    mov     a, r6
+02FF: 31 E7                 acall   phex
+0301: 90 0B 04              mov     dptr, #prompt2
+0304: 11 D7                 acall   pcstr
                             
                    ; now we're finally past the prompt, so let's get some input
-02E4: 11 8E                 acall   cin             ; get the input, finally
-02E6: B4 3A 04              cjne    a, #':', menu0
-02E9: 71 EE                 acall   dnld_now
-02EB: 80 E7                 sjmp    menu
+0306: 11 8E                 acall   cin             ; get the input, finally
+0308: B4 3A 04              cjne    a, #':', menu0
+030B: 91 10                 acall   dnld_now
+030D: 80 E7                 sjmp    menu
                    menu0:
-02ED: 51 A8                 acall   upper
+030F: 51 D0                 acall   toupper
                             
                    ; push return address onto stack so we can just jump to the 
-02EF: 75 F0 D4              mov     b, #(menu & 0xff)       ; we push the retur
-02F2: C0 F0                 push    b               ; to save code later...
-02F4: 75 F0 02              mov     b, #(menu >> 8)         ; if bogus input, j
-02F7: C0 F0                 push    b               ; another prompt.
+0311: 75 F0 F6              mov     b, #(menu & 0xff)       ; we push the retur
+0314: C0 F0                 push    b               ; to save code later...
+0316: 75 F0 02              mov     b, #(menu >> 8)         ; if bogus input, j
+0319: C0 F0                 push    b               ; another prompt.
                             
                    ; first we'll look through memory for a program header that 
                    ; it's a user installed command which matches what the user 
@@ -776,136 +796,136 @@
                    ; user commands to alter as they wish.
                             
                    menux:
-02F9: F5 F0                 mov     b, a            ; now search for external c
-02FB: 90 10 00              mov     dptr, #bmem
+031B: F5 F0                 mov     b, a            ; now search for external c
+031D: 90 10 00              mov     dptr, #bmem
                    menux1:
-02FE: 12 09 9B              lcall   find
-0301: 50 22                 jnc     menuxend        ; searched all the commands
-0303: 75 82 04              mov     dpl, #4
-0306: E0                    movx    a, @dptr
-0307: B4 FE 14              cjne    a, #254, menux2         ; only FE is an ext
-030A: 05 82                 inc     dpl
-030C: E0                    movx    a, @dptr
-030D: B5 F0 0E              cjne    a, b, menux2    ; only run if they want it
-0310: 11 A8                 acall   sspace
-0312: 75 82 20              mov     dpl, #32
-0315: 11 D7                 acall   pcstr           ; print command name
-0317: 11 BA                 acall   crlf
-0319: 75 82 40              mov     dpl, #64
-031C: E4                    clr     a
-031D: 73                    jmp     @a+dptr                 ; take a leap of fa
+0320: 12 09 C2              lcall   find
+0323: 50 22                 jnc     menuxend        ; searched all the commands
+0325: 75 82 04              mov     dpl, #4
+0328: E0                    movx    a, @dptr
+0329: B4 FE 14              cjne    a, #254, menux2         ; only FE is an ext
+032C: 05 82                 inc     dpl
+032E: E0                    movx    a, @dptr
+032F: B5 F0 0E              cjne    a, b, menux2    ; only run if they want it
+0332: 11 A8                 acall   sspace
+0334: 75 82 20              mov     dpl, #32
+0337: 11 D7                 acall   pcstr           ; print command name
+0339: 11 BA                 acall   crlf
+033B: 75 82 40              mov     dpl, #64
+033E: E4                    clr     a
+033F: 73                    jmp     @a+dptr                 ; take a leap of fa
                    menux2:
-031E: 05 83                 inc     dph
-0320: E5 83                 mov     a, dph
-0322: B4 E0 D9              cjne    a, #((emem + 1) >> 8) & 0xff, menux1
+0340: 05 83                 inc     dph
+0342: E5 83                 mov     a, dph
+0344: B4 E0 D9              cjne    a, #((emem + 1) >> 8) & 0xff, menux1
                    menuxend:
-0325: E5 F0                 mov     a, b
+0347: E5 F0                 mov     a, b
                             
                    ; since we didn't find a user installed command, use the bui
                    menui1:
-0327: B4 3F 07              cjne    a, #help_key, menui2
-032A: 90 0E 2E              mov     dptr, #help_cmd2
-032D: 11 D7                 acall   pcstr
-032F: C1 F0                 ajmp    help
+0349: B4 3F 07              cjne    a, #help_key, menui2
+034C: 90 0E 55              mov     dptr, #help_cmd2
+034F: 11 D7                 acall   pcstr
+0351: E1 12                 ajmp    help
                             
                    menui2:
-0331: B4 4D 07              cjne    a, #dir_key, menui3
-0334: 90 0E 42              mov     dptr, #dir_cmd
-0337: 11 D7                 acall   pcstr
-0339: A1 DE                 ajmp    dir
+0353: B4 4D 07              cjne    a, #dir_key, menui3
+0356: 90 0E 69              mov     dptr, #dir_cmd
+0359: 11 D7                 acall   pcstr
+035B: C1 00                 ajmp    dir
                             
                    menui3:
-033B: B4 52 07              cjne    a, #run_key, menui4
-033E: 90 0E 50              mov     dptr, #run_cmd
-0341: 11 D7                 acall   pcstr
-0343: C1 58                 ajmp    run
+035D: B4 52 07              cjne    a, #run_key, menui4
+0360: 90 0E 77              mov     dptr, #run_cmd
+0363: 11 D7                 acall   pcstr
+0365: C1 7A                 ajmp    run
                             
                    menui4:
-0345: B4 44 07              cjne    a, #dnld_key, menui5
-0348: 90 0E 5C              mov     dptr, #dnld_cmd
-034B: 11 D7                 acall   pcstr
-034D: 61 D1                 ajmp    dnld
+0367: B4 44 07              cjne    a, #dnld_key, menui5
+036A: 90 0E 83              mov     dptr, #dnld_cmd
+036D: 11 D7                 acall   pcstr
+036F: 61 F3                 ajmp    dnld
                             
                    menui5:
-034F: B4 55 07              cjne    a, #upld_key, menui6
-0352: 90 0E 65              mov     dptr, #upld_cmd
-0355: 11 D7                 acall   pcstr
-0357: E1 96                 ajmp    upld
+0371: B4 55 07              cjne    a, #upld_key, menui6
+0374: 90 0E 8C              mov     dptr, #upld_cmd
+0377: 11 D7                 acall   pcstr
+0379: E1 B8                 ajmp    upld
                             
                    menui6:
-0359: B4 4E 09              cjne    a, #nloc_key, menui7
-035C: 90 0E 6C              mov     dptr, #nloc_cmd
-035F: 12 00 D7              lcall   pcstr
-0362: 02 08 6A              ljmp    nloc
+037B: B4 4E 09              cjne    a, #nloc_key, menui7
+037E: 90 0E 93              mov     dptr, #nloc_cmd
+0381: 12 00 D7              lcall   pcstr
+0384: 02 08 91              ljmp    nloc
                             
                    menui7:
-0365: B4 4A 07              cjne    a, #jump_key, menui8
-0368: 90 0E 79              mov     dptr, #jump_cmd
-036B: 11 D7                 acall   pcstr
-036D: A1 38                 ajmp    jump
+0387: B4 4A 07              cjne    a, #jump_key, menui8
+038A: 90 0E A0              mov     dptr, #jump_cmd
+038D: 11 D7                 acall   pcstr
+038F: A1 5A                 ajmp    jump
                             
                    menui8:
-036F: B4 48 07              cjne    a, #dump_key, menui9
-0372: 90 0E 91              mov     dptr, #dump_cmd
-0375: 11 D7                 acall   pcstr
-0377: A1 69                 ajmp    dump
+0391: B4 48 07              cjne    a, #dump_key, menui9
+0394: 90 0E B8              mov     dptr, #dump_cmd
+0397: 11 D7                 acall   pcstr
+0399: A1 8B                 ajmp    dump
                             
                    menui9:
-0379: B4 45 07              cjne    a, #edit_key, menui10
-037C: 90 0E C3              mov     dptr, #edit_cmd
-037F: 11 D7                 acall   pcstr
-0381: A1 AB                 ajmp    edit
+039B: B4 45 07              cjne    a, #edit_key, menui10
+039E: 90 0E EA              mov     dptr, #edit_cmd
+03A1: 11 D7                 acall   pcstr
+03A3: A1 CD                 ajmp    edit
                             
                    menui10:
-0383: B4 43 08              cjne    a, #clrm_key, menui11
-0386: 90 0E D8              mov     dptr, #clrm_cmd
-0389: 11 D7                 acall   pcstr
-038B: 02 08 7E              ljmp    clrm
+03A5: B4 43 08              cjne    a, #clrm_key, menui11
+03A8: 90 0E FF              mov     dptr, #clrm_cmd
+03AB: 11 D7                 acall   pcstr
+03AD: 02 08 A5              ljmp    clrm
                             
                    menui11:
-038E: B4 49 08              cjne    a, #intm_key, menui12
-0391: 90 0E AA              mov     dptr, #intm_cmd
-0394: 11 D7                 acall   pcstr
-0396: 02 09 6B              ljmp    intm
+03B0: B4 49 08              cjne    a, #intm_key, menui12
+03B3: 90 0E D1              mov     dptr, #intm_cmd
+03B6: 11 D7                 acall   pcstr
+03B8: 02 09 92              ljmp    intm
                             
                    menui12:
-0399: B4 3C 08              cjne    a, #eio77_key, menui13
-039C: 90 0E FE              mov     dptr, #eio77_cmd
-039F: 11 D7                 acall   pcstr
-03A1: 02 09 91              ljmp    eio77
+03BB: B4 3C 08              cjne    a, #eio77_key, menui13
+03BE: 90 0F 25              mov     dptr, #eio77_cmd
+03C1: 11 D7                 acall   pcstr
+03C3: 02 09 B8              ljmp    eio77
                             
                    menui13:
-03A4: B4 3E 08              cjne    a, #dio77_key, menui14
-03A7: 90 0F 0D              mov     dptr, #dio77_cmd
-03AA: 11 D7                 acall   pcstr
-03AC: 02 09 96              ljmp    dio77
+03C6: B4 3E 08              cjne    a, #dio77_key, menui14
+03C9: 90 0F 34              mov     dptr, #dio77_cmd
+03CC: 11 D7                 acall   pcstr
+03CE: 02 09 BD              ljmp    dio77
                             
                    menui14:
-03AF: B4 57 08              cjne    a, #crc16_key, menui15
-03B2: 90 0E EE              mov     dptr, #crc16_cmd
-03B5: 11 D7                 acall   pcstr
-03B7: 02 08 E9              ljmp    calc_crc16
+03D1: B4 57 08              cjne    a, #crc16_key, menui15
+03D4: 90 0F 15              mov     dptr, #crc16_cmd
+03D7: 11 D7                 acall   pcstr
+03D9: 02 09 10              ljmp    calc_crc16
                             
                    menui15:
-03BA: B4 42 08              cjne    a, #baud_key, menuiend
-03BD: 90 0F 1D              mov     dptr, #baud_cmd
-03C0: 11 D7                 acall   pcstr
-03C2: 02 08 A7              ljmp    reset_baud
+03DC: B4 42 08              cjne    a, #baud_key, menuiend
+03DF: 90 0F 44              mov     dptr, #baud_cmd
+03E2: 11 D7                 acall   pcstr
+03E4: 02 08 CE              ljmp    reset_baud
                             
                    menuiend:
-03C5: 01 BA                 ajmp    crlf
+03E7: 01 BA                 ajmp    crlf
                    
                    ;---------------------------------------------------------;
                    
                    r6r7todptr:
-03C7: 8E 82                 mov     dpl, r6
-03C9: 8F 83                 mov     dph, r7
-03CB: 22                    ret
+03E9: 8E 82                 mov     dpl, r6
+03EB: 8F 83                 mov     dph, r7
+03ED: 22                    ret
                    
                    dptrtor6r7:
-03CC: AE 82                 mov     r6, dpl
-03CE: AF 83                 mov     r7, dph
-03D0: 22                    ret
+03EE: AE 82                 mov     r6, dpl
+03F0: AF 83                 mov     r7, dph
+03F2: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
@@ -924,111 +944,111 @@
                    ;  *   7 = unexpected non-hex digits (in middle of a line)
                    
                    dnld:
-03D1: 90 0C 45              mov     dptr, #dnlds1   ; "begin sending file <ESC>
-03D4: 11 D7                 acall   pcstr
-03D6: B1 2F                 acall   dnld_init
+03F3: 90 0C 6C              mov     dptr, #dnlds1   ; "begin sending file <ESC>
+03F6: 11 D7                 acall   pcstr
+03F8: B1 51                 acall   dnld_init
                             
                    dnld1:
                    ; look for begining of line marker ':'
-03D8: 11 8E                 acall   cin
-03DA: B4 1B 02              cjne    a, #ESC, dnld2  ; Test for escape
-03DD: 80 6D                 sjmp    dnld_esc
+03FA: 11 8E                 acall   cin
+03FC: B4 1B 02              cjne    a, #ESC, dnld2  ; Test for escape
+03FF: 80 6D                 sjmp    dnld_esc
                             
                    dnld2:
-03DF: B4 3A 02              cjne    a, #':', dnld2b
-03E2: 80 10                 sjmp    dnld2d
+0401: B4 3A 02              cjne    a, #':', dnld2b
+0404: 80 10                 sjmp    dnld2d
                    dnld2b:
                    ; check to see if it's a hex digit, error if it is
-03E4: 31 B8                 acall   asc2hex
-03E6: 40 F0                 jc      dnld1
-03E8: 79 06                 mov     r1, #6
-03EA: 91 5E                 acall   dnld_inc
-03EC: 80 EA                 sjmp    dnld1
+0406: 31 B8                 acall   asc2hex
+0408: 40 F0                 jc      dnld1
+040A: 79 06                 mov     r1, #6
+040C: 91 80                 acall   dnld_inc
+040E: 80 EA                 sjmp    dnld1
                             
                    dnld_now:
                    ; entry point for main menu detecting ':' character
-03EE: 74 3A                 mov     a, #':'
-03F0: 11 A0                 acall   cout
-03F2: B1 2F                 acall   dnld_init
+0410: 74 3A                 mov     a, #':'
+0412: 11 A0                 acall   cout
+0414: B1 51                 acall   dnld_init
                             
                    dnld2d:
-03F4: 79 00                 mov     r1, #0
-03F6: 91 5E                 acall   dnld_inc
+0416: 79 00                 mov     r1, #0
+0418: 91 80                 acall   dnld_inc
                             
                    dnld3:
                    ; begin taking in the line of data
                    ;        mov     a, #'.'
                    ;        acall   cout
-03F8: 7C 00                 mov     r4, #0          ; r4 will count up checksum
-03FA: 91 7D                 acall   dnld_ghex
-03FC: F8                    mov     r0, a           ; R0 = # of data bytes
+041A: 7C 00                 mov     r4, #0          ; r4 will count up checksum
+041C: 91 9F                 acall   dnld_ghex
+041E: F8                    mov     r0, a           ; R0 = # of data bytes
                    ;        mov     a, #'.'
                    ;        acall   cout
-03FD: 91 7D                 acall   dnld_ghex
-03FF: F5 83                 mov     dph, a          ; High byte of load address
-0401: 91 7D                 acall   dnld_ghex
-0403: F5 82                 mov     dpl, a          ; Low byte of load address
-0405: 91 7D                 acall   dnld_ghex       ; Record type
-0407: B4 01 02              cjne    a, #1, dnld4    ; End record?
-040A: 80 29                 sjmp    dnld_end
+041F: 91 9F                 acall   dnld_ghex
+0421: F5 83                 mov     dph, a          ; High byte of load address
+0423: 91 9F                 acall   dnld_ghex
+0425: F5 82                 mov     dpl, a          ; Low byte of load address
+0427: 91 9F                 acall   dnld_ghex       ; Record type
+0429: B4 01 02              cjne    a, #1, dnld4    ; End record?
+042C: 80 29                 sjmp    dnld_end
                    dnld4:
-040C: 70 1E                 jnz     dnld_unknown    ; is it a unknown record ty
+042E: 70 1E                 jnz     dnld_unknown    ; is it a unknown record ty
                    dnld5:
-040E: E8                    mov     a, r0
-040F: 60 10                 jz      dnld_get_cksum
-0411: 91 7D                 acall   dnld_ghex       ; Get data byte
-0413: FA                    mov     r2, a
-0414: 79 01                 mov     r1, #1
-0416: 91 5E                 acall   dnld_inc        ; count total data bytes re
-0418: EA                    mov     a, r2
-0419: F0                    movx    @dptr, a
-041A: 79 02                 mov     r1, #2
-041C: 91 5E                 acall   dnld_inc
-041E: A3                    inc     dptr
-041F: D8 ED                 djnz    r0, dnld5
+0430: E8                    mov     a, r0
+0431: 60 10                 jz      dnld_get_cksum
+0433: 91 9F                 acall   dnld_ghex       ; Get data byte
+0435: FA                    mov     r2, a
+0436: 79 01                 mov     r1, #1
+0438: 91 80                 acall   dnld_inc        ; count total data bytes re
+043A: EA                    mov     a, r2
+043B: F0                    movx    @dptr, a
+043C: 79 02                 mov     r1, #2
+043E: 91 80                 acall   dnld_inc
+0440: A3                    inc     dptr
+0441: D8 ED                 djnz    r0, dnld5
                    dnld_get_cksum:
-0421: 91 7D                 acall   dnld_ghex       ; get checksum
-0423: EC                    mov     a, r4
-0424: 60 B2                 jz      dnld1           ; should always add to zero
+0443: 91 9F                 acall   dnld_ghex       ; get checksum
+0445: EC                    mov     a, r4
+0446: 60 B2                 jz      dnld1           ; should always add to zero
                    dnld_sumerr:
-0426: 79 04                 mov     r1, #4
-0428: 91 5E                 acall   dnld_inc        ; all we can do it count # 
-042A: 80 AC                 sjmp    dnld1
+0448: 79 04                 mov     r1, #4
+044A: 91 80                 acall   dnld_inc        ; all we can do it count # 
+044C: 80 AC                 sjmp    dnld1
                             
                    dnld_unknown:
                    ; handle unknown line type
-042C: E8                    mov     a, r0
-042D: 60 F2                 jz      dnld_get_cksum  ; skip data if size is zero
+044E: E8                    mov     a, r0
+044F: 60 F2                 jz      dnld_get_cksum  ; skip data if size is zero
                    dnld_ukn2:
-042F: 91 7D                 acall   dnld_ghex       ; consume all of unknown da
-0431: D8 FC                 djnz    r0, dnld_ukn2
-0433: 80 EC                 sjmp    dnld_get_cksum
+0451: 91 9F                 acall   dnld_ghex       ; consume all of unknown da
+0453: D8 FC                 djnz    r0, dnld_ukn2
+0455: 80 EC                 sjmp    dnld_get_cksum
                             
                    dnld_end:
                    ; handles the proper end-of-download marker
-0435: E8                    mov     a, r0
-0436: 60 04                 jz      dnld_end_3      ; should usually be zero
+0457: E8                    mov     a, r0
+0458: 60 04                 jz      dnld_end_3      ; should usually be zero
                    dnld_end_2:
-0438: 91 7D                 acall   dnld_ghex       ; consume all of useless da
-043A: D8 F3                 djnz    r0, dnld_ukn2
+045A: 91 9F                 acall   dnld_ghex       ; consume all of useless da
+045C: D8 F3                 djnz    r0, dnld_ukn2
                    dnld_end_3:
-043C: 91 7D                 acall   dnld_ghex       ; get the last checksum
-043E: EC                    mov     a, r4
-043F: 70 E5                 jnz     dnld_sumerr
-0441: 91 55                 acall   dnld_dly
-0443: 90 0C 93              mov     dptr, #dnlds3   ; "download went ok..."
-0446: 11 D7                 acall   pcstr
+045E: 91 9F                 acall   dnld_ghex       ; get the last checksum
+0460: EC                    mov     a, r4
+0461: 70 E5                 jnz     dnld_sumerr
+0463: 91 77                 acall   dnld_dly
+0465: 90 0C BA              mov     dptr, #dnlds3   ; "download went ok..."
+0468: 11 D7                 acall   pcstr
                    ; consume any cr or lf character that may have been
                    ; on the end of the last line
-0448: 11 96                 acall   cinpoll
-044A: 80 76                 sjmp    dnld_sum
+046A: 11 96                 acall   cinpoll
+046C: 80 76                 sjmp    dnld_sum
                             
                    dnld_esc:
                    ; handle esc received in the download stream
-044C: 91 55                 acall   dnld_dly
-044E: 90 0C 7C              mov     dptr, #dnlds2   ; "download aborted."
-0451: 11 D7                 acall   pcstr
-0453: 80 6D                 sjmp    dnld_sum
+046E: 91 77                 acall   dnld_dly
+0470: 90 0C A3              mov     dptr, #dnlds2   ; "download aborted."
+0473: 11 D7                 acall   pcstr
+0475: 80 6D                 sjmp    dnld_sum
                    
                    ; a short delay since most terminal emulation programs
                    ; won't be ready to receive anything immediately after
@@ -1036,47 +1056,47 @@
                    ; machine with 16550 uarts!
                             
                    dnld_dly:
-0455: 78 00                 mov     r0, #0
+0477: 78 00                 mov     r0, #0
                    dnlddly2:
-0457: 79 00                 mov     r1, #0
-0459: D9 FE                 djnz    r1, *           ; roughly 128k cycles, appo
-045B: D8 FA                 djnz    r0, dnlddly2
-045D: 22                    ret
+0479: 79 00                 mov     r1, #0
+047B: D9 FE                 djnz    r1, *           ; roughly 128k cycles, appo
+047D: D8 FA                 djnz    r0, dnlddly2
+047F: 22                    ret
                             
                    ; increment parameter specified by R1
                    ; note, values in Acc and R1 are destroyed
                             
                    dnld_inc:
-045E: E9                    mov     a, r1
-045F: 54 07                 anl     a, #00000111b   ; just in case
-0461: 23                    rl      a
-0462: 24 08                 add     a, #dnld_parm
-0464: F9                    mov     r1, a           ; now r1 points to lsb
-0465: 07                    inc     @r1
-0466: E7                    mov     a, @r1
-0467: 70 02                 jnz     dnldin2
-0469: 09                    inc     r1
-046A: 07                    inc     @r1
+0480: E9                    mov     a, r1
+0481: 54 07                 anl     a, #00000111b   ; just in case
+0483: 23                    rl      a
+0484: 24 08                 add     a, #dnld_parm
+0486: F9                    mov     r1, a           ; now r1 points to lsb
+0487: 07                    inc     @r1
+0488: E7                    mov     a, @r1
+0489: 70 02                 jnz     dnldin2
+048B: 09                    inc     r1
+048C: 07                    inc     @r1
                    dnldin2:
-046B: 22                    ret
+048D: 22                    ret
                             
                    ; get parameter, and inc to next one (@r1)
                    ; carry clear if parameter is zero.
                    ; 16 bit value returned in dptr
                             
                    dnld_gp:
-046C: D3                    setb    c
-046D: 87 82                 mov     dpl, @r1
-046F: 09                    inc     r1
-0470: 87 83                 mov     dph, @r1
-0472: 09                    inc     r1
-0473: E5 82                 mov     a, dpl
-0475: 70 05                 jnz     dnldgp2
-0477: E5 83                 mov     a, dph
-0479: 70 01                 jnz     dnldgp2
-047B: C3                    clr     c
+048E: D3                    setb    c
+048F: 87 82                 mov     dpl, @r1
+0491: 09                    inc     r1
+0492: 87 83                 mov     dph, @r1
+0494: 09                    inc     r1
+0495: E5 82                 mov     a, dpl
+0497: 70 05                 jnz     dnldgp2
+0499: E5 83                 mov     a, dph
+049B: 70 01                 jnz     dnldgp2
+049D: C3                    clr     c
                    dnldgp2:
-047C: 22                    ret
+049E: 22                    ret
                             
                    ; a special version of ghex just for the download. Does not
                    ; look for carriage return or backspace. Handles ESC key by
@@ -1089,52 +1109,52 @@
                             
                    dnld_ghex:
                    dnldgh1:
-047D: 11 8E                 acall   cin
-047F: 51 A8                 acall   upper
-0481: B4 1B 06              cjne    a, #ESC, dnldgh3
+049F: 11 8E                 acall   cin
+04A1: 51 D0                 acall   toupper
+04A3: B4 1B 06              cjne    a, #ESC, dnldgh3
                    dnldgh2:
-0484: D0 E0                 pop     acc
-0486: D0 E0                 pop     acc
-0488: 80 C2                 sjmp    dnld_esc
+04A6: D0 E0                 pop     acc
+04A8: D0 E0                 pop     acc
+04AA: 80 C2                 sjmp    dnld_esc
                    dnldgh3:
-048A: B4 3A 0A              cjne    a, #':', dnldgh5
+04AC: B4 3A 0A              cjne    a, #':', dnldgh5
                    dnldgh4:
-048D: 79 05                 mov     r1, #5          ; handle unexpected beginni
-048F: 91 5E                 acall   dnld_inc
-0491: D0 E0                 pop     acc
-0493: D0 E0                 pop     acc
-0495: 61 F8                 ajmp    dnld3           ; and now we're on a new li
+04AF: 79 05                 mov     r1, #5          ; handle unexpected beginni
+04B1: 91 80                 acall   dnld_inc
+04B3: D0 E0                 pop     acc
+04B5: D0 E0                 pop     acc
+04B7: 81 1A                 ajmp    dnld3           ; and now we're on a new li
                    dnldgh5:
-0497: 31 B8                 acall   asc2hex
-0499: 50 06                 jnc     dnldgh6
-049B: 79 07                 mov     r1, #7
-049D: 91 5E                 acall   dnld_inc
-049F: 80 DC                 sjmp    dnldgh1
+04B9: 31 B8                 acall   asc2hex
+04BB: 50 06                 jnc     dnldgh6
+04BD: 79 07                 mov     r1, #7
+04BF: 91 80                 acall   dnld_inc
+04C1: 80 DC                 sjmp    dnldgh1
                    dnldgh6:
-04A1: FA                    mov     r2, a           ; keep first digit in r2
+04C3: FA                    mov     r2, a           ; keep first digit in r2
                    dnldgh7:
-04A2: 11 8E                 acall   cin
-04A4: 51 A8                 acall   upper
-04A6: B4 1B 02              cjne    a, #ESC, dnldgh8
-04A9: 80 D9                 sjmp    dnldgh2
+04C4: 11 8E                 acall   cin
+04C6: 51 D0                 acall   toupper
+04C8: B4 1B 02              cjne    a, #ESC, dnldgh8
+04CB: 80 D9                 sjmp    dnldgh2
                    dnldgh8:
-04AB: B4 3A 02              cjne    a, #':', dnldgh9
-04AE: 80 DD                 sjmp    dnldgh4
+04CD: B4 3A 02              cjne    a, #':', dnldgh9
+04D0: 80 DD                 sjmp    dnldgh4
                    dnldgh9:
-04B0: 31 B8                 acall   asc2hex
-04B2: 50 06                 jnc     dnldghA
-04B4: 79 07                 mov     r1, #7
-04B6: 91 5E                 acall   dnld_inc
-04B8: 80 E8                 sjmp    dnldgh7
+04D2: 31 B8                 acall   asc2hex
+04D4: 50 06                 jnc     dnldghA
+04D6: 79 07                 mov     r1, #7
+04D8: 91 80                 acall   dnld_inc
+04DA: 80 E8                 sjmp    dnldgh7
                    dnldghA:
-04BA: CA                    xch     a, r2
-04BB: C4                    swap    a
-04BC: 4A                    orl     a, r2
-04BD: FA                    mov     r2, a
-04BE: 2C                    add     a, r4           ; add into checksum
-04BF: FC                    mov     r4, a
-04C0: EA                    mov     a, r2           ; return value in acc
-04C1: 22                    ret
+04DC: CA                    xch     a, r2
+04DD: C4                    swap    a
+04DE: 4A                    orl     a, r2
+04DF: FA                    mov     r2, a
+04E0: 2C                    add     a, r4           ; add into checksum
+04E1: FC                    mov     r4, a
+04E2: EA                    mov     a, r2           ; return value in acc
+04E3: 22                    ret
                             
                    ; print out download summary
                    ; dnlds4 = "Summary:"
@@ -1143,22 +1163,22 @@
                    ; dnlds6b = " bytes written"
                             
                    dnld_sum:
-04C2: EE                    mov     a, r6
-04C3: C0 E0                 push    acc
-04C5: EF                    mov     a, r7
-04C6: C0 E0                 push    acc
-04C8: 90 0C AC              mov     dptr, #dnlds4
-04CB: 11 D7                 acall   pcstr
-04CD: 79 08                 mov     r1, #dnld_parm
-04CF: 7E B7                 mov     r6, #dnlds5 & 0xff
-04D1: 7F 0C                 mov     r7, #dnlds5 >> 8
-04D3: B1 2B                 acall   dnld_i0
-04D5: 7E CA                 mov     r6, #dnlds6a & 0xff
-04D7: 7F 0C                 mov     r7, #dnlds6a >> 8
-04D9: B1 2B                 acall   dnld_i0
-04DB: 7E DD                 mov     r6, #dnlds6b & 0xff
-04DD: 7F 0C                 mov     r7, #dnlds6b >> 8
-04DF: B1 2B                 acall   dnld_i0
+04E4: EE                    mov     a, r6
+04E5: C0 E0                 push    acc
+04E7: EF                    mov     a, r7
+04E8: C0 E0                 push    acc
+04EA: 90 0C D3              mov     dptr, #dnlds4
+04ED: 11 D7                 acall   pcstr
+04EF: 79 08                 mov     r1, #dnld_parm
+04F1: 7E DE                 mov     r6, #dnlds5 & 0xff
+04F3: 7F 0C                 mov     r7, #dnlds5 >> 8
+04F5: B1 4D                 acall   dnld_i0
+04F7: 7E F1                 mov     r6, #dnlds6a & 0xff
+04F9: 7F 0C                 mov     r7, #dnlds6a >> 8
+04FB: B1 4D                 acall   dnld_i0
+04FD: 7E 04                 mov     r6, #dnlds6b & 0xff
+04FF: 7F 0D                 mov     r7, #dnlds6b >> 8
+0501: B1 4D                 acall   dnld_i0
                             
                    ; now print out error summary
                    ; dnlds7 = "Errors:"
@@ -1170,249 +1190,249 @@
                    ; dnlds13 = "No errors detected"
                             
                    dnld_err:
-04E1: 7A 05                 mov     r2, #5
+0503: 7A 05                 mov     r2, #5
                    dnlder2:
-04E3: 91 6C                 acall   dnld_gp
-04E5: 40 09                 jc      dnlder3                 ; any errors?
-04E7: DA FA                 djnz    r2, dnlder2
+0505: 91 8E                 acall   dnld_gp
+0507: 40 09                 jc      dnlder3                 ; any errors?
+0509: DA FA                 djnz    r2, dnlder2
                    ; no errors, so we print the nice message
-04E9: 90 0D 7A              mov     dptr, #dnlds13
-04EC: 11 D7                 acall   pcstr
-04EE: 80 25                 sjmp    dlnd_sum_done
+050B: 90 0D A1              mov     dptr, #dnlds13
+050E: 11 D7                 acall   pcstr
+0510: 80 25                 sjmp    dlnd_sum_done
                             
                    dnlder3:
                    ; there were errors, so now we print 'em
-04F0: 90 0C EF              mov     dptr, #dnlds7
-04F3: 11 D7                 acall   pcstr
+0512: 90 0D 16              mov     dptr, #dnlds7
+0515: 11 D7                 acall   pcstr
                    ; but let's not be nasty... only print if necessary
-04F5: 79 0E                 mov     r1, #(dnld_parm + 6)
-04F7: 7E F9                 mov     r6, #dnlds8 & 0xff
-04F9: 7F 0C                 mov     r7, #dnlds8 >> 8
-04FB: B1 1D                 acall   dnld_item
-04FD: 7E 13                 mov     r6, #dnlds9 & 0xff
-04FF: 7F 0D                 mov     r7, #dnlds9 >> 8
-0501: B1 1D                 acall   dnld_item
-0503: 7E 25                 mov     r6, #dnlds10 & 0xff
-0505: 7F 0D                 mov     r7, #dnlds10 >> 8
-0507: B1 1D                 acall   dnld_item
-0509: 7E 42                 mov     r6, #dnlds11 & 0xff
-050B: 7F 0D                 mov     r7, #dnlds11 >> 8
-050D: B1 1D                 acall   dnld_item
-050F: 7E 5C                 mov     r6, #dnlds12 & 0xff
-0511: 7F 0D                 mov     r7, #dnlds12 >> 8
-0513: B1 1D                 acall   dnld_item
+0517: 79 0E                 mov     r1, #(dnld_parm + 6)
+0519: 7E 20                 mov     r6, #dnlds8 & 0xff
+051B: 7F 0D                 mov     r7, #dnlds8 >> 8
+051D: B1 3F                 acall   dnld_item
+051F: 7E 3A                 mov     r6, #dnlds9 & 0xff
+0521: 7F 0D                 mov     r7, #dnlds9 >> 8
+0523: B1 3F                 acall   dnld_item
+0525: 7E 4C                 mov     r6, #dnlds10 & 0xff
+0527: 7F 0D                 mov     r7, #dnlds10 >> 8
+0529: B1 3F                 acall   dnld_item
+052B: 7E 69                 mov     r6, #dnlds11 & 0xff
+052D: 7F 0D                 mov     r7, #dnlds11 >> 8
+052F: B1 3F                 acall   dnld_item
+0531: 7E 83                 mov     r6, #dnlds12 & 0xff
+0533: 7F 0D                 mov     r7, #dnlds12 >> 8
+0535: B1 3F                 acall   dnld_item
                    dlnd_sum_done:
-0515: D0 E0                 pop     acc
-0517: FF                    mov     r7, a
-0518: D0 E0                 pop     acc
-051A: FE                    mov     r6, a
-051B: 01 BA                 ajmp    crlf
+0537: D0 E0                 pop     acc
+0539: FF                    mov     r7, a
+053A: D0 E0                 pop     acc
+053C: FE                    mov     r6, a
+053D: 01 BA                 ajmp    crlf
                             
                    dnld_item:
-051D: 91 6C                 acall   dnld_gp                 ; error conditions
-051F: 50 09                 jnc     dnld_i3
+053F: 91 8E                 acall   dnld_gp                 ; error conditions
+0541: 50 09                 jnc     dnld_i3
                    dnld_i2:
-0521: 11 A8                 acall   sspace
-0523: 12 02 35              lcall   pint16u
-0526: 71 C7                 acall   r6r7todptr
-0528: 11 D7                 acall   pcstr
+0543: 11 A8                 acall   sspace
+0545: 12 02 46              lcall   pint16u
+0548: 71 E9                 acall   r6r7todptr
+054A: 11 D7                 acall   pcstr
                    dnld_i3:
-052A: 22                    ret
+054C: 22                    ret
                             
                    dnld_i0:
-052B: 91 6C                 acall   dnld_gp                 ; non-error conditi
-052D: 80 F2                 sjmp    dnld_i2
+054D: 91 8E                 acall   dnld_gp                 ; non-error conditi
+054F: 80 F2                 sjmp    dnld_i2
                             
                    dnld_init:
                    ; init all dnld parms to zero.
-052F: 78 08                 mov     r0, #dnld_parm
+0551: 78 08                 mov     r0, #dnld_parm
                    dnld0:
-0531: 76 00                 mov     @r0, #0
-0533: 08                    inc     r0
-0534: B8 18 FA              cjne    r0, #dnld_parm + 16, dnld0
-0537: 22                    ret
+0553: 76 00                 mov     @r0, #0
+0555: 08                    inc     r0
+0556: B8 18 FA              cjne    r0, #dnld_parm + 16, dnld0
+0559: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
                    jump:
-0538: 90 0B 6A              mov     dptr, #prompt8
-053B: 11 D7                 acall   pcstr
-053D: 71 C7                 acall   r6r7todptr
-053F: 31 E4                 acall   phex16
-0541: 90 0A F9              mov     dptr, #prompt4
-0544: 11 D7                 acall   pcstr
-0546: 31 3C                 acall   ghex16
-0548: 20 D5 07              jb      psw.5, jump3
-054B: 50 03                 jnc     jump2
-054D: 02 08 64              ljmp    abort2
+055A: 90 0B 91              mov     dptr, #prompt8
+055D: 11 D7                 acall   pcstr
+055F: 71 E9                 acall   r6r7todptr
+0561: 31 F5                 acall   phex16
+0563: 90 0B 20              mov     dptr, #prompt4
+0566: 11 D7                 acall   pcstr
+0568: 31 3C                 acall   ghex16
+056A: 20 D5 07              jb      psw.5, jump3
+056D: 50 03                 jnc     jump2
+056F: 02 08 8B              ljmp    abort2
                    jump2:
-0550: 71 CC                 acall   dptrtor6r7
+0572: 71 EE                 acall   dptrtor6r7
                    jump3:
-0552: 11 BA                 acall   crlf
-0554: 90 0D 91              mov     dptr, #runs1
-0557: 11 D7                 acall   pcstr
-0559: 71 C7                 acall   r6r7todptr
+0574: 11 BA                 acall   crlf
+0576: 90 0D B8              mov     dptr, #runs1
+0579: 11 D7                 acall   pcstr
+057B: 71 E9                 acall   r6r7todptr
                    jump_doit:
-055B: E4                    clr     a
-055C: F5 D0                 mov     psw, a
-055E: 75 81 07              mov     sp, #sp_reset
-0561: F5 F0                 mov     b, a
-0563: 78 FF                 mov     r0, #0xff
+057D: E4                    clr     a
+057E: F5 D0                 mov     psw, a
+0580: 75 81 07              mov     sp, #sp_reset
+0583: F5 F0                 mov     b, a
+0585: 78 FF                 mov     r0, #0xff
                    clrintram:
-0565: F6                    mov     @r0, a
-0566: D8 FD                 djnz    r0, clrintram
-0568: 73                    jmp     @a+dptr
+0587: F6                    mov     @r0, a
+0588: D8 FD                 djnz    r0, clrintram
+058A: 73                    jmp     @a+dptr
                    
                    ;---------------------------------------------------------;
                    
                    dump:
-0569: 7A 10                 mov     r2, #16                 ; number of lines t
-056B: 11 D3                 acall   dcrlf
+058B: 7A 10                 mov     r2, #16                 ; number of lines t
+058D: 11 D3                 acall   dcrlf
                    dump1:
-056D: 71 C7                 acall   r6r7todptr
-056F: 31 E4                 acall   phex16          ; tell 'em the memory locat
-0571: 74 3A                 mov     a, #':'
-0573: 11 C7                 acall   cout_sp
-0575: 7B 10                 mov     r3, #16                 ; r3 counts # of by
-0577: 71 C7                 acall   r6r7todptr
+058F: 71 E9                 acall   r6r7todptr
+0591: 31 F5                 acall   phex16          ; tell 'em the memory locat
+0593: 74 3A                 mov     a, #':'
+0595: 11 C7                 acall   cout_sp
+0597: 7B 10                 mov     r3, #16                 ; r3 counts # of by
+0599: 71 E9                 acall   r6r7todptr
                    dump2:
-0579: E0                    movx    a, @dptr
-057A: A3                    inc     dptr
-057B: 31 D2                 acall   phex            ; print each byte in hex
-057D: 11 A8                 acall   sspace
-057F: DB F8                 djnz    r3, dump2
-0581: 11 CF                 acall   dspace          ; print a couple extra spac
-0583: 7B 10                 mov     r3, #16
-0585: 71 C7                 acall   r6r7todptr
+059B: E0                    movx    a, @dptr
+059C: A3                    inc     dptr
+059D: 31 E7                 acall   phex            ; print each byte in hex
+059F: 11 A8                 acall   sspace
+05A1: DB F8                 djnz    r3, dump2
+05A3: 11 CF                 acall   dspace          ; print a couple extra spac
+05A5: 7B 10                 mov     r3, #16
+05A7: 71 E9                 acall   r6r7todptr
                    dump3:
-0587: E0                    movx    a, @dptr
-0588: A3                    inc     dptr
-0589: 54 7F                 anl     a, #01111111b   ; avoid unprintable charact
-058B: B4 7F 01              cjne    a, #127, dump3b
-058E: E4                    clr     a               ; avoid 127/255 (delete/rub
+05A9: E0                    movx    a, @dptr
+05AA: A3                    inc     dptr
+05AB: 54 7F                 anl     a, #01111111b   ; avoid unprintable charact
+05AD: B4 7F 01              cjne    a, #127, dump3b
+05B0: E4                    clr     a               ; avoid 127/255 (delete/rub
                    dump3b:
-058F: 24 E0                 add     a, #224
-0591: 40 01                 jc      dump4
-0593: E4                    clr     a               ; avoid control characters
+05B1: 24 E0                 add     a, #224
+05B3: 40 01                 jc      dump4
+05B5: E4                    clr     a               ; avoid control characters
                    dump4:
-0594: 24 20                 add     a, #32
-0596: 11 A0                 acall   cout
-0598: DB ED                 djnz    r3, dump3
-059A: 11 BA                 acall   crlf
-059C: 71 CC                 acall   dptrtor6r7
-059E: 11 96                 acall   cinpoll
-05A0: 40 05                 jc      dump4b
-05A2: B4 1B 02              cjne    a, #ESC, dump4b
-05A5: 01 BA                 ajmp    crlf
+05B6: 24 20                 add     a, #32
+05B8: 11 A0                 acall   cout
+05BA: DB ED                 djnz    r3, dump3
+05BC: 11 BA                 acall   crlf
+05BE: 71 EE                 acall   dptrtor6r7
+05C0: 11 96                 acall   cinpoll
+05C2: 40 05                 jc      dump4b
+05C4: B4 1B 02              cjne    a, #ESC, dump4b
+05C7: 01 BA                 ajmp    crlf
                    dump4b:
-05A7: DA C4                 djnz    r2, dump1       ; loop back up to print nex
-05A9: 01 BA                 ajmp    crlf
+05C9: DA C4                 djnz    r2, dump1       ; loop back up to print nex
+05CB: 01 BA                 ajmp    crlf
                    
                    ;---------------------------------------------------------;
                    
                    ; edit external ram
                    
                    edit:
-05AB: 90 0B EC              mov     dptr, #edits1
-05AE: 11 D7                 acall   pcstr
-05B0: 71 C7                 acall   r6r7todptr
+05CD: 90 0C 13              mov     dptr, #edits1
+05D0: 11 D7                 acall   pcstr
+05D2: 71 E9                 acall   r6r7todptr
                    edit1:
-05B2: 31 E4                 acall   phex16
-05B4: 74 3A                 mov     a, #':'
-05B6: 11 C7                 acall   cout_sp
-05B8: 74 28                 mov     a, #'('
-05BA: 11 A0                 acall   cout
-05BC: 71 CC                 acall   dptrtor6r7
-05BE: E0                    movx    a, @dptr
-05BF: 31 D2                 acall   phex
-05C1: 90 0B AE              mov     dptr, #prompt10
-05C4: 11 D7                 acall   pcstr
-05C6: 11 F8                 acall   ghex
-05C8: 20 D5 0E              jb      psw.5, edit2
-05CB: 40 0C                 jc      edit2
-05CD: 71 C7                 acall   r6r7todptr
-05CF: F0                    movx    @dptr, a
-05D0: 11 BA                 acall   crlf
-05D2: 71 C7                 acall   r6r7todptr
-05D4: A3                    inc     dptr
-05D5: 71 CC                 acall   dptrtor6r7
-05D7: A1 B2                 ajmp    edit1
+05D4: 31 F5                 acall   phex16
+05D6: 74 3A                 mov     a, #':'
+05D8: 11 C7                 acall   cout_sp
+05DA: 74 28                 mov     a, #'('
+05DC: 11 A0                 acall   cout
+05DE: 71 EE                 acall   dptrtor6r7
+05E0: E0                    movx    a, @dptr
+05E1: 31 E7                 acall   phex
+05E3: 90 0B D5              mov     dptr, #prompt10
+05E6: 11 D7                 acall   pcstr
+05E8: 11 F8                 acall   ghex
+05EA: 20 D5 0E              jb      psw.5, edit2
+05ED: 40 0C                 jc      edit2
+05EF: 71 E9                 acall   r6r7todptr
+05F1: F0                    movx    @dptr, a
+05F2: 11 BA                 acall   crlf
+05F4: 71 E9                 acall   r6r7todptr
+05F6: A3                    inc     dptr
+05F7: 71 EE                 acall   dptrtor6r7
+05F9: A1 D4                 ajmp    edit1
                    edit2:
-05D9: 90 0C 15              mov     dptr, #edits2
-05DC: 01 D7                 ajmp    pcstr
+05FB: 90 0C 3C              mov     dptr, #edits2
+05FE: 01 D7                 ajmp    pcstr
                    
                    ;---------------------------------------------------------;
                    
                    dir:
-05DE: 90 0B 88              mov     dptr, #prompt9
-05E1: 11 D7                 acall   pcstr
-05E3: 78 15                 mov     r0, #21
+0600: 90 0B AF              mov     dptr, #prompt9
+0603: 11 D7                 acall   pcstr
+0605: 78 15                 mov     r0, #21
                    dir0a:
-05E5: 11 A8                 acall   sspace
-05E7: D8 FC                 djnz    r0, dir0a
-05E9: 90 0B 99              mov     dptr, #prompt9b
-05EC: 11 D7                 acall   pcstr
-05EE: 75 83 10              mov     dph, #(bmem >> 8)
+0607: 11 A8                 acall   sspace
+0609: D8 FC                 djnz    r0, dir0a
+060B: 90 0B C0              mov     dptr, #prompt9b
+060E: 11 D7                 acall   pcstr
+0610: 75 83 10              mov     dph, #(bmem >> 8)
                    dir1:
-05F1: 12 09 9B              lcall   find            ; find the next program in 
-05F4: 40 02                 jc      dir2
+0613: 12 09 C2              lcall   find            ; find the next program in 
+0616: 40 02                 jc      dir2
                    dir_end:
-05F6: 01 BA                 ajmp    crlf            ; we're done if no more fou
+0618: 01 BA                 ajmp    crlf            ; we're done if no more fou
                    dir2:
-05F8: 11 CF                 acall   dspace
-05FA: 75 82 20              mov     dpl, #32        ; print its name
-05FD: 11 D7                 acall   pcstr
-05FF: 75 82 20              mov     dpl, #32        ; how long is the name
-0602: 51 B5                 acall   lencstr
-0604: 74 21                 mov     a, #33
-0606: C3                    clr     c
-0607: 98                    subb    a, r0
-0608: F8                    mov     r0, a
-0609: 74 20                 mov     a, #SPACE       ; print the right # of spac
+061A: 11 CF                 acall   dspace
+061C: 75 82 20              mov     dpl, #32        ; print its name
+061F: 11 D7                 acall   pcstr
+0621: 75 82 20              mov     dpl, #32        ; how long is the name
+0624: 51 D7                 acall   lencstr
+0626: 74 21                 mov     a, #33
+0628: C3                    clr     c
+0629: 98                    subb    a, r0
+062A: F8                    mov     r0, a
+062B: 74 20                 mov     a, #SPACE       ; print the right # of spac
                    dir3:
-060B: 11 A0                 acall   cout
-060D: D8 FC                 djnz    r0, dir3
-060F: 75 82 00              mov     dpl, #0
-0612: 31 E4                 acall   phex16          ; print the memory location
-0614: 78 06                 mov     r0, #6
-0616: 74 20                 mov     a, #SPACE
+062D: 11 A0                 acall   cout
+062F: D8 FC                 djnz    r0, dir3
+0631: 75 82 00              mov     dpl, #0
+0634: 31 F5                 acall   phex16          ; print the memory location
+0636: 78 06                 mov     r0, #6
+0638: 74 20                 mov     a, #SPACE
                    dir4:
-0618: 11 A0                 acall   cout
-061A: D8 FC                 djnz    r0, dir4
-061C: 75 82 04              mov     dpl, #4                 ; now figure out wh
-061F: E0                    movx    a, @dptr
-0620: AA 83                 mov     r2, dph                 ; save this, we're 
+063A: 11 A0                 acall   cout
+063C: D8 FC                 djnz    r0, dir4
+063E: 75 82 04              mov     dpl, #4                 ; now figure out wh
+0641: E0                    movx    a, @dptr
+0642: AA 83                 mov     r2, dph                 ; save this, we're 
                    dir5:
-0622: B4 FE 05              cjne    a, #254, dir5b
-0625: 90 0E 04              mov     dptr, #type1    ; it's an external command
-0628: 80 18                 sjmp    dir7
+0644: B4 FE 05              cjne    a, #254, dir5b
+0647: 90 0E 2B              mov     dptr, #type1    ; it's an external command
+064A: 80 18                 sjmp    dir7
                    dir5b:
-062A: B4 FD 05              cjne    a, #253, dir5c
+064C: B4 FD 05              cjne    a, #253, dir5c
                    dir5bb:
-062D: 90 0E 1D              mov     dptr, #type4    ; it's a startup routine
-0630: 80 10                 sjmp    dir7
+064F: 90 0E 44              mov     dptr, #type4    ; it's a startup routine
+0652: 80 10                 sjmp    dir7
                    dir5c:
-0632: B4 23 05              cjne    a, #35, dir5d
-0635: 90 0E 15              mov     dptr, #type2    ; it's an ordinary program
-0638: 80 08                 sjmp    dir7
+0654: B4 23 05              cjne    a, #35, dir5d
+0657: 90 0E 3C              mov     dptr, #type2    ; it's an ordinary program
+065A: 80 08                 sjmp    dir7
                    dir5d:
-063A: B4 F9 02              cjne    a, #249, dir5e
-063D: 80 EE                 sjmp    dir5bb
+065C: B4 F9 02              cjne    a, #249, dir5e
+065F: 80 EE                 sjmp    dir5bb
                    dir5e:
                    dir6:
-063F: 90 0E 2A              mov     dptr, #type5    ; who knows what the hell i
+0661: 90 0E 51              mov     dptr, #type5    ; who knows what the hell i
                    dir7:
-0642: 11 D7                 acall   pcstr           ; print out the type
-0644: 8A 83                 mov     dph, r2                 ; go back and find 
-0646: 11 BA                 acall   crlf
-0648: 74 DF                 mov     a, #(emem >> 8)
-064A: B5 83 02              cjne    a, dph, dir8    ; did we just print the las
-064D: A1 F6                 ajmp    dir_end
+0664: 11 D7                 acall   pcstr           ; print out the type
+0666: 8A 83                 mov     dph, r2                 ; go back and find 
+0668: 11 BA                 acall   crlf
+066A: 74 DF                 mov     a, #(emem >> 8)
+066C: B5 83 02              cjne    a, dph, dir8    ; did we just print the las
+066F: C1 18                 ajmp    dir_end
                    dir8:
-064F: 05 83                 inc     dph
-0651: E5 83                 mov     a, dph
-0653: B4 E0 9B              cjne    a, #((emem + 1) >> 8) & 0xff, dir1
-0656: A1 F6                 ajmp    dir_end
+0671: 05 83                 inc     dph
+0673: E5 83                 mov     a, dph
+0675: B4 E0 9B              cjne    a, #((emem + 1) >> 8) & 0xff, dir1
+0678: C1 18                 ajmp    dir_end
                    
                    ; type1=Ext Command
                    ; type4=Startup
@@ -1422,284 +1442,284 @@
                    ;---------------------------------------------------------;
                    
                    run:
-0658: 11 D3                 acall   dcrlf
-065A: 7A FF                 mov     r2, #255        ; first print the menu, cou
-065C: 90 10 00              mov     dptr, #bmem
-065F: 15 83                 dec     dph
+067A: 11 D3                 acall   dcrlf
+067C: 7A FF                 mov     r2, #255        ; first print the menu, cou
+067E: 90 10 00              mov     dptr, #bmem
+0681: 15 83                 dec     dph
                    run2:
-0661: 05 83                 inc     dph
-0663: E5 83                 mov     a, dph
-0665: B4 E0 02              cjne    a, #((emem + 1) >> 8) & 0xff, run2b
-0668: 80 21                 sjmp    run3
+0683: 05 83                 inc     dph
+0685: E5 83                 mov     a, dph
+0687: B4 E0 02              cjne    a, #((emem + 1) >> 8) & 0xff, run2b
+068A: 80 21                 sjmp    run3
                    run2b:
-066A: 12 09 9B              lcall   find
-066D: 50 1C                 jnc     run3            ; have we found 'em all??
-066F: 75 82 04              mov     dpl, #4
-0672: E0                    movx    a, @dptr
-0673: 44 03                 orl     a, #00000011b
-0675: F4                    cpl     a
-0676: 60 E9                 jz      run2            ; this one doesn't run... f
-0678: 11 CF                 acall   dspace
-067A: 0A                    inc     r2
-067B: 74 41                 mov     a, #'A'                 ; print the key to 
-067D: 2A                    add     a, r2
-067E: 11 C7                 acall   cout_sp
-0680: 11 CB                 acall   dash_sp
-0682: 75 82 20              mov     dpl, #32
-0685: 11 D7                 acall   pcstr           ; and the command name
-0687: 11 BA                 acall   crlf
-0689: C1 61                 ajmp    run2            ; and continue doing this
+068C: 12 09 C2              lcall   find
+068F: 50 1C                 jnc     run3            ; have we found 'em all??
+0691: 75 82 04              mov     dpl, #4
+0694: E0                    movx    a, @dptr
+0695: 44 03                 orl     a, #00000011b
+0697: F4                    cpl     a
+0698: 60 E9                 jz      run2            ; this one doesn't run... f
+069A: 11 CF                 acall   dspace
+069C: 0A                    inc     r2
+069D: 74 41                 mov     a, #pos_A               ; print the key to 
+069F: 2A                    add     a, r2
+06A0: 11 C7                 acall   cout_sp
+06A2: 11 CB                 acall   dash_sp
+06A4: 75 82 20              mov     dpl, #32
+06A7: 11 D7                 acall   pcstr           ; and the command name
+06A9: 11 BA                 acall   crlf
+06AB: C1 83                 ajmp    run2            ; and continue doing this
                    run3:
-068B: BA FF 05              cjne    r2, #255, run4  ; are there any to run??
-068E: 90 0B 0D              mov     dptr, #prompt5
-0691: 01 D7                 ajmp    pcstr
+06AD: BA FF 05              cjne    r2, #255, run4  ; are there any to run??
+06B0: 90 0B 34              mov     dptr, #prompt5
+06B3: 01 D7                 ajmp    pcstr
                    run4:
-0693: 90 0A E1              mov     dptr, #prompt3  ; ask the big question!
-0696: 11 D7                 acall   pcstr
-0698: 74 41                 mov     a, #'A'
-069A: 11 A0                 acall   cout
-069C: 11 B1                 acall   dash
-069E: 74 41                 mov     a, #'A'                 ; such user friendl
-06A0: 2A                    add     a, r2           ; even tell 'em the choices
-06A1: 11 A0                 acall   cout
-06A3: 90 0A F9              mov     dptr, #prompt4
-06A6: 11 D7                 acall   pcstr
-06A8: 11 8E                 acall   cin
-06AA: B4 1B 02              cjne    a, #ESC, run4aa         ; they they hit <ES
-06AD: 01 BA                 ajmp    crlf
+06B5: 90 0B 08              mov     dptr, #prompt3  ; ask the big question!
+06B8: 11 D7                 acall   pcstr
+06BA: 74 41                 mov     a, #pos_A
+06BC: 11 A0                 acall   cout
+06BE: 11 B1                 acall   dash
+06C0: 74 41                 mov     a, #pos_A       ; such user friendliness...
+06C2: 2A                    add     a, r2           ; even tell 'em the choices
+06C3: 11 A0                 acall   cout
+06C5: 90 0B 20              mov     dptr, #prompt4
+06C8: 11 D7                 acall   pcstr
+06CA: 11 8E                 acall   cin
+06CC: B4 1B 02              cjne    a, #ESC, run4aa         ; they they hit <ES
+06CF: 01 BA                 ajmp    crlf
                    run4aa:
-06AF: FB                    mov     r3, a
-06B0: 74 1F                 mov     a, #31
-06B2: C3                    clr     c
-06B3: 9A                    subb    a, r2
-06B4: EB                    mov     a, r3
-06B5: 40 02                 jc      run4a
-06B7: 51 A8                 acall   upper
+06D1: FB                    mov     r3, a
+06D2: 74 1F                 mov     a, #31
+06D4: C3                    clr     c
+06D5: 9A                    subb    a, r2
+06D6: EB                    mov     a, r3
+06D7: 40 02                 jc      run4a
+06D9: 51 D0                 acall   toupper
                    run4a:
-06B9: 11 A0                 acall   cout
-06BB: FB                    mov     r3, a
-06BC: 11 BA                 acall   crlf
+06DB: 11 A0                 acall   cout
+06DD: FB                    mov     r3, a
+06DE: 11 BA                 acall   crlf
                    ; check to see if it's under 32, if so convert to uppercase
-06BE: EB                    mov     a, r3
-06BF: 24 BF                 add     a, #(256 - 'A')
-06C1: 50 D0                 jnc     run4            ; if they typed less than '
-06C3: FB                    mov     r3, a           ; R3 has the number they ty
-06C4: EA                    mov     a, r2           ; A=R2 has the maximum numb
-06C5: C3                    clr     c
-06C6: 9B                    subb    a, r3
-06C7: 40 CA                 jc      run4            ; if they typed over the ma
-06C9: 0B                    inc     r3
-06CA: 90 10 00              mov     dptr, #bmem
-06CD: 15 83                 dec     dph
+06E0: EB                    mov     a, r3
+06E1: 24 BF                 add     a, #(256 - pos_A)
+06E3: 50 D0                 jnc     run4            ; if they typed less than '
+06E5: FB                    mov     r3, a           ; R3 has the number they ty
+06E6: EA                    mov     a, r2           ; A=R2 has the maximum numb
+06E7: C3                    clr     c
+06E8: 9B                    subb    a, r3
+06E9: 40 CA                 jc      run4            ; if they typed over the ma
+06EB: 0B                    inc     r3
+06EC: 90 10 00              mov     dptr, #bmem
+06EF: 15 83                 dec     dph
                    run5:
-06CF: 05 83                 inc     dph
-06D1: E5 83                 mov     a, dph
-06D3: B4 E0 02              cjne    a, #((emem + 1) >> 8) & 0xff, run5b
-06D6: 80 17                 sjmp    run8
+06F1: 05 83                 inc     dph
+06F3: E5 83                 mov     a, dph
+06F5: B4 E0 02              cjne    a, #((emem + 1) >> 8) & 0xff, run5b
+06F8: 80 17                 sjmp    run8
                    run5b:
-06D8: 12 09 9B              lcall   find
-06DB: 50 12                 jnc     run8            ; Shouldn't ever do this ju
-06DD: 75 82 04              mov     dpl, #4
-06E0: E0                    movx    a, @dptr
-06E1: 44 03                 orl     a, #00000011b
-06E3: F4                    cpl     a
-06E4: 60 E9                 jz      run5            ; this one doesn't run... f
-06E6: DB E7                 djnz    r3, run5        ; count til we find the one
-06E8: 11 BA                 acall   crlf
-06EA: 75 82 40              mov     dpl, #64
-06ED: A1 5B                 ajmp    jump_doit
+06FA: 12 09 C2              lcall   find
+06FD: 50 12                 jnc     run8            ; Shouldn't ever do this ju
+06FF: 75 82 04              mov     dpl, #4
+0702: E0                    movx    a, @dptr
+0703: 44 03                 orl     a, #00000011b
+0705: F4                    cpl     a
+0706: 60 E9                 jz      run5            ; this one doesn't run... f
+0708: DB E7                 djnz    r3, run5        ; count til we find the one
+070A: 11 BA                 acall   crlf
+070C: 75 82 40              mov     dpl, #64
+070F: A1 7D                 ajmp    jump_doit
                    run8:
-06EF: 22                    ret
+0711: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
                    help:
-06F0: 90 0D CE              mov     dptr, #help1txt
-06F3: 11 D7                 acall   pcstr
+0712: 90 0D F5              mov     dptr, #help1txt
+0715: 11 D7                 acall   pcstr
                             
-06F5: 7C 3F                 mov     r4, #help_key
-06F7: 90 0E 33              mov     dptr, #help_cmd
-06FA: F1 8B                 acall   help2
+0717: 7C 3F                 mov     r4, #help_key
+0719: 90 0E 5A              mov     dptr, #help_cmd
+071C: F1 AD                 acall   help2
                             
-06FC: 7C 4D                 mov     r4, #dir_key
-06FE: 90 0E 42              mov     dptr, #dir_cmd
-0701: F1 8B                 acall   help2
+071E: 7C 4D                 mov     r4, #dir_key
+0720: 90 0E 69              mov     dptr, #dir_cmd
+0723: F1 AD                 acall   help2
                             
-0703: 7C 52                 mov     r4, #run_key
-0705: 90 0E 50              mov     dptr, #run_cmd
-0708: F1 8B                 acall   help2
+0725: 7C 52                 mov     r4, #run_key
+0727: 90 0E 77              mov     dptr, #run_cmd
+072A: F1 AD                 acall   help2
                             
-070A: 7C 44                 mov     r4, #dnld_key
-070C: 90 0E 5C              mov     dptr, #dnld_cmd
-070F: F1 8B                 acall   help2
+072C: 7C 44                 mov     r4, #dnld_key
+072E: 90 0E 83              mov     dptr, #dnld_cmd
+0731: F1 AD                 acall   help2
                             
-0711: 7C 55                 mov     r4, #upld_key
-0713: 90 0E 65              mov     dptr, #upld_cmd
-0716: F1 8B                 acall   help2
+0733: 7C 55                 mov     r4, #upld_key
+0735: 90 0E 8C              mov     dptr, #upld_cmd
+0738: F1 AD                 acall   help2
                             
-0718: 7C 4E                 mov     r4, #nloc_key
-071A: 90 0E 6C              mov     dptr, #nloc_cmd
-071D: F1 8B                 acall   help2
+073A: 7C 4E                 mov     r4, #nloc_key
+073C: 90 0E 93              mov     dptr, #nloc_cmd
+073F: F1 AD                 acall   help2
                             
-071F: 7C 4A                 mov     r4, #jump_key
-0721: 90 0E 79              mov     dptr, #jump_cmd
-0724: F1 8B                 acall   help2
+0741: 7C 4A                 mov     r4, #jump_key
+0743: 90 0E A0              mov     dptr, #jump_cmd
+0746: F1 AD                 acall   help2
                             
-0726: 7C 48                 mov     r4, #dump_key
-0728: 90 0E 91              mov     dptr, #dump_cmd
-072B: F1 8B                 acall   help2
+0748: 7C 48                 mov     r4, #dump_key
+074A: 90 0E B8              mov     dptr, #dump_cmd
+074D: F1 AD                 acall   help2
                             
-072D: 7C 49                 mov     r4, #intm_key
-072F: 90 0E AA              mov     dptr, #intm_cmd
-0732: F1 8B                 acall   help2
+074F: 7C 49                 mov     r4, #intm_key
+0751: 90 0E D1              mov     dptr, #intm_cmd
+0754: F1 AD                 acall   help2
                             
-0734: 7C 45                 mov     r4, #edit_key
-0736: 90 0E C3              mov     dptr, #edit_cmd
-0739: F1 8B                 acall   help2
+0756: 7C 45                 mov     r4, #edit_key
+0758: 90 0E EA              mov     dptr, #edit_cmd
+075B: F1 AD                 acall   help2
                             
-073B: 7C 43                 mov     r4, #clrm_key
-073D: 90 0E D8              mov     dptr, #clrm_cmd
-0740: F1 8B                 acall   help2
+075D: 7C 43                 mov     r4, #clrm_key
+075F: 90 0E FF              mov     dptr, #clrm_cmd
+0762: F1 AD                 acall   help2
                             
-0742: 7C 42                 mov     r4, #baud_key
-0744: 90 0F 1D              mov     dptr, #baud_cmd
-0747: F1 8B                 acall   help2
+0764: 7C 42                 mov     r4, #baud_key
+0766: 90 0F 44              mov     dptr, #baud_cmd
+0769: F1 AD                 acall   help2
                             
-0749: 7C 57                 mov     r4, #crc16_key
-074B: 90 0E EE              mov     dptr, #crc16_cmd
-074E: F1 8B                 acall   help2
+076B: 7C 57                 mov     r4, #crc16_key
+076D: 90 0F 15              mov     dptr, #crc16_cmd
+0770: F1 AD                 acall   help2
                             
-0750: 7C 3C                 mov     r4, #eio77_key
-0752: 90 0E FE              mov     dptr, #eio77_cmd
-0755: F1 8B                 acall   help2
+0772: 7C 3C                 mov     r4, #eio77_key
+0774: 90 0F 25              mov     dptr, #eio77_cmd
+0777: F1 AD                 acall   help2
                             
-0757: 7C 3E                 mov     r4, #dio77_key
-0759: 90 0F 0D              mov     dptr, #dio77_cmd
-075C: F1 8B                 acall   help2
+0779: 7C 3E                 mov     r4, #dio77_key
+077B: 90 0F 34              mov     dptr, #dio77_cmd
+077E: F1 AD                 acall   help2
                             
-075E: 90 0D E7              mov     dptr, #help2txt
-0761: 11 D7                 acall   pcstr
-0763: 90 10 00              mov     dptr, #bmem
+0780: 90 0E 0E              mov     dptr, #help2txt
+0783: 11 D7                 acall   pcstr
+0785: 90 10 00              mov     dptr, #bmem
                    help3:
-0766: 12 09 9B              lcall   find
-0769: 50 1E                 jnc     help4
-076B: 75 82 04              mov     dpl, #4
-076E: E0                    movx    a, @dptr
-076F: B4 FE 10              cjne    a, #254, help3a         ; only FE is an ext
-0772: 11 CF                 acall   dspace
-0774: 05 82                 inc     dpl
-0776: E0                    movx    a, @dptr
-0777: 11 C7                 acall   cout_sp
-0779: 11 CB                 acall   dash_sp
-077B: 75 82 20              mov     dpl, #32
-077E: 11 D7                 acall   pcstr
-0780: 11 BA                 acall   crlf
+0788: 12 09 C2              lcall   find
+078B: 50 1E                 jnc     help4
+078D: 75 82 04              mov     dpl, #4
+0790: E0                    movx    a, @dptr
+0791: B4 FE 10              cjne    a, #254, help3a         ; only FE is an ext
+0794: 11 CF                 acall   dspace
+0796: 05 82                 inc     dpl
+0798: E0                    movx    a, @dptr
+0799: 11 C7                 acall   cout_sp
+079B: 11 CB                 acall   dash_sp
+079D: 75 82 20              mov     dpl, #32
+07A0: 11 D7                 acall   pcstr
+07A2: 11 BA                 acall   crlf
                    help3a:
-0782: 05 83                 inc     dph
-0784: E5 83                 mov     a, dph
-0786: B4 E0 DD              cjne    a, #((emem + 1) >> 8) & 0xff, help3
+07A4: 05 83                 inc     dph
+07A6: E5 83                 mov     a, dph
+07A8: B4 E0 DD              cjne    a, #((emem + 1) >> 8) & 0xff, help3
                    help4:
-0789: 01 BA                 ajmp    crlf
+07AB: 01 BA                 ajmp    crlf
                    help2:
                    ; print 11 standard lines
-078B: 11 CF                 acall   dspace          ; given key in R4 and name 
-078D: EC                    mov     a, r4
-078E: 11 C7                 acall   cout_sp
-0790: 11 CB                 acall   dash_sp
-0792: 11 D7                 acall   pcstr
-0794: 01 BA                 ajmp    crlf
+07AD: 11 CF                 acall   dspace          ; given key in R4 and name 
+07AF: EC                    mov     a, r4
+07B0: 11 C7                 acall   cout_sp
+07B2: 11 CB                 acall   dash_sp
+07B4: 11 D7                 acall   pcstr
+07B6: 01 BA                 ajmp    crlf
                    
                    ;---------------------------------------------------------;
                    
                    upld:
-0796: 12 08 2A              lcall   get_mem
+07B8: 12 08 51              lcall   get_mem
                    ; assume we've got the beginning address in r3/r2
                    ; and the final address in r5/r4 (r4=lsb)...
                    ; print out what we'll be doing
-0799: 90 0D AA              mov     dptr, #uplds3
-079C: 11 D7                 acall   pcstr
-079E: EB                    mov     a, r3
-079F: 31 D2                 acall   phex
-07A1: EA                    mov     a, r2
-07A2: 31 D2                 acall   phex
-07A4: 90 0D C9              mov      dptr, #uplds4
-07A7: 11 D7                 acall   pcstr
-07A9: ED                    mov     a, r5
-07AA: 31 D2                 acall   phex
-07AC: EC                    mov     a, r4
-07AD: 31 D2                 acall   phex
-07AF: 11 BA                 acall   crlf
+07BB: 90 0D D1              mov     dptr, #uplds3
+07BE: 11 D7                 acall   pcstr
+07C0: EB                    mov     a, r3
+07C1: 31 E7                 acall   phex
+07C3: EA                    mov     a, r2
+07C4: 31 E7                 acall   phex
+07C6: 90 0D F0              mov      dptr, #uplds4
+07C9: 11 D7                 acall   pcstr
+07CB: ED                    mov     a, r5
+07CC: 31 E7                 acall   phex
+07CE: EC                    mov     a, r4
+07CF: 31 E7                 acall   phex
+07D1: 11 BA                 acall   crlf
                    ; need to adjust end location by 1...
-07B1: 8D 83                 mov     dph, r5
-07B3: 8C 82                 mov     dpl, r4
-07B5: A3                    inc     dptr
-07B6: AC 82                 mov     r4, dpl
-07B8: AD 83                 mov     r5, dph
-07BA: 90 0B 59              mov     dptr, #prompt7
-07BD: 11 D7                 acall   pcstr
-07BF: 11 8E                 acall   cin
-07C1: B4 1B 03              cjne    a, #ESC, upld2e
-07C4: 02 08 61              ljmp    abort_it
+07D3: 8D 83                 mov     dph, r5
+07D5: 8C 82                 mov     dpl, r4
+07D7: A3                    inc     dptr
+07D8: AC 82                 mov     r4, dpl
+07DA: AD 83                 mov     r5, dph
+07DC: 90 0B 80              mov     dptr, #prompt7
+07DF: 11 D7                 acall   pcstr
+07E1: 11 8E                 acall   cin
+07E3: B4 1B 03              cjne    a, #ESC, upld2e
+07E6: 02 08 88              ljmp    abort_it
                    upld2e:
-07C7: 11 D3                 acall   dcrlf
-07C9: 8A 82                 mov     dpl, r2
-07CB: 8B 83                 mov     dph, r3
+07E9: 11 D3                 acall   dcrlf
+07EB: 8A 82                 mov     dpl, r2
+07ED: 8B 83                 mov     dph, r3
                    upld3:
-07CD: EC                    mov     a, r4           ; how many more bytes to ou
-07CE: C3                    clr     c
-07CF: 95 82                 subb    a, dpl
-07D1: FA                    mov     r2, a
-07D2: ED                    mov     a, r5
-07D3: 95 83                 subb    a, dph
-07D5: 70 09                 jnz     upld4           ; if >256 left, then do nex
-07D7: EA                    mov     a, r2
-07D8: 60 35                 jz      upld7           ; if we're all done
-07DA: 54 F0                 anl     a, #11110000b
-07DC: 70 02                 jnz     upld4           ; if >= 16 left, then do ne
-07DE: 80 02                 sjmp    upld5           ; otherwise just finish it 
+07EF: EC                    mov     a, r4           ; how many more bytes to ou
+07F0: C3                    clr     c
+07F1: 95 82                 subb    a, dpl
+07F3: FA                    mov     r2, a
+07F4: ED                    mov     a, r5
+07F5: 95 83                 subb    a, dph
+07F7: 70 09                 jnz     upld4           ; if >256 left, then do nex
+07F9: EA                    mov     a, r2
+07FA: 60 3A                 jz      upld7           ; if we're all done
+07FC: 54 F0                 anl     a, #11110000b
+07FE: 70 02                 jnz     upld4           ; if >= 16 left, then do ne
+0800: 80 02                 sjmp    upld5           ; otherwise just finish it 
                    upld4:
-07E0: 7A 10                 mov     r2, #16
+0802: 7A 10                 mov     r2, #16
                    upld5:
-07E2: 74 3A                 mov     a, #':'                 ; begin the line
-07E4: 11 A0                 acall   cout
-07E6: EA                    mov     a, r2
-07E7: 31 D2                 acall   phex            ; output # of data bytes
-07E9: 31 E4                 acall   phex16          ; output memory location
-07EB: E5 83                 mov     a, dph
-07ED: 25 82                 add     a, dpl
-07EF: 2A                    add     a, r2
-07F0: FB                    mov     r3, a           ; r3 will become checksum
-07F1: E4                    clr     a
-07F2: 31 D2                 acall   phex            ; output 00 code for data
+0804: 74 3A                 mov     a, #':'                 ; begin the line
+0806: 12 00 A0              lcall   cout
+0809: EA                    mov     a, r2
+080A: 12 01 E7              lcall   phex            ; output # of data bytes
+080D: 12 01 F5              lcall   phex16          ; output memory location
+0810: E5 83                 mov     a, dph
+0812: 25 82                 add     a, dpl
+0814: 2A                    add     a, r2
+0815: FB                    mov     r3, a           ; r3 will become checksum
+0816: E4                    clr     a
+0817: 12 01 E7              lcall   phex            ; output 00 code for data
                    upld6:
-07F4: E0                    movx    a, @dptr
-07F5: 31 D2                 acall   phex            ; output each byte
-07F7: 2B                    add     a, r3
-07F8: FB                    mov     r3, a
-07F9: A3                    inc     dptr
-07FA: DA F8                 djnz    r2, upld6       ; do however many bytes we 
-07FC: EB                    mov     a, r3
-07FD: F4                    cpl     a
-07FE: 04                    inc     a
-07FF: 12 01 D2              lcall   phex            ; and finally the checksum
-0802: 12 00 BA              lcall   crlf
-0805: 12 00 96              lcall   cinpoll
-0808: 40 C3                 jc      upld3
-080A: B4 1B C0              cjne    a, #ESC, upld3
-080D: 80 52                 sjmp    abort_it
+081A: E0                    movx    a, @dptr
+081B: 12 01 E7              lcall   phex            ; output each byte
+081E: 2B                    add     a, r3
+081F: FB                    mov     r3, a
+0820: A3                    inc     dptr
+0821: DA F7                 djnz    r2, upld6       ; do however many bytes we 
+0823: EB                    mov     a, r3
+0824: F4                    cpl     a
+0825: 04                    inc     a
+0826: 12 01 E7              lcall   phex            ; and finally the checksum
+0829: 12 00 BA              lcall   crlf
+082C: 12 00 96              lcall   cinpoll
+082F: 40 BE                 jc      upld3
+0831: B4 1B BB              cjne    a, #ESC, upld3
+0834: 80 52                 sjmp    abort_it
                    upld7:
-080F: 74 3A                 mov     a, #':'
-0811: 12 00 A0              lcall   cout
-0814: E4                    clr     a
-0815: 12 01 D2              lcall   phex
-0818: 12 01 D2              lcall   phex
-081B: 12 01 D2              lcall   phex
-081E: 04                    inc     a
-081F: 12 01 D2              lcall   phex
-0822: 74 FF                 mov     a, #255
-0824: 12 01 D2              lcall   phex
+0836: 74 3A                 mov     a, #':'
+0838: 12 00 A0              lcall   cout
+083B: E4                    clr     a
+083C: 12 01 E7              lcall   phex
+083F: 12 01 E7              lcall   phex
+0842: 12 01 E7              lcall   phex
+0845: 04                    inc     a
+0846: 12 01 E7              lcall   phex
+0849: 74 FF                 mov     a, #255
+084B: 12 01 E7              lcall   phex
                    upld8:
-0827: 02 00 D3              ljmp    dcrlf
+084E: 02 00 D3              ljmp    dcrlf
                    
                    ;---------------------------------------------------------;
                    
@@ -1709,239 +1729,239 @@
                    ; (nasty programming, but we need tight code for 4k rom)
                    
                    get_mem:
-082A: 12 00 D3              lcall   dcrlf
-082D: 90 0B BC              mov     dptr, #beg_str
-0830: 12 00 D7              lcall   pcstr
-0833: 12 01 3C              lcall   ghex16
-0836: 40 25                 jc      pop_it
-0838: 20 D5 22              jb      psw.5, pop_it
-083B: C0 83                 push    dph
-083D: C0 82                 push    dpl
-083F: 12 00 BA              lcall   crlf
-0842: 90 0B CD              mov     dptr, #end_str
-0845: 12 00 D7              lcall   pcstr
-0848: 12 01 3C              lcall   ghex16
-084B: AD 83                 mov     r5, dph
-084D: AC 82                 mov     r4, dpl
-084F: D0 E0                 pop     acc
-0851: FA                    mov     r2, a
-0852: D0 E0                 pop     acc
-0854: FB                    mov     r3, a
-0855: 40 06                 jc      pop_it
-0857: 20 D5 03              jb      psw.5, pop_it
-085A: 02 00 BA              ljmp    crlf
+0851: 12 00 D3              lcall   dcrlf
+0854: 90 0B E3              mov     dptr, #beg_str
+0857: 12 00 D7              lcall   pcstr
+085A: 12 01 3C              lcall   ghex16
+085D: 40 25                 jc      pop_it
+085F: 20 D5 22              jb      psw.5, pop_it
+0862: C0 83                 push    dph
+0864: C0 82                 push    dpl
+0866: 12 00 BA              lcall   crlf
+0869: 90 0B F4              mov     dptr, #end_str
+086C: 12 00 D7              lcall   pcstr
+086F: 12 01 3C              lcall   ghex16
+0872: AD 83                 mov     r5, dph
+0874: AC 82                 mov     r4, dpl
+0876: D0 E0                 pop     acc
+0878: FA                    mov     r2, a
+0879: D0 E0                 pop     acc
+087B: FB                    mov     r3, a
+087C: 40 06                 jc      pop_it
+087E: 20 D5 03              jb      psw.5, pop_it
+0881: 02 00 BA              ljmp    crlf
                    pop_it:
-085D: D0 E0                 pop     acc
-085F: D0 E0                 pop     acc
+0884: D0 E0                 pop     acc
+0886: D0 E0                 pop     acc
                    abort_it:
-0861: 12 00 BA              lcall   crlf
+0888: 12 00 BA              lcall   crlf
                    abort2:
-0864: 90 0A BD              mov     dptr, #abort
-0867: 02 00 D7              ljmp    pcstr
+088B: 90 0A E4              mov     dptr, #abort
+088E: 02 00 D7              ljmp    pcstr
                    
                    ;---------------------------------------------------------;
                    
                    nloc:
-086A: 90 0B 46              mov     dptr, #prompt6
-086D: 12 00 D7              lcall   pcstr
-0870: 12 01 3C              lcall   ghex16
-0873: 40 EF                 jc      abort2
-0875: 20 D5 EC              jb      psw.5, abort2
-0878: 12 03 CC              lcall   dptrtor6r7
-087B: 02 00 D3              ljmp    dcrlf
+0891: 90 0B 6D              mov     dptr, #prompt6
+0894: 12 00 D7              lcall   pcstr
+0897: 12 01 3C              lcall   ghex16
+089A: 40 EF                 jc      abort2
+089C: 20 D5 EC              jb      psw.5, abort2
+089F: 12 03 EE              lcall   dptrtor6r7
+08A2: 02 00 D3              ljmp    dcrlf
                    
                    ;---------------------------------------------------------;
                    
                    clrm:
-087E: 11 2A                 acall   get_mem
-0880: 90 0B DD              mov     dptr, #sure
-0883: 12 00 D7              lcall   pcstr
-0886: 12 00 8E              lcall   cin
-0889: 12 00 A0              lcall   cout
-088C: 12 02 A8              lcall   upper
-088F: B4 59 CF              cjne    a, #'Y', abort_it
-0892: 12 00 D3              lcall   dcrlf
+08A5: 11 51                 acall   get_mem
+08A7: 90 0C 04              mov     dptr, #sure
+08AA: 12 00 D7              lcall   pcstr
+08AD: 12 00 8E              lcall   cin
+08B0: 12 00 A0              lcall   cout
+08B3: 12 02 D0              lcall   toupper
+08B6: B4 59 CF              cjne    a, #'Y', abort_it
+08B9: 12 00 D3              lcall   dcrlf
                    clrm2:
                    ; now we actually do it
-0895: 8B 83                 mov     dph, r3
-0897: 8A 82                 mov     dpl, r2
+08BC: 8B 83                 mov     dph, r3
+08BE: 8A 82                 mov     dpl, r2
                    clrm3:
-0899: E4                    clr     a
-089A: F0                    movx    @dptr, a
-089B: ED                    mov     a, r5
-089C: B5 83 05              cjne    a, dph, clrm4
-089F: EC                    mov     a, r4
-08A0: B5 82 01              cjne    a, dpl, clrm4
-08A3: 22                    ret
+08C0: E4                    clr     a
+08C1: F0                    movx    @dptr, a
+08C2: ED                    mov     a, r5
+08C3: B5 83 05              cjne    a, dph, clrm4
+08C6: EC                    mov     a, r4
+08C7: B5 82 01              cjne    a, dpl, clrm4
+08CA: 22                    ret
                    clrm4:
-08A4: A3                    inc     dptr
-08A5: 80 F2                 sjmp    clrm3
+08CB: A3                    inc     dptr
+08CC: 80 F2                 sjmp    clrm3
                    
                    ;---------------------------------------------------------;
                    
                    reset_baud:
-08A7: 12 00 D3              lcall   dcrlf
-08AA: 90 0F 2D              mov     dptr, #baudprompt
-08AD: 12 00 D7              lcall   pcstr
-08B0: 12 01 3C              lcall   ghex16
-08B3: 40 2B                 jc      bailout
-08B5: 20 D5 28              jb      psw.5, bailout
-08B8: C0 82                 push    dpl
-08BA: C0 83                 push    dph
-08BC: 12 00 BA              lcall   crlf
-08BF: 90 0B DD              mov     dptr, #sure
-08C2: 12 00 D7              lcall   pcstr
-08C5: 12 00 8E              lcall   cin
-08C8: 12 00 A0              lcall   cout
-08CB: 12 02 A8              lcall   upper
-08CE: B4 59 0B              cjne    a, #'Y', bailout_pop
-08D1: 12 00 D3              lcall   dcrlf
-08D4: D0 F0                 pop     b
-08D6: D0 E0                 pop     acc
-08D8: 12 00 75              lcall   setbaud
-08DB: 22                    ret
+08CE: 12 00 D3              lcall   dcrlf
+08D1: 90 0F 54              mov     dptr, #baudprompt
+08D4: 12 00 D7              lcall   pcstr
+08D7: 12 01 3C              lcall   ghex16
+08DA: 40 2B                 jc      bailout
+08DC: 20 D5 28              jb      psw.5, bailout
+08DF: C0 82                 push    dpl
+08E1: C0 83                 push    dph
+08E3: 12 00 BA              lcall   crlf
+08E6: 90 0C 04              mov     dptr, #sure
+08E9: 12 00 D7              lcall   pcstr
+08EC: 12 00 8E              lcall   cin
+08EF: 12 00 A0              lcall   cout
+08F2: 12 02 D0              lcall   toupper
+08F5: B4 59 0B              cjne    a, #'Y', bailout_pop
+08F8: 12 00 D3              lcall   dcrlf
+08FB: D0 F0                 pop     b
+08FD: D0 E0                 pop     acc
+08FF: 12 00 75              lcall   setbaud
+0902: 22                    ret
                    bailout_pop:
-08DC: D0 E0                 pop     acc
-08DE: D0 E0                 pop     acc
+0903: D0 E0                 pop     acc
+0905: D0 E0                 pop     acc
                    bailout:
-08E0: 12 00 BA              lcall   crlf
-08E3: 90 0A BD              mov     dptr, #abort
-08E6: 02 00 D7              ljmp    pcstr
+0907: 12 00 BA              lcall   crlf
+090A: 90 0A E4              mov     dptr, #abort
+090D: 02 00 D7              ljmp    pcstr
                    
                    ;---------------------------------------------------------;
                    
-08E9:              .equ     initial, 0xffff
-08E9:              .equ     final, 0x0000
-08E9:              .equ     poly, 0x1021
+0910:              .equ     initial, 0xffff
+0910:              .equ     final, 0x0000
+0910:              .equ     poly, 0x1021
                    
                    calc_crc16:
-08E9: 11 2A                 acall   get_mem
-08EB: 12 00 BA              lcall   crlf
-08EE: 12 03 C7              lcall   r6r7todptr
-08F1: C0 82                 push    dpl
-08F3: C0 83                 push    dph
-08F5: 8A 82                 mov     dpl, r2
-08F7: 8B 83                 mov     dph, r3
-08F9: 7E FF                 mov     r6, #(initial & 0xff)
-08FB: 7F FF                 mov     r7, #(initial >> 8)
-08FD: 12 09 2B              lcall   init_crc16
-0900: 7E 21                 mov     r6, #(poly & 0xff)
-0902: 7F 10                 mov     r7, #(poly >> 8)
+0910: 11 51                 acall   get_mem
+0912: 12 00 BA              lcall   crlf
+0915: 12 03 E9              lcall   r6r7todptr
+0918: C0 82                 push    dpl
+091A: C0 83                 push    dph
+091C: 8A 82                 mov     dpl, r2
+091E: 8B 83                 mov     dph, r3
+0920: 7E FF                 mov     r6, #(initial & 0xff)
+0922: 7F FF                 mov     r7, #(initial >> 8)
+0924: 12 09 52              lcall   init_crc16
+0927: 7E 21                 mov     r6, #(poly & 0xff)
+0929: 7F 10                 mov     r7, #(poly >> 8)
                    calc_loop:
-0904: E0                    movx    a, @dptr
-0905: 12 09 3F              lcall   update_crc16
-0908: ED                    mov     a, r5
-0909: B5 83 1C              cjne    a, dph, calc_skip
-090C: EC                    mov     a, r4
-090D: B5 82 18              cjne    a, dpl, calc_skip
-0910: 7E 00                 mov     r6, #(final & 0xff)
-0912: 7F 00                 mov     r7, #(final >> 8)
-0914: 12 09 34              lcall   finish_crc16
-0917: 8A 82                 mov     dpl, r2
-0919: 8B 83                 mov     dph, r3
-091B: 12 01 E4              lcall   phex16
-091E: D0 83                 pop     dph
-0920: D0 82                 pop     dpl
-0922: 12 03 CC              lcall   dptrtor6r7
-0925: 02 00 D3              ljmp    dcrlf
+092B: E0                    movx    a, @dptr
+092C: 12 09 66              lcall   update_crc16
+092F: ED                    mov     a, r5
+0930: B5 83 1C              cjne    a, dph, calc_skip
+0933: EC                    mov     a, r4
+0934: B5 82 18              cjne    a, dpl, calc_skip
+0937: 7E 00                 mov     r6, #(final & 0xff)
+0939: 7F 00                 mov     r7, #(final >> 8)
+093B: 12 09 5B              lcall   finish_crc16
+093E: 8A 82                 mov     dpl, r2
+0940: 8B 83                 mov     dph, r3
+0942: 12 01 F5              lcall   phex16
+0945: D0 83                 pop     dph
+0947: D0 82                 pop     dpl
+0949: 12 03 EE              lcall   dptrtor6r7
+094C: 02 00 D3              ljmp    dcrlf
                    calc_skip:
-0928: A3                    inc     dptr
-0929: 80 D9                 sjmp    calc_loop
+094F: A3                    inc     dptr
+0950: 80 D9                 sjmp    calc_loop
                    
                    init_crc16:
-092B: C0 E0                 push    acc
-092D: EE                    mov     a, r6
-092E: FA                    mov     r2, a
-092F: EF                    mov     a, r7
-0930: FB                    mov     r3, a
-0931: D0 E0                 pop     acc
-0933: 22                    ret
+0952: C0 E0                 push    acc
+0954: EE                    mov     a, r6
+0955: FA                    mov     r2, a
+0956: EF                    mov     a, r7
+0957: FB                    mov     r3, a
+0958: D0 E0                 pop     acc
+095A: 22                    ret
                    
                    finish_crc16:
-0934: C0 E0                 push    acc
-0936: EA                    mov     a, r2
-0937: 6E                    xrl     a, r6
-0938: FA                    mov     r2, a
-0939: EB                    mov     a, r3
-093A: 6F                    xrl     a, r7
-093B: FB                    mov     r3, a
-093C: D0 E0                 pop     acc
-093E: 22                    ret
-                   
-                   update_crc16:
-093F: C0 F0                 push    b
-0941: F5 F0                 mov     b, a
-0943: 74 80                 mov     a, #0x80
-                   loop:
-0945: F8                    mov     r0, a
-0946: E5 F0                 mov     a, b
-0948: 58                    anl     a, r0
-0949: 60 02                 jz      skip0
-094B: 74 01                 mov     a, #1
-                   skip0:
-094D: F9                    mov     r1, a
-094E: EB                    mov     a, r3
-094F: 23                    rl      a
-0950: 54 01                 anl     a, #1
-0952: 69                    xrl     a, r1
-0953: F9                    mov     r1, a
-0954: EA                    mov     a, r2
-0955: 2A                    add     a, r2
-0956: FA                    mov     r2, a
-0957: EB                    mov     a, r3
-0958: 33                    rlc     a
-0959: FB                    mov     r3, a
-095A: E9                    mov     a, r1
-095B: 60 06                 jz      skip1
+095B: C0 E0                 push    acc
 095D: EA                    mov     a, r2
 095E: 6E                    xrl     a, r6
 095F: FA                    mov     r2, a
 0960: EB                    mov     a, r3
 0961: 6F                    xrl     a, r7
 0962: FB                    mov     r3, a
+0963: D0 E0                 pop     acc
+0965: 22                    ret
+                   
+                   update_crc16:
+0966: C0 F0                 push    b
+0968: F5 F0                 mov     b, a
+096A: 74 80                 mov     a, #0x80
+                   loop:
+096C: F8                    mov     r0, a
+096D: E5 F0                 mov     a, b
+096F: 58                    anl     a, r0
+0970: 60 02                 jz      skip0
+0972: 74 01                 mov     a, #1
+                   skip0:
+0974: F9                    mov     r1, a
+0975: EB                    mov     a, r3
+0976: 23                    rl      a
+0977: 54 01                 anl     a, #1
+0979: 69                    xrl     a, r1
+097A: F9                    mov     r1, a
+097B: EA                    mov     a, r2
+097C: 2A                    add     a, r2
+097D: FA                    mov     r2, a
+097E: EB                    mov     a, r3
+097F: 33                    rlc     a
+0980: FB                    mov     r3, a
+0981: E9                    mov     a, r1
+0982: 60 06                 jz      skip1
+0984: EA                    mov     a, r2
+0985: 6E                    xrl     a, r6
+0986: FA                    mov     r2, a
+0987: EB                    mov     a, r3
+0988: 6F                    xrl     a, r7
+0989: FB                    mov     r3, a
                    skip1:
-0963: E8                    mov     a, r0
-0964: C3                    clr     c
-0965: 13                    rrc     a
-0966: 70 DD                 jnz     loop
-0968: D0 F0                 pop     b
-096A: 22                    ret
+098A: E8                    mov     a, r0
+098B: C3                    clr     c
+098C: 13                    rrc     a
+098D: 70 DD                 jnz     loop
+098F: D0 F0                 pop     b
+0991: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
                    intm:
-096B: 12 00 BA              lcall   crlf
-096E: 78 00                 mov     r0, #0
+0992: 12 00 BA              lcall   crlf
+0995: 78 00                 mov     r0, #0
                    intm2:
-0970: 12 00 BA              lcall   crlf
-0973: E8                    mov     a, r0
-0974: 12 01 D2              lcall   phex
-0977: 74 3A                 mov     a, #':'
-0979: 12 00 A0              lcall   cout
+0997: 12 00 BA              lcall   crlf
+099A: E8                    mov     a, r0
+099B: 12 01 E7              lcall   phex
+099E: 74 3A                 mov     a, #':'
+09A0: 12 00 A0              lcall   cout
                    intm3:
-097C: 12 00 A8              lcall   sspace
-097F: E6                    mov     a, @r0
-0980: 12 01 D2              lcall   phex
-0983: 08                    inc     r0
-0984: B8 00 03              cjne    r0, #0, intm4
-0987: 02 00 D3              ljmp    dcrlf
+09A3: 12 00 A8              lcall   sspace
+09A6: E6                    mov     a, @r0
+09A7: 12 01 E7              lcall   phex
+09AA: 08                    inc     r0
+09AB: B8 00 03              cjne    r0, #0, intm4
+09AE: 02 00 D3              ljmp    dcrlf
                    intm4:
-098A: E8                    mov     a, r0
-098B: 54 0F                 anl     a, #00001111b
-098D: 70 ED                 jnz     intm3
-098F: 80 DF                 sjmp    intm2
+09B1: E8                    mov     a, r0
+09B2: 54 0F                 anl     a, #00001111b
+09B4: 70 ED                 jnz     intm3
+09B6: 80 DF                 sjmp    intm2
                    
                    ;---------------------------------------------------------;
                    
                    eio77:
-0991: C2 97                 clr     p1.7
-0993: 02 00 BA              ljmp    crlf
+09B8: C2 97                 clr     p1.7
+09BA: 02 00 BA              ljmp    crlf
                    
                    ;---------------------------------------------------------;
                    
                    dio77:
-0996: D2 97                 setb    p1.7
-0998: 02 00 BA              ljmp    crlf
+09BD: D2 97                 setb    p1.7
+09BF: 02 00 BA              ljmp    crlf
                    
                    ;---------------------------------------------------------;
                    
@@ -1951,58 +1971,58 @@
                    ; C=set if a header found, C=clear if no more headers
                    
                    find:
-099B: 75 82 00              mov     dpl, #0
-099E: E0                    movx    a, @dptr
-099F: B4 A5 14              cjne    a, #0xa5, find3
-09A2: A3                    inc     dptr
-09A3: E0                    movx    a, @dptr
-09A4: B4 E5 0F              cjne    a, #0xe5, find3
-09A7: A3                    inc     dptr
-09A8: E0                    movx    a, @dptr
-09A9: B4 E0 0A              cjne    a, #0xe0, find3
-09AC: A3                    inc     dptr
-09AD: E0                    movx    a, @dptr
-09AE: B4 A5 05              cjne    a, #0xa5, find3
-09B1: 75 82 00              mov     dpl, #0                 ; found one here!
-09B4: D3                    setb    c
-09B5: 22                    ret
+09C2: 75 82 00              mov     dpl, #0
+09C5: E0                    movx    a, @dptr
+09C6: B4 A5 14              cjne    a, #0xa5, find3
+09C9: A3                    inc     dptr
+09CA: E0                    movx    a, @dptr
+09CB: B4 E5 0F              cjne    a, #0xe5, find3
+09CE: A3                    inc     dptr
+09CF: E0                    movx    a, @dptr
+09D0: B4 E0 0A              cjne    a, #0xe0, find3
+09D3: A3                    inc     dptr
+09D4: E0                    movx    a, @dptr
+09D5: B4 A5 05              cjne    a, #0xa5, find3
+09D8: 75 82 00              mov     dpl, #0                 ; found one here!
+09DB: D3                    setb    c
+09DC: 22                    ret
                    find3:
-09B6: 74 DF                 mov     a, #(emem >> 8)
-09B8: B5 83 02              cjne    a, dph, find4   ; did we just check the end
-09BB: C3                    clr     c
-09BC: 22                    ret
+09DD: 74 DF                 mov     a, #(emem >> 8)
+09DF: B5 83 02              cjne    a, dph, find4   ; did we just check the end
+09E2: C3                    clr     c
+09E3: 22                    ret
                    find4:
-09BD: 05 83                 inc     dph             ; keep on searching
-09BF: 80 DA                 sjmp    find
+09E4: 05 83                 inc     dph             ; keep on searching
+09E6: 80 DA                 sjmp    find
                    
                    ;---------------------------------------------------------;
                    
                    stcode:
-09C1: 90 10 00              mov     dptr, #bmem      ; search for startup routi
+09E8: 90 10 00              mov     dptr, #bmem      ; search for startup routi
                    stcode2:
-09C4: 12 09 9B              lcall   find
-09C7: 50 23                 jnc     stcode5
-09C9: 75 82 04              mov     dpl, #4
-09CC: E0                    movx    a, @dptr
-09CD: B5 F0 15              cjne    a, b, stcode4   ; only startup code if matc
-09D0: C0 F0                 push    b
-09D2: C0 83                 push    dph
-09D4: 74 E1                 mov     a, #(stcode3 & 0xff)
-09D6: C0 E0                 push    acc
-09D8: 74 09                 mov     a, #(stcode3 >> 8)
-09DA: C0 E0                 push    acc
-09DC: 75 82 40              mov     dpl, #64
-09DF: E4                    clr     a
-09E0: 73                    jmp     @a+dptr                 ; jump to the start
+09EB: 12 09 C2              lcall   find
+09EE: 50 23                 jnc     stcode5
+09F0: 75 82 04              mov     dpl, #4
+09F3: E0                    movx    a, @dptr
+09F4: B5 F0 15              cjne    a, b, stcode4   ; only startup code if matc
+09F7: C0 F0                 push    b
+09F9: C0 83                 push    dph
+09FB: 74 08                 mov     a, #(stcode3 & 0xff)
+09FD: C0 E0                 push    acc
+09FF: 74 0A                 mov     a, #(stcode3 >> 8)
+0A01: C0 E0                 push    acc
+0A03: 75 82 40              mov     dpl, #64
+0A06: E4                    clr     a
+0A07: 73                    jmp     @a+dptr                 ; jump to the start
                    stcode3:
-09E1: D0 83                 pop     dph             ; hopefully it'll return to
-09E3: D0 F0                 pop     b
+0A08: D0 83                 pop     dph             ; hopefully it'll return to
+0A0A: D0 F0                 pop     b
                    stcode4:
-09E5: 05 83                 inc     dph
-09E7: E5 83                 mov     a, dph
-09E9: B4 E0 D8              cjne    a, #((emem + 1) >> 8) & 0xff, stcode2
+0A0C: 05 83                 inc     dph
+0A0E: E5 83                 mov     a, dph
+0A10: B4 E0 D8              cjne    a, #((emem + 1) >> 8) & 0xff, stcode2
                    stcode5:
-09EC: 22                    ret                     ; now we've executed all of
+0A13: 22                    ret                     ; now we've executed all of
                    
                    ;---------------------------------------------------------;
                    
@@ -2012,26 +2032,26 @@
                    ; r6:r7 ldst:hdst
                    
                    cpycx:
-09ED: 8A 82                 mov     dpl, r2
-09EF: 8B 83                 mov     dph, r3
-09F1: E4                    clr     a
-09F2: 93                    movc    a, @a+dptr
-09F3: A3                    inc     dptr
-09F4: AA 82                 mov     r2, dpl
-09F6: AB 83                 mov     r3, dph
-09F8: 8E 82                 mov     dpl, r6
-09FA: 8F 83                 mov     dph, r7
-09FC: F0                    movx    @dptr, a
-09FD: A3                    inc     dptr
-09FE: AE 82                 mov     r6, dpl
-0A00: AF 83                 mov     r7, dph
-0A02: EA                    mov     a, r2
-0A03: 8C F0                 mov     b, r4
-0A05: B5 F0 E5              cjne    a, b, cpycx
-0A08: EB                    mov     a, r3
-0A09: 8D F0                 mov     b, r5
-0A0B: B5 F0 DF              cjne    a, b, cpycx
-0A0E: 22                    ret
+0A14: 8A 82                 mov     dpl, r2
+0A16: 8B 83                 mov     dph, r3
+0A18: E4                    clr     a
+0A19: 93                    movc    a, @a+dptr
+0A1A: A3                    inc     dptr
+0A1B: AA 82                 mov     r2, dpl
+0A1D: AB 83                 mov     r3, dph
+0A1F: 8E 82                 mov     dpl, r6
+0A21: 8F 83                 mov     dph, r7
+0A23: F0                    movx    @dptr, a
+0A24: A3                    inc     dptr
+0A25: AE 82                 mov     r6, dpl
+0A27: AF 83                 mov     r7, dph
+0A29: EA                    mov     a, r2
+0A2A: 8C F0                 mov     b, r4
+0A2C: B5 F0 E5              cjne    a, b, cpycx
+0A2F: EB                    mov     a, r3
+0A30: 8D F0                 mov     b, r5
+0A32: B5 F0 DF              cjne    a, b, cpycx
+0A35: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
@@ -2041,36 +2061,36 @@
                    ; r6:r7 ldst:hdst
                    
                    cpyxx:
-0A0F: 8A 82                 mov     dpl, r2
-0A11: 8B 83                 mov     dph, r3
-0A13: E0                    movx    a, @dptr
-0A14: A3                    inc     dptr
-0A15: AA 82                 mov     r2, dpl
-0A17: AB 83                 mov     r3, dph
-0A19: 8E 82                 mov     dpl, r6
-0A1B: 8F 83                 mov     dph, r7
-0A1D: F0                    movx    @dptr, a
-0A1E: A3                    inc     dptr
-0A1F: AE 82                 mov     r6, dpl
-0A21: AF 83                 mov     r7, dph
-0A23: EA                    mov     a, r2
-0A24: 8C F0                 mov     b, r4
-0A26: B5 F0 E6              cjne    a, b, cpyxx
-0A29: EB                    mov     a, r3
-0A2A: 8D F0                 mov     b, r5
-0A2C: B5 F0 E0              cjne    a, b, cpyxx
-0A2F: 22                    ret
+0A36: 8A 82                 mov     dpl, r2
+0A38: 8B 83                 mov     dph, r3
+0A3A: E0                    movx    a, @dptr
+0A3B: A3                    inc     dptr
+0A3C: AA 82                 mov     r2, dpl
+0A3E: AB 83                 mov     r3, dph
+0A40: 8E 82                 mov     dpl, r6
+0A42: 8F 83                 mov     dph, r7
+0A44: F0                    movx    @dptr, a
+0A45: A3                    inc     dptr
+0A46: AE 82                 mov     r6, dpl
+0A48: AF 83                 mov     r7, dph
+0A4A: EA                    mov     a, r2
+0A4B: 8C F0                 mov     b, r4
+0A4D: B5 F0 E6              cjne    a, b, cpyxx
+0A50: EB                    mov     a, r3
+0A51: 8D F0                 mov     b, r5
+0A53: B5 F0 E0              cjne    a, b, cpyxx
+0A56: 22                    ret
                    
                    ;---------------------------------------------------------;
                    
                             ;-------- switch_shadow helper subroutine --------
                             switch_shadow:
-0A30: 75 90 FE                      mov     p1, #mctrl_shadow
-0A33: FF                            mov     r7, a
-0A34: FF                            mov     r7, a
-0A35: FF                            mov     r7, a
-0A36: FF                            mov     r7, a
-0A37: 22                            ret
+0A57: 75 90 FE                      mov     p1, #mctrl_shadow
+0A5A: FF                            mov     r7, a
+0A5B: FF                            mov     r7, a
+0A5C: FF                            mov     r7, a
+0A5D: FF                            mov     r7, a
+0A5E: 22                            ret
                             switch_shadow_end:
                             ;-------- switch_shadow helper subroutine --------
                    
@@ -2078,52 +2098,52 @@
                    ; copy flash to memory
                    
                    reset:
-0A38: E4                    clr     a
-0A39: F5 A8                 mov     ie, a
-0A3B: F5 B8                 mov     ip, a
-0A3D: 75 90 FF              mov     p1, #mctrl_reset
-0A40: FF                    mov     r7, a
-0A41: FF                    mov     r7, a
-0A42: FF                    mov     r7, a
-0A43: FF                    mov     r7, a
-0A44: 75 A0 FF              mov     p2, #p2_init
-0A47: 75 D0 00              mov     psw, #psw_init
-0A4A: 75 81 17              mov     sp, #sp_init
-0A4D: 7A 00                 mov     r2, #0x00       ; lssrc
-0A4F: 7B 00                 mov     r3, #0x00       ; hssrc
-0A51: 7C 00                 mov     r4, #0x00       ; lesrc
-0A53: 7D 20                 mov     r5, #0x20       ; hesrc
-0A55: 7E 00                 mov     r6, #0x00       ; ldst
-0A57: 7F 00                 mov     r7, #0x00       ; hdst
-0A59: 12 09 ED              lcall   cpycx
-0A5C: 7A 30                 mov     r2, #(switch_shadow & 0xff)     ; lssrc
-0A5E: 7B 0A                 mov     r3, #(switch_shadow >> 8)       ; hssrc
-0A60: 7C 38                 mov     r4, #(switch_shadow_end & 0xff)         ; l
-0A62: 7D 0A                 mov     r5, #(switch_shadow_end >> 8)   ; hesrc
-0A64: 7E 00                 mov     r6, #(pgm & 0xff)       ; ldst
-0A66: 7F 20                 mov     r7, #(pgm >> 8)                 ; hdst
-0A68: 12 09 ED              lcall   cpycx
-0A6B: 12 20 00              lcall   pgm             ; switch_shadow
+0A5F: E4                    clr     a
+0A60: F5 A8                 mov     ie, a
+0A62: F5 B8                 mov     ip, a
+0A64: 75 90 FF              mov     p1, #mctrl_reset
+0A67: FF                    mov     r7, a
+0A68: FF                    mov     r7, a
+0A69: FF                    mov     r7, a
+0A6A: FF                    mov     r7, a
+0A6B: 75 A0 FF              mov     p2, #p2_init
+0A6E: 75 D0 00              mov     psw, #psw_init
+0A71: 75 81 17              mov     sp, #sp_init
+0A74: 7A 00                 mov     r2, #0x00       ; lssrc
+0A76: 7B 00                 mov     r3, #0x00       ; hssrc
+0A78: 7C 00                 mov     r4, #0x00       ; lesrc
+0A7A: 7D 20                 mov     r5, #0x20       ; hesrc
+0A7C: 7E 00                 mov     r6, #0x00       ; ldst
+0A7E: 7F 00                 mov     r7, #0x00       ; hdst
+0A80: 12 0A 14              lcall   cpycx
+0A83: 7A 57                 mov     r2, #(switch_shadow & 0xff)     ; lssrc
+0A85: 7B 0A                 mov     r3, #(switch_shadow >> 8)       ; hssrc
+0A87: 7C 5F                 mov     r4, #(switch_shadow_end & 0xff)         ; l
+0A89: 7D 0A                 mov     r5, #(switch_shadow_end >> 8)   ; hesrc
+0A8B: 7E 00                 mov     r6, #(pgm & 0xff)       ; ldst
+0A8D: 7F 20                 mov     r7, #(pgm >> 8)                 ; hdst
+0A8F: 12 0A 14              lcall   cpycx
+0A92: 12 20 00              lcall   pgm             ; switch_shadow
                    ; initialize the serial port
-0A6E: 74 F7                 mov     a, #(bc & 0xff)         ; lsb
-0A70: 75 F0 FF              mov     b, #(bc >> 8)   ; msb
-0A73: 12 00 75              lcall   setbaud
+0A95: 74 F7                 mov     a, #(bc & 0xff)         ; lsb
+0A97: 75 F0 FF              mov     b, #(bc >> 8)   ; msb
+0A9A: 12 00 75              lcall   setbaud
                    ; run any user initialization programs in external memory
-0A76: 75 F0 F9              mov     b, #249
-0A79: 12 09 C1              lcall   stcode
+0A9D: 75 F0 F9              mov     b, #249
+0AA0: 12 09 E8              lcall   stcode
                    ; run the start-up programs in external memory
-0A7C: 75 F0 FD              mov     b, #253
-0A7F: 12 09 C1              lcall   stcode
-0A82: 12 00 BA              lcall   crlf
-0A85: 12 00 BA              lcall   crlf
-0A88: 12 00 BA              lcall   crlf
-0A8B: 12 00 BA              lcall   crlf
-0A8E: 90 0A 9E              mov     dptr, #logon
-0A91: 12 00 D7              lcall   pcstr
-0A94: 12 05 DE              lcall   dir
-0A97: 7E 00                 mov     r6, #(pgm & 0xff)
-0A99: 7F 20                 mov     r7, #(pgm >> 8)
-0A9B: 02 02 D4              ljmp    menu
+0AA3: 75 F0 FD              mov     b, #253
+0AA6: 12 09 E8              lcall   stcode
+0AA9: 12 00 BA              lcall   crlf
+0AAC: 12 00 BA              lcall   crlf
+0AAF: 12 00 BA              lcall   crlf
+0AB2: 12 00 BA              lcall   crlf
+0AB5: 90 0A C5              mov     dptr, #logon
+0AB8: 12 00 D7              lcall   pcstr
+0ABB: 12 06 00              lcall   dir
+0ABE: 7E 00                 mov     r6, #(pgm & 0xff)
+0AC0: 7F 20                 mov     r7, #(pgm >> 8)
+0AC2: 02 02 F6              ljmp    menu
                    
                    ;---------------------------------------------------------;
                    ;                                                          ;
@@ -2132,7 +2152,7 @@
                    ;---------------------------------------------------------;
                    
                    logon:
-0A9E: 50 41 55 4C 
+0AC5: 50 41 55 4C 
       4D 4F 4E 32 
       20 76 32 2E 
       31 61 62 20 
@@ -2141,21 +2161,21 @@
       30 30 0D 0A 
       0D 0A 00              .db     "PAULMON2 v2.1ab 2024102400\r\n\r\n", 0
                    abort:
-0ABD: 20 20 43 6F 
+0AE4: 20 20 43 6F 
       6D 6D 61 6E 
       64 20 61 62 
       6F 72 74 65 
       64 0D 0A 0D 
       0A 00                 .db     "  Command aborted\r\n\r\n", 0
                    prompt1:
-0AD3: 4C 6F 63 61 
+0AFA: 4C 6F 63 61 
       74 69 6F 6E 
       3A 00                 .db     "Location:", 0
                    prompt2:
-0ADD: 20 3E 20 00 
+0B04: 20 3E 20 00 
                             .db     " > ", 0
                    prompt3:
-0AE1: 53 65 6C 65 
+0B08: 53 65 6C 65 
       63 74 20 70 
       72 6F 67 72 
       61 6D 20 74 
@@ -2163,14 +2183,14 @@
       6E 20 28 00 
                             .db     "Select program to run (", 0
                    prompt4:
-0AF9: 29 20 6F 72 
+0B20: 29 20 6F 72 
       20 45 53 43 
       20 74 6F 20 
       61 62 6F 72 
       74 3A 20 00 
                             .db     ") or ESC to abort: ", 0
                    prompt5:
-0B0D: 4E 6F 20 70 
+0B34: 4E 6F 20 70 
       72 6F 67 72 
       61 6D 20 68 
       65 61 64 65 
@@ -2186,19 +2206,19 @@
       0D 0A 0D 0A 
       00                    .db     "No program headers found in memory, use JU
                    prompt6:
-0B46: 0D 0A 0D 0A 
+0B6D: 0D 0A 0D 0A 
       4E 65 77 20 
       6C 6F 63 61 
       74 69 6F 6E 
       3A 20 00              .db     "\r\n\r\nNew location: ", 0
                    prompt7:
-0B59: 50 72 65 73 
+0B80: 50 72 65 73 
       73 20 61 6E 
       79 20 6B 65 
       79 2E 2E 2E 
       00                    .db     "Press any key...", 0
                    prompt8:
-0B6A: 0D 0A 0D 0A 
+0B91: 0D 0A 0D 0A 
       4A 75 6D 70 
       20 74 6F 20 
       6D 65 6D 6F 
@@ -2207,42 +2227,42 @@
       69 6F 6E 20 
       28 00                 .db     "\r\n\r\nJump to memory location (", 0
                    prompt9:
-0B88: 0D 0A 0D 0A 
+0BAF: 0D 0A 0D 0A 
       50 72 6F 67 
       72 61 6D 20 
       4E 61 6D 65 
       00                    .db     "\r\n\r\nProgram Name", 0
                    prompt9b:
-0B99: 4C 6F 63 61 
+0BC0: 4C 6F 63 61 
       74 69 6F 6E 
       20 20 20 20 
       20 20 54 79 
       70 65 0D 0A 
       00                    .db     "Location      Type\r\n", 0
                    prompt10:
-0BAE: 29 20 4E 65 
+0BD5: 29 20 4E 65 
       77 20 76 61 
       6C 75 65 3A 
       20 00                 .db     ") New value: ", 0
                    beg_str:
-0BBC: 46 69 72 73 
+0BE3: 46 69 72 73 
       74 20 6C 6F 
       63 61 74 69 
       6F 6E 3A 20 
       00                    .db     "First location: ", 0
                    end_str:
-0BCD: 4C 61 73 74 
+0BF4: 4C 61 73 74 
       20 6C 6F 63 
       61 74 69 6F 
       6E 3A 20 00 
                             .db     "Last location: ", 0
                    sure:
-0BDD: 41 72 65 20 
+0C04: 41 72 65 20 
       79 6F 75 20 
       73 75 72 65 
       3F 20 00              .db     "Are you sure? ", 0
                    edits1:
-0BEC: 0D 0A 0D 0A 
+0C13: 0D 0A 0D 0A 
       45 64 69 74 
       69 6E 67 20 
       65 78 74 65 
@@ -2254,7 +2274,7 @@
       72 74 0D 0A 
       00                    .db     "\r\n\r\nEditing external RAM, ESC to abort
                    edits2:
-0C15: 20 20 45 64 
+0C3C: 20 20 45 64 
       69 74 69 6E 
       67 20 63 6F 
       6D 70 6C 65 
@@ -2268,7 +2288,7 @@
       0A 0D 0A 00 
                             .db     "  Editing complete, this location unchange
                    dnlds1:
-0C45: 0D 0A 0D 0A 
+0C6C: 0D 0A 0D 0A 
       42 65 67 69 
       6E 20 74 72 
       61 6E 73 66 
@@ -2283,14 +2303,14 @@
       72 74 0D 0A 
       0D 0A 00              .db     "\r\n\r\nBegin transfer of Intel hex file, 
                    dnlds2:
-0C7C: 0D 0A 44 6F 
+0CA3: 0D 0A 44 6F 
       77 6E 6C 6F 
       61 64 20 61 
       62 6F 72 74 
       65 64 0D 0A 
       0D 0A 00              .db     "\r\nDownload aborted\r\n\r\n", 0
                    dnlds3:
-0C93: 0D 0A 44 6F 
+0CBA: 0D 0A 44 6F 
       77 6E 6C 6F 
       61 64 20 63 
       6F 6D 70 6C 
@@ -2298,33 +2318,33 @@
       0D 0A 0D 0A 
       00                    .db     "\r\nDownload completed\r\n\r\n", 0
                    dnlds4:
-0CAC: 53 75 6D 6D 
+0CD3: 53 75 6D 6D 
       61 72 79 3A 
       0D 0A 00              .db     "Summary:\r\n", 0
                    dnlds5:
-0CB7: 20 20 6C 69 
+0CDE: 20 20 6C 69 
       6E 65 73 20 
       72 65 63 65 
       69 76 65 64 
       0D 0A 00              .db     "  lines received\r\n", 0
                    dnlds6a:
-0CCA: 20 20 62 79 
+0CF1: 20 20 62 79 
       74 65 73 20 
       72 65 63 65 
       69 76 65 64 
       0D 0A 00              .db     "  bytes received\r\n", 0
                    dnlds6b:
-0CDD: 20 20 62 79 
+0D04: 20 20 62 79 
       74 65 73 20 
       77 72 69 74 
       74 65 6E 0D 
       0A 00                 .db     "  bytes written\r\n", 0
                    dnlds7:
-0CEF: 45 72 72 6F 
+0D16: 45 72 72 6F 
       72 73 3A 0D 
       0A 00                 .db     "Errors:\r\n", 0
                    dnlds8:
-0CF9: 20 20 62 79 
+0D20: 20 20 62 79 
       74 65 73 20 
       75 6E 61 62 
       6C 65 20 74 
@@ -2332,13 +2352,13 @@
       69 74 65 0D 
       0A 00                 .db     "  bytes unable to write\r\n", 0
                    dnlds9:
-0D13: 20 20 62 61 
+0D3A: 20 20 62 61 
       64 20 63 68 
       65 63 6B 73 
       75 6D 73 0D 
       0A 00                 .db     "  bad checksums\r\n", 0
                    dnlds10:
-0D25: 20 20 75 6E 
+0D4C: 20 20 75 6E 
       65 78 70 65 
       63 74 65 64 
       20 62 65 67 
@@ -2347,7 +2367,7 @@
       6E 65 0D 0A 
       00                    .db     "  unexpected begin of line\r\n", 0
                    dnlds11:
-0D42: 20 20 75 6E 
+0D69: 20 20 75 6E 
       65 78 70 65 
       63 74 65 64 
       20 68 65 78 
@@ -2355,7 +2375,7 @@
       69 74 73 0D 
       0A 00                 .db     "  unexpected hex digits\r\n", 0
                    dnlds12:
-0D5C: 20 20 75 6E 
+0D83: 20 20 75 6E 
       65 78 70 65 
       63 74 65 64 
       20 6E 6F 6E 
@@ -2364,14 +2384,14 @@
       69 74 73 0D 
       0A 00                 .db     "  unexpected non hex digits\r\n", 0
                    dnlds13:
-0D7A: 4E 6F 20 65 
+0DA1: 4E 6F 20 65 
       72 72 6F 72 
       73 20 64 65 
       74 65 63 74 
       65 64 0D 0A 
       0D 0A 00              .db     "No errors detected\r\n\r\n", 0
                    runs1:
-0D91: 0D 0A 52 75 
+0DB8: 0D 0A 52 75 
       6E 6E 69 6E 
       67 20 70 72 
       6F 67 72 61 
@@ -2379,7 +2399,7 @@
       0D 0A 0D 0A 
       00                    .db     "\r\nRunning program...\r\n\r\n", 0
                    uplds3:
-0DAA: 0D 0A 53 65 
+0DD1: 0D 0A 53 65 
       6E 64 69 6E 
       67 20 49 6E 
       74 65 6C 20 
@@ -2388,10 +2408,10 @@
       20 66 72 6F 
       6D 20 00              .db     "\r\nSending Intel hex file from ", 0
                    uplds4:
-0DC9: 20 74 6F 20 
+0DF0: 20 74 6F 20 
       00                    .db     " to ", 0
                    help1txt:
-0DCE: 0D 0A 0D 0A 
+0DF5: 0D 0A 0D 0A 
       53 74 61 6E 
       64 61 72 64 
       20 63 6F 6D 
@@ -2399,7 +2419,7 @@
       73 3A 0D 0A 
       00                    .db     "\r\n\r\nStandard commands:\r\n", 0
                    help2txt:
-0DE7: 0D 0A 55 73 
+0E0E: 0D 0A 55 73 
       65 72 20 69 
       6E 73 74 61 
       6C 6C 65 64 
@@ -2408,55 +2428,55 @@
       73 3A 0D 0A 
       00                    .db     "\r\nUser installed commands:\r\n", 0
                    type1:
-0E04: 45 78 74 65 
+0E2B: 45 78 74 65 
       72 6E 61 6C 
       20 63 6F 6D 
       6D 61 6E 64 
       00                    .db     "External command", 0
                    type2:
-0E15: 50 72 6F 67 
+0E3C: 50 72 6F 67 
       72 61 6D 00 
                             .db     "Program", 0
                    type4:
-0E1D: 53 74 61 72 
+0E44: 53 74 61 72 
       74 75 70 20 
       63 6F 64 65 
       00                    .db     "Startup code", 0
                    type5:
-0E2A: 3F 3F 3F 00 
+0E51: 3F 3F 3F 00 
                             .db     "???", 0
                    help_cmd2:
-0E2E: 48 65 6C 70 
+0E55: 48 65 6C 70 
       00                    .db     "Help", 0
                    help_cmd:
-0E33: 54 68 69 73 
+0E5A: 54 68 69 73 
       20 68 65 6C 
       70 20 6C 69 
       73 74 00              .db     "This help list", 0
                    dir_cmd:
-0E42: 4C 69 73 74 
+0E69: 4C 69 73 74 
       20 70 72 6F 
       67 72 61 6D 
       73 00                 .db     "List programs", 0
                    run_cmd:
-0E50: 52 75 6E 20 
+0E77: 52 75 6E 20 
       70 72 6F 67 
       72 61 6D 00 
                             .db     "Run program", 0
                    dnld_cmd:
-0E5C: 44 6F 77 6E 
+0E83: 44 6F 77 6E 
       6C 6F 61 64 
       00                    .db     "Download", 0
                    upld_cmd:
-0E65: 55 70 6C 6F 
+0E8C: 55 70 6C 6F 
       61 64 00              .db     "Upload", 0
                    nloc_cmd:
-0E6C: 4E 65 77 20 
+0E93: 4E 65 77 20 
       6C 6F 63 61 
       74 69 6F 6E 
       00                    .db     "New location", 0
                    jump_cmd:
-0E79: 4A 75 6D 70 
+0EA0: 4A 75 6D 70 
       20 74 6F 20 
       6D 65 6D 6F 
       72 79 20 6C 
@@ -2464,7 +2484,7 @@
       69 6F 6E 00 
                             .db     "Jump to memory location", 0
                    dump_cmd:
-0E91: 48 65 78 20 
+0EB8: 48 65 78 20 
       64 75 6D 70 
       20 65 78 74 
       65 72 6E 61 
@@ -2472,7 +2492,7 @@
       6D 6F 72 79 
       00                    .db     "Hex dump external memory", 0
                    intm_cmd:
-0EAA: 48 65 78 20 
+0ED1: 48 65 78 20 
       64 75 6D 70 
       20 69 6E 74 
       65 72 6E 61 
@@ -2480,50 +2500,50 @@
       6D 6F 72 79 
       00                    .db     "Hex dump internal memory", 0
                    edit_cmd:
-0EC3: 45 64 69 74 
+0EEA: 45 64 69 74 
       20 65 78 74 
       65 72 6E 61 
       6C 20 6D 65 
       6D 6F 72 79 
       00                    .db     "Edit external memory", 0
                    clrm_cmd:
-0ED8: 43 6C 65 61 
+0EFF: 43 6C 65 61 
       72 20 65 78 
       74 65 72 6E 
       61 6C 20 6D 
       65 6D 6F 72 
       79 00                 .db     "Clear external memory", 0
                    crc16_cmd:
-0EEE: 43 61 6C 63 
+0F15: 43 61 6C 63 
       75 6C 61 74 
       65 20 43 52 
       43 31 36 00 
                             .db     "Calculate CRC16", 0
                    eio77_cmd:
-0EFE: 45 6E 61 62 
+0F25: 45 6E 61 62 
       6C 65 20 6E 
       43 53 49 4F 
       37 37 00              .db     "Enable nCSIO77", 0
                    dio77_cmd:
-0F0D: 44 69 73 61 
+0F34: 44 69 73 61 
       62 6C 65 20 
       6E 43 53 49 
       4F 37 37 00 
                             .db     "Disable nCSIO77", 0
                    baud_cmd:
-0F1D: 52 65 73 65 
+0F44: 52 65 73 65 
       74 20 62 61 
       75 64 20 72 
       61 74 65 00 
                             .db     "Reset baud rate", 0
                    baudprompt:
-0F2D: 45 6E 74 65 
+0F54: 45 6E 74 65 
       72 20 6E 65 
       77 20 62 61 
       75 64 20 63 
       6F 6E 73 74 
       3A 20 00              .db     "Enter new baud const: ", 0
-0F44: 45 6E 74 65 
+0F6B: 45 6E 74 65 
       72 20 6E 65 
       77 20 62 61 
       75 64 20 63 

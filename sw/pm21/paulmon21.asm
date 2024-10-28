@@ -2,8 +2,7 @@
 ; Please email comments, suggestions, bugs to paul@pjrc.com
 ;
 ; Version 2.1
-;	Some code size improvements, contributed by Alexander B. Alexandrov
-;	Download can now start from main menu prompt
+;	Download can start from main menu prompt
 ;
 ; Version 2.1ab
 ;	Extensive mods by Atanas Bachvaroff <bachvaroff@gmail.com>
@@ -98,6 +97,9 @@
 .equ	CR, '\r'
 .equ	ESC, 27
 .equ	SPACE, ' '
+.equ	pos_A, 'A'
+.equ	neg_a, (-'a')
+.equ	neg_zmap1, (-'z' + 'a' - 1)
 ;---------------------------------------------------------;
 
 ;---------------------------------------------------------;
@@ -202,7 +204,7 @@
 	ljmp	ghex16		; JMP_TABLE 0x005d
 	
 	ljmp	asc2hex		; JMP_TABLE 0x0060
-	ljmp	upper		; JMP_TABLE 0x0063
+	ljmp	toupper		; JMP_TABLE 0x0063
 	ljmp	lencstr		; JMP_TABLE 0x0066
 	ljmp	lencb7str	; JMP_TABLE 0x0069
 	
@@ -352,7 +354,7 @@ ghex8:
 	clr	psw.5
 ghex8c:
 	acall	cin	; get first digit
-	acall	upper
+	acall	toupper
 	cjne	a, #ESC, ghex8f
 ghex8d:
 	setb	c
@@ -372,7 +374,7 @@ ghex8h:
 	acall	cout
 ghex8j:
 	acall	cin	; get second digit
-	acall	upper
+	acall	toupper
 	cjne	a, #ESC, ghex8k
 	sjmp	ghex8d
 ghex8k:
@@ -413,7 +415,7 @@ ghex16:
 
 ghex16c:
 	acall	cin
-	acall	upper
+	acall	toupper
 	cjne	a, #ESC, ghex16d
 	setb	c		; handle esc key
 	clr	a
@@ -523,22 +525,30 @@ hex_not:
 
 ;---------------------------------------------------------;
 
-; Highly code efficient resursive call phex contributed
-; by Alexander B. Alexandrov <abalex@cbr.spb.ru>
+phex1:
+	push	acc
+	anl	a, #0x0f
+	add	a, #(-0x0a)
+	jb	acc.7, phex1_0_9
+	add	a, #'A'
+	sjmp	phex1_print
+phex1_0_9:
+	add	a, #('0' + 0x0a)
+phex1_print:
+	lcall	cout
+	pop	acc
+	ret
+
+;---------------------------------------------------------;
 
 phex:
 phex8:
-	acall	phex_b
-phex_b:
-	swap	a		; SWAP A will be twice => A unchanged
-phex1:
 	push	acc
-	anl	a, #15
-	add	a, #0x90	; acc is 0x9X, where X is hex digit
-	da	a		; if A to F, C=1 and lower four bits are 0..5
-	addc	a, #0x40
-	da	a
-	acall	cout
+	push	acc
+	swap	a
+	acall	phex1
+	pop	acc
+	acall	phex1
 	pop	acc
 	ret
 
@@ -692,19 +702,29 @@ pint16y:
 
 ;---------------------------------------------------------;
 
-; converts the ascii code in Acc to uppercase, if it is lowercase
-; Code efficient (saves 6 byes) upper contributed
-; by Alexander B. Alexandrov <abalex@cbr.spb.ru>
+islower:
+	jb	acc.7, islower_out0
+	push	acc
+	add	a, #neg_a
+	jb	acc.7, islower_out1
+	add	a, #neg_zmap1
+	jnb	acc.7, islower_out1
+	pop	acc
+	setb	c
+	ret
+islower_out1:
+	pop	acc
+islower_out0:
+	clr	c
+	ret
 
-upper:
-	cjne	a, #97, upper2
-upper2:
-	jc	upper4		; end if acc < 97
-	cjne	a, #123, upper3
-upper3:
-	jnc	upper4		; end if acc >= 123
-	add	a, #224		; convert to uppercase
-upper4:
+;---------------------------------------------------------;
+
+toupper:
+	acall	islower
+	jnc	toupper_out
+	add	a, #(neg_a + pos_A)
+toupper_out:
 	ret
 
 ;---------------------------------------------------------;
@@ -759,7 +779,7 @@ menu:
 	acall	dnld_now
 	sjmp	menu
 menu0:
-	acall	upper
+	acall	toupper
 	
 ; push return address onto stack so we can just jump to the program
 	mov	b, #(menu & 0xff)	; we push the return address now,
@@ -1090,7 +1110,7 @@ dnldgp2:
 dnld_ghex:
 dnldgh1:
 	acall	cin
-	acall	upper
+	acall	toupper
 	cjne	a, #ESC, dnldgh3
 dnldgh2:
 	pop	acc
@@ -1114,7 +1134,7 @@ dnldgh6:
 	mov	r2, a		; keep first digit in r2
 dnldgh7:
 	acall	cin
-	acall	upper
+	acall	toupper
 	cjne	a, #ESC, dnldgh8
 	sjmp	dnldgh2
 dnldgh8:
@@ -1441,7 +1461,7 @@ run2b:
 	jz	run2		; this one doesn't run... find next
 	acall	dspace
 	inc	r2
-	mov	a, #'A'		; print the key to press
+	mov	a, #pos_A		; print the key to press
 	add	a, r2
 	acall	cout_sp
 	acall	dash_sp
@@ -1456,10 +1476,10 @@ run3:
 run4:
 	mov	dptr, #prompt3	; ask the big question!
 	acall	pcstr
-	mov	a, #'A'
+	mov	a, #pos_A
 	acall	cout
 	acall	dash
-	mov	a, #'A'		; such user friendliness...
+	mov	a, #pos_A	; such user friendliness...
 	add	a, r2		; even tell 'em the choices
 	acall	cout
 	mov	dptr, #prompt4
@@ -1474,14 +1494,14 @@ run4aa:
 	subb	a, r2
 	mov	a, r3
 	jc	run4a
-	acall	upper
+	acall	toupper
 run4a:
 	acall	cout
 	mov	r3, a
 	acall	crlf
 ; check to see if it's under 32, if so convert to uppercase
 	mov	a, r3
-	add	a, #(256 - 'A')
+	add	a, #(256 - pos_A)
 	jnc	run4		; if they typed less than 'A'
 	mov	r3, a		; R3 has the number they typed
 	mov	a, r2		; A=R2 has the maximum number
@@ -1661,19 +1681,19 @@ upld4:
 	mov	r2, #16
 upld5:
 	mov	a, #':'		; begin the line
-	acall	cout
+	lcall	cout
 	mov	a, r2
-	acall	phex		; output # of data bytes
-	acall	phex16		; output memory location
+	lcall	phex		; output # of data bytes
+	lcall	phex16		; output memory location
 	mov	a, dph
 	add	a, dpl
 	add	a, r2
 	mov	r3, a		; r3 will become checksum
 	clr	a
-	acall	phex		; output 00 code for data
+	lcall	phex		; output 00 code for data
 upld6:
 	movx	a, @dptr
-	acall	phex		; output each byte
+	lcall	phex		; output each byte
 	add	a, r3
 	mov	r3, a
 	inc	dptr
@@ -1758,7 +1778,7 @@ clrm:
 	lcall	pcstr
 	lcall	cin
 	lcall	cout
-	lcall	upper
+	lcall	toupper
 	cjne	a, #'Y', abort_it
 	lcall	dcrlf
 clrm2:
@@ -1793,7 +1813,7 @@ reset_baud:
 	lcall	pcstr
 	lcall	cin
 	lcall	cout
-	lcall	upper
+	lcall	toupper
 	cjne	a, #'Y', bailout_pop
 	lcall	dcrlf
 	pop	b

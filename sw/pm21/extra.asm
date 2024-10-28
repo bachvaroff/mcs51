@@ -30,7 +30,7 @@
 .equ ghex, 0x005a
 .equ ghex16, 0x005d
 .equ asc2hex, 0x0060
-.equ upper, 0x0063
+.equ toupper, 0x0063
 .equ lencstr, 0x0066
 .equ lencb7str, 0x0069
 .equ init_crc16, 0x006c
@@ -122,11 +122,11 @@ disasm:
 lookup1:
 	mov	a, r2
 	rr	a
-	anl	a, #01111000b	;grab upper 4 bits
+	anl	a, #01111000b	;grab toupper 4 bits
 	mov	r0, a		;keep in r0 for a moment
 	mov	a, r2
 	anl	a, #00000111b	;get lower 3 bits
-	orl	a, r0		;combine in upper 4
+	orl	a, r0		;combine in toupper 4
         mov     dptr, #opot1	;opot=operand offset table
         movc    a, @a+dptr
 	sjmp    unpack
@@ -182,11 +182,11 @@ pmnu_lookup1:
         mov     dptr, #mnot1    ;mnot=mnunonic offset table
         mov     a, r2
         rr      a
-        anl     a, #01111000b   ;grab upper 4 bits
+        anl     a, #01111000b   ;grab toupper 4 bits
         mov     r0, a           ;keep in r0 for a moment
         mov     a, r2
         anl     a, #00000111b   ;get lower 3 bits
-        orl     a, r0           ;combine in upper 4
+        orl     a, r0           ;combine in toupper 4
         movc    a, @a+dptr
         mov     r1, a
 	sjmp	pmnu0
@@ -228,11 +228,11 @@ am_lookup0:
 am_lookup1:
         mov     a, r2
         rr      a
-        anl     a, #01111000b   ;grab upper 4 bits
+        anl     a, #01111000b   ;grab toupper 4 bits
         mov     r0, a           ;keep in r0 for a moment
         mov     a, r2
         anl     a, #00000111b   ;get lower 3 bits
-        orl     a, r0           ;combine in upper 4
+        orl     a, r0           ;combine in toupper 4
         mov     dptr, #opot1    ;opot=operand offset table
         movc    a, @a+dptr
         sjmp    am_unpack
@@ -915,7 +915,7 @@ step:    ;this is the single step interrupt service code...
 ;SINGLE STEP
 
 step1:  lcall   cin
-        lcall   upper
+        lcall   toupper
 step2:  cjne    a, #13, step7
         ajmp    done
 step7:  cjne    a, #' ', step8    ;check space
@@ -1305,7 +1305,7 @@ input_ascii:
 
 input_hex:
 	mov	a, b
-	lcall	upper
+	lcall	toupper
 	lcall	asc2hex
 	jc	cmd_abort		;ignore if not hex
 	mov	r0, a			;keep hex value of input in r0
@@ -1349,7 +1349,7 @@ inck2d:	jnb	acc.3, inck2b
 	;if we get here, we were actually waiting for the 2nd char
 	pop	acc
 	push	acc
-	lcall	upper
+	lcall	toupper
 	lcall	asc2hex
 	jnc	inck2c		;proceed normally if it is valid
 	;if we get here, we did not get a hex legal char

@@ -15,7 +15,7 @@
 .equ ghex, 0x005a
 .equ ghex16, 0x005d
 .equ asc2hex, 0x0060
-.equ upper, 0x0063
+.equ toupper, 0x0063
 .equ lencstr, 0x0066
 .equ lencb7str, 0x0069
 .equ init_crc16, 0x006c
