@@ -122,11 +122,11 @@ disasm:
 lookup1:
 	mov	a, r2
 	rr	a
-	anl	a, #01111000b	;grab toupper 4 bits
+	anl	a, #01111000b	;grab upper 4 bits
 	mov	r0, a		;keep in r0 for a moment
 	mov	a, r2
 	anl	a, #00000111b	;get lower 3 bits
-	orl	a, r0		;combine in toupper 4
+	orl	a, r0		;combine in upper 4
         mov     dptr, #opot1	;opot=operand offset table
         movc    a, @a+dptr
 	sjmp    unpack
@@ -182,11 +182,11 @@ pmnu_lookup1:
         mov     dptr, #mnot1    ;mnot=mnunonic offset table
         mov     a, r2
         rr      a
-        anl     a, #01111000b   ;grab toupper 4 bits
+        anl     a, #01111000b   ;grab upper 4 bits
         mov     r0, a           ;keep in r0 for a moment
         mov     a, r2
         anl     a, #00000111b   ;get lower 3 bits
-        orl     a, r0           ;combine in toupper 4
+        orl     a, r0           ;combine in upper 4
         movc    a, @a+dptr
         mov     r1, a
 	sjmp	pmnu0
@@ -228,11 +228,11 @@ am_lookup0:
 am_lookup1:
         mov     a, r2
         rr      a
-        anl     a, #01111000b   ;grab toupper 4 bits
+        anl     a, #01111000b   ;grab upper 4 bits
         mov     r0, a           ;keep in r0 for a moment
         mov     a, r2
         anl     a, #00000111b   ;get lower 3 bits
-        orl     a, r0           ;combine in toupper 4
+        orl     a, r0           ;combine in upper 4
         mov     dptr, #opot1    ;opot=operand offset table
         movc    a, @a+dptr
         sjmp    am_unpack

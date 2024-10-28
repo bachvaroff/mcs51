@@ -2152,7 +2152,7 @@ reset:
 ;---------------------------------------------------------;
 
 logon:
-	.db	"PAULMON2 v2.1ab 2024102400\r\n\r\n", 0
+	.db	"PAULMON2 v2.1ab 2024102800\r\n\r\n", 0
 abort:
 	.db	"  Command aborted\r\n\r\n", 0
 prompt1:
