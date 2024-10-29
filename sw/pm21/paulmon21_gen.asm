@@ -469,7 +469,7 @@ ghex16i:
 	ret
 
 ghex16x:
-	; multiply r3-r2 by 16 (shift left by 4)
+; multiply r3-r2 by 16 (shift left by 4)
 	mov	a, r3
 	swap	a
 	anl	a, #11110000b
@@ -486,7 +486,7 @@ ghex16x:
 	ret
 
 ghex16y:
-	; divide r3-r2 by 16 (shift right by 4)
+; divide r3-r2 by 16 (shift right by 4)
 	mov	a, r2
 	swap	a
 	anl	a, #00001111b
@@ -503,7 +503,7 @@ ghex16y:
 	ret
 
 asc2hex:
-	; carry set if invalid input
+; carry set if invalid input
 	add	a, #208
 	jnc	hex_not
 	add	a, #246
@@ -578,7 +578,7 @@ pint8:
 	push	acc
 	jnb	acc.7, pint8b
 	mov	a, #'-'
-	lcall	cout
+	acall	cout
 	pop	acc
 	push	acc
 	cpl	a
@@ -590,7 +590,7 @@ pint8b:
 	jz	pint8c
 	clr	f0
 	add	a, #'0'
-	lcall	cout
+	acall	cout
 pint8c:
 	mov	a, b
 	mov	b, #10
@@ -599,11 +599,11 @@ pint8c:
 	jz	pint8e
 pint8d:
 	add	a, #'0'
-	lcall	cout
+	acall	cout
 pint8e:
 	mov	a, b
 	add	a, #'0'
-	lcall	cout
+	acall	cout
 	pop	acc
 	pop	b
 	ret
@@ -626,7 +626,7 @@ pint16a:
 	acall	pint16x
 	jz	pint16b
 	add	a, #'0'
-	lcall	cout
+	acall	cout
 	setb	psw.5
 pint16b:
 	mov	r4, #232	; 10^3
@@ -636,7 +636,7 @@ pint16b:
 	jnb	psw.5, pint16d
 pint16c:
 	add	a, #'0'
-	lcall	cout
+	acall	cout
 	setb	psw.5
 pint16d:
 	mov	r4, #100	; 10^2
@@ -646,7 +646,7 @@ pint16d:
 	jnb	psw.5, pint16f
 pint16e:
 	add	a, #'0'
-	lcall	cout
+	acall	cout
 	setb	psw.5
 pint16f:
 	mov	a, r2		; 10^1
@@ -657,12 +657,12 @@ pint16f:
 	jnb	psw.5, pint16h
 pint16g:
 	add	a, #'0'
-	lcall	cout
+	acall	cout
 pint16h:
 	mov	a, b		; 10^0
 	mov	b, r3
 	add	a, #'0'
-	lcall	cout
+	acall	cout
 	pop	acc
 	mov	r0, a
 	pop	acc
