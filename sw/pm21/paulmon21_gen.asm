@@ -852,7 +852,7 @@ menui5:
 menui6:
 	cjne	a, #nloc_key, menui7
 	mov	dptr, #nloc_cmd
-	lcall	pcstr
+	acall	pcstr
 	ljmp	nloc
 	
 menui7:
