@@ -535,7 +535,7 @@ phex1:
 phex1_0_9:
 	add	a, #('0' + 0x0a)
 phex1_print:
-	lcall	cout
+	acall	cout
 	pop	acc
 	ret
 
@@ -543,13 +543,10 @@ phex1_print:
 
 phex:
 phex8:
-	push	acc
-	push	acc
 	swap	a
 	acall	phex1
-	pop	acc
+	swap	a
 	acall	phex1
-	pop	acc
 	ret
 
 ;---------------------------------------------------------;
